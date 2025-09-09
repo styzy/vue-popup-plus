@@ -1,6 +1,28 @@
 {
-  "$schema": "https://json.schemastore.org/prettierrc",
-  "semi": false,
-  "singleQuote": true,
-  "printWidth": 100
+	"$schema": "https://json.schemastore.org/prettierrc",
+	"trailingComma": "es5",
+	"semi": false,
+	"singleQuote": true,
+	"printWidth": 80,
+	"arrowParens": "always",
+	"bracketSameLine": true,
+	"endOfLine": "crlf",
+	"proseWrap": "preserve",
+	"singleAttributePerLine": true,
+	"tabWidth": 4,
+	"useTabs": true,
+	"vueIndentScriptAndStyle": false,
+	"plugins": ["@prettier/plugin-pug"],
+	"pugAttributeSeparator": "none",
+	"pugCommentPreserveSpaces": "trim-all",
+	"pugSortAttributes": "asc",
+	"pugFramework": "vue",
+	"pugSingleFileComponentIndentation": false,
+	"pugEmptyAttributes": "none",
+	"pugEmptyAttributesForceQuotes": [],
+	"pugClassNotation": "literal",
+	"pugIdNotation": "literal",
+	"pugClassLocation": "before-attributes",
+	"pugExplicitDiv": false
 }
+
