@@ -4,6 +4,21 @@ import { resolve } from 'node:path'
 import { defineConfig, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import dts from 'vite-plugin-dts'
+
+// 文档模式配置
+const docConfig: UserConfig = {
+	base: './',
+	build: {
+		// rollupOptions: {
+		// 	input: {
+		// 		main: 'doc/main.ts',
+		// 	},
+		// },
+		outDir: 'dist',
+	},
+	plugins: [vue(), vueDevTools()],
+}
 
 // 库模式配置
 const libConfig: UserConfig = {
@@ -26,24 +41,25 @@ const libConfig: UserConfig = {
 			},
 		},
 	},
-}
-
-// 文档模式配置
-const docConfig: UserConfig = {
-	root: 'doc',
-	build: {
-		outDir: './dist',
-	},
-	define: {},
+	plugins: [
+		vue(),
+		vueDevTools(),
+		dts({
+			tsconfigPath: resolve(__dirname, 'tsconfig.types.json'),
+			rollupTypes: true,
+			outDir: 'typings',
+			pathsToAliases: true,
+			insertTypesEntry: true,
+		}),
+	],
 }
 
 export default defineConfig(({ command, mode }) => ({
-	plugins: [vue(), vueDevTools()],
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'#': fileURLToPath(new URL('./src/utils', import.meta.url)),
-			'@doc': fileURLToPath(new URL('./doc/src', import.meta.url)),
+			'@doc': fileURLToPath(new URL('./doc', import.meta.url)),
 		},
 	},
 	// 根据构建模式确定配置

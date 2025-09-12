@@ -28,8 +28,7 @@
 	"scripts": {
 		"dev": "vite --open",
 		"build:doc": "run-p type-check && vite build",
-		"build:lib": "run-p type-check && npm run generate-types && vite build --mode lib",
-		"build:types": "vue-tsc --project tsconfig.types.json",
+		"build:lib": "run-p type-check && vite build --mode lib",
 		"preview": "vite preview",
 		"preview:doc": "vite preview --outDir dist/doc",
 		"test:unit": "vitest",
@@ -65,8 +64,10 @@
 		"stylus": "^0.64.0",
 		"typescript": "~5.8.0",
 		"vite": "^7.0.6",
+		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-vue-devtools": "^8.0.0",
 		"vitest": "^3.2.4",
 		"vue-tsc": "^3.0.4"
 	}
 }
+
