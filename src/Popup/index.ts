@@ -1,10 +1,18 @@
-import { createApp, type App, type Component } from 'vue'
+import { createApp, type App, type Component, type DefineComponent } from 'vue'
 import { createPinia, defineStore, type Pinia } from 'pinia'
 import PopupComponent from '@/Components/Popup.vue'
 import { wait } from '#'
 
+type Lazy<T> = () => Promise<T>
+
+type PopupComponent = Component | DefineComponent
+
+export type LazyPopupComponent = Lazy<PopupComponent>
+
+export type RawPopupComponent = PopupComponent | LazyPopupComponent
+
 export interface PopupOptions {
-	component: Component
+	component: RawPopupComponent
 	componentProps: Record<string, any>
 	onMounted: () => void
 	onUnmounted: <T>(payload?: T) => void

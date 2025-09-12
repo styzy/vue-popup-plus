@@ -2,12 +2,20 @@
 .demo-full-screen
 	h1 这是一个全屏弹框
 	br
-	button(@click="$emit('close')") 关闭弹框
+	button(@click="handleClose") 关闭弹框
 </template>
 
-<script>
-export default {
-	name: 'DemoFullScreen'
+<script lang="ts" setup>
+import { inject } from 'vue'
+import { usePopup } from '@'
+
+defineOptions({ name: 'DemoFullScreen' })
+
+const popupId: string = inject('popupId', '')
+
+function handleClose() {
+	const popup = usePopup()
+	popup.destroy(popupId)
 }
 </script>
 

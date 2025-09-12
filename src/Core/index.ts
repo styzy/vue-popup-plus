@@ -32,7 +32,7 @@ export class Core {
 	addPopup(popup: Popup) {
 		this.#popups[popup.id] = popup
 	}
-	getPopup(id: string): Popup | undefined {
+	getPopup(id: string): Popup | void {
 		return this.#popups[id]
 	}
 	removePopup(popup: Popup) {

@@ -2,7 +2,7 @@ export type VuePopupPlusPlugin = { name: string; install: Function }
 
 export class VuePopupPlusPluginManager {
 	static #plugins: { [key: string]: VuePopupPlusPlugin } = {}
-	static get(name: string): VuePopupPlusPlugin | undefined {
+	static get(name: string): VuePopupPlusPlugin | void {
 		return this.#plugins[name]
 	}
 	static use(plugin: VuePopupPlusPlugin) {

@@ -1,15 +1,16 @@
-import type { Component } from 'vue'
+import { markRaw } from 'vue'
 import type { Core } from '@/Core'
-import { Popup, type PopupOptions } from '@/Popup'
+import { Popup, type PopupOptions, type RawPopupComponent } from '@/Popup'
 import { ANIMATION_TYPES } from '@/CONSTANTS'
 
 export interface RenderOptions {
-	component: Component
+	component: RawPopupComponent
 	componentProps?: Record<string, any>
 	onMounted?: () => void
 	onUnmounted?: (payload: any) => void
 	mask?: boolean
 	maskClickCloseEnabled?: boolean
+	windowScrollDisabled?: boolean
 	width?: string | number
 	maxWidth?: string | number
 	minWidth?: string | number
@@ -29,7 +30,8 @@ const defaultOptions: RenderOptions = {
 	onMounted: () => {},
 	onUnmounted: () => {},
 	mask: true,
-	maskClickCloseEnabled: true,
+	maskClickCloseEnabled: false,
+	windowScrollDisabled: true,
 	width: 'auto',
 	maxWidth: 'auto',
 	minWidth: 'auto',
@@ -46,16 +48,18 @@ export class Controller {
 	constructor(core: Core) {
 		this.#core = core
 	}
-	render({ el, ...options }: RenderOptions): Popup {
-		options = { ...defaultOptions, ...options }
-		options.zIndex = options.zIndex ?? this.#core.zIndex
+	render({ component, el, zIndex, ...options }: RenderOptions): string {
+		component = markRaw(component) as RawPopupComponent
+		zIndex = zIndex ?? this.#core.zIndex
+		options = { ...defaultOptions, ...options, ...{ component, zIndex } }
 
 		const popup: Popup = new Popup(this.#core.seed, options as PopupOptions)
 
 		this.#core.addPopup(popup)
+
 		popup.mount(el)
 
-		return popup
+		return popup.id
 	}
 	async destroy(popupId: string, payload?: any): Promise<void> {
 		const popup = this.#core.getPopup(popupId)

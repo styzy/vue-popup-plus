@@ -82,11 +82,13 @@
 import { defineAsyncComponent } from 'vue'
 import { ANIMATION_TYPES, usePopup, version } from '@'
 
+defineOptions({ name: 'Index' })
+
 const popup = usePopup()
 
 const handlePopup = () => {
 	popup.render({
-		component: defineAsyncComponent(() => import('@doc/views/Demo.vue')),
+		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
