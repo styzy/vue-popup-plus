@@ -1,15 +1,37 @@
 {
-	"name": "vue-popup-plus",
-	"version": "1.0.0",
 	"private": true,
+	"name": "vue-popup-plus",
+	"version": "0.1.0",
+	"keywords": [
+		"vue",
+		"vue3",
+		"popup",
+		"plugin"
+	],
 	"type": "module",
+	"files": [
+		"lib"
+	],
+	"main": "lib/vue-popup-plus.umd.js",
+	"module": "lib/vue-popup-plus.js",
+	"exports": {
+		".": {
+			"import": "./lib/vue-popup-plus.js",
+			"require": "./lib/vue-popup-plus.umd.js"
+		},
+		"./style.css": "./lib/vue-popup-plus.css"
+	},
+	"types": "typings/index.d.ts",
 	"engines": {
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
 		"dev": "vite --open",
-		"build": "run-p type-check \"build-only {@}\" --",
+		"build:doc": "run-p type-check && vite build",
+		"build:lib": "run-p type-check && npm run generate-types && vite build --mode lib",
+		"build:types": "vue-tsc --project tsconfig.types.json",
 		"preview": "vite preview",
+		"preview:doc": "vite preview --outDir dist/doc",
 		"test:unit": "vitest",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build",
@@ -17,6 +39,7 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
+		"pinia": "^3.0.3",
 		"vue": "^3.5.18",
 		"vue-router": "^4.5.1"
 	},
@@ -29,6 +52,7 @@
 		"@vitest/eslint-plugin": "^1.3.4",
 		"@vue/eslint-config-prettier": "^10.2.0",
 		"@vue/eslint-config-typescript": "^14.6.0",
+		"@vue/language-plugin-pug": "^3.0.6",
 		"@vue/test-utils": "^2.4.6",
 		"@vue/tsconfig": "^0.7.0",
 		"eslint": "^9.31.0",
@@ -46,4 +70,3 @@
 		"vue-tsc": "^3.0.4"
 	}
 }
-
