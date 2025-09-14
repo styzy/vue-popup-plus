@@ -1,7 +1,7 @@
 import { type Component } from 'vue'
 import type { Core } from '@/Core'
 import { Popup, type PopupOptions } from '@/Popup'
-import { ANIMATION_TYPES } from '@/CONSTANTS'
+import { ANIMATION_TYPES, type AnimationType } from '@/CONSTANTS'
 
 export interface RenderOptions {
 	component: Component
@@ -18,8 +18,8 @@ export interface RenderOptions {
 	maxHeight?: string | number
 	minHeight?: string | number
 	animationDuration?: number
-	maskAnimations?: string[]
-	viewAnimations?: string[]
+	maskAnimation?: AnimationType
+	viewAnimation?: AnimationType
 	el?: HTMLElement | string
 	zIndex?: number
 }
@@ -39,8 +39,8 @@ const defaultOptions: RenderOptions = {
 	maxHeight: 'auto',
 	minHeight: 'auto',
 	animationDuration: 100,
-	maskAnimations: [ANIMATION_TYPES.FADE],
-	viewAnimations: [ANIMATION_TYPES.FADE, ANIMATION_TYPES.SCALE_ENLARGE],
+	maskAnimation: ANIMATION_TYPES.FADE,
+	viewAnimation: ANIMATION_TYPES.FADE,
 }
 
 export class Controller {

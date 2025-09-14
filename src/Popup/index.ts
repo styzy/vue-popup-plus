@@ -2,6 +2,7 @@ import { createApp, markRaw, type App, type Component } from 'vue'
 import { createPinia, defineStore, type Pinia } from 'pinia'
 import PopupComponent from '@/Components/Popup.vue'
 import { wait } from '#'
+import type { AnimationType } from '@/CONSTANTS'
 
 export interface PopupOptions {
 	component: Component
@@ -17,8 +18,8 @@ export interface PopupOptions {
 	maxHeight: string | number
 	minHeight: string | number
 	animationDuration: number
-	maskAnimations: string[]
-	viewAnimations: string[]
+	maskAnimation: AnimationType
+	viewAnimation: AnimationType
 	zIndex: number
 }
 

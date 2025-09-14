@@ -1,22 +1,13 @@
 <template lang="pug">
 .popup-view-wrapper(:style="{ zIndex: store.zIndex }")
-	Transition
-		.popup-view(:style="styleObject" v-if="isShow && !store.isBeforeUnmount")
-			component(
-				:is="resolvedComponent"
-				:key="`${popupId}-component`"
-				v-bind="store.componentProps")
+	.popup-view(:style="styleObject")
+		component(
+			:is="resolvedComponent"
+			:key="`${popupId}-component`"
+			v-bind="store.componentProps")
 </template>
 <script lang="ts" setup>
-import {
-	computed,
-	inject,
-	onMounted,
-	ref,
-	defineAsyncComponent,
-	type DefineComponent,
-	type Component,
-} from 'vue'
+import { computed, inject, defineAsyncComponent, type Component } from 'vue'
 import type { PopupStore } from '@/Popup'
 
 defineOptions({
@@ -26,8 +17,6 @@ defineOptions({
 const popupId: string = inject('popupId', '')
 const store: PopupStore = inject('popupStore') as PopupStore
 
-const isShow = ref(false)
-
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装
 const resolvedComponent = computed(() => {
 	if (typeof store.component === 'function') {
@@ -36,21 +25,8 @@ const resolvedComponent = computed(() => {
 	return store.component
 })
 
-const enterAnimations = computed(() => {
-	return store.viewAnimations
-		.map((type) => `vue-popup-plus-animation-${type}-in`)
-		.join(',')
-})
-
-const leaveAnimations = computed(() => {
-	return store.viewAnimations
-		.map((type) => `vue-popup-plus-animation-${type}-out`)
-		.join(',')
-})
-
 const styleObject = computed(() => {
 	return {
-		animationDuration: `${store.animationDuration / 1000}s`,
 		width: formatSize(store.width),
 		maxWidth: formatSize(store.maxWidth),
 		minWidth: formatSize(store.minWidth),
@@ -58,10 +34,6 @@ const styleObject = computed(() => {
 		maxHeight: formatSize(store.maxHeight),
 		minHeight: formatSize(store.minHeight),
 	}
-})
-
-onMounted(() => {
-	isShow.value = true
 })
 
 function formatSize(size: string | number): string {
@@ -85,10 +57,5 @@ function formatSize(size: string | number): string {
 	.popup-view
 		position relative
 		margin auto
-		animation-timing-function linear
 		pointer-events auto
-		&.v-enter-active
-			animation-name v-bind('enterAnimations')
-		&.v-leave-active
-			animation-name v-bind('leaveAnimations')
 </style>

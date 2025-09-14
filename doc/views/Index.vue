@@ -79,7 +79,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
 import { ANIMATION_TYPES, usePopup, version } from '@'
 
 defineOptions({ name: 'Index' })
@@ -109,22 +108,24 @@ const handlePopupFullScreen = () => {
 
 const handlePopupScale = () => {
 	popup.render({
-		viewAnimations: [ANIMATION_TYPES.SCALE_SHRINK, ANIMATION_TYPES.FADE],
+		maskAnimation: ANIMATION_TYPES.SCALE_ENLARGE,
+		viewAnimation: ANIMATION_TYPES.SCALE_SHRINK,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
 const handlePopupFade = () => {
 	popup.render({
-		viewAnimations: [ANIMATION_TYPES.FADE],
+		maskAnimation: ANIMATION_TYPES.FADE,
+		viewAnimation: ANIMATION_TYPES.FADE,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
 const handlePopupFly = () => {
 	popup.render({
-		maskAnimations: [ANIMATION_TYPES.FLY_TOP],
-		viewAnimations: [ANIMATION_TYPES.FLY_RIGHT],
+		maskAnimation: ANIMATION_TYPES.FLY_TOP,
+		viewAnimation: ANIMATION_TYPES.FLY_BOTTOM,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
@@ -132,7 +133,6 @@ const handlePopupFly = () => {
 const handlePopupDuration = () => {
 	popup.render({
 		animationDuration: 20000,
-		viewAnimations: [ANIMATION_TYPES.FADE],
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
@@ -167,3 +167,4 @@ const handlePopupDuration = () => {
 		&:before
 			content '说明：'
 </style>
+

@@ -1,69 +1,90 @@
-@keyframes vue-popup-plus-animation-fade-in
+$name-space = 'vue-popup-plus-animation'
+
+generateAnimation($type,$name)
+	.vue-popup-plus-animation-{$type}-{$name}
+		animation-name unquote($name-space+'-'+$type+'-'+$name)
+
+generateAnimation(enter,fade)
+generateAnimation(leave,fade)
+generateAnimation(enter,scale-enlarge)
+generateAnimation(leave,scale-enlarge)
+generateAnimation(enter,scale-shrink)
+generateAnimation(leave,scale-shrink)
+generateAnimation(enter,fly-top)
+generateAnimation(leave,fly-top)
+generateAnimation(enter,fly-left)
+generateAnimation(leave,fly-left)
+generateAnimation(enter,fly-right)
+generateAnimation(leave,fly-right)
+generateAnimation(enter,fly-bottom)
+generateAnimation(leave,fly-bottom)
+
+@keyframes {$name-space}-enter-fade
 	from
 		opacity 0
 	to
 		opacity 1
-@keyframes vue-popup-plus-animation-fade-out
+@keyframes {$name-space}-leave-fade
 	from
 		opacity 1
 	to
 		opacity 0
-@keyframes vue-popup-plus-animation-scale-enlarge-in
+@keyframes {$name-space}-enter-scale-enlarge
 	from
 		transform scale(0)
 	to
 		transform scale(1)
-@keyframes vue-popup-plus-animation-scale-enlarge-out
+@keyframes {$name-space}-leave-scale-enlarge
 	from
 		transform scale(1)
 	to
 		transform scale(0)
-@keyframes vue-popup-plus-animation-scale-shrink-in
+@keyframes {$name-space}-enter-scale-shrink
 	from
 		transform scale(5)
 	to
 		transform scale(1)
-@keyframes vue-popup-plus-animation-scale-shrink-out
+@keyframes {$name-space}-leave-scale-shrink
 	from
 		transform scale(1)
 	to
 		transform scale(5)
-@keyframes vue-popup-plus-animation-fly-top-in
+@keyframes {$name-space}-enter-fly-top
 	from
 		transform translateY(-100vh)
 	to
 		transform translateY(0)
-@keyframes vue-popup-plus-animation-fly-top-out
+@keyframes {$name-space}-leave-fly-top
 	from
 		transform translateY(0)
 	to
 		transform translateY(-100vh)
-@keyframes vue-popup-plus-animation-fly-left-in
+@keyframes {$name-space}-enter-fly-left
 	from
 		transform translateX(-100vw)
 	to
 		transform translateX(0)
-@keyframes vue-popup-plus-animation-fly-left-out
+@keyframes {$name-space}-leave-fly-left
 	from
 		transform translateX(0)
 	to
 		transform translateX(-100vw)
-@keyframes vue-popup-plus-animation-fly-right-in
+@keyframes {$name-space}-enter-fly-right
 	from
 		transform translateX(100vw)
 	to
 		transform translateX(0)
-@keyframes vue-popup-plus-animation-fly-right-out
+@keyframes {$name-space}-leave-fly-right
 	from
 		transform translateX(0)
 	to
 		transform translateX(100vw)
-@keyframes vue-popup-plus-animation-fly-bottom-in
+@keyframes {$name-space}-enter-fly-bottom
 	from
 		transform translateY(100vh)
 	to
 		transform translateY(0)
-@keyframes vue-popup-plus-animation-fly-bottom-out
+@keyframes {$name-space}-leave-fly-bottom
 	from
 		transform translateY(0)
 	to
