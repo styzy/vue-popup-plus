@@ -50,8 +50,6 @@ function handleClick() {
 @import './animation.styl'
 
 .popup-mask
-	useAnimation()
-
 	position fixed
 	top 0
 	right 0

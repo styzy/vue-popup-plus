@@ -1,10 +1,10 @@
-import { markRaw } from 'vue'
+import { type Component } from 'vue'
 import type { Core } from '@/Core'
-import { Popup, type PopupOptions, type RawPopupComponent } from '@/Popup'
+import { Popup, type PopupOptions } from '@/Popup'
 import { ANIMATION_TYPES } from '@/CONSTANTS'
 
 export interface RenderOptions {
-	component: RawPopupComponent
+	component: Component
 	componentProps?: Record<string, any>
 	onMounted?: () => void
 	onUnmounted?: (payload: any) => void
@@ -40,7 +40,7 @@ const defaultOptions: RenderOptions = {
 	minHeight: 'auto',
 	animationDuration: 100,
 	maskAnimations: [ANIMATION_TYPES.FADE],
-	viewAnimations: [ANIMATION_TYPES.FADE, ANIMATION_TYPES.SCALE],
+	viewAnimations: [ANIMATION_TYPES.FADE, ANIMATION_TYPES.SCALE_ENLARGE],
 }
 
 export class Controller {
@@ -48,10 +48,9 @@ export class Controller {
 	constructor(core: Core) {
 		this.#core = core
 	}
-	render({ component, el, zIndex, ...options }: RenderOptions): string {
-		component = markRaw(component) as RawPopupComponent
+	render({ el, zIndex, ...options }: RenderOptions): string {
 		zIndex = zIndex ?? this.#core.zIndex
-		options = { ...defaultOptions, ...options, ...{ component, zIndex } }
+		options = { ...defaultOptions, ...options, ...{ zIndex } }
 
 		const popup: Popup = new Popup(this.#core.seed, options as PopupOptions)
 

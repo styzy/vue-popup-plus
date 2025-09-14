@@ -1,46 +1,70 @@
-useAnimation()
-	&.animation-fade
-		&.v-enter-active
-			animation-name fadeIn
-		&.v-leave-active
-			animation-name fadeOut
-	&.animation-scale
-		&.v-enter-active
-			animation-name scaleIn
-		&.v-leave-active
-			animation-name scaleOut
-	&.animation-fly
-		&.v-enter-active
-			animation-name flyIn
-		&.v-leave-active
-			animation-name flyOut
-@keyframes fadeIn
+@keyframes vue-popup-plus-animation-fade-in
 	from
 		opacity 0
 	to
 		opacity 1
-@keyframes fadeOut
+@keyframes vue-popup-plus-animation-fade-out
 	from
 		opacity 1
 	to
 		opacity 0
-@keyframes scaleIn
-	0%
+@keyframes vue-popup-plus-animation-scale-enlarge-in
+	from
 		transform scale(0)
-	100%
+	to
 		transform scale(1)
-@keyframes scaleOut
+@keyframes vue-popup-plus-animation-scale-enlarge-out
 	from
 		transform scale(1)
 	to
 		transform scale(0)
-@keyframes flyIn
+@keyframes vue-popup-plus-animation-scale-shrink-in
+	from
+		transform scale(5)
+	to
+		transform scale(1)
+@keyframes vue-popup-plus-animation-scale-shrink-out
+	from
+		transform scale(1)
+	to
+		transform scale(5)
+@keyframes vue-popup-plus-animation-fly-top-in
 	from
 		transform translateY(-100vh)
 	to
 		transform translateY(0)
-@keyframes flyOut
+@keyframes vue-popup-plus-animation-fly-top-out
 	from
 		transform translateY(0)
 	to
 		transform translateY(-100vh)
+@keyframes vue-popup-plus-animation-fly-left-in
+	from
+		transform translateX(-100vw)
+	to
+		transform translateX(0)
+@keyframes vue-popup-plus-animation-fly-left-out
+	from
+		transform translateX(0)
+	to
+		transform translateX(-100vw)
+@keyframes vue-popup-plus-animation-fly-right-in
+	from
+		transform translateX(100vw)
+	to
+		transform translateX(0)
+@keyframes vue-popup-plus-animation-fly-right-out
+	from
+		transform translateX(0)
+	to
+		transform translateX(100vw)
+@keyframes vue-popup-plus-animation-fly-bottom-in
+	from
+		transform translateY(100vh)
+	to
+		transform translateY(0)
+@keyframes vue-popup-plus-animation-fly-bottom-out
+	from
+		transform translateY(0)
+	to
+		transform translateY(100vh)

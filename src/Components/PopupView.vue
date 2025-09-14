@@ -1,18 +1,23 @@
 <template lang="pug">
 .popup-view-wrapper(:style="{ zIndex: store.zIndex }")
 	Transition
-		.popup-view(
-			:class="classObject"
-			:style="styleObject"
-			v-if="isShow && !store.isBeforeUnmount")
+		.popup-view(:style="styleObject" v-if="isShow && !store.isBeforeUnmount")
 			component(
 				:is="resolvedComponent"
 				:key="`${popupId}-component`"
 				v-bind="store.componentProps")
 </template>
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref, defineAsyncComponent } from 'vue'
-import type { LazyPopupComponent, PopupStore } from '@/Popup'
+import {
+	computed,
+	inject,
+	onMounted,
+	ref,
+	defineAsyncComponent,
+	type DefineComponent,
+	type Component,
+} from 'vue'
+import type { PopupStore } from '@/Popup'
 
 defineOptions({
 	name: 'PopupView',
@@ -26,13 +31,21 @@ const isShow = ref(false)
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装
 const resolvedComponent = computed(() => {
 	if (typeof store.component === 'function') {
-		return defineAsyncComponent(store.component as LazyPopupComponent)
+		return defineAsyncComponent(store.component as () => Promise<Component>)
 	}
 	return store.component
 })
 
-const classObject = computed(() => {
-	return store.maskAnimations.map((type) => `animation-${type}`)
+const enterAnimations = computed(() => {
+	return store.viewAnimations
+		.map((type) => `vue-popup-plus-animation-${type}-in`)
+		.join(',')
+})
+
+const leaveAnimations = computed(() => {
+	return store.viewAnimations
+		.map((type) => `vue-popup-plus-animation-${type}-out`)
+		.join(',')
 })
 
 const styleObject = computed(() => {
@@ -70,10 +83,12 @@ function formatSize(size: string | number): string {
 	align-items center
 	pointer-events none
 	.popup-view
-		useAnimation()
-
 		position relative
 		margin auto
 		animation-timing-function linear
 		pointer-events auto
+		&.v-enter-active
+			animation-name v-bind('enterAnimations')
+		&.v-leave-active
+			animation-name v-bind('leaveAnimations')
 </style>

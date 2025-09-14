@@ -109,7 +109,7 @@ const handlePopupFullScreen = () => {
 
 const handlePopupScale = () => {
 	popup.render({
-		viewAnimations: [ANIMATION_TYPES.SCALE],
+		viewAnimations: [ANIMATION_TYPES.SCALE_SHRINK, ANIMATION_TYPES.FADE],
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
@@ -123,14 +123,16 @@ const handlePopupFade = () => {
 
 const handlePopupFly = () => {
 	popup.render({
-		viewAnimations: [ANIMATION_TYPES.FLY],
+		maskAnimations: [ANIMATION_TYPES.FLY_TOP],
+		viewAnimations: [ANIMATION_TYPES.FLY_RIGHT],
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
 const handlePopupDuration = () => {
 	popup.render({
-		animationDuration: 2000,
+		animationDuration: 20000,
+		viewAnimations: [ANIMATION_TYPES.FADE],
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }

@@ -1,18 +1,10 @@
-import { createApp, type App, type Component, type DefineComponent } from 'vue'
+import { createApp, markRaw, type App, type Component } from 'vue'
 import { createPinia, defineStore, type Pinia } from 'pinia'
 import PopupComponent from '@/Components/Popup.vue'
 import { wait } from '#'
 
-type Lazy<T> = () => Promise<T>
-
-type PopupComponent = Component | DefineComponent
-
-export type LazyPopupComponent = Lazy<PopupComponent>
-
-export type RawPopupComponent = PopupComponent | LazyPopupComponent
-
 export interface PopupOptions {
-	component: RawPopupComponent
+	component: Component
 	componentProps: Record<string, any>
 	onMounted: () => void
 	onUnmounted: <T>(payload?: T) => void
@@ -34,10 +26,14 @@ export interface PopupStore extends PopupOptions {
 	isBeforeUnmount: boolean
 }
 
-function createStore(id: string, options: PopupOptions): PopupStore {
+function createStore(
+	id: string,
+	{ component, ...options }: PopupOptions
+): PopupStore {
 	return defineStore(`${id}-store`, {
 		state: () => ({
 			...options,
+			component: markRaw(component),
 			isBeforeUnmount: false,
 		}),
 	})()
