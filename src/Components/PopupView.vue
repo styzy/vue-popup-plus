@@ -8,8 +8,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, inject, defineAsyncComponent, type Component } from 'vue'
-import type { InstanceStore } from '@/Instance'
-import type { InstanceId } from '@/Instance/id'
+import type { InstanceId, InstanceStore } from '@/Instance'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
@@ -66,3 +65,4 @@ function formatSize(size: string | number): string {
 		margin auto
 		pointer-events auto
 </style>
+

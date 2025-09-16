@@ -5,8 +5,7 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import { usePopup } from '@'
-import type { InstanceStore } from '@/Instance'
-import type { InstanceId } from '@/Instance/id'
+import type { InstanceId, InstanceStore } from '@/Instance'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
@@ -46,3 +45,4 @@ function handleClick() {
 	left 0
 	background-color rgba(0, 0, 0, 0.3)
 </style>
+

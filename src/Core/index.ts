@@ -1,6 +1,5 @@
 import { Controller, type PopupController } from '@/Controller'
-import { Instance } from '@/Instance'
-import type { InstanceId } from '@/Instance/id'
+import { Instance, InstanceId } from '@/Instance'
 
 export interface PopupCore {
 	/**
@@ -107,3 +106,4 @@ export class Core implements PopupCore {
 		delete this.#instances[instance.id.name]
 	}
 }
+

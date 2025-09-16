@@ -1,7 +1,7 @@
 import { type App, type Component } from 'vue'
 import type { Core } from '@/Core'
 import { Instance } from '@/Instance'
-import type { InstanceId } from '@/Instance/id'
+import type { InstanceId } from '@/Instance'
 import { POPUP_ANIMATIONS } from '@/CONSTANTS'
 
 export interface PopupController {

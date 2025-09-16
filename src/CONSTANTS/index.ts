@@ -1,6 +1,5 @@
 import type { InjectionKey } from 'vue'
-import type { InstanceStore } from '@/Instance'
-import type { InstanceId } from '@/Instance/id'
+import type { InstanceId, InstanceStore } from '@/Instance'
 
 /**
  * 命名空间
@@ -99,3 +98,4 @@ export const POPUP_ANIMATIONS: Readonly<PopupAnimationCollection> = {
 	FLY_RIGHT: Symbol('fly-right'),
 	FLY_BOTTOM: Symbol('fly-bottom'),
 }
+
