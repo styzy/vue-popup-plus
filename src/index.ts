@@ -1,4 +1,4 @@
-import { createCore, getCore, type CoreConfig } from './Core'
+import { createCore, getCore, type CoreOptions } from './Core'
 import { type PopupController } from './Controller'
 
 export { version } from '../package.json'
@@ -9,7 +9,7 @@ export { POPUP_ANIMATIONS, POPUP_COMPONENT_INJECT_KEYS } from './CONSTANTS'
  * @param options 弹出层核心配置
  * @returns 弹出层控制器实例
  */
-export function createPopup(options?: CoreConfig): PopupController {
+export function createPopup(options?: CoreOptions): PopupController {
 	return createCore(options).controller
 }
 

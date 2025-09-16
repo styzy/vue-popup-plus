@@ -2,7 +2,6 @@ import { Controller, type PopupController } from '@/Controller'
 import { Instance } from '@/Instance'
 import type { InstanceId } from '@/Instance/id'
 
-let core: PopupCore
 export interface PopupCore {
 	/**
 	 * 弹出层种子，用于生成弹出层实例id，自动递增
@@ -34,7 +33,7 @@ export interface PopupCore {
 	removeInstance(instance: Instance): void
 }
 
-export interface PopupConfig {
+export type CoreOptions = {
 	/**
 	 * 弹出层 zIndex 基础值，默认为1000，每次生成弹出层时，除非 render() 方法传入 zIndex，否则使用此基础值，每次使用后会自动递增
 	 */
@@ -68,16 +67,21 @@ export interface PopupConfig {
 	prototypeName?: string
 }
 
-export type CoreConfig = {
-	zIndex: number
-	prototypeName: string
+export type PopupConfig = Required<CoreOptions>
+
+let core: PopupCore
+export function createCore(options?: CoreOptions): PopupCore {
+	return new Core(options)
 }
 
+export function getCore() {
+	return core
+}
 export class Core implements PopupCore {
 	#seed: number = 1
 	#instances: Record<InstanceId['name'], Instance> = {}
 	#controller: PopupController
-	#config: CoreConfig
+	#config: PopupConfig
 	// #plugins: { [key: string]: any }
 	get seed() {
 		return this.#seed++
@@ -88,7 +92,7 @@ export class Core implements PopupCore {
 	get controller() {
 		return this.#controller
 	}
-	constructor({ zIndex = 1000, prototypeName = '$popup' }: PopupConfig = {}) {
+	constructor({ zIndex = 1000, prototypeName = '$popup' }: CoreOptions = {}) {
 		this.#config = { zIndex, prototypeName }
 		this.#controller = new Controller(this)
 		core = this
@@ -102,12 +106,4 @@ export class Core implements PopupCore {
 	removeInstance(instance: Instance) {
 		delete this.#instances[instance.id.name]
 	}
-}
-
-export function createCore(config?: PopupConfig): PopupCore {
-	return new Core(config)
-}
-
-export function getCore() {
-	return core
 }
