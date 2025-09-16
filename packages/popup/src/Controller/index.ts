@@ -28,7 +28,6 @@ export interface PopupController extends PopupCustomController {
 	destroy(instanceId: InstanceId, payload?: any): void
 	/**
 	 * 安装插件
-	 * @internal
 	 * @param {App} app - Vue应用实例
 	 * @returns {void}
 	 */
