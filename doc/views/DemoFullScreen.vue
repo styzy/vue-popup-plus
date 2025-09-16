@@ -7,15 +7,15 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import { usePopup } from '@'
+import { COMPONENT_INJECT_KEYS, usePopup } from '@'
 
 defineOptions({ name: 'DemoFullScreen' })
 
-const popupId: string = inject('popupId', '')
+const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID)
 
 function handleClose() {
 	const popup = usePopup()
-	popup.destroy(popupId)
+	popupId && popup.destroy(popupId)
 }
 </script>
 

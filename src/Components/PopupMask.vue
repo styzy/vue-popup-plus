@@ -5,15 +5,18 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
 import type { PopupStore } from '@/Popup'
-import type { Controller } from '@/Controller'
 import { usePopup } from '@'
+import {
+	COMPONENT_INJECT_KEYS,
+	INSIDE_COMPONENT_INJECT_KEYS,
+} from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupMask',
 })
 
-const popupId: string = inject('popupId', '')
-const store: PopupStore = inject('popupStore') as PopupStore
+const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID, Symbol())
+const store = inject(INSIDE_COMPONENT_INJECT_KEYS.POPUP_STORE) as PopupStore
 
 const styleObject = computed(() => {
 	return {
@@ -23,9 +26,8 @@ const styleObject = computed(() => {
 
 function handleClick() {
 	if (store.maskClickCloseEnabled) {
-		const controller: Controller = usePopup()
-
-		controller.destroy(popupId)
+		const popup = usePopup()
+		popup.destroy(popupId)
 	}
 }
 </script>

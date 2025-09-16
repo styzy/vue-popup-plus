@@ -10,7 +10,7 @@ Transition(
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref } from 'vue'
 import type { PopupStore } from '@/Popup'
-import { type AnimationType } from '@/CONSTANTS'
+import { INSIDE_COMPONENT_INJECT_KEYS, type AnimationType } from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupAnimation',
@@ -21,7 +21,7 @@ const { type, duration } = defineProps<{
 	duration: number
 }>()
 
-const store: PopupStore = inject('popupStore') as PopupStore
+const store = inject(INSIDE_COMPONENT_INJECT_KEYS.POPUP_STORE) as PopupStore
 
 const isShow = ref(false)
 

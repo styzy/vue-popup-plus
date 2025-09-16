@@ -1,37 +1,209 @@
-import { type Component } from 'vue'
+import { type App, type Component } from 'vue'
 import type { Core } from '@/Core'
-import { Popup, type PopupOptions } from '@/Popup'
+import { Popup, type PopupId } from '@/Popup'
 import { ANIMATION_TYPES, type AnimationType } from '@/CONSTANTS'
 
-export interface RenderOptions {
+export type RenderElement = HTMLElement | string
+
+export type RenderComponentOptions = {
+	/**
+	 * 弹出层渲染的组件，想要创建一个弹出层，这个唯一必要的参数。它的值可以是一个同步组件，也可以是一个异步组件的 import() 函数。
+	 * @example
+	 * // 同步组件
+	 * import Demo from 'path/Demo.vue'
+	 * popup.render({
+	 * 	component: Demo,
+	 * })
+	 *
+	 * // 异步组件
+	 * popup.render({
+	 * 	component: () => import('path/Demo.vue'),
+	 * })
+	 */
 	component: Component
+	/**
+	 * 弹出层渲染组件的 props ，会传递给弹出层组件
+	 */
 	componentProps?: Record<string, any>
+	/**
+	 * 弹出层渲染之后的回调
+	 */
 	onMounted?: () => void
-	onUnmounted?: (payload: any) => void
-	mask?: boolean
-	maskClickCloseEnabled?: boolean
-	windowScrollDisabled?: boolean
+	/**
+	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
+	 */
+	onUnmounted?: <T>(payload?: T) => void
+}
+
+export type RenderStyleOptions = {
+	/**
+	 * 弹出层宽度，默认为 auto，即自适应，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * width: '300px',
+	 * // rem
+	 * width: '30rem',
+	 * // vw
+	 * width: '30vw',
+	 * // 百分比
+	 * width: '30%',
+	 * // css 动态计算
+	 * width: 'calc(50% + 20px)',
+	 * // css 变量
+	 * width: 'var(--width)',
+	 * // number 类型，方便计算，单位为 px
+	 * width: 300,
+	 */
 	width?: string | number
+	/**
+	 * 弹出层最大宽度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * maxWidth: '300px',
+	 * // rem
+	 * maxWidth: '30rem',
+	 * // vw
+	 * maxWidth: '30vw',
+	 * // 百分比
+	 * maxWidth: '30%',
+	 * // css 动态计算
+	 * maxWidth: 'calc(50% + 20px)',
+	 * // css 变量
+	 * maxWidth: 'var(--width)',
+	 * // number 类型，方便计算，单位为 px
+	 * maxWidth: 300,
+	 */
 	maxWidth?: string | number
+	/**
+	 * 弹出层最小宽度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * minWidth: '300px',
+	 * // rem
+	 * minWidth: '30rem',
+	 * // vw
+	 * minWidth: '30vw',
+	 * // 百分比
+	 * minWidth: '30%',
+	 * // css 动态计算
+	 * minWidth: 'calc(50% + 20px)',
+	 * // css 变量
+	 * minWidth: 'var(--width)',
+	 * // number 类型，方便计算，单位为 px
+	 * minWidth: 300,
+	 */
 	minWidth?: string | number
+	/**
+	 * 弹出层高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * height: '300px',
+	 * // rem
+	 * height: '30rem',
+	 * // vh
+	 * height: '30vh',
+	 * // 百分比
+	 * height: '30%',
+	 * // css 动态计算
+	 * height: 'calc(50% + 20px)',
+	 * // css 变量
+	 * height: 'var(--height)',
+	 * // number 类型，方便计算，单位为 px
+	 * height: 300,
+	 */
 	height?: string | number
+	/**
+	 * 弹出层最大高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * maxHeight: '300px',
+	 * // rem
+	 * maxHeight: '30rem',
+	 * // vh
+	 * maxHeight: '30vh',
+	 * // 百分比
+	 * maxHeight: '30%',
+	 * // css 动态计算
+	 * maxHeight: 'calc(50% + 20px)',
+	 * // css 变量
+	 * maxHeight: 'var(--height)',
+	 * // number 类型，方便计算，单位为 px
+	 * maxHeight: 300,
+	 */
 	maxHeight?: string | number
+	/**
+	 * 弹出层最小高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * @example
+	 * // px
+	 * minHeight: '300px',
+	 * // rem
+	 * minHeight: '30rem',
+	 * // vh
+	 * minHeight: '30vh',
+	 * // 百分比
+	 * minHeight: '30%',
+	 * // css 动态计算
+	 * minHeight: 'calc(50% + 20px)',
+	 * // css 变量
+	 * minHeight: 'var(--height)',
+	 * // number 类型，方便计算，单位为 px
+	 * minHeight: 300,
+	 */
 	minHeight?: string | number
+	/**
+	 * 弹出层动画时长，默认为 100 ，单位为 毫秒
+	 */
 	animationDuration?: number
+	/**
+	 * 遮罩层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
+	 */
 	maskAnimation?: AnimationType
+	/**
+	 * 视图层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
+	 */
 	viewAnimation?: AnimationType
-	el?: HTMLElement | string
+	/**
+	 * 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
+	 */
 	zIndex?: number
 }
 
-const defaultOptions: RenderOptions = {
-	component: () => {},
+export type RenderExtraOptions = {
+	/**
+	 * 弹出层挂载的元素，不指定时，默认挂载到 body 元素下
+	 */
+	el?: RenderElement
+	/**
+	 * 弹出层是否显示遮罩层，默认值为 true
+	 */
+	mask?: boolean
+	/**
+	 * 点击遮罩层是否关闭弹出层，默认值为 false ，仅在 mask 为 true 时有效
+	 */
+	maskClickCloseEnabled?: boolean
+	/**
+	 * 弹出层是否自动隐藏窗口滚动条，默认值为 true
+	 */
+	autoHideWindowScroll?: boolean
+}
+
+export type RenderOptions = RenderComponentOptions &
+	RenderStyleOptions &
+	RenderExtraOptions
+
+export type UpdateOptions = Partial<
+	Omit<RenderOptions, 'component' | 'el' | 'autoHideWindowScroll'>
+>
+
+const defaultOptions: Required<
+	Omit<RenderOptions, 'component' | 'el' | 'zIndex'>
+> = {
 	componentProps: {},
 	onMounted: () => {},
 	onUnmounted: () => {},
 	mask: true,
 	maskClickCloseEnabled: false,
-	windowScrollDisabled: true,
+	autoHideWindowScroll: true,
 	width: 'auto',
 	maxWidth: 'auto',
 	minWidth: 'auto',
@@ -43,24 +215,63 @@ const defaultOptions: RenderOptions = {
 	viewAnimation: ANIMATION_TYPES.FADE,
 }
 
-export class Controller {
+export interface IController {
+	/**
+	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
+	 * @param {RenderOptions} options - 渲染参数
+	 * @returns 弹出层实例id
+	 */
+	render(options: RenderOptions): PopupId
+	/**
+	 * 更新弹出层，可更新弹出层参数
+	 * @param {PopupId} popupId - 弹出层实例id
+	 * @param {UpdateOptions} options - 更新参数
+	 */
+	update(popupId: PopupId, options: UpdateOptions): void
+	/**
+	 * 销毁弹出层
+	 * @param {PopupId} popupId - 弹出层实例id
+	 * @param {any} payload - 自定义负载参数，会作为参数传递给创建弹出层时的onUnmounted回调函数
+	 * @returns {Promise<void>}
+	 */
+	destroy(popupId: PopupId, payload?: any): void
+	/**
+	 * 安装插件
+	 * @internal
+	 * @param {App} app - Vue应用实例
+	 * @returns {void}
+	 */
+	install(app: App): void
+}
+export class Controller implements IController {
 	#core: Core
 	constructor(core: Core) {
 		this.#core = core
 	}
-	render({ el, zIndex, ...options }: RenderOptions): string {
-		zIndex = zIndex ?? this.#core.zIndex
-		options = { ...defaultOptions, ...options, ...{ zIndex } }
+	render({ el, zIndex, ...options }: RenderOptions): PopupId {
+		el = el || document.body.appendChild(document.createElement('div'))
+		zIndex = zIndex ?? this.#core.config.zIndex++
 
-		const popup: Popup = new Popup(this.#core.seed, options as PopupOptions)
+		const popup: Popup = new Popup(this.#core.seed, {
+			...defaultOptions,
+			...options,
+			...{ zIndex, el },
+		})
 
 		this.#core.addPopup(popup)
 
-		popup.mount(el)
+		popup.mount()
 
 		return popup.id
 	}
-	async destroy(popupId: string, payload?: any): Promise<void> {
+	update(popupId: PopupId, options: RenderOptions) {
+		const popup = this.#core.getPopup(popupId)
+
+		if (!popup) return
+
+		popup.updateStore(options)
+	}
+	async destroy(popupId: PopupId, payload?: any): Promise<void> {
 		const popup = this.#core.getPopup(popupId)
 
 		if (!popup) return
@@ -68,5 +279,8 @@ export class Controller {
 		await popup.unmount(payload)
 
 		this.#core.removePopup(popup)
+	}
+	install(app: App): void {
+		app.config.globalProperties[this.#core.config.prototypeName] = this
 	}
 }

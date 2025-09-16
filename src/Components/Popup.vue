@@ -14,8 +14,9 @@ import type { PopupStore } from '@/Popup'
 import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
 import PopupAnimation from './PopupAnimation.vue'
+import { INSIDE_COMPONENT_INJECT_KEYS } from '@/CONSTANTS'
 
-const store: PopupStore = inject('popupStore') as PopupStore
+const store = inject(INSIDE_COMPONENT_INJECT_KEYS.POPUP_STORE) as PopupStore
 
 defineOptions({
 	name: 'Popup',

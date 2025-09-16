@@ -2,27 +2,22 @@
 .demo
 	h1 这是一个弹框
 	br
-	button(@click="handlerResize") 修改大小
+	button(@click="handleUpdateSize") 更新弹框尺寸
 	br
 	button(@click="handleClose") 关闭弹框
 </template>
 
 <script lang="ts" setup>
-import { usePopup } from '@'
-import type { PopupStore } from '@/Popup'
-import { inject, ref } from 'vue'
+import { inject } from 'vue'
+import { COMPONENT_INJECT_KEYS, usePopup } from '@'
 
 defineOptions({ name: 'Demo' })
 
-const popupId: string = inject('popupId', '')
-const store: PopupStore = inject('popupStore') as PopupStore
+const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID, Symbol())
 
-const width = ref('300px')
-
-function handlerResize() {
-	// height.value = '500px'
-	store.width = '100%'
-	store.height = '100%'
+function handleUpdateSize() {
+	const popup = usePopup()
+	// popup.update()
 }
 
 function handleClose() {

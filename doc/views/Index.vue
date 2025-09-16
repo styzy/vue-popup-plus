@@ -94,6 +94,7 @@ const handlePopup = () => {
 const handlePopupWithoutMask = () => {
 	popup.render({
 		mask: false,
+		maskClickCloseEnabled: true,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }

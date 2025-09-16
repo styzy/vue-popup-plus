@@ -3,19 +3,23 @@
 	.popup-view(:style="styleObject")
 		component(
 			:is="resolvedComponent"
-			:key="`${popupId}-component`"
+			:key="`${popupId.description}-component`"
 			v-bind="store.componentProps")
 </template>
 <script lang="ts" setup>
 import { computed, inject, defineAsyncComponent, type Component } from 'vue'
 import type { PopupStore } from '@/Popup'
+import {
+	COMPONENT_INJECT_KEYS,
+	INSIDE_COMPONENT_INJECT_KEYS,
+} from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupView',
 })
 
-const popupId: string = inject('popupId', '')
-const store: PopupStore = inject('popupStore') as PopupStore
+const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID, Symbol())
+const store = inject(INSIDE_COMPONENT_INJECT_KEYS.POPUP_STORE) as PopupStore
 
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装
 const resolvedComponent = computed(() => {

@@ -1,38 +1,38 @@
 import { createApp, markRaw, type App, type Component } from 'vue'
 import { createPinia, defineStore, type Pinia } from 'pinia'
-import PopupComponent from '@/Components/Popup.vue'
+import type {
+	RenderComponentOptions,
+	RenderExtraOptions,
+	RenderStyleOptions,
+} from '@/Controller'
+import {
+	COMPONENT_INJECT_KEYS,
+	INSIDE_COMPONENT_INJECT_KEYS,
+} from '@/CONSTANTS'
 import { wait } from '#'
-import type { AnimationType } from '@/CONSTANTS'
 
-export interface PopupOptions {
-	component: Component
-	componentProps: Record<string, any>
-	onMounted: () => void
-	onUnmounted: <T>(payload?: T) => void
-	mask: boolean
-	maskClickCloseEnabled: boolean
-	width: string | number
-	maxWidth: string | number
-	minWidth: string | number
-	height: string | number
-	maxHeight: string | number
-	minHeight: string | number
-	animationDuration: number
-	maskAnimation: AnimationType
-	viewAnimation: AnimationType
-	zIndex: number
-}
+import PopupComponent from '@/Components/Popup.vue'
 
-export interface PopupStore extends PopupOptions {
+export type PopupId = symbol
+
+export type PopupOptions = Required<
+	RenderComponentOptions & RenderStyleOptions & RenderExtraOptions
+>
+
+export type PopupStore = PopupOptions & {
 	isBeforeUnmount: boolean
 }
 
-function createStore(
-	id: string,
-	{ component, ...options }: PopupOptions
-): PopupStore {
-	return defineStore(`${id}-store`, {
-		state: () => ({
+export interface IPopup {
+	id: PopupId
+	mount(): PopupId
+	unmount(payload?: any): Promise<void>
+	updateStore(options: Partial<PopupStore>): void
+}
+
+function createStore(id: PopupId, { component, ...options }: PopupOptions) {
+	return defineStore(id.description as string, {
+		state: (): PopupStore => ({
 			...options,
 			component: markRaw(component),
 			isBeforeUnmount: false,
@@ -40,29 +40,27 @@ function createStore(
 	})()
 }
 
-export class Popup {
+export class Popup implements IPopup {
 	static #pinia: Pinia
-	#id: string
+	#id: PopupId
 	#app: App
-	#store: PopupStore
+	#store
 	get id() {
 		return this.#id
 	}
 	constructor(seed: number, options: PopupOptions) {
-		this.#id = `vue-popup-plus-${seed}`
+		this.#id = Symbol(`vue-popup-plus-${seed}`)
 
 		this.#app = createApp(PopupComponent)
-		this.#app.provide('popupId', this.id)
+		this.#app.provide(COMPONENT_INJECT_KEYS.POPUP_ID, this.id)
 
 		Popup.#pinia = Popup.#pinia || createPinia()
 		this.#app.use(Popup.#pinia)
 		this.#store = createStore(this.#id, options)
-		this.#app.provide('popupStore', this.#store)
+		this.#app.provide(INSIDE_COMPONENT_INJECT_KEYS.POPUP_STORE, this.#store)
 	}
-	mount(el?: HTMLElement | string): string {
-		this.#app.mount(
-			el || document.body.appendChild(document.createElement('div'))
-		)
+	mount(): PopupId {
+		this.#app.mount(this.#store.el)
 
 		this.#store.onMounted()
 
@@ -75,5 +73,12 @@ export class Popup {
 
 		this.#app.unmount()
 		this.#store.onUnmounted(payload)
+	}
+	updateStore(options: Partial<PopupStore>): void {
+		this.#store.$patch((state) => {
+			Object.keys(options).forEach((key) => {
+				state[key] = options[key]
+			})
+		})
 	}
 }
