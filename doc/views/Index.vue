@@ -86,13 +86,9 @@ defineOptions({ name: 'Index' })
 const popup = usePopup()
 
 const handlePopup = () => {
-	try {
-		popup.render({
-			component: () => import('@doc/views/Demo.vue'),
-		})
-	} catch (error) {
-		console.log('error: ', error)
-	}
+	popup.render({
+		component: () => import('@doc/views/Demo.vue'),
+	})
 }
 
 const handlePopupWithoutMask = () => {

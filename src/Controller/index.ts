@@ -1,7 +1,8 @@
 import { type App, type Component } from 'vue'
 import type { Core } from '@/Core'
-import { Popup, type PopupId } from '@/Popup'
-import { ANIMATION_TYPES, type AnimationType } from '@/CONSTANTS'
+import { Instance } from '@/Instance'
+import type { InstanceId } from '@/Instance/id'
+import { ANIMATION_TYPES } from '@/CONSTANTS'
 
 export type RenderElement = HTMLElement | string
 
@@ -157,11 +158,11 @@ export type RenderStyleOptions = {
 	/**
 	 * 遮罩层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
 	 */
-	maskAnimation?: AnimationType
+	maskAnimation?: symbol
 	/**
 	 * 视图层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
 	 */
-	viewAnimation?: AnimationType
+	viewAnimation?: symbol
 	/**
 	 * 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
 	 */
@@ -191,7 +192,9 @@ export type RenderOptions = RenderComponentOptions &
 	RenderStyleOptions &
 	RenderExtraOptions
 
-export type UpdateOptions = Partial<Omit<RenderOptions, 'component' | 'el'>>
+export type UpdateOptions = Partial<
+	Omit<RenderOptions, 'component' | 'el' | 'autoHideWindowScroll'>
+>
 
 const defaultOptions: Required<
 	Omit<RenderOptions, 'component' | 'el' | 'zIndex'>
@@ -219,20 +222,20 @@ export interface IController {
 	 * @param {RenderOptions} options - 渲染参数
 	 * @returns 弹出层实例id
 	 */
-	render(options: RenderOptions): PopupId
+	render(options: RenderOptions): InstanceId
 	/**
-	 * 更新弹出层，可更新弹出层参数，需要注意的是 component 和 el 参数不可更新，因为此时弹出层已经渲染完成
-	 * @param {PopupId} popupId - 弹出层实例id
+	 * 更新弹出层，可更新弹出层参数
+	 * @param {InstanceId} instanceId - 弹出层实例id
 	 * @param {UpdateOptions} options - 更新参数
 	 */
-	update(popupId: PopupId, options: UpdateOptions): void
+	update(instanceId: InstanceId, options: UpdateOptions): void
 	/**
 	 * 销毁弹出层
-	 * @param {PopupId} popupId - 弹出层实例id
+	 * @param {InstanceId} instanceId - 弹出层实例id
 	 * @param {any} payload - 自定义负载参数，会作为参数传递给创建弹出层时的onUnmounted回调函数
 	 * @returns {Promise<void>}
 	 */
-	destroy(popupId: PopupId, payload?: any): void
+	destroy(instanceId: InstanceId, payload?: any): void
 	/**
 	 * 安装插件
 	 * @internal
@@ -246,39 +249,40 @@ export class Controller implements IController {
 	constructor(core: Core) {
 		this.#core = core
 	}
-	render({ el, zIndex, ...options }: RenderOptions): PopupId {
+	render({ el, zIndex, ...options }: RenderOptions): InstanceId {
 		el = el || document.body.appendChild(document.createElement('div'))
 		zIndex = zIndex ?? this.#core.config.zIndex++
 
-		const popup: Popup = new Popup(this.#core.seed, {
+		const instance: Instance = new Instance(this.#core.seed, {
 			...defaultOptions,
 			...options,
 			...{ zIndex, el },
 		})
 
-		this.#core.addPopup(popup)
+		this.#core.addInstance(instance)
 
-		popup.mount()
+		instance.mount()
 
-		return popup.id
+		return instance.id
 	}
-	update(popupId: PopupId, options: UpdateOptions) {
-		const popup = this.#core.getPopup(popupId)
+	update(instanceId: InstanceId, options: RenderOptions) {
+		const instance = this.#core.getInstance(instanceId)
 
-		if (!popup) return
+		if (!instance) return
 
-		popup.updateStore(options)
+		instance.updateStore(options)
 	}
-	async destroy(popupId: PopupId, payload?: any): Promise<void> {
-		const popup = this.#core.getPopup(popupId)
+	async destroy(instanceId: InstanceId, payload?: any): Promise<void> {
+		const instance = this.#core.getInstance(instanceId)
 
-		if (!popup) return
+		if (!instance) return
 
-		await popup.unmount(payload)
+		await instance.unmount(payload)
 
-		this.#core.removePopup(popup)
+		this.#core.removeInstance(instance)
 	}
 	install(app: App): void {
 		app.config.globalProperties[this.#core.config.prototypeName] = this
 	}
 }
+

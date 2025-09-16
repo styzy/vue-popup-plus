@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import { Controller, type IController } from '@/Controller'
-import { Popup, type PopupId } from '@/Popup'
+import { Instance } from '@/Instance'
+import type { InstanceId } from '@/Instance/id'
 
 let core: ICore
 
@@ -58,25 +59,25 @@ export interface ICore {
 	controller: IController
 	/**
 	 * 添加弹出层实例
-	 * @param popup - 弹出层实例
+	 * @param instance - 弹出层实例
 	 * @
 	 */
-	addPopup(popup: Popup): void
+	addInstance(instance: Instance): void
 	/**
 	 * 获取弹出层实例
-	 * @param id - 弹出层实例id
+	 * @param instanceId - 弹出层实例id
 	 */
-	getPopup(id: PopupId): Popup | void
+	getInstance(instanceId: InstanceId): Instance | void
 	/**
 	 * 移除弹出层实例
-	 * @param popup - 弹出层实例
+	 * @param instance - 弹出层实例
 	 */
-	removePopup(popup: Popup): void
+	removeInstance(instance: Instance): void
 }
 
 export class Core implements ICore {
 	#seed: number = 1
-	#popups: Record<PopupId, Popup> = {}
+	#instances: Record<InstanceId['name'], Instance> = {}
 	#controller: IController
 	#config: CoreConfig
 	// #plugins: { [key: string]: any }
@@ -94,14 +95,14 @@ export class Core implements ICore {
 		this.#controller = new Controller(this)
 		core = this
 	}
-	addPopup(popup: Popup) {
-		this.#popups[popup.id] = popup
+	addInstance(instance: Instance) {
+		this.#instances[instance.id.name] = instance
 	}
-	getPopup(id: PopupId): Popup | void {
-		return this.#popups[id]
+	getInstance(instanceId: InstanceId): Instance | void {
+		return this.#instances[instanceId.name]
 	}
-	removePopup(popup: Popup) {
-		delete this.#popups[popup.id]
+	removeInstance(instance: Instance) {
+		delete this.#instances[instance.id.name]
 	}
 }
 

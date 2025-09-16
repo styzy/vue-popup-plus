@@ -11,11 +11,11 @@ import { COMPONENT_INJECT_KEYS, usePopup } from '@'
 
 defineOptions({ name: 'DemoFullScreen' })
 
-const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID)
+const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID)
 
 function handleClose() {
 	const popup = usePopup()
-	popupId && popup.destroy(popupId)
+	instanceId && popup.destroy(instanceId)
 }
 </script>
 

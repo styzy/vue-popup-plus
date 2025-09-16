@@ -13,18 +13,19 @@ import { COMPONENT_INJECT_KEYS, usePopup } from '@'
 
 defineOptions({ name: 'Demo' })
 
-const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID, Symbol())
+const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID)
 
 function handleUpdateSize() {
 	const popup = usePopup()
-	// popup.update(popupId, {
-	// 	width: '50%',
-	// })
+	instanceId &&
+		popup.update(instanceId, {
+			width: '50%',
+		})
 }
 
 function handleClose() {
 	const popup = usePopup()
-	popup.destroy(popupId)
+	instanceId && popup.destroy(instanceId)
 }
 </script>
 
@@ -41,3 +42,4 @@ function handleClose() {
 	width 100%
 	color #FFFFFF
 </style>
+

@@ -1,10 +1,9 @@
 import { createCore, getCore, type CoreOptions, type ICore } from './Core'
-import { type IController } from './Controller'
+import { Controller, type IController } from './Controller'
 
 export { type ICore as VuePopupPlus }
 export { type CoreOptions as VuePopupPlusOptions } from './Core'
 export { type IController as VuePopupPlusController } from './Controller'
-export { type PopupOptions as VuePopupPlusControllerRenderOptions } from './Popup'
 
 export { version } from '../package.json'
 export { ANIMATION_TYPES, COMPONENT_INJECT_KEYS } from './CONSTANTS'

@@ -1,5 +1,6 @@
 import type { InjectionKey } from 'vue'
-import type { PopupId, PopupStore } from '@/Popup'
+import type { InstanceStore } from '@/Instance'
+import type { InstanceId } from '@/Instance/id'
 
 /**
  * 命名空间
@@ -14,19 +15,19 @@ export type ComponentInjectKeys = {
 	 * 当前组件所在弹出层的实例ID，可用于销毁当前弹出层
 	 * @example
 	 * // 弹出层渲染的所有子代组件中
-	 * const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID)
+	 * const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID)
 	 *
 	 * // 销毁当前弹出层
-	 * this.$popup.destroy(popupId)
+	 * this.$popup.destroy(instanceId)
 	 */
-	POPUP_ID: InjectionKey<PopupId>
+	INSTANCE_ID: InjectionKey<InstanceId>
 }
 
 /**
  * 弹出层内部组件注入属性，在弹出层内部渲染的所有子代组件中，都可以通过 inject 注入弹出层所提供的相关参数
  */
 export const COMPONENT_INJECT_KEYS: Readonly<ComponentInjectKeys> = {
-	POPUP_ID: Symbol('popupId'),
+	INSTANCE_ID: Symbol(`${NAME_SPACE}-instance-id`),
 }
 
 /**
@@ -36,7 +37,7 @@ export type insideComponentInjectKeys = {
 	/**
 	 * 弹出层响应式数据存储
 	 */
-	POPUP_STORE: InjectionKey<PopupStore>
+	INSTANCE_STORE: InjectionKey<InstanceStore>
 }
 
 /**
@@ -44,13 +45,8 @@ export type insideComponentInjectKeys = {
  */
 export const INSIDE_COMPONENT_INJECT_KEYS: Readonly<insideComponentInjectKeys> =
 	{
-		POPUP_STORE: Symbol('popupStore'),
+		INSTANCE_STORE: Symbol(`${NAME_SPACE}-instance-store`),
 	}
-
-/**
- * 动画类型
- */
-export interface AnimationType extends Symbol {}
 
 /**
  * 动画类型集合类型
@@ -59,35 +55,35 @@ export interface AnimationTypes {
 	/**
 	 * 无动画
 	 */
-	NONE: AnimationType
+	NONE: symbol
 	/**
 	 * 淡入淡出
 	 */
-	FADE: AnimationType
+	FADE: symbol
 	/**
 	 * 缩放放大
 	 */
-	SCALE_ENLARGE: AnimationType
+	SCALE_ENLARGE: symbol
 	/**
 	 * 缩放缩小
 	 */
-	SCALE_SHRINK: AnimationType
+	SCALE_SHRINK: symbol
 	/**
 	 * 顶部飞入
 	 */
-	FLY_TOP: AnimationType
+	FLY_TOP: symbol
 	/**
 	 * 左侧飞入
 	 */
-	FLY_LEFT: AnimationType
+	FLY_LEFT: symbol
 	/**
 	 * 右侧飞入
 	 */
-	FLY_RIGHT: AnimationType
+	FLY_RIGHT: symbol
 	/**
 	 * 底部飞入
 	 */
-	FLY_BOTTOM: AnimationType
+	FLY_BOTTOM: symbol
 }
 
 /**
