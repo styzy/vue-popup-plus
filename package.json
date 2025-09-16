@@ -8,14 +8,10 @@
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
-		"dev": "yarn workspace playground dev",
-		"dev:doc": "yarn workspace doc dev",
-		"build:lib": "yarn workspace lib build",
-		"build:doc": "yarn workspace doc build",
-		"lib": "run-p type-check && vite build --mode lib",
-		"test:unit": "vitest",
-		"lint": "eslint . --fix",
-		"format": "prettier --write src/"
+		"dev": "yarn workspace vue-popup-plus-playground dev",
+		"dev:doc": "yarn workspace vue-popup-plus-doc dev",
+		"build:lib": "yarn workspace vue-popup-plus build",
+		"build:doc": "yarn workspace vue-popup-plus-doc build"
 	}
 }
 

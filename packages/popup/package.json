@@ -13,7 +13,7 @@
 	],
 	"main": "./dist/vue-popup-plus.umd.js",
 	"module": "./dist/vue-popup-plus.js",
-	"workspaces":[],
+	"workspaces": [],
 	"exports": {
 		".": {
 			"import": "./dist/vue-popup-plus.js",
@@ -26,11 +26,8 @@
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
-		"dev": "vite --open",
-		"doc": "run-p type-check && vite build",
-		"lib": "run-p type-check && vite build --mode lib",
-		"preview": "vite preview",
-		"preview:doc": "vite preview --outDir dist/doc",
+		"dev": "vite",
+		"build": "run-p type-check && vite build",
 		"test:unit": "vitest",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build",
@@ -39,8 +36,7 @@
 	},
 	"dependencies": {
 		"pinia": "^3.0.3",
-		"vue": "^3.5.18",
-		"vue-router": "^4.5.1"
+		"vue": "^3.5.18"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "^3.4.2",
