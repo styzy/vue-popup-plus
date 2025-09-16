@@ -4,7 +4,9 @@ import { Instance } from '@/Instance'
 import type { InstanceId } from '@/Instance'
 import { POPUP_ANIMATIONS } from '@/CONSTANTS'
 
-export interface PopupController {
+export interface PopupCustomController {}
+
+export interface PopupController extends PopupCustomController {
 	/**
 	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
 	 * @param {RenderOptions} options - 渲染参数
