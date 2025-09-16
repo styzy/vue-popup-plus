@@ -8,11 +8,11 @@
 </template>
 <script lang="ts" setup>
 import { computed, inject, defineAsyncComponent, type Component } from 'vue'
-import type { InstanceId, InstanceStore } from '@/Instance'
+import type { InstanceId, InstanceStore } from '../Instance'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
-} from '@/CONSTANTS'
+} from '../CONSTANTS'
 
 defineOptions({
 	name: 'PopupView',

@@ -4,12 +4,12 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { usePopup } from '@'
-import type { InstanceId, InstanceStore } from '@/Instance'
+import { usePopup } from '../'
+import type { InstanceId, InstanceStore } from '../Instance'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
-} from '@/CONSTANTS'
+} from '../CONSTANTS'
 
 defineOptions({
 	name: 'PopupMask',

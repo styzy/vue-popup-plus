@@ -9,8 +9,8 @@ Transition(
 
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref } from 'vue'
-import type { InstanceStore } from '@/Instance'
-import { POPUP_INSIDE_COMPONENT_INJECT_KEYS } from '@/CONSTANTS'
+import type { InstanceStore } from '../Instance'
+import { POPUP_INSIDE_COMPONENT_INJECT_KEYS } from '../CONSTANTS'
 
 defineOptions({
 	name: 'PopupAnimation',
@@ -49,3 +49,4 @@ onMounted(() => {
 	animation-timing-function linear
 	animation-duration v-bind(animationDuration)
 </style>
+

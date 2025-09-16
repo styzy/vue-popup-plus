@@ -1,5 +1,5 @@
-import { Controller, type PopupController } from '@/Controller'
-import { Instance, InstanceId } from '@/Instance'
+import { Controller, type PopupController } from '../Controller'
+import { Instance, InstanceId } from '../Instance'
 
 export interface PopupCore {
 	/**

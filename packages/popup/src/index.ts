@@ -1,7 +1,7 @@
 import { createCore, getCore, type CoreOptions } from './Core'
 import { type PopupController } from './Controller'
 
-export { version } from '../../../package.json'
+export { version } from '../package.json'
 export { POPUP_ANIMATIONS, POPUP_COMPONENT_INJECT_KEYS } from './CONSTANTS'
 
 /**
@@ -26,3 +26,4 @@ declare module 'vue' {
 		$popup: PopupController
 	}
 }
+

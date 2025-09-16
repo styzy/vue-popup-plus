@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { POPUP_ANIMATIONS, usePopup, version } from '@'
+import { POPUP_ANIMATIONS, usePopup, version } from 'vue-popup-plus'
 
 defineOptions({ name: 'Index' })
 
@@ -87,7 +87,7 @@ const popup = usePopup()
 
 const handlePopup = () => {
 	popup.render({
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
@@ -95,7 +95,7 @@ const handlePopupWithoutMask = () => {
 	popup.render({
 		mask: false,
 		maskClickCloseEnabled: true,
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
@@ -103,7 +103,7 @@ const handlePopupFullScreen = () => {
 	popup.render({
 		width: '100%',
 		height: '100%',
-		component: () => import('@doc/views/DemoFullScreen.vue'),
+		component: () => import('@/views/DemoFullScreen.vue'),
 	})
 }
 
@@ -111,7 +111,7 @@ const handlePopupScale = () => {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 		viewAnimation: POPUP_ANIMATIONS.SCALE_SHRINK,
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
@@ -119,7 +119,7 @@ const handlePopupFade = () => {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.FADE,
 		viewAnimation: POPUP_ANIMATIONS.FADE,
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
@@ -127,14 +127,14 @@ const handlePopupFly = () => {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.FLY_TOP,
 		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
 const handlePopupDuration = () => {
 	popup.render({
 		animationDuration: 20000,
-		component: () => import('@doc/views/Demo.vue'),
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 </script>

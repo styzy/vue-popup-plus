@@ -1,5 +1,5 @@
 import type { InjectionKey } from 'vue'
-import type { InstanceId, InstanceStore } from '@/Instance'
+import type { InstanceId, InstanceStore } from '../Instance'
 
 /**
  * 命名空间

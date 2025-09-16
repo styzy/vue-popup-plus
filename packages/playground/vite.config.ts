@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
 	resolve: {
 		alias: {
-			'@': fileURLToPath(new URL('./', import.meta.url)),
+			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'vue-popup-plus': fileURLToPath(
 				new URL('../popup/src', import.meta.url)
 			),

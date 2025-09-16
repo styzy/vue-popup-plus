@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import { POPUP_COMPONENT_INJECT_KEYS, usePopup } from '@'
+import { POPUP_COMPONENT_INJECT_KEYS, usePopup } from 'vue-popup-plus'
 
 defineOptions({ name: 'DemoFullScreen' })
 
