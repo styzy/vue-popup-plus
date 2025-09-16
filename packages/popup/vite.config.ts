@@ -32,7 +32,7 @@ export default defineConfig({
 		dts({
 			tsconfigPath: resolve(__dirname, 'tsconfig.types.json'),
 			rollupTypes: true,
-			outDir: './dist/typings',
+			outDir: './dist',
 			pathsToAliases: true,
 			insertTypesEntry: true,
 		}),
