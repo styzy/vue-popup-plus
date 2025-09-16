@@ -2,7 +2,36 @@ import { type App, type Component } from 'vue'
 import type { Core } from '@/Core'
 import { Instance } from '@/Instance'
 import type { InstanceId } from '@/Instance/id'
-import { ANIMATION_TYPES } from '@/CONSTANTS'
+import { POPUP_ANIMATIONS } from '@/CONSTANTS'
+
+export interface PopupController {
+	/**
+	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
+	 * @param {RenderOptions} options - 渲染参数
+	 * @returns 弹出层实例id
+	 */
+	render(options: RenderOptions): InstanceId
+	/**
+	 * 更新弹出层，可更新弹出层参数
+	 * @param {InstanceId} instanceId - 弹出层实例id
+	 * @param {UpdateOptions} options - 更新参数
+	 */
+	update(instanceId: InstanceId, options: UpdateOptions): void
+	/**
+	 * 销毁弹出层
+	 * @param {InstanceId} instanceId - 弹出层实例id
+	 * @param {any} payload - 自定义负载参数，会作为参数传递给创建弹出层时的onUnmounted回调函数
+	 * @returns {Promise<void>}
+	 */
+	destroy(instanceId: InstanceId, payload?: any): void
+	/**
+	 * 安装插件
+	 * @internal
+	 * @param {App} app - Vue应用实例
+	 * @returns {void}
+	 */
+	install(app: App): void
+}
 
 export type RenderElement = HTMLElement | string
 
@@ -156,11 +185,11 @@ export type RenderStyleOptions = {
 	 */
 	animationDuration?: number
 	/**
-	 * 遮罩层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
+	 * 遮罩层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link PopupAnimationCollection}
 	 */
 	maskAnimation?: symbol
 	/**
-	 * 视图层动画类型，默认为 ANIMATION_TYPES.FADE ，即淡入淡出，更多动画类型请查看 {@link AnimationTypes}
+	 * 视图层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link PopupAnimationCollection}
 	 */
 	viewAnimation?: symbol
 	/**
@@ -212,39 +241,11 @@ const defaultOptions: Required<
 	maxHeight: 'auto',
 	minHeight: 'auto',
 	animationDuration: 100,
-	maskAnimation: ANIMATION_TYPES.FADE,
-	viewAnimation: ANIMATION_TYPES.FADE,
+	maskAnimation: POPUP_ANIMATIONS.FADE,
+	viewAnimation: POPUP_ANIMATIONS.FADE,
 }
 
-export interface IController {
-	/**
-	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
-	 * @param {RenderOptions} options - 渲染参数
-	 * @returns 弹出层实例id
-	 */
-	render(options: RenderOptions): InstanceId
-	/**
-	 * 更新弹出层，可更新弹出层参数
-	 * @param {InstanceId} instanceId - 弹出层实例id
-	 * @param {UpdateOptions} options - 更新参数
-	 */
-	update(instanceId: InstanceId, options: UpdateOptions): void
-	/**
-	 * 销毁弹出层
-	 * @param {InstanceId} instanceId - 弹出层实例id
-	 * @param {any} payload - 自定义负载参数，会作为参数传递给创建弹出层时的onUnmounted回调函数
-	 * @returns {Promise<void>}
-	 */
-	destroy(instanceId: InstanceId, payload?: any): void
-	/**
-	 * 安装插件
-	 * @internal
-	 * @param {App} app - Vue应用实例
-	 * @returns {void}
-	 */
-	install(app: App): void
-}
-export class Controller implements IController {
+export class Controller implements PopupController {
 	#core: Core
 	constructor(core: Core) {
 		this.#core = core

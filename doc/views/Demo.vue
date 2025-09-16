@@ -9,11 +9,11 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import { COMPONENT_INJECT_KEYS, usePopup } from '@'
+import { POPUP_COMPONENT_INJECT_KEYS, usePopup } from '@'
 
 defineOptions({ name: 'Demo' })
 
-const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID)
+const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID)
 
 function handleUpdateSize() {
 	const popup = usePopup()

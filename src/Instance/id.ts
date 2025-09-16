@@ -1,7 +1,7 @@
 /**
  * 实例 id 接口
  */
-export interface IInstanceId {
+export interface PopupInstanceId {
 	/**
 	 * 生成该实例 id 的种子
 	 * @internal
@@ -13,7 +13,7 @@ export interface IInstanceId {
 	name: Readonly<string>
 }
 
-export class InstanceId implements IInstanceId {
+export class InstanceId implements PopupInstanceId {
 	#seed: number
 	get seed() {
 		return this.#seed

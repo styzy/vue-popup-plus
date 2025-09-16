@@ -15,7 +15,7 @@ export type ComponentInjectKeys = {
 	 * 当前组件所在弹出层的实例ID，可用于销毁当前弹出层
 	 * @example
 	 * // 弹出层渲染的所有子代组件中
-	 * const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID)
+	 * const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID)
 	 *
 	 * // 销毁当前弹出层
 	 * this.$popup.destroy(instanceId)
@@ -26,7 +26,7 @@ export type ComponentInjectKeys = {
 /**
  * 弹出层内部组件注入属性，在弹出层内部渲染的所有子代组件中，都可以通过 inject 注入弹出层所提供的相关参数
  */
-export const COMPONENT_INJECT_KEYS: Readonly<ComponentInjectKeys> = {
+export const POPUP_COMPONENT_INJECT_KEYS: Readonly<ComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${NAME_SPACE}-instance-id`),
 }
 
@@ -43,7 +43,7 @@ export type insideComponentInjectKeys = {
 /**
  * 内置源码组件注入键
  */
-export const INSIDE_COMPONENT_INJECT_KEYS: Readonly<insideComponentInjectKeys> =
+export const POPUP_INSIDE_COMPONENT_INJECT_KEYS: Readonly<insideComponentInjectKeys> =
 	{
 		INSTANCE_STORE: Symbol(`${NAME_SPACE}-instance-store`),
 	}
@@ -51,7 +51,7 @@ export const INSIDE_COMPONENT_INJECT_KEYS: Readonly<insideComponentInjectKeys> =
 /**
  * 动画类型集合类型
  */
-export interface AnimationTypes {
+export interface PopupAnimationCollection {
 	/**
 	 * 无动画
 	 */
@@ -89,7 +89,7 @@ export interface AnimationTypes {
 /**
  * 动画类型集合
  */
-export const ANIMATION_TYPES: Readonly<AnimationTypes> = {
+export const POPUP_ANIMATIONS: Readonly<PopupAnimationCollection> = {
 	NONE: Symbol('none'),
 	FADE: Symbol('fade'),
 	SCALE_ENLARGE: Symbol('scale-enlarge'),

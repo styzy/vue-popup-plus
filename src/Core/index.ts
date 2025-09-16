@@ -1,11 +1,40 @@
-import type { App } from 'vue'
-import { Controller, type IController } from '@/Controller'
+import { Controller, type PopupController } from '@/Controller'
 import { Instance } from '@/Instance'
 import type { InstanceId } from '@/Instance/id'
 
-let core: ICore
+let core: PopupCore
+export interface PopupCore {
+	/**
+	 * 弹出层种子，用于生成弹出层实例id，自动递增
+	 */
+	seed: number
+	/**
+	 * 弹出层配置项
+	 */
+	config: PopupConfig
+	/**
+	 * 弹出层控制器
+	 */
+	controller: PopupController
+	/**
+	 * 添加弹出层实例
+	 * @param instance - 弹出层实例
+	 * @
+	 */
+	addInstance(instance: Instance): void
+	/**
+	 * 获取弹出层实例
+	 * @param instanceId - 弹出层实例id
+	 */
+	getInstance(instanceId: InstanceId): Instance | void
+	/**
+	 * 移除弹出层实例
+	 * @param instance - 弹出层实例
+	 */
+	removeInstance(instance: Instance): void
+}
 
-export type CoreOptions = {
+export interface PopupConfig {
 	/**
 	 * 弹出层 zIndex 基础值，默认为1000，每次生成弹出层时，除非 render() 方法传入 zIndex，否则使用此基础值，每次使用后会自动递增
 	 */
@@ -44,41 +73,10 @@ export type CoreConfig = {
 	prototypeName: string
 }
 
-export interface ICore {
-	/**
-	 * 弹出层种子，用于生成弹出层实例id，自动递增
-	 */
-	seed: number
-	/**
-	 * 弹出层配置项
-	 */
-	config: CoreOptions
-	/**
-	 * 弹出层控制器
-	 */
-	controller: IController
-	/**
-	 * 添加弹出层实例
-	 * @param instance - 弹出层实例
-	 * @
-	 */
-	addInstance(instance: Instance): void
-	/**
-	 * 获取弹出层实例
-	 * @param instanceId - 弹出层实例id
-	 */
-	getInstance(instanceId: InstanceId): Instance | void
-	/**
-	 * 移除弹出层实例
-	 * @param instance - 弹出层实例
-	 */
-	removeInstance(instance: Instance): void
-}
-
-export class Core implements ICore {
+export class Core implements PopupCore {
 	#seed: number = 1
 	#instances: Record<InstanceId['name'], Instance> = {}
-	#controller: IController
+	#controller: PopupController
 	#config: CoreConfig
 	// #plugins: { [key: string]: any }
 	get seed() {
@@ -90,7 +88,7 @@ export class Core implements ICore {
 	get controller() {
 		return this.#controller
 	}
-	constructor({ zIndex = 1000, prototypeName = '$popup' }: CoreOptions = {}) {
+	constructor({ zIndex = 1000, prototypeName = '$popup' }: PopupConfig = {}) {
 		this.#config = { zIndex, prototypeName }
 		this.#controller = new Controller(this)
 		core = this
@@ -106,8 +104,8 @@ export class Core implements ICore {
 	}
 }
 
-export function createCore(options?: CoreOptions): ICore {
-	return new Core(options)
+export function createCore(config?: PopupConfig): PopupCore {
+	return new Core(config)
 }
 
 export function getCore() {

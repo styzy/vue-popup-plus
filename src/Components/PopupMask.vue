@@ -8,17 +8,17 @@ import { usePopup } from '@'
 import type { InstanceStore } from '@/Instance'
 import type { InstanceId } from '@/Instance/id'
 import {
-	COMPONENT_INJECT_KEYS,
-	INSIDE_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECT_KEYS,
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
 } from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupMask',
 })
 
-const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID) as InstanceId
+const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID) as InstanceId
 const store = inject(
-	INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
 ) as InstanceStore
 
 const styleObject = computed(() => {

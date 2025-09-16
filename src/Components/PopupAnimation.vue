@@ -10,7 +10,7 @@ Transition(
 <script lang="ts" setup>
 import { computed, inject, onMounted, ref } from 'vue'
 import type { InstanceStore } from '@/Instance'
-import { INSIDE_COMPONENT_INJECT_KEYS } from '@/CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_INJECT_KEYS } from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupAnimation',
@@ -22,7 +22,7 @@ const { type, duration } = defineProps<{
 }>()
 
 const store = inject(
-	INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
 ) as InstanceStore
 
 const isShow = ref(false)

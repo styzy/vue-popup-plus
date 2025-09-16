@@ -11,17 +11,17 @@ import { computed, inject, defineAsyncComponent, type Component } from 'vue'
 import type { InstanceStore } from '@/Instance'
 import type { InstanceId } from '@/Instance/id'
 import {
-	COMPONENT_INJECT_KEYS,
-	INSIDE_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECT_KEYS,
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
 } from '@/CONSTANTS'
 
 defineOptions({
 	name: 'PopupView',
 })
 
-const instanceId = inject(COMPONENT_INJECT_KEYS.INSTANCE_ID) as InstanceId
+const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID) as InstanceId
 const store = inject(
-	INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
 ) as InstanceStore
 
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装

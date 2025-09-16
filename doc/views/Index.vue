@@ -25,13 +25,13 @@
 	.des 遮罩层默动画为 淡入淡出，弹出层视图默认动画为 淡入淡出 + 缩放，所有动画参数为数组类型，可以自由组合。
 	.title.sub 缩放
 	button(@click="handlePopupScale()") 打开弹出层
-	.des 通过将 viewAnimations 属性设置为 [Popup.ANIMATION_TYPES.SCALE] 即可实现缩放效果。
+	.des 通过将 viewAnimations 属性设置为 [Popup.POPUP_ANIMATIONS.SCALE] 即可实现缩放效果。
 	.title.sub 淡入淡出
 	button(@click="handlePopupFade()") 打开弹出层
-	.des 通过将 viewAnimations 属性设置为 [Popup.ANIMATION_TYPES.FADE] 即可实现淡入淡出效果。
+	.des 通过将 viewAnimations 属性设置为 [Popup.POPUP_ANIMATIONS.FADE] 即可实现淡入淡出效果。
 	.title.sub 飞入
 	button(@click="handlePopupFly()") 打开弹出层
-	.des 通过将 viewAnimations 属性设置为 [Popup.ANIMATION_TYPES.FLY] 即可实现飞入效果。
+	.des 通过将 viewAnimations 属性设置为 [Popup.POPUP_ANIMATIONS.FLY] 即可实现飞入效果。
 	.title.sub 设置动画持续时间
 	.des 通过 animationDuration 属性即可设置动画持续时间，单位：毫秒，默认为 100 毫秒。
 	button(@click="handlePopupDuration()") 打开弹出层
@@ -65,9 +65,9 @@
 	.title.sub options.maskClickClose : Boolean
 	.des 用于设置遮罩层是否可以点击关闭弹出层，默认为 false
 	.title.sub options.viewAnimations : Array
-	.des 用于设置弹出层视图动画，默认为 [Popup.ANIMATION_TYPES.FADE, Popup.ANIMATION_TYPES.SCALE]
+	.des 用于设置弹出层视图动画，默认为 [Popup.POPUP_ANIMATIONS.FADE, Popup.POPUP_ANIMATIONS.SCALE]
 	.title.sub options.maskAnimations Array
-	.des 用于设置遮罩层动画，默认为 [Popup.ANIMATION_TYPES.FADE]
+	.des 用于设置遮罩层动画，默认为 [Popup.POPUP_ANIMATIONS.FADE]
 	.title.sub options.animationDuration : Number
 	.des 用于设置动画持续时间，单位：毫秒，默认为 100 毫秒
 	.title.sub options.zIndex : Number
@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ANIMATION_TYPES, usePopup, version } from '@'
+import { POPUP_ANIMATIONS, usePopup, version } from '@'
 
 defineOptions({ name: 'Index' })
 
@@ -109,24 +109,24 @@ const handlePopupFullScreen = () => {
 
 const handlePopupScale = () => {
 	popup.render({
-		maskAnimation: ANIMATION_TYPES.SCALE_ENLARGE,
-		viewAnimation: ANIMATION_TYPES.SCALE_SHRINK,
+		maskAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
+		viewAnimation: POPUP_ANIMATIONS.SCALE_SHRINK,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
 const handlePopupFade = () => {
 	popup.render({
-		maskAnimation: ANIMATION_TYPES.FADE,
-		viewAnimation: ANIMATION_TYPES.FADE,
+		maskAnimation: POPUP_ANIMATIONS.FADE,
+		viewAnimation: POPUP_ANIMATIONS.FADE,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }
 
 const handlePopupFly = () => {
 	popup.render({
-		maskAnimation: ANIMATION_TYPES.FLY_TOP,
-		viewAnimation: ANIMATION_TYPES.FLY_BOTTOM,
+		maskAnimation: POPUP_ANIMATIONS.FLY_TOP,
+		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
 		component: () => import('@doc/views/Demo.vue'),
 	})
 }

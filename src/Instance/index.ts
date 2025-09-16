@@ -7,12 +7,19 @@ import type {
 } from '@/Controller'
 import { InstanceId } from './id'
 import {
-	COMPONENT_INJECT_KEYS,
-	INSIDE_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECT_KEYS,
+	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
 } from '@/CONSTANTS'
 import { wait } from '#'
 
 import InstanceComponent from '@/Components/Popup.vue'
+
+export interface PopupInstance {
+	id: InstanceId
+	mount(): InstanceId
+	unmount(payload?: any): Promise<void>
+	updateStore(options: Partial<InstanceStore>): void
+}
 
 export type InstanceOptions = Required<
 	RenderComponentOptions & RenderStyleOptions & RenderExtraOptions
@@ -20,13 +27,6 @@ export type InstanceOptions = Required<
 
 export type InstanceStore = InstanceOptions & {
 	isBeforeUnmount: boolean
-}
-
-export interface IInstance {
-	id: InstanceId
-	mount(): InstanceId
-	unmount(payload?: any): Promise<void>
-	updateStore(options: Partial<InstanceStore>): void
 }
 
 function createStore(
@@ -42,7 +42,7 @@ function createStore(
 	})()
 }
 
-export class Instance implements IInstance {
+export class Instance implements PopupInstance {
 	static #pinia: Pinia
 	#id: InstanceId
 	#app: App
@@ -54,13 +54,13 @@ export class Instance implements IInstance {
 		this.#id = new InstanceId(seed)
 
 		this.#app = createApp(InstanceComponent)
-		this.#app.provide(COMPONENT_INJECT_KEYS.INSTANCE_ID, this.id)
+		this.#app.provide(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID, this.id)
 
 		Instance.#pinia = Instance.#pinia || createPinia()
 		this.#app.use(Instance.#pinia)
 		this.#store = createStore(this.#id, options)
 		this.#app.provide(
-			INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE,
+			POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE,
 			this.#store
 		)
 	}
