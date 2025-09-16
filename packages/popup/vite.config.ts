@@ -15,6 +15,8 @@ export default defineConfig({
 			formats: ['es', 'umd'],
 		},
 		outDir: resolve(__dirname, './dist'),
+		// 关闭 css 代码分割
+		cssCodeSplit: false,
 		rollupOptions: {
 			// 确保外部化处理那些你不想打包进库的依赖
 			external: ['vue'],
