@@ -15,7 +15,6 @@
 			"@": ["src"],
 			"@/*": ["src/*"],
 			"@utils": ["src/utils"],
-			"@types/*": ["src/types/*"],
 			"@doc/*": ["doc/*"]
 		},
 		"isolatedModules": true,

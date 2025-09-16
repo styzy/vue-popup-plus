@@ -5,7 +5,6 @@ import type {
 	RenderExtraOptions,
 	RenderStyleOptions,
 } from '@/Controller'
-import { InstanceId } from './id'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
@@ -13,6 +12,21 @@ import {
 import { wait } from '@utils'
 
 import InstanceComponent from '@/Components/Popup.vue'
+
+/**
+ * 实例 id 接口
+ */
+export interface PopupInstanceId {
+	/**
+	 * 生成该实例 id 的种子
+	 * @internal
+	 */
+	seed: Readonly<number>
+	/**
+	 * 实例 id 名称
+	 */
+	name: Readonly<string>
+}
 
 export interface PopupInstance {
 	id: InstanceId
@@ -40,6 +54,19 @@ function createStore(
 			isBeforeUnmount: false,
 		}),
 	})()
+}
+
+export class InstanceId implements PopupInstanceId {
+	#seed: number
+	get seed() {
+		return this.#seed
+	}
+	get name() {
+		return `vue-popup-instance-${this.seed}`
+	}
+	constructor(seed: number) {
+		this.#seed = seed
+	}
 }
 
 export class Instance implements PopupInstance {

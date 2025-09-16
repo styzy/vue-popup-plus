@@ -8,8 +8,7 @@
 		"paths": {
 			"@": ["src"],
 			"@/*": ["src/*"],
-			"@utils": ["src/utils"],
-			"@types/*": ["src/types/*"]
+			"@utils": ["src/utils"]
 		},
 		"isolatedModules": true,
 		"strict": true
