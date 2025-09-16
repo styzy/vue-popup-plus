@@ -27,8 +27,8 @@
 	},
 	"scripts": {
 		"dev": "vite --open",
-		"build:doc": "run-p type-check && vite build",
-		"build:lib": "run-p type-check && vite build --mode lib",
+		"doc": "run-p type-check && vite build",
+		"lib": "run-p type-check && vite build --mode lib",
 		"preview": "vite preview",
 		"preview:doc": "vite preview --outDir dist/doc",
 		"test:unit": "vitest",
