@@ -10,7 +10,7 @@ import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
 } from '@/CONSTANTS'
-import { wait } from '#'
+import { wait } from '@utils'
 
 import InstanceComponent from '@/Components/Popup.vue'
 

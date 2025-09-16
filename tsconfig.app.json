@@ -14,7 +14,8 @@
 		"paths": {
 			"@": ["src"],
 			"@/*": ["src/*"],
-			"#": ["src/utils"],
+			"@utils": ["src/utils"],
+			"@types/*": ["src/types/*"],
 			"@doc/*": ["doc/*"]
 		},
 		"isolatedModules": true,
