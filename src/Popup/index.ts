@@ -76,9 +76,7 @@ export class Popup implements IPopup {
 	}
 	updateStore(options: Partial<PopupStore>): void {
 		this.#store.$patch((state) => {
-			Object.keys(options).forEach((key) => {
-				state[key] = options[key]
-			})
+			Object.assign(state, options)
 		})
 	}
 }

@@ -191,9 +191,7 @@ export type RenderOptions = RenderComponentOptions &
 	RenderStyleOptions &
 	RenderExtraOptions
 
-export type UpdateOptions = Partial<
-	Omit<RenderOptions, 'component' | 'el' | 'autoHideWindowScroll'>
->
+export type UpdateOptions = Partial<Omit<RenderOptions, 'component' | 'el'>>
 
 const defaultOptions: Required<
 	Omit<RenderOptions, 'component' | 'el' | 'zIndex'>
@@ -223,7 +221,7 @@ export interface IController {
 	 */
 	render(options: RenderOptions): PopupId
 	/**
-	 * 更新弹出层，可更新弹出层参数
+	 * 更新弹出层，可更新弹出层参数，需要注意的是 component 和 el 参数不可更新，因为此时弹出层已经渲染完成
 	 * @param {PopupId} popupId - 弹出层实例id
 	 * @param {UpdateOptions} options - 更新参数
 	 */
@@ -264,7 +262,7 @@ export class Controller implements IController {
 
 		return popup.id
 	}
-	update(popupId: PopupId, options: RenderOptions) {
+	update(popupId: PopupId, options: UpdateOptions) {
 		const popup = this.#core.getPopup(popupId)
 
 		if (!popup) return

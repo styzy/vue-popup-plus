@@ -17,7 +17,9 @@ const popupId = inject(COMPONENT_INJECT_KEYS.POPUP_ID, Symbol())
 
 function handleUpdateSize() {
 	const popup = usePopup()
-	// popup.update()
+	// popup.update(popupId, {
+	// 	width: '50%',
+	// })
 }
 
 function handleClose() {
