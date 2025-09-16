@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { resolve } from 'node:path'
 
-import { defineConfig, UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import dts from 'vite-plugin-dts'
@@ -14,7 +14,7 @@ export default defineConfig({
 			// fileName: (format) => `vue-popup-plus.${format}.js`,
 			formats: ['es', 'umd'],
 		},
-		outDir: 'lib',
+		outDir: resolve(__dirname, './dist'),
 		rollupOptions: {
 			// 确保外部化处理那些你不想打包进库的依赖
 			external: ['vue'],
