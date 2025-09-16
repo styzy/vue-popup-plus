@@ -14,13 +14,11 @@
 	],
 	"main": "./dist/vue-popup-plus.umd.js",
 	"module": "./dist/vue-popup-plus.js",
-	"workspaces": [],
 	"exports": {
 		".": {
 			"import": "./dist/vue-popup-plus.js",
 			"require": "./dist/vue-popup-plus.umd.js"
-		},
-		"./style.css": "./dist/vue-popup-plus.css"
+		}
 	},
 	"types": "./dist/vue-popup-plus.d.ts",
 	"engines": {
@@ -61,6 +59,7 @@
 		"stylus": "^0.64.0",
 		"typescript": "~5.8.0",
 		"vite": "^7.0.6",
+		"vite-plugin-css-injected-by-js": "^3.5.2",
 		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-vue-devtools": "^8.0.0",
 		"vitest": "^3.2.4",

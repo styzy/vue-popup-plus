@@ -5,7 +5,23 @@ const router: Router = createRouter({
 	routes: [
 		{
 			path: '/',
+			name: 'home',
 			component: () => import('@/views/Index.vue'),
+		},
+		{
+			path: '/guide',
+			name: 'guide',
+			component: () => import('@/views/Guide.vue'),
+		},
+		{
+			path: '/api',
+			name: 'api',
+			component: () => import('@/views/Api.vue'),
+		},
+		{
+			path: '/examples',
+			name: 'examples',
+			component: () => import('@/views/Examples.vue'),
 		},
 	],
 })
