@@ -1,7 +1,6 @@
 {
 	"name": "vue-popup-plus",
-	"license": "MIT",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"keywords": [
 		"vue",
 		"vue3",
@@ -64,6 +63,7 @@
 		"vite-plugin-vue-devtools": "^8.0.0",
 		"vitest": "^3.2.4",
 		"vue-tsc": "^3.0.4"
-	}
+	},
+	"license": "MIT"
 }
 
