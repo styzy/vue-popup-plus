@@ -1,9 +1,8 @@
-import { fileURLToPath, URL } from 'node:url'
 import { resolve } from 'node:path'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
@@ -29,6 +28,7 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueDevTools(),
+		cssInjectedByJsPlugin(),
 		dts({
 			tsconfigPath: resolve(__dirname, 'tsconfig.types.json'),
 			rollupTypes: true,

@@ -17,7 +17,7 @@
 	"dependencies": {
 		"vue": "^3.5.18",
 		"vue-router": "^4.5.1",
-		"vue-popup-plus": "workspace:*",
+		"vue-popup-plus": "0.1.0",
 		"prismjs": "^1.29.0",
 		"@vueuse/core": "^10.9.0"
 	},
