@@ -28,7 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { usePopup, POPUP_ANIMATIONS, POPUP_COMPONENT_INJECT_KEYS } from 'vue-popup-plus'
+import {
+	usePopup,
+	POPUP_ANIMATIONS,
+	POPUP_COMPONENT_INJECT_KEYS,
+} from 'vue-popup-plus'
 import { h, inject, defineComponent } from 'vue'
 
 defineOptions({ name: 'Examples' })
@@ -40,61 +44,66 @@ const PopupContent = defineComponent({
 	props: {
 		title: {
 			type: String,
-			required: true
+			required: true,
 		},
 		content: {
 			type: String,
-			required: true
+			required: true,
 		},
 		position: {
 			type: String,
-			required: false
-		}
+			required: false,
+		},
 	},
 	setup(props) {
 		const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID)
 		const popupInstance = usePopup()
-		
+
 		const handleClose = () => {
 			if (instanceId) {
 				popupInstance.destroy(instanceId)
 			}
 		}
-		
-		return () => h(
-			'div',
-			{
-				style: {
-					padding: '20px',
-					background: 'white',
-					borderRadius: '8px',
-					boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-					maxWidth: '300px',
-				},
-			},
-		[
-			h('h3', { style: { marginTop: 0 } }, props.title),
-			h('p', {}, props.content),
-			h('div', { style: { textAlign: 'right', marginTop: '20px' } }, [
-				h(
-					'button',
-					{
-						onClick: handleClose,
-						style: {
-							padding: '8px 16px',
-							background: '#42b883',
-							color: 'white',
-							border: 'none',
-							borderRadius: '4px',
-							cursor: 'pointer',
-						},
+
+		return () =>
+			h(
+				'div',
+				{
+					style: {
+						padding: '20px',
+						background: 'white',
+						borderRadius: '8px',
+						boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+						maxWidth: '300px',
 					},
-					'关闭'
-				),
-			]),
-		]
-	)
-	}
+				},
+				[
+					h('h3', { style: { marginTop: 0 } }, props.title),
+					h('p', {}, props.content),
+					h(
+						'div',
+						{ style: { textAlign: 'right', marginTop: '20px' } },
+						[
+							h(
+								'button',
+								{
+									onClick: handleClose,
+									style: {
+										padding: '8px 16px',
+										background: '#42b883',
+										color: 'white',
+										border: 'none',
+										borderRadius: '4px',
+										cursor: 'pointer',
+									},
+								},
+								'关闭'
+							),
+						]
+					),
+				]
+			)
+	},
 })
 
 // 基础弹窗
@@ -117,7 +126,6 @@ function showPositionPopup(position: 'top' | 'bottom' | 'left' | 'right') {
 			content: `这个弹窗显示在${position}位置。`,
 			position,
 		},
-		position,
 	})
 }
 
@@ -183,3 +191,4 @@ h2 {
 	margin-right: 0.5rem;
 }
 </style>
+

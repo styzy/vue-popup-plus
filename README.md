@@ -75,7 +75,7 @@ const showPopup = () => {
 
 ## 📚 文档
 
-查看我们的[在线文档](https://your-documentation-url.com)获取更多详细信息和高级用法。
+查看我们的[在线文档](http://vue-popup-plus.styzy.cn)获取更多详细信息和高级用法。
 
 ## 🤝 贡献
 
