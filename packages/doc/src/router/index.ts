@@ -11,17 +11,17 @@ const router: Router = createRouter({
 		{
 			path: '/guide',
 			name: 'guide',
-			component: () => import('@/views/Guide.vue'),
+			component: () => import('@/views/Guide.md'),
+		},
+		{
+			path: '/examples',
+			name: 'examples',
+			component: () => import('@/views/Examples.md'),
 		},
 		{
 			path: '/api',
 			name: 'api',
 			component: () => import('@/views/Api.vue'),
-		},
-		{
-			path: '/examples',
-			name: 'examples',
-			component: () => import('@/views/Examples.vue'),
 		},
 	],
 })

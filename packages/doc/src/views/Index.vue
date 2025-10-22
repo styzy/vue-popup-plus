@@ -1,112 +1,84 @@
 <template lang="pug">
-.home-container
-  .hero
-    h1.title Vue Popup Plus
-    p.description 一个功能强大、灵活的 Vue 3 弹出层组件
-    p.version 当前版本: v{{ version }}
-    .buttons
-      RouterLink.button.primary(to="/guide") 快速开始
-      RouterLink.button.secondary(to="/examples") 查看示例
-  
-  .features
-    .feature-card
-      h3 简单易用
-      p 通过简洁的 API 快速创建各种弹出层，无需复杂配置
-    
-    .feature-card
-      h3 高度可定制
-      p 支持自定义组件、动画效果和样式，满足各种交互需求
-    
-    .feature-card
-      h3 类型安全
-      p 完整的 TypeScript 支持，提供良好的开发体验和代码提示
+.index
+	.info
+		h1.title Vue Popup Plus
+		p.description 一个功能强大、灵活的 Vue 3 弹出层插件
+		p.version 当前版本:
+			span.code {{ version }}
+		.btn-ctn
+			DButton(@click="handleJump('/guide')" theme="primary") 快速开始
+			DButton(@click="handleJump('/examples')") 查看示例
+	.features
+		.card
+			.title 简单易用
+			.description 通过简洁的 API 快速创建各种弹出层，无需复杂配置
+		.card
+			.title 高度可定制
+			.description 支持自定义组件、动画效果和样式，满足各种交互需求
+		.card
+			.title 类型安全
+			.description 完整的 TypeScript 支持，提供良好的开发体验和代码提示
 </template>
 
 <script setup lang="ts">
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 import { version } from 'vue-popup-plus'
 
-defineOptions({ name: 'Index' })
+defineComponent({ name: 'Index' })
+
+const router = useRouter()
+
+function handleJump(url: string) {
+	router.push(url)
+}
 </script>
 
-<style scoped>
-.home-container {
-  padding: 2rem 0;
-}
-
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-}
-
-.title {
-  font-size: 3rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
-.description {
-  font-size: 1.5rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-}
-
-.version {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-.buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.primary:hover {
-  background-color: #3aa776;
-}
-
-.secondary {
-  background-color: #f1f1f1;
-  color: var(--text-color);
-}
-
-.secondary:hover {
-  background-color: #e1e1e1;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 3rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.feature-card {
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.feature-card h3 {
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
+<style lang="stylus" scoped>
+.index
+	padding: 20px;
+	box-sizing border-box
+	.info
+		text-align: center;
+		padding: 48px;
+		.title
+			margin-bottom: 16px;
+			color: $color-primary;
+			font-size: 48px;
+		.description
+			margin-bottom: 8px;
+			font-size: 24px;
+			color: $color-text-main;
+		.version
+			margin-bottom: 32px;
+			font-size: 16px;
+			color: #666;
+			.code
+				color: $color-primary;
+				margin 0 5px
+		.btn-ctn
+			display flex
+			justify-content center
+			gap 16px
+	.features
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 32px;
+		padding: 48px 16px;
+		max-width: 1200px;
+		margin: 0 auto;
+		.card
+			background-color: #f9f9f9;
+			padding: 24px;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+			.title
+				margin-bottom: 8px;
+				font-size 19px
+				font-weight 700
+				color: $color-primary;
+			.description
+				font-size 16px
+				color: $color-text-sub;
 </style>
 

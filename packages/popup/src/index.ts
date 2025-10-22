@@ -1,5 +1,5 @@
-import { createCore, getCore, type CoreOptions } from './Core'
-import { type PopupController } from './Controller'
+import { createCore, getCore, type CoreOptions } from './core'
+import { type PopupController } from './controller'
 
 export { version } from '../package.json'
 export { POPUP_ANIMATIONS, POPUP_COMPONENT_INJECT_KEYS } from './CONSTANTS'

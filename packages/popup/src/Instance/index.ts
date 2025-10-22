@@ -4,7 +4,7 @@ import type {
 	RenderComponentOptions,
 	RenderExtraOptions,
 	RenderStyleOptions,
-} from '../Controller'
+} from '../controller'
 import {
 	POPUP_COMPONENT_INJECT_KEYS,
 	POPUP_INSIDE_COMPONENT_INJECT_KEYS,

@@ -1,0 +1,93 @@
+@import	'./color.styl'
+
+$color-text = $color-text-main
+
+// 预置颜色
+inline-code()
+	display inline
+	padding 2px 6px
+	border-radius 4px
+	background-color rgba($color-primary, 0.1)
+	font-size inherit
+.markdown-body
+	box-sizing border-box
+	// margin 20px auto
+	padding 20px
+	// max-width calc(100% - 40px)
+	border-radius 5px
+	// box-shadow 0 0 5px 0 rgba(0, 0, 0, 0.2)
+	color $color-text
+	font-size 14px
+	code
+		baseScroll()
+
+		font-family 'Consolas', 'Courier New', 'monospace', 'Microsoft Yahei'
+	h1
+		margin 50px 0 30px
+		border none
+		font-weight 700
+		font-size 34px
+		&,
+		+h1
+			margin-top 50px
+	h2
+		position relative
+		margin 40px auto 30px
+		font-size 26px !important
+		pointer-events none
+	h3
+		margin 30px 0 20px
+		font-size 20px !important
+	h4
+		margin 20px 0 20px
+		font-size 16px !important
+	pre
+		margin 20px auto
+		padding 20px
+		border-radius 2px
+		// background-color #282c34
+		font-size 14px
+	p
+		line-height 1.8
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	li
+		border-bottom none
+		color $color-text
+		code
+			inline-code()
+		tr
+			&:hover
+				background-color #FAFAFA
+		td
+			&:first-child
+				color $color-text
+				font-weight 600
+	a
+		baseTrans()
+
+		margin 0 5px
+		color $color-primary !important
+		text-decoration none
+		cursor pointer
+		&:hover
+			color lighten($color-primary, 20%) !important
+			text-decoration underline
+	p,
+	li,
+	table
+		code
+			background-color rgba($color-primary, 0.1)
+			color $color-primary
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6
+		color $color-primary
