@@ -25,10 +25,10 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "run-p type-check && vite build",
+		"build": "run-p build:types && vite build",
+		"build:types": "vue-tsc --build",
 		"test:unit": "vitest",
 		"build-only": "vite build",
-		"type-check": "vue-tsc --build",
 		"lint": "eslint . --fix",
 		"format": "prettier --write src/"
 	},

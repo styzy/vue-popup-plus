@@ -7,20 +7,26 @@
 			v-bind="store.componentProps")
 </template>
 <script lang="ts" setup>
-import { computed, inject, defineAsyncComponent, type Component } from 'vue'
+import {
+	computed,
+	inject,
+	defineAsyncComponent,
+	type Component,
+	defineComponent,
+} from 'vue'
 import type { InstanceId, InstanceStore } from '../Instance'
 import {
-	POPUP_COMPONENT_INJECT_KEYS,
-	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
 
-defineOptions({
+defineComponent({
 	name: 'PopupView',
 })
 
-const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID) as InstanceId
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID) as InstanceId
 const store = inject(
-	POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
+	POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE
 ) as InstanceStore
 
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装

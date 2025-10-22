@@ -8,33 +8,32 @@ Transition(
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, defineComponent, inject, onMounted, ref } from 'vue'
 import type { InstanceStore } from '../Instance'
-import { POPUP_INSIDE_COMPONENT_INJECT_KEYS } from '../CONSTANTS'
+import type { Animation } from '../animation'
+import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 
-defineOptions({
+defineComponent({
 	name: 'PopupAnimation',
 })
 
 const { type, duration } = defineProps<{
-	type: symbol
+	type: Animation
 	duration: number
 }>()
 
 const store = inject(
-	POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE
+	POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE
 ) as InstanceStore
 
 const isShow = ref(false)
 
 const enterActiveClass = computed(
-	() =>
-		`vue-popup-plus-animation vue-popup-plus-animation-enter-${type.description}`
+	() => `vue-popup-plus-animation vue-popup-plus-animation-enter-${type}`
 )
 
 const leaveActiveClass = computed(
-	() =>
-		`vue-popup-plus-animation vue-popup-plus-animation-leave-${type.description}`
+	() => `vue-popup-plus-animation vue-popup-plus-animation-leave-${type}`
 )
 
 const animationDuration = computed(() => `${duration}ms`)

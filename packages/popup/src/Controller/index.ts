@@ -2,11 +2,29 @@ import { type App, type Component } from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../Instance'
 import type { InstanceId } from '../Instance'
-import { POPUP_ANIMATIONS } from '../CONSTANTS'
+import { wrapPluginController, type Plugin } from '../plugin'
+import { PopupError } from '../error'
+import {
+	POPUP_ANIMATIONS,
+	type Animation,
+	type IAnimations,
+} from '../animation'
 
-export interface PopupCustomController {}
+export interface PopupCustomProperties {}
 
-export interface PopupController extends PopupCustomController {
+export interface IController extends PopupCustomProperties {
+	/**
+	 * 安装插件
+	 * @param {App} app - Vue应用实例
+	 * @returns {void}
+	 */
+	install(app: App): void
+	/**
+	 * 安装插件
+	 * - 可安装使用 `definePlugin` 方法定义的插件
+	 * - 具体请参考{@link IDefinePlugin}
+	 */
+	use(plugin: Plugin): void
 	/**
 	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
 	 * @param {RenderOptions} options - 渲染参数
@@ -26,15 +44,9 @@ export interface PopupController extends PopupCustomController {
 	 * @returns {Promise<void>}
 	 */
 	destroy(instanceId: InstanceId, payload?: any): void
-	/**
-	 * 安装插件
-	 * @param {App} app - Vue应用实例
-	 * @returns {void}
-	 */
-	install(app: App): void
 }
 
-export type RenderElement = HTMLElement | string
+type RenderElement = HTMLElement | string
 
 export type RenderComponentOptions = {
 	/**
@@ -186,13 +198,13 @@ export type RenderStyleOptions = {
 	 */
 	animationDuration?: number
 	/**
-	 * 遮罩层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link PopupAnimationCollection}
+	 * 遮罩层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
 	 */
-	maskAnimation?: symbol
+	maskAnimation?: Animation
 	/**
-	 * 视图层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link PopupAnimationCollection}
+	 * 视图层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
 	 */
-	viewAnimation?: symbol
+	viewAnimation?: Animation
 	/**
 	 * 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
 	 */
@@ -218,11 +230,11 @@ export type RenderExtraOptions = {
 	autoHideWindowScroll?: boolean
 }
 
-export type RenderOptions = RenderComponentOptions &
+type RenderOptions = RenderComponentOptions &
 	RenderStyleOptions &
 	RenderExtraOptions
 
-export type UpdateOptions = Partial<
+type UpdateOptions = Partial<
 	Omit<RenderOptions, 'component' | 'el' | 'autoHideWindowScroll'>
 >
 
@@ -246,10 +258,21 @@ const defaultOptions: Required<
 	viewAnimation: POPUP_ANIMATIONS.FADE,
 }
 
-export class Controller implements PopupController {
+export class Controller implements IController {
 	#core: Core
 	constructor(core: Core) {
 		this.#core = core
+	}
+	install(app: App): void {
+		app.config.globalProperties[this.#core.config.prototypeName] = this
+	}
+	use(plugin: Plugin): void {
+		if (!this.#core.addPlugin(plugin))
+			throw new PopupError(
+				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
+			)
+
+		plugin.install(wrapPluginController(this))
 	}
 	render({ el, zIndex, ...options }: RenderOptions): InstanceId {
 		el = el || document.body.appendChild(document.createElement('div'))
@@ -282,9 +305,6 @@ export class Controller implements PopupController {
 		await instance.unmount(payload)
 
 		this.#core.removeInstance(instance)
-	}
-	install(app: App): void {
-		app.config.globalProperties[this.#core.config.prototypeName] = this
 	}
 }
 

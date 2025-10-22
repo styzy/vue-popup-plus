@@ -1,7 +1,8 @@
-import { Controller, type PopupController } from '../controller'
+import { Controller, type IController } from '../controller'
 import { Instance, InstanceId } from '../Instance'
+import type { Plugin } from '../plugin'
 
-export interface PopupCore {
+export interface ICore {
 	/**
 	 * 弹出层种子，用于生成弹出层实例id，自动递增
 	 */
@@ -9,11 +10,11 @@ export interface PopupCore {
 	/**
 	 * 弹出层配置项
 	 */
-	config: PopupConfig
+	config: CoreConfig
 	/**
 	 * 弹出层控制器
 	 */
-	controller: PopupController
+	controller: IController
 	/**
 	 * 添加弹出层实例
 	 * @param instance - 弹出层实例
@@ -34,54 +35,58 @@ export interface PopupCore {
 
 export type CoreOptions = {
 	/**
-	 * 弹出层 zIndex 基础值，默认为1000，每次生成弹出层时，除非 render() 方法传入 zIndex，否则使用此基础值，每次使用后会自动递增
+	 * 弹出层 zIndex 基础值
+	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入 zIndex，否则使用此基础值，每次使用后会自动递增
 	 */
 	zIndex?: number
 	/**
-	 * 弹出层控制器挂载在 Vue 实例上的属性名，默认为 $popup ，这在使用选项式API时可以在组件内通过this.$popup 访问控制器实例，如需自定义属性名，请参考如下代码：
+	 * 弹出层控制器挂载在 Vue 实例上的属性名
+	 * - 默认为 $popup ，这在使用选项式API时可以在组件内通过this.$popup 访问控制器实例，可以使用该属性自定义挂载属性名
+	 * - 使用示例：
+	 * ```ts
+	 * // main.ts
+	 * import { createPopup } from 'vue-popup-plus'
 	 *
-	 * @example
-	 * // 初始化插件
-	 * createPopup({
+	 * const popup = createPopup({
 	 * 	prototypeName: '$customPopup'
 	 * })
 	 *
-	 * // 在组件内访问
+	 * // 组件内
 	 * this.$customPopup.render({
 	 * 	component: Demo,
 	 * })
-	 * @end
-	 * @important 注意，如果你使用 TypeScript，则自定义属性名称需要手动同步添加类型扩展，扩展代码可以放在一个 .ts 文件，或是一个影响整个项目的 *.d.ts 文件中。
-	 * @example
-	 * // 添加导出，没有该代码将无法有效扩展
-	 * export {}
-	 *
-	 * // 自定义扩展
+	 * ```
+	 * - 注意，如果你使用 TypeScript，则自定义属性名称需要手动同步添加类型扩展，扩展代码可以放在一个 .ts 文件，或是一个影响整个项目的 *.d.ts 文件中。
+	 * - 扩展代码示例：
+	 * ```ts
+	 * // 扩展自定义属性名类型
 	 * declare module 'vue' {
 	 * 	interface ComponentCustomProperties {
-	 * 		$customPopup: VuePopupPlusController
+	 * 		$customPopup: typeof popup
 	 * 	}
 	 * }
 	 */
 	prototypeName?: string
 }
 
-export type PopupConfig = Required<CoreOptions>
+type CoreConfig = Required<CoreOptions>
 
-let core: PopupCore
-export function createCore(options?: CoreOptions): PopupCore {
+let core: ICore
+
+export function createCore(options?: CoreOptions): ICore {
 	return new Core(options)
 }
 
 export function getCore() {
 	return core
 }
-export class Core implements PopupCore {
+
+export class Core implements ICore {
 	#seed: number = 1
 	#instances: Record<InstanceId['name'], Instance> = {}
-	#controller: PopupController
-	#config: PopupConfig
-	// #plugins: { [key: string]: any }
+	#controller: IController
+	#config: CoreConfig
+	#plugins: Record<string, Plugin> = {}
 	get seed() {
 		return this.#seed++
 	}
@@ -104,6 +109,19 @@ export class Core implements PopupCore {
 	}
 	removeInstance(instance: Instance) {
 		delete this.#instances[instance.id.name]
+	}
+	addPlugin(plugin: Plugin): boolean {
+		if (this.getPlugin(plugin.name)) return false
+
+		this.#plugins[plugin.name] = plugin
+
+		return true
+	}
+	getPlugin(pluginName: string): Plugin | void {
+		return this.#plugins[pluginName]
+	}
+	removePlugin(pluginName: string) {
+		delete this.#plugins[pluginName]
 	}
 }
 

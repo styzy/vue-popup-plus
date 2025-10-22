@@ -7,11 +7,11 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-import { POPUP_COMPONENT_INJECT_KEYS, usePopup } from 'vue-popup-plus'
+import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
 
 defineOptions({ name: 'DemoFullScreen' })
 
-const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID)
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 
 function handleClose() {
 	const popup = usePopup()

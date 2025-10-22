@@ -37,6 +37,8 @@ const popup = usePopup()
 const handlePopup = () => {
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
+		maskAnimation: POPUP_ANIMATIONS.CUSTOM,
+		viewAnimation: POPUP_ANIMATIONS.CUSTOM,
 	})
 }
 

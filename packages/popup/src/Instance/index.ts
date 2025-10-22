@@ -6,17 +6,17 @@ import type {
 	RenderStyleOptions,
 } from '../controller'
 import {
-	POPUP_COMPONENT_INJECT_KEYS,
-	POPUP_INSIDE_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
 import { wait } from '../utils'
 
-import InstanceComponent from '../Components/Popup.vue'
+import InstanceComponent from '../components/Popup.vue'
 
 /**
  * 实例 id 接口
  */
-export interface PopupInstanceId {
+interface IInstanceId {
 	/**
 	 * 生成该实例 id 的种子
 	 * @internal
@@ -28,14 +28,14 @@ export interface PopupInstanceId {
 	name: Readonly<string>
 }
 
-export interface PopupInstance {
+interface IInstance {
 	id: InstanceId
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
 	updateStore(options: Partial<InstanceStore>): void
 }
 
-export type InstanceOptions = Required<
+type InstanceOptions = Required<
 	RenderComponentOptions & RenderStyleOptions & RenderExtraOptions
 >
 
@@ -56,7 +56,7 @@ function createStore(
 	})()
 }
 
-export class InstanceId implements PopupInstanceId {
+export class InstanceId implements IInstanceId {
 	#seed: number
 	get seed() {
 		return this.#seed
@@ -69,7 +69,7 @@ export class InstanceId implements PopupInstanceId {
 	}
 }
 
-export class Instance implements PopupInstance {
+export class Instance implements IInstance {
 	static #pinia: Pinia
 	#id: InstanceId
 	#app: App
@@ -81,13 +81,13 @@ export class Instance implements PopupInstance {
 		this.#id = new InstanceId(seed)
 
 		this.#app = createApp(InstanceComponent)
-		this.#app.provide(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID, this.id)
+		this.#app.provide(POPUP_COMPONENT_INJECTS.INSTANCE_ID, this.id)
 
 		Instance.#pinia = Instance.#pinia || createPinia()
 		this.#app.use(Instance.#pinia)
 		this.#store = createStore(this.#id, options)
 		this.#app.provide(
-			POPUP_INSIDE_COMPONENT_INJECT_KEYS.INSTANCE_STORE,
+			POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE,
 			this.#store
 		)
 	}

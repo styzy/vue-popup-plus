@@ -1,0 +1,28 @@
+$name-space = 'vue-popup-plus-animation'
+
+generateAnimation($type,$name)
+	.vue-popup-plus-animation-{$type}-{$name}
+		animation-name unquote($name-space+'-'+$type+'-'+$name)
+
+		
+generateAnimation(enter,custom)
+generateAnimation(leave,custom)
+
+@keyframes {$name-space}-enter-custom
+	0%
+		opacity 0
+	30%
+		opacity 1
+	60%
+		opacity 0
+	100
+		opacity 1
+@keyframes {$name-space}-leave-custom
+	0%
+		opacity 1
+	30%
+		opacity 0
+	60%
+		opacity 1
+	100
+		opacity 0

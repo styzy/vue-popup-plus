@@ -31,7 +31,7 @@
 import {
 	usePopup,
 	POPUP_ANIMATIONS,
-	POPUP_COMPONENT_INJECT_KEYS,
+	POPUP_COMPONENT_INJECTS,
 } from 'vue-popup-plus'
 import { h, inject, defineComponent } from 'vue'
 
@@ -56,7 +56,7 @@ const PopupContent = defineComponent({
 		},
 	},
 	setup(props) {
-		const instanceId = inject(POPUP_COMPONENT_INJECT_KEYS.INSTANCE_ID)
+		const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 		const popupInstance = usePopup()
 
 		const handleClose = () => {
