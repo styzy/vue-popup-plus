@@ -1,4 +1,4 @@
-import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -8,12 +8,12 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
 	build: {
 		lib: {
-			entry: resolve(__dirname, './src/index.ts'),
+			entry: fileURLToPath(new URL('./src/index', import.meta.url)),
 			name: 'VuePopupPlus',
 			// fileName: (format) => `vue-popup-plus.${format}.js`,
 			formats: ['es', 'umd'],
 		},
-		outDir: resolve(__dirname, './dist'),
+		outDir: fileURLToPath(new URL('./dist', import.meta.url)),
 		rollupOptions: {
 			// 确保外部化处理那些你不想打包进库的依赖
 			external: ['vue'],
@@ -30,9 +30,11 @@ export default defineConfig({
 		vueDevTools(),
 		cssInjectedByJsPlugin(),
 		dts({
-			tsconfigPath: resolve(__dirname, 'tsconfig.types.json'),
+			tsconfigPath: fileURLToPath(
+				new URL('./tsconfig.types.json', import.meta.url)
+			),
 			rollupTypes: true,
-			outDir: './dist',
+			outDir: fileURLToPath(new URL('./dist', import.meta.url)),
 			pathsToAliases: true,
 			insertTypesEntry: true,
 		}),
