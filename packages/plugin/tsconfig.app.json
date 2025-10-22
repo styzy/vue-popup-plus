@@ -5,11 +5,11 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 		"baseUrl": "./",
-		"paths": {
-			"@/*": ["src/*"]
-		},
 		"isolatedModules": true,
-		"strict": true
+		"strict": true,
+		"paths": {
+			"vue-popup-plus": ["../popup/src"]
+		}
 	},
 	"vueCompilerOptions": {
 		"plugins": ["@vue/language-plugin-pug"]

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPopup, definePlugin } from 'vue-popup-plus'
+import popupPluginPreset from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
 import './assets/plugin.styl'
@@ -10,6 +11,8 @@ const popup = createPopup({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',
 })
+
+popup.use(popupPluginPreset)
 
 const plugin = definePlugin({
 	name: 'test',

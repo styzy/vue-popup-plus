@@ -1,30 +1,32 @@
 <template lang="pug">
 .index
-	.title.large @styzy/vue-popup-plus
-	.title Vue3 弹出层插件
+	.title @styzy/vue-popup-plus
 	.info 版本：{{ version }}
 	.info 作者：styzy
 	.info Github：
 		a(href="https://github.com/styzy/vue-popup-plus" target="_blank") https://github.com/styzy/vue-popup-plus
 	.info 文档：
 		a(href="http://vue-popup-plus.styzy.cn" target="_blank") http://vue-popup-plus.styzy.cn
-	.title.large 示例
-	.title 基础功能
-	.title.sub 默认
-	button(@click="handlePopup()") 打开弹出层
-	.title.sub 无遮罩层
-	button(@click="handlePopupWithoutMask()") 打开弹出层
-	.title.sub 全屏
-	button(@click="handlePopupFullScreen()") 打开弹出层
-	.title 动画示例
-	.title.sub 缩放
-	button(@click="handlePopupScale()") 打开弹出层
-	.title.sub 淡入淡出
-	button(@click="handlePopupFade()") 打开弹出层
-	.title.sub 飞入
-	button(@click="handlePopupFly()") 打开弹出层
-	.title.sub 设置动画持续时间
-	button(@click="handlePopupDuration()") 打开弹出层
+	.row
+		.row-item
+			.title 主包测试
+			.title.sub 基础功能单元测试
+			.btn-ctn
+				button(@click="handlePopup()") 默认
+				button(@click="handlePopupWithoutMask()") 无遮罩层
+				button(@click="handlePopupFullScreen()") 全屏
+			.title.sub 动画功能单元测试
+			.btn-ctn
+				button(@click="handlePopupScale()") 缩放
+				button(@click="handlePopupFade()") 淡入淡出
+				button(@click="handlePopupFly()") 飞入
+				button(@click="handlePopupDuration()") 设置动画持续时间
+		.row-item
+			.title 插件测试
+			.title.sub 动画功能单元测试
+			.btn-ctn
+				button(@click="handlePopupToast()") toast
+				button(@click="handlePopupToastLong()") toast长消息
 </template>
 
 <script setup lang="ts">
@@ -88,6 +90,16 @@ const handlePopupDuration = () => {
 		component: () => import('@/views/Demo.vue'),
 	})
 }
+
+const handlePopupToast = () => {
+	popup.toast('这是一条toast消息')
+}
+
+const handlePopupToastLong = () => {
+	popup.toast(
+		'这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。'
+	)
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -97,6 +109,17 @@ const handlePopupDuration = () => {
 	align-items flex-start
 	padding 20px
 	gap 20px
+	.row
+		display flex
+		flex-direction row
+		justify-content space-between
+		gap 20px
+		width 100%
+		.row-item
+			flex 1
+			display flex
+			flex-direction column
+			gap 10px
 	.title
 		padding 10px 0
 		color #424242
@@ -118,5 +141,11 @@ const handlePopupDuration = () => {
 		color #333333
 		&:before
 			content '说明：'
+	.btn-ctn
+		display flex
+		flex-direction row
+		gap 10px
+	button
+		padding 10px 20px
 </style>
 

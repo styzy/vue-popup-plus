@@ -10,6 +10,9 @@ export default defineConfig({
 			'vue-popup-plus': fileURLToPath(
 				new URL('../popup/src', import.meta.url)
 			),
+			'vue-popup-plus-plugin-preset': fileURLToPath(
+				new URL('../plugin/src', import.meta.url)
+			),
 		},
 	},
 	plugins: [vue(), vueDevTools()],
