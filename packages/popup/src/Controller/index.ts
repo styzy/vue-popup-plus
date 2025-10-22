@@ -2,7 +2,7 @@ import { type App, type Component } from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../Instance'
 import type { InstanceId } from '../Instance'
-import { wrapPluginController, type Plugin } from '../plugin'
+import { wrapWithPlugin, type Plugin } from '../plugin'
 import { PopupError } from '../error'
 import {
 	POPUP_ANIMATIONS,
@@ -259,52 +259,52 @@ const defaultOptions: Required<
 }
 
 export class Controller implements IController {
-	#core: Core
+	_core: Core
 	constructor(core: Core) {
-		this.#core = core
+		this._core = core
 	}
 	install(app: App): void {
-		app.config.globalProperties[this.#core.config.prototypeName] = this
+		app.config.globalProperties[this._core.config.prototypeName] = this
 	}
 	use(plugin: Plugin): void {
-		if (!this.#core.addPlugin(plugin))
+		if (!this._core.addPlugin(plugin))
 			throw new PopupError(
 				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
 			)
 
-		plugin.install(wrapPluginController(this))
+		plugin.install(wrapWithPlugin(this))
 	}
 	render({ el, zIndex, ...options }: RenderOptions): InstanceId {
 		el = el || document.body.appendChild(document.createElement('div'))
-		zIndex = zIndex ?? this.#core.config.zIndex++
+		zIndex = zIndex ?? this._core.config.zIndex++
 
-		const instance: Instance = new Instance(this.#core.seed, {
+		const instance: Instance = new Instance(this._core.seed, {
 			...defaultOptions,
 			...options,
 			...{ zIndex, el },
 		})
 
-		this.#core.addInstance(instance)
+		this._core.addInstance(instance)
 
 		instance.mount()
 
 		return instance.id
 	}
 	update(instanceId: InstanceId, options: RenderOptions) {
-		const instance = this.#core.getInstance(instanceId)
+		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return
 
 		instance.updateStore(options)
 	}
 	async destroy(instanceId: InstanceId, payload?: any): Promise<void> {
-		const instance = this.#core.getInstance(instanceId)
+		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return
 
 		await instance.unmount(payload)
 
-		this.#core.removeInstance(instance)
+		this._core.removeInstance(instance)
 	}
 }
 

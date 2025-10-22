@@ -26,7 +26,7 @@ export type ControllerPrototype = Record<
 	use: '内置 use 方法'
 }
 
-type PluginWrappedController = IController & {
+interface IPluginWrappedController extends IController {
 	/**
 	 * 原型属性
 	 * - 可在插件的 `install` 方法中扩展方法或属性
@@ -75,7 +75,7 @@ type PluginWrappedController = IController & {
 	readonly customAnimations: PopupCustomAnimations
 }
 
-type PluginInstall = (controller: PluginWrappedController) => void
+type PluginInstall = (controller: IPluginWrappedController) => void
 
 export type Plugin = { name: string; install: PluginInstall }
 
@@ -110,52 +110,74 @@ interface IDefinePlugin {
 
 export const definePlugin: IDefinePlugin = (options) => options
 
-interface IWrapPluginController {
-	(controller: IController): PluginWrappedController
+interface IWrapWithPlugin {
+	(controller: IController): IPluginWrappedController
 }
 
-export const wrapPluginController: IWrapPluginController = (controller) => {
-	return {
-		...controller,
-		customProperties: new Proxy(
-			{},
-			{
-				set: (target, property: string, value) => {
-					if (property in controller) {
-						throw new PopupError(
-							`定义插件扩展属性 ${property} 时失败，${property} 是只读属性，不能被覆盖`
-						)
-					}
-					;(controller as any).__proto__[property] = value
-					return true
-				},
-				get: (target, property: string) => {
-					if (property in controller) {
-						return (controller as any).__proto__[property]
-					}
-					return undefined
-				},
-			}
-		),
-		customAnimations: new Proxy(
-			{},
-			{
-				set: (target, property: string, value) => {
-					if (property in POPUP_ANIMATIONS) {
-						throw new PopupError(
-							`定义插件扩展动画类型 ${property} 时失败，${property} 是只读属性，不能被覆盖`
-						)
-					}
-					;(POPUP_ANIMATIONS as any).__proto__[property] = value
-					return true
-				},
-				get: (target, property: string) => {
-					if (property in POPUP_ANIMATIONS) {
-						return (POPUP_ANIMATIONS as any).__proto__[property]
-					}
-					return undefined
-				},
-			}
-		),
-	} as PluginWrappedController
+export const wrapWithPlugin: IWrapWithPlugin = (controller) => {
+	return new Proxy<IPluginWrappedController>(
+		controller as IPluginWrappedController,
+		{
+			set(target, property: string, value) {
+				throw new PopupError(`${property} 是只读属性，不能被覆盖`)
+			},
+			get(target, property: string) {
+				console.log('property: ', property)
+				console.log('property in controller: ', property in controller)
+				if (property === 'customProperties') {
+					return createCustomPropertiseProxy(controller)
+				}
+				if (property === 'customAnimations') {
+					return createCustomAnimationsProxy(controller)
+				}
+				return (controller as any)[property]
+			},
+		}
+	)
+}
+
+function createCustomPropertiseProxy(controller: IController) {
+	return new Proxy(
+		{},
+		{
+			set: (target, property: string, value) => {
+				if (property in controller) {
+					throw new PopupError(
+						`定义插件扩展属性 ${property} 时失败，${property} 是只读属性，不能被覆盖`
+					)
+				}
+				;(controller as any).__proto__[property] = value
+				return true
+			},
+			get: (target, property: string) => {
+				if (property in controller) {
+					return (controller as any).__proto__[property]
+				}
+				return undefined
+			},
+		}
+	)
+}
+
+function createCustomAnimationsProxy(controller: IController) {
+	return new Proxy(
+		{},
+		{
+			set: (target, property: string, value) => {
+				if (property in POPUP_ANIMATIONS) {
+					throw new PopupError(
+						`定义插件扩展动画类型 ${property} 时失败，${property} 是只读属性，不能被覆盖`
+					)
+				}
+				;(POPUP_ANIMATIONS as any).__proto__[property] = value
+				return true
+			},
+			get: (target, property: string) => {
+				if (property in POPUP_ANIMATIONS) {
+					return (POPUP_ANIMATIONS as any).__proto__[property]
+				}
+				return undefined
+			},
+		}
+	)
 }
