@@ -9,7 +9,7 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: fileURLToPath(new URL('./src/index', import.meta.url)),
-			name: 'VuePopupPlus',
+			name: 'VuePopupPlusPluginPreset',
 			formats: ['es', 'umd'],
 		},
 		outDir: fileURLToPath(new URL('./dist', import.meta.url)),
