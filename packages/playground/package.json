@@ -9,6 +9,7 @@
 	"scripts": {
 		"dev": "vite --open",
 		"build": "run-p type-check && vite build",
+		"preview": "run-p type-check && vite preview",
 		"test:unit": "vitest",
 		"type-check": "vue-tsc --build",
 		"lint": "eslint . --fix",

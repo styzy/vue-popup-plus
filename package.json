@@ -11,6 +11,7 @@
 		"dev": "yarn workspace playground dev",
 		"docs:dev": "yarn workspace doc dev",
 		"docs:build": "yarn workspace doc build",
+		"docs:preview": "yarn workspace doc preview",
 		"lib:build": "yarn workspace vue-popup-plus build",
 		"plugin:build": "yarn workspace vue-popup-plus-plugin-preset build"
 	}
