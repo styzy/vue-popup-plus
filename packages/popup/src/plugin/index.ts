@@ -122,8 +122,6 @@ export const wrapWithPlugin: IWrapWithPlugin = (controller) => {
 				throw new PopupError(`${property} 是只读属性，不能被覆盖`)
 			},
 			get(target, property: string) {
-				console.log('property: ', property)
-				console.log('property in controller: ', property in controller)
 				if (property === 'customProperties') {
 					return createCustomPropertiseProxy(controller)
 				}

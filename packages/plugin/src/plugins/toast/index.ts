@@ -35,10 +35,6 @@ declare module 'vue-popup-plus' {
 export const toast = definePlugin({
 	name: 'Toast',
 	install: (controller) => {
-		console.log(
-			'controller.customProperties: ',
-			controller.customProperties
-		)
 		controller.customProperties.toast = function (
 			content: string = '',
 			{ duration = 2000 }: ToastOption = {}
