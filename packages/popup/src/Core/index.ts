@@ -1,6 +1,6 @@
 import { Controller, type IController } from '../controller'
 import { Instance, InstanceId } from '../Instance'
-import type { Plugin } from '../plugin'
+import type { PopupPlugin } from '../plugin'
 
 export interface ICore {
 	/**
@@ -98,7 +98,7 @@ export class Core implements ICore {
 	#instances: Record<InstanceId['name'], Instance> = {}
 	#controller: IController
 	#config: CoreConfig
-	#plugins: Record<string, Plugin> = {}
+	#plugins: Record<string, PopupPlugin> = {}
 	#originBodyOverflow: string = ''
 	get seed() {
 		return this.#seed++
@@ -132,14 +132,14 @@ export class Core implements ICore {
 			this.#enableScroll()
 		}
 	}
-	addPlugin(plugin: Plugin): boolean {
+	addPlugin(plugin: PopupPlugin): boolean {
 		if (this.getPlugin(plugin.name)) return false
 
 		this.#plugins[plugin.name] = plugin
 
 		return true
 	}
-	getPlugin(pluginName: string): Plugin | void {
+	getPlugin(pluginName: string): PopupPlugin | void {
 		return this.#plugins[pluginName]
 	}
 	removePlugin(pluginName: string) {

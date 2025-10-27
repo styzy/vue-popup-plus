@@ -2,7 +2,7 @@ import { type App, type Component } from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../Instance'
 import type { InstanceId } from '../Instance'
-import { wrapWithPlugin, type Plugin } from '../plugin'
+import { wrapWithPlugin, type PopupPlugin } from '../plugin'
 import { PopupError } from '../error'
 import {
 	POPUP_ANIMATIONS,
@@ -24,7 +24,7 @@ export interface IController extends PopupCustomProperties {
 	 * - 可安装使用 `definePlugin` 方法定义的插件
 	 * - 具体请参考{@link IDefinePlugin}
 	 */
-	use(plugin: Plugin): void
+	use(plugin: PopupPlugin): void
 	/**
 	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
 	 * @param {RenderOptions} options - 渲染参数
@@ -281,7 +281,7 @@ export class Controller implements IController {
 	install(app: App): void {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 	}
-	use(plugin: Plugin): void {
+	use(plugin: PopupPlugin): void {
 		if (!this._core.addPlugin(plugin))
 			throw new PopupError(
 				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`

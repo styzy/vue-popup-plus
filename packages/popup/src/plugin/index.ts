@@ -81,7 +81,7 @@ type PluginInstall = (
 	config: Readonly<CoreConfig>
 ) => void
 
-export type Plugin = { name: string; install: PluginInstall }
+export type PopupPlugin = { name: string; install: PluginInstall }
 
 interface IDefinePlugin {
 	/**
@@ -109,7 +109,7 @@ interface IDefinePlugin {
 	 * })
 	 * ```
 	 */
-	(options: Plugin): Plugin
+	(options: PopupPlugin): PopupPlugin
 }
 
 export const definePlugin: IDefinePlugin = (options) => options
