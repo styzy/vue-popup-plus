@@ -4,9 +4,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps } from 'vue'
+import { defineProps } from 'vue'
 
-defineComponent({
+defineOptions({
 	name: 'DButton',
 })
 

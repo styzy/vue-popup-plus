@@ -21,11 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { version } from 'vue-popup-plus'
 
-defineComponent({ name: 'Index' })
+defineOptions({ name: 'Index' })
 
 const router = useRouter()
 

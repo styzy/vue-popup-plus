@@ -12,11 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { version } from 'vue-popup-plus'
 
-defineComponent({ name: 'DHeader' })
+defineOptions({ name: 'DHeader' })
 
 const router = useRouter()
 

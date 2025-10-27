@@ -33,14 +33,14 @@ import {
 	POPUP_ANIMATIONS,
 	POPUP_COMPONENT_INJECTS,
 } from 'vue-popup-plus'
-import { h, inject, defineComponent } from 'vue'
+import { h, inject } from 'vue'
 
 defineOptions({ name: 'Examples' })
 
 const popup = usePopup()
 
 // 简单的弹窗内容组件
-const PopupContent = defineComponent({
+const PopupContent = defineOptions({
 	props: {
 		title: {
 			type: String,
