@@ -10,3 +10,14 @@ export default definePlugin({
 		})
 	},
 })
+
+export type {
+	IAlbum,
+	IAlert,
+	IConfirm,
+	IDialog,
+	ILoading,
+	IPrompt,
+	IToast,
+} from './plugins'
+

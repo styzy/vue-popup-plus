@@ -4011,10 +4011,18 @@ vue-eslint-parser@^10.2.0:
     esquery "^1.6.0"
     semver "^7.6.3"
 
-"vue-popup-plus@workspace:*":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-popup-plus/-/vue-popup-plus-1.0.0.tgz#4b7e923ea2297b20e3f1df40cfeb8cb65480ac22"
-  integrity sha512-DtgnOL7bMAvnH1jc+7mN1g5GxCGtUtfb3bcTGZBALr1UfHcxJtaBpqRvduFcfN0XbZM+pY8YNP265jD+InMwvA==
+"vue-popup-plus-plugin-preset@workspace:^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-popup-plus-plugin-preset/-/vue-popup-plus-plugin-preset-1.1.0.tgz#6ff86bf9f79b5f84167086aee1c9d75a3f1046dd"
+  integrity sha512-r5QidV2g0jDalXsrIuJZi0vj91bbiRVvg5ULcBmhEmmt+EiiPilFhWbDLyrfAJLZTSW/1UT5pmb+cWxm34FMcw==
+  dependencies:
+    vue "^3.5.18"
+    vue-popup-plus "workspace:^1.1.5"
+
+"vue-popup-plus@workspace:^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/vue-popup-plus/-/vue-popup-plus-1.1.5.tgz#b8fd43a3d0b4a195e87b185863cb789c90507f59"
+  integrity sha512-WZVCeUTX9TyX1nRqslfqIFo+9AaMzqdV59EJ8f4RIWJxnXbiGIHi7CFKTfsRhmvHt90WRiOrGchzEvUDg/4rHA==
   dependencies:
     pinia "^3.0.3"
     vue "^3.5.18"

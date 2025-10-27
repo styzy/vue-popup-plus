@@ -37,6 +37,7 @@ export default defineConfig({
 			outDir: fileURLToPath(new URL('./dist', import.meta.url)),
 			pathsToAliases: true,
 			insertTypesEntry: true,
+			exclude: ['vue-popup-plus'],
 		}),
 	],
 })

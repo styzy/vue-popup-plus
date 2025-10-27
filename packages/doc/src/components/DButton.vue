@@ -4,8 +4,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 defineOptions({
 	name: 'DButton',
 })
