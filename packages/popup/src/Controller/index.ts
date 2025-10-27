@@ -75,7 +75,7 @@ export type RenderComponentOptions = {
 	/**
 	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
 	 */
-	onUnmounted?: <T>(payload?: T) => void
+	onUnmounted?: (payload?: any) => void
 }
 
 export type RenderStyleOptions = {
@@ -194,6 +194,18 @@ export type RenderStyleOptions = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 弹出层视图水平偏移量，默认为 0 ，单位为 px
+	 */
+	viewTranslateX?: number
+	/**
+	 * 弹出层视图垂直偏移量，默认为 0 ，单位为 px
+	 */
+	viewTranslateY?: number
+	/**
+	 * 弹出层视图是否允许超出窗口边界，默认为 false
+	 */
+	viewTranslateOverflow?: boolean
+	/**
 	 * 弹出层动画时长，默认为 100 ，单位为 毫秒
 	 */
 	animationDuration?: number
@@ -253,6 +265,9 @@ const defaultOptions: Required<
 	height: 'auto',
 	maxHeight: 'auto',
 	minHeight: 'auto',
+	viewTranslateX: 0,
+	viewTranslateY: 0,
+	viewTranslateOverflow: false,
 	animationDuration: 100,
 	maskAnimation: POPUP_ANIMATIONS.FADE,
 	viewAnimation: POPUP_ANIMATIONS.FADE,
@@ -272,7 +287,7 @@ export class Controller implements IController {
 				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
 			)
 
-		plugin.install(wrapWithPlugin(this))
+		plugin.install(wrapWithPlugin(this), this._core.config)
 	}
 	render({ el, zIndex, ...options }: RenderOptions): InstanceId {
 		el = el || document.body.appendChild(document.createElement('div'))

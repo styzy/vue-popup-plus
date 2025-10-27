@@ -1,5 +1,5 @@
-import { createApp, markRaw, type App } from 'vue'
-import { createPinia, defineStore, type Pinia } from 'pinia'
+import { createApp, markRaw, type App, type Component, type Raw } from 'vue'
+import { createPinia, defineStore, type Pinia, type Store } from 'pinia'
 import type {
 	RenderComponentOptions,
 	RenderExtraOptions,
@@ -39,16 +39,21 @@ type InstanceOptions = Required<
 	RenderComponentOptions & RenderStyleOptions & RenderExtraOptions
 >
 
-export type InstanceStore = InstanceOptions & {
-	isBeforeUnmount: boolean
+export type InstanceStore = Store<
+	string,
+	Omit<InstanceOptions, 'component'> & {
+		component: Raw<Component>
+		isBeforeUnmount: boolean
+	}
+>
+
+interface ICreateStore {
+	(id: InstanceId, options: InstanceOptions): InstanceStore
 }
 
-function createStore(
-	id: InstanceId,
-	{ component, ...options }: InstanceOptions
-) {
+const createStore: ICreateStore = (id, { component, ...options }) => {
 	return defineStore(id.name as string, {
-		state: (): InstanceStore => ({
+		state: () => ({
 			...options,
 			component: markRaw(component),
 			isBeforeUnmount: false,
@@ -73,7 +78,7 @@ export class Instance implements IInstance {
 	static #pinia: Pinia
 	#id: InstanceId
 	#app: App
-	#store
+	#store: InstanceStore
 	get id() {
 		return this.#id
 	}

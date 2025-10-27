@@ -40,6 +40,12 @@ export type CoreOptions = {
 	 */
 	zIndex?: number
 	/**
+	 * 是否自动禁用滚动
+	 * - 默认为 true
+	 * - 开启后，弹出层显示时会自动禁用页面滚动
+	 */
+	autoDisableScroll?: boolean
+	/**
 	 * 弹出层控制器挂载在 Vue 实例上的属性名
 	 * - 默认为 $popup ，这在使用选项式API时可以在组件内通过this.$popup 访问控制器实例，可以使用该属性自定义挂载属性名
 	 * - 使用示例：
@@ -67,9 +73,15 @@ export type CoreOptions = {
 	 * }
 	 */
 	prototypeName?: string
+	/**
+	 * 开启调试模式
+	 * - 默认为 false
+	 * - 开启后，会提供开发调试功能
+	 */
+	debugMode?: boolean
 }
 
-type CoreConfig = Required<CoreOptions>
+export type CoreConfig = Required<CoreOptions>
 
 let core: ICore
 
@@ -87,6 +99,7 @@ export class Core implements ICore {
 	#controller: IController
 	#config: CoreConfig
 	#plugins: Record<string, Plugin> = {}
+	#originBodyOverflow: string = ''
 	get seed() {
 		return this.#seed++
 	}
@@ -96,19 +109,28 @@ export class Core implements ICore {
 	get controller() {
 		return this.#controller
 	}
-	constructor({ zIndex = 1000, prototypeName = '$popup' }: CoreOptions = {}) {
-		this.#config = { zIndex, prototypeName }
+	constructor({
+		zIndex = 1000,
+		prototypeName = '$popup',
+		autoDisableScroll = true,
+		debugMode = false,
+	}: CoreOptions = {}) {
+		this.#config = { zIndex, prototypeName, autoDisableScroll, debugMode }
 		this.#controller = new Controller(this)
 		core = this
 	}
 	addInstance(instance: Instance) {
 		this.#instances[instance.id.name] = instance
+		this.#disableScroll()
 	}
 	getInstance(instanceId: InstanceId): Instance | void {
 		return this.#instances[instanceId.name]
 	}
 	removeInstance(instance: Instance) {
 		delete this.#instances[instance.id.name]
+		if (Object.keys(this.#instances).length === 0) {
+			this.#enableScroll()
+		}
 	}
 	addPlugin(plugin: Plugin): boolean {
 		if (this.getPlugin(plugin.name)) return false
@@ -122,6 +144,16 @@ export class Core implements ICore {
 	}
 	removePlugin(pluginName: string) {
 		delete this.#plugins[pluginName]
+	}
+	#disableScroll() {
+		if (!this.config.autoDisableScroll) return
+		if (document.body.style.overflow === 'hidden') return
+		this.#originBodyOverflow = document.body.style.overflow
+		document.body.style.overflow = 'hidden'
+	}
+	#enableScroll() {
+		if (!this.config.autoDisableScroll) return
+		document.body.style.overflow = this.#originBodyOverflow
 	}
 }
 

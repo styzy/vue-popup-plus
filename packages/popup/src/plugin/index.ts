@@ -1,6 +1,7 @@
 import type { IController } from '../controller'
 import { PopupError } from '../error'
 import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '../animation'
+import type { CoreConfig } from '..//core'
 
 type ControllerPrototypeFunctionValue = (
 	this: IController,
@@ -75,7 +76,10 @@ interface IPluginWrappedController extends IController {
 	readonly customAnimations: PopupCustomAnimations
 }
 
-type PluginInstall = (controller: IPluginWrappedController) => void
+type PluginInstall = (
+	controller: IPluginWrappedController,
+	config: Readonly<CoreConfig>
+) => void
 
 export type Plugin = { name: string; install: PluginInstall }
 

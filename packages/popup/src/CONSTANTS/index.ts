@@ -1,5 +1,6 @@
 import type { InjectionKey } from 'vue'
 import type { InstanceId, InstanceStore } from '../Instance'
+import type { PopupViewStyle } from '../components/PopupView.vue'
 
 /**
  * 命名空间
@@ -11,15 +12,45 @@ const NAME_SPACE: string = 'vue-popup-plus'
  */
 type ComponentInjectKeys = {
 	/**
-	 * 当前组件所在弹出层的实例ID，可用于销毁当前弹出层
-	 * @example
+	 * 当前组件所在弹出层的实例ID
+	 * - 可用于销毁当前弹出层
+	 * - 使用示例：
+	 * ```ts
 	 * // 弹出层渲染的所有子代组件中
+	 * import { inject } from 'vue'
+	 * import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+	 *
+	 * // 获取弹出层控制器
+	 * const popup = usePopup()
+	 *
+	 * // 获取当前组件所在弹出层的实例ID
 	 * const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 	 *
 	 * // 销毁当前弹出层
-	 * this.$popup.destroy(instanceId)
+	 * popup.destroy(instanceId)
+	 * ```
 	 */
 	INSTANCE_ID: InjectionKey<InstanceId>
+	/**
+	 * 弹出层视图样式
+	 * - 可在弹出层内部组件内获取弹出层根级视图组件的样式
+	 * - 使用示例：
+	 * ```ts
+	 * // 弹出层渲染的所有子代组件中
+	 * import { inject } from 'vue'
+	 * import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+	 *
+	 * // 获取弹出层控制器
+	 * const popup = usePopup()
+	 *
+	 * // 获取当前组件所在弹出层的实例ID
+	 * const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
+	 *
+	 * // 获取弹出层根级视图组件的样式
+	 * const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)
+	 * ```
+	 */
+	COMPUTED_VIEW_STYLE: InjectionKey<PopupViewStyle>
 }
 
 /**
@@ -27,6 +58,7 @@ type ComponentInjectKeys = {
  */
 export const POPUP_COMPONENT_INJECTS: Readonly<ComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${NAME_SPACE}-instance-id`),
+	COMPUTED_VIEW_STYLE: Symbol(`${NAME_SPACE}-computed-view-style`),
 }
 
 /**
