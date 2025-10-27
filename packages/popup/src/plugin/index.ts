@@ -83,7 +83,7 @@ type PluginInstall = (
 
 export type PopupPlugin = { name: string; install: PluginInstall }
 
-interface IDefinePlugin {
+export interface IDefinePlugin {
 	/**
 	 * 定义插件
 	 * - 插件是一个对象，包含插件名称和安装方法

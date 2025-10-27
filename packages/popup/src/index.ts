@@ -5,6 +5,7 @@ export { type PopupCustomProperties } from './controller'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export {
 	definePlugin,
+	type IDefinePlugin,
 	type IPluginWrappedController,
 	type PopupPlugin,
 } from './plugin'
