@@ -1,6 +1,6 @@
 {
 	"name": "vue-popup-plus-plugin-preset",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"keywords": [
 		"vue",
 		"vue3",
@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"vue": "^3.5.18",
-		"vue-popup-plus": "workspace:*"
+		"vue-popup-plus": "^1.1.0"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "^3.4.2",
@@ -66,4 +66,3 @@
 	},
 	"license": "MIT"
 }
-
