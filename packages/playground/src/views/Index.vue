@@ -14,8 +14,8 @@
 			type="text") http://vue-popup-plus.styzy.cn
 	.row
 		.row-item
-			.title 主包测试
-			.title.sub 基础功能单元测试
+			.title 核心功能单元测试
+			.title.sub 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
@@ -23,7 +23,7 @@
 				PButton(@click="handlePopupOffset()") 位移
 				PButton(@click="handlePopupOffsetLarge()") 大位移(安全)
 				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移超出屏幕
-			.title.sub 动画功能单元测试
+			.title.sub 动画功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupScale()") 缩放
 				PButton(@click="handlePopupFade()") 淡入淡出
@@ -31,7 +31,7 @@
 				PButton(@click="handlePopupDuration()") 设置动画持续时间
 	.row
 		.row-item
-			.title 插件测试
+			.title 插件功能单元测试
 			.title.sub 消息
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
