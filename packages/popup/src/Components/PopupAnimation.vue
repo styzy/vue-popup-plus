@@ -8,12 +8,11 @@ Transition(
 </template>
 
 <script lang="ts" setup>
-import { computed, defineComponent, inject, onMounted, ref } from 'vue'
-import type { InstanceStore } from '../Instance'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { Animation } from '../animation'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 
-defineComponent({
+defineOptions({
 	name: 'PopupAnimation',
 })
 
@@ -22,9 +21,7 @@ const { type, duration } = defineProps<{
 	duration: number
 }>()
 
-const store = inject(
-	POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE
-) as InstanceStore
+const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 
 const isShow = ref(false)
 

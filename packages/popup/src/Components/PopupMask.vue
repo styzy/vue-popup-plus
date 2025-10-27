@@ -3,22 +3,19 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineComponent, inject } from 'vue'
+import { computed, inject } from 'vue'
 import { usePopup } from '../'
-import type { InstanceId, InstanceStore } from '../Instance'
 import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
 
-defineComponent({
+defineOptions({
 	name: 'PopupMask',
 })
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID) as InstanceId
-const store = inject(
-	POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE
-) as InstanceStore
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 
 const styleObject = computed(() => {
 	return {

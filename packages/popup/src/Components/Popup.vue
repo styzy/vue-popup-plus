@@ -9,18 +9,15 @@ PopupAnimation(:duration="store.animationDuration" :type="store.viewAnimation")
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, inject } from 'vue'
-import type { InstanceStore } from '../Instance'
+import { inject } from 'vue'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
 import PopupAnimation from './PopupAnimation.vue'
 
-const store = inject(
-	POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE
-) as InstanceStore
+const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 
-defineComponent({
+defineOptions({
 	name: 'Popup',
 })
 </script>
