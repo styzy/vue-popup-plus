@@ -6,7 +6,8 @@
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 		"baseUrl": "./",
 		"isolatedModules": true,
-		"strict": true
+		"strict": true,
+		"skipLibCheck": true
 	},
 	"vueCompilerOptions": {
 		"plugins": ["@vue/language-plugin-pug"]
