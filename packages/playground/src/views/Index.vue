@@ -1,58 +1,66 @@
 <template lang="pug">
 .index
-	.title @styzy/vue-popup-plus
-	.info 版本：{{ version }}
-	.info 作者：styzy
-	.info Github：
-		a(href="https://github.com/styzy/vue-popup-plus" target="_blank") https://github.com/styzy/vue-popup-plus
-	.info 文档：
-		a(href="http://vue-popup-plus.styzy.cn" target="_blank") http://vue-popup-plus.styzy.cn
+	.title @styzy/vue-popup-plus 版本：{{ version }}
+	.links
+		.label Github:
+		PButton(
+			@click="handleJump('https://github.com/styzy/vue-popup-plus', true)"
+			theme="primary"
+			type="text") https://github.com/styzy/vue-popup-plus
+		.label 文档:
+		PButton(
+			@click="handleJump('http://vue-popup-plus.styzy.cn', true)"
+			theme="primary"
+			type="text") http://vue-popup-plus.styzy.cn
 	.row
 		.row-item
 			.title 主包测试
 			.title.sub 基础功能单元测试
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopup()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopup()" type="default") 默认
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
 				PButton(@click="handlePopupFullScreen()") 全屏
 				PButton(@click="handlePopupOffset()") 位移
 				PButton(@click="handlePopupOffsetLarge()") 大位移(安全)
 				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移超出屏幕
 			.title.sub 动画功能单元测试
-			PButtonGroup(theme="primary" tight)
+			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupScale()") 缩放
 				PButton(@click="handlePopupFade()") 淡入淡出
 				PButton(@click="handlePopupFly()") 飞入
 				PButton(@click="handlePopupDuration()") 设置动画持续时间
+	.row
 		.row-item
 			.title 插件测试
 			.title.sub 消息
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupToast()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupToast()" type="default") 默认
 				PButton(@click="handlePopupToastLong()") 长消息
 				PButton(@click="handlePopupToastTenSecond()") 10秒消息
 			.title.sub 提示
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupAlert()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupAlert()" type="default") 默认
 				PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
 				PButton(@click="handlePopupAlertCustomConfirmButtonText()") 自定义确认按钮
 				PButton(@click="handlePopupAlertDraggable()") 可拖拽
 				PButton(@click="handlePopupAlertDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 确认
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupConfirm()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupConfirm()" type="default") 默认
 				PButton(@click="handlePopupConfirmCustomTitle()") 自定义标题
 				PButton(
 					@click="handlePopupConfirmCustomConfirmButtonText()"
-					theme="primary") 自定义确认按钮文本
+					theme="primary"
+					type="plain") 自定义确认按钮文本
 				PButton(
 					@click="handlePopupConfirmCustomCancelButtonText()"
-					theme="primary") 自定义取消按钮文本
+					theme="primary"
+					type="plain") 自定义取消按钮文本
 				PButton(@click="handlePopupConfirmDraggable()") 可拖拽
 				PButton(@click="handlePopupConfirmDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 提示输入
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupPrompt()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupPrompt()" type="default") 默认
 				PButton(@click="handlePopupPromptDefaultValue()") 默认值
 				PButton(@click="handlePopupPromptCustomType()") 自定义类型
 				PButton(@click="handlePopupPromptCustomTitle()") 自定义标题
@@ -63,19 +71,19 @@
 				PButton(@click="handlePopupPromptDraggable()") 可拖拽
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 加载遮罩
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupLoading()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupLoading()" type="default") 默认
 			.title.sub 对话框
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupDialog()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupDialog()" type="default") 默认
 				PButton(@click="handlePopupDialogCustomTitle()") 自定义标题
 				PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
 				PButton(@click="handlePopupDialogHideHeader()") 隐藏标题栏
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 媒体相册
-			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupAlbum()" theme="default") 默认
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupAlbum()" type="default") 默认
 				PButton(@click="handlePopupAlbumDefaultIndex()") 默认下标
 				PButton(@click="handlePopupAlbumDisableCount()") 禁用计数器
 				PButton(@click="handlePopupAlbumDisableName()") 禁用文件名
@@ -91,6 +99,10 @@ import PButton from '../../../plugin/src/components/PButton.vue'
 defineOptions({ name: 'Index' })
 
 const popup = usePopup()
+
+function handleJump(url: string, blank = false) {
+	window.open(url, blank ? '_blank' : '_self')
+}
 
 function handlePopup() {
 	popup.render({
@@ -455,7 +467,6 @@ function handlePopupAlbumDisableDownload() {
 			flex-direction column
 			gap 10px
 	.title
-		padding 10px 0
 		color #424242
 		font-weight 700
 		font-size 28px
@@ -465,6 +476,14 @@ function handlePopupAlbumDisableDownload() {
 		&.sub
 			padding 0
 			font-size 20px
+	.links
+		display flex
+		flex-direction row
+		align-items center
+		gap 5px
+		.label
+			font-weight 700
+			font-size 16px
 	.info
 		font-weight 700
 		font-size 16px

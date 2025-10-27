@@ -3,7 +3,7 @@ import { createPopup, definePlugin } from 'vue-popup-plus'
 import popupPluginPreset from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
-import './assets/plugin.styl'
+import './assets/main.styl'
 
 const app = createApp(App)
 
