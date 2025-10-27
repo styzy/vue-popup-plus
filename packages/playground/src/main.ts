@@ -10,6 +10,7 @@ const app = createApp(App)
 const popup = createPopup({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',
+	debugMode: true,
 })
 
 popup.use(popupPluginPreset)

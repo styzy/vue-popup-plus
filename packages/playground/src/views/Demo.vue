@@ -1,6 +1,8 @@
 <template lang="pug">
 .demo
 	h1 这是一个弹框
+	h2 测试属性：{{ test }}
+	input(placeholder="请输入返回值" type="text" v-model="result")
 	br
 	button(@click="handleUpdateSize") 更新弹框尺寸
 	br
@@ -8,12 +10,20 @@
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
 
 defineOptions({ name: 'Demo' })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
+
+type Props = {
+	test?: string
+}
+
+const { test = '' } = defineProps<Props>()
+
+const result = ref(test)
 
 function handleUpdateSize() {
 	const popup = usePopup()
@@ -25,7 +35,7 @@ function handleUpdateSize() {
 
 function handleClose() {
 	const popup = usePopup()
-	instanceId && popup.destroy(instanceId)
+	instanceId && popup.destroy(instanceId, result.value)
 }
 </script>
 
