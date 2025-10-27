@@ -27,7 +27,7 @@ export type ControllerPrototype = Record<
 	use: '内置 use 方法'
 }
 
-interface IPluginWrappedController extends IController {
+export interface IPluginWrappedController extends IController {
 	/**
 	 * 原型属性
 	 * - 可在插件的 `install` 方法中扩展方法或属性

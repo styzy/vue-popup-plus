@@ -3,7 +3,7 @@ import { type IController } from './controller'
 
 export { type PopupCustomProperties } from './controller'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export { definePlugin } from './plugin'
+export { definePlugin, type IPluginWrappedController } from './plugin'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { version } from '../package.json'
 
