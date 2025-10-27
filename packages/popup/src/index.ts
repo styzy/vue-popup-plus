@@ -24,6 +24,9 @@ export function usePopup(): IController {
 	return getCore().controller
 }
 
-export interface ComponentCustomProperties {
-	$popup: IController
+declare module 'vue' {
+	export interface ComponentCustomProperties {
+		$popup: IController
+	}
 }
+
