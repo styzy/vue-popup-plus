@@ -1,6 +1,6 @@
-import VuePopup from '@styzy/vue-popup'
+import { definePlugin } from 'vue-popup-plus'
 
-type PopupConfirmOption = {
+type ConfirmOption = {
 	/**
 	 * 确认框标题
 	 * - 默认值：`确认`
@@ -16,9 +16,19 @@ type PopupConfirmOption = {
 	 * - 默认值：`取消`
 	 */
 	cancelText?: string
+	/**
+	 * 是否可拖动
+	 * - 默认值：`false`
+	 */
+	draggable?: boolean
+	/**
+	 * 是否可拖动超出窗口边界
+	 * - 默认值：`false`
+	 */
+	dragOverflow?: boolean
 }
 
-export interface IPopupPluginConfirm {
+export interface IConfirm {
 	/**
 	 * 显示确认框
 	 * - 如果需要获取点击的按钮是确定还是取消，需要通过 `await` 调用获得一个 `boolean` 类型的返回值，
@@ -32,40 +42,44 @@ export interface IPopupPluginConfirm {
 	 * }
 	 * ```
 	 */
-	(content: string, options?: PopupConfirmOption): Promise<boolean>
+	(content: string, options?: ConfirmOption): Promise<boolean>
 }
 
-declare module '@styzy/vue-popup' {
+declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		confirm: IPopupPluginConfirm
+		confirm: IConfirm
 	}
 }
 
-export const confirm = VuePopup.definePlugin({
+export const confirm = definePlugin({
 	name: 'Confirm',
-	install: Popup => {
-		Popup.prototype.confirm = function (
+	install: (controller) => {
+		controller.customProperties.confirm = function (
 			content: string = '是否确认？',
 			{
 				title = '确认',
 				confirmText = '确定',
-				cancelText = '取消'
-			}: PopupConfirmOption = {}
+				cancelText = '取消',
+				draggable = false,
+				dragOverflow = false,
+			}: ConfirmOption = {}
 		) {
-			return new Promise<boolean>(resolve => {
+			return new Promise((resolve) => {
 				this.render({
 					component: () => import('./src/PConfirm.vue'),
 					componentProps: {
 						title,
 						content,
+						draggable,
 						confirmText,
-						cancelText
+						cancelText,
 					},
-					destroyed: (isConfirm: boolean) => {
+					viewTranslateOverflow: dragOverflow,
+					onUnmounted: (isConfirm: boolean) => {
 						resolve(isConfirm)
-					}
+					},
 				})
 			})
 		}
-	}
+	},
 })

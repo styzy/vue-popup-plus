@@ -1,7 +1,9 @@
 <template lang="pug">
-.p-header(:class="{ 'has-icon': hasIcon }")
+.p-header(
+	:class="{ 'is-draggable': draggable }"
+	@mousedown="handleDragStart($event)")
 	.icon(v-if="hasIcon")
-		i.iconfont-ark(:class="iconClass")
+		i.iconfont-popup-plugin-preset(:class="iconClass")
 	.title {{ title }}
 	.btn-ctn
 		slot(name="buttons")
@@ -9,77 +11,124 @@
 			@click="handleClose()"
 			iconClass="close"
 			theme="danger"
-			v-if="closeEnabled"
-		)
+			v-if="hasCloseButton")
 </template>
 
-<script>
-export default {
+<script lang="ts" setup>
+import { computed, inject, ref, watch } from 'vue'
+import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import PHeaderButton from './PHeaderButton.vue'
+
+const popup = usePopup()
+
+defineOptions({
 	name: 'PHeader',
-	components: {
-		PHeaderButton: () => import('./PHeaderButton')
-	},
-	props: {
-		title: {
-			type: String,
-			default: ''
-		},
-		iconClass: {
-			type: String,
-			default: ''
-		},
-		closeEnabled: {
-			type: Boolean,
-			default: true
-		}
-	},
-	computed: {
-		hasIcon() {
-			return !!this.iconClass
-		}
-	},
-	methods: {
-		handleClose() {
-			this.$emit('close')
-		}
+})
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
+
+type Props = {
+	title?: string
+	height?: number
+	iconClass?: string
+	hasCloseButton?: boolean
+	draggable?: boolean
+}
+
+const {
+	title = '',
+	iconClass = '',
+	height = 40,
+	hasCloseButton = true,
+	draggable = false,
+} = defineProps<Props>()
+
+const emit = defineEmits(['close'])
+
+const dragOriginMouseX = ref(0)
+const dragOriginMouseY = ref(0)
+const dragOriginOffsetX = ref(0)
+const dragOriginOffsetY = ref(0)
+const dragOffsetX = ref(0)
+const dragOffsetY = ref(0)
+const isDragging = ref(false)
+
+const hasIcon = computed(() => !!iconClass)
+
+watch([dragOffsetX, dragOffsetY], handleOffsetChange)
+
+function handleClose() {
+	if (hasCloseButton) {
+		emit('close')
 	}
+}
+
+function handleDragStart(event: MouseEvent) {
+	if (!draggable) return
+	dragOriginMouseX.value = event.clientX
+	dragOriginMouseY.value = event.clientY
+	dragOriginOffsetX.value = computedViewStyle.value.translateX
+	dragOriginOffsetY.value = computedViewStyle.value.translateY
+	isDragging.value = true
+	event.preventDefault()
+	window.addEventListener('mousemove', handleDragMove)
+	window.addEventListener('mouseup', handleDragEnd)
+}
+
+function handleDragMove(event: MouseEvent) {
+	if (!isDragging.value) return
+
+	const deltaX = event.clientX - dragOriginMouseX.value
+	const deltaY = event.clientY - dragOriginMouseY.value
+	dragOffsetX.value = dragOriginOffsetX.value + deltaX
+	dragOffsetY.value = dragOriginOffsetY.value + deltaY
+}
+
+function handleDragEnd(event: MouseEvent) {
+	isDragging.value = false
+	window.removeEventListener('mousemove', handleDragMove)
+	window.removeEventListener('mouseup', handleDragEnd)
+}
+
+function handleOffsetChange() {
+	popup.update(instanceId, {
+		viewTranslateX: dragOffsetX.value,
+		viewTranslateY: dragOffsetY.value,
+	})
 }
 </script>
 
 <style lang="stylus" scoped>
-$header-height = 40px
+@import '../assets/stylus/inject.styl'
 
 .p-header
 	baseStyle()
 
-	position relative
 	display flex
 	flex-direction row
 	justify-content space-between
 	align-items center
-	height $header-height
-	border-bottom 1px solid $ark-color-border
-	background-color $ark-color-background-sub
-	line-height @height
+	gap 10px
+	padding-left 20px
+	height v-bind('`${height}px`')
+	border-bottom 1px solid $color-border
+	background-color $color-background-sub
+	&.is-draggable
+		cursor move
+		user-select none
 	.icon
-		width $header-height
-		height $header-height
-		color $ark-color-theme
-		text-align center
-		line-height @height
+		color $color-primary
+		height 24px
 		i
-			font-size 24px
+			font-size @height
 	.title
 		baseEllipsis()
 
 		flex 1
-		padding 0 20px
-		font-size $ark-font-size-title-sub
+		font-size $font-size-title-sub
 	.btn-ctn
 		display flex
 		align-items center
 		height 100%
-	&.has-icon
-		.title
-			padding-left 0
 </style>

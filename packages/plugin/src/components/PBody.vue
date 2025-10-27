@@ -3,19 +3,21 @@
 	slot
 </template>
 
-<script>
-export default {
+<script lang="ts" setup>
+defineOptions({
 	name: 'PBody',
-	props: {
-		withPadding: {
-			type: Boolean,
-			default: true
-		}
-	}
+})
+
+type Props = {
+	withPadding?: boolean
 }
+
+const { withPadding = true } = defineProps<Props>()
 </script>
 
 <style lang="stylus" scoped>
+@import '../assets/stylus/inject.styl'
+
 .p-body
 	overflow hidden
 	width 100%

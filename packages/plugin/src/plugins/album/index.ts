@@ -1,64 +1,67 @@
-import type { FileSource } from '@/class'
-import { File } from '@/class'
-import VuePopup from '@styzy/vue-popup'
+import { definePlugin } from 'vue-popup-plus'
 
 type AlbumOption = {
 	/**
-	 * 媒体列表
-	 * - 支持的类型包括 `File` 类型和 `FileSource` 类型，具体类型请参考 {@link File} 和 {@link FileSource}
+	 * 数据源
+	 * - 支持主流图片资源和视频资源
 	 */
-	mediaList: File[] | FileSource[]
+	sources: Array<string>
 	/**
 	 * 默认选中的媒体索引
 	 * - 默认值为 `0`
 	 */
-	defaultIndex: number
+	defaultIndex?: number
 	/**
-	 * 是否开启下载功能
+	 * 是否禁用当前索引和总索引
 	 * - 默认值为 `false`
 	 */
-	downloadEnable: boolean
+	countDisabled?: boolean
 	/**
-	 * 是否开启滚轮缩放功能
-	 * - 默认值为 `true`
+	 * 是否禁用媒体名称
+	 * - 默认值为 `false`
 	 */
-	mouseWheelScaleEnable: boolean
+	nameDisabled?: boolean
 	/**
-	 * 是否开启鼠标拖动功能
-	 * - 默认值为 `true`
+	 * 是否禁用纯模式
+	 * - 默认值为 `false`
 	 */
-	mouseDragEnable: boolean
+	pureDisabled?: boolean
+	/**
+	 * 是否禁用下载功能
+	 * - 默认值为 `false`
+	 * - 注意：下载功能仅在资源地址支持跨域时生效
+	 */
+	downloadDisabled?: boolean
+	/**
+	 * 是否禁用缩放功能
+	 * - 默认值为 `false`
+	 */
+	scaleDisabled?: boolean
+	/**
+	 * 是否禁用拖动功能
+	 * - 默认值为 `false`
+	 */
+	dragDisabled?: boolean
 }
 
-export interface IPopupPluginAlbum {
+export interface IAlbum {
 	/**
 	 * 显示媒体相册
-	 * - 和图片相册不同，媒体相册的媒体列表支持更多的媒体类型，包括图片和视频，用户可以在相册中查看和操作这些媒体。
 	 * - 如果需要等待用户关闭媒体相册，需要通过 `await` 调用，等待执行结束后继续执行后续代码
 	 * - 使用示例：
 	 * ```ts
 	 * // 显示媒体相册，默认选中第二张媒体，即使用户不关闭媒体相册，也不会阻塞后续代码执行
-	 * popup.mediaAlbum({
-	 * 	mediaList: [
-	 * 		// string 类型
+	 * popup.album({
+	 * 	sources: [
 	 * 		'https://example.com/image1.jpg',
-	 * 		// File 类型
-	 * 		new File({
-	 * 			url: 'https://example.com/video1.mp4'
-	 * 		}),
-	 * 		// FileSource 类型
-	 * 		{
-	 * 			mediaFormat: 2,
-	 * 			url: 'https://example.com/image2.jpg',
-	 * 			poster: 'https://example.com/image2-poster.jpg',
-	 * 		}
+	 * 		'https://example.com/video1.mp4',
 	 * 	],
 	 * 	defaultIndex: 1
 	 * })
 	 *
 	 * // 只有用户关闭了媒体相册，才会继续执行后续代码
-	 * await popup.mediaAlbum({
-	 * 	mediaList: [
+	 * await popup.album({
+	 * 	sources: [
 	 * 		'https://example.com/image1.jpg',
 	 * 		'https://example.com/image1.jpg',
 	 * 	],
@@ -68,37 +71,42 @@ export interface IPopupPluginAlbum {
 	(options: AlbumOption): Promise<void>
 }
 
-declare module '@styzy/vue-popup' {
+declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		album: IPopupPluginAlbum
+		album: IAlbum
 	}
 }
 
-export const album = VuePopup.definePlugin({
+export const album = definePlugin({
 	name: 'Album',
-	install: (Popup) => {
-		Popup.prototype.album = function ({
-			mediaList,
+	install: (controller) => {
+		controller.customProperties.album = function ({
+			sources,
 			defaultIndex = 0,
-			downloadEnable = false,
-			mouseWheelScaleEnable = true,
-			mouseDragEnable = true,
+			countDisabled = false,
+			nameDisabled = false,
+			pureDisabled = false,
+			downloadDisabled = false,
+			scaleDisabled = false,
+			dragDisabled = false,
 		}: AlbumOption) {
 			return new Promise<void>((resolve) => {
 				this.render({
 					component: () => import('./src/PAlbum.vue'),
 					componentProps: {
-						mediaList,
+						sources,
 						defaultIndex,
-						downloadEnable,
-						mouseWheelScaleEnable,
-						mouseDragEnable,
+						countDisabled,
+						nameDisabled,
+						pureDisabled,
+						downloadDisabled,
+						scaleDisabled,
+						dragDisabled,
 					},
 					width: '100%',
 					height: '100%',
 					mask: false,
-					viewAnimations: [VuePopup.ANIMATION_TYPES.FADE],
-					destroyed: () => {
+					onUnmounted: () => {
 						resolve()
 					},
 				})

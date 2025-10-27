@@ -6,13 +6,15 @@
 	slot(name="footer")
 </template>
 
-<script>
-export default {
-	name: 'PScaffold'
-}
+<script lang="ts" setup>
+defineOptions({
+	name: 'PScaffold',
+})
 </script>
 
 <style lang="stylus" scoped>
+@import '../assets/stylus/inject.styl'
+
 .p-scaffold
 	display flex
 	flex-direction column

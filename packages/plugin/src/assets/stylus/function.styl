@@ -1,4 +1,15 @@
 
+baseStyle() // 基础样式
+	color $color-text-main
+	font-size $font-size-text-main
+baseDialog($type = margin) // 对话框容器
+	$size = 20px
+
+	if ($type == padding)
+		box-sizing border-box
+		padding $size
+	else
+		margin $size
 baseEllipsis() // 超出文本省略号
 	overflow hidden
 	text-overflow ellipsis

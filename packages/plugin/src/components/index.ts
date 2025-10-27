@@ -1,5 +1,13 @@
-export { default as PBody } from './PBody.vue'
-export { default as PFooter } from './PFooter.vue'
-export { default as PHeader } from './PHeader.vue'
-export { default as PHeaderButton } from './PHeaderButton.vue'
-export { default as PScaffold } from './PScaffold.vue'
+import PBody from './PBody.vue'
+import PFooter from './PFooter.vue'
+import PHeader from './PHeader.vue'
+import PHeaderButton from './PHeaderButton.vue'
+import PScaffold from './PScaffold.vue'
+
+export const components = {
+	PBody,
+	PFooter,
+	PHeader,
+	PHeaderButton,
+	PScaffold,
+}

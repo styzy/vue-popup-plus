@@ -1,6 +1,10 @@
-import VuePopup from '@styzy/vue-popup'
+import { definePlugin } from 'vue-popup-plus'
 
-export interface IPopupPluginLoading {
+type LoadingOption = {
+	iconSize?: number
+}
+
+export interface ILoading {
 	/**
 	 * 显示加载遮罩
 	 * - 返回关闭加载遮罩的方法，调用后关闭加载遮罩
@@ -11,36 +15,36 @@ export interface IPopupPluginLoading {
 	 * stopLoading()
 	 * ```
 	 */
-	(): () => void
+	(option?: LoadingOption): () => void
 }
 
-declare module '@styzy/vue-popup' {
+declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		loading: IPopupPluginLoading
+		loading: ILoading
 	}
 }
 
-export const loading = VuePopup.definePlugin({
+export const loading = definePlugin({
 	name: 'Loading',
-	install: Popup => {
-		Popup.prototype.loading = function () {
-			const stopLoading = () => {
-				destroy && destroy()
-			}
-
-			const destroy = this.render({
-				component: () => import('./src/PLoading.vue'),
+	install: (controller, config) => {
+		controller.customProperties.loading = function ({
+			iconSize = 60,
+		}: LoadingOption = {}) {
+			const instanceId = this.render({
+				component: () => import('./src/PLoadingMask.vue'),
 				componentProps: {
-					stopLoading
+					debugMode: config.debugMode,
+					iconSize,
 				},
 				width: '100%',
 				height: '100%',
 				mask: false,
-				viewAnimations: [VuePopup.ANIMATION_TYPES.FADE],
-				zIndex: 99999999
+				zIndex: 99999999,
 			})
 
-			return stopLoading
+			return () => {
+				this.destroy(instanceId)
+			}
 		}
-	}
+	},
 })

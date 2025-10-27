@@ -1,6 +1,7 @@
-import VuePopup from '@styzy/vue-popup'
+import { definePlugin } from 'vue-popup-plus'
+import type { Controller } from '../../../../popup/src/controller'
 
-type PopupAlertOption = {
+type AlertOption = {
 	/**
 	 * 提示框标题
 	 * - 默认值：`提示`
@@ -11,9 +12,19 @@ type PopupAlertOption = {
 	 * - 默认值：`确定`
 	 */
 	confirmText?: string
+	/**
+	 * 是否可拖动
+	 * - 默认值：`false`
+	 */
+	draggable?: boolean
+	/**
+	 * 是否可拖动超出窗口边界
+	 * - 默认值：`false`
+	 */
+	dragOverflow?: boolean
 }
 
-export interface IPopupPluginAlert {
+export interface IAlert {
 	/**
 	 * 显示提示框
 	 * - 如果需要等待用户点击确认按钮后继续执行后续代码，需要通过 `await` 调用，等待执行结束后继续执行后续代码
@@ -26,35 +37,42 @@ export interface IPopupPluginAlert {
 	 * // 只有用户点击了确认按钮，才会继续执行后续代码
 	 * ```
 	 */
-	(content: string, options?: PopupAlertOption): Promise<void>
+	(content: string, options?: AlertOption): Promise<void>
 }
 
-declare module '@styzy/vue-popup' {
+declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		alert: IPopupPluginAlert
+		alert: IAlert
 	}
 }
 
-export const alert = VuePopup.definePlugin({
+export const alert = definePlugin({
 	name: 'Alert',
-	install: Popup => {
-		Popup.prototype.alert = function (
+	install: (controller) => {
+		controller.customProperties.alert = function (
 			content: string = '',
-			{ title = '提示', confirmText = '确定' }: PopupAlertOption = {}
+			{
+				title = '提示',
+				confirmText = '确定',
+				draggable = false,
+				dragOverflow = false,
+			}: AlertOption = {}
 		) {
-			return new Promise<void>(resolve => {
+			return new Promise<void>((resolve) => {
 				this.render({
 					component: () => import('./src/PAlert.vue'),
 					componentProps: {
 						title,
 						content,
-						confirmText
+						confirmText,
+						draggable,
 					},
-					destroyed: () => {
+					viewTranslateOverflow: dragOverflow,
+					onUnmounted: () => {
 						resolve()
-					}
+					},
 				})
 			})
 		}
-	}
+	},
 })

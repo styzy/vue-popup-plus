@@ -2,50 +2,61 @@
 .p-alert
 	PScaffold
 		template(#header)
-			PHeader(:title="title" @close="handleConfirm()" iconClass="popup-alert")
+			PHeader(
+				:draggable="draggable"
+				:title="title"
+				@close="handleConfirm()"
+				iconClass="alert")
 		PBody
 			.content {{ content }}
 		template(#footer)
 			PFooter
-				VButtonGroup(align="right")
-					VButton(@click="handleConfirm()") {{ confirmText }}
+				PButtonGroup(align="right")
+					PButton(@click="handleConfirm()" theme="primary") {{ confirmText }}
 </template>
 
-<script>
-export default {
+<script lang="ts" setup>
+import { inject } from 'vue'
+import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import PScaffold from '../../../components/PScaffold.vue'
+import PHeader from '../../../components/PHeader.vue'
+import PBody from '../../../components/PBody.vue'
+import PFooter from '../../../components/PFooter.vue'
+import PButtonGroup from '../../../components/PButtonGroup.vue'
+import PButton from '../../../components/PButton.vue'
+
+const popup = usePopup()
+
+defineOptions({
 	name: 'PAlert',
-	props: {
-		title: {
-			type: String,
-			required: true
-		},
-		content: {
-			type: String,
-			required: true
-		},
-		confirmText: {
-			type: String,
-			required: true
-		}
-	},
-	methods: {
-		handleConfirm() {
-			this.$emit('close')
-		}
-	}
+})
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+
+type Props = {
+	title: string
+	content: string
+	confirmText: string
+	draggable: boolean
+}
+
+const { title, content, confirmText, draggable } = defineProps<Props>()
+
+function handleConfirm() {
+	popup.destroy(instanceId)
 }
 </script>
 
 <style lang="stylus" scoped>
-$header-height = 40px
+@import '../../../assets/stylus/inject.styl'
 
 .p-alert
+	baseStyle()
 	overflow hidden
 	max-width 80vw
 	max-height 80vh
 	width 360px
 	.content
-		color $ark-color-text-main
 		word-break break-all
 		line-height 24px
 </style>

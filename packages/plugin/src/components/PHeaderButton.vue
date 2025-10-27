@@ -1,52 +1,51 @@
 <template lang="pug">
-.p-header-button(:class="classObject" @click="handleClick()")
-	i.iconfont-ark(:class="iconClass")
+.p-header-button(:class="classObject" @click.stop="handleClick()")
+	i.iconfont-popup-plugin-preset(:class="iconClass")
 </template>
 
-<script>
-export default {
-	name: 'PHeaderButton',
-	props: {
-		iconClass: {
-			type: String,
-			default: ''
-		},
-		theme: {
-			type: String,
-			default: 'default',
-			validator: theme =>
-				['default', 'success', 'warning', 'danger'].includes(theme)
-		},
-		disabled: {
-			type: Boolean,
-			default: false
-		},
-		active: {
-			type: Boolean,
-			default: false
-		}
-	},
-	computed: {
-		classObject() {
-			return {
-				[`is-theme-${this.theme}`]: true,
-				'is-disabled': this.disabled,
-				'is-active': this.active
-			}
-		}
-	},
-	methods: {
-		handleClick() {
-			if (this.disabled) return
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-			this.$emit('click')
-		}
-	}
+defineOptions({
+	name: 'PHeaderButton',
+})
+
+type ButtonTheme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+
+type Props = {
+	iconClass?: string
+	theme?: ButtonTheme
+	size?: number
+	disabled?: boolean
+	actived?: boolean
+}
+
+const {
+	iconClass = '',
+	theme = 'primary',
+	size = 40,
+	disabled = false,
+	actived = false,
+} = defineProps<Props>()
+
+const emit = defineEmits(['click'])
+
+const classObject = computed(() => ({
+	[`is-theme-${theme}`]: true,
+	'is-disabled': disabled,
+	'is-active': actived,
+}))
+const iconSize = computed(() => size * 0.4)
+
+function handleClick() {
+	if (disabled) return
+
+	emit('click')
 }
 </script>
 
 <style lang="stylus" scoped>
-$size = 40px
+@import '../assets/stylus/inject.styl'
 
 .p-header-button
 	baseStyle()
@@ -55,26 +54,26 @@ $size = 40px
 	display flex
 	justify-content center
 	align-items center
-	width $size
-	height @width
-	color $ark-color-text-sub
-	text-align center
-	line-height @height
+	width v-bind('`${size}px`')
+	height v-bind('`${size}px`')
+	color $color-text-sub
 	cursor pointer
 	i
-		font-size 16px
+		font-size v-bind('`${iconSize}px`')
 	&.is-disabled
 		opacity 0.5
 		cursor not-allowed
 	&.is-active,
 	&:not(.is-disabled):hover
 		color #FFFFFF
-		&.is-theme-default
-			background-color $ark-color-theme
+		&.is-theme-primary
+			background-color $color-primary
+		&.is-theme-info
+			background-color $color-info
 		&.is-theme-success
-			background-color $ark-color-success
+			background-color $color-success
 		&.is-theme-warning
-			background-color $ark-color-warning
+			background-color $color-warning
 		&.is-theme-danger
-			background-color $ark-color-danger
+			background-color $color-danger
 </style>

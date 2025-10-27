@@ -1,20 +1,16 @@
-import VuePopup from '@styzy/vue-popup'
-import type { AsyncComponent, Component } from 'vue'
-
-type PopupDialogComponent =
-	| object
-	| Component<any, any, any, any>
-	| AsyncComponent<any, any, any, any>
+import { definePlugin } from 'vue-popup-plus'
+import type { Component } from 'vue'
 
 type PopupDialogOption = {
 	/**
 	 * 对话框标题
+	 * - 默认值为 `''`
 	 */
 	title?: string
 	/**
 	 * 对话框内容组件
 	 */
-	component: PopupDialogComponent
+	component: Component
 	/**
 	 * 对话框内容组件props
 	 */
@@ -25,10 +21,10 @@ type PopupDialogOption = {
 	 */
 	header?: boolean
 	/**
-	 * 是否隐藏对话框标题栏关闭按钮
-	 * - 默认值为 `false`
+	 * 是否显示对话框标题栏关闭按钮
+	 * - 默认值为 `true`
 	 */
-	hideHeaderClose?: boolean
+	headerCloseButton?: boolean
 	/**
 	 * 对话框宽度
 	 * - 默认值为 `auto`
@@ -74,26 +70,36 @@ type PopupDialogOption = {
 	 * 是否点击遮罩层关闭对话框
 	 * - 默认值为 `false`
 	 */
-	maskClickClose?: boolean
+	maskClickCloseEnabled?: boolean
+	/**
+	 * 是否可拖拽
+	 * - 默认值为 `false`
+	 */
+	draggable?: boolean
+	/**
+	 * 是否可拖拽溢出屏幕
+	 * - 默认值为 `false`
+	 */
+	dragOverflow?: boolean
 	/**
 	 * 对话框渲染完成时调用的回调函数
 	 */
-	mounted?: () => void
+	onMounted?: () => void
 }
 
-export interface IPopupPluginDialog {
+export interface IDialog {
 	/**
 	 * 显示对话框
 	 * - 对话框内部组件可通过调用 `this.$emit('close', payload)` 关闭对话框，payload 为关闭时传递的参数
 	 * - 如需获取对话框关闭时传递的参数，可在调用 `dialog` 方法时使用 `await` 关键字等待 Promise resolve 后获取
 	 * - 对话框关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是否有返回参数
 	 */
-	<T>(options: PopupDialogOption): Promise<T | undefined>
+	<T extends any = any>(options: PopupDialogOption): Promise<T | undefined>
 }
 
-declare module '@styzy/vue-popup' {
+declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		dialog: IPopupPluginDialog
+		dialog: IDialog
 	}
 }
 
@@ -101,15 +107,15 @@ let seed = 1
 
 const createId = () => `dialog-${seed++}`
 
-export const dialog = VuePopup.definePlugin({
+export const dialog = definePlugin({
 	name: 'Dialog',
-	install: (Popup, Vue) => {
-		Popup.prototype.dialog = function ({
-			title,
+	install: (controller, config) => {
+		controller.customProperties.dialog = function ({
+			title = '',
 			component,
 			props = {},
 			header = true,
-			hideHeaderClose = false,
+			headerCloseButton = true,
 			width = 'auto',
 			maxWidth = '100%',
 			minWidth = 'auto',
@@ -117,24 +123,23 @@ export const dialog = VuePopup.definePlugin({
 			maxHeight = '100%',
 			minHeight = 'auto',
 			mask = true,
-			maskClickClose = false,
-			mounted = () => {}
+			maskClickCloseEnabled = false,
+			draggable = false,
+			dragOverflow = false,
+			onMounted = () => {},
 		}: PopupDialogOption) {
-			const componentProps = Vue.observable({
+			const componentProps = {
 				id: createId(),
 				title,
 				customComponent: component,
 				customComponentProps: props,
 				header,
-				hideHeaderClose,
-				updateProps: (props: any) => {
-					Object.entries(props).forEach(([key, value]) => {
-						componentProps[key] = value
-					})
-				}
-			}) as Record<string, any>
+				headerCloseButton,
+				draggable,
+				debugMode: config.debugMode,
+			}
 
-			return new Promise(resolve => {
+			return new Promise((resolve) => {
 				this.render({
 					component: () => import('./src/PDialog.vue'),
 					componentProps,
@@ -145,13 +150,14 @@ export const dialog = VuePopup.definePlugin({
 					maxHeight,
 					minHeight,
 					mask,
-					maskClickClose,
-					mounted,
-					destroyed: (payload?: any) => {
+					maskClickCloseEnabled,
+					viewTranslateOverflow: dragOverflow,
+					onMounted,
+					onUnmounted: (payload?: any) => {
 						resolve(payload)
-					}
+					},
 				})
 			})
 		}
-	}
+	},
 })

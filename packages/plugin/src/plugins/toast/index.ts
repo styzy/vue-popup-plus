@@ -8,7 +8,7 @@ type ToastOption = {
 	duration?: number
 }
 
-export interface IPluginToast {
+export interface IToast {
 	/**
 	 * 显示消息
 	 * - 第一个参数为消息内容
@@ -28,7 +28,7 @@ export interface IPluginToast {
 
 declare module 'vue-popup-plus' {
 	interface PopupCustomProperties {
-		toast: IPluginToast
+		toast: IToast
 	}
 }
 

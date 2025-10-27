@@ -8,14 +8,18 @@ import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+defineOptions({
+	name: 'PToast',
+})
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+
 type Props = {
 	content: string
 	duration: number
 }
 
 const { content, duration } = defineProps<Props>()
-
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 onMounted(() => {
 	window.setTimeout(() => {
@@ -25,6 +29,8 @@ onMounted(() => {
 </script>
 
 <style lang="stylus" scoped>
+@import '../../../assets/stylus/inject.styl'
+
 .p-message
 	padding 15px 20px
 	border-radius 4px
@@ -35,6 +41,6 @@ onMounted(() => {
 		max-width 300px
 		max-height 80vh
 		word-break break-all
-		font-size $ark-font-size-text-main
+		font-size $font-size-text-main
 		line-height 1.5
 </style>

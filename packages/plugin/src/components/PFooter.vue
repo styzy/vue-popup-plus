@@ -1,26 +1,17 @@
 <template lang="pug">
-.p-footer(:style="styleObject")
+.p-footer
 	slot
 </template>
 
-<script>
-export default {
+<script lang="ts" setup>
+defineOptions({
 	name: 'PFooter',
-	props: {
-		height: {
-			type: String,
-			default: '60px'
-		}
-	},
-	computed: {
-		styleObject() {
-			return {}
-		}
-	}
-}
+})
 </script>
 
 <style lang="stylus" scoped>
+@import '../assets/stylus/inject.styl'
+
 .p-footer
 	baseDialog(padding)
 
