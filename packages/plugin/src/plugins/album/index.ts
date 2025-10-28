@@ -71,6 +71,12 @@ export interface IAlbum {
 	(options: AlbumOption): Promise<void>
 }
 
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		album: IAlbum
+	}
+}
+
 export const album = definePlugin({
 	name: 'Album',
 	install: (controller) => {

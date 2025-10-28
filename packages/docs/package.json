@@ -1,5 +1,5 @@
 {
-	"name": "doc",
+	"name": "docs",
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",
@@ -50,4 +50,3 @@
 		"vue-tsc": "^3.0.4"
 	}
 }
-

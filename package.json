@@ -9,9 +9,9 @@
 	},
 	"scripts": {
 		"dev": "yarn workspace playground dev",
-		"docs:dev": "yarn workspace doc dev",
-		"docs:build": "yarn workspace doc build",
-		"docs:preview": "yarn workspace doc preview",
+		"docs:dev": "yarn workspace docs dev",
+		"docs:build": "yarn workspace docs build",
+		"docs:preview": "yarn workspace docs preview",
 		"lib:build": "yarn workspace vue-popup-plus build",
 		"plugin:build": "yarn workspace vue-popup-plus-plugin-preset build"
 	}
