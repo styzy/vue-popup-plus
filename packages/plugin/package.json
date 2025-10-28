@@ -32,7 +32,7 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
-		"vue": "^3.5.18",
+		"vue": "^3.5.22",
 		"vue-popup-plus": "workspace:^1.1.5"
 	},
 	"devDependencies": {

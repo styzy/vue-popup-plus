@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"pinia": "^3.0.3",
-		"vue": "^3.5.18"
+		"vue": "^3.5.22"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "^3.4.2",
