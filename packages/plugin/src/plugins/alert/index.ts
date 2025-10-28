@@ -1,5 +1,4 @@
 import { definePlugin } from 'vue-popup-plus'
-import type { Controller } from '../../../../popup/src/controller'
 
 type AlertOption = {
 	/**
