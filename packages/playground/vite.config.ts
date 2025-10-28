@@ -8,7 +8,7 @@ export default defineConfig({
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'vue-popup-plus': fileURLToPath(
-				new URL('../popup/src', import.meta.url)
+				new URL('../core/src', import.meta.url)
 			),
 			'vue-popup-plus-plugin-preset': fileURLToPath(
 				new URL('../plugin/src', import.meta.url)
