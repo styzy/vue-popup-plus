@@ -1,19 +1,21 @@
 {
 	"name": "vue-popup-plus-root",
 	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
 	"engines": {
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
-		"dev": "yarn workspace playground dev",
-		"docs:dev": "yarn workspace docs dev",
-		"docs:build": "yarn workspace docs build",
-		"docs:preview": "yarn workspace docs preview",
-		"lib:build": "yarn workspace vue-popup-plus build",
-		"plugin:build": "yarn workspace vue-popup-plus-plugin-preset build"
+		"preinstall": "npx only-allow pnpm",
+		"dev": "pnpm --filter playground run dev",
+		"dev:docs": "pnpm --filter docs run dev",
+		"dev:doc": "pnpm --filter doc run dev",
+		"build:lib": "pnpm --filter vue-popup-plus run build",
+		"build:plugin": "pnpm --filter vue-popup-plus-plugin-preset run build",
+		"build:docs": "pnpm --filter docs run build",
+		"build:doc": "pnpm --filter doc run build",
+		"preview:docs": "pnpm --filter docs run preview",
+		"preview:doc": "pnpm --filter doc run preview",
+		"publish:lib": "pnpm --filter vue-popup-plus run publish",
+		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset run publish"
 	}
 }
-

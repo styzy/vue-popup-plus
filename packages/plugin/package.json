@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"vue": "^3.5.22",
-		"vue-popup-plus": "workspace:^1.1.5"
+		"vue-popup-plus": "workspace:*"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "^3.4.2",
@@ -65,4 +65,3 @@
 	},
 	"license": "MIT"
 }
-

@@ -17,9 +17,6 @@
 	"dependencies": {
 		"github-markdown-css": "^5.8.1",
 		"highlight.js": "^11.11.1",
-		"vue": "^3.5.22",
-		"vue-popup-plus": "workspace:^1.1.5",
-		"vue-popup-plus-plugin-preset": "workspace:^1.1.0",
 		"vue-router": "^4.5.1"
 	},
 	"devDependencies": {
@@ -48,8 +45,6 @@
 		"vite-plugin-vue-devtools": "^8.0.0",
 		"vitepress": "^2.0.0-alpha.12",
 		"vitest": "^3.2.4",
-		"vue": "^3.5.22",
 		"vue-tsc": "^3.0.4"
 	}
 }
-
