@@ -15,7 +15,7 @@
 		"build:doc": "pnpm --filter doc build",
 		"preview:docs": "pnpm --filter docs preview",
 		"preview:doc": "pnpm --filter doc preview",
-		"publish:core": "pnpm --filter vue-popup-plus publish",
-		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish"
+		"publish:core": "pnpm --filter vue-popup-plus publish --registry=https://registry.npmjs.org",
+		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish --registry=https://registry.npmjs.org"
 	}
 }
