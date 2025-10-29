@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Vue Popup Plus 弹出层插件",
+  title: "Vue Popup Plus | Vue3 弹出层插件",
   description: "Vue3 弹出层插件",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -10,7 +10,6 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Examples', link: '/markdown-examples' }
     ],
-
     sidebar: [
       {
         text: 'Examples',
@@ -20,7 +19,6 @@ export default defineConfig({
         ]
       }
     ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ]
