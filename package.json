@@ -6,16 +6,16 @@
 	},
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
-		"dev": "pnpm --filter playground run dev",
-		"dev:docs": "pnpm --filter docs run dev",
-		"dev:doc": "pnpm --filter doc run dev",
-		"build:lib": "pnpm --filter vue-popup-plus run build",
-		"build:plugin": "pnpm --filter vue-popup-plus-plugin-preset run build",
-		"build:docs": "pnpm --filter docs run build",
-		"build:doc": "pnpm --filter doc run build",
-		"preview:docs": "pnpm --filter docs run preview",
-		"preview:doc": "pnpm --filter doc run preview",
-		"publish:lib": "pnpm --filter vue-popup-plus run publish",
-		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset run publish"
+		"dev": "pnpm --filter playground dev",
+		"dev:docs": "pnpm --filter docs dev",
+		"dev:doc": "pnpm --filter doc dev",
+		"build:lib": "pnpm --filter vue-popup-plus build",
+		"build:plugin": "pnpm --filter vue-popup-plus-plugin-preset build",
+		"build:docs": "pnpm --filter docs build",
+		"build:doc": "pnpm --filter doc build",
+		"preview:docs": "pnpm --filter docs preview",
+		"preview:doc": "pnpm --filter doc preview",
+		"publish:lib": "pnpm --filter vue-popup-plus publish",
+		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish"
 	}
 }

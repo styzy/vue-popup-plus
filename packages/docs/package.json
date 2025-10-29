@@ -17,6 +17,9 @@
 	"dependencies": {
 		"github-markdown-css": "^5.8.1",
 		"highlight.js": "^11.11.1",
+		"vue": "^3.5.22",
+		"vue-popup-plus": "workspace:^",
+		"vue-popup-plus-plugin-preset": "workspace:^",
 		"vue-router": "^4.5.1"
 	},
 	"devDependencies": {
@@ -48,3 +51,4 @@
 		"vue-tsc": "^3.0.4"
 	}
 }
+

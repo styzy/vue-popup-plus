@@ -11,6 +11,10 @@
 		"build": "vitepress build",
 		"preview": "vitepress preview"
 	},
+	"dependencies": {
+		"vue-popup-plus": "workspace:^",
+		"vue-popup-plus-plugin-preset": "workspace:^"
+	},
 	"devDependencies": {
 		"vitepress": "^2.0.0-alpha.12",
 		"vue": "^3.5.22"

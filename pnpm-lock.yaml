@@ -97,6 +97,13 @@ importers:
         version: 3.1.2(typescript@5.8.3)
 
   packages/doc:
+    dependencies:
+      vue-popup-plus:
+        specifier: workspace:^
+        version: link:../core
+      vue-popup-plus-plugin-preset:
+        specifier: workspace:^
+        version: link:../plugin
     devDependencies:
       vitepress:
         specifier: ^2.0.0-alpha.12
@@ -113,6 +120,15 @@ importers:
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
+      vue:
+        specifier: ^3.5.22
+        version: 3.5.22(typescript@5.8.3)
+      vue-popup-plus:
+        specifier: workspace:^
+        version: link:../core
+      vue-popup-plus-plugin-preset:
+        specifier: workspace:^
+        version: link:../plugin
       vue-router:
         specifier: ^4.5.1
         version: 4.6.3(vue@3.5.22(typescript@5.8.3))
@@ -284,7 +300,7 @@ importers:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.8.3)
       vue-popup-plus:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../core
     devDependencies:
       '@prettier/plugin-pug':
