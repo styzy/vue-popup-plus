@@ -30,6 +30,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-
 **/.vitepress/cache
-**/.vitepress/dist
