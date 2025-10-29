@@ -32,14 +32,18 @@ export const buttonGroupInjects: ButtonGroupInjects = {
 </script>
 
 <script lang="ts" setup>
-import { computed, onMounted, provide, useSlots } from 'vue'
+import { computed, onMounted, provide, type VNode } from 'vue'
 import PButton from './PButton.vue'
 
 defineOptions({
 	name: 'PButtonGroup',
 })
 
-const slots = useSlots()
+type Slots = {
+	default: () => VNode[]
+}
+
+const slots = defineSlots<Slots>()
 
 type GroupAlign = 'left' | 'center' | 'right'
 
@@ -108,9 +112,9 @@ onMounted(() => {
 })
 
 function checkSlots() {
-	const defaultSlots = slots.default?.()
+	const defaultSlots = slots.default()
 	if (
-		defaultSlots?.some((vNode) => {
+		defaultSlots.some((vNode) => {
 			vNode.type !== PButton
 		})
 	) {

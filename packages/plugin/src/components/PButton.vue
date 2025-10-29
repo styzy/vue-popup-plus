@@ -35,7 +35,7 @@ const groupType = inject(buttonGroupInjects.groupType, 'default')
 const groupTheme = inject(buttonGroupInjects.groupTheme, 'default')
 const groupSize = inject(buttonGroupInjects.groupSize, 'default')
 
-const buttonRef = useTemplateRef('button')
+const buttonRef = useTemplateRef<HTMLButtonElement>('button')
 
 type Props = {
 	/**
