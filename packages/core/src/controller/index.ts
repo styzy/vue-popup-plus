@@ -1,7 +1,7 @@
 import { type App, type Component } from 'vue'
 import type { Core } from '../core'
-import { Instance } from '../Instance'
-import type { InstanceId } from '../Instance'
+import { Instance } from '../instance'
+import type { InstanceId } from '../instance'
 import { wrapWithPlugin, type PopupPlugin } from '../plugin'
 import { PopupError } from '../error'
 import {
@@ -46,7 +46,24 @@ export interface IController extends PopupCustomProperties {
 	destroy(instanceId: InstanceId, payload?: any): void
 }
 
-type RenderElement = HTMLElement | string
+export type RenderConfigOptions = {
+	/**
+	 * 弹出层挂载的父元素，不指定时，默认挂载到 body 元素下
+	 */
+	appendTo?: Element | string
+	/**
+	 * 弹出层是否显示遮罩层，默认值为 true
+	 */
+	mask?: boolean
+	/**
+	 * 点击遮罩层是否关闭弹出层，默认值为 false ，仅在 mask 为 true 时有效
+	 */
+	maskClickCloseEnabled?: boolean
+	/**
+	 * 弹出层是否禁用窗口滚动，默认值为 true
+	 */
+	disableScroll?: boolean
+}
 
 export type RenderComponentOptions = {
 	/**
@@ -223,42 +240,20 @@ export type RenderStyleOptions = {
 	zIndex?: number
 }
 
-export type RenderExtraOptions = {
-	/**
-	 * 弹出层挂载的元素，不指定时，默认挂载到 body 元素下
-	 */
-	el?: RenderElement
-	/**
-	 * 弹出层是否显示遮罩层，默认值为 true
-	 */
-	mask?: boolean
-	/**
-	 * 点击遮罩层是否关闭弹出层，默认值为 false ，仅在 mask 为 true 时有效
-	 */
-	maskClickCloseEnabled?: boolean
-	/**
-	 * 弹出层是否自动隐藏窗口滚动条，默认值为 true
-	 */
-	autoHideWindowScroll?: boolean
-}
+export type RenderOptions = RenderConfigOptions &
+	RenderComponentOptions &
+	RenderStyleOptions
 
-type RenderOptions = RenderComponentOptions &
-	RenderStyleOptions &
-	RenderExtraOptions
+export type UpdateOptions = Partial<RenderStyleOptions>
 
-type UpdateOptions = Partial<
-	Omit<RenderOptions, 'component' | 'el' | 'autoHideWindowScroll'>
->
-
-const defaultOptions: Required<
-	Omit<RenderOptions, 'component' | 'el' | 'zIndex'>
-> = {
+const defaultOptions: Required<Omit<RenderOptions, 'zIndex' | 'component'>> = {
+	appendTo: document.body,
+	mask: true,
+	maskClickCloseEnabled: false,
+	disableScroll: true,
 	componentProps: {},
 	onMounted: () => {},
 	onUnmounted: () => {},
-	mask: true,
-	maskClickCloseEnabled: false,
-	autoHideWindowScroll: true,
 	width: 'auto',
 	maxWidth: 'auto',
 	minWidth: 'auto',
@@ -275,11 +270,13 @@ const defaultOptions: Required<
 
 export class Controller implements IController {
 	_core: Core
+
 	constructor(core: Core) {
 		this._core = core
 	}
 	install(app: App): void {
 		app.config.globalProperties[this._core.config.prototypeName] = this
+		this._core.app = app
 	}
 	use(plugin: PopupPlugin): void {
 		if (!this._core.addPlugin(plugin))
@@ -289,14 +286,13 @@ export class Controller implements IController {
 
 		plugin.install(wrapWithPlugin(this), this._core.config)
 	}
-	render({ el, zIndex, ...options }: RenderOptions): InstanceId {
-		el = el || document.body.appendChild(document.createElement('div'))
+	render({ zIndex, ...options }: RenderOptions): InstanceId {
 		zIndex = zIndex ?? this._core.config.zIndex++
 
-		const instance: Instance = new Instance(this._core.seed, {
+		const instance: Instance = new Instance(this._core, {
 			...defaultOptions,
 			...options,
-			...{ zIndex, el },
+			...{ zIndex },
 		})
 
 		this._core.addInstance(instance)
@@ -305,12 +301,12 @@ export class Controller implements IController {
 
 		return instance.id
 	}
-	update(instanceId: InstanceId, options: RenderOptions) {
+	update(instanceId: InstanceId, options: UpdateOptions) {
 		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return
 
-		instance.updateStore(options)
+		instance.update(options)
 	}
 	async destroy(instanceId: InstanceId, payload?: any): Promise<void> {
 		const instance = this._core.getInstance(instanceId)

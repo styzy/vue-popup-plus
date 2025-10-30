@@ -1,5 +1,6 @@
+import type { App } from 'vue'
 import { Controller, type IController } from '../controller'
-import { Instance, InstanceId } from '../Instance'
+import { Instance, InstanceId } from '../instance'
 import type { PopupPlugin } from '../plugin'
 
 export interface ICore {
@@ -83,17 +84,18 @@ export type CoreOptions = {
 
 export type CoreConfig = Required<CoreOptions>
 
-let core: ICore
+let core: ICore | null = null
 
 export function createCore(options?: CoreOptions): ICore {
 	return new Core(options)
 }
 
-export function getCore() {
+export function getCore(): ICore | null {
 	return core
 }
 
 export class Core implements ICore {
+	app?: Readonly<App>
 	#seed: number = 1
 	#instances: Record<InstanceId['name'], Instance> = {}
 	#controller: IController

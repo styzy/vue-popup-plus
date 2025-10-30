@@ -1,5 +1,5 @@
 <template lang="pug">
-.popup-view-wrapper(:style="{ zIndex: store.zIndex }")
+.popup-view-wrapper(:style="{ zIndex: store.zIndex.value }")
 	.popup-view(:style="styleObject" ref="popupViewRef")
 		component(
 			:is="resolvedComponent"
@@ -54,41 +54,41 @@ const resolvedComponent = computed(() => {
 })
 
 const translateX = computed(() => {
-	return store.viewTranslateOverflow
-		? store.viewTranslateX
-		: store.viewTranslateX > 0
+	return store.viewTranslateOverflow.value
+		? store.viewTranslateX.value
+		: store.viewTranslateX.value > 0
 			? Math.min(
-					store.viewTranslateX,
+					store.viewTranslateX.value,
 					(window.innerWidth - viewWidth.value) / 2
 				)
 			: Math.max(
-					store.viewTranslateX,
+					store.viewTranslateX.value,
 					-(window.innerWidth - viewWidth.value) / 2
 				)
 })
 
 const translateY = computed(() => {
-	return store.viewTranslateOverflow
-		? store.viewTranslateY
-		: store.viewTranslateY > 0
+	return store.viewTranslateOverflow.value
+		? store.viewTranslateY.value
+		: store.viewTranslateY.value > 0
 			? Math.min(
-					store.viewTranslateY,
+					store.viewTranslateY.value,
 					(window.innerHeight - viewHeight.value) / 2
 				)
 			: Math.max(
-					store.viewTranslateY,
+					store.viewTranslateY.value,
 					-(window.innerHeight - viewHeight.value) / 2
 				)
 })
 
 const styleObject = computed(() => {
 	return {
-		width: formatSize(store.width),
-		maxWidth: formatSize(store.maxWidth),
-		minWidth: formatSize(store.minWidth),
-		height: formatSize(store.height),
-		maxHeight: formatSize(store.maxHeight),
-		minHeight: formatSize(store.minHeight),
+		width: formatSize(store.width.value),
+		maxWidth: formatSize(store.maxWidth.value),
+		minWidth: formatSize(store.minWidth.value),
+		height: formatSize(store.height.value),
+		maxHeight: formatSize(store.maxHeight.value),
+		minHeight: formatSize(store.minHeight.value),
 		transform: `translate(${translateX.value}px, ${translateY.value}px)`,
 	}
 })
@@ -96,7 +96,7 @@ const styleObject = computed(() => {
 const viewStyle: PopupViewStyle = computed(() => ({
 	width: viewWidth.value,
 	height: viewHeight.value,
-	zIndex: store.zIndex,
+	zIndex: store.zIndex.value,
 	translateX: translateX.value,
 	translateY: translateY.value,
 }))
@@ -104,7 +104,7 @@ const viewStyle: PopupViewStyle = computed(() => ({
 provide(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE, viewStyle)
 
 onMounted(() => {
-	window.setTimeout(syncViewSize, store.animationDuration)
+	window.setTimeout(syncViewSize, store.animationDuration.value)
 })
 
 onUpdated(() => {

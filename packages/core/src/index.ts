@@ -1,14 +1,16 @@
 import { createCore, getCore, type CoreOptions } from './core'
 import { type IController } from './controller'
+import { PopupError } from './error'
 
-export { type PopupCustomProperties } from './controller'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export {
-	definePlugin,
-	type IDefinePlugin,
-	type IPluginWrappedController,
-	type PopupPlugin,
-} from './plugin'
+	type PopupCustomProperties,
+	type RenderOptions,
+	type UpdateOptions,
+} from './controller'
+export { type CoreOptions } from './core'
+export { type InstanceId } from './instance'
+export { definePlugin, type PopupPlugin } from './plugin'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { version } from '../package.json'
 
@@ -26,7 +28,14 @@ export function createPopup(options?: CoreOptions): IController {
  * @returns 弹出层控制器实例
  */
 export function usePopup(): IController {
-	return getCore().controller
+	const core = getCore()
+
+	if (!core)
+		throw new PopupError(
+			`调用 usePopup 前请先调用 createPopup 创建弹出层插件实例`
+		)
+
+	return core.controller
 }
 
 declare module 'vue' {

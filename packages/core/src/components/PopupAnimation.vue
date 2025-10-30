@@ -4,7 +4,7 @@ Transition(
 	:leave-active-class="leaveActiveClass")
 	slot(
 		:style="{ animationDuration: `${duration}ms` }"
-		v-if="isShow && !store.isBeforeUnmount")
+		v-if="isShow && !store.isBeforeUnmount.value")
 </template>
 
 <script lang="ts" setup>

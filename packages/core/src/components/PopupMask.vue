@@ -1,9 +1,9 @@
 <template lang="pug">
-.popup-mask(:style="styleObject" @click="handleClick")
+.popup-mask(:style="{ zIndex: store.zIndex.value }" @click="handleClick")
 </template>
 
 <script lang="ts" setup>
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 import { usePopup } from '../'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -16,12 +16,6 @@ defineOptions({
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
-
-const styleObject = computed(() => {
-	return {
-		zIndex: store.zIndex,
-	}
-})
 
 function handleClick() {
 	if (store.maskClickCloseEnabled) {
