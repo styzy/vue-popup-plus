@@ -25,10 +25,11 @@
 				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移超出屏幕
 			.title.sub 动画功能
 			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handlePopupScale()") 缩放
-				PButton(@click="handlePopupFade()") 淡入淡出
-				PButton(@click="handlePopupFly()") 飞入
-				PButton(@click="handlePopupDuration()") 设置动画持续时间
+				PButton(@click="handlePopupAnimationScale()") 缩放
+				PButton(@click="handlePopupAnimationFade()") 淡入淡出
+				PButton(@click="handlePopupAnimationFly()") 飞入
+				PButton(@click="handlePopupAnimationDuration()") 设置动画持续时间
+				PButton(@click="handlePopupAnimationCustom()" theme="danger") 自定义动画
 	.row
 		.row-item
 			.title 插件功能单元测试
@@ -107,8 +108,6 @@ function handleJump(url: string, blank = false) {
 function handlePopup() {
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
-		maskAnimation: POPUP_ANIMATIONS.CUSTOM,
-		viewAnimation: POPUP_ANIMATIONS.CUSTOM,
 	})
 }
 
@@ -131,7 +130,7 @@ function handlePopupFullScreen() {
 function handlePopupOffset() {
 	popup.render({
 		viewTranslateX: 100,
-		viewTranslateY: 100,
+		viewTranslateY: -100,
 		component: () => import('@/views/Demo.vue'),
 	})
 }
@@ -139,7 +138,7 @@ function handlePopupOffset() {
 function handlePopupOffsetLarge() {
 	popup.render({
 		viewTranslateX: 380,
-		viewTranslateY: 380,
+		viewTranslateY: -380,
 		component: () => import('@/views/Demo.vue'),
 	})
 }
@@ -147,13 +146,13 @@ function handlePopupOffsetLarge() {
 function handlePopupOffsetLargeOverflow() {
 	popup.render({
 		viewTranslateX: 380,
-		viewTranslateY: 380,
+		viewTranslateY: -380,
 		viewTranslateOverflow: true,
 		component: () => import('@/views/Demo.vue'),
 	})
 }
 
-function handlePopupScale() {
+function handlePopupAnimationScale() {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 		viewAnimation: POPUP_ANIMATIONS.SCALE_SHRINK,
@@ -161,7 +160,7 @@ function handlePopupScale() {
 	})
 }
 
-function handlePopupFade() {
+function handlePopupAnimationFade() {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.FADE,
 		viewAnimation: POPUP_ANIMATIONS.FADE,
@@ -169,7 +168,7 @@ function handlePopupFade() {
 	})
 }
 
-function handlePopupFly() {
+function handlePopupAnimationFly() {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.FLY_TOP,
 		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
@@ -177,9 +176,17 @@ function handlePopupFly() {
 	})
 }
 
-function handlePopupDuration() {
+function handlePopupAnimationDuration() {
 	popup.render({
 		animationDuration: 20000,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupAnimationCustom() {
+	popup.render({
+		maskAnimation: POPUP_ANIMATIONS.CUSTOM,
+		viewAnimation: POPUP_ANIMATIONS.CUSTOM,
 		component: () => import('@/views/Demo.vue'),
 	})
 }

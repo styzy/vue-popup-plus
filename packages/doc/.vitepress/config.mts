@@ -1,4 +1,8 @@
 import { defineConfig } from 'vitepress'
+import {
+	groupIconMdPlugin,
+	groupIconVitePlugin,
+} from 'vitepress-plugin-group-icons'
 
 export default defineConfig({
 	title: 'Vue Popup Plus | Vue3 弹出层插件',
@@ -12,37 +16,61 @@ export default defineConfig({
 	locales: {
 		root: {
 			label: '中文',
-			link: '/cn/',
+			link: '/',
 			themeConfig: {
 				logo: '/logo.svg',
 				siteTitle: 'Vue Popup Plus',
 				i18nRouting: true,
 				nav: [
 					{ text: '首页', link: '/' },
-					{ text: '指南', link: '/guide/core/introduction' },
-					{ text: '示例', link: '/example/core/render' },
-					{ text: '教程', link: '/tutorial/core/render' },
+					{ text: '指南', link: '/guide/introduction' },
+					{ text: '示例', link: '/examples/render' },
 					{ text: '插件', link: '/plugin/introduction' },
 					{ text: 'API', link: '/api/createPopup' },
 				],
 				sidebar: [
 					{
-						text: '基础',
+						text: '开始',
 						items: [
-							{ text: '介绍', link: '/guide/core/introduction' },
-							{ text: '安装', link: '/guide/core/install' },
+							{ text: '介绍', link: '/guide/introduction' },
+							{
+								text: '关于预置插件',
+								link: '/guide/about-preset-plugin',
+							},
+							{ text: '安装', link: '/guide/install' },
+							{
+								text: '初始化',
+								link: '/guide/initialization',
+							},
+							{
+								text: '注册预置插件',
+								link: '/guide/preset-plugin-initialization',
+							},
 						],
 					},
 					{
-						text: '预置插件',
+						text: '基础',
 						items: [
 							{
-								text: '介绍',
-								link: '/guide/plugin-preset/introduction',
+								text: '渲染弹出层',
+								link: '/guide/render',
 							},
 							{
-								text: '安装',
-								link: '/guide/plugin-preset/install',
+								text: '销毁弹出层',
+								link: '/guide/destroy',
+							},
+						],
+					},
+					{
+						text: '进阶',
+						items: [
+							{
+								text: '获取实例id',
+								link: '/guide/get-instance-id',
+							},
+							{
+								text: '更新渲染选项',
+								link: '/guide/update',
 							},
 						],
 					},
@@ -62,5 +90,17 @@ export default defineConfig({
 			title: 'Vue Popup Plus | Vue3 Popup Plugin',
 			description: 'Vue3 Popup Plugin',
 		},
+	},
+	markdown: {
+		theme: {
+			dark: 'one-dark-pro',
+			light: 'github-light',
+		},
+		config: (md) => {
+			md.use(groupIconMdPlugin)
+		},
+	},
+	vite: {
+		plugins: [groupIconVitePlugin()],
 	},
 })

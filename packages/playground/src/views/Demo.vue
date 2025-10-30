@@ -1,11 +1,10 @@
 <template lang="pug">
 .demo
-	h1 这是一个弹框
-	h2 测试属性：{{ test }}
+	h1(:style="{ margin: '0' }") 这是一个弹框
+	h2(:style="{ margin: '0' }") 测试属性：{{ test }}
+	GlobalComponent
 	input(placeholder="请输入返回值" type="text" v-model="result")
-	br
 	button(@click="handleUpdateSize") 更新弹框尺寸
-	br
 	button(@click="handleClose") 关闭弹框
 </template>
 
@@ -44,12 +43,14 @@ function handleClose() {
 	display flex
 	flex-direction column
 	align-items center
+	gap 20px
 	overflow hidden
 	background-color #0183da
-	min-width 300px
-	min-height 300px
+	padding 20px 0
 	height 100%
 	width 100%
+	min-width 300px
+	min-height 300px
 	color #FFFFFF
 </style>
 

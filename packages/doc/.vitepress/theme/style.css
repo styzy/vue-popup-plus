@@ -44,14 +44,26 @@
  * -------------------------------------------------------------------------- */
 
 :root {
+	--color-primary: rgb(28, 112, 209);
+	--color-primary-light: rgb(38, 136, 248);
+	--color-primary-light-enhance: rgb(92, 168, 254);
+	--color-primary-light-most: rgb(65, 209, 255);
+	--color-primary-dark: rgb(22, 95, 179);
+	--color-primary-soft: rgba(40, 143, 246, 0.7);
+
+	--color-sub: rgb(0, 49, 83);
+	--color-sub-light: rgb(0, 64, 102);
+	--color-sub-dark: rgb(0, 40, 64);
+	--color-sub-soft: rgba(0, 49, 83, 0.5);
+
 	--vp-c-default-1: var(--vp-c-gray-1);
 	--vp-c-default-2: var(--vp-c-gray-2);
 	--vp-c-default-3: var(--vp-c-gray-3);
 	--vp-c-default-soft: var(--vp-c-gray-soft);
 
-	--vp-c-brand-1: var(--vp-c-indigo-1);
-	--vp-c-brand-2: var(--vp-c-indigo-2);
-	--vp-c-brand-3: var(--vp-c-indigo-3);
+	--vp-c-brand-1: var(--color-primary-light);
+	--vp-c-brand-2: var(--color-primary-light);
+	--vp-c-brand-3: var(--color-primary);
 	--vp-c-brand-soft: var(--vp-c-indigo-soft);
 
 	--vp-c-tip-1: var(--vp-c-brand-1);
@@ -70,6 +82,13 @@
 	--vp-c-danger-soft: var(--vp-c-red-soft);
 }
 
+.dark {
+	--vp-c-brand-1: var(--color-primary-light-enhance);
+	--vp-c-brand-2: var(--color-primary-light);
+	--vp-c-brand-3: var(--color-primary);
+	--vp-c-brand-soft: var(--vp-c-indigo-soft);
+}
+
 /**
  * Component: Button
  * -------------------------------------------------------------------------- */
@@ -83,7 +102,19 @@
 	--vp-button-brand-hover-bg: var(--vp-c-brand-2);
 	--vp-button-brand-active-border: transparent;
 	--vp-button-brand-active-text: var(--vp-c-white);
-	--vp-button-brand-active-bg: var(--vp-c-brand-1);
+	--vp-button-brand-active-bg: var(--color-primary-dark);
+}
+
+.dark {
+	--vp-button-brand-border: transparent;
+	--vp-button-brand-text: var(--vp-c-white);
+	--vp-button-brand-bg: var(--vp-c-brand-3);
+	--vp-button-brand-hover-border: transparent;
+	--vp-button-brand-hover-text: var(--vp-c-white);
+	--vp-button-brand-hover-bg: var(--vp-c-brand-2);
+	--vp-button-brand-active-border: transparent;
+	--vp-button-brand-active-text: var(--vp-c-white);
+	--vp-button-brand-active-bg: var(--color-primary-dark);
 }
 
 /**
@@ -93,15 +124,19 @@
 :root {
 	--vp-home-hero-name-color: transparent;
 	--vp-home-hero-name-background: -webkit-linear-gradient(
-		120deg,
-		#bd34fe 30%,
-		#41d1ff
+		-30deg,
+		var(--color-primary) 0%,
+		var(--color-primary-light-most) 50%,
+		var(--color-primary) 100%
+			/* var(--color-primary-light-most) 0%,
+		var(--color-primary) 50%,
+		var(--color-primary-light-most) 100% */
 	);
 
 	--vp-home-hero-image-background-image: linear-gradient(
-		-45deg,
-		#bd34fe 50%,
-		#47caff 50%
+		-90deg,
+		var(--color-primary-soft) 50%,
+		var(--color-primary-soft) 50%
 	);
 	--vp-home-hero-image-filter: blur(44px);
 }

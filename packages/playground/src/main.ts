@@ -3,9 +3,11 @@ import { createPopup, definePlugin } from 'vue-popup-plus'
 import popupPluginPreset from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
+import GlobalComponent from './views/GlobalComponent.vue'
 import './assets/main.styl'
 
 const app = createApp(App)
+app.component('GlobalComponent', GlobalComponent)
 
 const popup = createPopup({
 	zIndex: 1000,
@@ -51,6 +53,12 @@ declare module 'vue-popup-plus' {
 
 	interface PopupCustomAnimations {
 		CUSTOM: 'custom'
+	}
+}
+
+declare module 'vue' {
+	export interface GlobalComponents {
+		GlobalComponent: typeof GlobalComponent
 	}
 }
 
