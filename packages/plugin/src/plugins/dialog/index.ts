@@ -70,7 +70,7 @@ type PopupDialogOption = {
 	 * 是否点击遮罩层关闭对话框
 	 * - 默认值为 `false`
 	 */
-	maskClickCloseEnabled?: boolean
+	maskClickClose?: boolean
 	/**
 	 * 是否可拖拽
 	 * - 默认值为 `false`
@@ -123,7 +123,7 @@ export const dialog = definePlugin({
 			maxHeight = '100%',
 			minHeight = 'auto',
 			mask = true,
-			maskClickCloseEnabled = false,
+			maskClickClose = false,
 			draggable = false,
 			dragOverflow = false,
 			onMounted = () => {},
@@ -150,7 +150,7 @@ export const dialog = definePlugin({
 					maxHeight,
 					minHeight,
 					mask,
-					maskClickCloseEnabled,
+					maskClickClose,
 					viewTranslateOverflow: dragOverflow,
 					onMounted,
 					onUnmounted: (payload?: any) => {

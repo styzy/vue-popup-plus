@@ -23,10 +23,26 @@ export default defineConfig({
 				i18nRouting: true,
 				nav: [
 					{ text: '首页', link: '/' },
-					{ text: '指南', link: '/guide/introduction' },
-					{ text: '示例', link: '/examples/render' },
-					{ text: '插件', link: '/plugin/introduction' },
-					{ text: 'API', link: '/api/createPopup' },
+					{
+						text: '指南',
+						link: '/guide/introduction',
+						activeMatch: '/guide/',
+					},
+					{
+						text: '示例',
+						link: '/examples/render',
+						activeMatch: '/examples/',
+					},
+					{
+						text: '插件',
+						link: '/plugin/introduction',
+						activeMatch: '/plugin/',
+					},
+					{
+						text: 'API',
+						link: '/api/createPopup',
+						activeMatch: '/api/',
+					},
 				],
 				sidebar: [
 					{
@@ -69,8 +85,12 @@ export default defineConfig({
 								link: '/guide/get-instance-id',
 							},
 							{
-								text: '更新渲染选项',
+								text: '更新渲染参数',
 								link: '/guide/update',
+							},
+							{
+								text: '过渡动画',
+								link: '/guide/animation',
 							},
 						],
 					},
