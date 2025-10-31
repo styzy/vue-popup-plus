@@ -2,6 +2,7 @@ import {
 	createApp,
 	createVNode,
 	Fragment,
+	getCurrentInstance,
 	markRaw,
 	reactive,
 	ref,
@@ -128,31 +129,50 @@ export class InstanceId implements IInstanceId {
 	}
 }
 
+const enum RenderType {
+	APP = 'app',
+	VNODE = 'vnode',
+}
+
 export class Instance implements IInstance {
 	#core: Core
 	#id: InstanceId
 	#store: InstanceStore
-	#vNode: VNode
+	#app?: App
+	#vNode?: VNode
 	#el?: Element
 	get id() {
 		return this.#id
+	}
+	get renderType() {
+		return this.#core.config.debugMode ? RenderType.APP : RenderType.VNODE
 	}
 	constructor(core: Core, options: InstanceOptions) {
 		this.#core = core
 		this.#id = new InstanceId(core.seed)
 		this.#store = createStore(this.#id, options)
 
-		const vNode = createVNode(InstanceComponent, { store: this.#store })
-
-		vNode.appContext = this.#core.app!._context
-		vNode.appContext.components.Popup = InstanceComponent
-
-		this.#vNode = vNode
+		if (this.renderType === RenderType.APP) {
+			this.#app = createApp(InstanceComponent, { store: this.#store })
+			this.#app._context.components = this.#core.app!._context.components
+			this.#app._context.provides = this.#core.app!._context.provides
+			this.#app._context.config = this.#core.app!._context.config
+			this.#app._context.directives = this.#core.app!._context.directives
+			this.#app._context.mixins = this.#core.app!._context.mixins
+		} else {
+			this.#vNode = createVNode(InstanceComponent, { store: this.#store })
+			this.#vNode.appContext = this.#core.app!._context
+			this.#vNode.appContext.components.Popup = InstanceComponent
+		}
 	}
 	mount(): InstanceId {
 		this.#el = document.createElement('div')
 
-		render(this.#vNode, this.#el)
+		if (this.renderType === RenderType.APP) {
+			this.#app!.mount(this.#el)
+		} else {
+			render(this.#vNode!, this.#el)
+		}
 
 		this.#store.parentElement.appendChild(this.#el)
 
@@ -165,9 +185,12 @@ export class Instance implements IInstance {
 
 		await wait(this.#store.animationDuration.value)
 
-		render(null, this.#el!)
-
-		this.#store.parentElement.removeChild(this.#el!)
+		if (this.renderType === RenderType.APP) {
+			this.#app!.unmount()
+		} else {
+			render(null, this.#el!)
+			this.#store.parentElement.removeChild(this.#el!)
+		}
 
 		this.#store.onUnmounted(payload)
 	}
