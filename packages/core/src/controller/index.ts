@@ -58,7 +58,7 @@ export type RenderConfigOptions = {
 	/**
 	 * 点击遮罩层是否关闭弹出层，默认值为 false ，仅在 mask 为 true 时有效
 	 */
-	maskClickCloseEnabled?: boolean
+	maskClickClose?: boolean
 	/**
 	 * 弹出层是否禁用窗口滚动，默认值为 true
 	 */
@@ -227,11 +227,11 @@ export type RenderStyleOptions = {
 	 */
 	animationDuration?: number
 	/**
-	 * 遮罩层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 * 弹出层遮罩动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 视图层动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 * 弹出层视图动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
 	 */
 	viewAnimation?: Animation
 	/**
@@ -249,7 +249,7 @@ export type UpdateOptions = Partial<RenderStyleOptions>
 const defaultOptions: Required<Omit<RenderOptions, 'zIndex' | 'component'>> = {
 	appendTo: document.body,
 	mask: true,
-	maskClickCloseEnabled: false,
+	maskClickClose: false,
 	disableScroll: true,
 	componentProps: {},
 	onMounted: () => {},

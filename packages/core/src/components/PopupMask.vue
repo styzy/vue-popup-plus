@@ -18,7 +18,7 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 
 function handleClick() {
-	if (store.maskClickCloseEnabled) {
+	if (store.maskClickClose) {
 		const popup = usePopup()
 		popup.destroy(instanceId)
 	}
