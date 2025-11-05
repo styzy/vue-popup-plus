@@ -1,5 +1,6 @@
 <template lang="pug">
 .p-loading-mask
+	.mask
 	PLoading(:size="iconSize")
 	PButtonGroup(align="center" v-if="debugMode")
 		PButton(@click="handleClose" theme="primary") 强制关闭遮罩（仅在调试模式下可用）
@@ -40,6 +41,15 @@ function handleClose() {
 	align-items center
 	justify-content center
 	gap 20px
+	position relative
 	height 100%
-	background-color rgba(255, 255, 255, 0.5)
+	.mask
+		position absolute
+		top 0
+		left 0
+		right 0
+		bottom 0
+		z-index 0
+		background-color var(--popup-plugin-preset-color-background-main)
+		opacity 0.5
 </style>

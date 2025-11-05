@@ -112,13 +112,13 @@ function handleOffsetChange() {
 	gap 10px
 	padding-left 20px
 	height v-bind('`${height}px`')
-	border-bottom 1px solid $color-border
-	background-color $color-background-sub
+	border-bottom 1px solid var(--popup-plugin-preset-color-border)
+	background-color var(--popup-plugin-preset-color-background-sub)
 	&.is-draggable
 		cursor move
 		user-select none
 	.icon
-		color $color-primary
+		color var(--popup-plugin-preset-color-primary)
 		height 24px
 		i
 			font-size @height
@@ -126,7 +126,7 @@ function handleOffsetChange() {
 		baseEllipsis()
 
 		flex 1
-		font-size $font-size-title-sub
+		font-size var(--popup-plugin-preset-font-size-title-sub)
 	.btn-ctn
 		display flex
 		align-items center

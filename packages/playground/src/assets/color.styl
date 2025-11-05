@@ -1,0 +1,26 @@
+// 生成颜色变量
+generateCssColor($name, $color)
+	--playground-color-{$name} $color
+	--playground-color-{$name}-dark-lite darken($color, 10%)
+	--playground-color-{$name}-dark darken($color, 25%)
+	--playground-color-{$name}-dark-most darken($color, 60%)
+	--playground-color-{$name}-light-lite lighten($color, 10%)
+	--playground-color-{$name}-light lighten($color, 25%)
+	--playground-color-{$name}-light-most lighten($color, 60%)
+
+$preset-dark-color-text-main = #dfdfd6
+$preset-dark-color-text-sub = #98989f
+$preset-dark-color-text-light = #7b7a7a
+$preset-dark-color-text-placeholder = #656464
+$preset-dark-color-border = #000000
+$preset-dark-color-background-main = #1b1b1f
+$preset-dark-color-background-sub = #161618
+
+.dark
+	generateCssColor('text-main', $preset-dark-color-text-main)
+	generateCssColor('text-sub', $preset-dark-color-text-sub)
+	generateCssColor('text-light', $preset-dark-color-text-light)
+	generateCssColor('text-placeholder', $preset-dark-color-text-placeholder)
+	generateCssColor('border', $preset-dark-color-border)
+	generateCssColor('background-main', $preset-dark-color-background-main)
+	generateCssColor('background-sub', $preset-dark-color-background-sub)

@@ -37,7 +37,7 @@ const { size = 60 } = defineProps<Props>()
 			stroke-dashoffset 0
 			stroke-width 2
 			stroke-linecap round
-			stroke $color-primary
+			stroke var(--popup-plugin-preset-color-primary)
 @keyframes rotate
 	100%
 		transform rotate(360deg)

@@ -88,34 +88,6 @@ function handleReload() {
 function handleClose() {
 	popup.destroy(instanceId)
 }
-// export default {
-// 	data() {
-// 		return {
-// 			customComponentConfig: null,
-// 		}
-// 	},
-// 	mounted() {
-// 		// HACK STY 修复ELementUI在弹框缩放动画过程中计算组件尺寸异常的bug
-// 		window.setTimeout(this.renderComponent, 100)
-// 	},
-// 	methods: {
-// 		async renderComponent() {
-// 			let config = this.customComponent
-
-// 			if (!config) {
-// 				// eslint-disable-next-line
-// 				console.warn(`dialog component不存在`)
-// 				return
-// 			}
-
-// 			if (typeof config === 'function') {
-// 				config = (await config()).default
-// 			}
-
-// 			this.customComponentConfig = config
-// 		},
-// 	},
-// }
 </script>
 
 <style lang="stylus" scoped>

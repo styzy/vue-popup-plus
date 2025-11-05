@@ -16,5 +16,5 @@ defineOptions({
 	baseDialog(padding)
 
 	box-sizing border-box
-	background-color #FFFFFF
+	background-color var(--popup-plugin-preset-color-background-main)
 </style>

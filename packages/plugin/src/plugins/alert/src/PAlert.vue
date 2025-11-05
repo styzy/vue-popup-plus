@@ -52,7 +52,6 @@ function handleConfirm() {
 
 .p-alert
 	baseStyle()
-	overflow hidden
 	max-width 80vw
 	max-height 80vh
 	width 360px

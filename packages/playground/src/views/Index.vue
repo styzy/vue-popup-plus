@@ -18,6 +18,7 @@
 			.title.sub 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
+				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
 				PButton(@click="handlePopupFullScreen()") 全屏
 				PButton(@click="handlePopupOffset()") 位移
@@ -28,14 +29,20 @@
 				PButton(@click="handlePopupAnimationScale()") 缩放
 				PButton(@click="handlePopupAnimationFade()") 淡入淡出
 				PButton(@click="handlePopupAnimationFly()") 飞入
-				PButton(@click="handlePopupAnimationDuration()") 设置动画持续时间
-				PButton(@click="handlePopupAnimationCustom()" theme="danger") 自定义动画
+				PButton(@click="handlePopupAnimationDuration()") 动画持续10s
+				PButton(@click="handlePopupAnimationDurationZero()" theme="danger") 动画持续0s
+				PButton(@click="handlePopupAnimationCustom()" theme="success") 自定义动画
 	.row
 		.row-item
 			.title 插件功能单元测试
 			.title.sub 消息
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
+				PButton(@click="handlePopupToastPrimary()" theme="primary") 主要
+				PButton(@click="handlePopupToastInfo()" theme="info") 信息
+				PButton(@click="handlePopupToastSuccess()" theme="success") 成功
+				PButton(@click="handlePopupToastWarning()" theme="warning") 警告
+				PButton(@click="handlePopupToastDanger()" theme="danger") 危险
 				PButton(@click="handlePopupToastLong()") 长消息
 				PButton(@click="handlePopupToastTenSecond()") 10秒消息
 			.title.sub 提示
@@ -142,7 +149,7 @@
 				PButton(disabled theme="warning") Button
 				PButton(disabled theme="danger") Button
 			.title.sub 链接
-			PButtonGroup(type="link")
+			PButtonGroup(cutline type="link")
 				PButton Button
 				PButton(theme="primary") Button
 				PButton(theme="info") Button
@@ -150,7 +157,7 @@
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
 			.title.sub 链接 禁用
-			PButtonGroup(type="link")
+			PButtonGroup(cutline type="link")
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
 				PButton(disabled theme="info") Button
@@ -175,6 +182,13 @@ function handleJump(url: string, blank = false) {
 function handlePopup() {
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupWithoutMaskBlur() {
+	popup.render({
+		component: () => import('@/views/Demo.vue'),
+		maskBlur: false,
 	})
 }
 
@@ -245,7 +259,14 @@ function handlePopupAnimationFly() {
 
 function handlePopupAnimationDuration() {
 	popup.render({
-		animationDuration: 20000,
+		animationDuration: 10000,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupAnimationDurationZero() {
+	popup.render({
+		animationDuration: 0,
 		component: () => import('@/views/Demo.vue'),
 	})
 }
@@ -260,6 +281,26 @@ function handlePopupAnimationCustom() {
 
 function handlePopupToast() {
 	popup.toast('这是一条toast消息')
+}
+
+function handlePopupToastPrimary() {
+	popup.toast('这是一条主要toast消息', { theme: 'primary' })
+}
+
+function handlePopupToastInfo() {
+	popup.toast('这是一条信息toast消息', { theme: 'info' })
+}
+
+function handlePopupToastSuccess() {
+	popup.toast('这是一条成功toast消息', { theme: 'success' })
+}
+
+function handlePopupToastWarning() {
+	popup.toast('这是一条警告toast消息', { theme: 'warning' })
+}
+
+function handlePopupToastDanger() {
+	popup.toast('这是一条危险toast消息', { theme: 'danger' })
 }
 
 function handlePopupToastLong() {
@@ -541,7 +582,7 @@ function handlePopupAlbumDisableDownload() {
 			flex-direction column
 			gap 10px
 	.title
-		color #424242
+		color var(--playground-color-text-main)
 		font-weight 700
 		font-size 28px
 		&.large
@@ -561,12 +602,5 @@ function handlePopupAlbumDisableDownload() {
 	.info
 		font-weight 700
 		font-size 16px
-	.des
-		padding 10px 20px
-		border-radius 5px
-		background-color #F7F7F7
-		color #333333
-		&:before
-			content '说明：'
 </style>
 

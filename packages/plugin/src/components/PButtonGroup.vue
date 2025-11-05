@@ -154,7 +154,7 @@ function checkSlots() {
 			left 50%
 			height 70%
 			width 1px
-			background-color $color-border
+			background-color var(--popup-plugin-preset-color-border)
 			z-index 1
 		&.is-tight
 			width 11px

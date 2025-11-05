@@ -1,8 +1,16 @@
 import { definePlugin } from 'vue-popup-plus'
+import { type ToastTheme } from './src/PToast.vue'
 
 type ToastOption = {
 	/**
+	 * 消息主题
+	 * - 默认值： 'default'
+	 * - 具体的可选主题请参考 {@link ToastTheme }
+	 */
+	theme?: ToastTheme
+	/**
 	 * 消息显示时间，单位毫秒
+	 * - 默认值： 2000 毫秒
 	 * @default 2000
 	 */
 	duration?: number
@@ -37,16 +45,18 @@ export const toast = definePlugin({
 	install: (controller) => {
 		controller.customProperties.toast = function (
 			content: string = '',
-			{ duration = 2000 }: ToastOption = {}
+			{ theme = 'default', duration = 2000 }: ToastOption = {}
 		) {
 			return new Promise<void>((resolve) => {
 				this.render({
 					component: () => import('./src/PToast.vue'),
 					componentProps: {
 						content,
+						theme,
 						duration,
 					},
 					mask: false,
+					disableScroll: false,
 					onUnmounted: () => {
 						resolve()
 					},
@@ -55,3 +65,4 @@ export const toast = definePlugin({
 		}
 	},
 })
+

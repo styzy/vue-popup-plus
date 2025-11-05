@@ -56,7 +56,7 @@ function handleClick() {
 	align-items center
 	width v-bind('`${size}px`')
 	height v-bind('`${size}px`')
-	color $color-text-sub
+	color var(--popup-plugin-preset-color-text-sub)
 	cursor pointer
 	i
 		font-size v-bind('`${iconSize}px`')
@@ -67,13 +67,13 @@ function handleClick() {
 	&:not(.is-disabled):hover
 		color #FFFFFF
 		&.is-theme-primary
-			background-color $color-primary
+			background-color var(--popup-plugin-preset-color-primary)
 		&.is-theme-info
-			background-color $color-info
+			background-color var(--popup-plugin-preset-color-info)
 		&.is-theme-success
-			background-color $color-success
+			background-color var(--popup-plugin-preset-color-success)
 		&.is-theme-warning
-			background-color $color-warning
+			background-color var(--popup-plugin-preset-color-warning)
 		&.is-theme-danger
-			background-color $color-danger
+			background-color var(--popup-plugin-preset-color-danger)
 </style>

@@ -109,11 +109,11 @@ function handleCancel() {
 			box-sizing border-box
 			width 100%
 			padding 10px
-			border 1px solid $color-border
+			border 1px solid var(--popup-plugin-preset-color-border)
 			border-radius 4px
 			outline none
 			&:focus
-				border-color $color-primary
+				border-color var(--popup-plugin-preset-color-primary)
 		textarea
 			height 100px
 			resize none

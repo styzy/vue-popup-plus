@@ -22,7 +22,7 @@ const { withPadding = true } = defineProps<Props>()
 	overflow hidden
 	width 100%
 	height 100%
-	background-color #FFFFFF
+	background-color var(--popup-plugin-preset-color-background-main)
 	&.has-padding
 		baseDialog(padding)
 </style>

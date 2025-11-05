@@ -320,13 +320,13 @@ $tools-safe-padding = 40px
 			width 40px
 			height 40px
 			background-color rgba(0, 0, 0, 0.5)
-			font-size $font-size-text-main
+			font-size var(--popup-plugin-preset-font-size-text-main)
 		.control
 			baseTrans()
 
 			cursor pointer
 			&:hover
-				color $color-primary
+				color var(--popup-plugin-preset-color-primary)
 			i
 				font-size 26px
 		.empty
@@ -355,5 +355,5 @@ $tools-safe-padding = 40px
 			justify-self flex-end
 		.close
 			&:hover
-				color $color-danger
+				color var(--popup-plugin-preset-color-danger)
 </style>
