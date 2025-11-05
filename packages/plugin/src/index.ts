@@ -1,5 +1,7 @@
 import { definePlugin } from 'vue-popup-plus'
 import { plugins } from './plugins'
+import './assets/stylus/color.styl'
+import './assets/stylus/fontSize.styl'
 import './assets/stylus/iconfont.styl'
 
 export default definePlugin({
