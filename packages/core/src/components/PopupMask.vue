@@ -1,5 +1,8 @@
 <template lang="pug">
-.popup-mask(:style="{ zIndex: store.zIndex.value }" @click="handleClick")
+.popup-mask(
+	:class="{ 'is-blur': store.maskBlur.value }"
+	:style="{ zIndex: store.zIndex.value }"
+	@click="handleClick")
 </template>
 
 <script lang="ts" setup>
@@ -26,14 +29,14 @@ function handleClick() {
 </script>
 
 <style lang="stylus" scoped>
-@import './animation.styl'
-
 .popup-mask
 	position fixed
 	top 0
 	right 0
 	bottom 0
 	left 0
-	background-color rgba(0, 0, 0, 0.3)
+	background-color var(--popup-color-mask)
+	&.is-blur
+		backdrop-filter blur(15px)  saturate(180%)
 </style>
 

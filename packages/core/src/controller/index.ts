@@ -211,6 +211,10 @@ export type RenderStyleOptions = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 弹出层视图动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 */
+	viewAnimation?: Animation
+	/**
 	 * 弹出层视图水平偏移量，默认为 0 ，单位为 px
 	 */
 	viewTranslateX?: number
@@ -223,17 +227,17 @@ export type RenderStyleOptions = {
 	 */
 	viewTranslateOverflow?: boolean
 	/**
-	 * 弹出层动画时长，默认为 100 ，单位为 毫秒
-	 */
-	animationDuration?: number
-	/**
 	 * 弹出层遮罩动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 弹出层视图动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 * 弹出层遮罩是否启用模糊效果，默认为 true
 	 */
-	viewAnimation?: Animation
+	maskBlur?: boolean
+	/**
+	 * 弹出层动画时长，默认为 100 ，单位为 毫秒
+	 */
+	animationDuration?: number
 	/**
 	 * 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
 	 */
@@ -263,9 +267,10 @@ const defaultOptions: Required<Omit<RenderOptions, 'zIndex' | 'component'>> = {
 	viewTranslateX: 0,
 	viewTranslateY: 0,
 	viewTranslateOverflow: false,
-	animationDuration: 100,
-	maskAnimation: POPUP_ANIMATIONS.FADE,
 	viewAnimation: POPUP_ANIMATIONS.FADE,
+	maskAnimation: POPUP_ANIMATIONS.FADE,
+	maskBlur: true,
+	animationDuration: 100,
 }
 
 export class Controller implements IController {

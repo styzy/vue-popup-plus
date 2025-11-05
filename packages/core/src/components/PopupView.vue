@@ -126,8 +126,6 @@ function formatSize(size: string | number): string {
 </script>
 
 <style lang="stylus" scoped>
-@import './animation.styl'
-
 .popup-view-wrapper
 	position fixed
 	top 0

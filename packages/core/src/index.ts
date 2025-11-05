@@ -1,6 +1,7 @@
 import { createCore, getCore, type CoreOptions } from './core'
 import { type IController } from './controller'
 import { PopupError } from './error'
+import './assets/style/main.styl'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export {
