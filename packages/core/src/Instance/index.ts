@@ -144,6 +144,9 @@ export class Instance implements IInstance {
 	get id() {
 		return this.#id
 	}
+	get store() {
+		return this.#store
+	}
 	get renderType() {
 		return this.#core.config.debugMode ? RenderType.APP : RenderType.VNODE
 	}

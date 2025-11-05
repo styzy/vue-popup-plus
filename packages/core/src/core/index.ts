@@ -123,14 +123,20 @@ export class Core implements ICore {
 	}
 	addInstance(instance: Instance) {
 		this.#instances[instance.id.name] = instance
-		this.#disableScroll()
+		if (this.config.autoDisableScroll && instance.store.disableScroll) {
+			this.#disableScroll()
+		}
 	}
 	getInstance(instanceId: InstanceId): Instance | void {
 		return this.#instances[instanceId.name]
 	}
 	removeInstance(instance: Instance) {
 		delete this.#instances[instance.id.name]
-		if (Object.keys(this.#instances).length === 0) {
+		if (
+			Object.values(this.#instances).filter(
+				(_instance) => _instance.store.disableScroll
+			).length === 0
+		) {
 			this.#enableScroll()
 		}
 	}
@@ -148,8 +154,8 @@ export class Core implements ICore {
 		delete this.#plugins[pluginName]
 	}
 	#disableScroll() {
-		if (!this.config.autoDisableScroll) return
 		if (document.body.style.overflow === 'hidden') return
+
 		this.#originBodyOverflow = document.body.style.overflow
 		document.body.style.overflow = 'hidden'
 	}
