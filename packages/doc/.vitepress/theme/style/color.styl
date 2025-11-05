@@ -1,3 +1,13 @@
+// 生成颜色变量
+generateCssColor($name, $color)
+	--doc-color-{$name} $color
+	--doc-color-{$name}-dark-lite darken($color, 10%)
+	--doc-color-{$name}-dark darken($color, 25%)
+	--doc-color-{$name}-dark-most darken($color, 50%)
+	--doc-color-{$name}-light-lite lighten($color, 10%)
+	--doc-color-{$name}-light lighten($color, 25%)
+	--doc-color-{$name}-light-most lighten($color, 50%)
+
 // 预置颜色
 $preset-color-primary = #1c70d1
 $preset-color-info = #409EFF
@@ -11,33 +21,26 @@ $preset-color-text-placeholder = #b6b6b6
 $preset-color-border = #E8E8E8
 $preset-color-background-main = #FFFFFF
 $preset-color-background-sub = #F8F8F8
-// 主要颜色
-$color-primary = $preset-color-primary
-$color-primary-light = lighten($preset-color-primary, 30%)
-$color-primary-light-most = lighten($preset-color-primary, 80%)
-$color-primary-dark = darken($preset-color-primary, 30%)
-$color-info = $preset-color-info
-$color-info-light = lighten($preset-color-info, 30%)
-$color-info-light-most = lighten($preset-color-info, 80%)
-$color-info-dark = darken($preset-color-info, 30%)
-$color-success = $preset-color-success
-$color-success-light = lighten($preset-color-success, 30%)
-$color-success-light-most = lighten($preset-color-success, 80%)
-$color-success-dark = darken($preset-color-success, 30%)
-$color-warning =  $preset-color-warning
-$color-warning-light = lighten($preset-color-warning, 30%)
-$color-warning-light-most = lighten($preset-color-warning, 80%)
-$color-warning-dark = darken($preset-color-warning, 30%)
-$color-danger =  $preset-color-danger
-$color-danger-light = lighten($preset-color-danger, 30%)
-$color-danger-light-most = lighten($preset-color-danger, 80%)
-$color-danger-dark = darken($preset-color-danger, 30%)
-$color-text-main =$preset-color-text-main
-$color-text-sub = $preset-color-text-sub
-$color-text-light = $preset-color-text-light
-$color-text-placeholder = $preset-color-text-placeholder
-$color-border = $preset-color-border
-$color-border-light = lighten($preset-color-border, 30%)
-$color-border-dark = darken($preset-color-border, 30%)
-$color-background-main = $preset-color-background-main
-$color-background-sub = $preset-color-background-sub
+
+:root
+	generateCssColor('primary', $preset-color-primary)
+	generateCssColor('info', $preset-color-info)
+	generateCssColor('danger', $preset-color-danger)
+	generateCssColor('warning', $preset-color-warning)
+	generateCssColor('success', $preset-color-success)
+	generateCssColor('text-main', $preset-color-text-main)
+	generateCssColor('text-sub', $preset-color-text-sub)
+	generateCssColor('text-light', $preset-color-text-light)
+	generateCssColor('text-placeholder', $preset-color-text-placeholder)
+	generateCssColor('border', $preset-color-border)
+	generateCssColor('background-main', $preset-color-background-main)
+	generateCssColor('background-sub', $preset-color-background-sub)
+
+.dark
+	generateCssColor('text-main', invert($preset-color-text-main))
+	generateCssColor('text-sub', invert($preset-color-text-sub))
+	generateCssColor('text-light', invert($preset-color-text-light))
+	generateCssColor('text-placeholder', invert($preset-color-text-placeholder))
+	generateCssColor('border', invert($preset-color-border))
+	generateCssColor('background-main', invert($preset-color-background-main))
+	generateCssColor('background-sub', invert($preset-color-background-sub))

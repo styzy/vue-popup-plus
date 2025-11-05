@@ -27,7 +27,7 @@ export type ButtonSize = 'default' | 'small' | 'large'
 import { computed, inject, useTemplateRef } from 'vue'
 
 defineOptions({
-	name: 'PButton',
+	name: 'DButton',
 })
 
 const inButtonGroup = inject(buttonGroupInjects.inButtonGroup, false)
@@ -82,6 +82,120 @@ function handleClick(event: PointerEvent) {
 </script>
 
 <style lang="stylus" scoped>
+
+// 生成主题
+createTheme($theme, $color, $color-dark, $color-light, $color-light-most)
+	&.is-theme-{$theme}
+		&.is-type-default,
+		&.is-type-default:disabled:hover,
+		&.is-type-default:disabled:active
+			border-color $color
+			background-color $color
+			color #FFFFFF
+		&.is-type-default:not(:disabled):hover:not(.is-mobile)
+			border-color $color-light
+			background-color $color-light
+			color #FFFFFF
+		&.is-type-default:not(:disabled):active
+			border-color $color-dark !important
+			background-color $color-dark !important
+			color #FFFFFF
+		&.is-type-plain,
+		&.is-type-plain:disabled:hover,
+		&.is-type-plain:disabled:active
+			border-color $color
+			background-color transparent
+			color $color
+		&.is-type-plain:not(:disabled):hover:not(.is-mobile)
+			border-color $color
+			background-color $color
+			color #FFFFFF
+		&.is-type-plain:not(:disabled):active
+			border-color $color-dark !important
+			background-color $color-dark !important
+			color #FFFFFF
+		&.is-type-text
+			border-color transparent
+			background-color transparent
+			color $color
+		&.is-type-text:not(:disabled):hover:not(.is-mobile)
+			border-color transparent
+			background-color $color-light-most
+			color $color-dark
+		&.is-type-text:not(:disabled):active
+			border-color transparent
+			background-color $color-light !important
+			color $color-dark !important
+		&.is-type-link,
+		&.is-type-link:disabled:hover,
+		&.is-type-link:disabled:active
+			border-color transparent
+			background-color transparent
+			color $color
+		&.is-type-link:not(:disabled):hover:not(.is-mobile)
+			border-color transparent
+			background-color transparent
+			color $color-light
+		&.is-type-link:not(:disabled):active
+			border-color transparent
+			background-color transparent
+			color $color-dark !important
+createDefaultTheme()
+	&.is-theme-default
+		&.is-type-default,
+		&.is-type-default:disabled:hover,
+		&.is-type-default:disabled:active
+			border-color var(--doc-color-background-sub)
+			background-color var(--doc-color-background-sub)
+			color var(--doc-color-text-main)
+		&.is-type-default:not(:disabled):hover:not(.is-mobile)
+			border-color var(--doc-color-background-sub-dark-lite)
+			background-color var(--doc-color-background-sub-dark-lite)
+			color var(--doc-color-text-main)
+		&.is-type-default:not(:disabled):active
+			border-color var(--doc-color-background-sub-dark) !important
+			background-color var(--doc-color-background-sub-dark) !important
+			color var(--doc-color-text-main)
+		&.is-type-plain,
+		&.is-type-plain:disabled:hover,
+		&.is-type-plain:disabled:active
+			border-color var(--doc-color-border)
+			background-color transparent
+			color var(--doc-color-text-main)
+		&.is-type-plain:not(:disabled):hover:not(.is-mobile)
+			border-color var(--doc-color-background-sub-dark-lite)
+			background-color var(--doc-color-background-sub-dark-lite)
+			color var(--doc-color-text-main)
+		&.is-type-plain:not(:disabled):active
+			border-color var(--doc-color-background-sub-dark) !important
+			background-color var(--doc-color-background-sub-dark) !important
+			color var(--doc-color-text-main)
+		&.is-type-text
+			border-color transparent
+			background-color transparent
+			color var(--doc-color-text-main)
+		&.is-type-text:not(:disabled):hover:not(.is-mobile)
+			border-color transparent
+			background-color var(--doc-color-background-sub-dark-lite)
+			color var(--doc-color-text-main)
+		&.is-type-text:not(:disabled):active
+			border-color var(--doc-color-background-sub-dark) !important
+			background-color var(--doc-color-background-sub-dark) !important
+			color var(--doc-color-text-main)
+		&.is-type-link,
+		&.is-type-link:disabled:hover,
+		&.is-type-link:disabled:active
+			border-color transparent
+			background-color transparent
+			color var(--doc-color-text-main)
+		&.is-type-link:not(:disabled):hover:not(.is-mobile)
+			border-color transparent
+			background-color transparent
+			color var(--doc-color-text-main-light)
+		&.is-type-link:not(:disabled):active
+			border-color transparent
+			background-color transparent
+			color var(--doc-color-text-main-dark) !important
 .d-button
 	baseTrans()
 
@@ -98,15 +212,15 @@ function handleClick(event: PointerEvent) {
 	&.is-size-small
 		gap 5px
 		padding 8px 15px
-		font-size $font-size-text-mini
+		font-size var(--doc-font-size-text-mini)
 	&.is-size-default
 		gap 10px
 		padding 12px 24px
-		font-size $font-size-text-main
+		font-size var(--doc-font-size-text-main)
 	&.is-size-large
 		gap 15px
 		padding 15px 30px
-		font-size $font-size-title-sub
+		font-size var(--doc-font-size-title-sub)
 	&.is-type-link
 		&.is-size-small
 			padding 5px 0
@@ -119,83 +233,12 @@ function handleClick(event: PointerEvent) {
 		cursor not-allowed
 	&.is-mobile
 		user-select none
-		-webkit-tap-highlight-color $color-background-main
-	// &.is-theme-default
-	// &.is-theme-default:disabled:hover,
-	// &.is-theme-default:disabled:active
-	// 	border-color $color-border
-	// 	background-color $color-background-main
-	// 	color $color-text-sub
-	// &.is-theme-default:not(:disabled):hover:not(.is-mobile)
-	// 	border-color $color-border-dark
-	// 	background-color $color-background-sub
-	// 	color $color-text-main
-	// &.is-theme-default:not(:disabled):active
-	// 	border-color $color-dark !important
-	// 	background-color $color-dark !important
-	// 	color $color-background-main
-
-createTheme($theme, $color, $color-dark,$color-light, $color-light-most)
-	.d-button.is-theme-{$theme}
-		&.is-type-default,
-		&.is-type-default:disabled:hover,
-		&.is-type-default:disabled:active
-			border-color $color
-			background-color $color
-			color $color-background-main
-		&.is-type-default:not(:disabled):hover:not(.is-mobile)
-			border-color $color-light
-			background-color $color-light
-			color $color-background-main
-		&.is-type-default:not(:disabled):active
-			border-color $color-dark !important
-			background-color $color-dark !important
-			color $color-background-main
-		&.is-type-plain,
-		&.is-type-plain:disabled:hover,
-		&.is-type-plain:disabled:active
-			border-color $color
-			background-color $color-background-main
-			color $color
-		&.is-type-plain:not(:disabled):hover:not(.is-mobile)
-			border-color $color
-			background-color $color
-			color $color-background-main
-		&.is-type-plain:not(:disabled):active
-			border-color $color-dark !important
-			background-color $color-dark !important
-			color $color-background-main
-		&.is-type-text
-			border-color transparent
-			background-color transparent
-			color $color
-		&.is-type-text:not(:disabled):hover:not(.is-mobile)
-			border-color $color-light-most
-			background-color $color-light-most
-			color $color-dark
-		&.is-type-text:not(:disabled):active
-			border-color $color-light-most
-			background-color $color-light-most
-			color $color-dark !important
-		&.is-type-link,
-		&.is-type-link:disabled:hover,
-		&.is-type-link:disabled:active
-			border-color transparent
-			background-color transparent
-			color $color
-		&.is-type-link:not(:disabled):hover:not(.is-mobile)
-			border-color transparent
-			background-color transparent
-			color $color-light
-		&.is-type-link:not(:disabled):active
-			border-color transparent
-			background-color transparent
-			color $color-light !important
-// 生产主题
-createTheme(default, $color-text-sub,$color-text-main, $color-text-light,$color-background-sub)
-createTheme(primary, $color-primary, $color-primary-dark, $color-primary-light,$color-primary-light-most)
-createTheme(info, $color-info, $color-info-dark, $color-info-light,$color-info-light-most)
-createTheme(success, $color-success, $color-success-dark, $color-success-light,$color-success-light-most)
-createTheme(warning, $color-warning, $color-warning-dark, $color-warning-light,$color-warning-light-most)
-createTheme(danger, $color-danger, $color-danger-dark, $color-danger-light,$color-danger-light-most)
+		-webkit-tap-highlight-color var(--doc-color-background-main)
+	&
+		createDefaultTheme()
+		createTheme('primary', var(--doc-color-primary), var(--doc-color-primary-dark), var(--doc-color-primary-light),var(--doc-color-primary-light-most))
+		createTheme('info', var(--doc-color-info), var(--doc-color-info-dark), var(--doc-color-info-light),var(--doc-color-info-light-most))
+		createTheme('success', var(--doc-color-success), var(--doc-color-success-dark), var(--doc-color-success-light),var(--doc-color-success-light-most))
+		createTheme('warning', var(--doc-color-warning), var(--doc-color-warning-dark), var(--doc-color-warning-light),var(--doc-color-warning-light-most))
+		createTheme('danger', var(--doc-color-danger), var(--doc-color-danger-dark), var(--doc-color-danger-light),var(--doc-color-danger-light-most))
 </style>

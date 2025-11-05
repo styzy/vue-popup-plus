@@ -6,6 +6,7 @@ import { components } from './components'
 
 import './style.css'
 import 'virtual:group-icons.css'
+import './style/main.styl'
 
 export default {
 	extends: DefaultTheme,

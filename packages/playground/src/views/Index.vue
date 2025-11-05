@@ -90,6 +90,73 @@
 				PButton(@click="handlePopupAlbumDisableName()") 禁用文件名
 				PButton(@click="handlePopupAlbumDisablePureMode()") 禁用纯净模式
 				PButton(@click="handlePopupAlbumDisableDownload()") 禁用下载
+	.row
+		.row-item
+			.title 按钮单元测试
+			.title.sub 默认
+			PButtonGroup
+				PButton Button
+				PButton(theme="primary") Button
+				PButton(theme="info") Button
+				PButton(theme="success") Button
+				PButton(theme="warning") Button
+				PButton(theme="danger") Button
+			.title.sub 默认 禁用
+			PButtonGroup
+				PButton(disabled) Button
+				PButton(disabled theme="primary") Button
+				PButton(disabled theme="info") Button
+				PButton(disabled theme="success") Button
+				PButton(disabled theme="warning") Button
+				PButton(disabled theme="danger") Button
+			.title.sub 镂空
+			PButtonGroup(type="plain")
+				PButton Button
+				PButton(theme="primary") Button
+				PButton(theme="info") Button
+				PButton(theme="success") Button
+				PButton(theme="warning") Button
+				PButton(theme="danger") Button
+			.title.sub 镂空 禁用
+			PButtonGroup(type="plain")
+				PButton(disabled) Button
+				PButton(disabled theme="primary") Button
+				PButton(disabled theme="info") Button
+				PButton(disabled theme="success") Button
+				PButton(disabled theme="warning") Button
+				PButton(disabled theme="danger") Button
+			.title.sub 文本
+			PButtonGroup(type="text")
+				PButton Button
+				PButton(theme="primary") Button
+				PButton(theme="info") Button
+				PButton(theme="success") Button
+				PButton(theme="warning") Button
+				PButton(theme="danger") Button
+			.title.sub 文本 禁用
+			PButtonGroup(type="text")
+				PButton(disabled) Button
+				PButton(disabled theme="primary") Button
+				PButton(disabled theme="info") Button
+				PButton(disabled theme="success") Button
+				PButton(disabled theme="warning") Button
+				PButton(disabled theme="danger") Button
+			.title.sub 链接
+			PButtonGroup(type="link")
+				PButton Button
+				PButton(theme="primary") Button
+				PButton(theme="info") Button
+				PButton(theme="success") Button
+				PButton(theme="warning") Button
+				PButton(theme="danger") Button
+			.title.sub 链接 禁用
+			PButtonGroup(type="link")
+				PButton(disabled) Button
+				PButton(disabled theme="primary") Button
+				PButton(disabled theme="info") Button
+				PButton(disabled theme="success") Button
+				PButton(disabled theme="warning") Button
+				PButton(disabled theme="danger") Button
 </template>
 
 <script setup lang="ts">

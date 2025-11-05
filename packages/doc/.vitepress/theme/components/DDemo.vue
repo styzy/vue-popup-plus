@@ -78,14 +78,14 @@ function handleExpand() {
 <style lang="stylus" scoped>
 $color-border = #DDDDDD
 
-.d-md-block-demo
+.d-demo
 	baseTrans()
 
 	position relative
 	margin 40px 0
 	border 1px solid $color-border
 	border-radius 5px
-	background-color #F3F4F5
+	background-color transparent
 	&:hover
 		box-shadow 0 0 5px 0 rgba(0, 0, 0, 0.1)
 	.demo-body
