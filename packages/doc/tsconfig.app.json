@@ -4,7 +4,7 @@
 		"env.d.ts",
 		"./.vitepress/**/*.ts",
 		"./.vitepress/**/*.vue",
-		"./.vitepress/config.mts"
+		"./.vitepress/**/*.mts"
 	],
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",

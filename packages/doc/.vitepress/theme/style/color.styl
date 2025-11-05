@@ -21,6 +21,7 @@ $preset-color-text-placeholder = #b6b6b6
 $preset-color-border = #E8E8E8
 $preset-color-background-main = #FFFFFF
 $preset-color-background-sub = #F8F8F8
+$preset-color-shadow = rgba(50,50,50, 0.1)
 
 :root
 	generateCssColor('primary', $preset-color-primary)
@@ -35,12 +36,23 @@ $preset-color-background-sub = #F8F8F8
 	generateCssColor('border', $preset-color-border)
 	generateCssColor('background-main', $preset-color-background-main)
 	generateCssColor('background-sub', $preset-color-background-sub)
+	generateCssColor('shadow', $preset-color-shadow)
+
+$preset-dark-color-text-main = #dfdfd6
+$preset-dark-color-text-sub = #98989f
+$preset-dark-color-text-light = #7b7a7a
+$preset-dark-color-text-placeholder = #656464
+$preset-dark-color-border = #000000
+$preset-dark-color-background-main = #1b1b1f
+$preset-dark-color-background-sub = #161618
+$preset-dark-color-shadow = rgba(0, 0, 0, 0.3)
 
 .dark
-	generateCssColor('text-main', invert($preset-color-text-main))
-	generateCssColor('text-sub', invert($preset-color-text-sub))
-	generateCssColor('text-light', invert($preset-color-text-light))
-	generateCssColor('text-placeholder', invert($preset-color-text-placeholder))
-	generateCssColor('border', invert($preset-color-border))
-	generateCssColor('background-main', invert($preset-color-background-main))
-	generateCssColor('background-sub', invert($preset-color-background-sub))
+	generateCssColor('text-main', $preset-dark-color-text-main)
+	generateCssColor('text-sub', $preset-dark-color-text-sub)
+	generateCssColor('text-light', $preset-dark-color-text-light)
+	generateCssColor('text-placeholder', $preset-dark-color-text-placeholder)
+	generateCssColor('border', $preset-dark-color-border)
+	generateCssColor('background-main', $preset-dark-color-background-main)
+	generateCssColor('background-sub', $preset-dark-color-background-sub)
+	generateCssColor('shadow', $preset-dark-color-shadow)

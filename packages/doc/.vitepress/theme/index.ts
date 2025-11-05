@@ -3,6 +3,8 @@ import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { components } from './components'
+import { createPopup } from 'vue-popup-plus'
+import popupPlugins from 'vue-popup-plus-plugin-preset'
 
 import './style.css'
 import 'virtual:group-icons.css'
@@ -16,7 +18,12 @@ export default {
 		})
 	},
 	enhanceApp({ app, router, siteData }) {
-		// ...
+		const popup = createPopup()
+
+		popup.use(popupPlugins)
+
+		app.use(popup)
+
 		Object.entries(components).forEach(([name, component]) => {
 			app.component(name, component)
 		})

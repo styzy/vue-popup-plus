@@ -27,6 +27,10 @@ export const mdDemoPlugin = (md: Markdown) => {
 
 					info = info.toLowerCase()
 
+					if (!['html', 'pug'].includes(info)) {
+						continue
+					}
+
 					contentStr += content
 				}
 

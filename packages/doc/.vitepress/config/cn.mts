@@ -5,6 +5,9 @@ export const themeConfig = defineConfig({
 		logo: '/logo.svg',
 		siteTitle: 'Vue Popup Plus',
 		i18nRouting: true,
+		darkModeSwitchLabel: '外观',
+		darkModeSwitchTitle: '切换到深色模式',
+		lightModeSwitchTitle: '切换到浅色模式',
 		outline: {
 			level: 'deep',
 			label: '页面导航',
@@ -69,7 +72,7 @@ export const themeConfig = defineConfig({
 				text: '预置插件',
 				items: [
 					{
-						text: '预置插件使用说明',
+						text: '使用说明',
 						link: '/guide/preset-plugin-usage',
 					},
 					{

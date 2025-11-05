@@ -1,22 +1,19 @@
 <template lang="pug">
 .d-demo
-	.tip DEMO
+	.logo DEMO
 	.demo-body
 		slot(name="demo")
-	.code-body(ref="codeBody")
+	.code-body(:class="{ 'is-expand': isExpand }" ref="codeBody")
 		slot(name="code")
 	.code-switch(@click="handleExpand()") {{ isExpand ? '收起代码' : '查看代码' }}
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, useSlots, useTemplateRef } from 'vue'
-import { getCursorSelectText, setCursorSelectTag, setClipboard } from '../utils'
+import { ref, useTemplateRef } from 'vue'
 
 defineOptions({
 	name: 'DDemo',
 })
-
-const slots = useSlots()
 
 type Props = {
 	description: string
@@ -28,76 +25,31 @@ const isExpand = ref(false)
 
 const codeBody = useTemplateRef<HTMLDivElement>('codeBody')
 
-onMounted(() => {
-	getCodeElements()
-})
-
-function getCodeElements() {
-	console.log(slots.code)
-}
-
 function handleExpand() {
 	isExpand.value = !isExpand.value
 }
-
-// export default {
-// 	mounted() {
-// 		this.getCodeElements()
-// 	},
-// 	methods: {
-// 		expandHandler() {
-// 			this.isExpand = !this.isExpand
-// 		},
-// 		copyBtnEnter(codeIndex) {
-// 			this.highlightCode(codeIndex, true)
-// 		},
-// 		copyBtnLeave(codeIndex) {
-// 			this.highlightCode(codeIndex, false)
-// 		},
-// 		copyCode(codeIndex) {
-// 			const codeElement = this.codeElements[codeIndex]
-
-// 			setCursorSelectTag(codeElement)
-// 			setClipboard(getCursorSelectText(), true)
-// 			this.$popup.msg('复制成功')
-// 		},
-// 		highlightCode(codeIndex, isHighlight) {
-// 			const codeElement = this.codeElements[codeIndex]
-
-// 			if (!codeElement) return
-// 			if (isHighlight) {
-// 				codeElement.setAttribute('selected', '')
-// 			} else {
-// 				codeElement.removeAttribute('selected')
-// 			}
-// 		},
-// 	},
-// }
 </script>
 
 <style lang="stylus" scoped>
-$color-border = #DDDDDD
-
 .d-demo
 	baseTrans()
 
 	position relative
-	margin 40px 0
-	border 1px solid $color-border
+	margin 20px 0
+	border 1px solid var(--doc-color-border)
 	border-radius 5px
-	background-color transparent
+	background-color var(--doc-color-background-main)
 	&:hover
-		box-shadow 0 0 5px 0 rgba(0, 0, 0, 0.1)
+		box-shadow 1px 1px 15px var(--doc-color-shadow)
 	.demo-body
 		padding 20px
-		border-bottom 1px solid $color-border
-	.tip
+	.logo
 		position absolute
-		top -1px
-		right -1px
+		top 2px
+		right 2px
 		padding 0 5px
 		border-radius 3px
-		background-color $ark-color-theme
+		background-color var(--doc-color-theme)
 		color #FFFFFF
 		font-size 12px
 		line-height 20px
@@ -105,25 +57,22 @@ $color-border = #DDDDDD
 		user-select none
 	.code-body
 		padding 0 20px
-		border-bottom 1px solid $color-border
-		&>/deep/pre
-			baseTrans()
-
-			&[selected]
-				transform scale(1.015)
-	.code-tools
-		padding 20px
-		border-bottom 1px solid $color-border
+		max-height 0px
+		overflow hidden
+		&.is-expand
+			border-top 1px solid var(--doc-color-border)
+			max-height 2000px
 	.code-switch
 		baseTrans()
 
 		height 40px
-		color #AAAAAA
+		color var(--doc-color-text-sub)
 		text-align center
 		font-size 14px
 		line-height @height
 		cursor pointer
+		border-top 1px solid var(--doc-color-border)
 		&:hover
-			background-color #FFFFFF
-			color $ark-color-theme
+			background-color var(--doc-color-background-sub)
+			color var(--doc-color-text-main)
 </style>
