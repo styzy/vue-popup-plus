@@ -12,10 +12,10 @@ import App from './App.vue'
 const app = createApp(App)
 
 // 创建插件实例
-const popup = createPopup()
+const popup = createPopup() // [!code highlight]
 
 // 注册插件到 Vue 实例
-app.use(popup)
+app.use(popup) // [!code highlight]
 
 app.mount('#app')
 ```

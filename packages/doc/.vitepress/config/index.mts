@@ -1,0 +1,54 @@
+import { fileURLToPath } from 'node:url'
+import { defineConfig } from 'vitepress'
+import {
+	groupIconMdPlugin,
+	groupIconVitePlugin,
+} from 'vitepress-plugin-group-icons'
+import { mdDemoPlugin } from './mdDemoPlugin'
+import { themeConfig as cnThemeConfig } from './cn.mts'
+import { themeConfig as enThemeConfig } from './en.mts'
+
+export default defineConfig({
+	title: 'Vue Popup Plus | Vue3 弹出层插件',
+	description: 'Vue3 弹出层插件',
+	lang: 'zh-CN',
+	// cleanUrls: true,
+	srcDir: 'src',
+	outDir: 'dist',
+	metaChunk: true,
+	appearance: 'dark',
+	locales: {
+		root: {
+			label: '中文',
+			lang: 'zh-CN',
+			link: '/',
+			themeConfig: cnThemeConfig,
+		},
+		en: {
+			label: 'English',
+			lang: 'en-US',
+			link: '/en/',
+			themeConfig: enThemeConfig,
+		},
+	},
+	markdown: {
+		theme: {
+			dark: 'one-dark-pro',
+			light: 'github-light',
+		},
+		config: (md) => {
+			md.use(groupIconMdPlugin)
+			md.use(mdDemoPlugin)
+		},
+	},
+	vite: {
+		plugins: [groupIconVitePlugin()],
+		css: {
+			preprocessorOptions: {
+				stylus: {
+					additionalData: `@import "${fileURLToPath(new URL('../theme/style/inject.styl', import.meta.url))}";`,
+				},
+			},
+		},
+	},
+})

@@ -2,6 +2,8 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import { components } from './components'
+
 import './style.css'
 import 'virtual:group-icons.css'
 
@@ -14,6 +16,9 @@ export default {
 	},
 	enhanceApp({ app, router, siteData }) {
 		// ...
+		Object.entries(components).forEach(([name, component]) => {
+			app.component(name, component)
+		})
 	},
 } satisfies Theme
 

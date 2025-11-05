@@ -2,8 +2,8 @@
 	"extends": "@vue/tsconfig/tsconfig.dom.json",
 	"include": [
 		"env.d.ts",
-		"./**/*.ts",
-		"./**/*.vue",
+		"./.vitepress/**/*.ts",
+		"./.vitepress/**/*.vue",
 		"./.vitepress/config.mts"
 	],
 	"compilerOptions": {

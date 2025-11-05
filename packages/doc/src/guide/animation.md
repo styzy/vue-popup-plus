@@ -12,7 +12,7 @@
 
 ```ts
 popup.render({
-	// 动画持续时间为 500 毫秒
+	// 设置动画持续时间为 500 毫秒
 	animationDuration: 500,
 })
 ```

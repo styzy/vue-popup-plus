@@ -120,6 +120,12 @@ importers:
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
+      '@types/markdown-it':
+        specifier: ^14.1.2
+        version: 14.1.2
+      '@types/markdown-it-container':
+        specifier: ^2.0.10
+        version: 2.0.10
       '@types/node':
         specifier: ^22.16.5
         version: 22.18.12
@@ -156,6 +162,12 @@ importers:
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
+      markdown-it:
+        specifier: ^14.1.0
+        version: 14.1.0
+      markdown-it-container:
+        specifier: ^4.0.0
+        version: 4.0.0
       npm-run-all2:
         specifier: ^8.0.4
         version: 8.0.4
@@ -1171,6 +1183,9 @@ packages:
 
   '@types/linkify-it@5.0.0':
     resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
+
+  '@types/markdown-it-container@2.0.10':
+    resolution: {integrity: sha512-zv+YxrlSYRq51e9kzm3orv4OvF4U79Ll1OyplNXr00o4ZC/8PukJk/jEWH7CnsMtrSWZlyv0czhz42jm9J4uLw==}
 
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
@@ -2310,6 +2325,9 @@ packages:
 
   markdown-it-async@2.2.0:
     resolution: {integrity: sha512-sITME+kf799vMeO/ww/CjH6q+c05f6TLpn6VOmmWCGNqPJzSh+uFgZoMB9s0plNtW6afy63qglNAC3MhrhP/gg==}
+
+  markdown-it-container@4.0.0:
+    resolution: {integrity: sha512-HaNccxUH0l7BNGYbFbjmGpf5aLHAMTinqRZQAEQbMr2cdD3z91Q6kIo1oUn1CQndkT03jat6ckrdRYuwwqLlQw==}
 
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
@@ -3928,6 +3946,10 @@ snapshots:
 
   '@types/linkify-it@5.0.0': {}
 
+  '@types/markdown-it-container@2.0.10':
+    dependencies:
+      '@types/markdown-it': 14.1.2
+
   '@types/markdown-it@14.1.2':
     dependencies:
       '@types/linkify-it': 5.0.0
@@ -5142,6 +5164,8 @@ snapshots:
     dependencies:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.1.0
+
+  markdown-it-container@4.0.0: {}
 
   markdown-it@14.1.0:
     dependencies:
