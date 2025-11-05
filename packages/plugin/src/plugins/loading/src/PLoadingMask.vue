@@ -49,7 +49,7 @@ function handleClose() {
 		left 0
 		right 0
 		bottom 0
-		z-index 0
+		z-index -1
 		background-color var(--popup-plugin-preset-color-background-main)
 		opacity 0.5
 </style>
