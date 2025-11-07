@@ -22,14 +22,14 @@ export const themeConfig = defineConfig({
 				activeMatch: '/examples/',
 			},
 			{
-				text: '插件',
-				link: '/plugin/introduction',
-				activeMatch: '/plugin/',
-			},
-			{
 				text: 'API',
 				link: '/api/createPopup',
 				activeMatch: '/api/',
+			},
+			{
+				text: '插件',
+				link: '/plugin/introduction',
+				activeMatch: '/plugin/',
 			},
 		],
 		sidebar: [

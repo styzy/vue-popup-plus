@@ -96,11 +96,14 @@ importers:
         specifier: ^3.0.4
         version: 3.1.2(typescript@5.8.3)
 
-  packages/doc:
+  packages/docs:
     dependencies:
       vitepress-plugin-group-icons:
         specifier: ^1.6.5
         version: 1.6.5(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
+      vitepress-plugin-markdown-container-demo:
+        specifier: workspace:^
+        version: link:../md-demo
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.8.3)
@@ -110,6 +113,91 @@ importers:
       vue-popup-plus-plugin-preset:
         specifier: workspace:^
         version: link:../plugin
+    devDependencies:
+      '@prettier/plugin-pug':
+        specifier: ^3.4.2
+        version: 3.4.2(prettier@3.6.2)
+      '@tsconfig/node22':
+        specifier: ^22.0.2
+        version: 22.0.2
+      '@types/jsdom':
+        specifier: ^21.1.7
+        version: 21.1.7
+      '@types/node':
+        specifier: ^22.16.5
+        version: 22.18.12
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.1
+        version: 6.0.1(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))(vue@3.5.22(typescript@5.8.3))
+      '@vitest/eslint-plugin':
+        specifier: ^1.3.4
+        version: 1.3.26(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3)(vitest@3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@26.1.0)(stylus@0.64.0))
+      '@vue/eslint-config-prettier':
+        specifier: ^10.2.0
+        version: 10.2.0(eslint@9.38.0(jiti@2.6.1))(prettier@3.6.2)
+      '@vue/eslint-config-typescript':
+        specifier: ^14.6.0
+        version: 14.6.0(eslint-plugin-vue@10.3.0(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.38.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.38.0(jiti@2.6.1))))(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3)
+      '@vue/language-plugin-pug':
+        specifier: ^3.0.6
+        version: 3.1.2
+      '@vue/test-utils':
+        specifier: ^2.4.6
+        version: 2.4.6
+      '@vue/tsconfig':
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.8.3)(vue@3.5.22(typescript@5.8.3))
+      eslint:
+        specifier: ^9.31.0
+        version: 9.38.0(jiti@2.6.1)
+      eslint-plugin-vue:
+        specifier: ~10.3.0
+        version: 10.3.0(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.38.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.38.0(jiti@2.6.1)))
+      jiti:
+        specifier: ^2.4.2
+        version: 2.6.1
+      jsdom:
+        specifier: ^26.1.0
+        version: 26.1.0
+      npm-run-all2:
+        specifier: ^8.0.4
+        version: 8.0.4
+      prettier:
+        specifier: 3.6.2
+        version: 3.6.2
+      pug:
+        specifier: ^3.0.3
+        version: 3.0.3
+      stylus:
+        specifier: ^0.64.0
+        version: 0.64.0
+      typescript:
+        specifier: ~5.8.0
+        version: 5.8.3
+      unplugin-vue-markdown:
+        specifier: ^29.2.0
+        version: 29.2.0(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
+      vite:
+        specifier: ^7.0.6
+        version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0)
+      vite-plugin-vue-devtools:
+        specifier: ^8.0.0
+        version: 8.0.3(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))(vue@3.5.22(typescript@5.8.3))
+      vitepress:
+        specifier: ^2.0.0-alpha.12
+        version: 2.0.0-alpha.12(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(stylus@0.64.0)(typescript@5.8.3)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@26.1.0)(stylus@0.64.0)
+      vue-tsc:
+        specifier: ^3.0.4
+        version: 3.1.2(typescript@5.8.3)
+
+  packages/md-demo:
+    dependencies:
+      vue:
+        specifier: ^3.5.22
+        version: 3.5.22(typescript@5.8.3)
     devDependencies:
       '@prettier/plugin-pug':
         specifier: ^3.4.2
@@ -183,118 +271,18 @@ importers:
       typescript:
         specifier: ~5.8.0
         version: 5.8.3
-      unplugin-vue-markdown:
-        specifier: ^29.2.0
-        version: 29.2.0(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
       vite:
         specifier: ^7.0.6
         version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0)
+      vite-plugin-css-injected-by-js:
+        specifier: ^3.5.2
+        version: 3.5.2(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
+      vite-plugin-dts:
+        specifier: ^4.5.4
+        version: 4.5.4(@types/node@22.18.12)(rollup@4.52.5)(typescript@5.8.3)(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
       vite-plugin-vue-devtools:
         specifier: ^8.0.0
         version: 8.0.3(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))(vue@3.5.22(typescript@5.8.3))
-      vitepress:
-        specifier: ^2.0.0-alpha.12
-        version: 2.0.0-alpha.12(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(stylus@0.64.0)(typescript@5.8.3)
-      vitest:
-        specifier: ^3.2.4
-        version: 3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@26.1.0)(stylus@0.64.0)
-      vue-tsc:
-        specifier: ^3.0.4
-        version: 3.1.2(typescript@5.8.3)
-
-  packages/docs:
-    dependencies:
-      github-markdown-css:
-        specifier: ^5.8.1
-        version: 5.8.1
-      highlight.js:
-        specifier: ^11.11.1
-        version: 11.11.1
-      vue:
-        specifier: ^3.5.22
-        version: 3.5.22(typescript@5.8.3)
-      vue-popup-plus:
-        specifier: workspace:^
-        version: link:../core
-      vue-popup-plus-plugin-preset:
-        specifier: workspace:^
-        version: link:../plugin
-      vue-router:
-        specifier: ^4.5.1
-        version: 4.6.3(vue@3.5.22(typescript@5.8.3))
-    devDependencies:
-      '@prettier/plugin-pug':
-        specifier: ^3.4.2
-        version: 3.4.2(prettier@3.6.2)
-      '@tsconfig/node22':
-        specifier: ^22.0.2
-        version: 22.0.2
-      '@types/jsdom':
-        specifier: ^21.1.7
-        version: 21.1.7
-      '@types/node':
-        specifier: ^22.16.5
-        version: 22.18.12
-      '@vitejs/plugin-vue':
-        specifier: ^6.0.1
-        version: 6.0.1(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))(vue@3.5.22(typescript@5.8.3))
-      '@vitest/eslint-plugin':
-        specifier: ^1.3.4
-        version: 1.3.26(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3)(vitest@3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@26.1.0)(stylus@0.64.0))
-      '@vue/eslint-config-prettier':
-        specifier: ^10.2.0
-        version: 10.2.0(eslint@9.38.0(jiti@2.6.1))(prettier@3.6.2)
-      '@vue/eslint-config-typescript':
-        specifier: ^14.6.0
-        version: 14.6.0(eslint-plugin-vue@10.3.0(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.38.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.38.0(jiti@2.6.1))))(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3)
-      '@vue/language-plugin-pug':
-        specifier: ^3.0.6
-        version: 3.1.2
-      '@vue/test-utils':
-        specifier: ^2.4.6
-        version: 2.4.6
-      '@vue/tsconfig':
-        specifier: ^0.7.0
-        version: 0.7.0(typescript@5.8.3)(vue@3.5.22(typescript@5.8.3))
-      eslint:
-        specifier: ^9.31.0
-        version: 9.38.0(jiti@2.6.1)
-      eslint-plugin-vue:
-        specifier: ~10.3.0
-        version: 10.3.0(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.38.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.38.0(jiti@2.6.1)))
-      jiti:
-        specifier: ^2.4.2
-        version: 2.6.1
-      jsdom:
-        specifier: ^26.1.0
-        version: 26.1.0
-      npm-run-all2:
-        specifier: ^8.0.4
-        version: 8.0.4
-      prettier:
-        specifier: 3.6.2
-        version: 3.6.2
-      pug:
-        specifier: ^3.0.3
-        version: 3.0.3
-      stylus:
-        specifier: ^0.64.0
-        version: 0.64.0
-      typescript:
-        specifier: ~5.8.0
-        version: 5.8.3
-      unplugin-vue-markdown:
-        specifier: ^29.2.0
-        version: 29.2.0(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))
-      vite:
-        specifier: ^7.0.6
-        version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0)
-      vite-plugin-vue-devtools:
-        specifier: ^8.0.0
-        version: 8.0.3(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(stylus@0.64.0))(vue@3.5.22(typescript@5.8.3))
-      vitepress:
-        specifier: ^2.0.0-alpha.12
-        version: 2.0.0-alpha.12(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(stylus@0.64.0)(typescript@5.8.3)
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@26.1.0)(stylus@0.64.0)
@@ -2021,10 +2009,6 @@ packages:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
 
-  github-markdown-css@5.8.1:
-    resolution: {integrity: sha512-8G+PFvqigBQSWLQjyzgpa2ThD9bo7+kDsriUIidGcRhXgmcaAWUIpCZf8DavJgc+xifjbCG+GvMyWr0XMXmc7g==}
-    engines: {node: '>=10'}
-
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -2084,10 +2068,6 @@ packages:
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
-
-  highlight.js@11.11.1:
-    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
-    engines: {node: '>=12.0.0'}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -4865,8 +4845,6 @@ snapshots:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.1
 
-  github-markdown-css@5.8.1: {}
-
   glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
@@ -4932,8 +4910,6 @@ snapshots:
       '@types/hast': 3.0.4
 
   he@1.2.0: {}
-
-  highlight.js@11.11.1: {}
 
   hookable@5.5.3: {}
 

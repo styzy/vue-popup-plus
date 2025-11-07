@@ -11,8 +11,10 @@
 		"build:core": "pnpm --filter vue-popup-plus build",
 		"build:plugin": "pnpm --filter vue-popup-plus-plugin-preset build",
 		"build:docs": "pnpm --filter docs build",
+		"build:md-demo": "pnpm --filter vitepress-plugin-markdown-container-demo build",
 		"preview:docs": "pnpm --filter docs preview",
 		"publish:core": "pnpm --filter vue-popup-plus publish --registry=https://registry.npmjs.org",
-		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish --registry=https://registry.npmjs.org"
+		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish --registry=https://registry.npmjs.org",
+		"publish:md-demo": "pnpm --filter vitepress-plugin-markdown-container-demo publish --registry=https://registry.npmjs.org"
 	}
 }

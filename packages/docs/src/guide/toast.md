@@ -99,7 +99,7 @@ function handleToastDuration() {
 
 :::
 
-## 更多配置
+## 详细配置
 
 具体可以查看 [API popup.toast()](/api/toast)。
 

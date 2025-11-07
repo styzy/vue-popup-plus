@@ -4,7 +4,7 @@ import {
 	groupIconMdPlugin,
 	groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
-import { mdDemoPlugin } from './mdDemoPlugin'
+import { demoContainerMdPlugin } from 'vitepress-plugin-markdown-container-demo'
 import { themeConfig as cnThemeConfig } from './cn.mts'
 import { themeConfig as enThemeConfig } from './en.mts'
 
@@ -53,7 +53,7 @@ export default defineConfig({
 		},
 		config: (md) => {
 			md.use(groupIconMdPlugin)
-			md.use(mdDemoPlugin)
+			md.use(demoContainerMdPlugin)
 		},
 	},
 	vite: {

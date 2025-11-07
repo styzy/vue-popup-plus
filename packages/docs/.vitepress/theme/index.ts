@@ -2,6 +2,7 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
 import { components } from './components'
 import { createPopup } from 'vue-popup-plus'
 import popupPlugins from 'vue-popup-plus-plugin-preset'
@@ -27,6 +28,8 @@ export default {
 		Object.entries(components).forEach(([name, component]) => {
 			app.component(name, component)
 		})
+
+		app.component(MarkdownDemo.name!, MarkdownDemo)
 	},
 } satisfies Theme
 
