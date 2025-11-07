@@ -55,9 +55,9 @@ export default {
 ```ts
 console.log('Hello World')
 ```
-````
 
 :::
+````
 
 ## 自定义渲染组件
 
@@ -107,7 +107,7 @@ export default {
 ```ts
 console.log('Hello World')
 ```
-````
 
 :::
+````
 
