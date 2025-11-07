@@ -4,8 +4,8 @@
 		template(#header)
 			PHeader(
 				:draggable="draggable"
-				:hasCloseButton="false"
 				:title="title"
+				@close="handleCancel()"
 				iconClass="prompt")
 		PBody
 			.message(v-if="isRenderMessage") {{ message }}
@@ -91,7 +91,6 @@ function handleCancel() {
 	max-width 80vw
 	max-height 80vh
 	width 360px
-	overflow hidden
 	.message
 		padding-bottom 20px
 		max-height calc(100vh - 122px)

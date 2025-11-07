@@ -319,7 +319,7 @@ $tools-safe-padding = 40px
 			color #FFFFFF
 			width 40px
 			height 40px
-			background-color rgba(0, 0, 0, 0.5)
+			background-color rgba(100, 100, 100, 0.5)
 			font-size var(--popup-plugin-preset-font-size-text-main)
 		.control
 			baseTrans()
@@ -327,6 +327,7 @@ $tools-safe-padding = 40px
 			cursor pointer
 			&:hover
 				color var(--popup-plugin-preset-color-primary)
+				background-color rgba(50, 50, 50, 0.5)
 			i
 				font-size 26px
 		.empty
