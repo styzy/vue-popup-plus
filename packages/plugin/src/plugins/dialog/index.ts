@@ -14,7 +14,11 @@ type PopupDialogOption = {
 	/**
 	 * 对话框内容组件props
 	 */
-	props?: Record<string, any>
+	componentProps?: Record<string, any>
+	/**
+	 * 对话框渲染完成时调用的回调函数
+	 */
+	onMounted?: () => void
 	/**
 	 * 是否显示对话框标题栏
 	 * - 默认值为 `true`
@@ -82,9 +86,10 @@ type PopupDialogOption = {
 	 */
 	dragOverflow?: boolean
 	/**
-	 * 对话框渲染完成时调用的回调函数
+	 * 遮罩层是否模糊
+	 * - 默认值：`true`
 	 */
-	onMounted?: () => void
+	maskBlur?: boolean
 }
 
 export interface IDialog {
@@ -113,7 +118,8 @@ export const dialog = definePlugin({
 		controller.customProperties.dialog = function ({
 			title = '',
 			component,
-			props = {},
+			componentProps = {},
+			onMounted = () => {},
 			header = true,
 			headerCloseButton = true,
 			width = 'auto',
@@ -126,13 +132,13 @@ export const dialog = definePlugin({
 			maskClickClose = false,
 			draggable = false,
 			dragOverflow = false,
-			onMounted = () => {},
+			maskBlur = true,
 		}: PopupDialogOption) {
-			const componentProps = {
+			const _componentProps = {
 				id: createId(),
 				title,
 				customComponent: component,
-				customComponentProps: props,
+				customComponentProps: componentProps,
 				header,
 				headerCloseButton,
 				draggable,
@@ -142,7 +148,7 @@ export const dialog = definePlugin({
 			return new Promise((resolve) => {
 				this.render({
 					component: () => import('./src/PDialog.vue'),
-					componentProps,
+					componentProps: _componentProps,
 					width,
 					maxWidth,
 					minWidth,
@@ -152,6 +158,7 @@ export const dialog = definePlugin({
 					mask,
 					maskClickClose,
 					viewTranslateOverflow: dragOverflow,
+					maskBlur,
 					onMounted,
 					onUnmounted: (payload?: any) => {
 						resolve(payload)

@@ -26,6 +26,11 @@ type ConfirmOption = {
 	 * - 默认值：`false`
 	 */
 	dragOverflow?: boolean
+	/**
+	 * 遮罩层是否模糊
+	 * - 默认值：`true`
+	 */
+	maskBlur?: boolean
 }
 
 export interface IConfirm {
@@ -62,6 +67,7 @@ export const confirm = definePlugin({
 				cancelText = '取消',
 				draggable = false,
 				dragOverflow = false,
+				maskBlur = true,
 			}: ConfirmOption = {}
 		) {
 			return new Promise((resolve) => {
@@ -75,6 +81,7 @@ export const confirm = definePlugin({
 						cancelText,
 					},
 					viewTranslateOverflow: dragOverflow,
+					maskBlur,
 					onUnmounted: (isConfirm: boolean) => {
 						resolve(isConfirm)
 					},

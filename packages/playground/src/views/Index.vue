@@ -502,7 +502,7 @@ async function handlePopupDialogCustomComponentProps() {
 	const result = await popup.dialog({
 		title: '自定义组件参数',
 		component: () => import('./Demo.vue'),
-		props: {
+		componentProps: {
 			test: '123',
 		},
 	})

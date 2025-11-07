@@ -21,6 +21,11 @@ type AlertOption = {
 	 * - 默认值：`false`
 	 */
 	dragOverflow?: boolean
+	/**
+	 * 遮罩层是否模糊
+	 * - 默认值：`true`
+	 */
+	maskBlur?: boolean
 }
 
 export interface IAlert {
@@ -55,6 +60,7 @@ export const alert = definePlugin({
 				confirmText = '确定',
 				draggable = false,
 				dragOverflow = false,
+				maskBlur = true,
 			}: AlertOption = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -67,6 +73,7 @@ export const alert = definePlugin({
 						draggable,
 					},
 					viewTranslateOverflow: dragOverflow,
+					maskBlur,
 					onUnmounted: () => {
 						resolve()
 					},
