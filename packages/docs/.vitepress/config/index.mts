@@ -57,6 +57,13 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		// resolve: {
+		// 	alias: {
+		// 		'vitepress-plugin-markdown-container-demo': fileURLToPath(
+		// 			new URL('../../../md-demo/src/index', import.meta.url)
+		// 		),
+		// 	},
+		// },
 		plugins: [groupIconVitePlugin()],
 		css: {
 			preprocessorOptions: {

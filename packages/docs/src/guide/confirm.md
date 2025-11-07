@@ -8,12 +8,12 @@
 
 ## 基础使用
 
-调用 `confirm` 方法可以弹出一个确认框，在屏幕居中显示。
+调用 `confirm` 方法并传入一段文本可以弹出一个确认框，在屏幕居中显示。
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleConfirm">基础使用</DButton>
+<DButton theme="primary" @click="handleConfirm">确认</DButton>
 ```
 
 ```ts
