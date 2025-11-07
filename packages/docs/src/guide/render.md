@@ -9,11 +9,11 @@
 ```html [Vue 组合式 API]
 <script setup lang="ts">
 // 组合式API 通过 usePopup 函数获取插件实例
-import { usePopup } from 'vue-popup-plus' // [!code highlight]
+import { usePopup } from 'vue-popup-plus'
 import MyPopupComponent from './MyPopupComponent.vue'
 
 // 获取插件实例
-const popup = usePopup() // [!code highlight]
+const popup = usePopup()
 
 function handlePopup() {
 	// 调用 render 方法渲染弹出层

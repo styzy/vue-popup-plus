@@ -206,6 +206,10 @@ function handleConfirmDraggableOverflow() {
 
 :::
 
+## 详细配置
+
+具体可以查看 [API popup.confirm()](/api/confirm)。
+
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 

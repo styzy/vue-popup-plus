@@ -273,6 +273,10 @@ function handlePromptDraggableOverflow() {
 
 :::
 
+## 详细配置
+
+具体可以查看 [API popup.prompt()](/api/prompt)。
+
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
 

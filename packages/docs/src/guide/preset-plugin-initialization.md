@@ -27,4 +27,4 @@ app.use(popup)
 app.mount('#app')
 ```
 
-预置插件会自动扩展弹出层插件实例 `popup` 的相关方法，您可以直接调用这些方法来使用预置插件提供的功能。
+如果想了解如何使用预置插件，请参考 [预置插件 使用说明](/guide/preset-plugin-usage)。

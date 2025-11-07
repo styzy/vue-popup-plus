@@ -106,10 +106,6 @@ export const themeConfig = defineConfig({
 				text: '进阶',
 				items: [
 					{
-						text: '获取实例id',
-						link: '/guide/get-instance-id',
-					},
-					{
 						text: '更新渲染参数',
 						link: '/guide/update',
 					},
