@@ -25,10 +25,10 @@ type PopupDialogOption = {
 	 */
 	header?: boolean
 	/**
-	 * 是否显示对话框标题栏关闭按钮
-	 * - 默认值为 `true`
+	 * 标题栏是否显示关闭按钮
+	 * - 默认值：`true`
 	 */
-	headerCloseButton?: boolean
+	headerClose?: boolean
 	/**
 	 * 对话框宽度
 	 * - 默认值为 `auto`
@@ -121,7 +121,7 @@ export const dialog = definePlugin({
 			componentProps = {},
 			onMounted = () => {},
 			header = true,
-			headerCloseButton = true,
+			headerClose = true,
 			width = 'auto',
 			maxWidth = '100%',
 			minWidth = 'auto',
@@ -134,21 +134,19 @@ export const dialog = definePlugin({
 			dragOverflow = false,
 			maskBlur = true,
 		}: PopupDialogOption) {
-			const _componentProps = {
-				id: createId(),
-				title,
-				customComponent: component,
-				customComponentProps: componentProps,
-				header,
-				headerCloseButton,
-				draggable,
-				debugMode: config.debugMode,
-			}
-
 			return new Promise((resolve) => {
 				this.render({
 					component: () => import('./src/PDialog.vue'),
-					componentProps: _componentProps,
+					componentProps: {
+						id: createId(),
+						title,
+						customComponent: component,
+						customComponentProps: componentProps,
+						header,
+						headerClose,
+						draggable,
+						debugMode: config.debugMode,
+					},
 					width,
 					maxWidth,
 					minWidth,

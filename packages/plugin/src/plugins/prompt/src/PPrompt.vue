@@ -4,6 +4,7 @@
 		template(#header)
 			PHeader(
 				:draggable="draggable"
+				:hasCloseButton="headerClose"
 				:title="title"
 				@close="handleCancel()"
 				iconClass="prompt")
@@ -49,6 +50,7 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	title: string
+	headerClose: boolean
 	message: string | boolean
 	type: PromptType
 	defaultValue: string
@@ -61,6 +63,7 @@ type Props = {
 
 const {
 	title,
+	headerClose,
 	message,
 	type,
 	defaultValue,

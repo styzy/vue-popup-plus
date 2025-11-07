@@ -4,7 +4,7 @@
 		template(#header v-if="header")
 			PHeader(
 				:draggable="draggable"
-				:hasCloseButton="headerCloseButton"
+				:hasCloseButton="headerClose"
 				:title="title"
 				@close="handleClose()")
 				template(#buttons)
@@ -49,7 +49,7 @@ type Props = {
 	customComponent: Component
 	customComponentProps: Record<string, any>
 	header: boolean
-	headerCloseButton: boolean
+	headerClose: boolean
 	draggable: boolean
 	debugMode: boolean
 }
@@ -60,7 +60,7 @@ const {
 	customComponent,
 	customComponentProps,
 	header,
-	headerCloseButton,
+	headerClose,
 	debugMode,
 } = defineProps<Props>()
 

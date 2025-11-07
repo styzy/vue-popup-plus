@@ -7,6 +7,11 @@ type AlertOption = {
 	 */
 	title?: string
 	/**
+	 * 标题栏是否显示关闭按钮
+	 * - 默认值：`true`
+	 */
+	headerClose?: boolean
+	/**
 	 * 确认按钮文本
 	 * - 默认值：`确定`
 	 */
@@ -57,6 +62,7 @@ export const alert = definePlugin({
 			content: string = '',
 			{
 				title = '提示',
+				headerClose = true,
 				confirmText = '确定',
 				draggable = false,
 				dragOverflow = false,
@@ -68,6 +74,7 @@ export const alert = definePlugin({
 					component: () => import('./src/PAlert.vue'),
 					componentProps: {
 						title,
+						headerClose,
 						content,
 						confirmText,
 						draggable,

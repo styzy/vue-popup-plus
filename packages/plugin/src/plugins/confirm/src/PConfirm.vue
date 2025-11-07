@@ -4,16 +4,17 @@
 		template(#header)
 			PHeader(
 				:draggable="draggable"
-				:hasCloseButton="false"
+				:hasCloseButton="headerClose"
 				:title="title"
+				@close="handleCancel()"
 				iconClass="confirm")
 		PBody
 			.content {{ content }}
 		template(#footer)
 			PFooter
 				PButtonGroup(align="right" theme="primary")
-					PButton(@click="handleConfirm(false)" type="plain") {{ cancelText }}
-					PButton(@click="handleConfirm(true)") {{ confirmText }}
+					PButton(@click="handleCancel()" type="plain") {{ cancelText }}
+					PButton(@click="handleConfirm()") {{ confirmText }}
 </template>
 
 <script lang="ts" setup>
@@ -36,17 +37,22 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	title: string
+	headerClose: boolean
 	content: string
 	confirmText: string
 	cancelText: string
 	draggable: boolean
 }
 
-const { title, content, confirmText, cancelText, draggable } =
+const { title, headerClose, content, confirmText, cancelText, draggable } =
 	defineProps<Props>()
 
-function handleConfirm(isConfirm: boolean) {
-	popup.destroy(instanceId, isConfirm)
+function handleConfirm() {
+	popup.destroy(instanceId, true)
+}
+
+function handleCancel() {
+	popup.destroy(instanceId, false)
 }
 </script>
 

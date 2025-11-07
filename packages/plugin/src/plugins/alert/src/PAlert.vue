@@ -4,6 +4,7 @@
 		template(#header)
 			PHeader(
 				:draggable="draggable"
+				:hasCloseButton="headerClose"
 				:title="title"
 				@close="handleConfirm()"
 				iconClass="alert")
@@ -35,12 +36,14 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	title: string
+	headerClose: boolean
 	content: string
 	confirmText: string
 	draggable: boolean
 }
 
-const { title, content, confirmText, draggable } = defineProps<Props>()
+const { title, headerClose, content, confirmText, draggable } =
+	defineProps<Props>()
 
 function handleConfirm() {
 	popup.destroy(instanceId)

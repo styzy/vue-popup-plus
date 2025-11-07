@@ -16,6 +16,11 @@ type PromptOption = {
 	 */
 	title?: string
 	/**
+	 * 标题栏是否显示关闭按钮
+	 * - 默认值：`true`
+	 */
+	headerClose?: boolean
+	/**
 	 * 提示输入框最大长度
 	 * - 默认值：`null`
 	 */
@@ -92,6 +97,7 @@ export const prompt = definePlugin({
 			{
 				type = 'input',
 				title = '提示输入',
+				headerClose = true,
 				maxLength = null,
 				placeholder = '请输入',
 				confirmText = '确定',
@@ -106,6 +112,7 @@ export const prompt = definePlugin({
 					component: () => import('./src/PPrompt.vue'),
 					componentProps: {
 						title,
+						headerClose,
 						message,
 						type,
 						defaultValue,

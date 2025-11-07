@@ -7,6 +7,11 @@ type ConfirmOption = {
 	 */
 	title?: string
 	/**
+	 * 标题栏是否显示关闭按钮
+	 * - 默认值：`false`
+	 */
+	headerClose?: boolean
+	/**
 	 * 确认按钮文本
 	 * - 默认值：`确定`
 	 */
@@ -63,6 +68,7 @@ export const confirm = definePlugin({
 			content: string = '是否确认？',
 			{
 				title = '确认',
+				headerClose = false,
 				confirmText = '确定',
 				cancelText = '取消',
 				draggable = false,
@@ -75,6 +81,7 @@ export const confirm = definePlugin({
 					component: () => import('./src/PConfirm.vue'),
 					componentProps: {
 						title,
+						headerClose,
 						content,
 						draggable,
 						confirmText,

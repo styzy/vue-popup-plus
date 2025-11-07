@@ -49,13 +49,16 @@
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlert()" type="default") 默认
 				PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
+				PButton(@click="handlePopupAlertHeaderClose()") 禁用标题栏关闭
 				PButton(@click="handlePopupAlertCustomConfirmButtonText()") 自定义确认按钮
+				PButton(@click="handlePopupAlertWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupAlertDraggable()") 可拖拽
 				PButton(@click="handlePopupAlertDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 确认
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupConfirm()" type="default") 默认
 				PButton(@click="handlePopupConfirmCustomTitle()") 自定义标题
+				PButton(@click="handlePopupConfirmHeaderClose()") 启用标题栏关闭
 				PButton(
 					@click="handlePopupConfirmCustomConfirmButtonText()"
 					theme="primary"
@@ -64,6 +67,7 @@
 					@click="handlePopupConfirmCustomCancelButtonText()"
 					theme="primary"
 					type="plain") 自定义取消按钮文本
+				PButton(@click="handlePopupConfirmWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupConfirmDraggable()") 可拖拽
 				PButton(@click="handlePopupConfirmDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 提示输入
@@ -72,10 +76,12 @@
 				PButton(@click="handlePopupPromptDefaultValue()") 默认值
 				PButton(@click="handlePopupPromptCustomType()") 自定义类型
 				PButton(@click="handlePopupPromptCustomTitle()") 自定义标题
+				PButton(@click="handlePopupPromptHeaderClose()") 禁用标题栏关闭
 				PButton(@click="handlePopupPromptCustomMaxLength()") 自定义最大长度
 				PButton(@click="handlePopupPromptCustomPlaceholder()") 自定义占位符
 				PButton(@click="handlePopupPromptCustomConfirmButtonText()") 自定义确认按钮文本
 				PButton(@click="handlePopupPromptCustomCancelButtonText()") 自定义取消按钮文本
+				PButton(@click="handlePopupPromptWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupPromptDraggable()") 可拖拽
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 加载遮罩
@@ -84,9 +90,11 @@
 			.title.sub 对话框
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialog()" type="default") 默认
-				PButton(@click="handlePopupDialogCustomTitle()") 自定义标题
 				PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
+				PButton(@click="handlePopupDialogCustomTitle()") 自定义标题
 				PButton(@click="handlePopupDialogHideHeader()") 隐藏标题栏
+				PButton(@click="handlePopupDialogHeaderClose()") 禁用标题栏关闭
+				PButton(@click="handlePopupDialogWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 媒体相册
@@ -321,10 +329,18 @@ function handlePopupAlertCustomTitle() {
 	popup.alert('这是一条确认框消息', { title: '自定义标题' })
 }
 
+function handlePopupAlertHeaderClose() {
+	popup.alert('这是一条确认框消息', { headerClose: false })
+}
+
 function handlePopupAlertCustomConfirmButtonText() {
 	popup.alert('这是一条确认框消息', {
 		confirmText: '自定义确认按钮文本',
 	})
+}
+
+function handlePopupAlertWithoutMaskBlur() {
+	popup.alert('这是一条确认框消息', { maskBlur: false })
 }
 
 function handlePopupAlertDraggable() {
@@ -335,32 +351,91 @@ function handlePopupAlertDraggableOverflow() {
 	popup.alert('这是一条确认框消息', { draggable: true, dragOverflow: true })
 }
 
-function handlePopupConfirm() {
-	popup.confirm('这是一条确认框消息')
+async function handlePopupConfirm() {
+	const isConfirm = await popup.confirm('这是一条确认框消息')
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
-function handlePopupConfirmCustomTitle() {
-	popup.confirm('这是一条确认框消息', { title: '自定义标题' })
+async function handlePopupConfirmCustomTitle() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		title: '自定义标题',
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
-function handlePopupConfirmCustomConfirmButtonText() {
-	popup.confirm('这是一条确认框消息', {
+async function handlePopupConfirmHeaderClose() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		headerClose: true,
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
+}
+
+async function handlePopupConfirmCustomConfirmButtonText() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
 		confirmText: '自定义确认按钮文本',
 	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
-function handlePopupConfirmCustomCancelButtonText() {
-	popup.confirm('这是一条确认框消息', {
+async function handlePopupConfirmCustomCancelButtonText() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
 		cancelText: '自定义取消按钮文本',
 	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
-function handlePopupConfirmDraggable() {
-	popup.confirm('这是一条确认框消息', { draggable: true })
+async function handlePopupConfirmWithoutMaskBlur() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		maskBlur: false,
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
-function handlePopupConfirmDraggableOverflow() {
-	popup.confirm('这是一条确认框消息', { draggable: true, dragOverflow: true })
+async function handlePopupConfirmDraggable() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		draggable: true,
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
+}
+
+async function handlePopupConfirmDraggableOverflow() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		draggable: true,
+		dragOverflow: true,
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
 }
 
 async function handlePopupPrompt() {
@@ -399,6 +474,17 @@ async function handlePopupPromptCustomType() {
 async function handlePopupPromptCustomTitle() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		title: '自定义标题',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptHeaderClose() {
+	const result = await popup.prompt('这是一条提示输入框消息', '', {
+		headerClose: false,
 	})
 	if (result === undefined) {
 		popup.toast('取消输入')
@@ -447,6 +533,17 @@ async function handlePopupPromptCustomConfirmButtonText() {
 async function handlePopupPromptCustomCancelButtonText() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		cancelText: '自定义取消按钮文本',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptWithoutMaskBlur() {
+	const result = await popup.prompt('这是一条提示输入框消息', '', {
+		maskBlur: false,
 	})
 	if (result === undefined) {
 		popup.toast('取消输入')
@@ -514,6 +611,24 @@ async function handlePopupDialogHideHeader() {
 		title: '隐藏标题栏',
 		component: () => import('./Demo.vue'),
 		header: false,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogHeaderClose() {
+	const result = await popup.dialog({
+		title: '禁用标题栏关闭',
+		component: () => import('./Demo.vue'),
+		headerClose: false,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogWithoutMaskBlur() {
+	const result = await popup.dialog({
+		title: '禁用遮罩模糊',
+		component: () => import('./Demo.vue'),
+		maskBlur: false,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
