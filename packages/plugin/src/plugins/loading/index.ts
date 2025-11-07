@@ -1,6 +1,10 @@
 import { definePlugin } from 'vue-popup-plus'
 
 type LoadingOption = {
+	/**
+	 * 加载遮罩图标大小
+	 * - 默认值：60
+	 */
 	iconSize?: number
 }
 
@@ -15,7 +19,7 @@ export interface ILoading {
 	 * stopLoading()
 	 * ```
 	 */
-	(option?: LoadingOption): () => void
+	(content?: string, option?: LoadingOption): () => void
 }
 
 declare module 'vue-popup-plus' {
@@ -27,14 +31,16 @@ declare module 'vue-popup-plus' {
 export const loading = definePlugin({
 	name: 'Loading',
 	install: (controller, config) => {
-		controller.customProperties.loading = function ({
-			iconSize = 60,
-		}: LoadingOption = {}) {
+		controller.customProperties.loading = function (
+			content: string = '',
+			{ iconSize = 60 }: LoadingOption = {}
+		) {
 			const instanceId = this.render({
 				component: () => import('./src/PLoadingMask.vue'),
 				componentProps: {
-					debugMode: config.debugMode,
+					content,
 					iconSize,
+					debugMode: config.debugMode,
 				},
 				width: '100%',
 				height: '100%',

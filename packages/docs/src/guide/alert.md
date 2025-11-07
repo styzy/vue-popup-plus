@@ -1,6 +1,6 @@
 # 提示 Alert
 
-一般用于弹出用户 `需要关注` 的提示信息，例如关键信息、重要文本等。
+一般用于提示用户 `需要关注` 的信息，例如关键信息、重要文本等。
 
 ::: tip
 该弹出层支持 `Promise 风格` 调用，具体可以查看 [等待弹出层关闭](/guide/alert#等待弹出层关闭)。
@@ -18,7 +18,7 @@
 
 ```ts
 function handleAlert() {
-	popup.alert('这是一条提示信息')
+	popup.alert('这是一条提示信息') // [!code highlight]
 }
 ```
 
@@ -37,7 +37,7 @@ function handleAlert() {
 ```ts
 function handleAlertCustomTitle() {
 	popup.alert('这是一条提示信息', {
-		title: '自定义标题',
+		title: '自定义标题', // [!code highlight]
 	})
 }
 ```
@@ -59,7 +59,7 @@ function handleAlertCustomTitle() {
 ```ts
 function handleAlertHeaderClose() {
 	popup.alert('这是一条提示信息', {
-		headerClose: false,
+		headerClose: false, // [!code highlight]
 	})
 }
 ```
@@ -81,7 +81,7 @@ function handleAlertHeaderClose() {
 ```ts
 function handleAlertConfirmText() {
 	popup.alert('这是一条提示信息', {
-		confirmText: '自定义确认按钮文本',
+		confirmText: '自定义确认按钮文本', // [!code highlight]
 	})
 }
 ```
@@ -103,7 +103,7 @@ function handleAlertConfirmText() {
 ```ts
 function handleAlertMaskBlur() {
 	popup.alert('这是一条提示信息', {
-		maskBlur: false,
+		maskBlur: false, // [!code highlight]
 	})
 }
 ```
@@ -132,14 +132,14 @@ function handleAlertMaskBlur() {
 ```ts
 function handleAlertDraggable() {
 	popup.alert('这是一条提示信息', {
-		draggable: true,
+		draggable: true, // [!code highlight]
 	})
 }
 
 function handleAlertDraggableOverflow() {
 	popup.alert('这是一条提示信息', {
 		draggable: true,
-		dragOverflow: true,
+		dragOverflow: true, // [!code highlight]
 	})
 }
 ```

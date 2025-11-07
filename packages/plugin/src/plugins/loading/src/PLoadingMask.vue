@@ -2,6 +2,7 @@
 .p-loading-mask
 	.mask
 	PLoading(:size="iconSize")
+	.content(v-if="content") {{ content }}
 	PButtonGroup(align="center" v-if="debugMode")
 		PButton(@click="handleClose" theme="primary") 强制关闭遮罩（仅在调试模式下可用）
 </template>
@@ -22,11 +23,12 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
-	debugMode: boolean
+	content: string
 	iconSize: number
+	debugMode: boolean
 }
 
-const { debugMode, iconSize = 60 } = defineProps<Props>()
+const { content, iconSize, debugMode } = defineProps<Props>()
 
 function handleClose() {
 	popup.destroy(instanceId)
@@ -52,4 +54,7 @@ function handleClose() {
 		z-index -1
 		background-color var(--popup-plugin-preset-color-background-main)
 		opacity 0.5
+	.content
+		font-size var(--popup-plugin-preset-font-size-title-sub)
+		color var(--popup-plugin-preset-color-text-main)
 </style>

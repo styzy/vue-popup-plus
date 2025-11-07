@@ -18,7 +18,7 @@
 
 ```ts
 function handlePrompt() {
-	popup.prompt('请输入您的姓名')
+	popup.prompt('请输入您的姓名') // [!code highlight]
 }
 ```
 
@@ -36,7 +36,7 @@ function handlePrompt() {
 
 ```ts
 async function handlePromptResult() {
-	const name = await popup.prompt('请输入您的姓名')
+	const name = await popup.prompt('请输入您的姓名') // [!code highlight]
 	if (name === undefined) {
 		popup.toast('用户取消输入', {
 			theme: 'danger',
@@ -63,7 +63,7 @@ async function handlePromptResult() {
 
 ```ts
 function handlePromptDefaultValue() {
-	popup.prompt('请输入您的姓名', '这是默认值')
+	popup.prompt('请输入您的姓名', '这是默认值') // [!code highlight]
 }
 ```
 
@@ -82,7 +82,7 @@ function handlePromptDefaultValue() {
 ```ts
 function handlePromptTextarea() {
 	popup.prompt('请输入您的姓名', '', {
-		type: 'textarea',
+		type: 'textarea', // [!code highlight]
 	})
 }
 ```
@@ -102,7 +102,7 @@ function handlePromptTextarea() {
 ```ts
 function handlePromptMaxLength() {
 	popup.prompt('请输入您的姓名', '', {
-		maxLength: 10,
+		maxLength: 10, // [!code highlight]
 	})
 }
 ```
@@ -122,7 +122,7 @@ function handlePromptMaxLength() {
 ```ts
 function handlePromptPlaceholder() {
 	popup.prompt('请输入您的姓名', '', {
-		placeholder: '请输入姓名',
+		placeholder: '请输入姓名', // [!code highlight]
 	})
 }
 ```
@@ -142,7 +142,7 @@ function handlePromptPlaceholder() {
 ```ts
 function handlePromptCustomTitle() {
 	popup.prompt('请输入您的姓名', '', {
-		title: '自定义标题',
+		title: '自定义标题', // [!code highlight]
 	})
 }
 ```
@@ -164,7 +164,7 @@ function handlePromptCustomTitle() {
 ```ts
 function handlePromptHeaderClose() {
 	popup.prompt('请输入您的姓名', '', {
-		headerClose: false,
+		headerClose: false, // [!code highlight]
 	})
 }
 ```
@@ -186,7 +186,7 @@ function handlePromptHeaderClose() {
 ```ts
 function handlePromptConfirmText() {
 	popup.prompt('请输入您的姓名', '', {
-		confirmText: '自定义确认按钮文本',
+		confirmText: '自定义确认按钮文本', // [!code highlight]
 	})
 }
 ```
@@ -208,7 +208,7 @@ function handlePromptConfirmText() {
 ```ts
 function handlePromptCancelText() {
 	popup.prompt('请输入您的姓名', '', {
-		cancelText: '自定义取消按钮文本',
+		cancelText: '自定义取消按钮文本', // [!code highlight]
 	})
 }
 ```
@@ -230,7 +230,7 @@ function handlePromptCancelText() {
 ```ts
 function handlePromptMaskBlur() {
 	popup.prompt('请输入您的姓名', '', {
-		maskBlur: false,
+		maskBlur: false, // [!code highlight]
 	})
 }
 ```
@@ -259,14 +259,14 @@ function handlePromptMaskBlur() {
 ```ts
 function handlePromptDraggable() {
 	popup.prompt('请输入您的姓名', '', {
-		draggable: true,
+		draggable: true, // [!code highlight]
 	})
 }
 
 function handlePromptDraggableOverflow() {
 	popup.prompt('请输入您的姓名', '', {
 		draggable: true,
-		dragOverflow: true,
+		dragOverflow: true, // [!code highlight]
 	})
 }
 ```

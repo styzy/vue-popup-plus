@@ -18,7 +18,7 @@
 
 ```ts
 function handleConfirm() {
-	popup.confirm('是否确认操作？')
+	popup.confirm('是否确认操作？') // [!code highlight]
 }
 ```
 
@@ -36,7 +36,7 @@ function handleConfirm() {
 
 ```ts
 async function handleConfirmResult() {
-	const isConfirm = await popup.confirm('是否确认操作？')
+	const isConfirm = await popup.confirm('是否确认操作？') // [!code highlight]
 	if (isConfirm) {
 		popup.toast('用户确认操作', {
 			theme: 'success',
@@ -64,7 +64,7 @@ async function handleConfirmResult() {
 ```ts
 function handleConfirmCustomTitle() {
 	popup.confirm('是否确认操作？', {
-		title: '自定义标题',
+		title: '自定义标题', // [!code highlight]
 	})
 }
 ```
@@ -88,7 +88,7 @@ function handleConfirmCustomTitle() {
 ```ts
 async function handleConfirmHeaderClose() {
 	const isConfirm = await popup.confirm('是否确认操作？', {
-		headerClose: true,
+		headerClose: true, // [!code highlight]
 	})
 	if (isConfirm) {
 		popup.toast('用户确认操作', {
@@ -119,7 +119,7 @@ async function handleConfirmHeaderClose() {
 ```ts
 function handleConfirmConfirmText() {
 	popup.confirm('是否确认操作？', {
-		confirmText: '自定义确认按钮文本',
+		confirmText: '自定义确认按钮文本', // [!code highlight]
 	})
 }
 ```
@@ -141,7 +141,7 @@ function handleConfirmConfirmText() {
 ```ts
 function handleConfirmCancelText() {
 	popup.confirm('是否确认操作？', {
-		cancelText: '自定义取消按钮文本',
+		cancelText: '自定义取消按钮文本', // [!code highlight]
 	})
 }
 ```
@@ -163,7 +163,7 @@ function handleConfirmCancelText() {
 ```ts
 function handleConfirmMaskBlur() {
 	popup.confirm('是否确认操作？', {
-		maskBlur: false,
+		maskBlur: false, // [!code highlight]
 	})
 }
 ```
@@ -192,14 +192,14 @@ function handleConfirmMaskBlur() {
 ```ts
 function handleConfirmDraggable() {
 	popup.confirm('是否确认操作？', {
-		draggable: true,
+		draggable: true, // [!code highlight]
 	})
 }
 
 function handleConfirmDraggableOverflow() {
 	popup.confirm('是否确认操作？', {
 		draggable: true,
-		dragOverflow: true,
+		dragOverflow: true, // [!code highlight]
 	})
 }
 ```

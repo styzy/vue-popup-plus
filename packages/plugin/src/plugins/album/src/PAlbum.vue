@@ -4,6 +4,7 @@
 		template(v-for="(media, mediaIndex) in mediaList")
 			template(v-if="mediaIndex === currentIndex")
 				img(
+					:class="{ 'is-draggable': !disableDrag }"
 					:key="`media-${mediaIndex}-${media.url}`"
 					:src="media.url"
 					:style="imageStyleObject"
@@ -19,11 +20,12 @@
 					disableRemotePlayback
 					v-if="media.type === FileTypes.VIDEO")
 	.tools.top(v-if="!pureMode")
-		.info.count(v-if="!countDisabled")
-			span.current {{ `${currentIndex + 1} ` }}
-			| / {{ mediaList.length }}
+		.info.count(v-if="!disableCounter")
+			span.number.current {{ `${currentIndex + 1} ` }}
+			span.connect /
+			span.number {{ mediaList.length }}
 		.emyty(v-else)
-		.control.name(@click="handleNameCopy()" v-if="!nameDisabled") {{ currentMedia.name }}
+		.control.name(@click="handleNameCopy()" v-if="!disableName") {{ currentMedia.name }}
 		.control.close(@click="handleClose()")
 			i.iconfont-popup-plugin-preset.album-close
 	.tools.left(v-if="!pureMode")
@@ -33,19 +35,19 @@
 		.control.next(@click="handleNext()" v-if="nextEnable")
 			i.iconfont-popup-plugin-preset.album-next
 	.tools.bottom(v-if="!pureMode")
-		.control(@click="handlePureEnter()" v-if="!pureDisabled")
+		.control(@click="handlePureEnter()" v-if="!disablePure")
 			i.iconfont-popup-plugin-preset.album-pure
 		.emyty(v-else)
 		.center
 			.control(
 				@click="handleScale(true, buttonScaleLevel)"
-				v-if="!scaleDisabled && scaleEnable")
+				v-if="!disableScale && scaleEnable")
 				i.iconfont-popup-plugin-preset.album-enlarge
 			.control(
 				@click="handleScale(false, buttonScaleLevel)"
-				v-if="!scaleDisabled && scaleEnable")
+				v-if="!disableScale && scaleEnable")
 				i.iconfont-popup-plugin-preset.album-narrow
-		.control.download(@click="handleDownload()" v-if="!downloadDisabled")
+		.control.download(@click="handleDownload()" v-if="!disableDownload")
 			i.iconfont-popup-plugin-preset.download
 		.emyty(v-else)
 </template>
@@ -75,23 +77,23 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 type Props = {
 	sources: Array<string>
 	defaultIndex: number
-	countDisabled: boolean
-	nameDisabled: boolean
-	downloadDisabled: boolean
-	pureDisabled: boolean
-	scaleDisabled: boolean
-	dragDisabled: boolean
+	disableCounter: boolean
+	disableName: boolean
+	disableDownload: boolean
+	disablePure: boolean
+	disableScale: boolean
+	disableDrag: boolean
 }
 
 const {
 	sources,
 	defaultIndex,
-	countDisabled,
-	nameDisabled,
-	downloadDisabled,
-	pureDisabled,
-	scaleDisabled,
-	dragDisabled,
+	disableCounter,
+	disableName,
+	disableDownload,
+	disablePure,
+	disableScale,
+	disableDrag,
 } = defineProps<Props>()
 
 const currentIndex = ref(defaultIndex)
@@ -184,7 +186,7 @@ function resetScale() {
 }
 
 function handleImageMouseScale(event: any) {
-	if (scaleDisabled) return
+	if (disableScale) return
 
 	const isUp = event.wheelDelta > 0
 
@@ -192,7 +194,7 @@ function handleImageMouseScale(event: any) {
 }
 
 function handleImageDragStart(event: MouseEvent) {
-	if (dragDisabled) return
+	if (disableDrag) return
 
 	dragMouseOriginX.value = event.clientX
 	dragMouseOriginY.value = event.clientY
@@ -237,7 +239,7 @@ function handlePureExit() {
 }
 
 function handleDownload() {
-	if (downloadDisabled) return
+	if (disableDownload) return
 
 	download(currentMedia.value.url, {
 		allowCrossOrigin: true,
@@ -275,7 +277,8 @@ $tools-safe-padding = 40px
 			max-height calc(100% - 300px)
 		img
 			border none
-			cursor move
+			&.is-draggable
+				cursor move
 	.tools
 		display flex
 		align-items center
@@ -315,10 +318,11 @@ $tools-safe-padding = 40px
 			display flex
 			align-items center
 			justify-content center
-			border-radius 3px
-			color #FFFFFF
 			width 40px
 			height 40px
+			border-radius 3px
+			box-sizing content-box
+			color #FFFFFF
 			background-color rgba(100, 100, 100, 0.5)
 			font-size var(--popup-plugin-preset-font-size-text-main)
 		.control
@@ -334,6 +338,10 @@ $tools-safe-padding = 40px
 			width 40px
 			height 40px
 		.count
+			display flex
+			align-items center
+			justify-content center
+			gap 10px
 			padding 0 20px
 			.current
 				font-weight 700

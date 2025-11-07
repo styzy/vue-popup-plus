@@ -89,6 +89,8 @@
 			.title.sub 加载遮罩
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupLoading()" type="default") 默认
+				PButton(@click="handlePopupLoadingCustomContent()") 自定义内容
+				PButton(@click="handlePopupLoadingCustomIconSize()") 自定义图标尺寸
 			.title.sub 对话框
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialog()" type="default") 默认
@@ -109,6 +111,8 @@
 				PButton(@click="handlePopupAlbumDisableName()") 禁用文件名
 				PButton(@click="handlePopupAlbumDisablePureMode()") 禁用纯净模式
 				PButton(@click="handlePopupAlbumDisableDownload()") 禁用下载
+				PButton(@click="handlePopupAlbumDisableScale()") 禁用缩放
+				PButton(@click="handlePopupAlbumDisableDrag()") 禁用拖动
 	.row
 		.row-item
 			.title 按钮单元测试
@@ -599,6 +603,14 @@ function handlePopupLoading() {
 	window.setTimeout(popup.loading(), 3000)
 }
 
+function handlePopupLoadingCustomContent() {
+	window.setTimeout(popup.loading('自定义内容'), 3000)
+}
+
+function handlePopupLoadingCustomIconSize() {
+	window.setTimeout(popup.loading('', { iconSize: 100 }), 3000)
+}
+
 async function handlePopupDialog() {
 	const result = await popup.dialog<string>({
 		title: '对话框标题',
@@ -720,7 +732,7 @@ function handlePopupAlbumDisableCount() {
 			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
 			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
 		],
-		countDisabled: true,
+		disableCounter: true,
 	})
 }
 
@@ -731,7 +743,7 @@ function handlePopupAlbumDisableName() {
 			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
 			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
 		],
-		nameDisabled: true,
+		disableName: true,
 	})
 }
 
@@ -742,7 +754,7 @@ function handlePopupAlbumDisablePureMode() {
 			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
 			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
 		],
-		pureDisabled: true,
+		disablePure: true,
 	})
 }
 
@@ -753,7 +765,29 @@ function handlePopupAlbumDisableDownload() {
 			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
 			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
 		],
-		downloadDisabled: true,
+		disableDownload: true,
+	})
+}
+
+function handlePopupAlbumDisableScale() {
+	popup.album({
+		sources: [
+			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
+		],
+		disableScale: true,
+	})
+}
+
+function handlePopupAlbumDisableDrag() {
+	popup.album({
+		sources: [
+			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
+		],
+		disableDrag: true,
 	})
 }
 </script>

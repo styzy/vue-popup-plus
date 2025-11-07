@@ -15,33 +15,33 @@ type AlbumOption = {
 	 * 是否禁用当前索引和总索引
 	 * - 默认值为 `false`
 	 */
-	countDisabled?: boolean
+	disableCounter?: boolean
 	/**
 	 * 是否禁用媒体名称
 	 * - 默认值为 `false`
 	 */
-	nameDisabled?: boolean
+	disableName?: boolean
 	/**
-	 * 是否禁用纯模式
+	 * 是否禁用纯净预览
 	 * - 默认值为 `false`
 	 */
-	pureDisabled?: boolean
+	disablePure?: boolean
 	/**
 	 * 是否禁用下载功能
 	 * - 默认值为 `false`
 	 * - 注意：下载功能仅在资源地址支持跨域时生效
 	 */
-	downloadDisabled?: boolean
+	disableDownload?: boolean
 	/**
 	 * 是否禁用缩放功能
 	 * - 默认值为 `false`
 	 */
-	scaleDisabled?: boolean
+	disableScale?: boolean
 	/**
 	 * 是否禁用拖动功能
 	 * - 默认值为 `false`
 	 */
-	dragDisabled?: boolean
+	disableDrag?: boolean
 }
 
 export interface IAlbum {
@@ -83,12 +83,12 @@ export const album = definePlugin({
 		controller.customProperties.album = function ({
 			sources,
 			defaultIndex = 0,
-			countDisabled = false,
-			nameDisabled = false,
-			pureDisabled = false,
-			downloadDisabled = false,
-			scaleDisabled = false,
-			dragDisabled = false,
+			disableCounter = false,
+			disableName = false,
+			disablePure = false,
+			disableDownload = false,
+			disableScale = false,
+			disableDrag = false,
 		}: AlbumOption) {
 			return new Promise<void>((resolve) => {
 				this.render({
@@ -96,12 +96,12 @@ export const album = definePlugin({
 					componentProps: {
 						sources,
 						defaultIndex,
-						countDisabled,
-						nameDisabled,
-						pureDisabled,
-						downloadDisabled,
-						scaleDisabled,
-						dragDisabled,
+						disableCounter,
+						disableName,
+						disablePure,
+						disableDownload,
+						disableScale,
+						disableDrag,
 					},
 					width: '100%',
 					height: '100%',

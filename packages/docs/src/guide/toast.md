@@ -1,6 +1,10 @@
 # 消息 Toast
 
-一般用于弹出 `轻量简短` 的消息，例如操作成功、操作失败等。
+一般用于提示用户 `轻量简短` 的消息，例如操作成功、操作失败等。
+
+::: tip
+该弹出层支持 `Promise 风格` 调用，具体可以查看 [等待弹出层关闭](/guide/toast#等待弹出层关闭)。
+:::
 
 ## 基础使用
 
@@ -14,7 +18,7 @@
 
 ```ts
 function handleToast() {
-	popup.toast('这是一条消息')
+	popup.toast('这是一条消息') // [!code highlight]
 }
 ```
 
@@ -42,37 +46,37 @@ function handleToast() {
 ```ts
 function handleToastThemeDefault() {
 	popup.toast('这是一条默认主题消息', {
-		theme: 'default',
+		theme: 'default', // [!code highlight]
 	})
 }
 
 function handleToastThemePrimary() {
 	popup.toast('这是一条主要主题消息', {
-		theme: 'primary',
+		theme: 'primary', // [!code highlight]
 	})
 }
 
 function handleToastThemeInfo() {
 	popup.toast('这是一条信息主题消息', {
-		theme: 'info',
+		theme: 'info', // [!code highlight]
 	})
 }
 
 function handleToastThemeSuccess() {
 	popup.toast('这是一条成功主题消息', {
-		theme: 'success',
+		theme: 'success', // [!code highlight]
 	})
 }
 
 function handleToastThemeWarning() {
 	popup.toast('这是一条警告主题消息', {
-		theme: 'warning',
+		theme: 'warning', // [!code highlight]
 	})
 }
 
 function handleToastThemeDanger() {
 	popup.toast('这是一条危险主题消息', {
-		theme: 'danger',
+		theme: 'danger', // [!code highlight]
 	})
 }
 ```
@@ -92,8 +96,27 @@ function handleToastThemeDanger() {
 ```ts
 function handleToastDuration() {
 	popup.toast('这是一条持续5秒的消息', {
-		duration: 5000,
+		duration: 5000, // [!code highlight]
 	})
+}
+```
+
+:::
+
+## 等待弹出层关闭
+
+该方法返回一个 `Promise<void>` 对象，当弹出层关闭后，会执行 `resolve` 方法，因此你可以通过 `await` 来等待弹出层关闭。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleToastWaitClose">等待弹出层关闭</DButton>
+```
+
+```ts
+async function handleToastWaitClose() {
+	await popup.toast('这是一条消息')
+	popup.toast('弹出层已关闭')
 }
 ```
 
@@ -151,6 +174,13 @@ function handleToastThemeDanger() {
 function handleToastDuration() {
 	popup.toast('这是一条持续5秒的消息', {
 		duration: 5000,
+	})
+}
+
+async function handleToastWaitClose() {
+	await popup.toast('这是一条消息')
+	popup.toast('弹出层已关闭',{
+		theme: 'success',
 	})
 }
 </script>

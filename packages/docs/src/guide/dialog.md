@@ -3,7 +3,7 @@
 一般用于展示 `复杂业务` ，例如数据列表、提交表单等。
 
 ::: tip
-该弹出层支持 `Promise 风格` 调用，具体可以查看 [获取关闭携带参数](/guide/dialog#获取关闭携带参数)。
+该弹出层支持 `Promise 风格` 调用，具体可以查看 [获取销毁携带参数](/guide/dialog#获取销毁携带参数)。
 :::
 
 ## 基础使用
@@ -15,7 +15,7 @@
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleDialog">基础使用</DButton>
+<DButton theme="primary" @click="handleDialog">对话</DButton>
 ```
 
 ```ts
@@ -23,7 +23,7 @@ import HelloWorld from 'HelloWorld.vue'
 
 function handleDialog() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloWorld.vue'), // [!code highlight]
 	})
 }
 ```
@@ -34,7 +34,28 @@ function handleDialog() {
 
 可以通过 `componentProps` 属性来为对话框内容组件传递参数。
 
-## 获取关闭携带参数
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogProps">携带组件参数</DButton>
+```
+
+```ts{6}
+import HelloWorld from 'HelloWorld.vue'
+
+function handleDialogProps() {
+	popup.dialog({
+		component: () => import('./HelloWorld.vue'),
+		componentProps: {
+			test: '这是一个组件参数',
+		},
+	})
+}
+```
+
+:::
+
+## 获取销毁携带参数
 
 该方法返回一个 `Promise<T | void>` 对象，当弹出层内部调用 `destroy()` 方法时，会将 `payload` 参数作为关闭携带参数返回，因此可以通过 `await` 来获取关闭携带参数。
 
@@ -43,7 +64,7 @@ function handleDialog() {
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleDialogResult">获取关闭携带参数</DButton>
+<DButton theme="primary" @click="handleDialogResult">获取销毁携带参数</DButton>
 ```
 
 ```ts{3}
@@ -133,6 +154,205 @@ function handleDialogCustomMaxSize() {
 
 :::
 
+## 隐藏标题栏
+
+可以通过 `header` 属性来隐藏标题栏，只需要将其设置为 `false` 即可。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogHideHeader">隐藏标题栏</DButton>
+```
+
+```ts
+function handleDialogHideHeader() {
+	popup.dialog({
+		header: false, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 自定义标题文本
+
+可以通过 `title` 选项来自定义对话框的标题文本。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogCustomTitle"
+	>自定义标题文本</DButton
+>
+```
+
+```ts
+function handleDialogCustomTitle() {
+	popup.dialog({
+		title: '自定义标题', // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 禁用标题栏关闭按钮
+
+可以通过 `headerClose` 选项来禁用标题栏的关闭按钮。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogHeaderClose"
+	>禁用标题栏关闭按钮</DButton
+>
+```
+
+```ts
+function handleDialogHeaderClose() {
+	popup.dialog({
+		headerClose: false, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 禁用遮罩层
+
+可以通过 `mask` 选项来禁用遮罩层。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogDisableMask">禁用遮罩层</DButton>
+```
+
+```ts
+function handleDialogDisableMask() {
+	popup.dialog({
+		mask: false, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 启用遮罩层点击关闭对话框
+
+可以通过 `maskClickClose` 选项来启用遮罩层点击关闭对话框。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogMaskClickClose"
+	>启用遮罩层点击关闭对话框</DButton
+>
+```
+
+```ts
+function handleDialogMaskClickClose() {
+	popup.dialog({
+		maskClickClose: true, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 禁用遮罩层高斯模糊
+
+为了提升用户关注度，该弹出层使用了 `高斯模糊` 背景遮罩，可以通过 `maskBlur` 选项来禁用遮罩层的高斯模糊效果。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogMaskBlur"
+	>禁用遮罩层高斯模糊</DButton
+>
+```
+
+```ts
+function handleDialogMaskBlur() {
+	popup.dialog({
+		maskBlur: false, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 启用窗口拖拽功能
+
+可以通过 `draggable` 选项来启用窗口的拖拽功能，开启后允许拖拽标题栏从而实现窗口的移动。
+
+默认情况下，拖拽时无法超出屏幕范围，可通过 `dragOverflow` 选项来设置是否允许超出。
+
+::: demo
+
+```html
+<DButtonGroup>
+	<DButton theme="primary" @click="handleDialogDraggable"
+		>启用窗口拖拽功能</DButton
+	>
+	<DButton theme="primary" @click="handleDialogDraggableOverflow"
+		>启用窗口拖拽功能并允许超出屏幕范围</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handleDialogDraggable() {
+	popup.dialog({
+		draggable: true, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogDraggableOverflow() {
+	popup.dialog({
+		draggable: true,
+		dragOverflow: true, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 渲染完成的回调函数
+
+可以通过 `onMounted` 选项来指定对话框渲染完成后的回调函数。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogOnMounted"
+	>渲染完成的回调函数</DButton
+>
+```
+
+```ts{4}
+function handleDialogOnMounted() {
+	popup.dialog({
+		component: () => import('./HelloWorld.vue'),
+		onMounted: () => {
+			popup.toast('对话框渲染完成', {
+				theme: 'success',
+			})
+		},
+	})
+}
+```
+
+:::
+
 ## 详细配置
 
 具体可以查看 [API popup.dialog()](/api/dialog)。
@@ -145,6 +365,15 @@ const popup = usePopup()
 function handleDialog() {
 	popup.dialog({
 		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogProps() {
+	popup.dialog({
+		component: () => import('./HelloWorld.vue'),
+		componentProps: {
+			test: '这是一个组件参数',
+		},
 	})
 }
 
@@ -184,6 +413,72 @@ function handleDialogCustomMaxSize() {
 	})
 }
 
+function handleDialogHideHeader() {
+	popup.dialog({
+		header: false,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
 
+function handleDialogCustomTitle() {
+	popup.dialog({
+		title: '自定义标题',
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogHeaderClose() {
+	popup.dialog({
+		headerClose: false,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogDisableMask() {
+	popup.dialog({
+		mask: false,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogMaskClickClose() {
+	popup.dialog({
+		maskClickClose: true,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogMaskBlur() {
+	popup.dialog({
+		maskBlur: false,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogDraggable() {
+	popup.dialog({
+		draggable: true,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogDraggableOverflow() {
+	popup.dialog({
+		draggable: true,
+		dragOverflow: true,
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+
+function handleDialogOnMounted() {
+	popup.dialog({
+		component: () => import('./HelloWorld.vue'),
+		onMounted: () => {
+			popup.toast('对话框渲染完成', {
+				theme: 'success',
+			})
+		},
+	})
+}
 
 </script>
