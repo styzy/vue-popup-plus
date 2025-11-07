@@ -139,6 +139,7 @@ function formatSize(size: string | number): string {
 	.popup-view
 		position relative
 		margin auto
+		overflow auto
 		pointer-events auto
 </style>
 
