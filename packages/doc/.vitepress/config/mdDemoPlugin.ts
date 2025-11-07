@@ -34,7 +34,6 @@ export const mdDemoPlugin = (md: Markdown) => {
 					contentStr += content
 				}
 
-				console.log('contentStr: ', contentStr)
 				return `<DDemo description="${description}"><template #demo>${contentStr}</template><template #code>`
 			} else {
 				return '</template></DDemo>\n'

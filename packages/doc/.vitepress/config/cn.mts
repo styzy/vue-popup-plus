@@ -13,7 +13,7 @@ export const themeConfig = defineConfig({
 			label: '页面导航',
 		},
 		nav: [
-			{ text: '首页', link: '/' },
+			// { text: '首页', link: '/' },
 			{
 				text: '指南',
 				link: '/guide/introduction',

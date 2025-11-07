@@ -125,6 +125,16 @@
 	--vp-home-hero-name-color: transparent;
 	--vp-home-hero-name-background: -webkit-linear-gradient(
 		-30deg,
+		var(--color-primary-dark) 0%,
+		var(--color-primary-light-enhance) 50%,
+		var(--color-primary-dark) 100%
+	);
+}
+
+.dark {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: -webkit-linear-gradient(
+		-30deg,
 		var(--color-primary) 0%,
 		var(--color-primary-light-most) 50%,
 		var(--color-primary) 100%
