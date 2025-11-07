@@ -192,8 +192,9 @@ export class Instance implements IInstance {
 			this.#app!.unmount()
 		} else {
 			render(null, this.#el!)
-			this.#store.parentElement.removeChild(this.#el!)
 		}
+
+		this.#store.parentElement.removeChild(this.#el!)
 
 		this.#store.onUnmounted(payload)
 	}
