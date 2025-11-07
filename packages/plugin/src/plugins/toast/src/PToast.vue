@@ -72,12 +72,13 @@ createTheme($theme, $color, $color-border)
 	.mask-background
 		opacity 0.1
 	.content
-		overflow hidden
 		max-width 300px
 		max-height 80vh
 		word-break break-all
 		font-size var(--popup-plugin-preset-font-size-text-main)
 		line-height 1.5
+		overflow-x hidden
+		overflow-y auto
 	&.is-theme-default
 		color var(--popup-plugin-preset-color-text-main)
 		.mask
