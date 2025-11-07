@@ -19,7 +19,7 @@ defineOptions({
 	flex 1
 	display flex
 	flex-direction column
-	justify-content stretch
+	justify-content flex-start
 	align-items stretch
 	overflow hidden
 	width inherit
@@ -34,5 +34,10 @@ defineOptions({
 	box-sizing border-box
 	.body
 		flex 1
-		overflow auto
+		display flex
+		flex-direction column
+		justify-content stretch
+		align-items stretch
+		min-width 0
+		min-height 0
 </style>

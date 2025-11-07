@@ -48,8 +48,8 @@ function handleClose() {
 	overflow hidden
 	background-color #0183da
 	padding 20px 0
-	// height 100%
-	// width 100%
+	// width 900px
+	// height 900px
 	min-width 300px
 	min-height 300px
 	color #FFFFFF

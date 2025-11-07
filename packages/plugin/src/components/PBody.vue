@@ -19,6 +19,7 @@ const { withPadding = true } = defineProps<Props>()
 @import '../assets/stylus/inject.styl'
 
 .p-body
+	flex 1
 	width 100%
 	height 100%
 	background-color var(--popup-plugin-preset-color-background-main)
