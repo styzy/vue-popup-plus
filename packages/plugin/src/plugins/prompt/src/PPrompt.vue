@@ -113,6 +113,8 @@ function handleCancel() {
 			padding 10px
 			border 1px solid var(--popup-plugin-preset-color-border)
 			border-radius 4px
+			color var(--popup-plugin-preset-color-text-main)
+			background-color transparent
 			outline none
 			&:focus
 				border-color var(--popup-plugin-preset-color-primary)
