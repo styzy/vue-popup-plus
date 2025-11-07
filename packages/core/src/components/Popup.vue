@@ -6,7 +6,7 @@ PopupAnimation(
 	PopupMask
 PopupAnimation(
 	:duration="store.animationDuration.value"
-	:type="store.maskAnimation.value")
+	:type="store.viewAnimation.value")
 	PopupView
 </template>
 
