@@ -53,18 +53,23 @@ export interface IPrompt {
 	 * - 可以在提示用户的同时，获取用户输入的内容，支持输入框和文本域
 	 * - 第一个参数为提示文本，如果不需要渲染提示文本，传入 `false` 即可
 	 * - 第二个参数为输入框默认值，第三个参数为选项对象，可以自定义输入框类型、标题、最大长度、占位符、确认按钮文本、取消按钮文本等，具体可以参考 {@link PromptOption}
-	 * - 获取输入的内容，需要通过 `await` 调用，等待执行结束后返回用户输入的内容，类型为 `string` | `null`，如果用户点击了取消按钮，则返回 `null`
+	 * - 获取输入的内容，需要通过 `await` 调用，等待执行结束后返回用户输入的内容，类型为 `string` | `void`，如果用户点击了取消按钮或者直接关闭弹出层，则返回 `undefined`
 	 * - 使用示例：
 	 * ```ts
 	 *
 	 * const name = await popup.prompt('请输入您的姓名')
+	 * if (name === undefined) {
+	 * 	console.log('用户取消了输入')
+	 * } else {
+	 * 	console.log('您的姓名是：' + name)
+	 * }
 	 * ```
 	 */
 	(
 		message: string | boolean,
 		defaultValue?: string,
 		options?: PromptOption
-	): Promise<string>
+	): Promise<string | void>
 }
 
 declare module 'vue-popup-plus' {

@@ -365,12 +365,20 @@ function handlePopupConfirmDraggableOverflow() {
 
 async function handlePopupPrompt() {
 	const result = await popup.prompt('这是一条提示输入框消息')
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptDefaultValue() {
 	const result = await popup.prompt('这是一条提示输入框消息', '123')
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomType() {
@@ -381,21 +389,33 @@ async function handlePopupPromptCustomType() {
 			type: 'textarea',
 		}
 	)
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomTitle() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		title: '自定义标题',
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomPlaceholder() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		placeholder: '自定义占位符',
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomMaxLength() {
@@ -406,28 +426,44 @@ async function handlePopupPromptCustomMaxLength() {
 			maxLength: 10,
 		}
 	)
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomConfirmButtonText() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		confirmText: '自定义确认按钮文本',
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptCustomCancelButtonText() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		cancelText: '自定义取消按钮文本',
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptDraggable() {
 	const result = await popup.prompt('这是一条提示输入框消息', '', {
 		draggable: true,
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 async function handlePopupPromptDraggableOverflow() {
@@ -435,7 +471,11 @@ async function handlePopupPromptDraggableOverflow() {
 		draggable: true,
 		dragOverflow: true,
 	})
-	popup.toast(`您输入的内容是：${result}`)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
 }
 
 function handlePopupLoading() {

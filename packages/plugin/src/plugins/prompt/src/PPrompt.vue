@@ -79,7 +79,7 @@ function handleConfirm() {
 }
 
 function handleCancel() {
-	popup.destroy(instanceId, null)
+	popup.destroy(instanceId)
 }
 </script>
 
