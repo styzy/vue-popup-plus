@@ -24,7 +24,8 @@ defineOptions({
 	max-height inherit
 	height inherit
 	border-radius 4px
-	box-shadow 1px 1px 20px var(--popup-plugin-preset-color-shadow)
+	border 1px solid var(--popup-plugin-preset-color-border-dark-lite)
+	box-shadow 5px 5px 30px var(--popup-plugin-preset-color-shadow)
 	.body
 		flex 1
 		overflow-y auto
