@@ -2,13 +2,6 @@ import { defineConfig } from 'vitepress'
 
 export const themeConfig = defineConfig({
 	themeConfig: {
-		logo: '/logo.svg',
-		siteTitle: 'Vue Popup Plus',
-		i18nRouting: true,
-		outline: {
-			level: 'deep',
-			label: '页面导航',
-		},
 		nav: [
 			{ text: '首页', link: '/' },
 			{
@@ -118,12 +111,6 @@ export const themeConfig = defineConfig({
 						link: '/guide/animation',
 					},
 				],
-			},
-		],
-		socialLinks: [
-			{
-				icon: 'github',
-				link: 'https://github.com/styzy/vue-popup-plus',
 			},
 		],
 	},

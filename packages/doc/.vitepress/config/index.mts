@@ -17,6 +17,21 @@ export default defineConfig({
 	outDir: 'dist',
 	metaChunk: true,
 	appearance: 'dark',
+	themeConfig: {
+		logo: '/logo.svg',
+		siteTitle: 'Vue Popup Plus',
+		i18nRouting: true,
+		socialLinks: [
+			{
+				icon: 'github',
+				link: 'https://github.com/styzy/vue-popup-plus',
+			},
+		],
+		footer: {
+			message: 'Released under the MIT License.',
+			copyright: `Copyright © ${new Date().getFullYear()} Vue Popup Plus`,
+		},
+	},
 	locales: {
 		root: {
 			label: '中文',
