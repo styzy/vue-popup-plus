@@ -1,0 +1,58 @@
+// 生成颜色变量
+generateCssColor($name, $color)
+	--md-demo-color-{$name} $color
+	--md-demo-color-{$name}-dark-lite darken($color, 10%)
+	--md-demo-color-{$name}-dark darken($color, 25%)
+	--md-demo-color-{$name}-dark-most darken($color, 50%)
+	--md-demo-color-{$name}-light-lite lighten($color, 10%)
+	--md-demo-color-{$name}-light lighten($color, 25%)
+	--md-demo-color-{$name}-light-most lighten($color, 50%)
+
+// 预置颜色
+$preset-color-primary = #1c70d1
+$preset-color-info = #409EFF
+$preset-color-danger = #e53935
+$preset-color-warning = #f5a623
+$preset-color-success = #4caf50
+$preset-color-text-main = #424242
+$preset-color-text-sub = #666666
+$preset-color-text-light = #999999
+$preset-color-text-placeholder = #b6b6b6
+$preset-color-border = #E8E8E8
+$preset-color-background-main = #FFFFFF
+$preset-color-background-sub = #F8F8F8
+$preset-color-shadow = rgba(50,50,50, 0.1)
+
+:root
+	generateCssColor('primary', $preset-color-primary)
+	generateCssColor('info', $preset-color-info)
+	generateCssColor('danger', $preset-color-danger)
+	generateCssColor('warning', $preset-color-warning)
+	generateCssColor('success', $preset-color-success)
+	generateCssColor('text-main', $preset-color-text-main)
+	generateCssColor('text-sub', $preset-color-text-sub)
+	generateCssColor('text-light', $preset-color-text-light)
+	generateCssColor('text-placeholder', $preset-color-text-placeholder)
+	generateCssColor('border', $preset-color-border)
+	generateCssColor('background-main', $preset-color-background-main)
+	generateCssColor('background-sub', $preset-color-background-sub)
+	generateCssColor('shadow', $preset-color-shadow)
+
+$preset-dark-color-text-main = #dfdfd6
+$preset-dark-color-text-sub = #98989f
+$preset-dark-color-text-light = #7b7a7a
+$preset-dark-color-text-placeholder = #656464
+$preset-dark-color-border = #000000
+$preset-dark-color-background-main = #1b1b1f
+$preset-dark-color-background-sub = #161618
+$preset-dark-color-shadow = rgba(0, 0, 0, 0.3)
+
+.dark
+	generateCssColor('text-main', $preset-dark-color-text-main)
+	generateCssColor('text-sub', $preset-dark-color-text-sub)
+	generateCssColor('text-light', $preset-dark-color-text-light)
+	generateCssColor('text-placeholder', $preset-dark-color-text-placeholder)
+	generateCssColor('border', $preset-dark-color-border)
+	generateCssColor('background-main', $preset-dark-color-background-main)
+	generateCssColor('background-sub', $preset-dark-color-background-sub)
+	generateCssColor('shadow', $preset-dark-color-shadow)
