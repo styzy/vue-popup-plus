@@ -8,13 +8,10 @@
 		"preinstall": "npx only-allow pnpm",
 		"dev": "pnpm --filter playground dev",
 		"dev:docs": "pnpm --filter docs dev",
-		"dev:doc": "pnpm --filter doc dev",
 		"build:core": "pnpm --filter vue-popup-plus build",
 		"build:plugin": "pnpm --filter vue-popup-plus-plugin-preset build",
 		"build:docs": "pnpm --filter docs build",
-		"build:doc": "pnpm --filter doc build",
 		"preview:docs": "pnpm --filter docs preview",
-		"preview:doc": "pnpm --filter doc preview",
 		"publish:core": "pnpm --filter vue-popup-plus publish --registry=https://registry.npmjs.org",
 		"publish:plugin": "pnpm --filter vue-popup-plus-plugin-preset publish --registry=https://registry.npmjs.org"
 	}
