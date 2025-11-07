@@ -1,4 +1,4 @@
-import { definePlugin } from 'vue-popup-plus'
+import { definePlugin, POPUP_ANIMATIONS } from 'vue-popup-plus'
 import { type ToastTheme } from './src/PToast.vue'
 
 type ToastOption = {
@@ -57,6 +57,7 @@ export const toast = definePlugin({
 					},
 					mask: false,
 					disableScroll: false,
+					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 					onUnmounted: () => {
 						resolve()
 					},
