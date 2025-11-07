@@ -15,10 +15,10 @@ const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 
 type Props = {
-	test: string
+	test?: string
 }
 
-const { test } = defineProps<Props>()
+const { test = '' } = defineProps<Props>()
 
 function handleClose(payload?: any) {
 	popup.destroy(instanceId!, payload)

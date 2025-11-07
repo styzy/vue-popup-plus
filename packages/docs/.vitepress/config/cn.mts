@@ -17,6 +17,11 @@ export const themeConfig = defineConfig({
 				activeMatch: '/guide/',
 			},
 			{
+				text: '预置插件',
+				link: '/preset-plugin/usage',
+				activeMatch: '/preset-plugin/',
+			},
+			{
 				text: '示例',
 				link: '/examples/render',
 				activeMatch: '/examples/',
@@ -32,89 +37,102 @@ export const themeConfig = defineConfig({
 				activeMatch: '/plugin/',
 			},
 		],
-		sidebar: [
-			{
-				text: '开始',
-				items: [
-					{ text: '介绍', link: '/guide/introduction' },
-					{
-						text: '关于预置插件',
-						link: '/guide/preset-plugin-about',
-					},
-					{ text: '安装', link: '/guide/install' },
-					{
-						text: '初始化',
-						link: '/guide/initialization',
-					},
-					{
-						text: '注册预置插件',
-						link: '/guide/preset-plugin-initialization',
-					},
-				],
-			},
-			{
-				text: '基础',
-				items: [
-					{
-						text: '渲染弹出层',
-						link: '/guide/render',
-					},
-					{
-						text: '销毁弹出层',
-						link: '/guide/destroy',
-					},
-				],
-			},
-			{
-				text: '预置插件',
-				items: [
-					{
-						text: '使用说明',
-						link: '/guide/preset-plugin-usage',
-					},
-					{
-						text: '消息 Toast',
-						link: '/guide/toast',
-					},
-					{
-						text: '提示 Alert',
-						link: '/guide/alert',
-					},
-					{
-						text: '确认 Confirm',
-						link: '/guide/confirm',
-					},
-					{
-						text: '提示输入 Prompt',
-						link: '/guide/prompt',
-					},
-					{
-						text: '对话 Dialog',
-						link: '/guide/dialog',
-					},
-					{
-						text: '加载遮罩 Loading',
-						link: '/guide/loading',
-					},
-					{
-						text: '媒体相册 Album',
-						link: '/guide/album',
-					},
-				],
-			},
-			{
-				text: '进阶',
-				items: [
-					{
-						text: '更新渲染参数',
-						link: '/guide/update',
-					},
-					{
-						text: '过渡动画',
-						link: '/guide/animation',
-					},
-				],
-			},
-		],
+		sidebar: {
+			'/guide/': [
+				{
+					text: '开始',
+					items: [
+						{ text: '介绍', link: '/guide/introduction' },
+						{ text: '安装', link: '/guide/install' },
+						{
+							text: '初始化',
+							link: '/guide/initialization',
+						},
+					],
+				},
+				{
+					text: '基础',
+					items: [
+						{
+							text: '渲染弹出层',
+							link: '/guide/render',
+						},
+						{
+							text: '销毁弹出层',
+							link: '/guide/destroy',
+						},
+					],
+				},
+				{
+					text: '进阶',
+					items: [
+						{
+							text: '更新渲染参数',
+							link: '/guide/update',
+						},
+						{
+							text: '过渡动画',
+							link: '/guide/animation',
+						},
+					],
+				},
+			],
+			'/preset-plugin/': [
+				{
+					text: '基础',
+					items: [
+						{
+							text: '介绍',
+							link: '/preset-plugin/introduction',
+						},
+						{
+							text: '安装',
+							link: '/preset-plugin/install',
+						},
+						{
+							text: '注册',
+							link: '/preset-plugin/register',
+						},
+						{
+							text: '使用说明',
+							link: '/preset-plugin/usage',
+						},
+					],
+				},
+				{
+					text: '主要功能',
+					items: [
+						{
+							text: 'Toast 消息',
+							link: '/preset-plugin/toast',
+						},
+						{
+							text: 'Alert 提示',
+							link: '/preset-plugin/alert',
+						},
+						{
+							text: 'Confirm 确认',
+							link: '/preset-plugin/confirm',
+						},
+						{
+							text: 'Prompt 提示输入',
+							link: '/preset-plugin/prompt',
+						},
+						{
+							text: 'Dialog 对话',
+							link: '/preset-plugin/dialog',
+						},
+						{
+							text: 'Loading 加载遮罩',
+							link: '/preset-plugin/loading',
+						},
+						{
+							text: 'Album 媒体相册',
+							link: '/preset-plugin/album',
+						},
+					],
+				},
+			],
+		},
 	},
 }).themeConfig

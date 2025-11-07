@@ -1,4 +1,4 @@
-# 对话 Dialog
+# Dialog 对话
 
 一般用于展示 `复杂业务` ，例如数据列表、提交表单等。
 
@@ -57,9 +57,9 @@ function handleDialogProps() {
 
 ## 获取销毁携带参数
 
-该方法返回一个 `Promise<T | void>` 对象，当弹出层内部调用 `destroy()` 方法时，会将 `payload` 参数作为关闭携带参数返回，因此可以通过 `await` 来获取关闭携带参数。
+该方法返回一个 `Promise<T | void>` 对象，当弹出层内部调用 `destroy()` 方法时，会将 `payload` 参数作为销毁携带参数返回，因此可以通过 `await` 来获取关闭携带参数。
 
-如果你使用 `Typescript` ，为了获得更好的类型安全，`dialog()` 方法支持类型参数，可以用来指定关闭携带参数的类型。
+如果你使用 `Typescript` ，为了获得更好的类型安全，`dialog()` 方法支持类型参数，可以用来指定销毁携带参数的类型。
 
 ::: demo
 
@@ -76,9 +76,13 @@ async function handleDialogResult() {
 
 	// 判断是否携带参数
 	if (payload !== undefined) {
-		popup.toast(`得到关闭携带的参数：${payload}`)
+		popup.toast(`得到销毁携带的参数：${payload}`, {
+			theme: 'success',
+		})
 	} else {
-		popup.toast('关闭时未携带参数')
+		popup.toast('销毁时未携带参数', {
+			theme: 'warning',
+		})
 	}
 }
 ```
@@ -364,13 +368,13 @@ const popup = usePopup()
 
 function handleDialog() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogProps() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
 		},
@@ -379,19 +383,23 @@ function handleDialogProps() {
 
 async function handleDialogResult() {
 	const payload = await popup.dialog<string>({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 
 	if (payload !== undefined) {
-		popup.toast(`得到关闭携带的参数：${payload}`)
+		popup.toast(`得到销毁携带的参数：${payload}`, {
+			theme: 'success',
+		})
 	} else {
-		popup.toast('关闭时未携带参数')
+		popup.toast('销毁时未携带参数', {
+			theme: 'warning',
+		})
 	}
 }
 
 function handleDialogCustomSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 		width: 600,
 		height: '600px',
 	})
@@ -399,7 +407,7 @@ function handleDialogCustomSize() {
 
 function handleDialogCustomMinSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 		minWidth: 500,
 		minHeight: 500,
 	})
@@ -407,7 +415,7 @@ function handleDialogCustomMinSize() {
 
 function handleDialogCustomMaxSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 		maxWidth: 200,
 		maxHeight: 200,
 	})
@@ -416,49 +424,49 @@ function handleDialogCustomMaxSize() {
 function handleDialogHideHeader() {
 	popup.dialog({
 		header: false,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogCustomTitle() {
 	popup.dialog({
 		title: '自定义标题',
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogHeaderClose() {
 	popup.dialog({
 		headerClose: false,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogDisableMask() {
 	popup.dialog({
 		mask: false,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogMaskClickClose() {
 	popup.dialog({
 		maskClickClose: true,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogMaskBlur() {
 	popup.dialog({
 		maskBlur: false,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogDraggable() {
 	popup.dialog({
 		draggable: true,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
@@ -466,13 +474,13 @@ function handleDialogDraggableOverflow() {
 	popup.dialog({
 		draggable: true,
 		dragOverflow: true,
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogOnMounted() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('../HelloWorld.vue'),
 		onMounted: () => {
 			popup.toast('对话框渲染完成', {
 				theme: 'success',
