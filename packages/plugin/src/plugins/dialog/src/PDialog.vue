@@ -42,6 +42,7 @@ defineOptions({
 })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
 
 type Props = {
 	id: string
@@ -76,6 +77,9 @@ const resolvedComponent = computed(() => {
 	return customComponent
 })
 
+const width = computed(() => computedViewStyle.value.width)
+const height = computed(() => computedViewStyle.value.height)
+
 onMounted(() => {
 	// HACK STY 修复ELementUI在弹框缩放动画过程中计算组件尺寸异常的bug
 	// window.setTimeout(renderComponent, 100)
@@ -92,6 +96,14 @@ function handleClose() {
 
 <style lang="stylus" scoped>
 .p-dialog
-	width 100%
-	height 100%
+	display flex
+	flex-direction column
+	justify-content stretch
+	align-items stretch
+	width inherit
+	height inherit
+	max-width inherit
+	max-height inherit
+	min-width inherit
+	min-height inherit
 </style>

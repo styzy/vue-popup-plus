@@ -28,7 +28,8 @@ function handleUpdateSize() {
 	const popup = usePopup()
 	instanceId &&
 		popup.update(instanceId, {
-			width: '50%',
+			width: 900,
+			height: '900px',
 		})
 }
 
@@ -47,8 +48,8 @@ function handleClose() {
 	overflow hidden
 	background-color #0183da
 	padding 20px 0
-	height 100%
-	width 100%
+	// height 100%
+	// width 100%
 	min-width 300px
 	min-height 300px
 	color #FFFFFF

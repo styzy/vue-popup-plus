@@ -4,7 +4,7 @@ import type { Component } from 'vue'
 type PopupDialogOption = {
 	/**
 	 * 对话框标题
-	 * - 默认值为 `''`
+	 * - 默认值为 `对话`
 	 */
 	title?: string
 	/**
@@ -99,7 +99,7 @@ export interface IDialog {
 	 * - 如需获取对话框关闭时传递的参数，可在调用 `dialog` 方法时使用 `await` 关键字等待 Promise resolve 后获取
 	 * - 对话框关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是否有返回参数
 	 */
-	<T extends any = any>(options: PopupDialogOption): Promise<T | undefined>
+	<T extends any = any>(options: PopupDialogOption): Promise<T | void>
 }
 
 declare module 'vue-popup-plus' {
@@ -116,7 +116,7 @@ export const dialog = definePlugin({
 	name: 'Dialog',
 	install: (controller, config) => {
 		controller.customProperties.dialog = function ({
-			title = '',
+			title = '对话',
 			component,
 			componentProps = {},
 			onMounted = () => {},

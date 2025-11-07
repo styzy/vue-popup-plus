@@ -21,6 +21,8 @@
 				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
 				PButton(@click="handlePopupFullScreen()") 全屏
+				PButton(@click="handlePopupMaxSize()") 最大尺寸
+				PButton(@click="handlePopupMinSize()") 最小尺寸
 				PButton(@click="handlePopupOffset()") 位移
 				PButton(@click="handlePopupOffsetLarge()") 大位移(安全)
 				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移超出屏幕
@@ -91,6 +93,8 @@
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialog()" type="default") 默认
 				PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
+				PButton(@click="handlePopupDialogCustomMaxSize()") 最大尺寸
+				PButton(@click="handlePopupDialogCustomMinSize()") 最小尺寸
 				PButton(@click="handlePopupDialogCustomTitle()") 自定义标题
 				PButton(@click="handlePopupDialogHideHeader()") 隐藏标题栏
 				PButton(@click="handlePopupDialogHeaderClose()") 禁用标题栏关闭
@@ -213,6 +217,22 @@ function handlePopupFullScreen() {
 		width: '100%',
 		height: '100%',
 		component: () => import('@/views/DemoFullScreen.vue'),
+	})
+}
+
+function handlePopupMaxSize() {
+	popup.render({
+		maxWidth: '200px',
+		maxHeight: 200,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupMinSize() {
+	popup.render({
+		minWidth: 800,
+		minHeight: '800px',
+		component: () => import('@/views/Demo.vue'),
 	})
 }
 
@@ -580,7 +600,7 @@ function handlePopupLoading() {
 }
 
 async function handlePopupDialog() {
-	const result = await popup.dialog({
+	const result = await popup.dialog<string>({
 		title: '对话框标题',
 		component: () => import('./Demo.vue'),
 	})
@@ -602,6 +622,26 @@ async function handlePopupDialogCustomComponentProps() {
 		componentProps: {
 			test: '123',
 		},
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogCustomMaxSize() {
+	const result = await popup.dialog({
+		title: '最大尺寸为： 200 * 200',
+		component: () => import('./Demo.vue'),
+		maxWidth: 200,
+		maxHeight: '200px',
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogCustomMinSize() {
+	const result = await popup.dialog({
+		title: '最小尺寸为： 800 * 800',
+		component: () => import('./Demo.vue'),
+		minWidth: 800,
+		minHeight: '800px',
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }

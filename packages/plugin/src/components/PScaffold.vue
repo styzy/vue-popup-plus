@@ -16,17 +16,23 @@ defineOptions({
 @import '../assets/stylus/inject.styl'
 
 .p-scaffold
+	flex 1
 	display flex
 	flex-direction column
-	justify-content flex-start
+	justify-content stretch
 	align-items stretch
 	overflow hidden
-	max-height inherit
+	width inherit
 	height inherit
+	max-width inherit
+	max-height inherit
+	min-width inherit
+	min-height inherit
 	border-radius 4px
 	border 1px solid var(--popup-plugin-preset-color-border-dark-lite)
 	box-shadow 5px 5px 30px var(--popup-plugin-preset-color-shadow)
+	box-sizing border-box
 	.body
 		flex 1
-		overflow-y auto
+		overflow auto
 </style>

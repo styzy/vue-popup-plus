@@ -19,10 +19,10 @@ const { withPadding = true } = defineProps<Props>()
 @import '../assets/stylus/inject.styl'
 
 .p-body
-	overflow hidden
 	width 100%
 	height 100%
 	background-color var(--popup-plugin-preset-color-background-main)
+	overflow auto
 	&.has-padding
 		baseDialog(padding)
 </style>
