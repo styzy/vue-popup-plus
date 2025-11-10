@@ -18,14 +18,16 @@
 <DButton theme="primary" @click="handleAlbum">媒体相册</DButton>
 ```
 
-```ts{2}
+```ts
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+	'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
+]
+
 function handleAlbum() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
+		sources, // [!code highlight]
 	})
 }
 ```
@@ -44,12 +46,8 @@ function handleAlbum() {
 
 ```ts
 function handleAlbumDefaultIndex(){
+		sources,
 		defaultIndex: 1, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 }
 ```
 
@@ -68,12 +66,8 @@ function handleAlbumDefaultIndex(){
 ```ts
 function handleAlbumDisableCounter() {
 	popup.album({
+		sources,
 		disableCounter: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -93,12 +87,8 @@ function handleAlbumDisableCounter() {
 ```ts
 function handleAlbumDisableName() {
 	popup.album({
+		sources,
 		disableName: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -118,12 +108,8 @@ function handleAlbumDisableName() {
 ```ts
 function handleAlbumDisablePure() {
 	popup.album({
+		sources,
 		disablePure: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -147,12 +133,8 @@ function handleAlbumDisablePure() {
 ```ts
 function handleAlbumDisableDownload() {
 	popup.album({
+		sources,
 		disableDownload: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -172,12 +154,8 @@ function handleAlbumDisableDownload() {
 ```ts
 function handleAlbumDisableScale() {
 	popup.album({
+		sources,
 		disableScale: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -197,12 +175,8 @@ function handleAlbumDisableScale() {
 ```ts
 function handleAlbumDisableDrag() {
 	popup.album({
+		sources,
 		disableDrag: true, // [!code highlight]
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 ```
@@ -218,90 +192,64 @@ import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+	'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
+]
+
 function handleAlbum() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
+		sources,
 	})
 }
 
 function handleAlbumDefaultIndex(){
 	popup.album({
+		sources,
 		defaultIndex: 1,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisableCounter() {
 	popup.album({
+		sources,
 		disableCounter: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisableName(){
 	popup.album({
+		sources,
 		disableName: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisablePure() {
 	popup.album({
+		sources,
 		disablePure: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisableDownload() {
 	popup.album({
+		sources,
 		disableDownload: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisableScale() {
 	popup.album({
+		sources,
 		disableScale: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 
 function handleAlbumDisableDrag() {
 	popup.album({
+		sources,
 		disableDrag: true,
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
-		],
 	})
 }
 </script>

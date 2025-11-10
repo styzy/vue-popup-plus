@@ -27,25 +27,47 @@ function handleLoading() {
 
 :::
 
-## 自定义提示文本
+## 设置主题
 
-可以通过传入一个字符串来自定义提示文本。
+可以通过 `theme` 选项来自定义主题，默认值为 `default`，支持的主题有 `default`、`primary`、`info`、`success`、`warning`、`danger`。
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleLoadingCustomContent"
-	>自定义提示文本</DButton
+<DButtonGroup>
+	<DButton theme="primary" type="plain" @click="handleLoadingThemeDefault"
+		>默认</DButton
+	>
+	<DButton theme="primary" @click="handleLoadingThemePrimary">主要</DButton>
+	<DButton theme="info" @click="handleLoadingThemeInfo">信息</DButton>
+	<DButton theme="success" @click="handleLoadingThemeSuccess">成功</DButton>
+	<DButton theme="warning" @click="handleLoadingThemeWarning">警告</DButton>
+	<DButton theme="danger" @click="handleLoadingThemeDanger">危险</DButton>
+</DButtonGroup>
+```
+
+:::
+
+## 自定义标题文本
+
+可以通过 `title` 选项来自定义标题文本。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleLoadingCustomTitle"
+	>自定义标题文本</DButton
 >
 ```
 
 ```ts
-function handleLoadingCustomContent() {
-	const closeLoading = popup.loading('自定义提示文本') // [!code highlight]
-
-	setTimeout(() => {
-		closeLoading()
-	}, 3000)
+function handleLoadingCustomTitle() {
+	setTimeout(
+		popup.loading({
+			title: '自定义标题文本', // [!code highlight]
+		}),
+		3000
+	)
 }
 ```
 
@@ -65,13 +87,12 @@ function handleLoadingCustomContent() {
 
 ```ts
 function handleLoadingCustomIconSize() {
-	const closeLoading = popup.loading('', {
-		iconSize: 100, // [!code highlight]
-	})
-
-	setTimeout(() => {
-		closeLoading()
-	}, 3000)
+	setTimeout(
+		popup.loading({
+			iconSize: 100, // [!code highlight]
+		}),
+		3000
+	)
 }
 ```
 
@@ -87,26 +108,59 @@ import { usePopup } from 'vue-popup-plus'
 const popup = usePopup()
 
 function handleLoading() {
-	const closeLoading = popup.loading()
-	setTimeout(() => {
-		closeLoading()
-	}, 3000)
+	setTimeout(popup.loading(), 3000)
 }
 
-function handleLoadingCustomContent() {
-	const closeLoading = popup.loading('自定义提示文本')
-	setTimeout(() => {
-		closeLoading()
-	}, 3000)
+function handleLoadingThemeDefault(){
+	setTimeout(popup.loading(), 3000)
+}
+
+function handleLoadingThemePrimary(){
+	setTimeout(popup.loading({
+		theme: 'primary',
+	}), 3000)
+}
+
+function handleLoadingThemeInfo(){
+	setTimeout(popup.loading({
+		theme: 'info',
+	}), 3000)
+}
+
+function handleLoadingThemeSuccess(){
+	setTimeout(popup.loading({
+		theme: 'success',
+	}), 3000)
+}
+
+function handleLoadingThemeWarning(){
+	setTimeout(popup.loading({
+		theme: 'warning',
+	}), 3000)
+}
+
+function handleLoadingThemeDanger(){
+	setTimeout(popup.loading({
+		theme: 'danger',
+	}), 3000)
+}
+
+function handleLoadingCustomTitle() {
+	setTimeout(
+		popup.loading({
+			title: '自定义标题文本',
+		}),
+		3000
+	)
 }
 
 function handleLoadingCustomIconSize() {
-	const closeLoading = popup.loading('', {
-		iconSize: 100,
-	})
-	setTimeout(() => {
-		closeLoading()
-	}, 3000)
+	setTimeout(
+		popup.loading({
+			iconSize: 100,
+		}),
+		3000
+	)
 }
 
 </script>
