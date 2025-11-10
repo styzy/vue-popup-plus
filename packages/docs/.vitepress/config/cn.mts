@@ -17,13 +17,13 @@ export const themeConfig = defineConfig({
 				activeMatch: '/guide/',
 			},
 			{
-				text: '预置插件',
-				link: '/preset-plugin/usage',
+				text: '预置插件指南',
+				link: '/preset-plugin/introduction',
 				activeMatch: '/preset-plugin/',
 			},
 			{
 				text: '示例中心',
-				link: '/examples/index',
+				link: '/examples/core',
 				activeMatch: '/examples/',
 			},
 			{
@@ -79,7 +79,7 @@ export const themeConfig = defineConfig({
 			],
 			'/preset-plugin/': [
 				{
-					text: '基础',
+					text: '开始',
 					items: [
 						{
 							text: '介绍',
@@ -93,15 +93,15 @@ export const themeConfig = defineConfig({
 							text: '注册',
 							link: '/preset-plugin/register',
 						},
+					],
+				},
+				{
+					text: '基础',
+					items: [
 						{
 							text: '使用说明',
 							link: '/preset-plugin/usage',
 						},
-					],
-				},
-				{
-					text: '主要功能',
-					items: [
 						{
 							text: 'Toast 消息',
 							link: '/preset-plugin/toast',
@@ -131,6 +131,16 @@ export const themeConfig = defineConfig({
 							link: '/preset-plugin/album',
 						},
 					],
+				},
+			],
+			'/examples/': [
+				{
+					text: '基础示例',
+					link: '/examples/core',
+				},
+				{
+					text: '预置插件示例',
+					link: '/examples/preset-plugin',
 				},
 			],
 		},

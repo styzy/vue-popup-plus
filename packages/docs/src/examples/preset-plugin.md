@@ -1,179 +1,20 @@
-# 示例中心
-
-所有示例由以下包提供技术支持：
-
-- `vue-popup-plus` 核心包，提供弹出层的基础功能。
-- `vue-popup-plus-preset-plugin` 预置插件包，提供一些开箱即用的常用功能。
-
-## 基础功能
-
-::: tip
-以下示例由 `vue-popup-plus` 核心包提供技术支持。
-:::
-
-### 渲染和生命周期
-
-::: demo
-
-```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopup">基础弹出层</DButton>
-	<DButton type="plain" @click="handlePopupWithProps">携带组件参数</DButton>
-	<DButton type="plain" @click="handlePopupWithOnMounted">渲染回调</DButton>
-	<DButton type="plain" @click="handlePopupWithOnUnmounted">销毁回调</DButton>
-	<DButton type="plain" @click="handlePopupWithResult"
-		>获取销毁携带参数</DButton
-	>
-</DButtonGroup>
-```
-
-```ts
-import { usePopup } from 'vue-popup-plus'
-
-const popup = usePopup()
-
-function handlePopup() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handlePopupWithProps() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		componentProps: {
-			test: '这是一个组件参数',
-		},
-	})
-}
-
-function handlePopupWithOnMounted() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onMounted() {
-			popup.toast('渲染回调 触发', {
-				theme: 'success',
-			})
-		},
-	})
-}
-
-function handlePopupWithOnUnmounted() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onUnmounted() {
-			popup.toast('销毁回调 触发', {
-				theme: 'warning',
-			})
-		},
-	})
-}
-
-function handlePopupWithResult() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onUnmounted(payload?: string) {
-			if (payload) {
-				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
-					theme: 'success',
-				})
-			} else {
-				popup.toast('销毁回调 触发，未携带参数', {
-					theme: 'warning',
-				})
-			}
-		},
-	})
-}
-```
-
-:::
-
-### 位置
-
-::: demo
-
-```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupWithTranslateX">设置横向偏移</DButton>
-	<DButton @click="handlePopupWithTranslateY">设置纵向偏移</DButton>
-</DButtonGroup>
-```
-
-```ts
-function handlePopupWithTranslateX() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		viewTranslateX: 200,
-	})
-}
-
-function handlePopupWithTranslateY() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		viewTranslateY: 200,
-	})
-}
-```
-
-:::
-
-### 遮罩
-
-::: demo
-
-```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
-	<DButton @click="handlePopupWithoutMask">禁用遮罩</DButton>
-	<DButton @click="handlePopupWithMaskClickClose"
-		>启用遮罩点击关闭弹出层</DButton
-	>
-</DButtonGroup>
-```
-
-```ts
-function handlePopupWithoutMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: false,
-	})
-}
-
-function handlePopupWithoutMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		mask: false,
-	})
-}
-
-function handlePopupWithMaskClickClose() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
-	})
-}
-```
-
-:::
-
-## 预置插件
+# 预置插件示例
 
 ::: tip
 以下示例由 `vue-popup-plus-preset-plugin` 预置插件包提供技术支持。
 :::
 
-### Toast 消息
+## Toast 消息
 
-#### 基础功能
+### 基础功能
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopupToast">消息</DButton>
-	<DButton type="plain" @click="handlePopupToastLongText">长文本</DButton>
-	<DButton type="plain" @click="handlePopupToastDuration">持续10秒</DButton>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupToast" type="default">消息</DButton>
+	<DButton @click="handlePopupToastLongText">长文本</DButton>
+	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
 </DButtonGroup>
 ```
 
@@ -197,20 +38,20 @@ function handlePopupToastDuration() {
 
 :::
 
-#### 主题
+### 进阶功能
 
 ::: demo
 
 ```html
 <DButtonGroup>
 	<DButton @click="handlePopupToastDefault" theme="primary" type="plain"
-		>默认</DButton
+		>默认主题</DButton
 	>
-	<DButton @click="handlePopupToastPrimary" theme="primary">主要</DButton>
-	<DButton @click="handlePopupToastSuccess" theme="success">成功</DButton>
-	<DButton @click="handlePopupToastInfo" theme="info">信息</DButton>
-	<DButton @click="handlePopupToastWarning" theme="warning">警告</DButton>
-	<DButton @click="handlePopupToastDanger" theme="danger">危险</DButton>
+	<DButton @click="handlePopupToastPrimary" theme="primary">主要主题</DButton>
+	<DButton @click="handlePopupToastSuccess" theme="success">成功主题</DButton>
+	<DButton @click="handlePopupToastInfo" theme="info">信息主题</DButton>
+	<DButton @click="handlePopupToastWarning" theme="warning">警告主题</DButton>
+	<DButton @click="handlePopupToastDanger" theme="danger">危险主题</DButton>
 </DButtonGroup>
 ```
 
@@ -252,25 +93,25 @@ function handlePopupToastDanger() {
 
 :::
 
-### Alert 提示
+## Alert 提示
 
-#### 基础功能
+### 基础功能
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopuAlert">提示</DButton>
-	<DButton @click="handlePopuAlertWaitClose" type="plain">等待关闭</DButton>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlert" type="default">提示</DButton>
+	<DButton @click="handlePopupAlertWaitClose">等待关闭</DButton>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuAlert() {
+function handlePopupAlert() {
 	popup.alert('这是一条提示消息')
 }
 
-async function handlePopuAlertWaitClose() {
+async function handlePopupAlertWaitClose() {
 	await popup.alert('这是一条提示消息，关闭后将执行后续代码')
 
 	popup.toast('提示已关闭', {
@@ -281,27 +122,27 @@ async function handlePopuAlertWaitClose() {
 
 :::
 
-#### 进阶功能
+### 进阶功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuAlertWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopuAlertWithCustomConfirmText"
+	<DButton @click="handlePopupAlertWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupAlertWithCustomConfirmText"
 		>自定义确认按钮文本</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuAlertWithCustomTitle() {
+function handlePopupAlertWithCustomTitle() {
 	popup.alert('这是一条提示消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuAlertWithCustomConfirmText() {
+function handlePopupAlertWithCustomConfirmText() {
 	popup.alert('这是一条提示消息', {
 		confirmText: '自定义确认按钮文本',
 	})
@@ -310,39 +151,41 @@ function handlePopuAlertWithCustomConfirmText() {
 
 :::
 
-#### 高级功能
+### 高级功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuAlertWithHeaderClose">禁用标题关闭按钮</DButton>
-	<DButton @click="handlePopuAlertWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
-	<DButton @click="handlePopuAlertWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopuAlertWithDragOverflow">允许拖拽超出屏幕</DButton>
+	<DButton @click="handlePopupAlertWithHeaderClose">禁用标题关闭按钮</DButton>
+	<DButton @click="handlePopupAlertWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
+	<DButton @click="handlePopupAlertWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupAlertWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuAlertWithHeaderClose() {
+function handlePopupAlertWithHeaderClose() {
 	popup.alert('这是一条提示消息', {
 		headClose: false,
 	})
 }
 
-function handlePopuAlertWithoutMaskBlur() {
+function handlePopupAlertWithoutMaskBlur() {
 	popup.alert('这是一条提示消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuAlertWithDraggable() {
+function handlePopupAlertWithDraggable() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuAlertWithDragOverflow() {
+function handlePopupAlertWithDragOverflow() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 		dragOverflow: true,
@@ -352,27 +195,25 @@ function handlePopuAlertWithDragOverflow() {
 
 :::
 
-### Confirm 确认
+## Confirm 确认
 
-#### 基础功能
+### 基础功能
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopuConfirm">确认</DButton>
-	<DButton @click="handlePopuConfirmWithResult" type="plain"
-		>获取用户确认结果</DButton
-	>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupConfirm" type="default">确认</DButton>
+	<DButton @click="handlePopupConfirmWithResult">获取用户确认结果</DButton>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuConfirm() {
+function handlePopupConfirm() {
 	popup.confirm('这是一条确认消息')
 }
 
-async function handlePopuConfirmWithResult() {
+async function handlePopupConfirmWithResult() {
 	const result = await popup.confirm('这是一条确认消息')
 
 	if (result) {
@@ -389,36 +230,36 @@ async function handlePopuConfirmWithResult() {
 
 :::
 
-#### 进阶功能
+### 进阶功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuConfirmWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopuConfirmWithCustomConfirmText"
+	<DButton @click="handlePopupConfirmWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupConfirmWithCustomConfirmText"
 		>自定义确认按钮文本</DButton
 	>
-	<DButton @click="handlePopuConfirmWithCustomCancelText"
+	<DButton @click="handlePopupConfirmWithCustomCancelText"
 		>自定义取消按钮文本</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuConfirmWithCustomTitle() {
+function handlePopupConfirmWithCustomTitle() {
 	popup.confirm('这是一条确认消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuConfirmWithCustomConfirmText() {
+function handlePopupConfirmWithCustomConfirmText() {
 	popup.confirm('这是一条确认消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopuConfirmWithCustomCancelText() {
+function handlePopupConfirmWithCustomCancelText() {
 	popup.confirm('这是一条确认消息', {
 		cancelText: '自定义取消按钮文本',
 	})
@@ -427,45 +268,45 @@ function handlePopuConfirmWithCustomCancelText() {
 
 :::
 
-#### 高级功能
+### 高级功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuConfirmWithHeaderClose"
+	<DButton @click="handlePopupConfirmWithHeaderClose"
 		>启用标题关闭按钮</DButton
 	>
-	<DButton @click="handlePopuConfirmWithoutMaskBlur"
+	<DButton @click="handlePopupConfirmWithoutMaskBlur"
 		>禁用遮罩高斯模糊</DButton
 	>
-	<DButton @click="handlePopuConfirmWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopuConfirmWithDragOverflow"
+	<DButton @click="handlePopupConfirmWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupConfirmWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuConfirmWithHeaderClose() {
+function handlePopupConfirmWithHeaderClose() {
 	popup.confirm('这是一条确认消息', {
 		headClose: false,
 	})
 }
 
-function handlePopuConfirmWithoutMaskBlur() {
+function handlePopupConfirmWithoutMaskBlur() {
 	popup.confirm('这是一条确认消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuConfirmWithDraggable() {
+function handlePopupConfirmWithDraggable() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuConfirmWithDragOverflow() {
+function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
@@ -475,45 +316,39 @@ function handlePopuConfirmWithDragOverflow() {
 
 :::
 
-### Prompt 提示输入
+## Prompt 提示输入
 
-#### 基础功能
+### 基础功能
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopuPrompt">提示输入</DButton>
-	<DButton @click="handlePopuPromptWithDefaultValue" type="plain"
-		>默认值</DButton
-	>
-	<DButton @click="handlePopuPromptWithTextarea" type="plain"
-		>文本域类型</DButton
-	>
-	<DButton @click="handlePopuPromptWithResult" type="plain"
-		>获取用户输入结果</DButton
-	>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupPrompt" type="default">提示输入</DButton>
+	<DButton @click="handlePopupPromptWithDefaultValue">默认值</DButton>
+	<DButton @click="handlePopupPromptWithTextarea">文本域类型</DButton>
+	<DButton @click="handlePopupPromptWithResult">获取用户输入结果</DButton>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuPrompt() {
+function handlePopupPrompt() {
 	popup.prompt('这是一条提示输入消息')
 }
 
-function handlePopuPromptWithDefaultValue() {
+function handlePopupPromptWithDefaultValue() {
 	popup.prompt('这是一条提示输入消息', {
 		defaultValue: '这是默认值',
 	})
 }
 
-function handlePopuPromptWithTextarea() {
+function handlePopupPromptWithTextarea() {
 	popup.prompt('这是一条提示输入消息', {
 		type: 'textarea',
 	})
 }
 
-async function handlePopuPromptWithResult() {
+async function handlePopupPromptWithResult() {
 	const result = await popup.prompt('这是一条提示输入消息')
 
 	if (result !== undefined) {
@@ -530,36 +365,36 @@ async function handlePopuPromptWithResult() {
 
 :::
 
-#### 进阶功能
+### 进阶功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuPromptWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopuPromptWithCustomConfirmText"
+	<DButton @click="handlePopupPromptWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupPromptWithCustomConfirmText"
 		>自定义确认按钮文本</DButton
 	>
-	<DButton @click="handlePopuPromptWithCustomCancelText"
+	<DButton @click="handlePopupPromptWithCustomCancelText"
 		>自定义取消按钮文本</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuPromptWithCustomTitle() {
+function handlePopupPromptWithCustomTitle() {
 	popup.prompt('这是一条提示输入消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuPromptWithCustomConfirmText() {
+function handlePopupPromptWithCustomConfirmText() {
 	popup.prompt('这是一条提示输入消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopuPromptWithCustomCancelText() {
+function handlePopupPromptWithCustomCancelText() {
 	popup.prompt('这是一条提示输入消息', {
 		cancelText: '自定义取消按钮文本',
 	})
@@ -568,41 +403,45 @@ function handlePopuPromptWithCustomCancelText() {
 
 :::
 
-#### 高级功能
+### 高级功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuPromptWithHeaderClose">禁用标题关闭按钮</DButton>
-	<DButton @click="handlePopuPromptWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
-	<DButton @click="handlePopuPromptWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopuPromptWithDragOverflow"
+	<DButton @click="handlePopupPromptWithHeaderClose"
+		>禁用标题关闭按钮</DButton
+	>
+	<DButton @click="handlePopupPromptWithoutMaskBlur"
+		>禁用遮罩高斯模糊</DButton
+	>
+	<DButton @click="handlePopupPromptWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupPromptWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuPromptWithHeaderClose() {
+function handlePopupPromptWithHeaderClose() {
 	popup.prompt('这是一条提示输入消息', {
 		headClose: false,
 	})
 }
 
-function handlePopuPromptWithoutMaskBlur() {
+function handlePopupPromptWithoutMaskBlur() {
 	popup.prompt('这是一条提示输入消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuPromptWithDraggable() {
+function handlePopupPromptWithDraggable() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuPromptWithDragOverflow() {
+function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
@@ -612,35 +451,29 @@ function handlePopuPromptWithDragOverflow() {
 
 :::
 
-### Dialog 对话
+## Dialog 对话
 
-#### 基础功能
+### 基础功能
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary">
-	<DButton @click="handlePopuDialog">对话</DButton>
-	<DButton @click="handlePopuDialogWithProps" type="plain"
-		>携带组件参数</DButton
-	>
-	<DButton @click="handlePopuDialogWithOnMounted" type="plain"
-		>渲染回调</DButton
-	>
-	<DButton @click="handlePopuDialogWithResult" type="plain"
-		>获取销毁携带参数</DButton
-	>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupDialog" type="default">对话</DButton>
+	<DButton @click="handlePopupDialogWithProps">携带组件参数</DButton>
+	<DButton @click="handlePopupDialogWithOnMounted">渲染回调</DButton>
+	<DButton @click="handlePopupDialogWithResult">获取销毁携带参数</DButton>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuDialog() {
+function handlePopupDialog() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 	})
 }
 
-function handlePopuDialogWithProps() {
+function handlePopupDialogWithProps() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		componentProps: {
@@ -649,7 +482,7 @@ function handlePopuDialogWithProps() {
 	})
 }
 
-function handlePopuDialogWithOnMounted() {
+function handlePopupDialogWithOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
@@ -660,7 +493,7 @@ function handlePopuDialogWithOnMounted() {
 	})
 }
 
-async function handlePopuDialogWithResult() {
+async function handlePopupDialogWithResult() {
 	const result = await popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 	})
@@ -679,18 +512,18 @@ async function handlePopuDialogWithResult() {
 
 :::
 
-#### 进阶功能
+### 进阶功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuDialogWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupDialogWithCustomTitle">自定义标题文本</DButton>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuDialogWithCustomTitle() {
+function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
 		title: '自定义标题',
 		component: () => import('../HelloWorld.vue'),
@@ -700,34 +533,38 @@ function handlePopuDialogWithCustomTitle() {
 
 :::
 
-#### 高级功能
+### 高级功能
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopuDialogWithHeaderClose">禁用标题关闭按钮</DButton>
-	<DButton @click="handlePopuDialogWithoutHeader">禁用标题栏</DButton>
+	<DButton @click="handlePopupDialogWithHeaderClose"
+		>禁用标题关闭按钮</DButton
+	>
+	<DButton @click="handlePopupDialogWithoutHeader">禁用标题栏</DButton>
 	<DButton @click="handlePopupDialogWithMaskClickClose"
 		>启用遮罩点击关闭弹出层</DButton
 	>
-	<DButton @click="handlePopuDialogWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
-	<DButton @click="handlePopuDialogWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopuDialogWithDragOverflow"
+	<DButton @click="handlePopupDialogWithoutMaskBlur"
+		>禁用遮罩高斯模糊</DButton
+	>
+	<DButton @click="handlePopupDialogWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupDialogWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopuDialogWithHeaderClose() {
+function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		headClose: false,
 	})
 }
 
-function handlePopuDialogWithoutHeader() {
+function handlePopupDialogWithoutHeader() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		header: false,
@@ -741,25 +578,195 @@ function handlePopupDialogWithMaskClickClose() {
 	})
 }
 
-function handlePopuDialogWithoutMaskBlur() {
+function handlePopupDialogWithoutMaskBlur() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		maskBlur: false,
 	})
 }
 
-function handlePopuDialogWithDraggable() {
+function handlePopupDialogWithDraggable() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 	})
 }
 
-function handlePopuDialogWithDragOverflow() {
+function handlePopupDialogWithDragOverflow() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+```
+
+:::
+
+## Loading 加载遮罩
+
+### 基础功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupLoading" type="default">加载遮罩</DButton>
+	<DButton @click="handlePopupLoadingWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupLoadingWithIconSize">自定义图标尺寸</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupLoading() {
+	setTimeout(popup.loading(), 3000)
+}
+
+function handlePopupLoadingWithCustomTitle() {
+	setTimeout(
+		popup.loading({
+			title: '加载中...',
+		}),
+		3000
+	)
+}
+
+function handlePopupLoadingWithIconSize() {
+	setTimeout(
+		popup.loading({
+			iconSize: 200,
+		}),
+		3000
+	)
+}
+```
+
+:::
+
+### 进阶功能
+
+::: demo
+
+```html
+<DButtonGroup>
+	<DButton
+		@click="handlePopupLoadingWithThemeDefault"
+		theme="primary"
+		type="plain"
+		>默认主题</DButton
+	>
+	<DButton @click="handlePopupLoadingWithThemePrimary" theme="primary"
+		>主要主题</DButton
+	>
+	<DButton @click="handlePopupLoadingWithThemeSuccess" theme="success"
+		>成功主题</DButton
+	>
+	<DButton @click="handlePopupLoadingWithThemeInfo" theme="info"
+		>信息主题</DButton
+	>
+	<DButton @click="handlePopupLoadingWithThemeWarning" theme="warning"
+		>警告主题</DButton
+	>
+	<DButton @click="handlePopupLoadingWithThemeDanger" theme="danger"
+		>危险主题</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupLoadingWithThemeDefault() {
+	setTimeout(popup.loading(), 3000)
+}
+
+function handlePopupLoadingWithThemePrimary() {
+	setTimeout(
+		popup.loading({
+			theme: 'primary',
+		}),
+		3000
+	)
+}
+
+function handlePopupLoadingWithThemeSuccess() {
+	setTimeout(
+		popup.loading({
+			theme: 'success',
+		}),
+		3000
+	)
+}
+
+function handlePopupLoadingWithThemeInfo() {
+	setTimeout(
+		popup.loading({
+			theme: 'info',
+		}),
+		3000
+	)
+}
+
+function handlePopupLoadingWithThemeWarning() {
+	setTimeout(
+		popup.loading({
+			theme: 'warning',
+		}),
+		3000
+	)
+}
+
+function handlePopupLoadingWithThemeDanger() {
+	setTimeout(
+		popup.loading({
+			theme: 'danger',
+		}),
+		3000
+	)
+}
+```
+
+:::
+
+### 高级功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupLoadingWithoutMaskBlur"
+		>禁用遮罩高斯模糊</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupLoadingWithoutMaskBlur() {
+	setTimeout(
+		popup.loading({
+			maskBlur: false,
+		}),
+		3000
+	)
+}
+```
+
+:::
+
+## Album 媒体相册
+
+### 基础功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbum" type="default">媒体相册</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupAlbum() {
+	popup.album({
+		component: () => import('../HelloWorld.vue'),
 	})
 }
 ```
@@ -772,97 +779,6 @@ import HelloWorld from './HelloWorld.vue'
 
 const popup = usePopup()
 
-function handlePopup(){
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handlePopupWithProps() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		componentProps: {
-			test: '这是一个组件参数',
-		},
-	})
-}
-
-function handlePopupWithOnMounted() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onMounted() {
-			popup.toast('渲染回调 触发', {
-				theme: 'success',
-			})
-		},
-	})
-}
-
-function handlePopupWithOnUnmounted() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onUnmounted() {
-			popup.toast('销毁回调 触发', {
-				theme: 'warning',
-			})
-		},
-	})
-}
-
-function handlePopupWithResult() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		onUnmounted(payload?: string) {
-			if (payload) {
-				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
-					theme: 'success',
-				})
-			} else {
-				popup.toast('销毁回调 触发，未携带参数', {
-					theme: 'warning',
-				})
-			}
-		},
-	})
-}
-
-
-
-function handlePopupWithTranslateX() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		viewTranslateX: 200,
-	})
-}
-
-function handlePopupWithTranslateY() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		viewTranslateY: 200,
-	})
-}
-
-function handlePopupWithoutMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: false,
-	})
-}
-
-function handlePopupWithoutMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		mask: false,
-	})
-}
-
-function handlePopupWithMaskClickClose() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
-	})
-}
-
 function handlePopupToast() {
 	popup.toast('这是一条消息')
 }
@@ -913,59 +829,59 @@ function handlePopupToastDanger() {
 	})
 }
 
-function handlePopuAlert() {
+function handlePopupAlert() {
 	popup.alert('这是一条提示消息')
 }
 
-async function handlePopuAlertWaitClose() {
+async function handlePopupAlertWaitClose() {
 	await popup.alert('这是一条提示消息，关闭后将执行后续代码')
 	popup.toast('提示已关闭', {
 		theme: 'primary',
 	})
 }
 
-function handlePopuAlertWithCustomTitle() {
+function handlePopupAlertWithCustomTitle() {
 	popup.alert('这是一条提示消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuAlertWithCustomConfirmText() {
+function handlePopupAlertWithCustomConfirmText() {
 	popup.alert('这是一条提示消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopuAlertWithHeaderClose() {
+function handlePopupAlertWithHeaderClose() {
 	popup.alert('这是一条提示消息', {
 		headerClose: false,
 	})
 }
 
-function handlePopuAlertWithoutMaskBlur() {
+function handlePopupAlertWithoutMaskBlur() {
 	popup.alert('这是一条提示消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuAlertWithDraggable() {
+function handlePopupAlertWithDraggable() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuAlertWithDragOverflow() {
+function handlePopupAlertWithDragOverflow() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 		dragOverflow: true,
 	})
 }
 
-function handlePopuConfirm() {
+function handlePopupConfirm() {
 	popup.confirm('这是一条确认消息')
 }
 
-async function handlePopuConfirmWithResult() {
+async function handlePopupConfirmWithResult() {
 	const result = await popup.confirm('这是一条确认消息')
 
 	if (result) {
@@ -979,66 +895,66 @@ async function handlePopuConfirmWithResult() {
 	}
 }
 
-function handlePopuConfirmWithCustomTitle() {
+function handlePopupConfirmWithCustomTitle() {
 	popup.confirm('这是一条确认消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuConfirmWithCustomConfirmText() {
+function handlePopupConfirmWithCustomConfirmText() {
 	popup.confirm('这是一条确认消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopuConfirmWithCustomCancelText() {
+function handlePopupConfirmWithCustomCancelText() {
 	popup.confirm('这是一条确认消息', {
 		cancelText: '自定义取消按钮文本',
 	})
 }
 
-function handlePopuConfirmWithHeaderClose() {
+function handlePopupConfirmWithHeaderClose() {
 	popup.confirm('这是一条确认消息', {
 		headerClose: true,
 	})
 }
 
-function handlePopuConfirmWithoutMaskBlur() {
+function handlePopupConfirmWithoutMaskBlur() {
 	popup.confirm('这是一条确认消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuConfirmWithDraggable() {
+function handlePopupConfirmWithDraggable() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuConfirmWithDragOverflow() {
+function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
 	})
 }
 
-function handlePopuPrompt() {
+function handlePopupPrompt() {
 	popup.prompt('这是一条提示输入消息')
 }
 
-function handlePopuPromptWithDefaultValue() {
+function handlePopupPromptWithDefaultValue() {
 	popup.prompt('这是一条提示输入消息', {
 		defaultValue: '这是默认值',
 	})
 }
 
-function handlePopuPromptWithTextarea() {
+function handlePopupPromptWithTextarea() {
 	popup.prompt('这是一条提示输入消息', {
 		type: 'textarea',
 	})
 }
 
-async function handlePopuPromptWithResult() {
+async function handlePopupPromptWithResult() {
 	const result = await popup.prompt('这是一条提示输入消息')
 
 	if (result !== undefined) {
@@ -1052,56 +968,56 @@ async function handlePopuPromptWithResult() {
 	}
 }
 
-function handlePopuPromptWithCustomTitle() {
+function handlePopupPromptWithCustomTitle() {
 	popup.prompt('这是一条提示输入消息', {
 		title: '自定义标题',
 	})
 }
 
-function handlePopuPromptWithCustomConfirmText() {
+function handlePopupPromptWithCustomConfirmText() {
 	popup.prompt('这是一条提示输入消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopuPromptWithCustomCancelText() {
+function handlePopupPromptWithCustomCancelText() {
 	popup.prompt('这是一条提示输入消息', {
 		cancelText: '自定义取消按钮文本',
 	})
 }
 
-function handlePopuPromptWithHeaderClose() {
+function handlePopupPromptWithHeaderClose() {
 	popup.prompt('这是一条提示输入消息', {
 		headerClose: false,
 	})
 }
 
-function handlePopuPromptWithoutMaskBlur() {
+function handlePopupPromptWithoutMaskBlur() {
 	popup.prompt('这是一条提示输入消息', {
 		maskBlur: false,
 	})
 }
 
-function handlePopuPromptWithDraggable() {
+function handlePopupPromptWithDraggable() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 	})
 }
 
-function handlePopuPromptWithDragOverflow() {
+function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
 	})
 }
 
-function handlePopuDialog() {
+function handlePopupDialog() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 	})
 }
 
-function handlePopuDialogWithProps() {
+function handlePopupDialogWithProps() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		componentProps: {
@@ -1110,7 +1026,7 @@ function handlePopuDialogWithProps() {
 	})
 }
 
-function handlePopuDialogWithOnMounted() {
+function handlePopupDialogWithOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
@@ -1121,7 +1037,7 @@ function handlePopuDialogWithOnMounted() {
 	})
 }
 
-async function handlePopuDialogWithResult() {
+async function handlePopupDialogWithResult() {
 	const result = await popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 	})
@@ -1137,21 +1053,21 @@ async function handlePopuDialogWithResult() {
 	}
 }
 
-function handlePopuDialogWithCustomTitle() {
+function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
 		title: '自定义标题',
 		component: () => import('../HelloWorld.vue'),
 	})
 }
 
-function handlePopuDialogWithHeaderClose() {
+function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		headerClose: false,
 	})
 }
 
-function handlePopuDialogWithoutHeader() {
+function handlePopupDialogWithoutHeader() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		header: false,
@@ -1165,25 +1081,84 @@ function handlePopupDialogWithMaskClickClose() {
 	})
 }
 
-function handlePopuDialogWithoutMaskBlur() {
+function handlePopupDialogWithoutMaskBlur() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		maskBlur: false,
 	})
 }
 
-function handlePopuDialogWithDraggable() {
+function handlePopupDialogWithDraggable() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 	})
 }
 
-function handlePopuDialogWithDragOverflow() {
+function handlePopupDialogWithDragOverflow() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 		dragOverflow: true,
 	})
+}
+
+function handlePopupLoading() {
+	setTimeout(popup.loading(), 3000)
+}
+
+function handlePopupLoadingWithCustomTitle() {
+	setTimeout(popup.loading({
+		title: '加载中...',
+	}), 3000)
+}
+
+function handlePopupLoadingWithIconSize() {
+	setTimeout(popup.loading({
+		iconSize: 200,
+	}), 3000)
+}
+
+function handlePopupLoadingWithThemeDefault() {
+	setTimeout(popup.loading(), 3000)
+}
+
+function handlePopupLoadingWithThemePrimary() {
+	setTimeout(popup.loading({
+		theme: 'primary',
+	}), 3000)
+}
+
+function handlePopupLoadingWithThemeSuccess() {
+	setTimeout(popup.loading({
+		theme: 'success',
+	}), 3000)
+}
+
+function handlePopupLoadingWithThemeInfo() {
+	setTimeout(popup.loading({
+		theme: 'info',
+	}), 3000)
+}
+
+function handlePopupLoadingWithThemeWarning() {
+	setTimeout(popup.loading({
+		theme: 'warning',
+	}), 3000)
+}
+
+function handlePopupLoadingWithThemeDanger() {
+	setTimeout(popup.loading({
+		theme: 'danger',
+	}), 3000)
+}
+
+function handlePopupLoadingWithoutMaskBlur() {
+	setTimeout(
+		popup.loading({
+			maskBlur: false,
+		}),
+		3000
+	)
 }
 </script>
