@@ -12,7 +12,7 @@ type AlbumOption = {
 	 */
 	defaultIndex?: number
 	/**
-	 * 是否禁用当前索引和总索引
+	 * 是否禁用计数器
 	 * - 默认值为 `false`
 	 */
 	disableCounter?: boolean
@@ -42,6 +42,11 @@ type AlbumOption = {
 	 * - 默认值为 `false`
 	 */
 	disableDrag?: boolean
+	/**
+	 * 遮罩层是否模糊
+	 * - 默认值：`true`
+	 */
+	maskBlur?: boolean
 }
 
 export interface IAlbum {
@@ -89,6 +94,7 @@ export const album = definePlugin({
 			disableDownload = false,
 			disableScale = false,
 			disableDrag = false,
+			maskBlur = true,
 		}: AlbumOption) {
 			return new Promise<void>((resolve) => {
 				this.render({
@@ -105,7 +111,7 @@ export const album = definePlugin({
 					},
 					width: '100%',
 					height: '100%',
-					mask: false,
+					maskBlur,
 					onUnmounted: () => {
 						resolve()
 					},

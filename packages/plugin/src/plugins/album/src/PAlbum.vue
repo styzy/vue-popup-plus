@@ -260,11 +260,10 @@ $tools-safe-padding = 40px
 	position relative
 	width 100%
 	height 100%
-	background-color rgba(0, 0, 0, 0.75)
 	user-select none
+	overflow hidden
 	.media
 		display flex
-		// flex-direction: row
 		justify-content center
 		align-items center
 		height @height
