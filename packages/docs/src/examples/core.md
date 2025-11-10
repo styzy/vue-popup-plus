@@ -212,6 +212,23 @@ function handlePopupWithOnUnmounted() {
 	})
 }
 
+function handlePopupWithResult() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		onUnmounted(payload?: string) {
+			if (payload) {
+				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
+					theme: 'success',
+				})
+			} else {
+				popup.toast('销毁回调 触发，未携带参数', {
+					theme: 'warning',
+				})
+			}
+		},
+	})
+}
+
 function handlePopupWithoutMaskBlur() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),

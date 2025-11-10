@@ -760,13 +760,109 @@ function handlePopupLoadingWithoutMaskBlur() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupAlbum" type="default">媒体相册</DButton>
+	<DButton @click="handlePopupAlbumWithDefaultIndex">设置默认索引</DButton>
 </DButtonGroup>
 ```
 
 ```ts
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+	'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
+]
+
 function handlePopupAlbum() {
 	popup.album({
-		component: () => import('../HelloWorld.vue'),
+		sources,
+	})
+}
+
+function handlePopupAlbumWithDefaultIndex() {
+	popup.album({
+		sources,
+		defaultIndex: 1,
+	})
+}
+```
+
+:::
+
+### 进阶功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupWithoutCounter">禁用计数器</DButton>
+	<DButton @click="handlePopupWithoutName">禁用媒体名称</DButton>
+	<DButton @click="handlePopupWithoutPure">禁用纯净预览</DButton>
+	<DButton @click="handlePopupWithoutDownload">禁用下载功能</DButton>
+	<DButton @click="handlePopupWithoutScale">禁用缩放功能</DButton>
+	<DButton @click="handlePopupWithoutDrag">禁用拖动功能</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupWithoutCounter() {
+	popup.album({
+		sources,
+		disableCounter: true,
+	})
+}
+
+function handlePopupWithoutName() {
+	popup.album({
+		sources,
+		disableName: true,
+	})
+}
+
+function handlePopupWithoutPure() {
+	popup.album({
+		sources,
+		disablePure: true,
+	})
+}
+
+function handlePopupWithoutDownload() {
+	popup.album({
+		sources,
+		disableDownload: true,
+	})
+}
+
+function handlePopupWithoutScale() {
+	popup.album({
+		sources,
+		disableScale: true,
+	})
+}
+
+function handlePopupWithoutDrag() {
+	popup.album({
+		sources,
+		disableDrag: true,
+	})
+}
+```
+
+:::
+
+### 高级功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupAlbumWithoutMaskBlur() {
+	popup.album({
+		sources,
+		maskBlur: false,
 	})
 }
 ```
@@ -1160,5 +1256,73 @@ function handlePopupLoadingWithoutMaskBlur() {
 		}),
 		3000
 	)
+}
+
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+	'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
+]
+
+function handlePopupAlbum() {
+	popup.album({
+		sources,
+	})
+}
+
+function handlePopupAlbumWithDefaultIndex() {
+	popup.album({
+		sources,
+		defaultIndex: 1,
+	})
+}
+
+function handlePopupWithoutCounter() {
+	popup.album({
+		sources,
+		disableCounter: true,
+	})
+}
+
+function handlePopupWithoutName() {
+	popup.album({
+		sources,
+		disableName: true,
+	})
+}
+
+function handlePopupWithoutPure() {
+	popup.album({
+		sources,
+		disablePure: true,
+	})
+}
+
+function handlePopupWithoutDownload() {
+	popup.album({
+		sources,
+		disableDownload: true,
+	})
+}
+
+function handlePopupWithoutScale() {
+	popup.album({
+		sources,
+		disableScale: true,
+	})
+}
+
+function handlePopupWithoutDrag() {
+	popup.album({
+		sources,
+		disableDrag: true,
+	})
+}
+
+function handlePopupAlbumWithoutMaskBlur() {
+	popup.album({
+		sources,
+		maskBlur: false,
+	})
 }
 </script>
