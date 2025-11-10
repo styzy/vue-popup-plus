@@ -4,6 +4,11 @@ export type PromptType = 'input' | 'textarea'
 
 type PromptOption = {
 	/**
+	 * 提示输入框默认值
+	 * - 默认值：`''`
+	 */
+	defaultValue?: string
+	/**
 	 * 提示输入框类型
 	 * - 支持的类型包括：
 	 * 	- `input`：单行输入框
@@ -62,7 +67,7 @@ export interface IPrompt {
 	 * 显示提示输入
 	 * - 可以在提示用户的同时，获取用户输入的内容，支持输入框和文本域
 	 * - 第一个参数为提示文本，如果不需要渲染提示文本，传入 `false` 即可
-	 * - 第二个参数为输入框默认值，第三个参数为选项对象，可以自定义输入框类型、标题、最大长度、占位符、确认按钮文本、取消按钮文本等，具体可以参考 {@link PromptOption}
+	 * - 第二个参数为选项对象，可以自定义输入框默认值、类型、标题、最大长度、占位符、确认按钮文本、取消按钮文本等，具体可以参考 {@link PromptOption}
 	 * - 获取输入的内容，需要通过 `await` 调用，等待执行结束后返回用户输入的内容，类型为 `string` | `void`，如果用户点击了取消按钮或者直接关闭弹出层，则返回 `undefined`
 	 * - 使用示例：
 	 * ```ts
@@ -75,11 +80,7 @@ export interface IPrompt {
 	 * }
 	 * ```
 	 */
-	(
-		message: string | boolean,
-		defaultValue?: string,
-		options?: PromptOption
-	): Promise<string | void>
+	(message: string | boolean, options?: PromptOption): Promise<string | void>
 }
 
 declare module 'vue-popup-plus' {
@@ -93,8 +94,8 @@ export const prompt = definePlugin({
 	install: (controller) => {
 		controller.customProperties.prompt = function (
 			message: string,
-			defaultValue: string = '',
 			{
+				defaultValue = '',
 				type = 'input',
 				title = '提示输入',
 				headerClose = true,

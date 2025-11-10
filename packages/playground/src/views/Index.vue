@@ -472,7 +472,9 @@ async function handlePopupPrompt() {
 }
 
 async function handlePopupPromptDefaultValue() {
-	const result = await popup.prompt('这是一条提示输入框消息', '123')
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		defaultValue: '123',
+	})
 	if (result === undefined) {
 		popup.toast('取消输入')
 	} else {
@@ -481,13 +483,9 @@ async function handlePopupPromptDefaultValue() {
 }
 
 async function handlePopupPromptCustomType() {
-	const result = await popup.prompt(
-		'这是一条提示输入框消息，类型为文本域',
-		'',
-		{
-			type: 'textarea',
-		}
-	)
+	const result = await popup.prompt('这是一条提示输入框消息，类型为文本域', {
+		type: 'textarea',
+	})
 	if (result === undefined) {
 		popup.toast('取消输入')
 	} else {
@@ -496,7 +494,7 @@ async function handlePopupPromptCustomType() {
 }
 
 async function handlePopupPromptCustomTitle() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		title: '自定义标题',
 	})
 	if (result === undefined) {
@@ -507,7 +505,7 @@ async function handlePopupPromptCustomTitle() {
 }
 
 async function handlePopupPromptHeaderClose() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		headerClose: false,
 	})
 	if (result === undefined) {
@@ -518,7 +516,7 @@ async function handlePopupPromptHeaderClose() {
 }
 
 async function handlePopupPromptCustomPlaceholder() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		placeholder: '自定义占位符',
 	})
 	if (result === undefined) {
@@ -531,7 +529,6 @@ async function handlePopupPromptCustomPlaceholder() {
 async function handlePopupPromptCustomMaxLength() {
 	const result = await popup.prompt(
 		'这是一条提示输入框消息，最大长度为10个字符',
-		'',
 		{
 			maxLength: 10,
 		}
@@ -544,7 +541,7 @@ async function handlePopupPromptCustomMaxLength() {
 }
 
 async function handlePopupPromptCustomConfirmButtonText() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 	if (result === undefined) {
@@ -555,7 +552,7 @@ async function handlePopupPromptCustomConfirmButtonText() {
 }
 
 async function handlePopupPromptCustomCancelButtonText() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		cancelText: '自定义取消按钮文本',
 	})
 	if (result === undefined) {
@@ -566,7 +563,7 @@ async function handlePopupPromptCustomCancelButtonText() {
 }
 
 async function handlePopupPromptWithoutMaskBlur() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		maskBlur: false,
 	})
 	if (result === undefined) {
@@ -577,7 +574,7 @@ async function handlePopupPromptWithoutMaskBlur() {
 }
 
 async function handlePopupPromptDraggable() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		draggable: true,
 	})
 	if (result === undefined) {
@@ -588,7 +585,7 @@ async function handlePopupPromptDraggable() {
 }
 
 async function handlePopupPromptDraggableOverflow() {
-	const result = await popup.prompt('这是一条提示输入框消息', '', {
+	const result = await popup.prompt('这是一条提示输入框消息', {
 		draggable: true,
 		dragOverflow: true,
 	})
