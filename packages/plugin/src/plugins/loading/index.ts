@@ -1,11 +1,28 @@
 import { definePlugin } from 'vue-popup-plus'
+import { type Theme } from '../../typings'
 
 type LoadingOption = {
+	/**
+	 * 加载遮罩主题
+	 * - 默认值：'primary'
+	 * - 具体的可选主题请参考 {@link Theme }
+	 */
+	theme?: Theme
+	/**
+	 * 加载遮罩标题文本
+	 * - 默认值：''
+	 */
+	title?: string
 	/**
 	 * 加载遮罩图标大小
 	 * - 默认值：60
 	 */
 	iconSize?: number
+	/**
+	 * 遮罩层是否模糊
+	 * - 默认值：`true`
+	 */
+	maskBlur?: boolean
 }
 
 export interface ILoading {
@@ -19,7 +36,7 @@ export interface ILoading {
 	 * stopLoading()
 	 * ```
 	 */
-	(content?: string, option?: LoadingOption): () => void
+	(option?: LoadingOption): () => void
 }
 
 declare module 'vue-popup-plus' {
@@ -31,20 +48,21 @@ declare module 'vue-popup-plus' {
 export const loading = definePlugin({
 	name: 'Loading',
 	install: (controller, config) => {
-		controller.customProperties.loading = function (
-			content: string = '',
-			{ iconSize = 60 }: LoadingOption = {}
-		) {
+		controller.customProperties.loading = function ({
+			theme = 'default',
+			title = '',
+			iconSize = 60,
+			maskBlur = true,
+		}: LoadingOption = {}) {
 			const instanceId = this.render({
-				component: () => import('./src/PLoadingMask.vue'),
+				component: () => import('./src/PLoading.vue'),
 				componentProps: {
-					content,
+					theme,
+					title,
 					iconSize,
 					debugMode: config.debugMode,
 				},
-				width: '100%',
-				height: '100%',
-				mask: false,
+				maskBlur,
 				zIndex: 99999999,
 			})
 

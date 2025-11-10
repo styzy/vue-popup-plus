@@ -1,13 +1,13 @@
 import { definePlugin, POPUP_ANIMATIONS } from 'vue-popup-plus'
-import { type ToastTheme } from './src/PToast.vue'
+import { type Theme } from '../../typings'
 
 type ToastOption = {
 	/**
 	 * 消息主题
 	 * - 默认值： 'default'
-	 * - 具体的可选主题请参考 {@link ToastTheme }
+	 * - 具体的可选主题请参考 {@link Theme }
 	 */
-	theme?: ToastTheme
+	theme?: Theme
 	/**
 	 * 消息显示时间，单位毫秒
 	 * - 默认值： 2000 毫秒

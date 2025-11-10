@@ -4,19 +4,11 @@
 	.mask-background
 	.content {{ content }}
 </template>
-<script lang="ts">
-export type ToastTheme =
-	| 'default'
-	| 'primary'
-	| 'info'
-	| 'success'
-	| 'warning'
-	| 'danger'
-</script>
 
 <script lang="ts" setup>
 import { inject, onMounted } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { type Theme } from '../../../typings'
 
 const popup = usePopup()
 
@@ -28,7 +20,7 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	content: string
-	theme: ToastTheme
+	theme: Theme
 	duration: number
 }
 
