@@ -1,7 +1,8 @@
 <template lang="pug">
 .hello-world
 	.title Hello World
-	h1 接收的参数：{{ test }}
+	h1 接收的参数：
+		span.value {{ test }}
 	DButton(@click="handleClose()" theme="primary" type="plain") 关闭对话框
 	DButton(@click="handleClose('awesome !')" theme="success" type="plain") 携带参数 awesome ! 关闭对话框
 </template>
@@ -33,8 +34,11 @@ function handleClose(payload?: any) {
 	gap 20px
 	width 400px
 	height 300px
+	background-color var(--doc-color-background-main)
 	.title
 		padding 30px 0 10px
 		font-size 30px
 		font-weight bold
+	.value
+		color var(--doc-color-primary)
 </style>

@@ -22,8 +22,8 @@ export const themeConfig = defineConfig({
 				activeMatch: '/preset-plugin/',
 			},
 			{
-				text: '示例',
-				link: '/examples/render',
+				text: '示例中心',
+				link: '/examples/index',
 				activeMatch: '/examples/',
 			},
 			{

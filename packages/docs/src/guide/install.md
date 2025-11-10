@@ -24,7 +24,7 @@ pnpm add vue-popup-plus vue-popup-plus-plugin-preset
 
 ## 仅安装 Vue Popup Plus
 
-如果您只需要基础的弹出层功能，并且需要完全自定义弹出层的行为和样式，您可以仅安装 `vue-popup-plus` 核心。
+如果您只需要基础的弹出层功能，而不使用预置插件提供的开箱即用的功能，您可以仅安装 `vue-popup-plus` 核心包。
 
 只需要在你的 `Vue` 项目中运行以下命令即可安装：
 
