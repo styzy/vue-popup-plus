@@ -15,7 +15,7 @@ hero:
           link: /guide/introduction
         - theme: alt
           text: 查看示例 ✨
-          link: /examples/render
+          link: /examples/index
 
 features:
     - title: 🚀 轻量灵活

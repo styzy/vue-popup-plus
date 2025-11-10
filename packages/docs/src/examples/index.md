@@ -18,12 +18,11 @@
 ```html
 <DButtonGroup theme="primary">
 	<DButton @click="handlePopup">基础弹出层</DButton>
-	<DButton type="plain" @click="handlePopupWithProps">传递 props</DButton>
-	<DButton type="plain" @click="handlePopupWithOnMounted"
-		>触发 onMounted</DButton
-	>
-	<DButton type="plain" @click="handlePopupWithOnUnmounted"
-		>触发 onUnmounted</DButton
+	<DButton type="plain" @click="handlePopupWithProps">携带组件参数</DButton>
+	<DButton type="plain" @click="handlePopupWithOnMounted">渲染回调</DButton>
+	<DButton type="plain" @click="handlePopupWithOnUnmounted">销毁回调</DButton>
+	<DButton type="plain" @click="handlePopupWithResult"
+		>获取销毁携带参数</DButton
 	>
 </DButtonGroup>
 ```
@@ -52,7 +51,7 @@ function handlePopupWithOnMounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast('onMounted 触发', {
+			popup.toast('渲染回调 触发', {
 				theme: 'success',
 			})
 		},
@@ -63,9 +62,26 @@ function handlePopupWithOnUnmounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted() {
-			popup.toast('onUnmounted 触发', {
-				theme: 'danger',
+			popup.toast('销毁回调 触发', {
+				theme: 'warning',
 			})
+		},
+	})
+}
+
+function handlePopupWithResult() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		onUnmounted(payload?: string) {
+			if (payload) {
+				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
+					theme: 'success',
+				})
+			} else {
+				popup.toast('销毁回调 触发，未携带参数', {
+					theme: 'warning',
+				})
+			}
 		},
 	})
 }
@@ -596,6 +612,160 @@ function handlePopuPromptWithDragOverflow() {
 
 :::
 
+### Dialog 对话
+
+#### 基础功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary">
+	<DButton @click="handlePopuDialog">对话</DButton>
+	<DButton @click="handlePopuDialogWithProps" type="plain"
+		>携带组件参数</DButton
+	>
+	<DButton @click="handlePopuDialogWithOnMounted" type="plain"
+		>渲染回调</DButton
+	>
+	<DButton @click="handlePopuDialogWithResult" type="plain"
+		>获取销毁携带参数</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopuDialog() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopuDialogWithProps() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		componentProps: {
+			test: '这是一个组件参数',
+		},
+	})
+}
+
+function handlePopuDialogWithOnMounted() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		onMounted() {
+			popup.toast('渲染回调 触发', {
+				theme: 'success',
+			})
+		},
+	})
+}
+
+async function handlePopuDialogWithResult() {
+	const result = await popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+	})
+
+	if (result !== undefined) {
+		popup.toast(`获取销毁携带参数：${result}`, {
+			theme: 'success',
+		})
+	} else {
+		popup.toast('销毁未携带参数', {
+			theme: 'warning',
+		})
+	}
+}
+```
+
+:::
+
+#### 进阶功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopuDialogWithCustomTitle">自定义标题文本</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopuDialogWithCustomTitle() {
+	popup.dialog({
+		title: '自定义标题',
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+#### 高级功能
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopuDialogWithHeaderClose">禁用标题关闭按钮</DButton>
+	<DButton @click="handlePopuDialogWithoutHeader">禁用标题栏</DButton>
+	<DButton @click="handlePopupDialogWithMaskClickClose"
+		>启用遮罩点击关闭弹出层</DButton
+	>
+	<DButton @click="handlePopuDialogWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
+	<DButton @click="handlePopuDialogWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopuDialogWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopuDialogWithHeaderClose() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		headClose: false,
+	})
+}
+
+function handlePopuDialogWithoutHeader() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		header: false,
+	})
+}
+
+function handlePopupDialogWithMaskClickClose() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskClickClose: true,
+	})
+}
+
+function handlePopuDialogWithoutMaskBlur() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: false,
+	})
+}
+
+function handlePopuDialogWithDraggable() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		draggable: true,
+	})
+}
+
+function handlePopuDialogWithDragOverflow() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		draggable: true,
+		dragOverflow: true,
+	})
+}
+```
+
+:::
+
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
@@ -621,7 +791,7 @@ function handlePopupWithOnMounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast('onMounted 触发', {
+			popup.toast('渲染回调 触发', {
 				theme: 'success',
 			})
 		},
@@ -632,12 +802,31 @@ function handlePopupWithOnUnmounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted() {
-			popup.toast('onUnmounted 触发', {
-				theme: 'danger',
+			popup.toast('销毁回调 触发', {
+				theme: 'warning',
 			})
 		},
 	})
 }
+
+function handlePopupWithResult() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		onUnmounted(payload?: string) {
+			if (payload) {
+				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
+					theme: 'success',
+				})
+			} else {
+				popup.toast('销毁回调 触发，未携带参数', {
+					theme: 'warning',
+				})
+			}
+		},
+	})
+}
+
+
 
 function handlePopupWithTranslateX() {
 	popup.render({
@@ -906,4 +1095,95 @@ function handlePopuPromptWithDragOverflow() {
 	})
 }
 
+function handlePopuDialog() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopuDialogWithProps() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		componentProps: {
+			test: '这是一个组件参数',
+		},
+	})
+}
+
+function handlePopuDialogWithOnMounted() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		onMounted() {
+			popup.toast('渲染回调 触发', {
+				theme: 'success',
+			})
+		},
+	})
+}
+
+async function handlePopuDialogWithResult() {
+	const result = await popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+	})
+
+	if (result !== undefined) {
+		popup.toast(`获取销毁携带参数：${result}`, {
+			theme: 'success',
+		})
+	} else {
+		popup.toast('销毁未携带参数', {
+			theme: 'warning',
+		})
+	}
+}
+
+function handlePopuDialogWithCustomTitle() {
+	popup.dialog({
+		title: '自定义标题',
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopuDialogWithHeaderClose() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		headerClose: false,
+	})
+}
+
+function handlePopuDialogWithoutHeader() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		header: false,
+	})
+}
+
+function handlePopupDialogWithMaskClickClose() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskClickClose: true,
+	})
+}
+
+function handlePopuDialogWithoutMaskBlur() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: false,
+	})
+}
+
+function handlePopuDialogWithDraggable() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		draggable: true,
+	})
+}
+
+function handlePopuDialogWithDragOverflow() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		draggable: true,
+		dragOverflow: true,
+	})
+}
 </script>
