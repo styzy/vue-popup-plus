@@ -11,8 +11,8 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: '预置插件',
-				link: '/preset-plugin/introduction',
-				activeMatch: '/preset-plugin/',
+				link: '/plugin-preset/introduction',
+				activeMatch: '/plugin-preset/',
 			},
 			{
 				text: '示例',
@@ -38,7 +38,7 @@ export const themeConfig = defineConfig({
 						{ text: '介绍', link: '/guide/introduction' },
 						{
 							text: '关于预置插件',
-							link: '/guide/preset-plugin-about',
+							link: '/guide/plugin-preset-about',
 						},
 						{ text: '安装', link: '/guide/install' },
 						{
@@ -47,7 +47,7 @@ export const themeConfig = defineConfig({
 						},
 						{
 							text: '注册预置插件',
-							link: '/guide/preset-plugin-initialization',
+							link: '/guide/plugin-preset-initialization',
 						},
 					],
 				},
@@ -78,41 +78,41 @@ export const themeConfig = defineConfig({
 					],
 				},
 			],
-			'/preset-plugin/': [
+			'/plugin-preset/': [
 				{
 					text: '预置插件',
 					items: [
 						{
 							text: '使用说明',
-							link: '/preset-plugin/usage',
+							link: '/plugin-preset/usage',
 						},
 						{
 							text: '消息 Toast',
-							link: '/preset-plugin/toast',
+							link: '/plugin-preset/toast',
 						},
 						{
 							text: '提示 Alert',
-							link: '/preset-plugin/alert',
+							link: '/plugin-preset/alert',
 						},
 						{
 							text: '确认 Confirm',
-							link: '/preset-plugin/confirm',
+							link: '/plugin-preset/confirm',
 						},
 						{
 							text: '提示输入 Prompt',
-							link: '/preset-plugin/prompt',
+							link: '/plugin-preset/prompt',
 						},
 						{
 							text: '对话 Dialog',
-							link: '/preset-plugin/dialog',
+							link: '/plugin-preset/dialog',
 						},
 						{
 							text: '加载遮罩 Loading',
-							link: '/preset-plugin/loading',
+							link: '/plugin-preset/loading',
 						},
 						{
 							text: '媒体相册 Album',
-							link: '/preset-plugin/album',
+							link: '/plugin-preset/album',
 						},
 					],
 				},

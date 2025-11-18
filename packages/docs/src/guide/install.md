@@ -2,7 +2,7 @@
 
 ## 推荐
 
-[预置插件](/preset-plugin/introduction) 提供配套的业务弹出层功能，将其与 Vue Popup Plus 一起安装，是我们首要推荐的安装方式。
+[预置插件](/plugin-preset/introduction) 提供配套的业务弹出层功能，将其与 Vue Popup Plus 一起安装，是我们首要推荐的安装方式。
 
 只需要在你的 `Vue` 项目中运行以下命令即可安装：
 

@@ -1,7 +1,7 @@
 # 预置插件示例
 
 ::: tip
-以下示例由 `vue-popup-plus-preset-plugin` 预置插件包提供技术支持。
+以下示例由 `vue-popup-plus-plugin-preset` 预置插件包提供技术支持。
 :::
 
 ## Toast 消息

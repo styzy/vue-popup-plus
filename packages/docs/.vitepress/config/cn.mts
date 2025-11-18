@@ -18,8 +18,8 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: '预置插件指南',
-				link: '/preset-plugin/introduction',
-				activeMatch: '/preset-plugin/',
+				link: '/plugin-preset/introduction',
+				activeMatch: '/plugin-preset/',
 			},
 			{
 				text: '示例中心',
@@ -77,21 +77,21 @@ export const themeConfig = defineConfig({
 					],
 				},
 			],
-			'/preset-plugin/': [
+			'/plugin-preset/': [
 				{
 					text: '开始',
 					items: [
 						{
 							text: '介绍',
-							link: '/preset-plugin/introduction',
+							link: '/plugin-preset/introduction',
 						},
 						{
 							text: '安装',
-							link: '/preset-plugin/install',
+							link: '/plugin-preset/install',
 						},
 						{
 							text: '注册',
-							link: '/preset-plugin/register',
+							link: '/plugin-preset/register',
 						},
 					],
 				},
@@ -100,35 +100,35 @@ export const themeConfig = defineConfig({
 					items: [
 						{
 							text: '使用说明',
-							link: '/preset-plugin/usage',
+							link: '/plugin-preset/usage',
 						},
 						{
 							text: 'Toast 消息',
-							link: '/preset-plugin/toast',
+							link: '/plugin-preset/toast',
 						},
 						{
 							text: 'Alert 提示',
-							link: '/preset-plugin/alert',
+							link: '/plugin-preset/alert',
 						},
 						{
 							text: 'Confirm 确认',
-							link: '/preset-plugin/confirm',
+							link: '/plugin-preset/confirm',
 						},
 						{
 							text: 'Prompt 提示输入',
-							link: '/preset-plugin/prompt',
+							link: '/plugin-preset/prompt',
 						},
 						{
 							text: 'Dialog 对话',
-							link: '/preset-plugin/dialog',
+							link: '/plugin-preset/dialog',
 						},
 						{
 							text: 'Loading 加载遮罩',
-							link: '/preset-plugin/loading',
+							link: '/plugin-preset/loading',
 						},
 						{
 							text: 'Album 媒体相册',
-							link: '/preset-plugin/album',
+							link: '/plugin-preset/album',
 						},
 					],
 				},
@@ -140,7 +140,7 @@ export const themeConfig = defineConfig({
 				},
 				{
 					text: '预置插件示例',
-					link: '/examples/preset-plugin',
+					link: '/examples/plugin-preset',
 				},
 			],
 		},
