@@ -15,11 +15,28 @@ const popup = createPopup({
 	debugMode: true,
 })
 
-popup.use(popupPluginPreset)
+popup.use(popupPluginPreset, {
+	a: 1,
+})
+
+type TestPluginOption = {
+	/**
+	 * test a
+	 */
+	a?: string
+	/**
+	 * test b
+	 */
+	b?: boolean
+}
 
 const plugin = definePlugin({
 	name: 'test',
-	install(popup) {
+	install(
+		popup,
+		config,
+		{ a = 'default a', b = false }: TestPluginOption = {}
+	) {
 		popup.customProperties.test = function (message: string) {
 			this.render({
 				component: () => import('./views/Demo.vue'),
@@ -33,7 +50,10 @@ const plugin = definePlugin({
 	},
 })
 
-popup.use(plugin)
+popup.use(plugin, {
+	a: 'test',
+	b: true,
+})
 
 app.use(router)
 app.use(popup)

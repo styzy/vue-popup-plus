@@ -2,7 +2,12 @@ import { type App, type Component } from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../instance'
 import type { InstanceId } from '../instance'
-import { wrapWithPlugin, type PopupPlugin } from '../plugin'
+import {
+	wrapWithPlugin,
+	type ExtractPluginOption,
+	type PluginOption,
+	type PopupPlugin,
+} from '../plugin'
 import { PopupError } from '../error'
 import {
 	POPUP_ANIMATIONS,
@@ -24,24 +29,28 @@ export interface IController extends PopupCustomProperties {
 	 * - 可安装使用 `definePlugin` 方法定义的插件
 	 * - 具体请参考{@link IDefinePlugin}
 	 */
-	use(plugin: PopupPlugin): void
+	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
+		plugin: TPlugin,
+		options?: ExtractPluginOption<TPlugin>
+	): void
 	/**
-	 * 渲染弹出层，返回弹出层实例id，可调用destroy(id)方法销毁弹出层
-	 * @param {RenderOptions} options - 渲染参数
-	 * @returns 弹出层实例id
+	 * 渲染弹出层
+	 * - 渲染参数 `component` 是唯一的必填项，其他渲染参数具体请参考{@link RenderOptions}
+	 * - 返回值是弹出层的实例 id ，用于调用 destroy() 方法销毁弹出层
 	 */
 	render(options: RenderOptions): InstanceId
 	/**
-	 * 更新弹出层，可更新弹出层参数
-	 * @param {InstanceId} instanceId - 弹出层实例id
-	 * @param {UpdateOptions} options - 更新参数
+	 * 更新弹出层
+	 * - 主要用于更新弹出层的渲染参数
+	 * - 第一个参数需要传入需要更新的弹出层的实例 id
+	 * - 第二个参数需要传入更新的参数，仅支持部分渲染参数，具体请参考{@link UpdateOptions}
 	 */
 	update(instanceId: InstanceId, options: UpdateOptions): void
 	/**
 	 * 销毁弹出层
-	 * @param {InstanceId} instanceId - 弹出层实例id
-	 * @param {any} payload - 自定义负载参数，会作为参数传递给创建弹出层时的onUnmounted回调函数
-	 * @returns {Promise<void>}
+	 * - 传入弹出层的实例 id ，用于销毁指定的弹出层
+	 * - 第二个参数是自定义负载参数，会作为参数传递给创建弹出层时的 onUnmounted 回调函数
+	 * - 该函数返回一个 Promise 对象，用于等待弹出层关闭动画完成
 	 */
 	destroy(instanceId: InstanceId, payload?: any): void
 }
@@ -67,18 +76,23 @@ export type RenderConfigOptions = {
 
 export type RenderComponentOptions = {
 	/**
-	 * 弹出层渲染的组件，想要创建一个弹出层，这个唯一必要的参数。它的值可以是一个同步组件，也可以是一个异步组件的 import() 函数。
-	 * @example
+	 * 弹出层渲染的组件
+	 * - 要创建一个弹出层，这是唯一必要的参数。
+	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
+	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入 ()=>import() 函数即可。
+	 * - 使用示例：
+	 * ```ts
+	 * // 异步组件
+	 * popup.render({
+	 * 	component: () => import('path/Demo.vue'),
+	 * })
+	 *
 	 * // 同步组件
 	 * import Demo from 'path/Demo.vue'
 	 * popup.render({
 	 * 	component: Demo,
 	 * })
-	 *
-	 * // 异步组件
-	 * popup.render({
-	 * 	component: () => import('path/Demo.vue'),
-	 * })
+	 * ```
 	 */
 	component: Component
 	/**
@@ -283,13 +297,16 @@ export class Controller implements IController {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 		this._core.app = app
 	}
-	use(plugin: PopupPlugin): void {
+	use<TOption extends PluginOption>(
+		plugin: PopupPlugin<TOption>,
+		options?: TOption
+	): void {
 		if (!this._core.addPlugin(plugin))
 			throw new PopupError(
 				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
 			)
 
-		plugin.install(wrapWithPlugin(this), this._core.config)
+		plugin.install(wrapWithPlugin(this), this._core.config, options)
 	}
 	render({ zIndex, ...options }: RenderOptions): InstanceId {
 		zIndex = zIndex ?? this._core.config.zIndex++

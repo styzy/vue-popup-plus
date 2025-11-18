@@ -76,27 +76,53 @@ export interface IPluginWrappedController extends IController {
 	readonly customAnimations: PopupCustomAnimations
 }
 
-type PluginInstall = (
+export type PluginOption = Record<string, any>
+
+type PluginInstall<TOption extends PluginOption> = (
 	controller: IPluginWrappedController,
-	config: Readonly<CoreConfig>
+	config: Readonly<CoreConfig>,
+	option?: TOption
 ) => void
 
-export type PopupPlugin = { name: string; install: PluginInstall }
+export type PopupPlugin<TOption extends PluginOption = never> = {
+	/**
+	 * 插件名称
+	 * - 插件名称必须唯一
+	 */
+	name: string
+	/**
+	 * 插件安装函数
+	 * - 第一个参数接收安装此插件的弹出层控制器实例
+	 * - 第二个参数接收安装此插件的弹出层的创建配置
+	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用 `popup.use` 方法时传入
+	 */
+	install: PluginInstall<TOption>
+}
+
+export type ExtractPluginOption<TPlugin extends PopupPlugin> =
+	TPlugin extends PopupPlugin<infer TOption> ? TOption : never
 
 export interface IDefinePlugin {
 	/**
 	 * 定义插件
-	 * - 插件是一个对象，包含插件名称和安装方法
-	 * - 安装方法接收一个可扩展自定义属性的控制器实例作为参数，用于扩展弹出层插件的原型属性
+	 * - 该方法用于定义一个可以直接被 `popup.use` 方法安装的插件
+	 * - 插件的名称 `name` 必须唯一
+	 * - 插件的安装函数 `install` 必须是一个函数，接收三个参数：
+	 *   - 第一个参数接收安装此插件的弹出层控制器实例
+	 *   - 第二个参数接收安装此插件的弹出层的创建配置
+	 *   - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用 `popup.use` 方法时传入
 	 * - 使用示例：
 	 * ```ts
 	 * import { createPopup, definePlugin } from 'vue-popup-plus'
 	 * const popup = createPopup()
+	 *
+	 * type TestPluginOption = {
+	 * 	logEnable?: boolean
+	 * }
+	 *
 	 * const plugin = definePlugin({
-	 * 	// 插件名称，必须唯一
 	 * 	name: 'test',
-	 * 	// 插件安装时的回调函数，会将控制器实例作为参数传入
-	 * 	install(popup) {
+	 * 	install(popup, config, { logEnable = false }: TestPluginOption = {}) {
 	 * 		popup.customProperties.test = function (message) {
 	 * 			this.render({
 	 * 				component: () => import('path/Demo.vue'),
@@ -104,12 +130,18 @@ export interface IDefinePlugin {
 	 * 					message,
 	 * 				},
 	 * 			})
+	 *
+	 * 			if (logEnable) {
+	 * 				console.log(message)
+	 * 			}
 	 * 		}
 	 * 	},
 	 * })
 	 * ```
 	 */
-	(options: PopupPlugin): PopupPlugin
+	<TOption extends PluginOption>(
+		options: PopupPlugin<TOption>
+	): PopupPlugin<TOption>
 }
 
 export const definePlugin: IDefinePlugin = (options) => options
