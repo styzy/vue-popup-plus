@@ -6,15 +6,6 @@
 			:key="`${instanceId.name}-component`"
 			v-bind="store.componentProps")
 </template>
-<script lang="ts">
-export type PopupViewStyle = ComputedRef<{
-	width: number
-	height: number
-	zIndex: number
-	translateX: number
-	translateY: number
-}>
-</script>
 <script lang="ts" setup>
 import {
 	computed,
@@ -26,12 +17,12 @@ import {
 	onMounted,
 	onUpdated,
 	provide,
-	type ComputedRef,
 } from 'vue'
 import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
+import type { PopupViewStyle } from '../typings'
 
 defineOptions({
 	name: 'PopupView',

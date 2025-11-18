@@ -1,6 +1,6 @@
 import type { InjectionKey } from 'vue'
 import type { InstanceId, InstanceStore } from '../instance'
-import type { PopupViewStyle } from '../components/PopupView.vue'
+import type { PopupViewStyle } from '../typings'
 
 /**
  * 命名空间
