@@ -1,4 +1,5 @@
 import { definePlugin } from 'vue-popup-plus'
+import type { GlobalOption } from '../../typings'
 
 type AlertOption = {
 	/**
@@ -56,8 +57,8 @@ declare module 'vue-popup-plus' {
 }
 
 export const alert = definePlugin({
-	name: 'Alert',
-	install: (controller) => {
+	name: 'plugin-preset-alert',
+	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.alert = function (
 			content: string = '',
 			{
@@ -73,6 +74,7 @@ export const alert = definePlugin({
 				this.render({
 					component: () => import('./src/PAlert.vue'),
 					componentProps: {
+						skin,
 						title,
 						headerClose,
 						content,

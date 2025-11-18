@@ -1,5 +1,6 @@
-import { definePlugin } from 'vue-popup-plus'
 import type { Component } from 'vue'
+import { definePlugin } from 'vue-popup-plus'
+import type { GlobalOption } from '../../typings'
 
 type PopupDialogOption = {
 	/**
@@ -113,8 +114,8 @@ let seed = 1
 const createId = () => `dialog-${seed++}`
 
 export const dialog = definePlugin({
-	name: 'Dialog',
-	install: (controller, config) => {
+	name: 'plugin-preset-dialog',
+	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.dialog = function ({
 			title = '对话',
 			component,
@@ -138,6 +139,7 @@ export const dialog = definePlugin({
 				this.render({
 					component: () => import('./src/PDialog.vue'),
 					componentProps: {
+						skin,
 						id: createId(),
 						title,
 						customComponent: component,

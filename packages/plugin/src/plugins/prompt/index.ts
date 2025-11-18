@@ -1,4 +1,5 @@
 import { definePlugin } from 'vue-popup-plus'
+import type { GlobalOption } from '../../typings'
 
 export type PromptType = 'input' | 'textarea'
 
@@ -90,8 +91,8 @@ declare module 'vue-popup-plus' {
 }
 
 export const prompt = definePlugin({
-	name: 'Prompt',
-	install: (controller) => {
+	name: 'plugin-preset-prompt',
+	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.prompt = function (
 			message: string,
 			{
@@ -112,6 +113,7 @@ export const prompt = definePlugin({
 				this.render({
 					component: () => import('./src/PPrompt.vue'),
 					componentProps: {
+						skin,
 						title,
 						headerClose,
 						message,

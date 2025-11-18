@@ -1,5 +1,5 @@
 import { definePlugin, POPUP_ANIMATIONS } from 'vue-popup-plus'
-import { type Theme } from '../../typings'
+import { type GlobalOption, type Theme } from '../../typings'
 
 type ToastOption = {
 	/**
@@ -41,8 +41,8 @@ declare module 'vue-popup-plus' {
 }
 
 export const toast = definePlugin({
-	name: 'Toast',
-	install: (controller) => {
+	name: 'plugin-preset-toast',
+	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.toast = function (
 			content: string = '',
 			{ theme = 'default', duration = 2000 }: ToastOption = {}
@@ -51,6 +51,7 @@ export const toast = definePlugin({
 				this.render({
 					component: () => import('./src/PToast.vue'),
 					componentProps: {
+						skin,
 						content,
 						theme,
 						duration,

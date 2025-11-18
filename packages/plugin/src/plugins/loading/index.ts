@@ -1,5 +1,5 @@
 import { definePlugin } from 'vue-popup-plus'
-import { type Theme } from '../../typings'
+import { type GlobalOption, type Theme } from '../../typings'
 
 type LoadingOption = {
 	/**
@@ -46,8 +46,8 @@ declare module 'vue-popup-plus' {
 }
 
 export const loading = definePlugin({
-	name: 'Loading',
-	install: (controller, config) => {
+	name: 'plugin-preset-loading',
+	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.loading = function ({
 			theme = 'default',
 			title = '',
@@ -57,6 +57,7 @@ export const loading = definePlugin({
 			const instanceId = this.render({
 				component: () => import('./src/PLoading.vue'),
 				componentProps: {
+					skin,
 					theme,
 					title,
 					iconSize,

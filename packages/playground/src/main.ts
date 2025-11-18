@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPopup, definePlugin } from 'vue-popup-plus'
-import popupPluginPreset from 'vue-popup-plus-plugin-preset'
+import { presetPlugin } from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
 import GlobalComponent from './views/GlobalComponent.vue'
@@ -15,8 +15,8 @@ const popup = createPopup({
 	debugMode: true,
 })
 
-popup.use(popupPluginPreset, {
-	a: 1,
+popup.use(presetPlugin, {
+	skin: 'modern',
 })
 
 type TestPluginOption = {
