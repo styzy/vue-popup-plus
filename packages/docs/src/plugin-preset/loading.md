@@ -100,7 +100,7 @@ function handleLoadingCustomIconSize() {
 
 ## 详细配置
 
-具体可以查看 [API popup.loading()](/api/loading)。
+具体可以参考 [API 控制器实例 popup.loading()](/api/plugin-preset-controller#popup-loading)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

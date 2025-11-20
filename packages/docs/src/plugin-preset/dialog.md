@@ -359,7 +359,7 @@ function handleDialogOnMounted() {
 
 ## 详细配置
 
-具体可以查看 [API popup.dialog()](/api/dialog)。
+具体可以参考 [API 控制器实例 popup.dialog()](/api/plugin-preset-controller#popup-dialog)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

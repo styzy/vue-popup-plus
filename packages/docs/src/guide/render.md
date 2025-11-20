@@ -6,40 +6,39 @@
 
 ::: code-group
 
-```html [Vue 组合式 API]
-<script setup lang="ts">
+```ts [组合式 API ~vscode-icons:file-type-vue~]
 // 组合式API 通过 usePopup 函数获取插件实例
 import { usePopup } from 'vue-popup-plus'
-import MyPopupComponent from './MyPopupComponent.vue'
+import HelloWorld from './HelloWorld.vue'
 
 // 获取插件实例
 const popup = usePopup()
 
 function handlePopup() {
 	// 调用 render 方法渲染弹出层
-	popup.render({ // [!code highlight]
+	popup.render({
+		// [!code highlight]
 		// 弹出层渲染的组件
-		component: MyPopupComponent,
+		component: HelloWorld,
 		// 弹出层渲染组件的 props
 		componentProps: {
 			title: 'Hello Vue Popup Plus',
 		},
 	})
 }
-
 ```
 
-```html [Vue 选项式 API]
-<script lang="ts">
-import MyPopupComponent from './MyPopupComponent.vue'
+```ts [选项式 API ~vscode-icons:file-type-vue~]
+import HelloWorld from './HelloWorld.vue'
 
 export default {
 	methods: {
 		handlePopup() {
 			// 通过 this.$popup 访问插件实例
-			this.$popup.render({ // [!code highlight]
+			this.$popup.render({
+				// [!code highlight]
 				// 弹出层渲染的组件
-				component: MyPopupComponent,
+				component: HelloWorld,
 				// 弹出层渲染组件的 props
 				componentProps: {
 					title: 'Hello Vue Popup Plus',
@@ -48,7 +47,6 @@ export default {
 		},
 	},
 }
-<script>
 ```
 
 :::
@@ -63,7 +61,7 @@ export default {
 
 ```ts
 popup.render({
-	component: () => import('./MyPopupComponent.vue'),
+	component: () => import('./HelloWorld.vue'),
 })
 ```
 
@@ -90,7 +88,7 @@ popup.render({
 })
 ```
 
-具体的渲染参数可以参考 [API popup.render()](/api/render)。
+具体的渲染参数可以参考 [全局 API - 控制器实例 popup.render()](/api/controller#popup-render)。
 
 ## 返回值
 

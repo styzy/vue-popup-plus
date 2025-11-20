@@ -185,7 +185,7 @@ function handleAlbumDisableDrag() {
 
 ## 详细配置
 
-具体可以查看 [API popup.album()](/api/album)。
+具体可以参考 [预置插件 API - 控制器实例 popup.album()](/api/plugin-preset-controller#popup-album)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

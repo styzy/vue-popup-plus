@@ -167,7 +167,7 @@ async function handleAlertWaitClose() {
 
 ## 详细配置
 
-具体可以查看 [API popup.alert()](/api/alert)。
+具体可以参考 [API 控制器实例 popup.alert()](/api/plugin-preset-controller#popup-alert)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

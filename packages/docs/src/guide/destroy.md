@@ -6,9 +6,8 @@
 
 ::: code-group
 
-```ts [Vue 组合式 API]
+```ts [组合式 API ~vscode-icons:file-type-vue~]
 import { usePopup, type InstanceId } from 'vue-popup-plus'
-import MyPopupComponent from './MyPopupComponent.vue'
 
 const popup = usePopup()
 
@@ -16,7 +15,7 @@ let instanceId: InstanceId | null = null
 
 function handlePopup() {
 	instanceId = popup.render({
-		component: MyPopupComponent,
+		component: () => import('./HelloWorld.vue'),
 	})
 }
 
@@ -29,9 +28,8 @@ function handlePopupDestroy() {
 }
 ```
 
-```ts [Vue 选项式 API]
+```ts [选项式 API ~vscode-icons:file-type-vue~]
 import { type InstanceId } from 'vue-popup-plus'
-import MyPopupComponent from './MyPopupComponent.vue'
 
 export default {
 	data () {
@@ -42,7 +40,7 @@ export default {
 	methods: {
 		handlePopup() {
 			this.instanceId = this.$popup.render({
-				component: MyPopupComponent,
+				component: ()=>import('./HelloWorld.vue'),
 				},
 			})
 		},
@@ -69,7 +67,7 @@ export default {
 
 ::: code-group
 
-```ts [Vue 组合式 API]
+```ts [组合式 API ~vscode-icons:file-type-vue~]
 // 弹出层渲染的组件内部
 import { inject } from 'vue'
 // 导入 POPUP_COMPONENT_INJECTS 常量
@@ -86,7 +84,7 @@ function handleClose() {
 }
 ```
 
-```ts [Vue 选项式 API]
+```ts [选项式 API ~vscode-icons:file-type-vue~]
 // 导入 POPUP_COMPONENT_INJECTS 常量
 import { POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 
@@ -107,3 +105,41 @@ export default {
 ```
 
 :::
+
+## 携带自定义数据
+
+在销毁弹出层时，你可以携带自定义数据，这在某些场景下非常有用，例如在弹出层关闭时需要将一些数据传递给父组件。
+
+要携带自定义数据，只需要在调用 `destroy` 方法时传入第二个参数即可。
+
+```ts
+// 弹出层渲染组件
+import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+
+const popup = usePopup()
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
+
+function handleClose() {
+	// 在用户点击关闭按钮的处理事件中销毁弹出层
+	popup.destroy(instanceId, 'This is a custom payload')
+}
+```
+
+携带的自定义数据将在弹出层关闭时作为参数传递给渲染弹出层时的 `onUnmounted` 回调函数。
+
+```ts
+// 渲染弹出层的组件
+import { usePopup } from 'vue-popup-plus'
+
+const popup = usePopup()
+
+function handleRender() {
+	popup.render({
+		component: () => import('./HelloWorld.vue'),
+		onUnmounted(payload) {
+			console.log(payload) // 'This is a custom payload'
+		},
+	})
+}
+```

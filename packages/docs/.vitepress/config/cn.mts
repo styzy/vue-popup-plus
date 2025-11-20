@@ -9,8 +9,37 @@ export const themeConfig = defineConfig({
 			level: 'deep',
 			label: '页面导航',
 		},
+		search: {
+			options: {
+				translations: {
+					button: {
+						buttonText: '搜索文档',
+						buttonAriaLabel: '搜索文档',
+					},
+					modal: {
+						backButtonTitle: '返回搜索',
+						noResultsText: '无法找到相关结果',
+						resetButtonTitle: '重置搜索',
+						footer: {
+							selectText: '选择',
+							closeText: '关闭搜索',
+							navigateText: '切换',
+							backToSearchText: '返回搜索',
+						},
+					},
+				},
+			},
+		},
 		nav: [
+			{
+				component: 'DVersion',
+			},
 			// { text: '首页', link: '/' },
+			{
+				text: '示例',
+				link: '/examples/core',
+				activeMatch: '/examples/',
+			},
 			{
 				text: '指南',
 				link: '/guide/introduction',
@@ -22,19 +51,14 @@ export const themeConfig = defineConfig({
 				activeMatch: '/plugin-preset/',
 			},
 			{
-				text: '示例中心',
-				link: '/examples/core',
-				activeMatch: '/examples/',
-			},
-			{
-				text: 'API',
-				link: '/api/createPopup',
-				activeMatch: '/api/',
-			},
-			{
 				text: '插件',
 				link: '/plugin/introduction',
 				activeMatch: '/plugin/',
+			},
+			{
+				text: 'API',
+				link: '/api/controller',
+				activeMatch: '/api/',
 			},
 		],
 		sidebar: {
@@ -135,12 +159,85 @@ export const themeConfig = defineConfig({
 			],
 			'/examples/': [
 				{
-					text: '基础示例',
-					link: '/examples/core',
+					text: '示例',
+					items: [
+						{
+							text: '基础示例',
+							link: '/examples/core',
+						},
+						{
+							text: '预置插件示例',
+							link: '/examples/plugin-preset',
+						},
+					],
+				},
+			],
+			'/plugin/': [
+				{
+					text: '插件基础',
+					items: [
+						{
+							text: '介绍',
+							link: '/plugin/introduction',
+						},
+						{
+							text: '定义插件',
+							link: '/plugin/define',
+						},
+						{
+							text: '注册插件',
+							link: '/plugin/register',
+						},
+					],
 				},
 				{
-					text: '预置插件示例',
-					link: '/examples/plugin-preset',
+					text: '插件进阶',
+					items: [
+						{
+							text: '功能扩展',
+							link: '/plugin/function-extend',
+						},
+						{
+							text: '动画扩展',
+							link: '/plugin/animation-extend',
+						},
+					],
+				},
+			],
+			'/api/': [
+				{
+					text: '全局 API',
+					items: [
+						{
+							text: '控制器实例',
+							link: '/api/controller',
+						},
+						{
+							text: '动画类型',
+							link: '/api/animation',
+						},
+						{
+							text: '定义插件',
+							link: '/api/define-plugin',
+						},
+						{
+							text: '通用',
+							link: '/api/common',
+						},
+					],
+				},
+				{
+					text: '预置插件 API',
+					items: [
+						{
+							text: '控制器实例',
+							link: '/api/plugin-preset-controller',
+						},
+						{
+							text: '通用',
+							link: '/api/plugin-preset-common',
+						},
+					],
 				},
 			],
 		},

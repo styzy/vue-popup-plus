@@ -5,7 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
 import { components } from './components'
 import { createPopup } from 'vue-popup-plus'
-import popupPlugins from 'vue-popup-plus-plugin-preset'
+import { presetPlugin } from 'vue-popup-plus-plugin-preset'
 
 import './style.css'
 import 'virtual:group-icons.css'
@@ -21,7 +21,7 @@ export default {
 	enhanceApp({ app, router, siteData }) {
 		const popup = createPopup()
 
-		popup.use(popupPlugins)
+		popup.use(presetPlugin)
 
 		app.use(popup)
 

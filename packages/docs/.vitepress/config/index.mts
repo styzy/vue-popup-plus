@@ -21,6 +21,9 @@ export default defineConfig({
 		logo: '/logo.svg',
 		siteTitle: 'Vue Popup Plus',
 		i18nRouting: true,
+		search: {
+			provider: 'local',
+		},
 		socialLinks: [
 			{
 				icon: 'github',
@@ -49,8 +52,10 @@ export default defineConfig({
 	markdown: {
 		theme: {
 			dark: 'one-dark-pro',
-			light: 'github-light',
+			light: 'one-dark-pro',
+			// light: 'github-light',
 		},
+		anchor: {},
 		config: (md) => {
 			md.use(groupIconMdPlugin)
 			md.use(demoContainerMdPlugin)

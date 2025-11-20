@@ -8,7 +8,7 @@
 import { createApp } from 'vue'
 import { createPopup } from 'vue-popup-plus'
 // 引入预置插件
-import presetPlugins from 'vue-popup-plus-plugin-preset' // [!code highlight]
+import { presetPlugin } from 'vue-popup-plus-plugin-preset' // [!code highlight]
 import App from './App.vue'
 
 const app = createApp(App)
@@ -16,7 +16,7 @@ const app = createApp(App)
 const popup = createPopup()
 
 // 注册预置插件
-popup.use(presetPlugins) // [!code highlight]
+popup.use(presetPlugin) // [!code highlight]
 
 app.use(popup)
 

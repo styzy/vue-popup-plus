@@ -34,4 +34,4 @@ popup.render({
 })
 ```
 
-具体的动画类型可以参考 [API POPUP_ANIMATIONS](/api/POPUP_ANIMATIONS)。
+具体的动画类型可以参考 [全局 API - 动画类型](/api/animation)。

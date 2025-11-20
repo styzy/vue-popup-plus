@@ -169,8 +169,86 @@ function handlePopupWithTranslateY() {
 
 :::
 
+### 动画类型
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopup" type="default">默认淡入淡出</DButton>
+	<DButton @click="handlePopupWithFlyTop">顶部飞入</DButton>
+	<DButton @click="handlePopupWithFlyRight">右侧飞入</DButton>
+	<DButton @click="handlePopupWithFlyBottom">底部飞入</DButton>
+	<DButton @click="handlePopupWithFlyLeft">左侧飞入</DButton>
+	<DButton @click="handlePopupWithScaleEnlarge">放大</DButton>
+	<DButton @click="handlePopupWithScaleReduce">缩小</DButton>
+	<DButton @click="handlePopupWithAnimationNone">禁用动画</DButton>
+</DButtonGroup>
+```
+
+```ts
+import { POPUP_ANIMATIONS } from 'vue-popup-plus'
+function handlePopup() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupWithFlyTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_TOP,
+	})
+}
+
+function handlePopupWithFlyRight() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_RIGHT,
+	})
+}
+
+function handlePopupWithFlyBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
+	})
+}
+
+function handlePopupWithFlyLeft() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
+	})
+}
+
+function handlePopupWithScaleEnlarge() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
+	})
+}
+
+function handlePopupWithScaleReduce() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.SCALE_REDUCE,
+	})
+}
+
+function handlePopupWithAnimationNone() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.NONE,
+		maskAnimation: POPUP_ANIMATIONS.NONE,
+	})
+}
+```
+
+:::
+
 <script setup lang="ts">
-import { usePopup } from 'vue-popup-plus'
+import { usePopup, POPUP_ANIMATIONS } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
 
 const popup = usePopup()
@@ -261,6 +339,56 @@ function handlePopupWithTranslateY() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		viewTranslateY: 200,
+	})
+}
+
+function handlePopupWithFlyTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_TOP,
+	})
+}
+
+function handlePopupWithFlyRight() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_RIGHT,
+	})
+}
+
+function handlePopupWithFlyBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
+	})
+}
+
+function handlePopupWithFlyLeft() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
+	})
+}
+
+function handlePopupWithScaleEnlarge() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
+	})
+}
+
+function handlePopupWithScaleReduce() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.SCALE_REDUCE,
+	})
+}
+
+function handlePopupWithAnimationNone() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewAnimation: POPUP_ANIMATIONS.NONE,
+		maskAnimation: POPUP_ANIMATIONS.NONE,
 	})
 }
 </script>

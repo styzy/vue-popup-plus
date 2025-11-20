@@ -124,7 +124,7 @@ async function handleToastWaitClose() {
 
 ## 详细配置
 
-具体可以查看 [API popup.toast()](/api/toast)。
+具体可以参考 [API 控制器实例 popup.toast()](/api/plugin-preset-controller#popup-toast)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

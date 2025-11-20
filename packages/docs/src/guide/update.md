@@ -6,9 +6,8 @@
 
 ::: code-group
 
-```ts [Vue 组合式 API]
+```ts [组合式 API ~vscode-icons:file-type-vue~]
 import { usePopup, type InstanceId } from 'vue-popup-plus'
-import MyPopupComponent from './MyPopupComponent.vue'
 
 const popup = usePopup()
 
@@ -17,7 +16,7 @@ let instanceId: InstanceId | null = null
 function handlePopup() {
 	// 渲染并获取实例 id
 	instanceId = popup.render({
-		component: MyPopupComponent,
+		component: () => import('./HelloWorld.vue'),
 		width: '500px',
 		height: 300,
 	})
@@ -32,7 +31,7 @@ function handlePopupResize() {
 }
 ```
 
-```ts [Vue 选项式 API]
+```ts [选项式 API ~vscode-icons:file-type-vue~]
 export default {
 	data () {
 		return {
@@ -42,7 +41,7 @@ export default {
 	methods: {
 		handlePopup() {
 			this.instanceId = this.$popup.render({
-				component: MyPopupComponent,
+				component: ()=>import('./HelloWorld.vue'),
 				width: '500px',
 				height: 300,
 			})
@@ -64,4 +63,4 @@ export default {
 
 并不是所有的渲染参数都可以更新，例如 `component`、`appendTo` 等，这些参数在渲染时作为一次性的参数，无法在渲染后更新。
 
-具体可以参考 [API popup.update()](/api/update)。
+具体可以参考 [全局 API - 控制器实例 popup.update()](/api/controller#popup-update)。
