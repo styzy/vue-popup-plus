@@ -9,6 +9,14 @@ export const themeConfig = defineConfig({
 			level: 'deep',
 			label: '页面导航',
 		},
+		sidebarMenuLabel: '菜单',
+		docFooter: {
+			prev: '上一页',
+			next: '下一页',
+		},
+		lastUpdated: {
+			text: '最后更新于',
+		},
 		search: {
 			options: {
 				translations: {
@@ -61,7 +69,6 @@ export const themeConfig = defineConfig({
 				activeMatch: '/api/',
 			},
 		],
-		sidebarMenuLabel: '菜单',
 		sidebar: {
 			'/guide/': [
 				{

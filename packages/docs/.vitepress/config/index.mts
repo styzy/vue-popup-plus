@@ -30,6 +30,12 @@ export default defineConfig({
 				link: 'https://github.com/styzy/vue-popup-plus',
 			},
 		],
+		lastUpdated: {
+			formatOptions: {
+				dateStyle: 'long',
+				timeStyle: 'medium',
+			},
+		},
 		footer: {
 			message: 'Released under the MIT License.',
 			copyright: `Copyright © ${new Date().getFullYear()} Vue Popup Plus`,
