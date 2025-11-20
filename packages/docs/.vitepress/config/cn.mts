@@ -61,6 +61,7 @@ export const themeConfig = defineConfig({
 				activeMatch: '/api/',
 			},
 		],
+		sidebarMenuLabel: '菜单',
 		sidebar: {
 			'/guide/': [
 				{
@@ -243,3 +244,4 @@ export const themeConfig = defineConfig({
 		},
 	},
 }).themeConfig
+
