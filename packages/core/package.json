@@ -53,6 +53,7 @@
 		"jsdom": "^26.1.0",
 		"npm-run-all2": "^8.0.4",
 		"prettier": "3.6.2",
+		"prettier-plugin-jsdoc": "^1.5.0",
 		"pug": "^3.0.3",
 		"stylus": "^0.64.0",
 		"typescript": "~5.8.0",
@@ -65,4 +66,3 @@
 	},
 	"license": "MIT"
 }
-
