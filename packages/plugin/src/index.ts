@@ -16,6 +16,8 @@ export type { IAlbum, IAlert, IConfirm, IDialog, ILoading, IPrompt, IToast }
 
 export { album, alert, confirm, dialog, loading, prompt, toast }
 
+export { version } from '../package.json'
+
 export const presetPlugin = definePlugin({
 	name: 'preset-plugin',
 	install(controller, config, { skin = 'classic' }: GlobalOption = {}) {

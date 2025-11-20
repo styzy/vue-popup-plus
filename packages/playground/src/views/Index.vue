@@ -273,7 +273,7 @@ function handlePopupOffsetLargeOverflow() {
 function handlePopupAnimationScale() {
 	popup.render({
 		maskAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
-		viewAnimation: POPUP_ANIMATIONS.SCALE_SHRINK,
+		viewAnimation: POPUP_ANIMATIONS.SCALE_REDUCE,
 		component: () => import('@/views/Demo.vue'),
 	})
 }

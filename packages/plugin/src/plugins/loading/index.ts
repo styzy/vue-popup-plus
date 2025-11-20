@@ -4,22 +4,26 @@ import { type GlobalOption, type Theme } from '../../typings'
 type LoadingOption = {
 	/**
 	 * 加载遮罩主题
+	 *
 	 * - 默认值：'primary'
 	 * - 具体的可选主题请参考 {@link Theme }
 	 */
 	theme?: Theme
 	/**
 	 * 加载遮罩标题文本
+	 *
 	 * - 默认值：''
 	 */
 	title?: string
 	/**
 	 * 加载遮罩图标大小
+	 *
 	 * - 默认值：60
 	 */
 	iconSize?: number
 	/**
 	 * 遮罩层是否模糊
+	 *
 	 * - 默认值：`true`
 	 */
 	maskBlur?: boolean
@@ -28,8 +32,10 @@ type LoadingOption = {
 export interface ILoading {
 	/**
 	 * 显示加载遮罩
+	 *
 	 * - 返回关闭加载遮罩的方法，调用后关闭加载遮罩
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * const stopLoading = popup.loading()
 	 * // 关闭加载遮罩

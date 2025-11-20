@@ -4,14 +4,15 @@ import { type GlobalOption, type Theme } from '../../typings'
 type ToastOption = {
 	/**
 	 * 消息主题
+	 *
 	 * - 默认值： 'default'
 	 * - 具体的可选主题请参考 {@link Theme }
 	 */
 	theme?: Theme
 	/**
 	 * 消息显示时间，单位毫秒
+	 *
 	 * - 默认值： 2000 毫秒
-	 * @default 2000
 	 */
 	duration?: number
 }
@@ -19,10 +20,12 @@ type ToastOption = {
 export interface IToast {
 	/**
 	 * 显示消息
+	 *
 	 * - 第一个参数为消息内容
 	 * - 第二个参数为消息选项，可自定义消息显示时间，默认值为 2000 毫秒
-	 * - 如果需要等待消息消失后继续执行后续代码，需要通过 `await` 调用，等待执行结束后继续执行后续代码
+	 * - 如果需要等待消息消失后继续执行后续代码，需要通过 `await` 调用， 等待执行结束后继续执行后续代码
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * popup.toast('这是一条消息')
 	 * // 不会阻塞后续代码执行
