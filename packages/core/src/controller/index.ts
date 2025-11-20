@@ -14,18 +14,25 @@ import {
 	type Animation,
 	type IAnimations,
 } from '../animation'
+import { version } from '../../package.json'
 
 export interface PopupCustomProperties {}
 
 export interface IController extends PopupCustomProperties {
 	/**
+	 * 版本号
+	 */
+	readonly version: string
+	/**
 	 * 安装插件
+	 *
 	 * @param {App} app - Vue应用实例
 	 * @returns {void}
 	 */
 	install(app: App): void
 	/**
 	 * 安装插件
+	 *
 	 * - 可安装使用 `definePlugin` 方法定义的插件
 	 * - 具体请参考{@link IDefinePlugin}
 	 */
@@ -35,19 +42,23 @@ export interface IController extends PopupCustomProperties {
 	): void
 	/**
 	 * 渲染弹出层
-	 * - 渲染参数 `component` 是唯一的必填项，其他渲染参数具体请参考{@link RenderOptions}
+	 *
+	 * - 渲染参数 `component`
+	 *   是唯一的必填项，其他渲染参数具体请参考{@link RenderOption}
 	 * - 返回值是弹出层的实例 id ，用于调用 destroy() 方法销毁弹出层
 	 */
-	render(options: RenderOptions): InstanceId
+	render(options: RenderOption): InstanceId
 	/**
 	 * 更新弹出层
+	 *
 	 * - 主要用于更新弹出层的渲染参数
 	 * - 第一个参数需要传入需要更新的弹出层的实例 id
-	 * - 第二个参数需要传入更新的参数，仅支持部分渲染参数，具体请参考{@link UpdateOptions}
+	 * - 第二个参数需要传入更新的参数，仅支持部分渲染参数，具体请参考{@link UpdateOption}
 	 */
-	update(instanceId: InstanceId, options: UpdateOptions): void
+	update(instanceId: InstanceId, options: UpdateOption): void
 	/**
 	 * 销毁弹出层
+	 *
 	 * - 传入弹出层的实例 id ，用于销毁指定的弹出层
 	 * - 第二个参数是自定义负载参数，会作为参数传递给创建弹出层时的 onUnmounted 回调函数
 	 * - 该函数返回一个 Promise 对象，用于等待弹出层关闭动画完成
@@ -57,19 +68,27 @@ export interface IController extends PopupCustomProperties {
 
 export type RenderConfigOptions = {
 	/**
-	 * 弹出层挂载的父元素，不指定时，默认挂载到 body 元素下
+	 * 弹出层挂载的父元素
+	 *
+	 * - 不指定时，默认挂载到 body 元素下
 	 */
 	appendTo?: Element | string
 	/**
-	 * 弹出层是否显示遮罩层，默认值为 true
+	 * 弹出层是否显示遮罩层
+	 *
+	 * - 默认值为 true
 	 */
 	mask?: boolean
 	/**
-	 * 点击遮罩层是否关闭弹出层，默认值为 false ，仅在 mask 为 true 时有效
+	 * 点击遮罩层是否关闭弹出层
+	 *
+	 * - 默认值为 false ，仅在 mask 为 true 时有效
 	 */
 	maskClickClose?: boolean
 	/**
-	 * 弹出层是否禁用窗口滚动，默认值为 true
+	 * 弹出层是否禁用窗口滚动
+	 *
+	 * - 默认值为 true
 	 */
 	disableScroll?: boolean
 }
@@ -77,10 +96,13 @@ export type RenderConfigOptions = {
 export type RenderComponentOptions = {
 	/**
 	 * 弹出层渲染的组件
+	 *
 	 * - 要创建一个弹出层，这是唯一必要的参数。
 	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
-	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入 ()=>import() 函数即可。
+	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入
+	 *   ()=>import() 函数即可。
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * // 异步组件
 	 * popup.render({
@@ -111,137 +133,173 @@ export type RenderComponentOptions = {
 
 export type RenderStyleOptions = {
 	/**
-	 * 弹出层宽度，默认为 auto，即自适应，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层宽度
+	 *
+	 * - 默认为 auto，即自适应，支持 string 和 number 类型，string
+	 *   类型更为灵活，number 类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * width: '300px',
-	 * // rem
-	 * width: '30rem',
-	 * // vw
-	 * width: '30vw',
-	 * // 百分比
-	 * width: '30%',
-	 * // css 动态计算
-	 * width: 'calc(50% + 20px)',
-	 * // css 变量
-	 * width: 'var(--width)',
-	 * // number 类型，方便计算，单位为 px
-	 * width: 300,
+	 * 	// px
+	 * 	width: '300px',
+	 * 	// rem
+	 * 	width: '30rem',
+	 * 	// vw
+	 * 	width: '30vw',
+	 * 	// 百分比
+	 * 	width: '30%',
+	 * 	// css 动态计算
+	 * 	width: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	width: 'var(--width)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	width: 300,
 	 */
 	width?: string | number
 	/**
-	 * 弹出层最大宽度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层最大宽度
+	 *
+	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
+	 *   类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * maxWidth: '300px',
-	 * // rem
-	 * maxWidth: '30rem',
-	 * // vw
-	 * maxWidth: '30vw',
-	 * // 百分比
-	 * maxWidth: '30%',
-	 * // css 动态计算
-	 * maxWidth: 'calc(50% + 20px)',
-	 * // css 变量
-	 * maxWidth: 'var(--width)',
-	 * // number 类型，方便计算，单位为 px
-	 * maxWidth: 300,
+	 * 	// px
+	 * 	maxWidth: '300px',
+	 * 	// rem
+	 * 	maxWidth: '30rem',
+	 * 	// vw
+	 * 	maxWidth: '30vw',
+	 * 	// 百分比
+	 * 	maxWidth: '30%',
+	 * 	// css 动态计算
+	 * 	maxWidth: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	maxWidth: 'var(--width)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	maxWidth: 300,
 	 */
 	maxWidth?: string | number
 	/**
-	 * 弹出层最小宽度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层最小宽度
+	 *
+	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
+	 *   类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * minWidth: '300px',
-	 * // rem
-	 * minWidth: '30rem',
-	 * // vw
-	 * minWidth: '30vw',
-	 * // 百分比
-	 * minWidth: '30%',
-	 * // css 动态计算
-	 * minWidth: 'calc(50% + 20px)',
-	 * // css 变量
-	 * minWidth: 'var(--width)',
-	 * // number 类型，方便计算，单位为 px
-	 * minWidth: 300,
+	 * 	// px
+	 * 	minWidth: '300px',
+	 * 	// rem
+	 * 	minWidth: '30rem',
+	 * 	// vw
+	 * 	minWidth: '30vw',
+	 * 	// 百分比
+	 * 	minWidth: '30%',
+	 * 	// css 动态计算
+	 * 	minWidth: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	minWidth: 'var(--width)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	minWidth: 300,
 	 */
 	minWidth?: string | number
 	/**
-	 * 弹出层高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层高度
+	 *
+	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
+	 *   类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * height: '300px',
-	 * // rem
-	 * height: '30rem',
-	 * // vh
-	 * height: '30vh',
-	 * // 百分比
-	 * height: '30%',
-	 * // css 动态计算
-	 * height: 'calc(50% + 20px)',
-	 * // css 变量
-	 * height: 'var(--height)',
-	 * // number 类型，方便计算，单位为 px
-	 * height: 300,
+	 * 	// px
+	 * 	height: '300px',
+	 * 	// rem
+	 * 	height: '30rem',
+	 * 	// vh
+	 * 	height: '30vh',
+	 * 	// 百分比
+	 * 	height: '30%',
+	 * 	// css 动态计算
+	 * 	height: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	height: 'var(--height)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	height: 300,
 	 */
 	height?: string | number
 	/**
-	 * 弹出层最大高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层最大高度
+	 *
+	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
+	 *   类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * maxHeight: '300px',
-	 * // rem
-	 * maxHeight: '30rem',
-	 * // vh
-	 * maxHeight: '30vh',
-	 * // 百分比
-	 * maxHeight: '30%',
-	 * // css 动态计算
-	 * maxHeight: 'calc(50% + 20px)',
-	 * // css 变量
-	 * maxHeight: 'var(--height)',
-	 * // number 类型，方便计算，单位为 px
-	 * maxHeight: 300,
+	 * 	// px
+	 * 	maxHeight: '300px',
+	 * 	// rem
+	 * 	maxHeight: '30rem',
+	 * 	// vh
+	 * 	maxHeight: '30vh',
+	 * 	// 百分比
+	 * 	maxHeight: '30%',
+	 * 	// css 动态计算
+	 * 	maxHeight: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	maxHeight: 'var(--height)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	maxHeight: 300,
 	 */
 	maxHeight?: string | number
 	/**
-	 * 弹出层最小高度，默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number 类型方便计算
+	 * 弹出层最小高度
+	 *
+	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
+	 *   类型方便计算
+	 *
 	 * @example
-	 * // px
-	 * minHeight: '300px',
-	 * // rem
-	 * minHeight: '30rem',
-	 * // vh
-	 * minHeight: '30vh',
-	 * // 百分比
-	 * minHeight: '30%',
-	 * // css 动态计算
-	 * minHeight: 'calc(50% + 20px)',
-	 * // css 变量
-	 * minHeight: 'var(--height)',
-	 * // number 类型，方便计算，单位为 px
-	 * minHeight: 300,
+	 * 	// px
+	 * 	minHeight: '300px',
+	 * 	// rem
+	 * 	minHeight: '30rem',
+	 * 	// vh
+	 * 	minHeight: '30vh',
+	 * 	// 百分比
+	 * 	minHeight: '30%',
+	 * 	// css 动态计算
+	 * 	minHeight: 'calc(50% + 20px)',
+	 * 	// css 变量
+	 * 	minHeight: 'var(--height)',
+	 * 	// number 类型，方便计算，单位为 px
+	 * 	minHeight: 300,
 	 */
 	minHeight?: string | number
 	/**
-	 * 弹出层视图动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 * 弹出层视图动画类型
+	 *
+	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
+	 *   {@link IAnimations}
 	 */
 	viewAnimation?: Animation
 	/**
-	 * 弹出层视图水平偏移量，默认为 0 ，单位为 px
+	 * 弹出层视图水平偏移量
+	 *
+	 * - 默认为 0 ，单位为 px
 	 */
 	viewTranslateX?: number
 	/**
-	 * 弹出层视图垂直偏移量，默认为 0 ，单位为 px
+	 * 弹出层视图垂直偏移量
+	 *
+	 * - 默认为 0 ，单位为 px
 	 */
 	viewTranslateY?: number
 	/**
-	 * 弹出层视图是否允许超出窗口边界，默认为 false
+	 * 弹出层视图是否允许超出窗口边界
+	 *
+	 * - 默认为 false
 	 */
 	viewTranslateOverflow?: boolean
 	/**
-	 * 弹出层遮罩动画类型，默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看 {@link IAnimations}
+	 * 弹出层遮罩动画类型
+	 *
+	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
+	 *   {@link IAnimations}
 	 */
 	maskAnimation?: Animation
 	/**
@@ -249,22 +307,26 @@ export type RenderStyleOptions = {
 	 */
 	maskBlur?: boolean
 	/**
-	 * 弹出层动画时长，默认为 100 ，单位为 毫秒
+	 * 弹出层动画时长
+	 *
+	 * - 默认为 100 ，单位为 毫秒
 	 */
 	animationDuration?: number
 	/**
-	 * 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
+	 * 弹出层 zIndex
+	 *
+	 * - 若不设置，则使用全局递增的 zIndex 值
 	 */
 	zIndex?: number
 }
 
-export type RenderOptions = RenderConfigOptions &
+export type RenderOption = RenderConfigOptions &
 	RenderComponentOptions &
 	RenderStyleOptions
 
-export type UpdateOptions = Partial<RenderStyleOptions>
+export type UpdateOption = Partial<RenderStyleOptions>
 
-const defaultOptions: Required<Omit<RenderOptions, 'zIndex' | 'component'>> = {
+const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	appendTo: document.body,
 	mask: true,
 	maskClickClose: false,
@@ -290,6 +352,9 @@ const defaultOptions: Required<Omit<RenderOptions, 'zIndex' | 'component'>> = {
 export class Controller implements IController {
 	_core: Core
 
+	get version(): string {
+		return version
+	}
 	constructor(core: Core) {
 		this._core = core
 	}
@@ -308,7 +373,7 @@ export class Controller implements IController {
 
 		plugin.install(wrapWithPlugin(this), this._core.config, options)
 	}
-	render({ zIndex, ...options }: RenderOptions): InstanceId {
+	render({ zIndex, ...options }: RenderOption): InstanceId {
 		zIndex = zIndex ?? this._core.config.zIndex++
 
 		const instance: Instance = new Instance(this._core, {
@@ -323,7 +388,7 @@ export class Controller implements IController {
 
 		return instance.id
 	}
-	update(instanceId: InstanceId, options: UpdateOptions) {
+	update(instanceId: InstanceId, options: UpdateOption) {
 		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return

@@ -16,7 +16,7 @@ export interface IAnimations extends PopupCustomAnimations {
 	/**
 	 * 缩放缩小
 	 */
-	readonly SCALE_SHRINK: 'scale-shrink'
+	readonly SCALE_REDUCE: 'scale-reduce'
 	/**
 	 * 顶部飞入
 	 */
@@ -38,14 +38,30 @@ export interface IAnimations extends PopupCustomAnimations {
 export type Animation = IAnimations[keyof IAnimations]
 
 class Animations implements IAnimations {
-	readonly NONE = 'none'
-	readonly FADE = 'fade'
-	readonly SCALE_ENLARGE = 'scale-enlarge'
-	readonly SCALE_SHRINK = 'scale-shrink'
-	readonly FLY_TOP = 'fly-top'
-	readonly FLY_LEFT = 'fly-left'
-	readonly FLY_RIGHT = 'fly-right'
-	readonly FLY_BOTTOM = 'fly-bottom'
+	get NONE() {
+		return 'none' as 'none'
+	}
+	get FADE() {
+		return 'fade' as 'fade'
+	}
+	get SCALE_ENLARGE() {
+		return 'scale-enlarge' as 'scale-enlarge'
+	}
+	get SCALE_REDUCE() {
+		return 'scale-reduce' as 'scale-reduce'
+	}
+	get FLY_TOP() {
+		return 'fly-top' as 'fly-top'
+	}
+	get FLY_LEFT() {
+		return 'fly-left' as 'fly-left'
+	}
+	get FLY_RIGHT() {
+		return 'fly-right' as 'fly-right'
+	}
+	get FLY_BOTTOM() {
+		return 'fly-bottom' as 'fly-bottom'
+	}
 	constructor() {}
 }
 

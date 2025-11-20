@@ -29,10 +29,12 @@ export type ControllerPrototype = Record<
 
 export interface IPluginWrappedController extends IController {
 	/**
-	 * 原型属性
+	 * 控制器实例自定义属性原型对象
+	 *
 	 * - 可在插件的 `install` 方法中扩展方法或属性
 	 * - 该属性为只读属性，只允许扩展，并且内置方法不能被覆盖
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * // 插件中扩展方法
 	 * import { definePlugin } from 'vue-popup-plus'
@@ -57,10 +59,12 @@ export interface IPluginWrappedController extends IController {
 	 */
 	readonly customProperties: ControllerPrototype
 	/**
-	 * 自定义动画类型
+	 * 动画类型自定义属性原型对象
+	 *
 	 * - 可在插件的 `install` 方法中扩展动画类型
 	 * - 该属性为只读属性，只允许扩展，并且内置动画类型不能被覆盖
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * // 插件中扩展动画类型
 	 * import { definePlugin } from 'vue-popup-plus'
@@ -68,7 +72,7 @@ export interface IPluginWrappedController extends IController {
 	 * const plugin = definePlugin({
 	 * 	name: 'test',
 	 * 	install(popup) {
-	 * 		popup.customAnimations.CUSTOM = 'CUSTOM'
+	 * 		popup.customAnimations.CUSTOM = 'custom'
 	 * 	},
 	 * })
 	 * ```
@@ -87,14 +91,17 @@ type PluginInstall<TOption extends PluginOption> = (
 export type PopupPlugin<TOption extends PluginOption = never> = {
 	/**
 	 * 插件名称
+	 *
 	 * - 插件名称必须唯一
 	 */
 	name: string
 	/**
 	 * 插件安装函数
+	 *
 	 * - 第一个参数接收安装此插件的弹出层控制器实例
 	 * - 第二个参数接收安装此插件的弹出层的创建配置
-	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用 `popup.use` 方法时传入
+	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 *  `popup.use` 方法时传入
 	 */
 	install: PluginInstall<TOption>
 }
@@ -105,13 +112,16 @@ export type ExtractPluginOption<TPlugin extends PopupPlugin> =
 export interface IDefinePlugin {
 	/**
 	 * 定义插件
+	 *
 	 * - 该方法用于定义一个可以直接被 `popup.use` 方法安装的插件
 	 * - 插件的名称 `name` 必须唯一
 	 * - 插件的安装函数 `install` 必须是一个函数，接收三个参数：
 	 *   - 第一个参数接收安装此插件的弹出层控制器实例
 	 *   - 第二个参数接收安装此插件的弹出层的创建配置
-	 *   - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用 `popup.use` 方法时传入
+	 *   - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 *  `popup.use` 方法时传入
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * import { createPopup, definePlugin } from 'vue-popup-plus'
 	 * const popup = createPopup()

@@ -18,44 +18,52 @@ export interface ICore {
 	controller: IController
 	/**
 	 * 添加弹出层实例
-	 * @param instance - 弹出层实例
-	 * @
+	 *
+	 * @param instance - 弹出层实例 @
 	 */
 	addInstance(instance: Instance): void
 	/**
 	 * 获取弹出层实例
+	 *
 	 * @param instanceId - 弹出层实例id
 	 */
 	getInstance(instanceId: InstanceId): Instance | void
 	/**
 	 * 移除弹出层实例
+	 *
 	 * @param instance - 弹出层实例
 	 */
 	removeInstance(instance: Instance): void
 }
 
-export type CoreOptions = {
+export type CoreOption = {
 	/**
 	 * 弹出层 zIndex 基础值
-	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入 zIndex，否则使用此基础值，每次使用后会自动递增
+	 *
+	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入
+	 *   zIndex，否则使用此基础值，每次使用后会自动递增
 	 */
 	zIndex?: number
 	/**
 	 * 是否自动禁用滚动
+	 *
 	 * - 默认为 true
 	 * - 开启后，弹出层显示时会自动禁用页面滚动
 	 */
 	autoDisableScroll?: boolean
 	/**
 	 * 弹出层控制器挂载在 Vue 实例上的属性名
-	 * - 默认为 $popup ，这在使用选项式API时可以在组件内通过this.$popup 访问控制器实例，可以使用该属性自定义挂载属性名
+	 *
+	 * - 默认为 $popup ，这在使用 选项式 API 时可以在组件内通过 this.$popup
+	 *   访问控制器实例，可以使用该属性自定义挂载属性名
 	 * - 使用示例：
+	 *
 	 * ```ts
 	 * // main.ts
 	 * import { createPopup } from 'vue-popup-plus'
 	 *
 	 * const popup = createPopup({
-	 * 	prototypeName: '$customPopup'
+	 * 	prototypeName: '$customPopup',
 	 * })
 	 *
 	 * // 组件内
@@ -63,8 +71,11 @@ export type CoreOptions = {
 	 * 	component: Demo,
 	 * })
 	 * ```
-	 * - 注意，如果你使用 TypeScript，则自定义属性名称需要手动同步添加类型扩展，扩展代码可以放在一个 .ts 文件，或是一个影响整个项目的 *.d.ts 文件中。
+	 *
+	 * - 注意，如果你使用 TypeScript，则自定义属性名称需要手动同步添加类型扩展，扩展代码可以放在一个
+	 *   .ts 文件，或是一个影响整个项目的 *.d.ts 文件中。
 	 * - 扩展代码示例：
+	 *
 	 * ```ts
 	 * // 扩展自定义属性名类型
 	 * declare module 'vue' {
@@ -72,23 +83,25 @@ export type CoreOptions = {
 	 * 		$customPopup: typeof popup
 	 * 	}
 	 * }
+	 * ```
 	 */
 	prototypeName?: string
 	/**
 	 * 开启调试模式
+	 *
 	 * - 默认为 false
 	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
-	 * - 开启后，所有的弹出层将以 Vue app 应用实例的方式创建，可通过 Vue DevTools 开发者
-	 * 工具直接访问到内部的相关组件，方便开发者调试。
+	 * - 开启后，所有的弹出层将以 Vue app 应用实例的方式创建，可通过 Vue DevTools
+	 *   开发者工具直接访问到内部的相关组件，方便开发者调试。
 	 */
 	debugMode?: boolean
 }
 
-export type CoreConfig = Required<CoreOptions>
+export type CoreConfig = Required<CoreOption>
 
 let core: ICore | null = null
 
-export function createCore(options?: CoreOptions): ICore {
+export function createCore(options?: CoreOption): ICore {
 	return new Core(options)
 }
 
@@ -118,7 +131,7 @@ export class Core implements ICore {
 		prototypeName = '$popup',
 		autoDisableScroll = true,
 		debugMode = false,
-	}: CoreOptions = {}) {
+	}: CoreOption = {}) {
 		this.#config = { zIndex, prototypeName, autoDisableScroll, debugMode }
 		this.#controller = new Controller(this)
 		core = this

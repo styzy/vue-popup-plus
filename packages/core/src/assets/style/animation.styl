@@ -8,8 +8,8 @@ generateAnimation(enter,fade)
 generateAnimation(leave,fade)
 generateAnimation(enter,scale-enlarge)
 generateAnimation(leave,scale-enlarge)
-generateAnimation(enter,scale-shrink)
-generateAnimation(leave,scale-shrink)
+generateAnimation(enter,scale-reduce)
+generateAnimation(leave,scale-reduce)
 generateAnimation(enter,fly-top)
 generateAnimation(leave,fly-top)
 generateAnimation(enter,fly-left)
@@ -39,12 +39,12 @@ generateAnimation(leave,fly-bottom)
 		transform scale(1)
 	to
 		transform scale(0)
-@keyframes {$name-space}-enter-scale-shrink
+@keyframes {$name-space}-enter-scale-reduce
 	from
 		transform scale(5)
 	to
 		transform scale(1)
-@keyframes {$name-space}-leave-scale-shrink
+@keyframes {$name-space}-leave-scale-reduce
 	from
 		transform scale(1)
 	to

@@ -20,7 +20,7 @@ import type {
 	RenderComponentOptions,
 	RenderConfigOptions,
 	RenderStyleOptions,
-	UpdateOptions,
+	UpdateOption,
 } from '../controller'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -43,6 +43,7 @@ type PropertiseToRef<T extends Record<string, any>> = {
 interface IInstanceId {
 	/**
 	 * 生成该实例 id 的种子
+	 *
 	 * @internal
 	 */
 	seed: Readonly<number>
@@ -56,7 +57,7 @@ interface IInstance {
 	id: InstanceId
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
-	update(options: UpdateOptions): void
+	update(options: UpdateOption): void
 }
 
 type InstanceOptions = Required<
@@ -198,9 +199,9 @@ export class Instance implements IInstance {
 
 		this.#store.onUnmounted(payload)
 	}
-	update(options: UpdateOptions): void {
+	update(options: UpdateOption): void {
 		for (const _key in options) {
-			const key = _key as keyof UpdateOptions
+			const key = _key as keyof UpdateOption
 			const value =
 				options[key] === undefined
 					? this.#store[key].value
