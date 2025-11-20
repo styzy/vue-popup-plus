@@ -18,18 +18,20 @@ export default {
 			// https://vitepress.dev/guide/extending-default-theme#layout-slots
 		})
 	},
-	enhanceApp({ app, router, siteData }) {
-		const popup = createPopup()
+	async enhanceApp({ app, router, siteData }) {
+		if (!import.meta.env.SSR) {
+			const popup = createPopup()
 
-		popup.use(presetPlugin)
+			popup.use(presetPlugin)
 
-		app.use(popup)
+			app.use(popup)
 
-		Object.entries(components).forEach(([name, component]) => {
-			app.component(name, component)
-		})
+			Object.entries(components).forEach(([name, component]) => {
+				app.component(name, component)
+			})
 
-		app.component(MarkdownDemo.name!, MarkdownDemo)
+			app.component(MarkdownDemo.name!, MarkdownDemo)
+		}
 	},
 } satisfies Theme
 

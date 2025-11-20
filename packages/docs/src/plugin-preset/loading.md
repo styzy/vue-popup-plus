@@ -105,7 +105,11 @@ function handleLoadingCustomIconSize() {
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handleLoading() {
 	setTimeout(popup.loading(), 3000)

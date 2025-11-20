@@ -873,7 +873,11 @@ function handlePopupAlbumWithoutMaskBlur() {
 import { usePopup } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handlePopupToast() {
 	popup.toast('这是一条消息')

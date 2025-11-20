@@ -282,7 +282,11 @@ function handlePromptDraggableOverflow() {
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handlePrompt() {
 	popup.prompt('请输入您的姓名')

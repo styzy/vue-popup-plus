@@ -364,7 +364,11 @@ function handleDialogOnMounted() {
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handleDialog() {
 	popup.dialog({

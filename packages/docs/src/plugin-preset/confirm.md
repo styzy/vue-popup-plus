@@ -213,7 +213,11 @@ function handleConfirmDraggableOverflow() {
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handleConfirm() {
 	popup.confirm('是否确认操作？')

@@ -129,7 +129,11 @@ async function handleToastWaitClose() {
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handleToast() {
 	popup.toast('这是一条消息')

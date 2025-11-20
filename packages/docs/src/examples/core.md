@@ -251,7 +251,11 @@ function handlePopupWithAnimationNone() {
 import { usePopup, POPUP_ANIMATIONS } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handlePopup(){
 	popup.render({
@@ -392,3 +396,4 @@ function handlePopupWithAnimationNone() {
 	})
 }
 </script>
+

@@ -172,7 +172,11 @@ async function handleAlertWaitClose() {
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 function handleAlert() {
 	popup.alert('这是一条提示信息')

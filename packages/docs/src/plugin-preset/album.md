@@ -190,7 +190,11 @@ function handleAlbumDisableDrag() {
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
 
-const popup = usePopup()
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
 
 const sources = [
 	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
