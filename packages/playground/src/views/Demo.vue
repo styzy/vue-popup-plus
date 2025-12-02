@@ -17,6 +17,9 @@ defineOptions({ name: 'Demo' })
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 
 type Props = {
+	/**
+	 * 测试属性
+	 */
 	test?: string
 }
 

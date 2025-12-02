@@ -1,4 +1,4 @@
-import { type App, type Component } from 'vue'
+import { type App, type AsyncComponentLoader, type Component } from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../instance'
 import type { InstanceId } from '../instance'
@@ -47,7 +47,9 @@ export interface IController extends PopupCustomProperties {
 	 *   是唯一的必填项，其他渲染参数具体请参考{@link RenderOption}
 	 * - 返回值是弹出层的实例 id ，用于调用 destroy() 方法销毁弹出层
 	 */
-	render(options: RenderOption): InstanceId
+	render<TComponent extends Component = Component>(
+		options: RenderOption<TComponent>
+	): InstanceId
 	/**
 	 * 更新弹出层
 	 *
@@ -93,7 +95,16 @@ export type RenderConfigOptions = {
 	disableScroll?: boolean
 }
 
-export type RenderComponentOptions = {
+export type ExtractComponentProps<TComponent extends Component = Component> =
+	TComponent extends new () => {
+		$props: infer TProps
+	}
+		? TProps
+		: TComponent extends AsyncComponentLoader
+			? InstanceType<Awaited<ReturnType<TComponent>>['default']>['$props']
+			: Record<string, any>
+
+export type RenderComponentOptions<TComponent extends Component = Component> = {
 	/**
 	 * 弹出层渲染的组件
 	 *
@@ -116,11 +127,11 @@ export type RenderComponentOptions = {
 	 * })
 	 * ```
 	 */
-	component: Component
+	component: TComponent
 	/**
 	 * 弹出层渲染组件的 props ，会传递给弹出层组件
 	 */
-	componentProps?: Record<string, any>
+	componentProps?: ExtractComponentProps<TComponent>
 	/**
 	 * 弹出层渲染之后的回调
 	 */
@@ -320,9 +331,10 @@ export type RenderStyleOptions = {
 	zIndex?: number
 }
 
-export type RenderOption = RenderConfigOptions &
-	RenderComponentOptions &
-	RenderStyleOptions
+export type RenderOption<TComponent extends Component = Component> =
+	RenderConfigOptions &
+		RenderComponentOptions<TComponent> &
+		RenderStyleOptions
 
 export type UpdateOption = Partial<RenderStyleOptions>
 

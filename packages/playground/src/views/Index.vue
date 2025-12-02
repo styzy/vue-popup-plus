@@ -18,6 +18,7 @@
 			.title.sub 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
+				PButton(@click="handlePopupWithProps()") 携带参数
 				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
 				PButton(@click="handlePopupFullScreen()") 全屏
@@ -191,6 +192,8 @@
 import { POPUP_ANIMATIONS, usePopup, version } from 'vue-popup-plus'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
+import Demo from '@/views/Demo.vue'
+import { defineAsyncComponent } from 'vue'
 
 defineOptions({ name: 'Index' })
 
@@ -203,6 +206,17 @@ function handleJump(url: string, blank = false) {
 function handlePopup() {
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupWithProps() {
+	popup.render({
+		// component: Demo,
+		// component: defineAsyncComponent(() => import('@/views/Demo.vue')),
+		component: () => import('@/views/Demo.vue'),
+		componentProps: {
+			test: 'test',
+		},
 	})
 }
 

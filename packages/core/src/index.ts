@@ -8,6 +8,7 @@ export {
 	type PopupCustomProperties,
 	type RenderOption,
 	type UpdateOption,
+	type ExtractComponentProps,
 } from './controller'
 export { type CoreOption as CreateOption } from './core'
 export { type InstanceId } from './instance'
