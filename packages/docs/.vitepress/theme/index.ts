@@ -15,7 +15,9 @@ export default {
 	extends: DefaultTheme,
 	Layout: () => {
 		return h(DefaultTheme.Layout, null, {
-			// https://vitepress.dev/guide/extending-default-theme#layout-slots
+			'home-hero-info-after': () =>
+				h(components.DVersion, { mode: 'home' }),
+			'sidebar-nav-before': () => h(components.DVersion),
 		})
 	},
 	async enhanceApp({ app, router, siteData }) {

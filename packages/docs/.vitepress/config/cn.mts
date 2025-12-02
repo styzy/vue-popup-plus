@@ -32,7 +32,6 @@ export const themeConfig = defineConfig({
 							selectText: '选择',
 							closeText: '关闭搜索',
 							navigateText: '切换',
-							backToSearchText: '返回搜索',
 						},
 					},
 				},
@@ -45,19 +44,29 @@ export const themeConfig = defineConfig({
 			// { text: '首页', link: '/' },
 			{
 				text: '指南',
-				items: [
-					{
-						text: '核心',
-						link: '/guide/introduction',
-						activeMatch: '/guide/',
-					},
-					{
-						text: '预置插件',
-						link: '/plugin-preset/introduction',
-						activeMatch: '/plugin-preset/',
-					},
-				],
+				link: '/guide/introduction',
+				activeMatch: '/guide/',
 			},
+			{
+				text: '预置插件指南',
+				link: '/plugin-preset/introduction',
+				activeMatch: '/plugin-preset/',
+			},
+			// {
+			// 	text: '指南',
+			// 	items: [
+			// 		{
+			// 			text: '核心',
+			// 			link: '/guide/introduction',
+			// 			activeMatch: '/guide/',
+			// 		},
+			// 		{
+			// 			text: '预置插件',
+			// 			link: '/plugin-preset/introduction',
+			// 			activeMatch: '/plugin-preset/',
+			// 		},
+			// 	],
+			// },
 			{
 				text: '示例',
 				link: '/demo/core',
@@ -77,11 +86,11 @@ export const themeConfig = defineConfig({
 				text: '更新日志',
 				items: [
 					{
-						text: '核心',
+						text: '核心日志',
 						link: '/changelog/core',
 					},
 					{
-						text: '预置插件',
+						text: '预置插件日志',
 						link: '/changelog/plugin-preset',
 					},
 				],
