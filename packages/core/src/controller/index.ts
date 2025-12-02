@@ -68,33 +68,6 @@ export interface IController extends PopupCustomProperties {
 	destroy(instanceId: InstanceId, payload?: any): void
 }
 
-export type RenderConfigOptions = {
-	/**
-	 * 弹出层挂载的父元素
-	 *
-	 * - 不指定时，默认挂载到 body 元素下
-	 */
-	appendTo?: Element | string
-	/**
-	 * 弹出层是否显示遮罩层
-	 *
-	 * - 默认值为 true
-	 */
-	mask?: boolean
-	/**
-	 * 点击遮罩层是否关闭弹出层
-	 *
-	 * - 默认值为 false ，仅在 mask 为 true 时有效
-	 */
-	maskClickClose?: boolean
-	/**
-	 * 弹出层是否禁用窗口滚动
-	 *
-	 * - 默认值为 true
-	 */
-	disableScroll?: boolean
-}
-
 /**
  * 提取组件的 props 类型
  *
@@ -148,6 +121,33 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
 	 */
 	onUnmounted?: (payload?: any) => void
+}
+
+export type RenderConfigOptions = {
+	/**
+	 * 弹出层挂载的父元素
+	 *
+	 * - 不指定时，默认挂载到 body 元素下
+	 */
+	appendTo?: Element | string
+	/**
+	 * 弹出层是否显示遮罩层
+	 *
+	 * - 默认值为 true
+	 */
+	mask?: boolean
+	/**
+	 * 点击遮罩层是否关闭弹出层
+	 *
+	 * - 默认值为 false ，仅在 mask 为 true 时有效
+	 */
+	maskClickClose?: boolean
+	/**
+	 * 弹出层是否禁用窗口滚动
+	 *
+	 * - 默认值为 true
+	 */
+	disableScroll?: boolean
 }
 
 export type RenderStyleOptions = {
@@ -340,8 +340,8 @@ export type RenderStyleOptions = {
 }
 
 export type RenderOption<TComponent extends Component = Component> =
-	RenderConfigOptions &
-		RenderComponentOptions<TComponent> &
+	RenderComponentOptions<TComponent> &
+		RenderConfigOptions &
 		RenderStyleOptions
 
 export type UpdateOption = Partial<RenderStyleOptions>

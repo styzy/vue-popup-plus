@@ -61,7 +61,7 @@ interface IInstance {
 }
 
 type InstanceOptions = Required<
-	RenderConfigOptions & RenderComponentOptions & RenderStyleOptions
+	RenderComponentOptions & RenderConfigOptions & RenderStyleOptions
 >
 
 type InstanceState = {
