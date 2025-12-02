@@ -235,6 +235,15 @@ export const themeConfig = defineConfig({
 					],
 				},
 				{
+					text: '进阶 API',
+					items: [
+						{
+							text: 'TypeScript 工具类型',
+							link: '/api/types',
+						},
+					],
+				},
+				{
 					text: '预置插件 API',
 					items: [
 						{

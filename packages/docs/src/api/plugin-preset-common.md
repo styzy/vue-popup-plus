@@ -5,6 +5,10 @@ outline: 2
 
 # 全局 API：通用
 
+::: tip
+以下 API 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
+:::
+
 ## version
 
 暴露当前所使用的 `预置插件` 版本号。
