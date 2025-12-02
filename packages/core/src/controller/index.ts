@@ -95,6 +95,13 @@ export type RenderConfigOptions = {
 	disableScroll?: boolean
 }
 
+/**
+ * 提取组件的 props 类型
+ *
+ * - 支持同步组件和异步组件
+ * - 对于异步组件，除了支持 `defineAsyncComponent` 方法定义组件，还支持直接传入
+ *   ()=>import() 函数。
+ */
 export type ExtractComponentProps<TComponent extends Component = Component> =
 	TComponent extends new () => {
 		$props: infer TProps
@@ -130,6 +137,7 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	component: TComponent
 	/**
 	 * 弹出层渲染组件的 props ，会传递给弹出层组件
+	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
 	 */
 	componentProps?: ExtractComponentProps<TComponent>
 	/**
