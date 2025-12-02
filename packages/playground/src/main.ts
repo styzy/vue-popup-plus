@@ -37,11 +37,11 @@ const plugin = definePlugin({
 		config,
 		{ a = 'default a', b = false }: TestPluginOption = {}
 	) {
-		popup.customProperties.test = function (message: string) {
+		popup.customProperties.test = function (test: string) {
 			this.render({
 				component: () => import('./views/Demo.vue'),
 				componentProps: {
-					message,
+					test,
 				},
 			})
 		}

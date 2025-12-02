@@ -4,10 +4,11 @@
 	"exclude": ["./src/__tests__/*"],
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"],
-			"@utils": ["src/utils"]
+			"@utils": ["src/utils"],
+			"vue": ["node_modules/vue"]
 		},
 		"isolatedModules": true,
 		"strict": true

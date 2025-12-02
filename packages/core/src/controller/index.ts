@@ -27,9 +27,9 @@ export interface IController extends PopupCustomProperties {
 	 * 安装插件
 	 *
 	 * @param {App} app - Vue应用实例
-	 * @returns {void}
+	 * @returns {any}
 	 */
-	install(app: App): void
+	install(app: App): any
 	/**
 	 * 安装插件
 	 *
@@ -378,7 +378,7 @@ export class Controller implements IController {
 	constructor(core: Core) {
 		this._core = core
 	}
-	install(app: App): void {
+	install(app: App): any {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 		this._core.app = app
 	}

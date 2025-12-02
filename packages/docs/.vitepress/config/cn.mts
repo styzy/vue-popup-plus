@@ -47,12 +47,12 @@ export const themeConfig = defineConfig({
 				text: '指南',
 				items: [
 					{
-						text: '核心指南',
+						text: '核心',
 						link: '/guide/introduction',
 						activeMatch: '/guide/',
 					},
 					{
-						text: '预置插件指南',
+						text: '预置插件',
 						link: '/plugin-preset/introduction',
 						activeMatch: '/plugin-preset/',
 					},
@@ -75,8 +75,16 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: '更新日志',
-				link: '/changelog',
-				activeMatch: '/changelog',
+				items: [
+					{
+						text: '核心',
+						link: '/changelog/core',
+					},
+					{
+						text: '预置插件',
+						link: '/changelog/plugin-preset',
+					},
+				],
 			},
 		],
 		sidebar: {
