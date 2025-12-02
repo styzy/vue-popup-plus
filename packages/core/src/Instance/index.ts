@@ -1,20 +1,14 @@
 import {
 	createApp,
 	createVNode,
-	Fragment,
-	getCurrentInstance,
-	markRaw,
 	reactive,
 	ref,
 	render,
 	toRefs,
 	type App,
-	type Component,
-	type Raw,
 	type ToRef,
 	type VNode,
 } from 'vue'
-import { createPinia, defineStore, type Pinia, type Store } from 'pinia'
 import type { Core } from '../core'
 import type {
 	RenderComponentOptions,
@@ -22,10 +16,6 @@ import type {
 	RenderStyleOptions,
 	UpdateOption,
 } from '../controller'
-import {
-	POPUP_COMPONENT_INJECTS,
-	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../CONSTANTS'
 import { wait } from '../utils'
 
 import InstanceComponent from '../components/Popup.vue'
