@@ -45,8 +45,8 @@ export const themeConfig = defineConfig({
 			// { text: '首页', link: '/' },
 			{
 				text: '示例',
-				link: '/examples/core',
-				activeMatch: '/examples/',
+				link: '/demo/core',
+				activeMatch: '/demo/',
 			},
 			{
 				text: '指南',
@@ -165,17 +165,17 @@ export const themeConfig = defineConfig({
 					],
 				},
 			],
-			'/examples/': [
+			'/demo/': [
 				{
 					text: '示例',
 					items: [
 						{
 							text: '基础示例',
-							link: '/examples/core',
+							link: '/demo/core',
 						},
 						{
 							text: '预置插件示例',
-							link: '/examples/plugin-preset',
+							link: '/demo/plugin-preset',
 						},
 					],
 				},
