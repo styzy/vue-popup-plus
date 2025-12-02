@@ -39,24 +39,29 @@ export const themeConfig = defineConfig({
 			},
 		},
 		nav: [
-			{
-				component: 'DVersion',
-			},
+			// {
+			// 	component: 'DVersion',
+			// },
 			// { text: '首页', link: '/' },
+			{
+				text: '指南',
+				items: [
+					{
+						text: '核心指南',
+						link: '/guide/introduction',
+						activeMatch: '/guide/',
+					},
+					{
+						text: '预置插件指南',
+						link: '/plugin-preset/introduction',
+						activeMatch: '/plugin-preset/',
+					},
+				],
+			},
 			{
 				text: '示例',
 				link: '/demo/core',
 				activeMatch: '/demo/',
-			},
-			{
-				text: '指南',
-				link: '/guide/introduction',
-				activeMatch: '/guide/',
-			},
-			{
-				text: '预置插件指南',
-				link: '/plugin-preset/introduction',
-				activeMatch: '/plugin-preset/',
 			},
 			{
 				text: '插件',
@@ -67,6 +72,11 @@ export const themeConfig = defineConfig({
 				text: 'API',
 				link: '/api/controller',
 				activeMatch: '/api/',
+			},
+			{
+				text: '更新日志',
+				link: '/changelog',
+				activeMatch: '/changelog',
 			},
 		],
 		sidebar: {
@@ -170,7 +180,7 @@ export const themeConfig = defineConfig({
 					text: '示例',
 					items: [
 						{
-							text: '基础示例',
+							text: '核心示例',
 							link: '/demo/core',
 						},
 						{
@@ -182,7 +192,7 @@ export const themeConfig = defineConfig({
 			],
 			'/plugin/': [
 				{
-					text: '插件基础',
+					text: '基础',
 					items: [
 						{
 							text: '介绍',
@@ -199,7 +209,7 @@ export const themeConfig = defineConfig({
 					],
 				},
 				{
-					text: '插件进阶',
+					text: '进阶',
 					items: [
 						{
 							text: '功能扩展',
