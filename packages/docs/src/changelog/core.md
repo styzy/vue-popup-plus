@@ -3,7 +3,7 @@ pageClass: changelog
 outline: 2
 ---
 
-# 核心更新日志
+# 核心 更新日志
 
 ## 1.4.1
 
