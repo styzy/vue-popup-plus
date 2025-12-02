@@ -95,9 +95,35 @@ function render(options: RenderOption): InstanceId
 ### 参数类型
 
 ```ts
-type RenderOption = RenderConfigOptions &
-	RenderComponentOptions &
-	RenderStyleOptions
+type RenderOption<TComponent extends Component = Component> =
+	RenderComponentOptions<TComponent> &
+		RenderConfigOptions &
+		RenderStyleOptions
+
+type RenderComponentOptions<TComponent extends Component = Component> = {
+	/**
+	 * 弹出层渲染的组件
+	 *
+	 * - 要创建一个弹出层，这是唯一必要的参数。
+	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
+	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入
+	 *   ()=>import() 函数即可。
+	 */
+	component: TComponent
+	/**
+	 * 弹出层渲染组件的 props ，会传递给弹出层组件
+	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
+	 */
+	componentProps?: ExtractComponentProps<TComponent>
+	/**
+	 * 弹出层渲染之后的回调
+	 */
+	onMounted?: () => void
+	/**
+	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
+	 */
+	onUnmounted?: (payload?: any) => void
+}
 
 type RenderConfigOptions = {
 	/**
@@ -124,30 +150,6 @@ type RenderConfigOptions = {
 	 * - 默认值为 true
 	 */
 	disableScroll?: boolean
-}
-
-type RenderComponentOptions = {
-	/**
-	 * 弹出层渲染的组件
-	 *
-	 * - 要创建一个弹出层，这是唯一必要的参数。
-	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
-	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入
-	 *   ()=>import() 函数即可。
-	 */
-	component: Component
-	/**
-	 * 弹出层渲染组件的 props ，会传递给弹出层组件
-	 */
-	componentProps?: Record<string, any>
-	/**
-	 * 弹出层渲染之后的回调
-	 */
-	onMounted?: () => void
-	/**
-	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
-	 */
-	onUnmounted?: (payload?: any) => void
 }
 
 type RenderStyleOptions = {
