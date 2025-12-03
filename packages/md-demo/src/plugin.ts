@@ -1,4 +1,4 @@
-import Markdown from 'markdown-it'
+import type Markdown from 'markdown-it'
 import container from 'markdown-it-container'
 
 type Options = {
