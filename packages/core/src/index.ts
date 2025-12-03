@@ -11,6 +11,7 @@ export {
 	type ExtractComponentProps,
 } from './controller'
 export { type CoreOption as CreateOption } from './core'
+export { PopupError } from './error'
 export { type InstanceId } from './instance'
 export { definePlugin, type PopupPlugin } from './plugin'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
