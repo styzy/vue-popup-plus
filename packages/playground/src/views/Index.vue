@@ -18,7 +18,8 @@
 			.title.sub 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
-				PButton(@click="handlePopupWithProps()") 携带参数
+				PButton(@click="handlePopupWithProps()") 传入参数
+				PButton(@click="handlePopupWithPayload()") 携带销毁参数
 				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
 				PButton(@click="handlePopupWithoutMask()") 无遮罩层
 				PButton(@click="handlePopupFullScreen()") 全屏
@@ -216,6 +217,17 @@ function handlePopupWithProps() {
 		component: () => import('@/views/Demo.vue'),
 		componentProps: {
 			test: 'test',
+		},
+	})
+}
+
+function handlePopupWithPayload() {
+	popup.render({
+		component: () => import('@/views/Demo.vue'),
+		onUnmounted(payload) {
+			popup.toast(`关闭弹框时携带的参数：${payload}`, {
+				theme: 'success',
+			})
 		},
 	})
 }

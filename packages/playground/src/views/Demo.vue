@@ -5,16 +5,19 @@
 	GlobalComponent
 	input(placeholder="请输入返回值" type="text" v-model="result")
 	button(@click="handleUpdateSize") 更新弹框尺寸
-	button(@click="handleClose") 关闭弹框
+	button(@click="handleClose") 关闭弹框 core
+	button(@click="handleCloseDialog()") 关闭弹框 dialog
 </template>
 
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
 
-defineOptions({ name: 'Demo' })
+const popup = usePopup()
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+
+defineOptions({ name: 'Demo' })
 
 type Props = {
 	/**
@@ -28,17 +31,18 @@ const { test = '' } = defineProps<Props>()
 const result = ref(test)
 
 function handleUpdateSize() {
-	const popup = usePopup()
-	instanceId &&
-		popup.update(instanceId, {
-			width: 900,
-			height: '900px',
-		})
+	popup.update(instanceId, {
+		width: 900,
+		height: '900px',
+	})
 }
 
 function handleClose() {
-	const popup = usePopup()
-	instanceId && popup.destroy(instanceId, result.value)
+	popup.destroy(instanceId, result.value)
+}
+
+function handleCloseDialog() {
+	popup.dialog.close(result.value)
 }
 </script>
 

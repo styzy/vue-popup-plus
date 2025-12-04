@@ -8,12 +8,13 @@ import {
 	type PluginOption,
 	type PopupPlugin,
 } from '../plugin'
-import { PopupError } from '../error'
 import {
 	POPUP_ANIMATIONS,
 	type Animation,
 	type IAnimations,
 } from '../animation'
+import { PopupError } from '../error'
+import { Log, LogType } from '../log'
 import { version } from '../../package.json'
 
 export interface PopupCustomProperties {}
@@ -34,6 +35,7 @@ export interface IController extends PopupCustomProperties {
 	 * 安装插件
 	 *
 	 * - 可安装使用 `definePlugin` 方法定义的插件
+	 * - 重复安装相同的插件，会被忽略
 	 * - 具体请参考{@link IDefinePlugin}
 	 */
 	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
@@ -370,6 +372,7 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 }
 
 export class Controller implements IController {
+	#isInstalled = false
 	_core: Core
 
 	get version(): string {
@@ -381,19 +384,32 @@ export class Controller implements IController {
 	install(app: App): any {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 		this._core.app = app
+		this.#isInstalled = true
 	}
 	use<TOption extends PluginOption>(
 		plugin: PopupPlugin<TOption>,
 		options?: TOption
 	): void {
-		if (!this._core.addPlugin(plugin))
-			throw new PopupError(
-				`使用插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
+		if (!this._core.addPlugin(plugin)) {
+			this._core.log(
+				new Log(
+					LogType.Warn,
+					'controller.use()',
+					`注册插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
+				)
 			)
+			return
+		}
 
 		plugin.install(wrapWithPlugin(this), this._core.config, options)
 	}
 	render({ zIndex, ...options }: RenderOption): InstanceId {
+		if (!this.#isInstalled)
+			throw new PopupError(
+				'controller.render()',
+				'控制器未被注册到 Vue app，渲染失败'
+			)
+
 		zIndex = zIndex ?? this._core.config.zIndex++
 
 		const instance: Instance = new Instance(this._core, {
@@ -405,10 +421,15 @@ export class Controller implements IController {
 		this._core.addInstance(instance)
 
 		instance.mount()
-
 		return instance.id
 	}
 	update(instanceId: InstanceId, options: UpdateOption) {
+		if (!this.#isInstalled)
+			throw new PopupError(
+				'controller.update()',
+				'控制器未被注册到 Vue app，更新失败'
+			)
+
 		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return
@@ -416,6 +437,12 @@ export class Controller implements IController {
 		instance.update(options)
 	}
 	async destroy(instanceId: InstanceId, payload?: any): Promise<void> {
+		if (!this.#isInstalled)
+			throw new PopupError(
+				'controller.destroy()',
+				'控制器未被注册到 Vue app，销毁失败'
+			)
+
 		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return

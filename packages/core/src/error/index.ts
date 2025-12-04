@@ -1,14 +1,13 @@
-type ErrorOption = {
-	module?: string
+interface IPopupError {
+	namespace: string
+	message: string
 }
 
-export class PopupError extends Error {
-	#module: string
-	constructor(message: string, { module = 'core' }: ErrorOption = {}) {
-		super(message)
-		this.#module = module
-	}
-	toString() {
-		return `[vue-popup-plus] [${this.#module}] error: ${this.message}`
+export class PopupError extends Error implements IPopupError {
+	namespace = 'VuePopupPlus'
+	constructor(caller: string, message: string) {
+		super()
+		this.message = `[${this.namespace} error] ${caller}: ${message}`
 	}
 }
+

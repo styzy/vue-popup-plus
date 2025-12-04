@@ -2,6 +2,7 @@ import type { App } from 'vue'
 import { Controller, type IController } from '../controller'
 import { Instance, InstanceId } from '../instance'
 import type { PopupPlugin } from '../plugin'
+import { defaultLogHandler, type ILog, type ILogHandler } from '../log'
 
 export interface ICore {
 	/**
@@ -34,6 +35,12 @@ export interface ICore {
 	 * @param instance - 弹出层实例
 	 */
 	removeInstance(instance: Instance): void
+	/**
+	 * 记录日志
+	 *
+	 * @param log - 日志对象
+	 */
+	log(log: ILog): void
 }
 
 export type CoreOption = {
@@ -87,6 +94,14 @@ export type CoreOption = {
 	 */
 	prototypeName?: string
 	/**
+	 * 日志器
+	 *
+	 * - 默认使用内置的日志器，仅会在开启调试模式时在控制台输出日志
+	 * - 你可以自定义日志器，需要注意日志的接收将不会受到调试模式的影响，
+	 *   无论调试模式是否开启，日志都将被传递给自定义的日志器。
+	 */
+	logHandler?: ILogHandler
+	/**
 	 * 开启调试模式
 	 *
 	 * - 默认为 false
@@ -130,9 +145,16 @@ export class Core implements ICore {
 		zIndex = 1000,
 		prototypeName = '$popup',
 		autoDisableScroll = true,
+		logHandler,
 		debugMode = false,
 	}: CoreOption = {}) {
-		this.#config = { zIndex, prototypeName, autoDisableScroll, debugMode }
+		this.#config = {
+			zIndex,
+			prototypeName,
+			autoDisableScroll,
+			debugMode,
+			logHandler: logHandler || defaultLogHandler,
+		}
 		this.#controller = new Controller(this)
 		core = this
 	}
@@ -168,6 +190,11 @@ export class Core implements ICore {
 	removePlugin(pluginName: string) {
 		delete this.#plugins[pluginName]
 	}
+	log(log: ILog): void {
+		if (!this.config.debugMode) return
+
+		this.config.logHandler(log)
+	}
 	#disableScroll() {
 		if (document.body.style.overflow === 'hidden') return
 
@@ -176,6 +203,7 @@ export class Core implements ICore {
 	}
 	#enableScroll() {
 		if (!this.config.autoDisableScroll) return
+
 		document.body.style.overflow = this.#originBodyOverflow
 	}
 }

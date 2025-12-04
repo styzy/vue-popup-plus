@@ -13,6 +13,7 @@ export {
 export { type CoreOption as CreateOption } from './core'
 export { PopupError } from './error'
 export { type InstanceId } from './instance'
+export { LogType, type ILog, type ILogHandler } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { version } from '../package.json'
@@ -20,7 +21,7 @@ export { version } from '../package.json'
 /**
  * 创建一个弹出层控制器实例
  *
- * - 该实例需要通过 app.use() 安装后才能使用
+ * - 该实例需要被 Vue 的 app.use() 函数安装后才能使用
  *
  * @param options 创建配置，具体请参考 {@link CreateOption}
  * @returns 弹出层控制器实例
@@ -32,6 +33,9 @@ export function createPopup(options?: CreateOption): IController {
 /**
  * 获取弹出层控制器实例
  *
+ * - 必须先调用 {@link createPopup} 创建弹出层控制器实例，才能使用该函数
+ * ，否则会抛出异常
+ *
  * @returns 弹出层控制器实例
  */
 export function usePopup(): IController {
@@ -39,6 +43,7 @@ export function usePopup(): IController {
 
 	if (!core)
 		throw new PopupError(
+			'usePopup',
 			`调用 usePopup 前请先调用 createPopup 创建弹出层控制器实例`
 		)
 
