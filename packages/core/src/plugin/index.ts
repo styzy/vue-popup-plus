@@ -1,7 +1,9 @@
-import type { IController } from '../controller'
-import { PopupError } from '../error'
 import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '../animation'
-import type { CoreConfig } from '..//core'
+import type { IController } from '../controller'
+import type { CoreConfig } from '../core'
+import { PopupError } from '../error'
+import { Log, printLog } from '../log'
+import type { Version } from '../version'
 
 type ControllerPrototypeFunctionValue = (
 	this: IController,
@@ -93,17 +95,52 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	 * 插件名称
 	 *
 	 * - 插件名称必须唯一
+	 * - 名称冲突将导致插件注册失败
 	 */
 	name: string
 	/**
 	 * 插件安装函数
 	 *
-	 * - 第一个参数接收安装此插件的弹出层控制器实例
-	 * - 第二个参数接收安装此插件的弹出层的创建配置
+	 * - 第一个参数接收注册此插件的弹出层控制器实例
+	 * - 第二个参数接收注册此插件的弹出层的创建配置
 	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
 	 *  `popup.use` 方法时传入
 	 */
 	install: PluginInstall<TOption>
+	/**
+	 * 插件作者
+	 *
+	 * - 插件作者可以是个人或组织名称
+	 * - 从核心 `1.5.0` 版本开始，不设置插件作者将会导致在插件注册时
+	 * 通过日志输出一个警告，用以提示插件使用者相关风险
+	 */
+	author?: string
+	/**
+	 * 插件核心版本校验函数
+	 *
+	 * - 插件作者需要在插件安装函数中校验弹出层核心版本是否符合插件要求
+	 * - 该函数需要返回一个布尔值，`true` 表示核心版本符合要求，`false`
+	 * 表示不符合要求，核心将会阻止该插件的注册
+	 * - 从核心 `1.5.0` 版本开始，不设置该校验函数将会导致在插件注册时
+	 * 通过日志输出一个警告，用以提示插件使用者相关风险
+	 */
+	// coreVersionValidator?: (coreVersion: Version) => boolean
+	/**
+	 * 插件核心版本要求
+	 *
+	 * - 插件作者可以指定插件所适配的最低和最高核心版本
+	 * - 不符合要求的核心将无法注册该插件
+	 */
+	requiredCoreVersion?: {
+		/**
+		 * 插件所适配的最低核心版本
+		 */
+		min?: Version
+		/**
+		 * 插件所适配的最高核心版本
+		 */
+		max?: Version
+	}
 }
 
 export type ExtractPluginOption<TPlugin extends PopupPlugin> =
@@ -113,11 +150,14 @@ export interface IDefinePlugin {
 	/**
 	 * 定义插件
 	 *
-	 * - 该方法用于定义一个可以直接被 `popup.use` 方法安装的插件
+	 * - 该方法用于定义一个可以直接被 `popup.use` 方法注册的插件
 	 * - 插件的名称 `name` 必须唯一
+	 * - 插件的作者 `author` 可以是个人或组织名称
+	 * - 插件的核心版本要求 `coreVersion` 可以指定插件所适配的最低和最高核心版本，
+	 * 不符合要求的核心将无法注册该插件
 	 * - 插件的安装函数 `install` 必须是一个函数，接收三个参数：
-	 *   - 第一个参数接收安装此插件的弹出层控制器实例
-	 *   - 第二个参数接收安装此插件的弹出层的创建配置
+	 *   - 第一个参数接收注册此插件的弹出层控制器实例
+	 *   - 第二个参数接收注册此插件的弹出层的创建配置
 	 *   - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
 	 *  `popup.use` 方法时传入
 	 * - 使用示例：
@@ -132,6 +172,11 @@ export interface IDefinePlugin {
 	 *
 	 * const plugin = definePlugin({
 	 * 	name: 'test',
+	 * 	author: 'your name',
+	 * 	coreVersionValidator(coreVersion){
+	 * 		const requiredVersion = '1.5.0'
+	 * 		return coreVersion >= requiredVersion
+	 * 	},
 	 * 	install(popup, config, { logEnable = false }: TestPluginOption = {}) {
 	 * 		popup.customProperties.test = function (message) {
 	 * 			this.render({
@@ -165,7 +210,12 @@ export const wrapWithPlugin: IWrapWithPlugin = (controller) => {
 		controller as IPluginWrappedController,
 		{
 			set(target, property: string, value) {
-				throw new PopupError(`${property} 是只读属性，不能被覆盖`)
+				const log = new Log({
+					caller: 'definePlugin()',
+					message: `${property} 是只读属性，不能被覆盖`,
+				})
+				printLog(log)
+				throw new PopupError(log)
 			},
 			get(target, property: string) {
 				if (property === 'customProperties') {
@@ -186,9 +236,12 @@ function createCustomPropertiseProxy(controller: IController) {
 		{
 			set: (target, property: string, value) => {
 				if (property in controller) {
-					throw new PopupError(
-						`定义插件扩展属性 ${property} 时失败，${property} 是只读属性，不能被覆盖`
-					)
+					const log = new Log({
+						caller: 'definePlugin()',
+						message: `定义插件扩展属性 ${property} 时失败，${property} 是只读属性，不能被覆盖`,
+					})
+					printLog(log)
+					throw new PopupError(log)
 				}
 				;(controller as any).__proto__[property] = value
 				return true
@@ -209,9 +262,12 @@ function createCustomAnimationsProxy(controller: IController) {
 		{
 			set: (target, property: string, value) => {
 				if (property in POPUP_ANIMATIONS) {
-					throw new PopupError(
-						`定义插件扩展动画类型 ${property} 时失败，${property} 是只读属性，不能被覆盖`
-					)
+					const log = new Log({
+						caller: 'definePlugin()',
+						message: `定义插件扩展动画类型 ${property} 时失败，${property} 是只读属性，不能被覆盖`,
+					})
+					printLog(log)
+					throw new PopupError(log)
 				}
 				;(POPUP_ANIMATIONS as any).__proto__[property] = value
 				return true

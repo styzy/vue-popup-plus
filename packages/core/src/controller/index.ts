@@ -14,8 +14,8 @@ import {
 	type IAnimations,
 } from '../animation'
 import { PopupError } from '../error'
-import { printLog, Log, LogType } from '../log'
-import { version } from '../../package.json'
+import { printLog, Log, LogType, LogGroupItemType, type LogGroup } from '../log'
+import { version, type Version } from '../version'
 
 export interface PopupCustomProperties {}
 
@@ -23,7 +23,7 @@ export interface IController extends PopupCustomProperties {
 	/**
 	 * 版本号
 	 */
-	readonly version: string
+	readonly version: Version
 	/**
 	 * 安装插件
 	 *
@@ -32,10 +32,10 @@ export interface IController extends PopupCustomProperties {
 	 */
 	install(app: App): any
 	/**
-	 * 安装插件
+	 * 注册插件
 	 *
-	 * - 可安装使用 `definePlugin` 方法定义的插件
-	 * - 重复安装相同的插件，会被忽略
+	 * - 可注册使用 `definePlugin()` 方法定义的插件
+	 * - 重复注册相同的插件，会被忽略
 	 * - 具体请参考{@link IDefinePlugin}
 	 */
 	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
@@ -66,6 +66,7 @@ export interface IController extends PopupCustomProperties {
 	 * - 传入弹出层的实例 id ，用于销毁指定的弹出层
 	 * - 第二个参数是自定义负载参数，会作为参数传递给创建弹出层时的 onUnmounted 回调函数
 	 * - 该函数返回一个 Promise 对象，用于等待弹出层关闭动画完成
+	 * - 如果弹出层不存在，会在调试模式下打印警告日志
 	 */
 	destroy(instanceId: InstanceId, payload?: any): void
 }
@@ -372,84 +373,241 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 }
 
 export class Controller implements IController {
-	#isInstalled = false
 	_core: Core
 
-	get version(): string {
+	get isInstalled() {
+		return !!this._core.app
+	}
+	get version() {
 		return version
 	}
 	constructor(core: Core) {
 		this._core = core
 	}
-	install(app: App): any {
+	install(app: App) {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 		this._core.app = app
-		this.#isInstalled = true
 	}
 	use<TOption extends PluginOption>(
 		plugin: PopupPlugin<TOption>,
 		options?: TOption
-	): void {
+	) {
+		const log = new Log({
+			type: LogType.Success,
+			caller: 'popup.use()',
+			group: [
+				{
+					type: LogGroupItemType.Default,
+					message: `插件名称: ${plugin.name}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件作者: ${plugin.author ?? '未知（可能存在安全风险）'}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件要求最低核心版本: ${plugin.requiredCoreVersion?.min ?? '-'}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件要求最高核心版本: ${plugin.requiredCoreVersion?.max ?? '-'}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `当前核心版本: ${this.version}`,
+				},
+			],
+		})
+
 		if (!this._core.addPlugin(plugin)) {
-			printLog(
-				new Log(
-					LogType.Warn,
-					'controller.use()',
-					`注册插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
-				)
-			)
+			log.type = LogType.Error
+			log.message = `注册插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
+			printLog(log)
 			return
 		}
 
+		const hasRequiredCoreVersion =
+			plugin.requiredCoreVersion?.min || plugin.requiredCoreVersion?.max
+
+		if (hasRequiredCoreVersion) {
+			if (validPluginVersion(plugin)) {
+				log.group.push({
+					type: LogGroupItemType.Default,
+					message: `版本校验: 通过`,
+				})
+			} else {
+				log.type = LogType.Error
+				log.message = `注册插件 ${plugin.name} 失败，未通过核心版本校验`
+				log.group.push({
+					type: LogGroupItemType.Default,
+					message: `版本校验: 未通过`,
+				})
+				printLog(log)
+				return
+			}
+		} else {
+			log.group.push({
+				type: LogGroupItemType.Default,
+				message: `版本校验: 未校验（可能存在兼容性问题）`,
+			})
+		}
+
 		plugin.install(wrapWithPlugin(this), this._core.config, options)
+
+		const hasAuthor = plugin.author !== undefined
+		const hasRisk = !hasRequiredCoreVersion || !hasAuthor
+
+		if (hasRisk) {
+			log.type = LogType.Warning
+			log.message = `注册插件 ${plugin.name} 成功，但可能存在风险`
+		} else {
+			log.type = LogType.Success
+			log.message = `注册插件 ${plugin.name} 成功`
+		}
+
+		printLog(log)
 	}
-	render({ zIndex, ...options }: RenderOption): InstanceId {
-		if (!this.#isInstalled)
-			throw new PopupError(
-				'controller.render()',
-				'控制器未被注册到 Vue app，渲染失败'
-			)
+	render({ zIndex, ...options }: RenderOption) {
+		const log = new Log({
+			type: LogType.Info,
+			caller: 'popup.render()',
+		})
+
+		if (!this.isInstalled) {
+			log.type = LogType.Error
+			log.message = `渲染弹出层失败，请先调用 app.use() 注册插件`
+			printLog(log)
+			throw new PopupError(log)
+		}
 
 		zIndex = zIndex ?? this._core.config.zIndex++
 
-		const instance: Instance = new Instance(this._core, {
+		const mergedOptions = {
 			...defaultOptions,
 			...options,
 			...{ zIndex },
-		})
+		}
+
+		const instance: Instance = new Instance(this._core, mergedOptions)
 
 		this._core.addInstance(instance)
 
 		instance.mount()
+
+		log.message = `渲染弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `instanceId`,
+			dataValue: instance.id,
+			dataType: 'InstanceId',
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `options`,
+			dataValue: arguments[0],
+			dataType: 'RenderOption',
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `mergedOptions`,
+			dataValue: mergedOptions,
+			dataType: 'RenderOption',
+		})
+
+		printLog(log)
+
 		return instance.id
 	}
 	update(instanceId: InstanceId, options: UpdateOption) {
-		if (!this.#isInstalled)
-			throw new PopupError(
-				'controller.update()',
-				'控制器未被注册到 Vue app，更新失败'
-			)
+		const log = new Log({
+			type: LogType.Info,
+			caller: 'popup.update()',
+		})
+
+		if (!this.isInstalled) {
+			log.type = LogType.Error
+			log.message = `更新弹出层失败，请先调用 app.use() 注册插件`
+			printLog(log)
+			throw new PopupError(log)
+		}
 
 		const instance = this._core.getInstance(instanceId)
 
 		if (!instance) return
 
 		instance.update(options)
+
+		log.message = `更新弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `instanceId`,
+			dataValue: instance.id,
+			dataType: 'InstanceId',
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `options`,
+			dataValue: options,
+			dataType: 'UpdateOption',
+		})
+
+		printLog(log)
 	}
-	async destroy(instanceId: InstanceId, payload?: any): Promise<void> {
-		if (!this.#isInstalled)
-			throw new PopupError(
-				'controller.destroy()',
-				'控制器未被注册到 Vue app，销毁失败'
-			)
+	async destroy(instanceId: InstanceId, payload?: any) {
+		const log = new Log({
+			type: LogType.Info,
+			caller: 'popup.destroy()',
+		})
+
+		if (!this.isInstalled) {
+			log.type = LogType.Error
+			log.message = `销毁弹出层失败，请先调用 app.use() 注册插件`
+			printLog(log)
+			throw new PopupError(log)
+		}
 
 		const instance = this._core.getInstance(instanceId)
 
-		if (!instance) return
+		if (!instance) {
+			log.type = LogType.Warning
+			log.message = `销毁弹出层 ${instanceId.name} 失败，弹出层不存在`
+			printLog(log)
+			return
+		}
 
 		await instance.unmount(payload)
 
 		this._core.removeInstance(instance)
+
+		log.message = `销毁弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `instanceId`,
+			dataValue: instance.id,
+			dataType: 'InstanceId',
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: `payload`,
+			dataValue: payload,
+			dataType: 'any',
+		})
+
+		printLog(log)
 	}
+}
+
+function validPluginVersion(plugin: PopupPlugin) {
+	const { requiredCoreVersion } = plugin
+	const { min, max } = requiredCoreVersion ?? {}
+
+	if (min && version < min) {
+		return false
+	}
+
+	if (max && version > max) {
+		return false
+	}
+	return true
 }
 
