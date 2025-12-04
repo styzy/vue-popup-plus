@@ -65,6 +65,7 @@ import {
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { File } from '../../../class'
 import { download, setClipboard } from '../../../utils'
+import { type Skin } from '../../../typings'
 
 const popup = usePopup()
 
@@ -75,6 +76,7 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
+	skin: Skin
 	sources: Array<string>
 	defaultIndex: number
 	disableCounter: boolean

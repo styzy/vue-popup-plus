@@ -21,7 +21,8 @@
 				PButton(@click="handlePopupWithProps()") 传入参数
 				PButton(@click="handlePopupWithPayload()") 携带销毁参数
 				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
-				PButton(@click="handlePopupWithoutMask()") 无遮罩层
+				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
+				PButton(@click="handlePopupWithoutMaskClickClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupFullScreen()") 全屏
 				PButton(@click="handlePopupMaxSize()") 最大尺寸
 				PButton(@click="handlePopupMinSize()") 最小尺寸
@@ -108,6 +109,7 @@
 				PButton(@click="handlePopupDialogHideHeader()") 隐藏标题栏
 				PButton(@click="handlePopupDialogHeaderClose()") 禁用标题栏关闭
 				PButton(@click="handlePopupDialogWithoutMaskBlur()") 禁用遮罩模糊
+				PButton(@click="handlePopupDialogWithoutMaskClickClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 媒体相册
@@ -242,6 +244,12 @@ function handlePopupWithoutMaskBlur() {
 function handlePopupWithoutMask() {
 	popup.render({
 		mask: false,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupWithoutMaskClickClose() {
+	popup.render({
 		maskClickClose: true,
 		component: () => import('@/views/Demo.vue'),
 	})
@@ -729,6 +737,15 @@ async function handlePopupDialogWithoutMaskBlur() {
 		title: '禁用遮罩模糊',
 		component: () => import('./Demo.vue'),
 		maskBlur: false,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogWithoutMaskClickClose() {
+	const result = await popup.dialog({
+		title: '启用遮罩层点击关闭',
+		component: () => import('./Demo.vue'),
+		maskClickClose: true,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }

@@ -1,4 +1,4 @@
-import { definePlugin } from 'vue-popup-plus'
+import { definePlugin, version as coreVersion } from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
 
 type AlbumOption = {
@@ -96,6 +96,11 @@ declare module 'vue-popup-plus' {
 
 export const album = definePlugin({
 	name: 'plugin-preset-album',
+	author: 'styzy',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.album = function ({
 			sources,

@@ -30,6 +30,7 @@ import {
 	type Component,
 } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import { type Skin } from '../../../typings'
 import PScaffold from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PHeaderButton from '../../../components/PHeaderButton.vue'
@@ -41,11 +42,11 @@ defineOptions({
 	name: 'PDialog',
 })
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
 
 type Props = {
 	id: string
+	skin: Skin
 	title: string
 	customComponent: Component
 	customComponentProps: Record<string, any>
@@ -90,7 +91,7 @@ function handleReload() {
 }
 
 function handleClose() {
-	popup.destroy(instanceId)
+	popup.dialog.close(id)
 }
 </script>
 
@@ -107,3 +108,4 @@ function handleClose() {
 	min-width inherit
 	min-height inherit
 </style>
+
