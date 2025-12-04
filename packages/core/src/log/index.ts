@@ -1,3 +1,5 @@
+import { getCore } from '../core'
+
 export const enum LogType {
 	/**
 	 * 信息日志
@@ -59,10 +61,23 @@ export interface ILogHandler {
 }
 
 /**
+ * 打印日志
+ * @param log 日志实例
+ * @returns
+ */
+export const printLog: ILogHandler = (log) => {
+	const core = getCore()
+
+	if (!core?.config.debugMode) return
+
+	core.config.logHandler(log)
+}
+
+/**
  * 默认日志处理函数
  * @param log 日志实例
  */
-export function defaultLogHandler(log: Log): void {
+export const defaultPrintLog: ILogHandler = (log) => {
 	const printString = `[VuePupupPlus ${log.type}] ${log.caller}: ${log.message}`
 	switch (log.type) {
 		case LogType.Info:

@@ -2,46 +2,7 @@ import type { App } from 'vue'
 import { Controller, type IController } from '../controller'
 import { Instance, InstanceId } from '../instance'
 import type { PopupPlugin } from '../plugin'
-import { defaultLogHandler, type ILog, type ILogHandler } from '../log'
-
-export interface ICore {
-	/**
-	 * 弹出层种子，用于生成弹出层实例id，自动递增
-	 */
-	seed: number
-	/**
-	 * 弹出层配置项
-	 */
-	config: CoreConfig
-	/**
-	 * 弹出层控制器
-	 */
-	controller: IController
-	/**
-	 * 添加弹出层实例
-	 *
-	 * @param instance - 弹出层实例 @
-	 */
-	addInstance(instance: Instance): void
-	/**
-	 * 获取弹出层实例
-	 *
-	 * @param instanceId - 弹出层实例id
-	 */
-	getInstance(instanceId: InstanceId): Instance | void
-	/**
-	 * 移除弹出层实例
-	 *
-	 * @param instance - 弹出层实例
-	 */
-	removeInstance(instance: Instance): void
-	/**
-	 * 记录日志
-	 *
-	 * @param log - 日志对象
-	 */
-	log(log: ILog): void
-}
+import { defaultPrintLog, type ILog, type ILogHandler } from '../log'
 
 export type CoreOption = {
 	/**
@@ -114,6 +75,39 @@ export type CoreOption = {
 
 export type CoreConfig = Required<CoreOption>
 
+export interface ICore {
+	/**
+	 * 弹出层种子，用于生成弹出层实例id，自动递增
+	 */
+	seed: number
+	/**
+	 * 弹出层配置项
+	 */
+	config: CoreConfig
+	/**
+	 * 弹出层控制器
+	 */
+	controller: IController
+	/**
+	 * 添加弹出层实例
+	 *
+	 * @param instance - 弹出层实例 @
+	 */
+	addInstance(instance: Instance): void
+	/**
+	 * 获取弹出层实例
+	 *
+	 * @param instanceId - 弹出层实例id
+	 */
+	getInstance(instanceId: InstanceId): Instance | void
+	/**
+	 * 移除弹出层实例
+	 *
+	 * @param instance - 弹出层实例
+	 */
+	removeInstance(instance: Instance): void
+}
+
 let core: ICore | null = null
 
 export function createCore(options?: CoreOption): ICore {
@@ -145,15 +139,15 @@ export class Core implements ICore {
 		zIndex = 1000,
 		prototypeName = '$popup',
 		autoDisableScroll = true,
-		logHandler,
+		logHandler = defaultPrintLog,
 		debugMode = false,
 	}: CoreOption = {}) {
 		this.#config = {
 			zIndex,
 			prototypeName,
 			autoDisableScroll,
+			logHandler,
 			debugMode,
-			logHandler: logHandler || defaultLogHandler,
 		}
 		this.#controller = new Controller(this)
 		core = this
@@ -189,11 +183,6 @@ export class Core implements ICore {
 	}
 	removePlugin(pluginName: string) {
 		delete this.#plugins[pluginName]
-	}
-	log(log: ILog): void {
-		if (!this.config.debugMode) return
-
-		this.config.logHandler(log)
 	}
 	#disableScroll() {
 		if (document.body.style.overflow === 'hidden') return

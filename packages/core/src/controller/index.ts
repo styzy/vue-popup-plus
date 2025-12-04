@@ -14,7 +14,7 @@ import {
 	type IAnimations,
 } from '../animation'
 import { PopupError } from '../error'
-import { Log, LogType } from '../log'
+import { printLog, Log, LogType } from '../log'
 import { version } from '../../package.json'
 
 export interface PopupCustomProperties {}
@@ -391,7 +391,7 @@ export class Controller implements IController {
 		options?: TOption
 	): void {
 		if (!this._core.addPlugin(plugin)) {
-			this._core.log(
+			printLog(
 				new Log(
 					LogType.Warn,
 					'controller.use()',

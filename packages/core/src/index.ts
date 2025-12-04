@@ -13,7 +13,7 @@ export {
 export { type CoreOption as CreateOption } from './core'
 export { PopupError } from './error'
 export { type InstanceId } from './instance'
-export { LogType, type ILog, type ILogHandler } from './log'
+export { printLog, LogType, type ILog, type ILogHandler } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { version } from '../package.json'
