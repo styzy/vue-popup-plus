@@ -25,6 +25,7 @@ import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
+import { type Skin } from '../../../typings'
 
 const popup = usePopup()
 
@@ -35,6 +36,7 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
+	skin: Skin
 	title: string
 	headerClose: boolean
 	content: string

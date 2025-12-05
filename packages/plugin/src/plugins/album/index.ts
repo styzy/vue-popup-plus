@@ -1,5 +1,16 @@
-import { definePlugin, version as coreVersion } from 'vue-popup-plus'
+import {
+	definePlugin,
+	Log as CoreLog,
+	LogType,
+	LogGroupItemType,
+	printLog,
+	version as coreVersion,
+} from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Album'
+}
 
 type AlbumOption = {
 	/**
@@ -96,7 +107,7 @@ declare module 'vue-popup-plus' {
 
 export const album = definePlugin({
 	name: 'plugin-preset-album',
-	author: 'styzy',
+	author: 'STYZY',
 	requiredCoreVersion: {
 		min: coreVersion,
 		max: coreVersion,
@@ -132,8 +143,49 @@ export const album = definePlugin({
 					maskBlur,
 					onUnmounted: () => {
 						resolve()
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: 'popup.destroy()',
+								message: `关闭媒体相册成功`,
+							})
+						)
 					},
 				})
+
+				const mergedOptions: Required<AlbumOption> = {
+					sources,
+					defaultIndex,
+					disableCounter,
+					disableName,
+					disablePure,
+					disableDownload,
+					disableScale,
+					disableDrag,
+					maskBlur,
+				}
+
+				printLog(
+					new Log({
+						type: LogType.Info,
+						caller: 'popup.album()',
+						message: `打开媒体相册成功`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'original options',
+								dataValue: arguments[0],
+								dataType: 'AlbumOption',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'merged options',
+								dataValue: mergedOptions,
+								dataType: 'Required<AlbumOption>',
+							},
+						],
+					})
+				)
 			})
 		}
 	},

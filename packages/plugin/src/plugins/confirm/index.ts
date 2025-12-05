@@ -1,5 +1,16 @@
-import { definePlugin } from 'vue-popup-plus'
+import {
+	definePlugin,
+	Log as CoreLog,
+	LogType,
+	LogGroupItemType,
+	printLog,
+	version as coreVersion,
+} from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Confirm'
+}
 
 type ConfirmOption = {
 	/**
@@ -73,6 +84,11 @@ declare module 'vue-popup-plus' {
 
 export const confirm = definePlugin({
 	name: 'plugin-preset-confirm',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.confirm = function (
 			content: string = '是否确认？',
@@ -102,8 +118,62 @@ export const confirm = definePlugin({
 					maskBlur,
 					onUnmounted: (isConfirm: boolean) => {
 						resolve(isConfirm)
+
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: 'popup.destroy()',
+								message: `关闭确认框成功，确认结果: ${isConfirm}`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										dataName: 'isConfirm',
+										dataValue: isConfirm,
+										dataType: 'boolean',
+									},
+								],
+							})
+						)
 					},
 				})
+
+				const mergedOptions: Required<ConfirmOption> = {
+					title,
+					headerClose,
+					confirmText,
+					cancelText,
+					draggable,
+					dragOverflow,
+					maskBlur,
+				}
+
+				printLog(
+					new Log({
+						type: LogType.Info,
+						caller: 'popup.confirm()',
+						message: `打开确认框成功`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'content',
+								dataValue: content,
+								dataType: 'string',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'original options',
+								dataValue: arguments[1],
+								dataType: 'ConfirmOption',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'merged options',
+								dataValue: mergedOptions,
+								dataType: 'Required<ConfirmOption>',
+							},
+						],
+					})
+				)
 			})
 		}
 	},

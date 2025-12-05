@@ -19,7 +19,7 @@ export { album, alert, confirm, dialog, loading, prompt, toast }
 
 export const plugin = definePlugin({
 	name: 'plugin-preset',
-	author: 'styzy',
+	author: 'STYZY',
 	requiredCoreVersion: {
 		min: coreVersion,
 		max: coreVersion,

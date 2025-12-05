@@ -1,5 +1,16 @@
-import { definePlugin } from 'vue-popup-plus'
+import {
+	definePlugin,
+	Log as CoreLog,
+	LogType,
+	LogGroupItemType,
+	printLog,
+	version as coreVersion,
+} from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Alert'
+}
 
 type AlertOption = {
 	/**
@@ -67,6 +78,11 @@ declare module 'vue-popup-plus' {
 
 export const alert = definePlugin({
 	name: 'plugin-preset-alert',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.alert = function (
 			content: string = '',
@@ -94,8 +110,53 @@ export const alert = definePlugin({
 					maskBlur,
 					onUnmounted: () => {
 						resolve()
+
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: 'popup.destroy()',
+								message: `关闭提示框成功`,
+							})
+						)
 					},
 				})
+
+				const mergedOptions: Required<AlertOption> = {
+					title,
+					headerClose,
+					confirmText,
+					draggable,
+					dragOverflow,
+					maskBlur,
+				}
+
+				printLog(
+					new Log({
+						type: LogType.Info,
+						caller: 'popup.alert()',
+						message: `打开提示框成功`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'content',
+								dataValue: content,
+								dataType: 'string',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'original options',
+								dataValue: arguments[1],
+								dataType: 'AlertOption',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'merged options',
+								dataValue: mergedOptions,
+								dataType: 'Required<AlertOption>',
+							},
+						],
+					})
+				)
 			})
 		}
 	},

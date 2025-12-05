@@ -637,6 +637,7 @@ async function handlePopupPromptDraggableOverflow() {
 
 function handlePopupLoading() {
 	window.setTimeout(popup.loading(), 3000)
+	window.setTimeout(popup.loading(), 3000)
 }
 
 function handlePopupLoadingPrimary() {

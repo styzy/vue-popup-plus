@@ -5,9 +5,14 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
+	version as coreVersion,
 	type InstanceId,
 } from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Dialog'
+}
 
 type DialogOption = {
 	/**
@@ -142,16 +147,17 @@ declare module 'vue-popup-plus' {
 	}
 }
 
-class Log extends CoreLog {
-	namespace = 'VuePopupPlusPluginPreset Dialog'
-}
-
 let seed = 1
 
 const createId = () => `dialog-${seed++}`
 
 export const dialog = definePlugin({
 	name: 'plugin-preset-dialog',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		const recordList: Array<{
 			id: string
@@ -212,7 +218,7 @@ export const dialog = definePlugin({
 
 						const log = new Log({
 							type: LogType.Info,
-							message: `销毁对话框 ${id} 成功`,
+							message: `关闭对话框 ${id} 成功`,
 							group: [
 								{
 									type: LogGroupItemType.Data,
@@ -247,7 +253,7 @@ export const dialog = definePlugin({
 					instanceId,
 				})
 
-				const mergedOptions: DialogOption = {
+				const mergedOptions: Required<DialogOption> = {
 					title,
 					component,
 					componentProps,
@@ -271,7 +277,7 @@ export const dialog = definePlugin({
 					new Log({
 						type: LogType.Info,
 						caller: 'popup.dialog()',
-						message: `渲染对话框 ${id} 成功`,
+						message: `打开对话框 ${id} 成功`,
 						group: [
 							{
 								type: LogGroupItemType.Data,
@@ -289,7 +295,7 @@ export const dialog = definePlugin({
 								type: LogGroupItemType.Data,
 								dataName: 'merged options',
 								dataValue: mergedOptions,
-								dataType: 'DialogOption',
+								dataType: 'Required<DialogOption>',
 							},
 						],
 					})

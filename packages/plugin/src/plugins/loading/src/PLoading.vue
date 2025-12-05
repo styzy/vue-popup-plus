@@ -12,7 +12,7 @@ import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
-import { type Theme } from '../../../typings'
+import { type Skin, type Theme } from '../../../typings'
 
 const popup = usePopup()
 
@@ -23,6 +23,7 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
+	skin: Skin
 	theme: Theme
 	title: string
 	iconSize: number
