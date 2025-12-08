@@ -7,6 +7,7 @@ import {
 	printLog,
 	version as coreVersion,
 	type InstanceId,
+	type ExtractComponentProps,
 } from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
 
@@ -14,7 +15,7 @@ class Log extends CoreLog {
 	namespace = 'VuePopupPlusPluginPreset Dialog'
 }
 
-type DialogOption = {
+type DialogOption<TComponent extends Component = Component> = {
 	/**
 	 * 对话框标题
 	 *
@@ -24,11 +25,11 @@ type DialogOption = {
 	/**
 	 * 对话框内容组件
 	 */
-	component: Component
+	component: TComponent
 	/**
 	 * 对话框内容组件props
 	 */
-	componentProps?: Record<string, any>
+	componentProps?: ExtractComponentProps<TComponent>
 	/**
 	 * 对话框渲染完成时调用的回调函数
 	 */
@@ -129,7 +130,9 @@ export interface IDialog {
 	 *   Promise resolve 后获取
 	 * - 对话框关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是否有返回参数
 	 */
-	<T extends any = any>(options: DialogOption): Promise<T | void>
+	<T extends any = any, TComponent extends Component = Component>(
+		options: DialogOption<TComponent>
+	): Promise<T | void>
 	/**
 	 * 关闭对话框
 	 *
