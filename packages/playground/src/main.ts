@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
-import { createPopup, definePlugin } from 'vue-popup-plus'
+import {
+	createPopup,
+	definePlugin,
+	version as coreVersion,
+} from 'vue-popup-plus'
 import { plugin } from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
@@ -32,6 +36,11 @@ type TestPluginOption = {
 
 const testPlugin = definePlugin({
 	name: 'test',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install(
 		popup,
 		config,
@@ -54,10 +63,10 @@ popup.use(testPlugin, {
 	a: 'test',
 	b: true,
 })
-popup.use(testPlugin, {
-	a: 'test',
-	b: true,
-})
+// popup.use(testPlugin, {
+// 	a: 'test',
+// 	b: true,
+// })
 
 app.use(router)
 app.use(popup)
