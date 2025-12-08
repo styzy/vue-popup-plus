@@ -25,13 +25,15 @@ export const plugin = definePlugin({
 		max: coreVersion,
 	},
 	install(controller, config, { skin = 'classic' }: GlobalOption = {}) {
-		controller.use(album, { skin })
-		controller.use(alert, { skin })
-		controller.use(confirm, { skin })
-		controller.use(dialog, { skin })
-		controller.use(loading, { skin })
-		controller.use(prompt, { skin })
-		controller.use(toast, { skin })
+		const options = { skin }
+
+		album.install(controller, config, options)
+		alert.install(controller, config, options)
+		confirm.install(controller, config, options)
+		dialog.install(controller, config, options)
+		loading.install(controller, config, options)
+		prompt.install(controller, config, options)
+		toast.install(controller, config, options)
 	},
 })
 
