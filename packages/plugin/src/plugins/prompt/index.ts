@@ -1,5 +1,16 @@
-import { definePlugin } from 'vue-popup-plus'
+import {
+	definePlugin,
+	Log as CoreLog,
+	LogType,
+	LogGroupItemType,
+	printLog,
+	version as coreVersion,
+} from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Prompt'
+}
 
 export type PromptType = 'input' | 'textarea'
 
@@ -107,6 +118,11 @@ declare module 'vue-popup-plus' {
 
 export const prompt = definePlugin({
 	name: 'plugin-preset-prompt',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.prompt = function (
 			message: string,
@@ -144,8 +160,66 @@ export const prompt = definePlugin({
 					maskBlur,
 					onUnmounted: (value: string) => {
 						resolve(value)
+
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: 'popup.destroy()',
+								message: `关闭提示输入框成功，输入值为：${value}`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										dataName: 'input value',
+										dataValue: value,
+										dataType: 'string',
+									},
+								],
+							})
+						)
 					},
 				})
+
+				const mergedOptions: Required<PromptOption> = {
+					defaultValue,
+					type,
+					title,
+					headerClose,
+					maxLength,
+					placeholder,
+					confirmText,
+					cancelText,
+					draggable,
+					dragOverflow,
+					maskBlur,
+				}
+
+				printLog(
+					new Log({
+						type: LogType.Info,
+						caller: 'popup.prompt()',
+						message: `打开提示输入框成功`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'content',
+								dataValue: message,
+								dataType: 'string',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'original options',
+								dataValue: arguments[1],
+								dataType: 'PromptOption',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'merged options',
+								dataValue: mergedOptions,
+								dataType: 'Required<PromptOption>',
+							},
+						],
+					})
+				)
 			})
 		}
 	},

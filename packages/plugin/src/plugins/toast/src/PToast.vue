@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { inject, onMounted } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
-import { type Theme } from '../../../typings'
+import { type Skin, type Theme } from '../../../typings'
 
 const popup = usePopup()
 
@@ -19,6 +19,7 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
+	skin: Skin
 	content: string
 	theme: Theme
 	duration: number

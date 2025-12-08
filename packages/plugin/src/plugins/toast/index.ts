@@ -1,5 +1,17 @@
-import { definePlugin, POPUP_ANIMATIONS } from 'vue-popup-plus'
+import {
+	definePlugin,
+	Log as CoreLog,
+	LogType,
+	LogGroupItemType,
+	printLog,
+	version as coreVersion,
+	POPUP_ANIMATIONS,
+} from 'vue-popup-plus'
 import { type GlobalOption, type Theme } from '../../typings'
+
+class Log extends CoreLog {
+	namespace = 'VuePopupPlusPluginPreset Toast'
+}
 
 type ToastOption = {
 	/**
@@ -45,6 +57,11 @@ declare module 'vue-popup-plus' {
 
 export const toast = definePlugin({
 	name: 'plugin-preset-toast',
+	author: 'STYZY',
+	requiredCoreVersion: {
+		min: coreVersion,
+		max: coreVersion,
+	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		controller.customProperties.toast = function (
 			content: string = '',
@@ -64,8 +81,57 @@ export const toast = definePlugin({
 					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 					onUnmounted: () => {
 						resolve()
+
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: 'popup.toast()',
+								message: `关闭消息成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										dataName: 'content',
+										dataValue: content,
+										dataType: 'string',
+									},
+								],
+							})
+						)
 					},
 				})
+
+				const mergedOptions: Required<ToastOption> = {
+					theme,
+					duration,
+				}
+
+				printLog(
+					new Log({
+						type: LogType.Info,
+						caller: 'popup.toast()',
+						message: `打开消息成功`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'content',
+								dataValue: content,
+								dataType: 'string',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'original options',
+								dataValue: arguments[1],
+								dataType: 'ToastOption',
+							},
+							{
+								type: LogGroupItemType.Data,
+								dataName: 'merged options',
+								dataValue: mergedOptions,
+								dataType: 'Required<ToastOption>',
+							},
+						],
+					})
+				)
 			})
 		}
 	},
