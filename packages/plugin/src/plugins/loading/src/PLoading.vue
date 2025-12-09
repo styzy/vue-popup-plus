@@ -9,10 +9,10 @@
 <script lang="ts" setup>
 import { inject } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { type Skin, type Theme } from '../../../typings'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
-import { type Skin, type Theme } from '../../../typings'
 
 const popup = usePopup()
 

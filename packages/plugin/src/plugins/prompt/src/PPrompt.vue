@@ -33,13 +33,13 @@
 import { computed, inject, ref } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { type PromptType } from '../index'
+import { type Skin } from '../../../typings'
 import PScaffold from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
-import { type Skin } from '../../../typings'
 
 const popup = usePopup()
 

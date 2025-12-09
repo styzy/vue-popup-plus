@@ -1,6 +1,6 @@
 <template lang="pug">
 .p-header(
-	:class="{ 'is-draggable': draggable }"
+	:class="{ 'is-draggable': draggable, [`is-skin-${skin}`]: true }"
 	@mousedown="handleDragStart($event)")
 	.icon(v-if="hasIcon")
 		i.iconfont-popup-plugin-preset(:class="iconClass")
@@ -17,6 +17,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import { type Skin } from '../typings'
 import PHeaderButton from './PHeaderButton.vue'
 
 const popup = usePopup()
@@ -29,6 +30,7 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
 
 type Props = {
+	skin?: Skin
 	title?: string
 	height?: number
 	iconClass?: string
@@ -37,6 +39,7 @@ type Props = {
 }
 
 const {
+	skin = 'classic',
 	title = '',
 	iconClass = '',
 	height = 40,
@@ -112,8 +115,9 @@ function handleOffsetChange() {
 	gap 10px
 	padding-left 20px
 	height v-bind('`${height}px`')
-	border-bottom 1px solid var(--popup-plugin-preset-color-border)
-	background-color var(--popup-plugin-preset-color-background-sub)
+	&.is-skin-classic
+		border-bottom 1px solid var(--popup-plugin-preset-color-border)
+		background-color var(--popup-plugin-preset-color-background-sub)
 	&.is-draggable
 		cursor move
 		user-select none
