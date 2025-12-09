@@ -287,4 +287,3 @@ export const themeConfig = defineConfig({
 		},
 	},
 }).themeConfig
-

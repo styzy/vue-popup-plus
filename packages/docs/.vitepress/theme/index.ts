@@ -5,7 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
 import { components } from './components'
 import { createPopup } from 'vue-popup-plus'
-import { presetPlugin } from 'vue-popup-plus-plugin-preset'
+import { plugin } from 'vue-popup-plus-plugin-preset'
 
 import './style.css'
 import 'virtual:group-icons.css'
@@ -24,7 +24,7 @@ export default {
 		if (!import.meta.env.SSR) {
 			const popup = createPopup()
 
-			popup.use(presetPlugin)
+			popup.use(plugin)
 
 			app.use(popup)
 
@@ -36,4 +36,3 @@ export default {
 		}
 	},
 } satisfies Theme
-

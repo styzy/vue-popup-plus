@@ -88,4 +88,3 @@ function isSameOrigin(url: string) {
 function getFileName(url: string) {
 	return url.split('/')[url.split('/').length - 1] || ''
 }
-
