@@ -63,8 +63,8 @@ import {
 	watch,
 } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { download, setClipboard } from 'utils'
 import { File } from '../../../class'
-import { download, setClipboard } from '../../../utils'
 import { type Skin } from '../../../typings'
 
 const popup = usePopup()

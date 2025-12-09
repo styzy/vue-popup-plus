@@ -14,7 +14,8 @@
 	"dependencies": {
 		"vue": "catalog:",
 		"vue-popup-plus": "workspace:*",
-		"vue-popup-plus-plugin-preset": "workspace:*"
+		"vue-popup-plus-plugin-preset": "workspace:*",
+		"utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",

@@ -16,7 +16,7 @@ import type {
 	RenderStyleOptions,
 	UpdateOption,
 } from '../controller'
-import { wait } from '../utils'
+import { wait } from 'utils'
 
 import InstanceComponent from '../components/Popup.vue'
 

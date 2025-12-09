@@ -1,0 +1,10 @@
+{
+	"name": "utils",
+	"private": true,
+	"version": "1.0.0",
+	"license": "MIT",
+	"main": "src/index.ts",
+	"devDependencies": {
+		"prettier": "3.6.2"
+	}
+}

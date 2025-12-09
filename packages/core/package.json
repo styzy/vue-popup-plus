@@ -32,7 +32,8 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
-		"vue": "catalog:"
+		"vue": "catalog:",
+		"utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",

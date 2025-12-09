@@ -1,4 +1,4 @@
-import { getUrlSuffix, typeOf } from '../utils'
+import { getUrlSuffix, typeOf } from 'utils'
 
 export const enum FileType {
 	/**
