@@ -897,4 +897,3 @@ function handlePopupAlbumDisableDrag() {
 		font-weight 700
 		font-size 16px
 </style>
-

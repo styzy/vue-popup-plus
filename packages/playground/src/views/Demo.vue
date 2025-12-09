@@ -61,4 +61,3 @@ function handleCloseDialog() {
 	min-height 300px
 	color #FFFFFF
 </style>
-

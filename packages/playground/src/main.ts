@@ -94,4 +94,3 @@ declare module 'vue' {
 		GlobalComponent: typeof GlobalComponent
 	}
 }
-
