@@ -610,4 +610,3 @@ function validPluginVersion(plugin: PopupPlugin) {
 	}
 	return true
 }
-

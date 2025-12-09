@@ -26,4 +26,3 @@ export class PopupError extends Error {
 		this.message = `[${namespace} error] ${caller}: ${message}`
 	}
 }
-

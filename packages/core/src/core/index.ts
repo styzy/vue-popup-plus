@@ -196,4 +196,3 @@ export class Core implements ICore {
 		document.body.style.overflow = this.#originBodyOverflow
 	}
 }
-

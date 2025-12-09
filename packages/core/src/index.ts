@@ -68,4 +68,3 @@ declare module 'vue' {
 		$popup: IController
 	}
 }
-

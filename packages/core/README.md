@@ -9,11 +9,11 @@
 
 ## ✨ 特性
 
-* 🎯 **简单易用** - 简洁的 API，快速集成到您的项目中
-* 🔌 **可扩展** - 自定义弹窗内容和样式，满足各种场景需求
-* 🎭 **动画支持** - 内置多种动画效果，让弹窗展示更生动
-* 📱 **响应式设计** - 完美适配各种屏幕尺寸
-* 🧩 **TypeScript 支持** - 完整的类型定义，提供良好的开发体验
+- 🎯 **简单易用** - 简洁的 API，快速集成到您的项目中
+- 🔌 **可扩展** - 自定义弹窗内容和样式，满足各种场景需求
+- 🎭 **动画支持** - 内置多种动画效果，让弹窗展示更生动
+- 📱 **响应式设计** - 完美适配各种屏幕尺寸
+- 🧩 **TypeScript 支持** - 完整的类型定义，提供良好的开发体验
 
 ## 📦 安装
 
@@ -53,7 +53,7 @@ app.mount('#app')
 
 ```vue
 <template>
-  <button @click="showPopup">显示弹窗</button>
+	<button @click="showPopup">显示弹窗</button>
 </template>
 
 <script setup>
@@ -62,17 +62,17 @@ import { usePopup } from 'vue-popup-plus'
 const popup = usePopup()
 
 const showPopup = () => {
-    popup.render({
-        // 组件
-        component: () => import('./components/Demo.vue'),
-        // 组件属性
-        componentProps: {
-            // 根据你的组件属性传入
-        },
-        width: 400,
-        maxHeight: 600,
-        mask: false
-    })
+	popup.render({
+		// 组件
+		component: () => import('./components/Demo.vue'),
+		// 组件属性
+		componentProps: {
+			// 根据你的组件属性传入
+		},
+		width: 400,
+		maxHeight: 600,
+		mask: false,
+	})
 }
 </script>
 ```

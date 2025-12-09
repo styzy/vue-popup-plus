@@ -45,4 +45,3 @@ onMounted(() => {
 	animation-timing-function linear
 	animation-duration v-bind(animationDuration)
 </style>
-

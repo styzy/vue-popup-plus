@@ -34,4 +34,3 @@ const { store } = defineProps<Props>()
 provide(POPUP_COMPONENT_INJECTS.INSTANCE_ID, store.id)
 provide(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE, store)
 </script>
-

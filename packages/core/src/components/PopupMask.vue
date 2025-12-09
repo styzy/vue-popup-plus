@@ -39,4 +39,3 @@ function handleClick() {
 	&.is-blur
 		backdrop-filter blur(15px)  saturate(180%)
 </style>
-

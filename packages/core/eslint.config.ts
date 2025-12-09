@@ -29,4 +29,3 @@ export default defineConfigWithVueTs(
 	},
 	skipFormatting
 )
-

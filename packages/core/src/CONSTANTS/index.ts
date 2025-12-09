@@ -96,4 +96,3 @@ export const POPUP_INSIDE_COMPONENT_INJECTS: Readonly<insideComponentInjectKeys>
 	{
 		INSTANCE_STORE: Symbol(`${NAME_SPACE}-instance-store`),
 	}
-

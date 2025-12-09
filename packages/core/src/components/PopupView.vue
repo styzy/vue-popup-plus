@@ -133,4 +133,3 @@ function formatSize(size: string | number): string {
 		overflow auto
 		pointer-events auto
 </style>
-
