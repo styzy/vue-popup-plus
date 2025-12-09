@@ -71,6 +71,9 @@ export interface IController extends PopupCustomProperties {
 	destroy(instanceId: InstanceId, payload?: any): void
 }
 
+type WithDefaultProps<T> =
+	T extends Record<string, any> ? T : Record<string, any>
+
 /**
  * 提取组件的 props 类型
  *
@@ -79,13 +82,17 @@ export interface IController extends PopupCustomProperties {
  *   ()=>import() 函数。
  */
 export type ExtractComponentProps<TComponent extends Component = Component> =
-	TComponent extends new () => {
-		$props: infer TProps
-	}
-		? TProps
-		: TComponent extends AsyncComponentLoader
-			? InstanceType<Awaited<ReturnType<TComponent>>['default']>['$props']
-			: Record<string, any>
+	WithDefaultProps<
+		TComponent extends new () => {
+			$props: infer TProps
+		}
+			? TProps
+			: TComponent extends AsyncComponentLoader
+				? InstanceType<
+						Awaited<ReturnType<TComponent>>['default']
+					>['$props']
+				: Record<string, any>
+	>
 
 export type RenderComponentOptions<TComponent extends Component = Component> = {
 	/**
