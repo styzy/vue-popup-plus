@@ -8,7 +8,7 @@ export function formatDate(date = new Date(), rules = 'yyyy-MM-dd hh:mm:ss') {
 		'm+': date.getMinutes(), //minute
 		's+': date.getSeconds(), //second
 		'q+': Math.floor((date.getMonth() + 3) / 3), //quarter
-		S: date.getMilliseconds() //millisecond
+		S: date.getMilliseconds(), //millisecond
 	}
 
 	if (/(y+)/i.test(rules)) {

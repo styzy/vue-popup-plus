@@ -326,4 +326,3 @@ export const dialog = definePlugin({
 		controller.customProperties.dialog = dialog
 	},
 })
-

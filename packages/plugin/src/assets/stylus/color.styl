@@ -1,7 +1,7 @@
 // 生成颜色变量
 generateCssColor($name, $color)
 	--popup-plugin-preset-color-{$name} $color
-	
+
 	--popup-plugin-preset-color-{$name}-dark darken($color, 25%)
 	--popup-plugin-preset-color-{$name}-dark-lite darken($color, 10%)
 	--popup-plugin-preset-color-{$name}-dark-most darken($color, 90%)
@@ -14,7 +14,7 @@ generateCssColor($name, $color)
 	--popup-plugin-preset-color-{$name}-dark-70 darken($color, 70%)
 	--popup-plugin-preset-color-{$name}-dark-80 darken($color, 80%)
 	--popup-plugin-preset-color-{$name}-dark-90 darken($color, 90%)
-	
+
 	--popup-plugin-preset-color-{$name}-light lighten($color, 25%)
 	--popup-plugin-preset-color-{$name}-light-lite lighten($color, 10%)
 	--popup-plugin-preset-color-{$name}-light-most lighten($color, 90%)
@@ -58,7 +58,7 @@ $preset-color-shadow = rgba(50,50,50, 0.3)
 	generateCssColor('background-sub', $preset-color-background-sub)
 	generateCssColor('shadow', $preset-color-shadow)
 
-	
+
 $preset-dark-color-text-main = #dfdfd6
 $preset-dark-color-text-sub = #98989f
 $preset-dark-color-text-light = #7b7a7a

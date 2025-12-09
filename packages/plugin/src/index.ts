@@ -36,4 +36,3 @@ export const plugin = definePlugin({
 		toast.install(controller, config, options)
 	},
 })
-

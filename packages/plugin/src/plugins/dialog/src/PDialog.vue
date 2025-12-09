@@ -108,4 +108,3 @@ function handleClose() {
 	min-width inherit
 	min-height inherit
 </style>
-
