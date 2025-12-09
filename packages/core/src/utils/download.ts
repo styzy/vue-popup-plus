@@ -11,7 +11,7 @@ export function download(
 		allowCrossOrigin = false,
 		fileName = getFileName(url),
 		headers = {},
-		onSuccess = () => {}
+		onSuccess = () => {},
 	}: DownloadOptions = {}
 ) {
 	try {
@@ -25,8 +25,7 @@ export function download(
 			}
 		}
 	} catch (error) {
-		// eslint-disable-next-line
-		console.error('free download error:\n', error)
+		console.error('download error:\n', error)
 	}
 
 	// 同源下载
