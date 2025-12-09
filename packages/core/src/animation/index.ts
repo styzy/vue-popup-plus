@@ -39,28 +39,28 @@ export type Animation = IAnimations[keyof IAnimations]
 
 class Animations implements IAnimations {
 	get NONE() {
-		return 'none' as 'none'
+		return 'none' as const
 	}
 	get FADE() {
-		return 'fade' as 'fade'
+		return 'fade' as const
 	}
 	get SCALE_ENLARGE() {
-		return 'scale-enlarge' as 'scale-enlarge'
+		return 'scale-enlarge' as const
 	}
 	get SCALE_REDUCE() {
-		return 'scale-reduce' as 'scale-reduce'
+		return 'scale-reduce' as const
 	}
 	get FLY_TOP() {
-		return 'fly-top' as 'fly-top'
+		return 'fly-top' as const
 	}
 	get FLY_LEFT() {
-		return 'fly-left' as 'fly-left'
+		return 'fly-left' as const
 	}
 	get FLY_RIGHT() {
-		return 'fly-right' as 'fly-right'
+		return 'fly-right' as const
 	}
 	get FLY_BOTTOM() {
-		return 'fly-bottom' as 'fly-bottom'
+		return 'fly-bottom' as const
 	}
 	constructor() {}
 }
