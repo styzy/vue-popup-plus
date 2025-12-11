@@ -16,7 +16,7 @@ outline: 2
 - 新增导出 `Log` 、 `LogType` 、 `printLog` 等工具 API ，用于插件开发者提供插件日志输出。
 - 新增导出 `LogGroupItemType` 、 `LogGroupItem` 等工具类型，用于插件开发者提供插件日志分组输出。
 - 新增导出 `Version` 类型，用于插件开发者使用该类型进行版本适配和维护。
-- 新增导出 TypeScript 工具类型 `ExtractComponentProps<T>`，用于从组件类型中提取属性类型。
+- 新增导出 TypeScript 工具类型 `ExtractComponentPropTypes<T>`，用于从组件类型中提取属性类型。
 
 ### 优化
 

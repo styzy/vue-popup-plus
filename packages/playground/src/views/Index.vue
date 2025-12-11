@@ -215,13 +215,13 @@ function handlePopup() {
 function handlePopupWithProps() {
 	popup.render({
 		// component: Demo,
-		// component: defineAsyncComponent(() => import('@/views/Demo.vue')),
-		component: () => import('@/views/Demo.vue'),
+		component: defineAsyncComponent(() => import('@/views/Demo.vue')),
+		// component: () => import('@/views/Demo.vue'),
 		componentProps: {
 			test: 'test',
-			onTest(name) {
-				popup.toast(`触发事件：${name}`, {
-					theme: 'success',
+			onInputChange(value) {
+				popup.toast(`触发事件：${value}`, {
+					theme: 'primary',
 				})
 			},
 		},
@@ -694,6 +694,11 @@ async function handlePopupDialogCustomComponentProps() {
 		component: () => import('./Demo.vue'),
 		componentProps: {
 			test: '123',
+			onInputChange: (value) => {
+				popup.toast(`输入框内容改变为：${value}`, {
+					theme: 'primary',
+				})
+			},
 		},
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)

@@ -1,11 +1,12 @@
 <template lang="pug">
 .global-component
 	div 全局组件
-	button(@click="handleClick") 全局组件按钮
+	PButton(@click="handleClick" theme="danger") 全局组件按钮
 </template>
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
+import PButton from '../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 

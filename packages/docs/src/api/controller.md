@@ -114,7 +114,7 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	 * 弹出层渲染组件的 props ，会传递给弹出层组件
 	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
 	 */
-	componentProps?: ExtractComponentProps<TComponent>
+	componentProps?: ExtractComponentPropTypes<TComponent>
 	/**
 	 * 弹出层渲染之后的回调
 	 */

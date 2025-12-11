@@ -9,7 +9,7 @@ outline: 2
 此页面仅列出了一些 `常用的` 工具类型。
 :::
 
-## ExtractComponentProps\<T\>
+## ExtractComponentPropTypes\<T\>
 
 用于从组件中提取组件的 props 类型。
 
@@ -48,19 +48,19 @@ export default {
 
 ```ts
 import { defineAsyncComponent } from 'vue'
-import { type ExtractComponentProps } from 'vue-popup-plus'
+import { type ExtractComponentPropTypes } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
 
 // 同步组件
-type HelloWorldProps = ExtractComponentProps<typeof HelloWorld>
+type HelloWorldProps = ExtractComponentPropTypes<typeof HelloWorld>
 
 // 异步组件 不使用 defineAsyncComponent 导入
 const asyncComponent = import('./HelloWorld.vue')
-type HelloWorldProps = ExtractComponentProps<typeof asyncComponent>
+type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 // 异步组件 使用 defineAsyncComponent 导入
 const asyncComponent = defineAsyncComponent(() => import('./HelloWorld.vue'))
-type HelloWorldProps = ExtractComponentProps<typeof asyncComponent>
+type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 // 三种组件引用方式均可以提取如下类型
 // {
