@@ -7,7 +7,7 @@ import {
 	printLog,
 	version as coreVersion,
 	type InstanceId,
-	type ExtractComponentProps,
+	type ExtractComponentPropTypes,
 } from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
 
@@ -29,7 +29,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	/**
 	 * 对话框内容组件props
 	 */
-	componentProps?: ExtractComponentProps<TComponent>
+	componentProps?: ExtractComponentPropTypes<TComponent>
 	/**
 	 * 对话框渲染完成时调用的回调函数
 	 */
