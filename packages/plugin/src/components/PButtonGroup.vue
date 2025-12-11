@@ -45,11 +45,14 @@ type Slots = {
 
 const slots = defineSlots<Slots>()
 
-type GroupAlign = 'left' | 'center' | 'right'
+type GroupDirection = 'horizontal' | 'vertical'
+
+type GroupAlign = 'start' | 'center' | 'end'
 
 type Props = {
 	/**
 	 * 按钮组类型
+	 *
 	 * - 可统一设置按钮组内按钮的类型
 	 * - 优先级低于按钮的类型属性
 	 * - 默认值为 `default`
@@ -57,6 +60,7 @@ type Props = {
 	type?: ButtonType
 	/**
 	 * 按钮组主题
+	 *
 	 * - 可统一设置按钮组内按钮的主题
 	 * - 优先级低于按钮的主题属性
 	 * - 默认值为 `default`
@@ -64,23 +68,33 @@ type Props = {
 	theme?: ButtonTheme
 	/**
 	 * 按钮组大小
+	 *
 	 * - 可统一设置按钮组内按钮的大小
 	 * - 优先级低于按钮的大小属性
 	 * - 默认值为 `default`
 	 */
 	size?: ButtonSize
 	/**
+	 * 按钮组方向
+	 *
+	 * - 默认值为 `horizontal`
+	 */
+	direction?: GroupDirection
+	/**
 	 * 按钮组对齐方式
-	 * - 默认值为 `left`
+	 *
+	 * - 默认值为 `start`
 	 */
 	align?: GroupAlign
 	/**
 	 * 是否紧凑模式
+	 *
 	 * - 默认值为 `false`
 	 */
 	tight?: boolean
 	/**
 	 * 是否显示分割线
+	 *
 	 * - 默认值为 `false`
 	 */
 	cutline?: boolean
@@ -90,14 +104,16 @@ const {
 	theme = 'default',
 	type = 'default',
 	size = 'default',
-	align = 'left',
+	direction = 'horizontal',
+	align = 'start',
 	tight = false,
 	cutline = false,
 } = defineProps<Props>()
 
 const hasCutline = computed(() => cutline && !tight)
 const classObject = computed(() => ({
-	[`align-${align}`]: true,
+	[`is-align-${align}`]: true,
+	[`is-direction-${direction}`]: true,
 	'is-tight': tight,
 	'has-cutline': hasCutline.value,
 }))
@@ -128,17 +144,22 @@ function checkSlots() {
 
 .p-button-group
 	display flex
-	flex-direction row
 	flex-wrap wrap
+	align-items center
 	gap 10px 20px
 	&.has-cutline
 		gap 10px 0
-	&.align
-		&-left
+	&.is-direction
+		&-horizontal
+			flex-direction row
+		&-vertical
+			flex-direction column
+	&.is-align
+		&-start
 			justify-content flex-start
 		&-center
 			justify-content center
-		&-right
+		&-end
 			justify-content flex-end
 	&.is-tight
 		gap 5px 10px

@@ -219,6 +219,11 @@ function handlePopupWithProps() {
 		component: () => import('@/views/Demo.vue'),
 		componentProps: {
 			test: 'test',
+			onTest(name) {
+				popup.toast(`触发事件：${name}`, {
+					theme: 'success',
+				})
+			},
 		},
 	})
 }

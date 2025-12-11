@@ -4,14 +4,18 @@
 	h2(:style="{ margin: '0' }") 测试属性：{{ test }}
 	GlobalComponent
 	input(placeholder="请输入返回值" type="text" v-model="result")
-	button(@click="handleUpdateSize") 更新弹框尺寸
-	button(@click="handleClose") 关闭弹框 core
-	button(@click="handleCloseDialog()") 关闭弹框 dialog
+	PButtonGroup(direction="vertical")
+		PButton(@click="handleUpdateSize" theme="primary") 更新弹框尺寸
+		PButton(@click="handleUpdateSize") 更新弹框尺寸
+		PButton(@click="handleClose") 关闭弹框 core
+		PButton(@click="handleCloseDialog()") 关闭弹框 dialog
 </template>
 
 <script lang="ts" setup>
 import { inject, ref } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
+import PButton from '../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 
@@ -23,10 +27,17 @@ type Props = {
 	/**
 	 * 测试属性
 	 */
-	test?: string
+	test: string
 }
 
 const { test = '' } = defineProps<Props>()
+
+defineEmits<{
+	/**
+	 * 测试事件
+	 */
+	test: [name: string]
+}>()
 
 const result = ref(test)
 

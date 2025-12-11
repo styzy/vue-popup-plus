@@ -12,7 +12,7 @@
 			.content {{ content }}
 		template(#footer)
 			PFooter
-				PButtonGroup(align="right")
+				PButtonGroup(align="end")
 					PButton(@click="handleConfirm()" theme="primary") {{ confirmText }}
 </template>
 
