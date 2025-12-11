@@ -9,7 +9,7 @@ export {
 	type PopupCustomProperties,
 	type RenderOption,
 	type UpdateOption,
-	type ExtractComponentProps,
+	type ExtractComponentPropTypes,
 } from './controller'
 export { type CoreOption as CreateOption } from './core'
 export { PopupError } from './error'

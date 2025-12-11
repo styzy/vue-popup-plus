@@ -1,4 +1,10 @@
-import { type App, type AsyncComponentLoader, type Component } from 'vue'
+import {
+	type AllowedComponentProps,
+	type App,
+	type AsyncComponentLoader,
+	type Component,
+	type VNodeProps,
+} from 'vue'
 import type { Core } from '../core'
 import { Instance } from '../instance'
 import type { InstanceId } from '../instance'
@@ -75,24 +81,39 @@ type WithDefaultProps<T> =
 	T extends Record<string, any> ? T : Record<string, any>
 
 /**
- * 提取组件的 props 类型
+ * 提取组件的 props 所允许的所有类型
  *
  * - 支持同步组件和异步组件
  * - 对于异步组件，除了支持 `defineAsyncComponent` 方法定义组件，还支持直接传入
  *   ()=>import() 函数。
  */
-export type ExtractComponentProps<TComponent extends Component = Component> =
-	WithDefaultProps<
-		TComponent extends new () => {
-			$props: infer TProps
-		}
-			? TProps
-			: TComponent extends AsyncComponentLoader
-				? InstanceType<
-						Awaited<ReturnType<TComponent>>['default']
-					>['$props']
-				: Record<string, any>
-	>
+export type ExtractComponentAllPropTypes<
+	TComponent extends Component = Component,
+> = WithDefaultProps<
+	TComponent extends new () => {
+		$props: infer TProps
+	}
+		? TProps
+		: TComponent extends AsyncComponentLoader
+			? InstanceType<Awaited<ReturnType<TComponent>>['default']>['$props']
+			: Record<string, any>
+>
+
+/**
+ * 提取组件的 props 类型
+ *
+ * - 相对于 `ExtractComponentAllPropTypes` 工具类型，移除了对 `VNodeProps`
+ *  和 `AllowedComponentProps` 类型属性的支持
+ * - 支持同步组件和异步组件
+ * - 对于异步组件，除了支持 `defineAsyncComponent` 方法定义组件，还支持直接传入
+ *   ()=>import() 函数。
+ */
+export type ExtractComponentPropTypes<
+	TComponent extends Component = Component,
+> = Omit<
+	ExtractComponentAllPropTypes<TComponent>,
+	keyof (VNodeProps & AllowedComponentProps)
+>
 
 export type RenderComponentOptions<TComponent extends Component = Component> = {
 	/**
@@ -121,8 +142,10 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	/**
 	 * 弹出层渲染组件的 props ，会传递给弹出层组件
 	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
+	 * - 除了组件的属性，还支持传入组件的事件监听器，事件监听器的名称需要以 `on` 开头，
+	 *   例如 `onClick` 、 `onInput` 等。
 	 */
-	componentProps?: ExtractComponentProps<TComponent>
+	componentProps?: ExtractComponentPropTypes<TComponent>
 	/**
 	 * 弹出层渲染之后的回调
 	 */
