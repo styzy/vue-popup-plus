@@ -29,6 +29,8 @@ type ToastOption = {
 	duration?: number
 }
 
+type ToastOptionWithoutTheme = Omit<ToastOption, 'theme'>
+
 export interface IToast {
 	/**
 	 * 显示消息
@@ -47,6 +49,22 @@ export interface IToast {
 	 * ```
 	 */
 	(content: string, options?: ToastOption): Promise<void>
+	/**
+	 * 显示成功消息
+	 */
+	success(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	/**
+	 * 显示信息消息
+	 */
+	info(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	/**
+	 * 显示警告消息
+	 */
+	warning(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	/**
+	 * 显示错误消息
+	 */
+	danger(content: string, options?: ToastOptionWithoutTheme): Promise<void>
 }
 
 declare module 'vue-popup-plus' {
@@ -63,12 +81,12 @@ export const toast = definePlugin({
 		max: coreVersion,
 	},
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
-		controller.customProperties.toast = function (
+		const toast: IToast = function (
 			content: string = '',
-			{ theme = 'default', duration = 2000 }: ToastOption = {}
+			{ theme = 'primary', duration = 2000 }: ToastOption = {}
 		) {
 			return new Promise<void>((resolve) => {
-				this.render({
+				controller.render({
 					component: () => import('./src/PToast.vue'),
 					componentProps: {
 						skin,
@@ -134,5 +152,16 @@ export const toast = definePlugin({
 				)
 			})
 		}
+
+		toast.success = (content, options) =>
+			toast(content, { theme: 'success', ...options })
+		toast.info = (content, options) =>
+			toast(content, { theme: 'info', ...options })
+		toast.warning = (content, options) =>
+			toast(content, { theme: 'warning', ...options })
+		toast.danger = (content, options) =>
+			toast(content, { theme: 'danger', ...options })
+
+		controller.customProperties.toast = toast
 	},
 })

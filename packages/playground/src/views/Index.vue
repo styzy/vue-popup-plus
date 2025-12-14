@@ -42,14 +42,20 @@
 			.title 插件功能单元测试
 			.title.sub 消息
 			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handlePopupToast()" type="default") 默认主题
-				PButton(@click="handlePopupToastPrimary()" theme="primary") 主要主题
-				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
-				PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
-				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
-				PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
+				PButton(@click="handlePopupToast()" type="default") 默认
+				PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
+				PButton(@click="handlePopupToastThemeSuccess()" theme="success") 成功主题
+				PButton(@click="handlePopupToastThemeInfo()" theme="info") 信息主题
+				PButton(@click="handlePopupToastThemeWarning()" theme="warning") 警告主题
+				PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupToastLong()") 长消息
 				PButton(@click="handlePopupToastTenSecond()") 10秒消息
+			.title.sub 消息-主题子方法
+			PButtonGroup(theme="primary" tight)
+				PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
+				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
+				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
+				PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
 			.title.sub 提示
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlert()" type="default") 默认
@@ -91,10 +97,10 @@
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
 			.title.sub 加载遮罩
 			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handlePopupLoading()" type="default") 默认
+				PButton(@click="handlePopupLoading()" theme="primary" type="default") 默认
 				PButton(@click="handlePopupLoadingPrimary()" theme="primary") 主要主题
-				PButton(@click="handlePopupLoadingInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupLoadingSuccess()" theme="success") 成功主题
+				PButton(@click="handlePopupLoadingInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupLoadingWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupLoadingDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupLoadingCustomTitle()") 自定义标题
@@ -359,23 +365,23 @@ function handlePopupToast() {
 	popup.toast('这是一条toast消息')
 }
 
-function handlePopupToastPrimary() {
+function handlePopupToastThemePrimary() {
 	popup.toast('这是一条主要toast消息', { theme: 'primary' })
 }
 
-function handlePopupToastInfo() {
+function handlePopupToastThemeInfo() {
 	popup.toast('这是一条信息toast消息', { theme: 'info' })
 }
 
-function handlePopupToastSuccess() {
+function handlePopupToastThemeSuccess() {
 	popup.toast('这是一条成功toast消息', { theme: 'success' })
 }
 
-function handlePopupToastWarning() {
+function handlePopupToastThemeWarning() {
 	popup.toast('这是一条警告toast消息', { theme: 'warning' })
 }
 
-function handlePopupToastDanger() {
+function handlePopupToastThemeDanger() {
 	popup.toast('这是一条危险toast消息', { theme: 'danger' })
 }
 
@@ -387,6 +393,22 @@ function handlePopupToastLong() {
 
 function handlePopupToastTenSecond() {
 	popup.toast('这是一条10秒的toast消息', { duration: 10000 })
+}
+
+function handlePopupToastSuccess() {
+	popup.toast.success('这是一条成功toast消息')
+}
+
+function handlePopupToastInfo() {
+	popup.toast.info('这是一条信息toast消息')
+}
+
+function handlePopupToastWarning() {
+	popup.toast.warning('这是一条警告toast消息')
+}
+
+function handlePopupToastDanger() {
+	popup.toast.danger('这是一条危险toast消息')
 }
 
 function handlePopupAlert() {
@@ -641,35 +663,43 @@ async function handlePopupPromptDraggableOverflow() {
 }
 
 function handlePopupLoading() {
-	window.setTimeout(popup.loading(), 3000)
+	popup.loading()
+	window.setTimeout(popup.loading.close, 3000)
 }
 
 function handlePopupLoadingPrimary() {
-	window.setTimeout(popup.loading({ theme: 'primary' }), 3000)
+	popup.loading({ theme: 'primary' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingInfo() {
-	window.setTimeout(popup.loading({ theme: 'info' }), 3000)
+	popup.loading({ theme: 'info' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingSuccess() {
-	window.setTimeout(popup.loading({ theme: 'success' }), 3000)
+	popup.loading({ theme: 'success' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingWarning() {
-	window.setTimeout(popup.loading({ theme: 'warning' }), 3000)
+	popup.loading({ theme: 'warning' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingDanger() {
-	window.setTimeout(popup.loading({ theme: 'danger' }), 3000)
+	popup.loading({ theme: 'danger' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingCustomTitle() {
-	window.setTimeout(popup.loading({ title: '自定义标题' }), 3000)
+	popup.loading({ title: '自定义标题' })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingCustomIconSize() {
-	window.setTimeout(popup.loading({ iconSize: 100 }), 3000)
+	popup.loading({ iconSize: 100 })
+	window.setTimeout(popup.loading.close, 2000)
 }
 
 async function handlePopupDialog() {

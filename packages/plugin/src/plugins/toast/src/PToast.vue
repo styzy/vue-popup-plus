@@ -1,8 +1,11 @@
 <template lang="pug">
 .p-message(:class="`is-theme-${theme}`")
-	.mask
-	.mask-background
-	.content {{ content }}
+	.background
+	.background-theme
+	.background-border
+	.content
+		i.iconfont-popup-plugin-preset(:class="`toast-${theme}`")
+		| {{ content }}
 </template>
 
 <script lang="ts" setup>
@@ -37,33 +40,38 @@ onMounted(() => {
 <style lang="stylus" scoped>
 @import '../../../assets/stylus/inject.styl'
 
-createTheme($theme, $color, $color-border)
+createTheme($theme, $color)
 	&.is-theme-{$theme}
 		color $color
-		.mask
-			border-color $color-border
-		.mask-background
+		.background-theme
 			background-color $color
+		.background-border
+			border-color $color
 
 .p-message
 	position relative
-	padding 15px 20px
+	padding 11px 15px
 	border-radius 4px
-	.mask,
-	.mask-background
+	.background,
+	.background-theme,
+	.background-border
 		position absolute
 		top 0
 		left 0
 		right 0
 		bottom 0
-		z-index -1
 		border-radius @border-radius
-	.mask
+	.background
+		background-color var(--popup-plugin-preset-color-background-sub)
+		z-index -3
+	.background-theme
+		opacity 0.1
+		z-index -2
+	.background-border
 		border-width 1px
 		border-style solid
-		background-color var(--popup-plugin-preset-color-background-sub)
-	.mask-background
-		opacity 0.1
+		opacity 0.3
+		z-index -1
 	.content
 		max-width 300px
 		max-height 80vh
@@ -72,14 +80,13 @@ createTheme($theme, $color, $color-border)
 		line-height 1.5
 		overflow-x hidden
 		overflow-y auto
-	&.is-theme-default
-		color var(--popup-plugin-preset-color-text-main)
-		.mask
-			border-color var(--popup-plugin-preset-color-border)
+		i.iconfont-popup-plugin-preset
+			font-size var(--popup-plugin-preset-font-size-title-sub)
+			margin-right 10px
 	&
-		createTheme('primary', var(--popup-plugin-preset-color-primary), var(--popup-plugin-preset-color-primary-dark))
-		createTheme('info', var(--popup-plugin-preset-color-info), var(--popup-plugin-preset-color-info-dark))
-		createTheme('success', var(--popup-plugin-preset-color-success), var(--popup-plugin-preset-color-success-dark))
-		createTheme('warning', var(--popup-plugin-preset-color-warning), var(--popup-plugin-preset-color-warning-dark))
-		createTheme('danger', var(--popup-plugin-preset-color-danger), var(--popup-plugin-preset-color-danger-dark))
+		createTheme('primary', var(--popup-plugin-preset-color-primary))
+		createTheme('info', var(--popup-plugin-preset-color-info))
+		createTheme('success', var(--popup-plugin-preset-color-success))
+		createTheme('warning', var(--popup-plugin-preset-color-warning))
+		createTheme('danger', var(--popup-plugin-preset-color-danger))
 </style>

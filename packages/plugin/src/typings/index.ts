@@ -1,10 +1,4 @@
-export type Theme =
-	| 'default'
-	| 'primary'
-	| 'info'
-	| 'success'
-	| 'warning'
-	| 'danger'
+export type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
 export type Skin = 'classic' | 'modern'
 

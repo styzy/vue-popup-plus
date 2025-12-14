@@ -21,6 +21,17 @@ i.iconfont-popup-plugin-preset
 		content '\ea48'
 	&.download::after
 		content '\e66c'
+	// 消息
+	&.toast
+		&-primary::after,
+		&-info::after
+			content '\e65a'
+		&-success::after
+			content '\e68b'
+		&-warning::after
+			content '\e681'
+		&-danger::after
+			content '\e6a6'
 	// 相册
 	&.album
 		&-close::after

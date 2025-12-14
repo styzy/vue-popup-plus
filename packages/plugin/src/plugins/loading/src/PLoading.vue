@@ -1,9 +1,9 @@
 <template lang="pug">
 .p-loading
-	PLoadingIcon(:size="iconSize" :theme="theme")
+	PLoadingIcon(:size="iconSize" :theme)
 	.title(v-if="title") {{ title }}
 	PButtonGroup(align="center" v-if="debugMode")
-		PButton(@click="handleClose" theme="primary") 强制关闭遮罩（仅在调试模式下可用）
+		PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
 </template>
 
 <script lang="ts" setup>

@@ -44,8 +44,6 @@ const { theme = 'primary', size = 60 } = defineProps<Props>()
 			stroke-dashoffset 0
 			stroke-width 2
 			stroke-linecap round
-	&.is-theme-default
-			stroke var(--popup-plugin-preset-color-text-light)
 	&.is-theme-primary
 			stroke var(--popup-plugin-preset-color-primary)
 	&.is-theme-info
