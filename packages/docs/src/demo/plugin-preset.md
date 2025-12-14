@@ -478,6 +478,14 @@ function handlePopupDialogWithProps() {
 		component: () => import('../HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
+			onCustomEvent(params: string) {
+				popup.toast(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`,
+					{
+						theme: 'success',
+					}
+				)
+			},
 		},
 	})
 }
@@ -1122,6 +1130,14 @@ function handlePopupDialogWithProps() {
 		component: () => import('../HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
+			onCustomEvent(params: string) {
+				popup.toast(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`,
+					{
+						theme: 'success',
+					}
+				)
+			},
 		},
 	})
 }

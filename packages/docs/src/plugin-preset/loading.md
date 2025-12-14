@@ -2,9 +2,13 @@
 
 一般用于显示 `正在加载中` 的状态，例如复杂数据运算，网络请求等。
 
+:::tip
+从 <DVersion package="plugin" version="1.5.0" /> 开始，加载遮罩全局只会同时渲染一个实例，调用 `popup.loading()` 方法时，如果当前已存在加载遮罩，将会将其关闭，然后渲染一个新的加载遮罩。
+:::
+
 ## 基础使用
 
-调用 `loading` 方法可以显示一个加载遮罩，全屏显示，该方法的返回值是一个函数，调用该函数可以关闭加载遮罩。
+调用 `popup.loading()` 方法可以显示一个加载遮罩，全屏显示。
 
 ::: demo
 
@@ -15,35 +19,100 @@
 ```ts
 function handleLoading() {
 	// 显示加载遮罩
-	const closeLoading = popup.loading() // [!code highlight]
+	popup.loading() // [!code highlight]
 
 	// 模拟异步操作
 	setTimeout(() => {
 		// 关闭加载遮罩
-		closeLoading() // [!code highlight]
+		popup.loading.close() // [!code highlight]
 	}, 3000)
 }
 ```
 
 :::
 
+## 关闭加载遮罩 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+调用 `popup.loading.close()` 方法可以关闭加载遮罩。
+
+```ts
+// 关闭加载遮罩
+popup.loading.close()
+```
+
+在 <DVersion package="plugin" version="1.5.0" /> 以前，`popup.dialog()` 方法的返回值是一个函数，用于关闭弹出层。
+
+```ts
+const closeLoading = popup.loading()
+
+// 关闭加载遮罩
+closeLoading()
+```
+
+## 等待关闭动画结束 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+`popup.loading.close()` 方法的返回值是一个 `Promise` 对象，用于等待关闭动画结束后继续执行后续代码。
+
+```ts
+// 关闭加载遮罩
+await popup.loading.close()
+// 只有加载遮罩关闭动画结束后，才会继续执行后续代码
+console.log('加载遮罩关闭后，继续执行后续代码')
+```
+
 ## 设置主题
 
-可以通过 `theme` 选项来自定义主题，默认值为 `default`，支持的主题有 `default`、`primary`、`info`、`success`、`warning`、`danger`。
+可以通过 `theme` 选项来自定义主题，默认值为 `primary`，支持的主题有 `primary`、`info`、`success`、`warning`、`danger`。
 
 ::: demo
 
 ```html
 <DButtonGroup>
-	<DButton theme="primary" type="plain" @click="handleLoadingThemeDefault"
-		>默认</DButton
-	>
-	<DButton theme="primary" @click="handleLoadingThemePrimary">主要</DButton>
-	<DButton theme="info" @click="handleLoadingThemeInfo">信息</DButton>
+	<DButton theme="primary" @click="handleLoading">主要</DButton>
 	<DButton theme="success" @click="handleLoadingThemeSuccess">成功</DButton>
+	<DButton theme="info" @click="handleLoadingThemeInfo">信息</DButton>
 	<DButton theme="warning" @click="handleLoadingThemeWarning">警告</DButton>
 	<DButton theme="danger" @click="handleLoadingThemeDanger">危险</DButton>
 </DButtonGroup>
+```
+
+```ts
+function handleLoading() {
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingThemeSuccess() {
+	popup.loading({
+		theme: 'success',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingThemeInfo() {
+	popup.loading({
+		theme: 'info',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingThemeWarning() {
+	popup.loading({
+		theme: 'warning',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingThemeDanger() {
+	popup.loading({
+		theme: 'danger',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
 ```
 
 :::
@@ -112,41 +181,36 @@ if (!import.meta.env.SSR) {
 }
 
 function handleLoading() {
-	setTimeout(popup.loading(), 3000)
-}
-
-function handleLoadingThemeDefault(){
-	setTimeout(popup.loading(), 3000)
-}
-
-function handleLoadingThemePrimary(){
-	setTimeout(popup.loading({
-		theme: 'primary',
-	}), 3000)
-}
-
-function handleLoadingThemeInfo(){
-	setTimeout(popup.loading({
-		theme: 'info',
-	}), 3000)
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handleLoadingThemeSuccess(){
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'success',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingThemeInfo(){
+	popup.loading({
+		theme: 'info',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handleLoadingThemeWarning(){
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'warning',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handleLoadingThemeDanger(){
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'danger',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handleLoadingCustomTitle() {

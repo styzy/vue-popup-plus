@@ -10,7 +10,7 @@
 
 `对话 Dialog` 更像是对最基础的 `popup.render()` 方法的二次封装，提供了更多开箱即用的对话框功能。
 
-和 `render` 方法一样，调用 `dialog` 方法并传入 `component` 渲染组件选项，即可弹出一个对话框，在屏幕居中显示。
+和 `render` 方法一样，调用 `popup.dialog()` 方法并传入 `component` 渲染组件选项，即可弹出一个对话框，在屏幕居中显示。
 
 ::: demo
 
@@ -32,7 +32,9 @@ function handleDialog() {
 
 ## 携带组件参数
 
-可以通过 `componentProps` 属性来为对话框内容组件传递参数。
+可以通过 `componentProps` 属性来为对话框内容组件传递参数，参数可以是组件的 `属性` 或 `事件监听器`。
+
+事件监听器全都以 `on` 开头，例如 `customEvent` 事件，对应的事件监听器为 `onCustomEvent`。
 
 ::: demo
 
@@ -48,6 +50,11 @@ function handleDialogProps() {
 		component: () => import('./HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
+			onCustomEvent: (params: string) => {
+				popup.toast(`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`, {
+					theme: 'success',
+				})
+			},
 		},
 	})
 }
@@ -55,21 +62,60 @@ function handleDialogProps() {
 
 :::
 
-## 获取销毁携带参数
+## 关闭对话框 <Badge type="tip" text="1.5.0+" />
 
-该方法返回一个 `Promise<T | void>` 对象，当弹出层内部调用 `destroy()` 方法时，会将 `payload` 参数作为销毁携带参数返回，因此可以通过 `await` 来获取关闭携带参数。
+> <DVersionSupport package="plugin" version="1.5.0" />
 
-如果你使用 `Typescript` ，为了获得更好的类型安全，`dialog()` 方法支持类型参数，可以用来指定销毁携带参数的类型。
+通过调用 `popup.dialog.close()` 方法可以手动关闭最后一个打开的对话框。
+
+如果不存在打开的对话框，调用 `popup.dialog.close()` 方法将不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
+
+```ts [HelloWorld.vue]
+// 关闭对话框
+function handleClose() {
+	popup.dialog.close()
+}
+```
+
+## 携带参数关闭对话框 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+当调用 `popup.dialog.close()` 方法时，可以传入一个 `payload` 参数，该参数会作为关闭携带参数返回给打开对话框的 `Promise` 对象，因此可以通过 `await` 来获取关闭携带参数。
+
+```ts{3} [HelloWorld.vue]
+// 关闭对话框
+function handleClose() {
+	popup.dialog.close('awesome !')
+}
+```
+
+```ts{3} [Parent.vue]
+// 这里 await 的返回值为关闭携带的参数 'awesome !'
+const result = await popup.dialog({
+	component: () => import('./HelloWorld.vue'),
+})
+```
+
+如果你使用 `Typescript` ，为了获得更好的类型安全，`popup.dialog()` 方法支持类型参数，可以用来指定关闭时携带参数的类型。
+
+```ts{2} [Parent.vue]
+// 这里使用类型参数 string，因此 payload 的类型将自动推断为 string | void
+const result = await popup.dialog<string>({
+	component: () => import('./HelloWorld.vue'),
+})
+```
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleDialogResult">获取销毁携带参数</DButton>
+<DButton theme="primary" @click="handleDialogResult"
+	>携带参数关闭对话框</DButton
+>
 ```
 
-```ts{3}
+```ts
 async function handleDialogResult() {
-	// 这里使用类型参数 string，因此 payload 的类型将自动推断为 string | void
 	const payload = await popup.dialog<string>({
 		component: () => import('./HelloWorld.vue'),
 	})
@@ -381,6 +427,11 @@ function handleDialogProps() {
 		component: () => import('../HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
+			onCustomEvent: (params: string) => {
+				popup.toast(`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`, {
+					theme: 'success',
+				})
+			},
 		},
 	})
 }

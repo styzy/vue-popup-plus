@@ -24,17 +24,51 @@ function handleToast() {
 
 :::
 
-## 设置主题
+## 快速使用主题 <Badge type="tip" text="1.5.0+" />
 
-通过 `theme` 属性可以设置消息的主题，默认值为 `default`，支持的主题有 `default`、`primary`、`info`、`success`、`warning`、`danger`。
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+直接使用 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法可以快速显示不同主题的消息。
 
 ::: demo
 
 ```html
 <DButtonGroup>
-	<DButton theme="primary" type="plain" @click="handleToastThemeDefault"
-		>默认</DButton
-	>
+	<DButton theme="info" @click="handleToastInfo">信息</DButton>
+	<DButton theme="success" @click="handleToastSuccess">成功</DButton>
+	<DButton theme="warning" @click="handleToastWarning">警告</DButton>
+	<DButton theme="danger" @click="handleToastDanger">危险</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handleToastInfo() {
+	popup.toast.info('这是一条信息主题消息')
+}
+
+function handleToastSuccess() {
+	popup.toast.success('这是一条成功主题消息')
+}
+
+function handleToastWarning() {
+	popup.toast.warning('这是一条警告主题消息')
+}
+
+function handleToastDanger() {
+	popup.toast.danger('这是一条危险主题消息')
+}
+```
+
+:::
+
+## 设置主题
+
+通过 `theme` 属性可以设置消息的主题，默认值为 `primary`，支持的主题有 `primary`、`info`、`success`、`warning`、`danger`。
+
+::: demo
+
+```html
+<DButtonGroup>
 	<DButton theme="primary" @click="handleToastThemePrimary">主要</DButton>
 	<DButton theme="info" @click="handleToastThemeInfo">信息</DButton>
 	<DButton theme="success" @click="handleToastThemeSuccess">成功</DButton>
@@ -44,16 +78,8 @@ function handleToast() {
 ```
 
 ```ts
-function handleToastThemeDefault() {
-	popup.toast('这是一条默认主题消息', {
-		theme: 'default', // [!code highlight]
-	})
-}
-
 function handleToastThemePrimary() {
-	popup.toast('这是一条主要主题消息', {
-		theme: 'primary', // [!code highlight]
-	})
+	popup.toast('这是一条主要主题消息')
 }
 
 function handleToastThemeInfo() {
@@ -139,10 +165,20 @@ function handleToast() {
 	popup.toast('这是一条消息')
 }
 
-function handleToastThemeDefault() {
-	popup.toast('这是一条默认主题消息', {
-		theme: 'default',
-	})
+function handleToastInfo() {
+	popup.toast.info('这是一条信息主题消息')
+}
+
+function handleToastSuccess() {
+	popup.toast.success('这是一条成功主题消息')
+}
+
+function handleToastWarning() {
+	popup.toast.warning('这是一条警告主题消息')
+}
+
+function handleToastDanger() {
+	popup.toast.danger('这是一条危险主题消息')
 }
 
 function handleToastThemePrimary() {

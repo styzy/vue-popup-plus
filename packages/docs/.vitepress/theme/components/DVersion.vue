@@ -1,62 +1,55 @@
 <template lang="pug">
-.d-version(:class="{ 'is-home': mode === 'home' }")
-	.item
-		.label 核心版本
-		.version {{ version }}
-	.item
-		.label 预置插件版本
-		.version {{ presetPluginVersion }}
+.d-version(@click="handleJump()")
+	.wrapper
+		.package {{ pkg === 'core' ? '核心' : '预置插件' }}
+		.version {{ version }} {{ plus ? '+' : '' }}
 </template>
 
+<script lang="ts">
+export type Package = 'core' | 'plugin'
+</script>
+
 <script lang="ts" setup>
-import { version } from 'vue-popup-plus'
-import { version as presetPluginVersion } from 'vue-popup-plus-plugin-preset'
+import { type Version } from 'vue-popup-plus'
+import { useRouter } from 'vitepress'
+
+const router = useRouter()
 
 type Props = {
-	mode?: 'sidebar' | 'home'
+	version: Version
+	package?: Package
+	plus?: boolean
 }
 
-const { mode = 'sidebar' } = defineProps<Props>()
+const { version, package: pkg = 'core', plus = false } = defineProps<Props>()
+
+function handleJump() {
+	const hash = `_${version.split('.').join('-')}`
+	const path = `/changelog/${pkg === 'core' ? 'core' : 'plugin-preset'}.html#${hash}`
+	router.go(path)
+}
 </script>
-<style lang="stylus" scoped>
+
+<style scoped lang="stylus">
 .d-version
-	display flex
-	flex-direction column
-	justify-content center
-	align-items stretch
-	gap 10px
-	padding 20px 0
-	border-bottom 1px solid var(--vp-c-divider)
-	&.is-home
-		border-bottom none
-		flex-direction row
-		justify-content flex-start
-		padding-bottom 0
-	.item
+	display inline-block
+	.wrapper
+		baseTrans()
+		position relative
 		display flex
-		flex-direction row
-		justify-content space-between
 		align-items center
+		justify-content flex-start
 		gap 5px
-		padding 2px 20px
-		height 40px
-		background-color var(--vp-code-bg)
-		border-radius 5px
-		.label
-			color var(--vp-c-text-1)
-			font-size var(--doc-font-size-text-sub)
-			font-weight 700
+		padding 0px 6px
+		border-radius 4px
+		background-color var(--doc-color-primary)
+		color #FFFFFF
+		font-size var(--doc-font-size-text-sub)
+		cursor pointer
 		.version
-			color var(--vp-c-brand-1)
-			font-size var(--doc-font-size-text-main)
 			font-weight 700
-@media (max-width: 768px)
-	.d-version
-		&.is-home
-			border-bottom none
-			flex-direction row
-			justify-content center
-			gap 20px
-			.item
-				gap 10px
+		&:hover
+			background-color var(--doc-color-primary-light)
+			&:after
+				content '[点击查看更新日志]'
 </style>

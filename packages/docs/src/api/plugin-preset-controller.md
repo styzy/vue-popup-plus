@@ -37,7 +37,7 @@ type ToastOption = {
 	duration?: number
 }
 
-type Theme = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
+type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 ```
 
 ### 详细信息
@@ -63,6 +63,155 @@ console.log('消息消失后，继续执行后续代码')
 ### 相关参考
 
 - [预置插件指南 - Toast 消息](/plugin-preset/toast)
+
+## popup.toast.success() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+创建一个成功主题的消息弹出层。
+
+### 类型
+
+```ts
+function success(
+	message: string,
+	options?: ToastOptionWithoutTheme
+): Promise<void>
+```
+
+### 参数类型
+
+```ts
+type ToastOptionWithoutTheme = {
+	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+}
+```
+
+### 详细信息
+
+第一个参数为消息内容文本，第二个参数为消息选项，选填。
+
+和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+
+### 相关参考
+
+- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+
+## popup.toast.info() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+创建一个信息主题的消息弹出层。
+
+### 类型
+
+```ts
+function info(message: string, options?: ToastOptionWithoutTheme): Promise<void>
+```
+
+### 参数类型
+
+```ts
+type ToastOptionWithoutTheme = {
+	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+}
+```
+
+### 详细信息
+
+第一个参数为消息内容文本，第二个参数为消息选项，选填。
+
+和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+
+### 相关参考
+
+- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+
+## popup.toast.warning() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+创建一个警告主题的消息弹出层。
+
+### 类型
+
+```ts
+function warning(
+	message: string,
+	options?: ToastOptionWithoutTheme
+): Promise<void>
+```
+
+### 参数类型
+
+```ts
+type ToastOptionWithoutTheme = {
+	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+}
+```
+
+### 详细信息
+
+第一个参数为消息内容文本，第二个参数为消息选项，选填。
+
+和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+
+### 相关参考
+
+- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+
+## popup.toast.danger() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+创建一个危险主题的消息弹出层。
+
+### 类型
+
+```ts
+function danger(
+	message: string,
+	options?: ToastOptionWithoutTheme
+): Promise<void>
+```
+
+### 参数类型
+
+```ts
+type ToastOptionWithoutTheme = {
+	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+}
+```
+
+### 详细信息
+
+第一个参数为消息内容文本，第二个参数为消息选项，选填。
+
+和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+
+### 相关参考
+
+- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
 
 ## popup.alert()
 
@@ -497,6 +646,54 @@ if (result === undefined) {
 
 - [预置插件指南 - Dialog 对话](/plugin-preset/dialog)
 
+## popup.dialog.close() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+关闭当前显示的对话弹出层。
+
+### 类型
+
+```ts
+function close(payload?: any): Promise<void>
+```
+
+### 详细信息
+
+关闭当前显示的对话弹出层。
+
+- 如果不存在显示的对话弹出层，调用该方法不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
+
+- 可以传递一个可选参数 `payload`，用于在关闭时传递数据，打开该对话弹出层的 `popup.dialog()` 函数所返回的 `Promise` 对象将会 `resolve` 该数据。
+
+- 调用关闭函数后，会返回一个 `Promise` 对象，用于等待弹出层关闭动画完成。
+
+### 示例
+
+```ts
+// 直接调用
+popup.dialog.close()
+```
+
+```ts
+// 异步等待
+await popup.dialog.close()
+console.log('对话弹出层已关闭')
+```
+
+```ts
+// 传递数据
+popup.dialog.close('关闭成功')
+
+// 异步等待
+const result = await popup.dialog.close()
+console.log(result) // '关闭成功'
+```
+
+### 相关参考
+
+- [预置插件指南 - Dialog 对话](/plugin-preset/dialog)
+
 ## popup.loading()
 
 创建一个加载弹出层。
@@ -504,6 +701,9 @@ if (result === undefined) {
 ### 类型
 
 ```ts
+// 1.5.0 +
+function loading(options?: LoadingOption): void
+// 1.5.0 -
 function loading(options?: LoadingOption): () => void
 ```
 
@@ -537,18 +737,29 @@ type LoadingOption = {
 	maskBlur?: boolean
 }
 
-type Theme = 'default' | 'primary' | 'info' | 'success' | 'warning' | 'danger'
+type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 ```
 
 ### 详细信息
 
 第一个参数为加载遮罩选项，选填。
 
-函数返回一个关闭加载弹出层的方法，调用后关闭加载弹出层。
+在 <DVersion package="plugin" version="1.5.0" /> 版本之前，该方法返回一个关闭加载弹出层的函数，调用后关闭加载弹出层。
+
+从 <DVersion package="plugin" version="1.5.0" plus/> 版本开始，该方法返回 `void`，关闭加载遮罩可以使用 [popup.loading.close()](#popup-loading-close) 方法。
 
 ### 示例
 
 ```ts
+// 1.5.0 +
+// 打开加载遮罩
+popup.loading()
+
+// 关闭加载遮罩
+popup.loading.close()
+
+// 1.5.0 版本之前
+// 打开加载遮罩
 const stopLoading = popup.loading()
 
 // 关闭加载遮罩
@@ -558,6 +769,37 @@ stopLoading()
 ### 相关参考
 
 - [预置插件指南 - Loading 加载](/plugin-preset/loading)
+
+## popup.loading.close() <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+关闭当前显示的加载遮罩。
+
+### 类型
+
+```ts
+function close(): Promise<void>
+```
+
+### 详细信息
+
+- 如果不存在显示的加载遮罩，调用该方法不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
+
+- 调用关闭函数后，会返回一个 `Promise` 对象，用于等待加载遮罩关闭动画完成。
+
+### 示例
+
+```ts
+// 直接调用
+popup.loading.close()
+```
+
+```ts
+// 异步等待
+await popup.loading.close()
+console.log('加载遮罩已关闭')
+```
 
 ## popup.album()
 

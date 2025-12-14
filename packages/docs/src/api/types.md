@@ -9,11 +9,13 @@ outline: 2
 此页面仅列出了一些 `常用的` 工具类型。
 :::
 
-## ExtractComponentPropTypes\<T\>
+## ExtractComponentPropTypes\<T\> <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport version="1.5.0" />
 
 用于从组件中提取组件的 props 类型。
 
-对于异步组件，因为内部做了动态处理，因此支持不使用 `defineAsyncComponent` 导入。
+对于异步组件，因为内部做了动态处理，因此支持直接使用 `() => import()` 的导入方式。
 
 ### 示例
 
@@ -55,7 +57,7 @@ import HelloWorld from './HelloWorld.vue'
 type HelloWorldProps = ExtractComponentPropTypes<typeof HelloWorld>
 
 // 异步组件 不使用 defineAsyncComponent 导入
-const asyncComponent = import('./HelloWorld.vue')
+const asyncComponent = () => import('./HelloWorld.vue')
 type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 // 异步组件 使用 defineAsyncComponent 导入
@@ -67,5 +69,26 @@ type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 // 	foo: string
 // 	bar?: number
 // 	baz?: boolean
-// } & VNodeProps & AllowedComponentProps & ComponentCustomProps
+// } & ComponentCustomProps
+```
+
+## ExtractComponentAllPropTypes\<T\> <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport version="1.5.0" />
+
+用于从组件中提取组件所有被允许传入的 props 类型，相较于 `ExtractComponentPropTypes` 工具类型，还增加了对底层 `VNodeProps` 和 `AllowedComponentProps` 类型属性的支持。
+
+### 示例
+
+```ts
+import { type ExtractComponentAllPropTypes } from 'vue-popup-plus'
+import HelloWorld from './HelloWorld.vue'
+
+type HelloWorldAllProps = ExtractComponentAllPropTypes<typeof HelloWorld>
+
+// {
+// 	foo: string
+// 	bar?: number
+// 	baz?: boolean
+// } & ComponentCustomProps & VNodeProps & AllowedComponentProps
 ```

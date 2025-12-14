@@ -16,8 +16,8 @@ export default {
 	Layout: () => {
 		return h(DefaultTheme.Layout, null, {
 			'home-hero-info-after': () =>
-				h(components.DVersion, { mode: 'home' }),
-			'sidebar-nav-before': () => h(components.DVersion),
+				h(components.DVersionPanel, { mode: 'home' }),
+			'sidebar-nav-before': () => h(components.DVersionPanel),
 		})
 	},
 	async enhanceApp({ app, router, siteData }) {
