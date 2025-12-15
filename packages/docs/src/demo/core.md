@@ -107,23 +107,30 @@ function handlePopupWithResult() {
 
 :::
 
-## 进阶功能
-
 ### 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
-	<DButton @click="handlePopupWithoutMask">禁用遮罩</DButton>
+	<DButton @click="handlePopupWithMask" type="default"
+		>默认高斯模糊遮罩层</DButton
+	>
+	<DButton @click="handlePopupWithoutMaskBlur">禁用遮罩层高斯模糊</DButton>
+	<DButton @click="handlePopupWithoutMask">禁用遮罩层</DButton>
 	<DButton @click="handlePopupWithMaskClickClose"
-		>启用遮罩点击关闭弹出层</DButton
+		>启用遮罩层点击关闭弹出层</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
+function handlePopupWithMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
 function handlePopupWithoutMaskBlur() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -148,7 +155,96 @@ function handlePopupWithMaskClickClose() {
 
 :::
 
+## 进阶功能
+
 ### 位置
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupWithPlacementCenter" type="default"
+		>默认居中</DButton
+	>
+	<DButton @click="handlePopupWithPlacementLeftTop">左上</DButton>
+	<DButton @click="handlePopupWithPlacementLeft">左侧</DButton>
+	<DButton @click="handlePopupWithPlacementLeftBottom">左下</DButton>
+	<DButton @click="handlePopupWithPlacementTop">顶部</DButton>
+	<DButton @click="handlePopupWithPlacementBottom">底部</DButton>
+	<DButton @click="handlePopupWithPlacementRightTop">右上</DButton>
+	<DButton @click="handlePopupWithPlacementRight">右侧</DButton>
+	<DButton @click="handlePopupWithPlacementRightBottom">右下</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupWithPlacementCenter() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'center',
+	})
+}
+
+function handlePopupWithPlacementLeftTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left-top',
+	})
+}
+
+function handlePopupWithPlacementLeft() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left',
+	})
+}
+
+function handlePopupWithPlacementLeftBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupWithPlacementTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'top',
+	})
+}
+
+function handlePopupWithPlacementBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'bottom',
+	})
+}
+
+function handlePopupWithPlacementRightTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-top',
+	})
+}
+
+function handlePopupWithPlacementRight() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right',
+	})
+}
+
+function handlePopupWithPlacementRightBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-bottom',
+	})
+}
+```
+
+:::
+
+### 位置偏移
 
 ::: demo
 
@@ -156,6 +252,12 @@ function handlePopupWithMaskClickClose() {
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupWithTranslateX">设置横向偏移</DButton>
 	<DButton @click="handlePopupWithTranslateY">设置纵向偏移</DButton>
+	<DButton @click="handlePopupWithTranslateXY"
+		>设置大幅度偏移（默认溢出保护）</DButton
+	>
+	<DButton @click="handlePopupWithTranslateXYOverflow"
+		>设置大幅度偏移（允许溢出）</DButton
+	>
 </DButtonGroup>
 ```
 
@@ -171,6 +273,23 @@ function handlePopupWithTranslateY() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		viewTranslateY: 200,
+	})
+}
+
+function handlePopupWithTranslateXY() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
+		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
+	})
+}
+
+function handlePopupWithTranslateXYOverflow() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
+		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
+		viewTranslateOverflow: true,
 	})
 }
 ```
@@ -327,6 +446,12 @@ function handlePopupWithResult() {
 	})
 }
 
+function handlePopupWithMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
 function handlePopupWithoutMaskBlur() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -348,6 +473,69 @@ function handlePopupWithMaskClickClose() {
 	})
 }
 
+function handlePopupWithPlacementCenter() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'center',
+	})
+}
+
+function handlePopupWithPlacementLeftTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left-top',
+	})
+}
+
+function handlePopupWithPlacementLeft() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left',
+	})
+}
+
+function handlePopupWithPlacementLeftBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupWithPlacementTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'top',
+	})
+}
+
+function handlePopupWithPlacementBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'bottom',
+	})
+}
+
+function handlePopupWithPlacementRightTop() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-top',
+	})
+}
+
+function handlePopupWithPlacementRight() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right',
+	})
+}
+
+function handlePopupWithPlacementRightBottom() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-bottom',
+	})
+}
+
 function handlePopupWithTranslateX() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -359,6 +547,23 @@ function handlePopupWithTranslateY() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		viewTranslateY: 200,
+	})
+}
+
+function handlePopupWithTranslateXY() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
+		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
+	})
+}
+
+function handlePopupWithTranslateXYOverflow() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
+		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
+		viewTranslateOverflow: true,
 	})
 }
 
