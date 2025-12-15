@@ -135,6 +135,59 @@ async function handleDialogResult() {
 
 :::
 
+## 设置位置 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+可以通过 `placement` 属性来设置对话框的位置，默认值为 `center` 。支持的位置有：
+
+- `left-top`
+- `left`
+- `left-bottom`
+- `top`
+- `center`
+- `bottom`
+- `right-top`
+- `right`
+- `right-bottom`
+
+::: demo
+
+```html
+<DButtonGroup>
+	<DButton theme="primary" @click="handleDialogPlacementLeft">左侧</DButton>
+	<DButton theme="primary" @click="handleDialogPlacementTop">顶部</DButton>
+	<DButton theme="primary" @click="handleDialogPlacementRightBottom"
+		>右下</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handleDialogPlacementLeft() {
+	popup.dialog({
+		placement: 'left', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogPlacementTop() {
+	popup.dialog({
+		placement: 'top', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogPlacementRightBottom() {
+	popup.dialog({
+		placement: 'right-bottom', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
 ## 手动设置尺寸
 
 默认情况下，对话框会自动根据内部所渲染的组件的实际宽高自适应，但也可以通过 `width` 和 `height` 属性来手动设置对话框的尺寸。
@@ -450,6 +503,28 @@ async function handleDialogResult() {
 			theme: 'warning',
 		})
 	}
+}
+
+
+function handleDialogPlacementLeft() {
+	popup.dialog({
+		placement: 'left', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogPlacementTop() {
+	popup.dialog({
+		placement: 'top', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogPlacementRightBottom() {
+	popup.dialog({
+		placement: 'right-bottom', // [!code highlight]
+		component: () => import('../HelloWorld.vue'),
+	})
 }
 
 function handleDialogCustomSize() {

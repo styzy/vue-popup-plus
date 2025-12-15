@@ -261,6 +261,7 @@ type AlertOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }
@@ -344,6 +345,7 @@ type ConfirmOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }
@@ -456,6 +458,7 @@ type PromptOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**
@@ -576,6 +579,13 @@ type DialogOption = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 对话框位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
 	 * 是否显示对话框遮罩层
 	 *
 	 * - 默认值为 `true`
@@ -603,9 +613,22 @@ type DialogOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }
+
+// 对话框位置
+type Placement =
+	| 'left-top'
+	| 'left'
+	| 'left-bottom'
+	| 'top'
+	| 'center'
+	| 'bottom'
+	| 'right-top'
+	| 'right'
+	| 'right-bottom'
 ```
 
 ### 详细信息
@@ -733,6 +756,7 @@ type LoadingOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }
@@ -868,6 +892,7 @@ type AlbumOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }

@@ -13,6 +13,7 @@ outline: 2
 - <Badge type="danger" text="未实装" /> 新增 `Drawer 抽屉` 功能插件。
 - `Toast 消息` 新增不同主题下的消息图标。
 - `Toast 消息` 新增 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法用于快速显示不同主题的消息。
+- `Dialog 对话` 新增 `placement` 参数，用于指定对话框的位置，默认值为 `center` ，可选值和核心 `render()` 函数的 `placement` 参数一致。
 - `Dialog 对话` 新增 `popup.dialog.close()` 方法用于关闭最后一个渲染的对话框。
 - `Loading 加载遮罩` 改为同时仅会有一个实例存在，每次显示加载遮罩时，如果已经有正在显示的加载遮罩，会自动关闭之前的加载遮罩，并显示新的加载遮罩。
 - `Loading 加载遮罩` 调用 `popup.loading()` 方法时，返回的关闭加载遮罩的函数，现在调用关闭函数会返回一个 `Promise<void>` 类型的 Promise 对象，用于等待加载遮罩关闭动画完成。

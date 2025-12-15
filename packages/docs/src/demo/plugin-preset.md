@@ -527,6 +527,7 @@ async function handlePopupDialogWithResult() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupDialogWithCustomTitle">自定义标题文本</DButton>
+	<DButton @click="handlePopupDialogWithCustomPlacement">自定义位置</DButton>
 </DButtonGroup>
 ```
 
@@ -534,6 +535,13 @@ async function handlePopupDialogWithResult() {
 function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
 		title: '自定义标题',
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupDialogWithCustomPlacement() {
+	popup.dialog({
+		placement: 'left-top',
 		component: () => import('../HelloWorld.vue'),
 	})
 }
@@ -1172,6 +1180,13 @@ async function handlePopupDialogWithResult() {
 function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
 		title: '自定义标题',
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupDialogWithCustomPlacement() {
+	popup.dialog({
+		placement: 'left-top',
 		component: () => import('../HelloWorld.vue'),
 	})
 }
