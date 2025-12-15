@@ -68,6 +68,9 @@ export default defineConfig({
 		},
 	},
 	vite: {
+		server: {
+			port: 9528,
+		},
 		// resolve: {
 		// 	alias: {
 		// 		'vitepress-plugin-markdown-container-demo': fileURLToPath(
