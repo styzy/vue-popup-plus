@@ -8,6 +8,7 @@ import {
 	version as coreVersion,
 	type InstanceId,
 	type ExtractComponentPropTypes,
+	type Placement,
 } from 'vue-popup-plus'
 import type { GlobalOption } from '../../typings'
 
@@ -88,6 +89,13 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * - 支持 `string` 或 `number` 类型
 	 */
 	minHeight?: string | number
+	/**
+	 * 对话框位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
 	/**
 	 * 是否显示对话框遮罩层
 	 *
@@ -180,6 +188,7 @@ export const dialog = definePlugin({
 			height = 'auto',
 			maxHeight = '100%',
 			minHeight = 'auto',
+			placement = 'center',
 			mask = true,
 			maskClickClose = false,
 			draggable = false,
@@ -207,6 +216,7 @@ export const dialog = definePlugin({
 					height,
 					maxHeight,
 					minHeight,
+					placement,
 					mask,
 					maskClickClose,
 					viewTranslateOverflow: dragOverflow,
@@ -269,6 +279,7 @@ export const dialog = definePlugin({
 					height,
 					maxHeight,
 					minHeight,
+					placement,
 					mask,
 					maskClickClose,
 					draggable,
