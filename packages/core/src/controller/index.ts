@@ -338,6 +338,8 @@ export type RenderStyleOptions = {
 	 * 弹出层位置
 	 *
 	 * - 默认为 center ，即居中显示
+	 * - 更多位置请查看 {@link Placement}
+	 * @since 1.5.0
 	 */
 	placement?: Placement
 	/**
@@ -373,7 +375,10 @@ export type RenderStyleOptions = {
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 弹出层遮罩是否启用模糊效果，默认为 true
+	 * 弹出层遮罩是否启用模糊效果
+	 *
+	 * - 默认为 true
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**
