@@ -60,6 +60,7 @@
 		.row-item
 			.title 插件功能单元测试
 			.title.second 消息
+			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
 				PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
@@ -69,7 +70,18 @@
 				PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupToastLong()") 长消息
 				PButton(@click="handlePopupToastTenSecond()") 10秒消息
-			.title.third 消息-主题子方法
+			.title.third 位置
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupToastPlacementLeftTop()") 左上
+				PButton(@click="handlePopupToastPlacementLeft()") 左侧
+				PButton(@click="handlePopupToastPlacementLeftBottom()") 左下
+				PButton(@click="handlePopupToastPlacementTop()") 顶部
+				PButton(@click="handlePopupToastPlacementCenter()") 居中
+				PButton(@click="handlePopupToastPlacementBottom()") 底部
+				PButton(@click="handlePopupToastPlacementRightTop()") 右上
+				PButton(@click="handlePopupToastPlacementRight()") 右侧
+				PButton(@click="handlePopupToastPlacementRightBottom()") 右下
+			.title.third 主题方法
 			PButtonGroup(theme="primary" tight)
 				PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
 				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
@@ -124,7 +136,8 @@
 				PButton(@click="handlePopupLoadingDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupLoadingCustomTitle()") 自定义标题
 				PButton(@click="handlePopupLoadingCustomIconSize()") 自定义图标尺寸
-			.title.second 对话框
+			.title.second Dialog 对话框
+			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialog()" type="default") 默认
 				PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
@@ -137,6 +150,17 @@
 				PButton(@click="handlePopupDialogWithoutMaskClickClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
+			.title.third 位置
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupDialogPlacementLeftTop()") 左上
+				PButton(@click="handlePopupDialogPlacementLeft()") 左侧
+				PButton(@click="handlePopupDialogPlacementLeftBottom()") 左下
+				PButton(@click="handlePopupDialogPlacementTop()") 顶部
+				PButton(@click="handlePopupDialogPlacementCenter()") 居中
+				PButton(@click="handlePopupDialogPlacementBottom()") 底部
+				PButton(@click="handlePopupDialogPlacementRightTop()") 右上
+				PButton(@click="handlePopupDialogPlacementRight()") 右侧
+				PButton(@click="handlePopupDialogPlacementRightBottom()") 右下
 			.title.second 媒体相册
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlbum()" type="default") 默认
@@ -461,6 +485,8 @@ function handlePopupAnimationFly() {
 function handlePopupAnimationDuration() {
 	popup.render({
 		animationDuration: 10000,
+		placement: 'left',
+		viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 		component: () => import('@/views/Demo.vue'),
 	})
 }
@@ -512,6 +538,42 @@ function handlePopupToastLong() {
 
 function handlePopupToastTenSecond() {
 	popup.toast('这是一条10秒的toast消息', { duration: 10000 })
+}
+
+function handlePopupToastPlacementLeftTop() {
+	popup.toast('这是一条左上toast消息', { placement: 'left-top' })
+}
+
+function handlePopupToastPlacementLeft() {
+	popup.toast('这是一条左侧toast消息', { placement: 'left' })
+}
+
+function handlePopupToastPlacementLeftBottom() {
+	popup.toast('这是一条左下toast消息', { placement: 'left-bottom' })
+}
+
+function handlePopupToastPlacementTop() {
+	popup.toast('这是一条顶部toast消息', { placement: 'top' })
+}
+
+function handlePopupToastPlacementCenter() {
+	popup.toast('这是一条居中toast消息', { placement: 'center' })
+}
+
+function handlePopupToastPlacementBottom() {
+	popup.toast('这是一条底部toast消息', { placement: 'bottom' })
+}
+
+function handlePopupToastPlacementRightTop() {
+	popup.toast('这是一条右上toast消息', { placement: 'right-top' })
+}
+
+function handlePopupToastPlacementRight() {
+	popup.toast('这是一条右侧toast消息', { placement: 'right' })
+}
+
+function handlePopupToastPlacementRightBottom() {
+	popup.toast('这是一条右下toast消息', { placement: 'right-bottom' })
 }
 
 function handlePopupToastSuccess() {
@@ -928,6 +990,105 @@ async function handlePopupDialogDraggableOverflow() {
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
 
+async function handlePopupDialogPlacementLeftTop() {
+	const result = await popup.dialog({
+		title: '左上',
+		component: () => import('./Demo.vue'),
+		placement: 'left-top',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementLeft() {
+	const result = await popup.dialog({
+		title: '左侧',
+		component: () => import('./Demo.vue'),
+		placement: 'left',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementLeftBottom() {
+	const result = await popup.dialog({
+		title: '左下',
+		component: () => import('./Demo.vue'),
+		placement: 'left-bottom',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementTop() {
+	const result = await popup.dialog({
+		title: '顶部',
+		component: () => import('./Demo.vue'),
+		placement: 'top',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementCenter() {
+	const result = await popup.dialog({
+		title: '居中',
+		component: () => import('./Demo.vue'),
+		placement: 'center',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementBottom() {
+	const result = await popup.dialog({
+		title: '底部',
+		component: () => import('./Demo.vue'),
+		placement: 'bottom',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementRightTop() {
+	const result = await popup.dialog({
+		title: '右上',
+		component: () => import('./Demo.vue'),
+		placement: 'right-top',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementRight() {
+	const result = await popup.dialog({
+		title: '右侧',
+		component: () => import('./Demo.vue'),
+		placement: 'right',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogPlacementRightBottom() {
+	const result = await popup.dialog({
+		title: '右下',
+		component: () => import('./Demo.vue'),
+		placement: 'right-bottom',
+		draggable: true,
+		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
 function handlePopupAlbum() {
 	popup.album({
 		sources: [
@@ -1042,7 +1203,7 @@ function handlePopupAlbumDisableDrag() {
 			padding 20px 0
 			font-size 36px
 		&.second
-			padding 0
+			padding 10px 0
 			font-size 20px
 		&.third
 			font-size 16px

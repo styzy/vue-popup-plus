@@ -5,6 +5,7 @@
 		:key="`${instanceId.name}-component`"
 		v-bind="store.componentProps")
 </template>
+
 <script lang="ts" setup>
 import {
 	computed,
