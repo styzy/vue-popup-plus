@@ -6,6 +6,7 @@ import {
 	printLog,
 	version as coreVersion,
 	POPUP_ANIMATIONS,
+	type Placement,
 } from 'vue-popup-plus'
 import { type GlobalOption, type Theme } from '../../typings'
 
@@ -21,6 +22,13 @@ type ToastOption = {
 	 * - 具体的可选主题请参考 {@link Theme }
 	 */
 	theme?: Theme
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
 	/**
 	 * 消息显示时间，单位毫秒
 	 *
@@ -83,7 +91,11 @@ export const toast = definePlugin({
 	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
 		const toast: IToast = function (
 			content: string = '',
-			{ theme = 'primary', duration = 2000 }: ToastOption = {}
+			{
+				theme = 'primary',
+				placement = 'center',
+				duration = 2000,
+			}: ToastOption = {}
 		) {
 			return new Promise<void>((resolve) => {
 				controller.render({
@@ -94,6 +106,7 @@ export const toast = definePlugin({
 						theme,
 						duration,
 					},
+					placement,
 					mask: false,
 					disableScroll: false,
 					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
@@ -120,6 +133,7 @@ export const toast = definePlugin({
 
 				const mergedOptions: Required<ToastOption> = {
 					theme,
+					placement,
 					duration,
 				}
 
