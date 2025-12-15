@@ -9,8 +9,8 @@ outline: 2
 
 ### 特性
 
-- 未实装 所有功能统一支持皮肤配置项，包括 `经典皮肤 classic` 和 `现代皮肤 modern`，默认使用 `经典皮肤 classic`，即原有样式。
-- 未实装 新增 `Drawer 抽屉` 功能插件。
+- <Badge type="danger" text="未实装" /> 所有功能统一支持皮肤配置项，包括 `经典皮肤 classic`（原有皮肤）和 `现代皮肤 modern`，默认使用 `现代皮肤 modern`。
+- <Badge type="danger" text="未实装" /> 新增 `Drawer 抽屉` 功能插件。
 - `Toast 消息` 新增不同主题下的消息图标。
 - `Toast 消息` 新增 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法用于快速显示不同主题的消息。
 - `Dialog 对话` 新增 `popup.dialog.close()` 方法用于关闭最后一个渲染的对话框。

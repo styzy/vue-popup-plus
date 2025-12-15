@@ -196,6 +196,13 @@ type RenderStyleOptions = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 弹出层位置
+	 *
+	 * - 默认为 center ，即居中
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
@@ -227,6 +234,9 @@ type RenderStyleOptions = {
 	maskAnimation?: Animation
 	/**
 	 * 弹出层遮罩是否启用模糊效果，默认为 true
+	 *
+	 * - 默认为 true
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**
@@ -242,6 +252,18 @@ type RenderStyleOptions = {
 	 */
 	zIndex?: number
 }
+
+// 弹出层位置
+type Placement =
+	| 'left-top'
+	| 'left'
+	| 'left-bottom'
+	| 'top'
+	| 'center'
+	| 'bottom'
+	| 'right-top'
+	| 'right'
+	| 'right-bottom'
 ```
 
 ### 详细信息
@@ -327,6 +349,13 @@ type UpdateOption = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 弹出层位置
+	 *
+	 * - 默认为 center ，即居中
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
@@ -357,7 +386,10 @@ type UpdateOption = {
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 弹出层遮罩是否启用模糊效果，默认为 true
+	 * 弹出层遮罩是否启用模糊效果
+	 *
+	 * - 默认为 true
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**

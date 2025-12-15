@@ -83,6 +83,8 @@ popup.render({
 	width: 'auto',
 	// 弹出层高度，默认值为 auto，即自适应
 	height: 'auto',
+	// 弹出层位置，默认值为 center，即居中
+	placement: 'center',
 	// 弹出层 zIndex ，若不设置，则使用全局递增的 zIndex 值
 	zIndex: 1234,
 })
