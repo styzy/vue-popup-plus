@@ -8,6 +8,7 @@ export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export {
 	type PopupCustomProperties,
 	type RenderOption,
+	type Placement,
 	type UpdateOption,
 	type ExtractComponentPropTypes,
 } from './controller'
