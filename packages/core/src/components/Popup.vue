@@ -4,10 +4,11 @@ PopupAnimation(
 	:type="store.maskAnimation.value"
 	v-if="store.mask")
 	PopupMask
-PopupAnimation(
-	:duration="store.animationDuration.value"
-	:type="store.viewAnimation.value")
-	PopupView
+PopupFrame(:placement="store.placement.value" :zIndex="store.zIndex.value")
+	PopupAnimation(
+		:duration="store.animationDuration.value"
+		:type="store.viewAnimation.value")
+		PopupView
 </template>
 
 <script lang="ts" setup>
@@ -17,9 +18,10 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
+import PopupAnimation from './PopupAnimation.vue'
+import PopupFrame from './PopupFrame.vue'
 import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
-import PopupAnimation from './PopupAnimation.vue'
 
 defineOptions({
 	name: 'Popup',

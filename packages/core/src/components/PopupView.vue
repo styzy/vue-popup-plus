@@ -1,10 +1,9 @@
 <template lang="pug">
-.popup-view-wrapper(:style="wrapperStyle")
-	.popup-view(:style="viewStyle" ref="popupViewRef")
-		component(
-			:is="resolvedComponent"
-			:key="`${instanceId.name}-component`"
-			v-bind="store.componentProps")
+.popup-view(:style="styleObject" ref="popupViewRef")
+	component(
+		:is="resolvedComponent"
+		:key="`${instanceId.name}-component`"
+		v-bind="store.componentProps")
 </template>
 <script lang="ts" setup>
 import {
@@ -90,21 +89,7 @@ const translateY = computed(() => {
 			)
 })
 
-const wrapperStyle = computed(() => ({
-	alignItems: store.placement.value.includes('left')
-		? 'flex-start'
-		: store.placement.value.includes('right')
-			? 'flex-end'
-			: 'center',
-	justifyContent: store.placement.value.includes('top')
-		? 'flex-start'
-		: store.placement.value.includes('bottom')
-			? 'flex-end'
-			: 'center',
-	zIndex: store.zIndex.value,
-}))
-
-const viewStyle = computed(() => {
+const styleObject = computed(() => {
 	return {
 		width: formatSize(store.width.value),
 		maxWidth: formatSize(store.maxWidth.value),
@@ -149,17 +134,8 @@ function formatSize(size: string | number): string {
 </script>
 
 <style lang="stylus" scoped>
-.popup-view-wrapper
-	display flex
-	flex-direction column
-	position fixed
-	top 0
-	right 0
-	bottom 0
-	left 0
-	pointer-events none
-	.popup-view
-		position relative
-		overflow auto
-		pointer-events auto
+.popup-view
+	position relative
+	overflow auto
+	pointer-events auto
 </style>
