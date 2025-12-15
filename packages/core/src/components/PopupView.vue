@@ -1,6 +1,6 @@
 <template lang="pug">
-.popup-view-wrapper(:style="{ zIndex: store.zIndex.value }")
-	.popup-view(:style="styleObject" ref="popupViewRef")
+.popup-view-wrapper(:style="wrapperStyle")
+	.popup-view(:style="viewStyle" ref="popupViewRef")
 		component(
 			:is="resolvedComponent"
 			:key="`${instanceId.name}-component`"
@@ -44,35 +44,67 @@ const resolvedComponent = computed(() => {
 	return store.component
 })
 
+const translateXRange = computed(() => {
+	const offset = Math.ceil(window.innerWidth - viewWidth.value)
+
+	if (store.placement.value.includes('left')) {
+		return [0, offset]
+	}
+
+	if (store.placement.value.includes('right')) {
+		return [-offset, 0]
+	}
+
+	return [-(offset / 2), offset / 2]
+})
+
+const translateYRange = computed(() => {
+	const offset = Math.ceil(window.innerHeight - viewHeight.value)
+
+	if (store.placement.value.includes('top')) {
+		return [0, offset]
+	}
+
+	if (store.placement.value.includes('bottom')) {
+		return [-offset, 0]
+	}
+
+	return [-(offset / 2), offset / 2]
+})
+
 const translateX = computed(() => {
 	return store.viewTranslateOverflow.value
 		? store.viewTranslateX.value
-		: store.viewTranslateX.value > 0
-			? Math.min(
-					store.viewTranslateX.value,
-					(window.innerWidth - viewWidth.value) / 2
-				)
-			: Math.max(
-					store.viewTranslateX.value,
-					-(window.innerWidth - viewWidth.value) / 2
-				)
+		: Math.max(
+				Math.min(store.viewTranslateX.value, translateXRange.value[1]),
+				translateXRange.value[0]
+			)
 })
 
 const translateY = computed(() => {
 	return store.viewTranslateOverflow.value
 		? store.viewTranslateY.value
-		: store.viewTranslateY.value > 0
-			? Math.min(
-					store.viewTranslateY.value,
-					(window.innerHeight - viewHeight.value) / 2
-				)
-			: Math.max(
-					store.viewTranslateY.value,
-					-(window.innerHeight - viewHeight.value) / 2
-				)
+		: Math.max(
+				Math.min(store.viewTranslateY.value, translateYRange.value[1]),
+				translateYRange.value[0]
+			)
 })
 
-const styleObject = computed(() => {
+const wrapperStyle = computed(() => ({
+	alignItems: store.placement.value.includes('left')
+		? 'flex-start'
+		: store.placement.value.includes('right')
+			? 'flex-end'
+			: 'center',
+	justifyContent: store.placement.value.includes('top')
+		? 'flex-start'
+		: store.placement.value.includes('bottom')
+			? 'flex-end'
+			: 'center',
+	zIndex: store.zIndex.value,
+}))
+
+const viewStyle = computed(() => {
 	return {
 		width: formatSize(store.width.value),
 		maxWidth: formatSize(store.maxWidth.value),
@@ -84,7 +116,7 @@ const styleObject = computed(() => {
 	}
 })
 
-const viewStyle: PopupViewStyle = computed(() => ({
+const computedViewStyle: PopupViewStyle = computed(() => ({
 	width: viewWidth.value,
 	height: viewHeight.value,
 	zIndex: store.zIndex.value,
@@ -92,7 +124,7 @@ const viewStyle: PopupViewStyle = computed(() => ({
 	translateY: translateY.value,
 }))
 
-provide(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE, viewStyle)
+provide(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE, computedViewStyle)
 
 onMounted(() => {
 	window.setTimeout(syncViewSize, store.animationDuration.value)
@@ -119,8 +151,7 @@ function formatSize(size: string | number): string {
 <style lang="stylus" scoped>
 .popup-view-wrapper
 	display flex
-	justify-content center
-	align-items center
+	flex-direction column
 	position fixed
 	top 0
 	right 0
@@ -129,7 +160,6 @@ function formatSize(size: string | number): string {
 	pointer-events none
 	.popup-view
 		position relative
-		margin auto
 		overflow auto
 		pointer-events auto
 </style>

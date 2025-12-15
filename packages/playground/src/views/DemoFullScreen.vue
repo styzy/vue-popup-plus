@@ -13,8 +13,8 @@ defineOptions({ name: 'DemoFullScreen' })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)
 
+const popup = usePopup()
 function handleClose() {
-	const popup = usePopup()
 	instanceId && popup.destroy(instanceId)
 }
 </script>

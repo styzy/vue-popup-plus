@@ -9,6 +9,7 @@ outline: 2
 
 ### 特性
 
+- <Badge type="danger" text="未实装" /> `render()` 函数新增 `placement` 参数，默认居中 `center` ，用于指定弹出层的位置。
 - `createPopup()` 函数新增 `logHandler` 参数，用于自定义日志打印函数。
 - 调试模式自动开启详细日志输出，方便开发者调试。
 - `use()` 插件注册函数开启风险校验，针对未定义作者 `author` 参数的插件将会在调试模式下打印警告日志，提示开发者注意插件风险。

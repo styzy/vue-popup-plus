@@ -184,6 +184,17 @@ export type RenderConfigOptions = {
 	disableScroll?: boolean
 }
 
+export type Placement =
+	| 'left-top'
+	| 'left'
+	| 'left-bottom'
+	| 'top'
+	| 'center'
+	| 'bottom'
+	| 'right-top'
+	| 'right'
+	| 'right-bottom'
+
 export type RenderStyleOptions = {
 	/**
 	 * 弹出层宽度
@@ -324,6 +335,12 @@ export type RenderStyleOptions = {
 	 */
 	minHeight?: string | number
 	/**
+	 * 弹出层位置
+	 *
+	 * - 默认为 center ，即居中显示
+	 */
+	placement?: Placement
+	/**
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
@@ -394,6 +411,7 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	height: 'auto',
 	maxHeight: 'auto',
 	minHeight: 'auto',
+	placement: 'center',
 	viewTranslateX: 0,
 	viewTranslateY: 0,
 	viewTranslateOverflow: false,

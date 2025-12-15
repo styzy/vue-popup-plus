@@ -15,21 +15,40 @@
 	.row
 		.row-item
 			.title 核心功能单元测试
-			.title.sub 基础功能
+			.title.second 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
+				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
+				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
+				PButton(@click="handlePopupWithoutMaskClickClose()") 启用遮罩层点击关闭
+			.title.second 组件功能
+			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupWithProps()") 传入参数
 				PButton(@click="handlePopupWithPayload()") 携带销毁参数
-				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
-				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
-				PButton(@click="handlePopupWithoutMaskClickClose()") 启用遮罩层点击关闭
+			.title.second 样式功能
+			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupFullScreen()") 全屏
 				PButton(@click="handlePopupMaxSize()") 最大尺寸
 				PButton(@click="handlePopupMinSize()") 最小尺寸
 				PButton(@click="handlePopupOffset()") 位移
-				PButton(@click="handlePopupOffsetLarge()") 大位移(安全)
-				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移超出屏幕
-			.title.sub 动画功能
+				PButton(@click="handlePopupOffsetLarge()") 大位移(默认安全)
+				PButton(@click="handlePopupOffsetLargeOverflow()") 大位移(超出屏幕)
+			.title.second 定位功能
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupLeftTop()") 左上
+				PButton(@click="handlePopupLeft()") 左侧
+				PButton(@click="handlePopupLeftBottom()") 左下
+				PButton(@click="handlePopupTop()") 顶部
+				PButton(@click="handlePopupCenter()") 居中
+				PButton(@click="handlePopupBottom()") 底部
+				PButton(@click="handlePopupRightTop()") 右上
+				PButton(@click="handlePopupRight()") 右侧
+				PButton(@click="handlePopupRightBottom()") 右下
+				PButton(@click="handlePopupLeftTopWithOffset()") 左上+位移(默认安全)
+				PButton(@click="handlePopupLeftTopWithOffsetOverflow()") 左上+位移(超出屏幕)
+				PButton(@click="handlePopupRightBottomWithOffset()") 右下+位移(默认安全)
+				PButton(@click="handlePopupRightBottomWithOffsetOverflow()") 右下+位移(超出屏幕)
+			.title.second 动画功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAnimationScale()") 缩放
 				PButton(@click="handlePopupAnimationFade()") 淡入淡出
@@ -40,7 +59,7 @@
 	.row
 		.row-item
 			.title 插件功能单元测试
-			.title.sub 消息
+			.title.second 消息
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
 				PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
@@ -50,13 +69,13 @@
 				PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupToastLong()") 长消息
 				PButton(@click="handlePopupToastTenSecond()") 10秒消息
-			.title.sub 消息-主题子方法
+			.title.third 消息-主题子方法
 			PButtonGroup(theme="primary" tight)
 				PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
 				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
-			.title.sub 提示
+			.title.second 提示
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlert()" type="default") 默认
 				PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
@@ -65,7 +84,7 @@
 				PButton(@click="handlePopupAlertWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupAlertDraggable()") 可拖拽
 				PButton(@click="handlePopupAlertDraggableOverflow()") 可拖拽溢出屏幕
-			.title.sub 确认
+			.title.second 确认
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupConfirm()" type="default") 默认
 				PButton(@click="handlePopupConfirmCustomTitle()") 自定义标题
@@ -81,7 +100,7 @@
 				PButton(@click="handlePopupConfirmWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupConfirmDraggable()") 可拖拽
 				PButton(@click="handlePopupConfirmDraggableOverflow()") 可拖拽溢出屏幕
-			.title.sub 提示输入
+			.title.second 提示输入
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupPrompt()" type="default") 默认
 				PButton(@click="handlePopupPromptDefaultValue()") 默认值
@@ -95,7 +114,7 @@
 				PButton(@click="handlePopupPromptWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupPromptDraggable()") 可拖拽
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
-			.title.sub 加载遮罩
+			.title.second 加载遮罩
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupLoading()" theme="primary" type="default") 默认
 				PButton(@click="handlePopupLoadingPrimary()" theme="primary") 主要主题
@@ -105,7 +124,7 @@
 				PButton(@click="handlePopupLoadingDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupLoadingCustomTitle()") 自定义标题
 				PButton(@click="handlePopupLoadingCustomIconSize()") 自定义图标尺寸
-			.title.sub 对话框
+			.title.second 对话框
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialog()" type="default") 默认
 				PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
@@ -118,7 +137,7 @@
 				PButton(@click="handlePopupDialogWithoutMaskClickClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
-			.title.sub 媒体相册
+			.title.second 媒体相册
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlbum()" type="default") 默认
 				PButton(@click="handlePopupAlbumDefaultIndex()") 默认下标
@@ -131,7 +150,7 @@
 	.row
 		.row-item
 			.title 按钮单元测试
-			.title.sub 默认
+			.title.second 默认
 			PButtonGroup
 				PButton Button
 				PButton(theme="primary") Button
@@ -139,7 +158,7 @@
 				PButton(theme="success") Button
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
-			.title.sub 默认 禁用
+			.title.second 默认 禁用
 			PButtonGroup
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
@@ -147,7 +166,7 @@
 				PButton(disabled theme="success") Button
 				PButton(disabled theme="warning") Button
 				PButton(disabled theme="danger") Button
-			.title.sub 镂空
+			.title.second 镂空
 			PButtonGroup(type="plain")
 				PButton Button
 				PButton(theme="primary") Button
@@ -155,7 +174,7 @@
 				PButton(theme="success") Button
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
-			.title.sub 镂空 禁用
+			.title.second 镂空 禁用
 			PButtonGroup(type="plain")
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
@@ -163,7 +182,7 @@
 				PButton(disabled theme="success") Button
 				PButton(disabled theme="warning") Button
 				PButton(disabled theme="danger") Button
-			.title.sub 文本
+			.title.second 文本
 			PButtonGroup(type="text")
 				PButton Button
 				PButton(theme="primary") Button
@@ -171,7 +190,7 @@
 				PButton(theme="success") Button
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
-			.title.sub 文本 禁用
+			.title.second 文本 禁用
 			PButtonGroup(type="text")
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
@@ -179,7 +198,7 @@
 				PButton(disabled theme="success") Button
 				PButton(disabled theme="warning") Button
 				PButton(disabled theme="danger") Button
-			.title.sub 链接
+			.title.second 链接
 			PButtonGroup(cutline type="link")
 				PButton Button
 				PButton(theme="primary") Button
@@ -187,7 +206,7 @@
 				PButton(theme="success") Button
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
-			.title.sub 链接 禁用
+			.title.second 链接 禁用
 			PButtonGroup(cutline type="link")
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
@@ -310,6 +329,106 @@ function handlePopupOffsetLargeOverflow() {
 	popup.render({
 		viewTranslateX: 380,
 		viewTranslateY: -380,
+		viewTranslateOverflow: true,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupLeftTop() {
+	popup.render({
+		placement: 'left-top',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupLeft() {
+	popup.render({
+		placement: 'left',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupLeftBottom() {
+	popup.render({
+		placement: 'left-bottom',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupTop() {
+	popup.render({
+		placement: 'top',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupCenter() {
+	popup.render({
+		placement: 'center',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupBottom() {
+	popup.render({
+		placement: 'bottom',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupRightTop() {
+	popup.render({
+		placement: 'right-top',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupRight() {
+	popup.render({
+		placement: 'right',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupRightBottom() {
+	popup.render({
+		placement: 'right-bottom',
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupLeftTopWithOffset() {
+	popup.render({
+		placement: 'left-top',
+		viewTranslateX: -100,
+		viewTranslateY: -50,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupLeftTopWithOffsetOverflow() {
+	popup.render({
+		placement: 'left-top',
+		viewTranslateX: -100,
+		viewTranslateY: -50,
+		viewTranslateOverflow: true,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupRightBottomWithOffset() {
+	popup.render({
+		placement: 'right-bottom',
+		viewTranslateX: 100,
+		viewTranslateY: 50,
+		component: () => import('@/views/Demo.vue'),
+	})
+}
+function handlePopupRightBottomWithOffsetOverflow() {
+	popup.render({
+		placement: 'right-bottom',
+		viewTranslateX: 100,
+		viewTranslateY: 50,
 		viewTranslateOverflow: true,
 		component: () => import('@/views/Demo.vue'),
 	})
@@ -922,9 +1041,11 @@ function handlePopupAlbumDisableDrag() {
 		&.large
 			padding 20px 0
 			font-size 36px
-		&.sub
+		&.second
 			padding 0
 			font-size 20px
+		&.third
+			font-size 16px
 	.links
 		display flex
 		flex-direction row
