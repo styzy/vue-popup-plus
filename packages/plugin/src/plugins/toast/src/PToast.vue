@@ -50,7 +50,6 @@ createTheme($theme, $color)
 
 .p-message
 	position relative
-	padding 11px 15px
 	border-radius 4px
 	.background,
 	.background-theme,
@@ -73,6 +72,8 @@ createTheme($theme, $color)
 		opacity 0.3
 		z-index -1
 	.content
+		baseScroll()
+		padding 11px 15px
 		max-width 300px
 		max-height 80vh
 		word-break break-all

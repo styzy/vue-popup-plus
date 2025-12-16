@@ -116,7 +116,7 @@ function handleOffsetChange() {
 	padding-left 20px
 	height v-bind('`${height}px`')
 	&.is-skin-classic
-		border-bottom 1px solid var(--popup-plugin-preset-color-border)
+		border-bottom 1px solid var(--popup-plugin-preset-color-border-dark-lite)
 		background-color var(--popup-plugin-preset-color-background-sub)
 	&.is-draggable
 		cursor move
