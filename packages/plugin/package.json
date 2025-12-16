@@ -32,9 +32,9 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
+		"utils": "workspace:*",
 		"vue": "catalog:",
-		"vue-popup-plus": "workspace:*",
-		"utils": "workspace:*"
+		"vue-popup-plus": "workspace:*"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",
@@ -55,6 +55,7 @@
 		"npm-run-all2": "catalog:",
 		"prettier": "catalog:",
 		"pug": "catalog:",
+		"sass": "^1.97.0",
 		"stylus": "catalog:",
 		"typescript": "catalog:",
 		"vite": "catalog:",
