@@ -21,15 +21,8 @@
 </template>
 
 <script lang="ts" setup>
-import {
-	computed,
-	defineAsyncComponent,
-	inject,
-	onMounted,
-	ref,
-	type Component,
-} from 'vue'
-import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import { computed, defineAsyncComponent, ref, type Component } from 'vue'
+import { usePopup } from 'vue-popup-plus'
 import { type Skin } from '../../../typings'
 import PScaffold from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -41,8 +34,6 @@ const popup = usePopup()
 defineOptions({
 	name: 'PDialog',
 })
-
-const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
 
 type Props = {
 	id: string
@@ -76,14 +67,6 @@ const resolvedComponent = computed(() => {
 		return defineAsyncComponent(customComponent as () => Promise<Component>)
 	}
 	return customComponent
-})
-
-const width = computed(() => computedViewStyle.value.width)
-const height = computed(() => computedViewStyle.value.height)
-
-onMounted(() => {
-	// HACK STY 修复ELementUI在弹框缩放动画过程中计算组件尺寸异常的bug
-	// window.setTimeout(renderComponent, 100)
 })
 
 function handleReload() {

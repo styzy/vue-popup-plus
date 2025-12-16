@@ -23,6 +23,12 @@ type ToastOption = {
 	 */
 	theme?: Theme
 	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+	/**
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
@@ -30,11 +36,21 @@ type ToastOption = {
 	 */
 	placement?: Placement
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 是否显示关闭按钮
 	 *
-	 * - 默认值： 2000 毫秒
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
 	 */
-	duration?: number
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 
 type ToastOptionWithoutTheme = Omit<ToastOption, 'theme'>
@@ -44,8 +60,10 @@ export interface IToast {
 	 * 显示消息
 	 *
 	 * - 第一个参数为消息内容
-	 * - 第二个参数为消息选项，可自定义消息显示时间，默认值为 2000 毫秒
-	 * - 如果需要等待消息消失后继续执行后续代码，需要通过 `await` 调用， 等待执行结束后继续执行后续代码
+	 * - 第二个参数为消息选项，可自定义消息显示时间，默认值为 `2000` 毫秒
+	 *   ，如果设置为 `0` ，则消息不会自动关闭
+	 * - 如果需要等待消息消失后继续执行后续代码，需要通过 `await` 调用，
+	 *   等待执行结束后继续执行后续代码
 	 * - 使用示例：
 	 *
 	 * ```ts
@@ -95,6 +113,8 @@ export const toast = definePlugin({
 				theme = 'primary',
 				placement = 'center',
 				duration = 2000,
+				showClose = false,
+				hoverWait = true,
 			}: ToastOption = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -105,6 +125,8 @@ export const toast = definePlugin({
 						content,
 						theme,
 						duration,
+						showClose,
+						hoverWait,
 					},
 					placement,
 					mask: false,
@@ -135,6 +157,8 @@ export const toast = definePlugin({
 					theme,
 					placement,
 					duration,
+					showClose,
+					hoverWait,
 				}
 
 				printLog(

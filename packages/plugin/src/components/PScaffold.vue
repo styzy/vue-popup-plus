@@ -1,15 +1,30 @@
 <template lang="pug">
-.p-scaffold
+.p-scaffold(:class="`is-skin-${skin}`")
 	slot(name="header")
 	.body
 		slot
 	slot(name="footer")
 </template>
 
+<script lang="ts">
+export const injectSkin = Symbol('skin') as InjectionKey<Skin>
+</script>
+
 <script lang="ts" setup>
+import { provide, type InjectionKey } from 'vue'
+import type { Skin } from '../typings'
+
 defineOptions({
 	name: 'PScaffold',
 })
+
+type Props = {
+	skin?: Skin
+}
+
+const { skin = 'modern' } = defineProps<Props>()
+
+provide(injectSkin, skin)
 </script>
 
 <style lang="stylus" scoped>
@@ -40,4 +55,7 @@ defineOptions({
 		align-items stretch
 		min-width 0
 		min-height 0
+	&.is-skin-modern
+		border none
+		box-shadow 0 6px 16px 0 rgba(0, 0, 0, 0.08),0 3px 6px -4px rgba(0, 0, 0, 0.12),0 9px 28px 8px rgba(0, 0, 0, 0.05)
 </style>

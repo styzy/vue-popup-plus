@@ -18,6 +18,7 @@
 import { computed, inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
 import { type Skin } from '../typings'
+import { injectSkin } from './PScaffold.vue'
 import PHeaderButton from './PHeaderButton.vue'
 
 const popup = usePopup()
@@ -28,9 +29,9 @@ defineOptions({
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
+const skin = inject(injectSkin, 'modern')
 
 type Props = {
-	skin?: Skin
 	title?: string
 	height?: number
 	iconClass?: string
@@ -39,7 +40,6 @@ type Props = {
 }
 
 const {
-	skin = 'classic',
 	title = '',
 	iconClass = '',
 	height = 40,
@@ -115,9 +115,8 @@ function handleOffsetChange() {
 	gap 10px
 	padding-left 20px
 	height v-bind('`${height}px`')
-	&.is-skin-classic
-		border-bottom 1px solid var(--popup-plugin-preset-color-border-dark-lite)
-		background-color var(--popup-plugin-preset-color-background-sub)
+	border-bottom 1px solid var(--popup-plugin-preset-color-border-dark-lite)
+	background-color var(--popup-plugin-preset-color-background-sub)
 	&.is-draggable
 		cursor move
 		user-select none
