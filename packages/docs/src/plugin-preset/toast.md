@@ -109,20 +109,135 @@ function handleToastThemeDanger() {
 
 :::
 
-## 持续时间
+## 设置位置 <Badge type="tip" text="1.5.0+" />
 
-通过 `duration` 属性可以设置消息显示的持续时间，单位为毫秒，默认值为 `2000` 毫秒。
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+通过 `placement` 属性可以设置消息的位置，默认值为 `center`，支持的位置有：
+
+- `left-top`
+- `left`
+- `left-bottom`
+- `top`
+- `center`
+- `bottom`
+- `right-top`
+- `right`
+- `right-bottom`
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleToastDuration">持续5秒的消息</DButton>
+<DButtonGroup>
+	<DButton theme="primary" @click="handleToastPlacementLeft">左侧</DButton>
+	<DButton theme="primary" @click="handleToastPlacementTop">顶部</DButton>
+	<DButton theme="primary" @click="handleToastPlacementRightTop"
+		>右上</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handleToastPlacementLeft() {
+	popup.toast('这是一条左侧位置的消息', {
+		placement: 'left', // [!code highlight]
+	})
+}
+
+function handleToastPlacementTop() {
+	popup.toast('这是一条顶部位置的消息', {
+		placement: 'top', // [!code highlight]
+	})
+}
+
+function handleToastPlacementRightTop() {
+	popup.toast('这是一条右上位置的消息', {
+		placement: 'right-top', // [!code highlight]
+	})
+}
+```
+
+:::
+
+## 持续时间
+
+通过 `duration` 属性可以设置消息显示的持续时间，单位为毫秒，默认值为 `2000` 毫秒。
+
+从 <DVersion package="plugin" version="1.5.0" plus /> 开始，`duration` 属性支持设置为 `0` ，表示消息不会自动关闭，会强制显示关闭按钮。
+
+::: demo
+
+```html
+<DButtonGroup>
+	<DButton theme="primary" @click="handleToastDuration"
+		>持续5秒的消息</DButton
+	>
+	<DButton theme="primary" @click="handleToastDurationZero"
+		>不会自动关闭的消息</DButton
+	>
+</DButtonGroup>
 ```
 
 ```ts
 function handleToastDuration() {
 	popup.toast('这是一条持续5秒的消息', {
 		duration: 5000, // [!code highlight]
+	})
+}
+
+function handleToastDurationZero() {
+	popup.toast('这是一条不会自动关闭的消息', {
+		duration: 0, // [!code highlight]
+	})
+}
+```
+
+:::
+
+## 显示关闭按钮 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+通过 `showClose` 属性可以设置是否显示关闭按钮，允许用户手动关闭消息，默认值为 `false`。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleToastShowClose"
+	>显示关闭按钮的消息</DButton
+>
+```
+
+```ts
+function handleToastShowClose() {
+	popup.toast('这是一条显示关闭按钮的消息', {
+		showClose: true, // [!code highlight]
+	})
+}
+```
+
+:::
+
+## 禁用鼠标悬停持续显示 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+从 <DVersion package="plugin" version="1.5.0" plus /> 开始，消息默认开启鼠标悬停持续显示，当用户鼠标悬停在消息上时，消息将会持续显示，直到鼠标移出消息区域，消息才会自动关闭。
+
+通过将 `hoverWait` 属性设置为 `false` 可以禁用鼠标悬停持续显示。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleToastHoverWaitFalse"
+	>禁用鼠标悬停持续显示</DButton
+>
+```
+
+```ts
+function handleToastHoverWaitFalse() {
+	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+		hoverWait: false, // [!code highlight]
 	})
 }
 ```
@@ -211,9 +326,46 @@ function handleToastThemeDanger() {
 	})
 }
 
+function handleToastPlacementLeft() {
+	popup.toast('这是一条左侧位置的消息', {
+		placement: 'left',
+	})
+}
+
+function handleToastPlacementTop() {
+	popup.toast('这是一条顶部位置的消息', {
+		placement: 'top',
+	})
+}
+
+function handleToastPlacementRightTop() {
+	popup.toast('这是一条右上位置的消息', {
+		placement: 'right-top',
+	})
+}
+
 function handleToastDuration() {
 	popup.toast('这是一条持续5秒的消息', {
 		duration: 5000,
+	})
+}
+
+function handleToastDurationZero() {
+	popup.toast('这是一条不会自动关闭的消息', {
+		duration: 0,
+	})
+}
+
+
+function handleToastShowClose() {
+	popup.toast('这是一条显示关闭按钮的消息', {
+		showClose: true,
+	})
+}
+
+function handleToastHoverWaitFalse() {
+	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+		hoverWait: false,
 	})
 }
 

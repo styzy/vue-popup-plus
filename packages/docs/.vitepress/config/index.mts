@@ -11,6 +11,7 @@ import { themeConfig as enThemeConfig } from './en.mts'
 export default defineConfig({
 	title: 'Vue Popup Plus | Vue3 弹出层插件',
 	description: 'Vue3 弹出层插件',
+	head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
 	lang: 'zh-CN',
 	// cleanUrls: true,
 	srcDir: 'src',

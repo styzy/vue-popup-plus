@@ -13,6 +13,10 @@ outline: 2
 - <Badge type="danger" text="未实装" /> 新增 `Drawer 抽屉` 功能插件。
 - `Toast 消息` 新增不同主题下的消息图标。
 - `Toast 消息` 新增 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法用于快速显示不同主题的消息。
+- `Toast 消息` 新增 `placement` 参数，用于指定消息的位置，默认值为 `center` ，可选值和核心 `render()` 函数的 `placement` 参数一致。
+- `Toast 消息` 的 `duration` 支持设置为 `0` ，表示消息不会自动关闭，会强制显示关闭按钮。
+- `Toast 消息` 新增 `showClose` 参数，默认为 `false` ，表示是否显示关闭按钮。
+- `Toast 消息` 新增 `hoverWait` 参数，默认为 `true` ，表示开启鼠标悬停持续显示，当鼠标进入时，将会移除自动关闭定时器（如果存在），鼠标离开时，会重新开启自动关闭定时器。
 - `Dialog 对话` 新增 `placement` 参数，用于指定对话框的位置，默认值为 `center` ，可选值和核心 `render()` 函数的 `placement` 参数一致。
 - `Dialog 对话` 新增 `popup.dialog.close()` 方法用于关闭最后一个渲染的对话框。
 - `Loading 加载遮罩` 改为同时仅会有一个实例存在，每次显示加载遮罩时，如果已经有正在显示的加载遮罩，会自动关闭之前的加载遮罩，并显示新的加载遮罩。
@@ -21,6 +25,8 @@ outline: 2
 ### 优化
 
 - 重新定义主题，移除 `default` , 现在所有的弹出层的主题参数默认值为 `primary`。
+- 优化主题颜色，现在使用更加柔和的颜色。
+- `Toast 消息` 优化显示长文本时滚动条的展示效果。
 - `Dialog 对话` 的渲染参数 `componentProps` 现在会自动根据传入的渲染组件进行类型推断和代码提示。
 - 统一适配核心的日志输出打印功能，提供更好的开发调试体验。
 

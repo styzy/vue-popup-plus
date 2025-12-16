@@ -35,9 +35,45 @@ type ToastOption = {
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 
+// 消息主题
 type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+
+// 消息位置
+type Placement =
+	| 'left-top'
+	| 'left'
+	| 'left-bottom'
+	| 'top'
+	| 'center'
+	| 'bottom'
+	| 'right-top'
+	| 'right'
+	| 'right-bottom'
 ```
 
 ### 详细信息
@@ -89,6 +125,29 @@ type ToastOptionWithoutTheme = {
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 ```
 
@@ -124,6 +183,29 @@ type ToastOptionWithoutTheme = {
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 ```
 
@@ -162,6 +244,29 @@ type ToastOptionWithoutTheme = {
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 ```
 
@@ -200,6 +305,29 @@ type ToastOptionWithoutTheme = {
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
 }
 ```
 
@@ -761,6 +889,7 @@ type LoadingOption = {
 	maskBlur?: boolean
 }
 
+// 加载遮罩主题
 type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 ```
 

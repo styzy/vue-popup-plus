@@ -1,3 +1,7 @@
+---
+outline: 2
+---
+
 # 预置插件示例
 
 ::: tip
@@ -15,6 +19,7 @@
 	<DButton @click="handlePopupToast" type="default">消息</DButton>
 	<DButton @click="handlePopupToastLongText">长文本</DButton>
 	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
+	<DButton @click="handlePopupToastDurationZero">持续显示</DButton>
 </DButtonGroup>
 ```
 
@@ -34,19 +39,24 @@ function handlePopupToastDuration() {
 		duration: 10000,
 	})
 }
+
+function handlePopupToastDurationZero() {
+	popup.toast('这是一条持续显示的消息', {
+		duration: 0,
+	})
+}
 ```
 
 :::
 
 ### 进阶功能
 
+#### 主题
+
 ::: demo
 
 ```html
 <DButtonGroup>
-	<DButton @click="handlePopupToastDefault" theme="primary" type="plain"
-		>默认主题</DButton
-	>
 	<DButton @click="handlePopupToastPrimary" theme="primary">主要主题</DButton>
 	<DButton @click="handlePopupToastSuccess" theme="success">成功主题</DButton>
 	<DButton @click="handlePopupToastInfo" theme="info">信息主题</DButton>
@@ -56,14 +66,8 @@ function handlePopupToastDuration() {
 ```
 
 ```ts
-function handlePopupToastDefault() {
-	popup.toast('这是一条默认主题的消息')
-}
-
 function handlePopupToastPrimary() {
-	popup.toast('这是一条主要主题的消息', {
-		theme: 'primary',
-	})
+	popup.toast('这是一条主要主题的消息')
 }
 
 function handlePopupToastSuccess() {
@@ -87,6 +91,115 @@ function handlePopupToastWarning() {
 function handlePopupToastDanger() {
 	popup.toast('这是一条危险主题的消息', {
 		theme: 'danger',
+	})
+}
+```
+
+:::
+
+#### 位置
+
+::: demo
+
+```html
+<DButtonGroup type="plain">
+	<DButton @click="handlePopupToastLeftTop" theme="primary">左上</DButton>
+	<DButton @click="handlePopupToastLeft" theme="primary">左侧</DButton>
+	<DButton @click="handlePopupToastLeftBottom" theme="primary">左下</DButton>
+	<DButton @click="handlePopupToastTop" theme="primary">顶部</DButton>
+	<DButton @click="handlePopupToastCenter" theme="primary" type="default"
+		>居中</DButton
+	>
+	<DButton @click="handlePopupToastBottom" theme="primary">底部</DButton>
+	<DButton @click="handlePopupToastRightTop" theme="primary">右上</DButton>
+	<DButton @click="handlePopupToastRight" theme="primary">右侧</DButton>
+	<DButton @click="handlePopupToastRightBottom" theme="primary">右下</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupToastLeftTop() {
+	popup.toast('这是一条左上位置的消息', {
+		placement: 'left-top',
+	})
+}
+
+function handlePopupToastLeft() {
+	popup.toast('这是一条左侧位置的消息', {
+		placement: 'left',
+	})
+}
+
+function handlePopupToastLeftBottom() {
+	popup.toast('这是一条左下位置的消息', {
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupToastTop() {
+	popup.toast('这是一条顶部位置的消息', {
+		placement: 'top',
+	})
+}
+
+function handlePopupToastCenter() {
+	popup.toast('这是一条居中位置的消息', {
+		placement: 'center',
+	})
+}
+
+function handlePopupToastBottom() {
+	popup.toast('这是一条底部位置的消息', {
+		placement: 'bottom',
+	})
+}
+
+function handlePopupToastRightTop() {
+	popup.toast('这是一条右上位置的消息', {
+		placement: 'right-top',
+	})
+}
+
+function handlePopupToastRight() {
+	popup.toast('这是一条右侧位置的消息', {
+		placement: 'right',
+	})
+}
+
+function handlePopupToastRightBottom() {
+	popup.toast('这是一条右下位置的消息', {
+		placement: 'right-bottom',
+	})
+}
+```
+
+:::
+
+### 高级功能
+
+::: demo
+
+```html
+<DButtonGroup type="plain">
+	<DButton @click="handlePopupToastShowClose" theme="primary"
+		>显示关闭按钮</DButton
+	>
+	<DButton @click="handlePopupToastHoverWait" theme="primary"
+		>禁用鼠标悬停持续显示</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupToastShowClose() {
+	popup.toast('这是一条显示关闭按钮的消息', {
+		showClose: true,
+	})
+}
+
+function handlePopupToastHoverWait() {
+	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+		hoverWait: false,
 	})
 }
 ```
@@ -635,25 +748,22 @@ function handlePopupDialogWithDragOverflow() {
 
 ```ts
 function handlePopupLoading() {
-	setTimeout(popup.loading(), 3000)
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithCustomTitle() {
-	setTimeout(
-		popup.loading({
-			title: '加载中...',
-		}),
-		3000
-	)
+	popup.loading({
+		title: '加载中...',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithIconSize() {
-	setTimeout(
-		popup.loading({
-			iconSize: 200,
-		}),
-		3000
-	)
+	popup.loading({
+		iconSize: 200,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 ```
 
@@ -665,12 +775,6 @@ function handlePopupLoadingWithIconSize() {
 
 ```html
 <DButtonGroup>
-	<DButton
-		@click="handlePopupLoadingWithThemeDefault"
-		theme="primary"
-		type="plain"
-		>默认主题</DButton
-	>
 	<DButton @click="handlePopupLoadingWithThemePrimary" theme="primary"
 		>主要主题</DButton
 	>
@@ -690,53 +794,37 @@ function handlePopupLoadingWithIconSize() {
 ```
 
 ```ts
-function handlePopupLoadingWithThemeDefault() {
-	setTimeout(popup.loading(), 3000)
-}
-
 function handlePopupLoadingWithThemePrimary() {
-	setTimeout(
-		popup.loading({
-			theme: 'primary',
-		}),
-		3000
-	)
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeSuccess() {
-	setTimeout(
-		popup.loading({
-			theme: 'success',
-		}),
-		3000
-	)
+	popup.loading({
+		theme: 'success',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeInfo() {
-	setTimeout(
-		popup.loading({
-			theme: 'info',
-		}),
-		3000
-	)
+	popup.loading({
+		theme: 'info',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeWarning() {
-	setTimeout(
-		popup.loading({
-			theme: 'warning',
-		}),
-		3000
-	)
+	popup.loading({
+		theme: 'warning',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeDanger() {
-	setTimeout(
-		popup.loading({
-			theme: 'danger',
-		}),
-		3000
-	)
+	popup.loading({
+		theme: 'danger',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 ```
 
@@ -756,12 +844,10 @@ function handlePopupLoadingWithThemeDanger() {
 
 ```ts
 function handlePopupLoadingWithoutMaskBlur() {
-	setTimeout(
-		popup.loading({
-			maskBlur: false,
-		}),
-		3000
-	)
+	popup.loading({
+		maskBlur: false,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 ```
 
@@ -911,14 +997,20 @@ function handlePopupToastDuration() {
 	})
 }
 
+function handlePopupToastDurationZero() {
+	popup.toast('这是一条持续显示的消息', {
+		duration: 0,
+	})
+}
+
+
+
 function handlePopupToastDefault() {
 	popup.toast('这是一条默认主题的消息')
 }
 
 function handlePopupToastPrimary() {
-	popup.toast('这是一条主要主题的消息', {
-		theme: 'primary',
-	})
+	popup.toast('这是一条主要主题的消息')
 }
 
 function handlePopupToastSuccess() {
@@ -942,6 +1034,72 @@ function handlePopupToastWarning() {
 function handlePopupToastDanger() {
 	popup.toast('这是一条危险主题的消息', {
 		theme: 'danger',
+	})
+}
+
+function handlePopupToastLeftTop() {
+	popup.toast('这是一条左上位置的消息', {
+		placement: 'left-top',
+	})
+}
+
+function handlePopupToastLeft() {
+	popup.toast('这是一条左侧位置的消息', {
+		placement: 'left',
+	})
+}
+
+function handlePopupToastLeftBottom() {
+	popup.toast('这是一条左下位置的消息', {
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupToastTop() {
+	popup.toast('这是一条顶部位置的消息', {
+		placement: 'top',
+	})
+}
+
+function handlePopupToastCenter() {
+	popup.toast('这是一条居中位置的消息', {
+		placement: 'center',
+	})
+}
+
+function handlePopupToastBottom() {
+	popup.toast('这是一条底部位置的消息', {
+		placement: 'bottom',
+	})
+}
+
+function handlePopupToastRightTop() {
+	popup.toast('这是一条右上位置的消息', {
+		placement: 'right-top',
+	})
+}
+
+function handlePopupToastRight() {
+	popup.toast('这是一条右侧位置的消息', {
+		placement: 'right',
+	})
+}
+
+function handlePopupToastRightBottom() {
+	popup.toast('这是一条右下位置的消息', {
+		placement: 'right-bottom',
+	})
+}
+
+function handlePopupToastShowClose() {
+	popup.toast('这是一条显示关闭按钮的消息', {
+		showClose: true,
+	})
+}
+
+function handlePopupToastHoverWait() {
+	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+		hoverWait: false,
 	})
 }
 
@@ -1235,62 +1393,62 @@ function handlePopupDialogWithDragOverflow() {
 }
 
 function handlePopupLoading() {
-	setTimeout(popup.loading(), 3000)
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithCustomTitle() {
-	setTimeout(popup.loading({
+	popup.loading({
 		title: '加载中...',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithIconSize() {
-	setTimeout(popup.loading({
+	popup.loading({
 		iconSize: 200,
-	}), 3000)
-}
-
-function handlePopupLoadingWithThemeDefault() {
-	setTimeout(popup.loading(), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemePrimary() {
-	setTimeout(popup.loading({
-		theme: 'primary',
-	}), 3000)
+	popup.loading()
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeSuccess() {
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'success',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeInfo() {
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'info',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeWarning() {
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'warning',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithThemeDanger() {
-	setTimeout(popup.loading({
+	popup.loading({
 		theme: 'danger',
-	}), 3000)
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handlePopupLoadingWithoutMaskBlur() {
-	setTimeout(
-		popup.loading({
-			maskBlur: false,
-		}),
-		3000
-	)
+	popup.loading({
+		maskBlur: false,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 const sources = [

@@ -45,6 +45,7 @@ function handleJump() {
 		background-color var(--doc-color-primary)
 		color #FFFFFF
 		font-size var(--doc-font-size-text-sub)
+		line-height 24px
 		cursor pointer
 		.version
 			font-weight 700
