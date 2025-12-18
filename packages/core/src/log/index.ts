@@ -159,6 +159,18 @@ export class Log implements ILog {
 		this.caller = caller
 		this.message = message
 		this.group = group
+
+		this.group.unshift({
+			type: LogGroupItemType.Default,
+			message: `核心版本: ${version}`,
+		})
+
+		if (this.hasCaller) {
+			this.group.unshift({
+				type: LogGroupItemType.Default,
+				message: `调用者: ${this.caller}`,
+			})
+		}
 	}
 }
 
@@ -210,18 +222,6 @@ export const defaultPrintLog: ILogHandler = (log) => {
 
 	const primaryPrefix = `${log.namespace} ${log.type.toUpperCase()}`
 	const primaryMessage = log.message
-
-	if (log.hasCaller) {
-		log.group.unshift({
-			type: LogGroupItemType.Default,
-			message: `调用者: ${log.caller}`,
-		})
-	}
-
-	log.group.unshift({
-		type: LogGroupItemType.Default,
-		message: `核心版本: ${version}`,
-	})
 
 	if (log.hasGroup) {
 		groupPinterWithPrefix(primaryPrefix, primaryMessage)
