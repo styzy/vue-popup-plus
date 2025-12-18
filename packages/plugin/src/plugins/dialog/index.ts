@@ -1,7 +1,6 @@
 import { type Component } from 'vue'
 import {
 	definePlugin,
-	Log as CoreLog,
 	LogType,
 	LogGroupItemType,
 	printLog,
@@ -10,9 +9,10 @@ import {
 	type ExtractComponentPropTypes,
 	type Placement,
 } from 'vue-popup-plus'
+import { PluginLog } from '../../log'
 import type { GlobalOption } from '../../typings'
 
-class Log extends CoreLog {
+class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Dialog'
 }
 

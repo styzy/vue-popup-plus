@@ -1,15 +1,15 @@
 import {
 	definePlugin,
-	Log as CoreLog,
 	LogType,
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
 	type InstanceId,
 } from 'vue-popup-plus'
+import { PluginLog } from '../../log'
 import { type GlobalOption, type Theme } from '../../typings'
 
-class Log extends CoreLog {
+class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Loading'
 }
 
