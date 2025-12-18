@@ -79,7 +79,7 @@ type LogGroupItem = LogGroupDefaultItem | LogGroupDataItem
 
 export type LogGroup = Array<LogGroupItem>
 
-type LogOption = {
+export type LogOption = {
 	/**
 	 * 日志类型
 	 */

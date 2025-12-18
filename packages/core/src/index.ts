@@ -22,6 +22,7 @@ export {
 	LogGroupItemType,
 	type ILog,
 	type ILogHandler,
+	type LogOption,
 	type LogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
