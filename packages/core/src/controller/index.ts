@@ -466,10 +466,6 @@ export class Controller implements IController {
 					type: LogGroupItemType.Default,
 					message: `插件要求最高核心版本: ${plugin.requiredCoreVersion?.max ?? '-'}`,
 				},
-				{
-					type: LogGroupItemType.Default,
-					message: `当前核心版本: ${this.version}`,
-				},
 			],
 		})
 

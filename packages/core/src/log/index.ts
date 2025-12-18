@@ -1,5 +1,6 @@
 import { typeOf } from 'utils'
 import { getCore } from '../core'
+import { version } from '../version'
 
 /**
  * 日志类型
@@ -216,6 +217,11 @@ export const defaultPrintLog: ILogHandler = (log) => {
 			message: `调用者: ${log.caller}`,
 		})
 	}
+
+	log.group.unshift({
+		type: LogGroupItemType.Default,
+		message: `核心版本: ${version}`,
+	})
 
 	if (log.hasGroup) {
 		groupPinterWithPrefix(primaryPrefix, primaryMessage)
