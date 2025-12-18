@@ -483,14 +483,14 @@ export class Controller implements IController {
 			if (validPluginVersion(plugin)) {
 				log.group.push({
 					type: LogGroupItemType.Default,
-					message: `版本校验: 通过`,
+					message: `插件版本校验: 通过`,
 				})
 			} else {
 				log.type = LogType.Error
 				log.message = `注册插件 ${plugin.name} 失败，未通过核心版本校验`
 				log.group.push({
 					type: LogGroupItemType.Default,
-					message: `版本校验: 未通过`,
+					message: `插件版本校验: 未通过`,
 				})
 				printLog(log)
 				return
@@ -498,9 +498,16 @@ export class Controller implements IController {
 		} else {
 			log.group.push({
 				type: LogGroupItemType.Default,
-				message: `版本校验: 未校验（可能存在兼容性问题）`,
+				message: `插件版本校验: 未校验（可能存在兼容性问题）`,
 			})
 		}
+
+		log.group.push({
+			type: LogGroupItemType.Data,
+			dataName: '插件注册选项',
+			dataValue: options,
+			dataType: 'PluginOption',
+		})
 
 		plugin.install(wrapWithPlugin(this), this._core.config, options)
 
