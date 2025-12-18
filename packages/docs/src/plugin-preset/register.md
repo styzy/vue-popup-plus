@@ -52,3 +52,33 @@ app.use(popup)
 
 app.mount('#app')
 ```
+
+## 注册选项 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+注册预置插件的时候，你可以通过给 `use()` 方法传递第二个参数来配置插件的选项。
+
+```ts [main.ts]
+popup.use(plugin, {
+	// 使用经典皮肤，默认是 modern， 即现代皮肤
+	skin: 'classic',
+})
+```
+
+不管是全量注册还是按需注册，都可以通过传递第二个参数来配置插件的选项。
+
+具体的预置插件注册选项如下：
+
+```ts
+type PluginOptions = {
+	/**
+	 * 插件弹出层皮肤
+	 * - 默认为 `modern` 现代皮肤
+	 * - 可选值包括：
+	 *   - `modern` 现代皮肤
+	 *   - `classic` 经典皮肤
+	 */
+	skin?: Skin
+}
+```
