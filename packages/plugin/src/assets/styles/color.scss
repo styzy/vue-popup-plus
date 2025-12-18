@@ -1,0 +1,115 @@
+@use 'sass:color';
+
+// 生成css颜色变量
+@mixin css-color-variables($name, $color) {
+	$name-space: 'popup-plugin-preset-color';
+
+	--#{$name-space}-#{$name}: #{$color};
+
+	--#{$name-space}-#{$name}-dark: #{color.adjust($color, $lightness: -15%)};
+	--#{$name-space}-#{$name}-dark-lite: #{color.adjust(
+			$color,
+			$lightness: -5%
+		)};
+	--#{$name-space}-#{$name}-dark-most: #{color.adjust(
+			$color,
+			$lightness: -45%
+		)};
+	--#{$name-space}-#{$name}-dark-10: #{color.adjust($color, $lightness: -5%)};
+	--#{$name-space}-#{$name}-dark-20: #{color.adjust($color, $lightness: -10%)};
+	--#{$name-space}-#{$name}-dark-30: #{color.adjust($color, $lightness: -15%)};
+	--#{$name-space}-#{$name}-dark-40: #{color.adjust($color, $lightness: -20%)};
+	--#{$name-space}-#{$name}-dark-50: #{color.adjust($color, $lightness: -25%)};
+	--#{$name-space}-#{$name}-dark-60: #{color.adjust($color, $lightness: -30%)};
+	--#{$name-space}-#{$name}-dark-70: #{color.adjust($color, $lightness: -35%)};
+	--#{$name-space}-#{$name}-dark-80: #{color.adjust($color, $lightness: -40%)};
+	--#{$name-space}-#{$name}-dark-90: #{color.adjust($color, $lightness: -45%)};
+
+	--#{$name-space}-#{$name}-light: #{color.adjust($color, $lightness: 15%)};
+	--#{$name-space}-#{$name}-light-lite: #{color.adjust(
+			$color,
+			$lightness: 5%
+		)};
+	--#{$name-space}-#{$name}-light-most: #{color.adjust(
+			$color,
+			$lightness: 45%
+		)};
+	--#{$name-space}-#{$name}-light-10: #{color.adjust($color, $lightness: 5%)};
+	--#{$name-space}-#{$name}-light-20: #{color.adjust($color, $lightness: 10%)};
+	--#{$name-space}-#{$name}-light-30: #{color.adjust($color, $lightness: 15%)};
+	--#{$name-space}-#{$name}-light-40: #{color.adjust($color, $lightness: 20%)};
+	--#{$name-space}-#{$name}-light-50: #{color.adjust($color, $lightness: 25%)};
+	--#{$name-space}-#{$name}-light-60: #{color.adjust($color, $lightness: 30%)};
+	--#{$name-space}-#{$name}-light-70: #{color.adjust($color, $lightness: 35%)};
+	--#{$name-space}-#{$name}-light-80: #{color.adjust($color, $lightness: 40%)};
+	--#{$name-space}-#{$name}-light-90: #{color.adjust($color, $lightness: 45%)};
+}
+
+// 预置颜色
+$preset-color-primary: #1c70d1;
+$preset-color-success: #4caf50;
+$preset-color-info: #909399;
+$preset-color-warning: #f5a623;
+$preset-color-danger: #f56c6c;
+$preset-color-text-main: #424242;
+$preset-color-text-sub: #666666;
+$preset-color-text-light: #999999;
+$preset-color-text-placeholder: #b6b6b6;
+$preset-color-border: #dddddd;
+$preset-color-background-main: #ffffff;
+$preset-color-background-sub: #f8f8f8;
+$preset-color-shadow: rgba(50, 50, 50, 0.3);
+
+:root {
+	@include css-color-variables('primary', $preset-color-primary);
+	@include css-color-variables('success', $preset-color-success);
+	@include css-color-variables('info', $preset-color-info);
+	@include css-color-variables('warning', $preset-color-warning);
+	@include css-color-variables('danger', $preset-color-danger);
+	@include css-color-variables('text-main', $preset-color-text-main);
+	@include css-color-variables('text-sub', $preset-color-text-sub);
+	@include css-color-variables('text-light', $preset-color-text-light);
+	@include css-color-variables(
+		'text-placeholder',
+		$preset-color-text-placeholder
+	);
+	@include css-color-variables('border', $preset-color-border);
+	@include css-color-variables(
+		'background-main',
+		$preset-color-background-main
+	);
+	@include css-color-variables(
+		'background-sub',
+		$preset-color-background-sub
+	);
+	@include css-color-variables('shadow', $preset-color-shadow);
+}
+
+$preset-dark-color-text-main: #dfdfd6;
+$preset-dark-color-text-sub: #98989f;
+$preset-dark-color-text-light: #7b7a7a;
+$preset-dark-color-text-placeholder: #656464;
+$preset-dark-color-border: #000000;
+$preset-dark-color-background-main: #1b1b1f;
+$preset-dark-color-background-sub: #161618;
+$preset-dark-color-shadow: rgba(0, 0, 0, 0.3);
+
+.dark {
+	@include css-color-variables('text-main', $preset-dark-color-text-main);
+	@include css-color-variables('text-sub', $preset-dark-color-text-sub);
+	@include css-color-variables('text-light', $preset-dark-color-text-light);
+	@include css-color-variables(
+		'text-placeholder',
+		$preset-dark-color-text-placeholder
+	);
+	@include css-color-variables('border', $preset-dark-color-border);
+	@include css-color-variables(
+		'background-main',
+		$preset-dark-color-background-main
+	);
+	@include css-color-variables(
+		'background-sub',
+		$preset-dark-color-background-sub
+	);
+	@include css-color-variables('shadow', $preset-dark-color-shadow);
+}

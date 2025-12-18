@@ -1,6 +1,6 @@
 <template lang="pug">
 .p-alert
-	PScaffold
+	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
 				:draggable="draggable"
@@ -52,15 +52,17 @@ function handleConfirm() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../../../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
 
-.p-alert
-	baseStyle()
-	max-width 80vw
-	max-height 80vh
-	width 360px
-	.content
-		word-break break-all
-		line-height 24px
+.p-alert {
+	@include base-style();
+	max-width: 80vw;
+	max-height: 80vh;
+	width: 360px;
+	.content {
+		word-break: break-all;
+		line-height: 24px;
+	}
+}
 </style>

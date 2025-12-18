@@ -20,7 +20,7 @@ const popup = createPopup({
 })
 
 popup.use(plugin, {
-	skin: 'modern',
+	// skin: 'classic',
 })
 
 type TestPluginOption = {

@@ -1,6 +1,6 @@
 <template lang="pug">
 .p-prompt
-	PScaffold
+	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
 				:draggable="draggable"

@@ -112,7 +112,7 @@ export const album = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
+	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
 		controller.customProperties.album = function ({
 			sources,
 			defaultIndex = 0,

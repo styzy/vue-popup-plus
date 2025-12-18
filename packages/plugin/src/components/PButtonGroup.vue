@@ -139,44 +139,57 @@ function checkSlots() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../assets/stylus/inject.styl'
-
-.p-button-group
-	display flex
-	flex-wrap wrap
-	align-items center
-	gap 10px 20px
-	&.has-cutline
-		gap 10px 0
-	&.is-direction
-		&-horizontal
-			flex-direction row
-		&-vertical
-			flex-direction column
-	&.is-align
-		&-start
-			justify-content flex-start
-		&-center
-			justify-content center
-		&-end
-			justify-content flex-end
-	&.is-tight
-		gap 5px 10px
-		&.has-cutline
-			gap 5px 0
-	.cutline
-		position relative
-		width 21px
-		&:after
-			content ''
-			position absolute
-			top 15%
-			left 50%
-			height 70%
-			width 1px
-			background-color var(--popup-plugin-preset-color-border)
-			z-index 1
-		&.is-tight
-			width 11px
+<style lang="scss" scoped>
+.p-button-group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 20px;
+	&.has-cutline {
+		gap: 10px 0;
+	}
+	&.is-direction {
+		&-horizontal {
+			flex-direction: row;
+		}
+		&-vertical {
+			flex-direction: column;
+		}
+	}
+	&.is-align {
+		&-start {
+			justify-content: flex-start;
+		}
+		&-center {
+			justify-content: center;
+		}
+		&-end {
+			justify-content: flex-end;
+		}
+	}
+	&.is-tight {
+		gap: 5px 10px;
+		&.has-cutline {
+			gap: 5px 0;
+		}
+	}
+	.cutline {
+		position: relative;
+		width: 21px;
+		height: 100%;
+		&:after {
+			content: '';
+			position: absolute;
+			top: 15%;
+			left: 50%;
+			height: 70%;
+			width: 1px;
+			background-color: var(--popup-plugin-preset-color-border);
+			z-index: 1;
+		}
+		&.is-tight {
+			width: 11px;
+		}
+	}
+}
 </style>

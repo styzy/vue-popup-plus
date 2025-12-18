@@ -27,44 +27,56 @@ type Props = {
 const { theme = 'primary', size = 60 } = defineProps<Props>()
 </script>
 
-<style lang="stylus" scoped>
-@import '../assets/stylus/inject.styl'
-
-.p-loading-icon
-	display inline-block
-	width v-bind('`${size}px`')
-	height v-bind('`${size}px`')
-	svg
-		width 100%
-		height 100%
-		animation rotate 2s linear infinite
-		circle
-			animation dash 1.5s ease-in-out infinite
-			stroke-dasharray 90, 150
-			stroke-dashoffset 0
-			stroke-width 2
-			stroke-linecap round
-	&.is-theme-primary
-			stroke var(--popup-plugin-preset-color-primary)
-	&.is-theme-info
-			stroke var(--popup-plugin-preset-color-info)
-	&.is-theme-success
-			stroke var(--popup-plugin-preset-color-success)
-	&.is-theme-warning
-			stroke var(--popup-plugin-preset-color-warning)
-	&.is-theme-danger
-			stroke var(--popup-plugin-preset-color-danger)
-@keyframes rotate
-	100%
-		transform rotate(360deg)
-@keyframes dash
-	0%
-		stroke-dasharray 1, 200
-		stroke-dashoffset 0
-	50%
-		stroke-dasharray 90, 150
-		stroke-dashoffset -40px
-	100%
-		stroke-dasharray 90, 150
-		stroke-dashoffset -120px
+<style lang="scss" scoped>
+.p-loading-icon {
+	display: inline-block;
+	width: v-bind('`${size}px`');
+	height: v-bind('`${size}px`');
+	svg {
+		width: 100%;
+		height: 100%;
+		animation: rotate 2s linear infinite;
+		circle {
+			animation: dash 1.5s ease-in-out infinite;
+			stroke-dasharray: 90, 150;
+			stroke-dashoffset: 0;
+			stroke-width: 2;
+			stroke-linecap: round;
+		}
+	}
+	&.is-theme-primary {
+		stroke: var(--popup-plugin-preset-color-primary);
+	}
+	&.is-theme-info {
+		stroke: var(--popup-plugin-preset-color-info);
+	}
+	&.is-theme-success {
+		stroke: var(--popup-plugin-preset-color-success);
+	}
+	&.is-theme-warning {
+		stroke: var(--popup-plugin-preset-color-warning);
+	}
+	&.is-theme-danger {
+		stroke: var(--popup-plugin-preset-color-danger);
+	}
+}
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes dash {
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -40px;
+	}
+	100% {
+		stroke-dasharray: 90, 150;
+		stroke-dashoffset: -120px;
+	}
+}
 </style>

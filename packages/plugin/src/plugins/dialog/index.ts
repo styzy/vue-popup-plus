@@ -169,7 +169,7 @@ export const dialog = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
+	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
 		const recordList: Array<{
 			id: string
 			instanceId: InstanceId

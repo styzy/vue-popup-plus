@@ -44,36 +44,45 @@ function handleClick() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../assets/styles/inject.scss' as *;
 
-.p-header-button
-	baseStyle()
-	baseTrans()
+.p-header-button {
+	@include base-style();
+	@include base-transition();
 
-	display flex
-	justify-content center
-	align-items center
-	width v-bind('`${size}px`')
-	height v-bind('`${size}px`')
-	color var(--popup-plugin-preset-color-text-sub)
-	cursor pointer
-	i
-		font-size v-bind('`${iconSize}px`')
-	&.is-disabled
-		opacity 0.5
-		cursor not-allowed
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: v-bind('`${size}px`');
+	height: v-bind('`${size}px`');
+	color: var(--popup-plugin-preset-color-text-sub);
+	cursor: pointer;
+	i {
+		font-size: v-bind('`${iconSize}px`');
+	}
+	&.is-disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 	&.is-active,
-	&:not(.is-disabled):hover
-		color #FFFFFF
-		&.is-theme-primary
-			background-color var(--popup-plugin-preset-color-primary)
-		&.is-theme-info
-			background-color var(--popup-plugin-preset-color-info)
-		&.is-theme-success
-			background-color var(--popup-plugin-preset-color-success)
-		&.is-theme-warning
-			background-color var(--popup-plugin-preset-color-warning)
-		&.is-theme-danger
-			background-color var(--popup-plugin-preset-color-danger)
+	&:not(.is-disabled):hover {
+		color: #ffffff;
+		&.is-theme-primary {
+			background-color: var(--popup-plugin-preset-color-primary);
+		}
+		&.is-theme-info {
+			background-color: var(--popup-plugin-preset-color-info);
+		}
+		&.is-theme-success {
+			background-color: var(--popup-plugin-preset-color-success);
+		}
+		&.is-theme-warning {
+			background-color: var(--popup-plugin-preset-color-warning);
+		}
+		&.is-theme-danger {
+			background-color: var(--popup-plugin-preset-color-danger);
+		}
+	}
+}
 </style>

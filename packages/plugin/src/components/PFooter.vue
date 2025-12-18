@@ -9,12 +9,13 @@ defineOptions({
 })
 </script>
 
-<style lang="stylus" scoped>
-@import '../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../assets/styles/inject.scss' as *;
 
-.p-footer
-	baseDialog(padding)
+.p-footer {
+	@include base-container(padding);
 
-	box-sizing border-box
-	background-color var(--popup-plugin-preset-color-background-main)
+	box-sizing: border-box;
+	background-color: var(--popup-plugin-preset-color-background-main);
+}
 </style>

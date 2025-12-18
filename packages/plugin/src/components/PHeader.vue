@@ -102,36 +102,42 @@ function handleOffsetChange() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../assets/styles/inject.scss' as *;
 
-.p-header
-	baseStyle()
+.p-header {
+	@include base-style();
 
-	display flex
-	flex-direction row
-	justify-content space-between
-	align-items center
-	gap 10px
-	padding-left 20px
-	height v-bind('`${height}px`')
-	border-bottom 1px solid var(--popup-plugin-preset-color-border-dark-lite)
-	background-color var(--popup-plugin-preset-color-background-sub)
-	&.is-draggable
-		cursor move
-		user-select none
-	.icon
-		color var(--popup-plugin-preset-color-primary)
-		height 24px
-		i
-			font-size @height
-	.title
-		baseEllipsis()
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	padding-left: 20px;
+	height: v-bind('`${height}px`');
+	border-bottom: 1px solid var(--popup-plugin-preset-color-border-dark-lite);
+	background-color: var(--popup-plugin-preset-color-background-sub);
+	&.is-draggable {
+		cursor: move;
+		user-select: none;
+	}
+	.icon {
+		color: var(--popup-plugin-preset-color-primary);
+		height: 24px;
+		i {
+			font-size: 24px;
+		}
+	}
+	.title {
+		@include base-ellipsis();
 
-		flex 1
-		font-size var(--popup-plugin-preset-font-size-title-sub)
-	.btn-ctn
-		display flex
-		align-items center
-		height 100%
+		flex: 1;
+		font-size: var(--popup-plugin-preset-font-size-title-sub);
+	}
+	.btn-ctn {
+		display: flex;
+		align-items: center;
+		height: 100%;
+	}
+}
 </style>

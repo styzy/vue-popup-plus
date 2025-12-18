@@ -94,7 +94,7 @@ export const loading = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
+	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
 		const record: {
 			id?: string
 			instanceId?: InstanceId

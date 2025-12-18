@@ -123,7 +123,7 @@ export const prompt = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'classic' }: GlobalOption = {}) => {
+	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
 		controller.customProperties.prompt = function (
 			message: string,
 			{

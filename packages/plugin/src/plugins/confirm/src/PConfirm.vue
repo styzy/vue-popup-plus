@@ -1,6 +1,6 @@
 <template lang="pug">
 .p-confirm
-	PScaffold
+	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
 				:draggable="draggable"
@@ -58,15 +58,17 @@ function handleCancel() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../../../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
 
-.p-confirm
-	baseStyle()
-	max-width 80vw
-	max-height 80vh
-	width 360px
-	.content
-		word-break break-all
-		line-height 24px
+.p-confirm {
+	@include base-style();
+	max-width: 80vw;
+	max-height: 80vh;
+	width: 360px;
+	.content {
+		word-break: break-all;
+		line-height: 24px;
+	}
+}
 </style>

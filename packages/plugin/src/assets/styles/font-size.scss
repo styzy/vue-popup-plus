@@ -1,0 +1,24 @@
+// 生成css字体大小变量
+@mixin css-font-size-variables($name, $size) {
+	$name-space: 'popup-plugin-preset-size';
+
+	--#{$name-space}-#{$name}: #{$size};
+}
+
+// 预置字体大小
+$preset-font-size-title-main: 20px;
+$preset-font-size-title-sub: 16px;
+$preset-font-size-text-main: 14px;
+$preset-font-size-text-sub: 13px;
+$preset-font-size-text-mini: 12px;
+
+:root {
+	@include css-font-size-variables(
+		'title-main',
+		$preset-font-size-title-main
+	);
+	@include css-font-size-variables('title-sub', $preset-font-size-title-sub);
+	@include css-font-size-variables('text-main', $preset-font-size-text-main);
+	@include css-font-size-variables('text-sub', $preset-font-size-text-sub);
+	@include css-font-size-variables('text-mini', $preset-font-size-text-mini);
+}

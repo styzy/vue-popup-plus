@@ -1,6 +1,6 @@
 <template lang="pug">
 .p-dialog(:class="{ 'no-header': !header }")
-	PScaffold
+	PScaffold(:skin="skin")
 		template(#header v-if="header")
 			PHeader(
 				:draggable="draggable"

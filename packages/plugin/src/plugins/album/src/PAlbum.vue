@@ -141,6 +141,7 @@ const scaleEnable = computed(
 
 watch(currentIndex, () => {
 	resetScale()
+	resetDrag()
 })
 
 onBeforeMount(() => {
@@ -185,6 +186,11 @@ function handleScale(isAdd: boolean, scaleLevel = buttonScaleLevel.value) {
 
 function resetScale() {
 	currentScale.value = defaultScale.value
+}
+
+function resetDrag() {
+	dragOffsetX.value = 0
+	dragOffsetY.value = 0
 }
 
 function handleImageMouseScale(event: any) {
@@ -253,117 +259,139 @@ function handleClose() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../../../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
 
-$tools-safe-padding = 40px
+$tools-safe-padding: 40px;
 
-.p-media-album
-	position relative
-	width 100%
-	height 100%
-	user-select none
-	overflow hidden
-	.media
-		display flex
-		justify-content center
-		align-items center
-		height @height
+.p-media-album {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	overflow: hidden;
+	.media {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
 		img,
-		video
-			baseTrans()
-
-			margin auto
-			max-width calc(100% - 300px)
-			max-height calc(100% - 300px)
-		img
-			border none
-			&.is-draggable
-				cursor move
-	.tools
-		display flex
-		align-items center
-		position absolute
-		z-index 2
-		&.top
-			top $tools-safe-padding
-			left $tools-safe-padding
-			right $tools-safe-padding
-			flex-direction row
-			justify-content space-between
-		&.left
-			top $tools-safe-padding + 40px
-			left $tools-safe-padding
-			bottom $tools-safe-padding + 40px
-			flex-direction column
-			justify-content center
-		&.right
-			top $tools-safe-padding + 40px
-			right $tools-safe-padding
-			bottom $tools-safe-padding + 40px
-			flex-direction column
-			justify-content center
-		&.bottom
-			bottom $tools-safe-padding
-			left $tools-safe-padding
-			right $tools-safe-padding
-			flex-direction row
-			justify-content space-between
-			.center
-				display flex
-				align-items center
-				justify-content center
-				gap 20px
+		video {
+			@include base-transition();
+			margin: auto;
+			max-width: calc(100% - 300px);
+			max-height: calc(100% - 300px);
+		}
+		img {
+			border: none;
+			&.is-draggable {
+				cursor: move;
+			}
+		}
+	}
+	.tools {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		z-index: 2;
+		&.top {
+			top: $tools-safe-padding;
+			left: $tools-safe-padding;
+			right: $tools-safe-padding;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		&.left {
+			top: $tools-safe-padding + 40px;
+			left: $tools-safe-padding;
+			bottom: $tools-safe-padding + 40px;
+			flex-direction: column;
+			justify-content: center;
+		}
+		&.right {
+			top: $tools-safe-padding + 40px;
+			right: $tools-safe-padding;
+			bottom: $tools-safe-padding + 40px;
+			flex-direction: column;
+			justify-content: center;
+		}
+		&.bottom {
+			bottom: $tools-safe-padding;
+			left: $tools-safe-padding;
+			right: $tools-safe-padding;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		.center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+		}
 		.info,
-		.control
-			display flex
-			align-items center
-			justify-content center
-			width 40px
-			height 40px
-			border-radius 3px
-			box-sizing content-box
-			color #FFFFFF
-			background-color rgba(100, 100, 100, 0.5)
-			font-size var(--popup-plugin-preset-font-size-text-main)
-		.control
-			baseTrans()
-
-			cursor pointer
-			&:hover
-				color var(--popup-plugin-preset-color-primary)
-				background-color rgba(50, 50, 50, 0.5)
-			i
-				font-size 26px
-		.empty
-			width 40px
-			height 40px
-		.count
-			display flex
-			align-items center
-			justify-content center
-			gap 10px
-			padding 0 20px
-			.current
-				font-weight 700
-		.name
-			baseEllipsis()
-			display flex
-			align-items center
-			justify-content center
-			width auto
-			max-width 50%
-			padding 0 20px
+		.control {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 3px;
+			box-sizing: content-box;
+			color: #ffffff;
+			background-color: rgba(100, 100, 100, 0.5);
+			font-size: var(--popup-plugin-preset-font-size-text-main);
+		}
+		.control {
+			@include base-transition();
+			cursor: pointer;
+			&:hover {
+				color: var(--popup-plugin-preset-color-primary);
+				background-color: rgba(50, 50, 50, 0.5);
+			}
+			i {
+				font-size: 26px;
+			}
+		}
+		.empty {
+			width: 40px;
+			height: 40px;
+		}
+		.count {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 0 20px;
+			.current {
+				font-weight: 700;
+			}
+		}
+		.name {
+			@include base-ellipsis();
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: auto;
+			max-width: 50%;
+			padding: 0 20px;
+		}
 		.back,
-		.next
-			width 60px
-			height 100px
-			transform translateY(-50%)
-			i
-				font-size 40px
-		.download
-			justify-self flex-end
-		.close
-			&:hover
-				color var(--popup-plugin-preset-color-danger)
+		.next {
+			width: 60px;
+			height: 100px;
+			transform: translateY(-50%);
+			i {
+				font-size: 40px;
+			}
+		}
+		.download {
+			justify-self: flex-end;
+		}
+		.close {
+			&:hover {
+				color: var(--popup-plugin-preset-color-danger);
+			}
+		}
+	}
+}
 </style>

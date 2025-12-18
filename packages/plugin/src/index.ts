@@ -8,9 +8,9 @@ import { prompt, type IPrompt } from './plugins/prompt'
 import { toast, type IToast } from './plugins/toast'
 import type { GlobalOption } from './typings'
 
-import './assets/stylus/color.styl'
-import './assets/stylus/fontSize.styl'
-import './assets/stylus/iconfont.styl'
+import './assets/styles/color.scss'
+import './assets/styles/font-size.scss'
+import './assets/styles/iconfont.scss'
 
 export { version } from './version'
 export type { IAlbum, IAlert, IConfirm, IDialog, ILoading, IPrompt, IToast }
@@ -24,7 +24,7 @@ export const plugin = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install(controller, config, { skin = 'classic' }: GlobalOption = {}) {
+	install(controller, config, { skin = 'modern' }: GlobalOption = {}) {
 		const options = { skin }
 
 		album.install(controller, config, options)
