@@ -9,13 +9,13 @@ generateCssColor($name, $color)
 	--popup-color-{$name}-light-most lighten($color, 60%)
 
 // 预置颜色
-$preset-color-mask = rgba(175, 175, 175, 0.3)
+$preset-color-mask = rgba(0, 0, 0, 0.45)
 
 :root
 	generateCssColor('mask', $preset-color-mask)
 
 // 预置暗色主题颜色
-$preset-dark-color-mask = rgba(75, 75, 75, 0.3)
+$preset-dark-color-mask = rgba(75, 75, 75, 0.45)
 
 .dark
 	generateCssColor('mask', $preset-dark-color-mask)
