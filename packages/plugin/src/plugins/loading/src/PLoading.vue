@@ -37,15 +37,19 @@ function handleClose() {
 }
 </script>
 
-<style lang="stylus" scoped>
-.p-loading
-	display flex
-	flex-direction column
-	align-items center
-	justify-content center
-	gap 20px
-	overflow hidden
-	.title
-		font-size var(--popup-plugin-preset-font-size-title-sub)
-		color var(--popup-plugin-preset-color-text-main)
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
+
+.p-loading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	overflow: hidden;
+	.title {
+		font-size: var(--popup-plugin-preset-font-size-title-sub);
+		color: var(--popup-plugin-preset-color-text-main);
+	}
+}
 </style>

@@ -78,16 +78,19 @@ function handleClose() {
 }
 </script>
 
-<style lang="stylus" scoped>
-.p-dialog
-	display flex
-	flex-direction column
-	justify-content stretch
-	align-items stretch
-	width inherit
-	height inherit
-	max-width inherit
-	max-height inherit
-	min-width inherit
-	min-height inherit
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
+
+.p-dialog {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+	width: inherit;
+	height: inherit;
+	max-width: inherit;
+	max-height: inherit;
+	min-width: inherit;
+	min-height: inherit;
+}
 </style>

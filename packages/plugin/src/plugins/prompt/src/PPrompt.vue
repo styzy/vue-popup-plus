@@ -88,39 +88,45 @@ function handleCancel() {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '../../../assets/stylus/inject.styl'
+<style lang="scss" scoped>
+@use '../../../assets/styles/inject.scss' as *;
 
-.p-prompt
-	baseStyle()
-	max-width 80vw
-	max-height 80vh
-	width 360px
-	.message
-		padding-bottom 20px
-		max-height calc(100vh - 122px)
-		line-height 24px
-		box-sizing border-box
-		word-break break-all
-		overflow-y auto
-	.input
+.p-prompt {
+	@include base-style();
+	max-width: 80vw;
+	max-height: 80vh;
+	width: 360px;
+	.message {
+		padding-bottom: 20px;
+		max-height: calc(100vh - 122px);
+		line-height: 24px;
+		box-sizing: border-box;
+		word-break: break-all;
+		overflow-y: auto;
+	}
+	.input {
 		input,
-		textarea
-			baseTrans()
-			display flex
-			align-items center
-			justify-content flex-start
-			box-sizing border-box
-			width 100%
-			padding 10px
-			border 1px solid var(--popup-plugin-preset-color-border)
-			border-radius 4px
-			color var(--popup-plugin-preset-color-text-main)
-			background-color transparent
-			outline none
-			&:focus
-				border-color var(--popup-plugin-preset-color-primary)
-		textarea
-			height 100px
-			resize none
+		textarea {
+			@include base-transition();
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			box-sizing: border-box;
+			width: 100%;
+			padding: 10px;
+			border: 1px solid var(--popup-plugin-preset-color-border);
+			border-radius: 4px;
+			color: var(--popup-plugin-preset-color-text-main);
+			background-color: transparent;
+			outline: none;
+			&:focus {
+				border-color: var(--popup-plugin-preset-color-primary);
+			}
+		}
+		textarea {
+			height: 100px;
+			resize: none;
+		}
+	}
+}
 </style>
