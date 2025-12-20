@@ -137,6 +137,6 @@ function formatSize(size: string | number): string {
 <style lang="stylus" scoped>
 .popup-view
 	position relative
-	overflow auto
+	// overflow auto
 	pointer-events auto
 </style>
