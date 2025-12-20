@@ -34,6 +34,13 @@ type LoadingOption = {
 	 */
 	iconSize?: number
 	/**
+	 * 是否显示遮罩层
+	 *
+	 * - 默认值：`true`
+	 * @since 1.5.0
+	 */
+	mask?: boolean
+	/**
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
@@ -104,6 +111,7 @@ export const loading = definePlugin({
 			theme = 'primary',
 			title = '',
 			iconSize = 60,
+			mask = true,
 			maskBlur = true,
 		}: LoadingOption = {}) {
 			if (record.id) {
@@ -137,6 +145,7 @@ export const loading = definePlugin({
 					iconSize,
 					debugMode: config.debugMode,
 				},
+				mask,
 				maskBlur,
 				zIndex: 99999999,
 				onUnmounted() {
@@ -184,6 +193,7 @@ export const loading = definePlugin({
 				theme,
 				title,
 				iconSize,
+				mask,
 				maskBlur,
 			}
 
@@ -196,7 +206,7 @@ export const loading = definePlugin({
 						{
 							type: LogGroupItemType.Data,
 							dataName: 'original options',
-							dataValue: arguments[1],
+							dataValue: arguments[0],
 							dataType: 'LoadingOption',
 						},
 						{

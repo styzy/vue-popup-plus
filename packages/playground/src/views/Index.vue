@@ -138,8 +138,11 @@
 				PButton(@click="handlePopupLoadingWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupLoadingDanger()" theme="danger") 危险主题
 				PButton(@click="handlePopupLoadingCustomTitle()") 自定义标题
+				PButton(@click="handlePopupLoadingCustomTitleLong()") 自定义长标题
 				PButton(@click="handlePopupLoadingCustomIconSize()") 自定义图标尺寸
+				PButton(@click="handlePopupLoadingWithoutMask()") 禁用遮罩层
 				PButton(@click="handlePopupLoadingWithoutMaskBlur()") 禁用遮罩模糊
+				PButton(@click="handlePopupLoadingForever()") 持续显示
 			.title.second Dialog 对话框
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
@@ -894,14 +897,30 @@ function handlePopupLoadingCustomTitle() {
 	window.setTimeout(popup.loading.close, 2000)
 }
 
+function handlePopupLoadingCustomTitleLong() {
+	popup.loading({
+		title: '自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题.',
+	})
+	window.setTimeout(popup.loading.close, 2000)
+}
+
 function handlePopupLoadingCustomIconSize() {
 	popup.loading({ iconSize: 100 })
+	window.setTimeout(popup.loading.close, 2000)
+}
+
+function handlePopupLoadingWithoutMask() {
+	popup.loading({ mask: false })
 	window.setTimeout(popup.loading.close, 2000)
 }
 
 function handlePopupLoadingWithoutMaskBlur() {
 	popup.loading({ maskBlur: false })
 	window.setTimeout(popup.loading.close, 2000)
+}
+
+function handlePopupLoadingForever() {
+	popup.loading({ title: '持续显示' })
 }
 
 async function handlePopupDialog() {

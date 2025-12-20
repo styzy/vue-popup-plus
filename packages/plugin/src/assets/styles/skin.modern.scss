@@ -1,0 +1,9 @@
+@forward './color.scss';
+
+:root {
+	--popup-plugin-preset-modern-box-shadow:
+		0 6px 16px 0 var(--popup-plugin-preset-color-shadow),
+		0 3px 6px -4px var(--popup-plugin-preset-color-shadow-dark),
+		0 9px 28px 8px var(--popup-plugin-preset-color-shadow);
+	--popup-plugin-preset-modern-border-radius: 8px;
+}

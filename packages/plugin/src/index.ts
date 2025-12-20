@@ -8,9 +8,7 @@ import { prompt, type IPrompt } from './plugins/prompt'
 import { toast, type IToast } from './plugins/toast'
 import type { GlobalOption } from './typings'
 
-import './assets/styles/color.scss'
-import './assets/styles/font-size.scss'
-import './assets/styles/iconfont.scss'
+import './assets/styles/main.scss'
 
 export { version } from './version'
 export type { IAlbum, IAlert, IConfirm, IDialog, ILoading, IPrompt, IToast }

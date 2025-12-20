@@ -1,9 +1,10 @@
 <template lang="pug">
-.p-loading
-	PLoadingIcon(:size="iconSize" :theme)
-	.title(v-if="title") {{ title }}
-	PButtonGroup(align="center" v-if="debugMode")
-		PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
+.p-loading(:class="`is-skin-${skin}`")
+	.wrapper
+		PLoadingIcon(:size="iconSize" :theme)
+		.title(v-if="title") {{ title }}
+	//- PButtonGroup(align="center" v-if="debugMode")
+	//- PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
 </template>
 
 <script lang="ts" setup>
@@ -46,10 +47,31 @@ function handleClose() {
 	align-items: center;
 	justify-content: center;
 	gap: 20px;
-	overflow: hidden;
-	.title {
-		font-size: var(--popup-plugin-preset-font-size-title-sub);
-		color: var(--popup-plugin-preset-color-text-main);
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+		padding: 20px;
+		max-width: v-bind('`${iconSize * 3}px`');
+		background-color: rgba(0, 0, 0, 0.6);
+		.title {
+			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			color: #ffffff;
+		}
+	}
+	&.is-skin-classic {
+		.wrapper {
+			border-radius: var(--popup-plugin-preset-classic-border-radius);
+			box-shadow: var(--popup-plugin-preset-classic-box-shadow);
+		}
+	}
+	&.is-skin-modern {
+		.wrapper {
+			border-radius: var(--popup-plugin-preset-modern-border-radius);
+			box-shadow: var(--popup-plugin-preset-modern-box-shadow);
+		}
 	}
 }
 </style>

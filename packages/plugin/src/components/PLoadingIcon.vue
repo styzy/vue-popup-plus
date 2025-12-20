@@ -40,7 +40,7 @@ const { theme = 'primary', size = 60 } = defineProps<Props>()
 			animation: dash 1.5s ease-in-out infinite;
 			stroke-dasharray: 90, 150;
 			stroke-dashoffset: 0;
-			stroke-width: 2;
+			stroke-width: 3;
 			stroke-linecap: round;
 		}
 	}

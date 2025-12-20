@@ -15,15 +15,6 @@
 			$color,
 			$lightness: -45%
 		)};
-	--#{$name-space}-#{$name}-dark-10: #{color.adjust($color, $lightness: -5%)};
-	--#{$name-space}-#{$name}-dark-20: #{color.adjust($color, $lightness: -10%)};
-	--#{$name-space}-#{$name}-dark-30: #{color.adjust($color, $lightness: -15%)};
-	--#{$name-space}-#{$name}-dark-40: #{color.adjust($color, $lightness: -20%)};
-	--#{$name-space}-#{$name}-dark-50: #{color.adjust($color, $lightness: -25%)};
-	--#{$name-space}-#{$name}-dark-60: #{color.adjust($color, $lightness: -30%)};
-	--#{$name-space}-#{$name}-dark-70: #{color.adjust($color, $lightness: -35%)};
-	--#{$name-space}-#{$name}-dark-80: #{color.adjust($color, $lightness: -40%)};
-	--#{$name-space}-#{$name}-dark-90: #{color.adjust($color, $lightness: -45%)};
 
 	--#{$name-space}-#{$name}-light: #{color.adjust($color, $lightness: 15%)};
 	--#{$name-space}-#{$name}-light-lite: #{color.adjust(
@@ -34,15 +25,6 @@
 			$color,
 			$lightness: 45%
 		)};
-	--#{$name-space}-#{$name}-light-10: #{color.adjust($color, $lightness: 5%)};
-	--#{$name-space}-#{$name}-light-20: #{color.adjust($color, $lightness: 10%)};
-	--#{$name-space}-#{$name}-light-30: #{color.adjust($color, $lightness: 15%)};
-	--#{$name-space}-#{$name}-light-40: #{color.adjust($color, $lightness: 20%)};
-	--#{$name-space}-#{$name}-light-50: #{color.adjust($color, $lightness: 25%)};
-	--#{$name-space}-#{$name}-light-60: #{color.adjust($color, $lightness: 30%)};
-	--#{$name-space}-#{$name}-light-70: #{color.adjust($color, $lightness: 35%)};
-	--#{$name-space}-#{$name}-light-80: #{color.adjust($color, $lightness: 40%)};
-	--#{$name-space}-#{$name}-light-90: #{color.adjust($color, $lightness: 45%)};
 }
 
 // 预置颜色

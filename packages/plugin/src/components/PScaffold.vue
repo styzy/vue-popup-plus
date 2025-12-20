@@ -43,9 +43,6 @@ provide(injectSkin, skin)
 	max-height: inherit;
 	min-width: inherit;
 	min-height: inherit;
-	border-radius: 4px;
-	border: 1px solid var(--popup-plugin-preset-color-border-dark-lite);
-	box-shadow: 5px 5px 30px var(--popup-plugin-preset-color-shadow);
 	box-sizing: border-box;
 	.body {
 		flex: 1;
@@ -56,12 +53,13 @@ provide(injectSkin, skin)
 		min-width: 0;
 		min-height: 0;
 	}
+	&.is-skin-classic {
+		box-shadow: var(--popup-plugin-preset-classic-box-shadow);
+		border-radius: var(--popup-plugin-preset-classic-border-radius);
+	}
 	&.is-skin-modern {
-		border: none;
-		box-shadow:
-			0 6px 16px 0 rgba(0, 0, 0, 0.08),
-			0 3px 6px -4px rgba(0, 0, 0, 0.12),
-			0 9px 28px 8px rgba(0, 0, 0, 0.05);
+		box-shadow: var(--popup-plugin-preset-modern-box-shadow);
+		border-radius: var(--popup-plugin-preset-modern-border-radius);
 	}
 }
 </style>
