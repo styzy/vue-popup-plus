@@ -25,6 +25,7 @@ type LoadingOption = {
 	 * 加载遮罩标题文本
 	 *
 	 * - 默认值：''
+	 * @since 1.3.3
 	 */
 	title?: string
 	/**
@@ -44,6 +45,7 @@ type LoadingOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 * @since 1.3.3
 	 */
 	maskBlur?: boolean
 }
@@ -143,6 +145,7 @@ export const loading = definePlugin({
 					theme,
 					title,
 					iconSize,
+					mask,
 					debugMode: config.debugMode,
 				},
 				mask,

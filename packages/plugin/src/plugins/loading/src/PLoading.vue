@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-loading(:class="`is-skin-${skin}`")
+.p-loading(:class="[`is-skin-${skin}`, { 'has-mask': mask }]")
 	.wrapper
 		PLoadingIcon(:size="iconSize" :theme)
 		.title(v-if="title") {{ title }}
@@ -28,10 +28,11 @@ type Props = {
 	theme: Theme
 	title: string
 	iconSize: number
+	mask: boolean
 	debugMode: boolean
 }
 
-const { theme, title, iconSize, debugMode } = defineProps<Props>()
+const { theme, title, iconSize, mask, debugMode } = defineProps<Props>()
 
 function handleClose() {
 	popup.destroy(instanceId)
@@ -55,7 +56,6 @@ function handleClose() {
 		gap: 20px;
 		padding: 20px;
 		max-width: v-bind('`${iconSize * 3}px`');
-		background-color: rgba(0, 0, 0, 0.6);
 		.title {
 			font-size: var(--popup-plugin-preset-font-size-title-sub);
 			color: #ffffff;
@@ -71,6 +71,16 @@ function handleClose() {
 		.wrapper {
 			border-radius: var(--popup-plugin-preset-modern-border-radius);
 			box-shadow: var(--popup-plugin-preset-modern-box-shadow);
+		}
+	}
+	&.has-mask {
+		.wrapper {
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+	}
+	&:not(.has-mask) {
+		.wrapper {
+			background-color: rgba(0, 0, 0, 0.8);
 		}
 	}
 }
