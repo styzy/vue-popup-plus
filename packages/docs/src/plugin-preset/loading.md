@@ -117,7 +117,9 @@ function handleLoadingThemeDanger() {
 
 :::
 
-## 自定义标题文本
+## 自定义标题文本 <Badge type="tip" text="1.3.3+" />
+
+> <DVersionSupport package="plugin" version="1.3.3" />
 
 可以通过 `title` 选项来自定义标题文本。
 
@@ -162,6 +164,54 @@ function handleLoadingCustomIconSize() {
 		}),
 		3000
 	)
+}
+```
+
+:::
+
+## 禁用遮罩层 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport package="plugin" version="1.5.0" />
+
+可以通过 `mask` 选项来禁用遮罩层。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleLoadingDisableMask">禁用遮罩层</DButton>
+```
+
+```ts
+function handleLoadingDisableMask() {
+	popup.loading({
+		mask: false, // [!code highlight]
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+```
+
+:::
+
+## 禁用遮罩层高斯模糊 <Badge type="tip" text="1.3.3+" />
+
+> <DVersionSupport package="plugin" version="1.3.3" />
+
+为了提升用户关注度，该弹出层使用了 `高斯模糊` 背景遮罩，可以通过 `maskBlur` 选项来禁用遮罩层的高斯模糊效果。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleLoadingMaskBlur"
+	>禁用遮罩层高斯模糊</DButton
+>
+```
+
+```ts
+function handleLoadingMaskBlur() {
+	popup.loading({
+		maskBlur: false, // [!code highlight]
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 ```
 
@@ -214,21 +264,31 @@ function handleLoadingThemeDanger(){
 }
 
 function handleLoadingCustomTitle() {
-	setTimeout(
-		popup.loading({
-			title: '自定义标题文本',
-		}),
-		3000
-	)
+	popup.loading({
+		title: '自定义标题文本',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 function handleLoadingCustomIconSize() {
-	setTimeout(
-		popup.loading({
-			iconSize: 100,
-		}),
-		3000
-	)
+	popup.loading({
+		iconSize: 100,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingDisableMask() {
+	popup.loading({
+		mask: false,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handleLoadingMaskBlur() {
+	popup.loading({
+		maskBlur: false,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
 }
 
 </script>

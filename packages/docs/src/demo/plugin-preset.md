@@ -836,6 +836,7 @@ function handlePopupLoadingWithThemeDanger() {
 
 ```html
 <DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupLoadingWithoutMask">禁用遮罩层</DButton>
 	<DButton @click="handlePopupLoadingWithoutMaskBlur"
 		>禁用遮罩高斯模糊</DButton
 	>
@@ -843,6 +844,13 @@ function handlePopupLoadingWithThemeDanger() {
 ```
 
 ```ts
+function handlePopupLoadingWithoutMask() {
+	popup.loading({
+		mask: false,
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
 function handlePopupLoadingWithoutMaskBlur() {
 	popup.loading({
 		maskBlur: false,
@@ -1440,6 +1448,13 @@ function handlePopupLoadingWithThemeWarning() {
 function handlePopupLoadingWithThemeDanger() {
 	popup.loading({
 		theme: 'danger',
+	})
+	setTimeout(() => popup.loading.close(), 3000)
+}
+
+function handlePopupLoadingWithoutMask() {
+	popup.loading({
+		mask: false,
 	})
 	setTimeout(() => popup.loading.close(), 3000)
 }

@@ -872,6 +872,7 @@ type LoadingOption = {
 	 * 加载遮罩标题文本
 	 *
 	 * - 默认值：''
+	 * @since 1.3.3
 	 */
 	title?: string
 	/**
@@ -881,10 +882,17 @@ type LoadingOption = {
 	 */
 	iconSize?: number
 	/**
+	 * 是否显示遮罩层
+	 *
+	 * - 默认值：`true`
+	 * @since 1.5.0
+	 */
+	mask?: boolean
+	/**
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
-	 * @since 1.3.0
+	 * @since 1.3.3
 	 */
 	maskBlur?: boolean
 }
