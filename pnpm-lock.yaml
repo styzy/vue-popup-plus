@@ -72,6 +72,9 @@ catalogs:
     pug:
       specifier: ^3.0.3
       version: 3.0.3
+    sass:
+      specifier: ^1.97.0
+      version: 1.97.0
     stylus:
       specifier: ^0.64.0
       version: 0.64.0
@@ -550,11 +553,8 @@ importers:
         specifier: 'catalog:'
         version: 3.0.3
       sass:
-        specifier: ^1.97.0
-        version: 1.97.0
-      stylus:
         specifier: 'catalog:'
-        version: 0.64.0
+        version: 1.97.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
