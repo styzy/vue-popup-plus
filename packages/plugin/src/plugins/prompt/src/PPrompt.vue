@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-prompt
+.p-prompt(:class="`is-skin-${skin}`")
 	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
@@ -8,7 +8,7 @@
 				:title="title"
 				@close="handleCancel()"
 				iconClass="prompt")
-		PBody
+		PBody(fitIcon)
 			.message(v-if="isRenderMessage") {{ message }}
 			.input
 				template(v-if="type === 'input'")
@@ -34,7 +34,7 @@ import { computed, inject, ref } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { type PromptType } from '../index'
 import { type Skin } from '../../../typings'
-import PScaffold from '../../../components/PScaffold.vue'
+import PScaffold, { injectSkin } from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
@@ -42,6 +42,8 @@ import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
 const popup = usePopup()
+
+const skin = inject(injectSkin, 'modern')
 
 defineOptions({
 	name: 'PPrompt',
@@ -115,7 +117,7 @@ function handleCancel() {
 			width: 100%;
 			padding: 10px;
 			border: 1px solid var(--popup-plugin-preset-color-border);
-			border-radius: 4px;
+			border-radius: var(--popup-plugin-preset-border-radius);
 			color: var(--popup-plugin-preset-color-text-main);
 			background-color: transparent;
 			outline: none;
@@ -127,6 +129,12 @@ function handleCancel() {
 			height: 100px;
 			resize: none;
 		}
+	}
+	&.is-skin-modern {
+		width: 420px;
+	}
+	&.is-skin-classic {
+		width: 360px;
 	}
 }
 </style>

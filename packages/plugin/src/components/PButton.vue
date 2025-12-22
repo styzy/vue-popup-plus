@@ -198,22 +198,14 @@ function handleClick(event: PointerEvent) {
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-plain:not(:disabled):hover:not(.is-mobile) {
-			border-color: var(
-				--popup-plugin-preset-color-background-sub-dark-lite
-			);
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark-lite
-			);
-			color: var(--popup-plugin-preset-color-text-main);
+			border-color: var(--popup-plugin-preset-color-primary);
+			color: var(--popup-plugin-preset-color-primary);
 		}
 		&.is-type-plain:not(:disabled):active {
 			border-color: var(
-				--popup-plugin-preset-color-background-sub-dark
+				--popup-plugin-preset-color-primary-dark
 			) !important;
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark
-			) !important;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: var(--popup-plugin-preset-color-primary-dark) !important;
 		}
 		&.is-type-text {
 			border-color: transparent;
@@ -266,7 +258,7 @@ function handleClick(event: PointerEvent) {
 	outline: none;
 	border-width: 1px;
 	border-style: solid;
-	border-radius: 4px;
+	border-radius: var(--popup-plugin-preset-border-radius);
 	cursor: pointer;
 	&.is-size-small {
 		gap: 5px;

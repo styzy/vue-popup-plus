@@ -44,6 +44,8 @@ provide(injectSkin, skin)
 	min-width: inherit;
 	min-height: inherit;
 	box-sizing: border-box;
+	box-shadow: var(--popup-plugin-preset-box-shadow);
+	border-radius: var(--popup-plugin-preset-border-radius-large);
 	.body {
 		flex: 1;
 		display: flex;
@@ -52,14 +54,6 @@ provide(injectSkin, skin)
 		align-items: stretch;
 		min-width: 0;
 		min-height: 0;
-	}
-	&.is-skin-classic {
-		box-shadow: var(--popup-plugin-preset-classic-box-shadow);
-		border-radius: var(--popup-plugin-preset-classic-border-radius);
-	}
-	&.is-skin-modern {
-		box-shadow: var(--popup-plugin-preset-modern-box-shadow);
-		border-radius: var(--popup-plugin-preset-modern-border-radius);
 	}
 }
 </style>

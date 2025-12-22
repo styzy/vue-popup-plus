@@ -1,6 +1,6 @@
 // 生成css字体大小变量
 @mixin css-font-size-variables($name, $size) {
-	$name-space: 'popup-plugin-preset-size';
+	$name-space: 'popup-plugin-preset-font-size';
 
 	--#{$name-space}-#{$name}: #{$size};
 }

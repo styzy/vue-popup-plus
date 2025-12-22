@@ -1,8 +1,8 @@
 <template lang="pug">
 .p-header(
-	:class="{ 'is-draggable': draggable, [`is-skin-${skin}`]: true }"
+	:class="[`is-skin-${skin}`, { 'is-draggable': draggable }]"
 	@mousedown="handleDragStart($event)")
-	.icon(v-if="hasIcon")
+	.icon(:class="`is-theme-${iconTheme}`" v-if="hasIcon")
 		i.iconfont-popup-plugin-preset(:class="iconClass")
 	.title {{ title }}
 	.btn-ctn
@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
-import { type Skin } from '../typings'
+import { type Theme } from '../typings'
 import { injectSkin } from './PScaffold.vue'
 import PHeaderButton from './PHeaderButton.vue'
 
@@ -33,8 +33,8 @@ const skin = inject(injectSkin, 'modern')
 
 type Props = {
 	title?: string
-	height?: number
 	iconClass?: string
+	iconTheme?: Theme
 	hasCloseButton?: boolean
 	draggable?: boolean
 }
@@ -42,7 +42,7 @@ type Props = {
 const {
 	title = '',
 	iconClass = '',
-	height = 40,
+	iconTheme = 'primary',
 	hasCloseButton = true,
 	draggable = false,
 } = defineProps<Props>()
@@ -82,8 +82,8 @@ function handleDragStart(event: MouseEvent) {
 function handleDragMove(event: MouseEvent) {
 	if (!isDragging.value) return
 
-	const deltaX = event.clientX - dragOriginMouseX.value
-	const deltaY = event.clientY - dragOriginMouseY.value
+	const deltaX = Math.ceil(event.clientX - dragOriginMouseX.value)
+	const deltaY = Math.ceil(event.clientY - dragOriginMouseY.value)
 	dragOffsetX.value = dragOriginOffsetX.value + deltaX
 	dragOffsetY.value = dragOriginOffsetY.value + deltaY
 }
@@ -106,38 +106,89 @@ function handleOffsetChange() {
 @use '../assets/styles/inject.scss' as *;
 
 .p-header {
-	@include base-style();
-
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-	padding-left: 20px;
-	height: v-bind('`${height}px`');
-	border-bottom: 1px solid var(--popup-plugin-preset-color-border-dark-lite);
-	background-color: var(--popup-plugin-preset-color-background-sub);
+	.icon {
+		&.is-theme-primary {
+			color: var(--popup-plugin-preset-color-primary);
+		}
+		&.is-theme-info {
+			color: var(--popup-plugin-preset-color-info);
+		}
+		&.is-theme-success {
+			color: var(--popup-plugin-preset-color-success);
+		}
+		&.is-theme-warning {
+			color: var(--popup-plugin-preset-color-warning);
+		}
+		&.is-theme-danger {
+			color: var(--popup-plugin-preset-color-danger);
+		}
+	}
 	&.is-draggable {
 		cursor: move;
 		user-select: none;
 	}
-	.icon {
-		color: var(--popup-plugin-preset-color-primary);
-		height: 24px;
-		i {
-			font-size: 24px;
+	&.is-skin-classic {
+		@include base-style();
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+		padding-left: 20px;
+		height: 40px;
+		border-bottom: 1px solid
+			var(--popup-plugin-preset-color-border-dark-lite);
+		background-color: var(--popup-plugin-preset-color-background-sub);
+		.icon {
+			height: 24px;
+			i {
+				font-size: 24px;
+			}
+		}
+		.title {
+			@include base-ellipsis();
+
+			flex: 1;
+			font-size: var(--popup-plugin-preset-font-size-title-sub);
+		}
+		.btn-ctn {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
 		}
 	}
-	.title {
-		@include base-ellipsis();
+	&.is-skin-modern {
+		@include base-style();
 
-		flex: 1;
-		font-size: var(--popup-plugin-preset-font-size-title-sub);
-	}
-	.btn-ctn {
 		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 		align-items: center;
-		height: 100%;
+		padding: 20px;
+		background-color: var(--popup-plugin-preset-color-background-main);
+		.icon {
+			width: 40px;
+			height: 24px;
+			i {
+				font-size: 24px;
+			}
+		}
+		.title {
+			@include base-ellipsis();
+
+			flex: 1;
+			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			font-weight: 600;
+		}
+		.btn-ctn {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: 5px;
+		}
 	}
 }
 </style>

@@ -56,21 +56,11 @@ function handleClose() {
 		gap: 20px;
 		padding: 20px;
 		max-width: v-bind('`${iconSize * 3}px`');
+		border-radius: var(--popup-plugin-preset-border-radius-large);
+		box-shadow: var(--popup-plugin-preset-box-shadow);
 		.title {
 			font-size: var(--popup-plugin-preset-font-size-title-sub);
 			color: #ffffff;
-		}
-	}
-	&.is-skin-classic {
-		.wrapper {
-			border-radius: var(--popup-plugin-preset-classic-border-radius);
-			box-shadow: var(--popup-plugin-preset-classic-box-shadow);
-		}
-	}
-	&.is-skin-modern {
-		.wrapper {
-			border-radius: var(--popup-plugin-preset-modern-border-radius);
-			box-shadow: var(--popup-plugin-preset-modern-box-shadow);
 		}
 	}
 	&.has-mask {

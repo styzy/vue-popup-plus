@@ -1,9 +1,12 @@
 @forward './color.scss';
 
-:root {
-	--popup-plugin-preset-modern-box-shadow:
+:root,
+.is-skin-modern {
+	--popup-plugin-preset-spacing: 20px;
+	--popup-plugin-preset-border-radius-large: 8px;
+	--popup-plugin-preset-border-radius: 4px;
+	--popup-plugin-preset-box-shadow:
 		0 6px 16px 0 var(--popup-plugin-preset-color-shadow),
 		0 3px 6px -4px var(--popup-plugin-preset-color-shadow-dark),
 		0 9px 28px 8px var(--popup-plugin-preset-color-shadow);
-	--popup-plugin-preset-modern-border-radius: 8px;
 }

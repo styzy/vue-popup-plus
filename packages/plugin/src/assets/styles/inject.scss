@@ -6,7 +6,7 @@
 
 // 基础容器
 @mixin base-container($type: margin) {
-	$size: 20px;
+	$size: var(--popup-plugin-preset-spacing);
 
 	@if $type == padding {
 		box-sizing: border-box;

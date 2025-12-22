@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-alert
+.p-alert(:class="`is-skin-${skin}`")
 	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
@@ -8,7 +8,7 @@
 				:title="title"
 				@close="handleConfirm()"
 				iconClass="alert")
-		PBody
+		PBody(fitIcon)
 			.content {{ content }}
 		template(#footer)
 			PFooter
@@ -59,10 +59,15 @@ function handleConfirm() {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
-	width: 360px;
 	.content {
 		word-break: break-all;
 		line-height: 24px;
+	}
+	&.is-skin-modern {
+		width: 420px;
+	}
+	&.is-skin-classic {
+		width: 360px;
 	}
 }
 </style>

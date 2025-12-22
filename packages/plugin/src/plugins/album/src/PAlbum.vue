@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-media-album(@dblclick="handlePureExit()")
+.p-media-album(:class="`is-skin-${skin}`" @dblclick="handlePureExit()")
 	.media(@wheel="handleImageMouseScale($event)")
 		template(v-for="(media, mediaIndex) in mediaList")
 			template(v-if="mediaIndex === currentIndex")
@@ -88,6 +88,7 @@ type Props = {
 }
 
 const {
+	skin,
 	sources,
 	defaultIndex,
 	disableCounter,
@@ -335,7 +336,7 @@ $tools-safe-padding: 40px;
 			justify-content: center;
 			width: 40px;
 			height: 40px;
-			border-radius: 3px;
+			border-radius: var(--popup-plugin-preset-border-radius);
 			box-sizing: content-box;
 			color: #ffffff;
 			background-color: rgba(100, 100, 100, 0.5);

@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-confirm
+.p-confirm(:class="`is-skin-${skin}`")
 	PScaffold(:skin="skin")
 		template(#header)
 			PHeader(
@@ -7,21 +7,22 @@
 				:hasCloseButton="headerClose"
 				:title="title"
 				@close="handleCancel()"
-				iconClass="confirm")
-		PBody
+				iconClass="confirm"
+				iconTheme="warning")
+		PBody(fitIcon)
 			.content {{ content }}
 		template(#footer)
 			PFooter
-				PButtonGroup(align="end" theme="primary")
-					PButton(@click="handleCancel()" type="plain") {{ cancelText }}
-					PButton(@click="handleConfirm()") {{ confirmText }}
+				PButtonGroup(align="end")
+					PButton(@click="handleCancel()" theme="default" type="plain") {{ cancelText }}
+					PButton(@click="handleConfirm()" theme="primary") {{ confirmText }}
 </template>
 
 <script lang="ts" setup>
 import { inject } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { type Skin } from '../../../typings'
-import PScaffold from '../../../components/PScaffold.vue'
+import PScaffold, { injectSkin } from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
@@ -29,6 +30,8 @@ import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
 const popup = usePopup()
+
+const skin = inject(injectSkin, 'modern')
 
 defineOptions({
 	name: 'PConfirm',
@@ -69,6 +72,12 @@ function handleCancel() {
 	.content {
 		word-break: break-all;
 		line-height: 24px;
+	}
+	&.is-skin-modern {
+		width: 420px;
+	}
+	&.is-skin-classic {
+		width: 360px;
 	}
 }
 </style>

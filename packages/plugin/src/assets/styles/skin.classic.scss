@@ -1,7 +1,9 @@
 @forward './color.scss';
 
-:root {
-	--popup-plugin-preset-classic-border-radius: 4px;
-	--popup-plugin-preset-classic-box-shadow: 5px 5px 30px
+.is-skin-classic {
+	--popup-plugin-preset-spacing: 20px;
+	--popup-plugin-preset-border-radius-large: 4px;
+	--popup-plugin-preset-border-radius: 4px;
+	--popup-plugin-preset-box-shadow: 5px 5px 30px
 		var(--popup-plugin-preset-color-shadow);
 }
