@@ -56,6 +56,12 @@
 				PButton(@click="handlePopupAnimationDuration()") 动画持续10s
 				PButton(@click="handlePopupAnimationDurationZero()" theme="danger") 动画持续0s
 				PButton(@click="handlePopupAnimationCustom()" theme="success") 自定义动画
+			.title.second 三方组件库适配
+			ASelect
+			ElSelect
+			PButtonGroup(theme="primary" tight)
+				PButton(@click="handlePopupElementUI()") Element UI
+				PButton(@click="handlePopupAntd()") Ant Design Vue
 	.row
 		.row-item
 			.title 插件功能单元测试
@@ -257,6 +263,7 @@ import { defineAsyncComponent } from 'vue'
 defineOptions({ name: 'Index' })
 
 const popup = usePopup()
+// const popup = {} as any
 
 function handleJump(url: string, blank = false) {
 	window.open(url, blank ? '_blank' : '_self')
@@ -510,6 +517,18 @@ function handlePopupAnimationCustom() {
 		maskAnimation: POPUP_ANIMATIONS.CUSTOM,
 		viewAnimation: POPUP_ANIMATIONS.CUSTOM,
 		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupElementUI() {
+	popup.render({
+		component: () => import('@/views/DemoElementUI.vue'),
+	})
+}
+
+function handlePopupAntd() {
+	popup.render({
+		component: () => import('@/views/DemoAntd.vue'),
 	})
 }
 

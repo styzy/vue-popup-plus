@@ -13,6 +13,13 @@ import './assets/main.styl'
 const app = createApp(App)
 app.component('GlobalComponent', GlobalComponent)
 
+import Antd from 'ant-design-vue'
+app.use(Antd)
+
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+app.use(ElementPlus)
+
 const popup = createPopup({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',

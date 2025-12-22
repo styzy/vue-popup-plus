@@ -1,43 +1,30 @@
 <template lang="pug">
-RouterView
-.dark-btn
-	PButton(@click="handleDarkMode()" theme="primary") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
+AConfigProvider(:locale="zhCN")
+	ElConfigProvider(:locale="elZhCn")
+		PopupRoot
+			RouterView
+			.dark-btn
+				PButton(@click="handleDarkMode()" theme="primary") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { POPUP_ANIMATIONS } from 'vue-popup-plus'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { PopupRoot } from 'vue-popup-plus'
 import PButton from '../../plugin/src/components/PButton.vue'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import elZhCn from 'element-plus/es/locale/lang/zh-cn'
 
-export default defineComponent({
-	name: 'App',
-	components: {
-		PButton,
-	},
-	data() {
-		return {
-			isDarkMode: false,
-		}
-	},
-	created() {
-		// this.$popup.render({
-		// 	component: () => import('@/views/Demo.vue'),
-		// 	maskAnimation: POPUP_ANIMATIONS.CUSTOM,
-		// })
-		// this.$popup.toast('hello world')
-	},
-	methods: {
-		handleDarkMode() {
-			this.isDarkMode = !this.isDarkMode
+const isDarkMode = ref(false)
 
-			if (this.isDarkMode) {
-				document.documentElement.classList.add('dark')
-			} else {
-				document.documentElement.classList.remove('dark')
-			}
-		},
-	},
-})
+function handleDarkMode() {
+	isDarkMode.value = !isDarkMode.value
+
+	if (isDarkMode.value) {
+		document.documentElement.classList.add('dark')
+	} else {
+		document.documentElement.classList.remove('dark')
+	}
+}
 </script>
 
 <style lang="stylus" scoped>

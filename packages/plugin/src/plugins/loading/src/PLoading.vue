@@ -55,9 +55,12 @@ function handleClose() {
 		justify-content: center;
 		gap: 20px;
 		padding: 20px;
-		max-width: v-bind('`${iconSize * 3}px`');
+		max-width: v-bind('`${iconSize * 4}px`');
+		min-width: 120px;
+		min-height: 120px;
 		border-radius: var(--popup-plugin-preset-border-radius-large);
 		box-shadow: var(--popup-plugin-preset-box-shadow);
+		box-sizing: border-box;
 		.title {
 			font-size: var(--popup-plugin-preset-font-size-title-sub);
 			color: #ffffff;
