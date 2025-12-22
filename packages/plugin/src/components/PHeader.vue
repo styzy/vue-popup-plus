@@ -134,16 +134,18 @@ function handleOffsetChange() {
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		gap: 10px;
+		gap: 15px;
 		padding-left: 20px;
 		height: 40px;
 		border-bottom: 1px solid
 			var(--popup-plugin-preset-color-border-dark-lite);
 		background-color: var(--popup-plugin-preset-color-background-sub);
 		.icon {
-			height: 24px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			i {
-				font-size: 24px;
+				font-size: 20px;
 			}
 		}
 		.title {

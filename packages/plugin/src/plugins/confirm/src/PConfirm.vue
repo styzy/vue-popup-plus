@@ -14,7 +14,7 @@
 		template(#footer)
 			PFooter
 				PButtonGroup(align="end")
-					PButton(@click="handleCancel()" theme="default" type="plain") {{ cancelText }}
+					PButton(@click="handleCancel()" type="plain") {{ cancelText }}
 					PButton(@click="handleConfirm()" theme="primary") {{ confirmText }}
 </template>
 
@@ -22,7 +22,7 @@
 import { inject } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { type Skin } from '../../../typings'
-import PScaffold, { injectSkin } from '../../../components/PScaffold.vue'
+import PScaffold from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
@@ -30,8 +30,6 @@ import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
 const popup = usePopup()
-
-const skin = inject(injectSkin, 'modern')
 
 defineOptions({
 	name: 'PConfirm',
@@ -49,8 +47,15 @@ type Props = {
 	draggable: boolean
 }
 
-const { title, headerClose, content, confirmText, cancelText, draggable } =
-	defineProps<Props>()
+const {
+	skin,
+	title,
+	headerClose,
+	content,
+	confirmText,
+	cancelText,
+	draggable,
+} = defineProps<Props>()
 
 function handleConfirm() {
 	popup.destroy(instanceId, true)
