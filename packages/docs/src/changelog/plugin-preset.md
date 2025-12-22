@@ -10,7 +10,7 @@ outline: 2
 ### 特性
 
 - <Badge type="danger" text="未实装" /> 所有功能统一支持皮肤配置项，包括 `经典皮肤 classic`（原有皮肤）和 `现代皮肤 modern`，默认使用 `现代皮肤 modern`。
-      <!-- - <Badge type="danger" text="未实装" /> 新增 `Drawer 抽屉` 功能插件。 -->
+    <!-- - <Badge type="danger" text="未实装" /> 新增 `Drawer 抽屉` 功能插件。 -->
 - `Toast 消息` 新增不同主题下的消息图标。
 - `Toast 消息` 新增 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法用于快速显示不同主题的消息。
 - `Toast 消息` 新增 `placement` 参数，用于指定消息的位置，默认值为 `center` ，可选值和核心 `render()` 函数的 `placement` 参数一致。
@@ -27,6 +27,7 @@ outline: 2
 
 - 重新定义主题，移除 `default` , 现在所有的弹出层的主题参数默认值为 `primary`。
 - 优化主题颜色，现在使用更加柔和的颜色。
+- 优化图标细节，现在图标会更加清晰。
 - `Toast 消息` 优化显示长文本时滚动条的展示效果。
 - `Dialog 对话` 的渲染参数 `componentProps` 现在会自动根据传入的渲染组件进行类型推断和代码提示。
 - `Loading 加载遮罩` 样式优化，图标周围会显示一个半透明的背景，用于突出显示图标和标题文本。
