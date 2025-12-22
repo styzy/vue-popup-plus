@@ -100,7 +100,8 @@ function handleClick() {
 		color: var(--popup-plugin-preset-color-text-sub);
 		cursor: pointer;
 		i {
-			font-size: 16px;
+			display: block;
+			font-size: 12px;
 		}
 		&.is-disabled {
 			opacity: 0.5;

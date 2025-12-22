@@ -17,7 +17,7 @@ i.iconfont-popup-plugin-preset {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	&.close::after {
-		content: '\eb70';
+		content: '\e6b1';
 	}
 	&.alert::after {
 		content: '\e72b';
@@ -53,7 +53,7 @@ i.iconfont-popup-plugin-preset {
 	// 相册
 	&.album {
 		&-close::after {
-			content: '\eb70';
+			content: '\e6b1';
 		}
 		&-enlarge::after {
 			content: '\ec14';
