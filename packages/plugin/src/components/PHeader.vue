@@ -137,8 +137,7 @@ function handleOffsetChange() {
 		gap: 15px;
 		padding-left: 20px;
 		height: 40px;
-		border-bottom: 1px solid
-			var(--popup-plugin-preset-color-border-dark-lite);
+		border-bottom: 1px solid var(--popup-plugin-preset-color-border);
 		background-color: var(--popup-plugin-preset-color-background-sub);
 		.icon {
 			display: flex;

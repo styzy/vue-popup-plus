@@ -4,6 +4,7 @@ button.p-button(
 	:disabled="disabled"
 	@click="handleClick($event)"
 	ref="button")
+	.background
 	slot
 </template>
 
@@ -85,13 +86,7 @@ function handleClick(event: PointerEvent) {
 @use '../assets/styles/inject.scss' as *;
 
 // 创建主题
-@mixin create-theme(
-	$theme,
-	$color,
-	$color-dark,
-	$color-light,
-	$color-light-most
-) {
+@mixin create-theme($theme, $color, $color-dark, $color-light) {
 	&.is-theme-#{$theme} {
 		&.is-type-default,
 		&.is-type-default:disabled:hover,
@@ -131,16 +126,23 @@ function handleClick(event: PointerEvent) {
 			border-color: transparent;
 			background-color: transparent;
 			color: $color;
+			.background {
+				background-color: $color;
+			}
 		}
 		&.is-type-text:not(:disabled):hover:not(.is-mobile) {
 			border-color: transparent;
-			background-color: $color-light-most;
-			color: $color-dark;
+			color: $color;
+			.background {
+				opacity: 0.1;
+			}
 		}
 		&.is-type-text:not(:disabled):active {
 			border-color: transparent;
-			background-color: $color-light !important;
-			color: $color-dark !important;
+			.background {
+				opacity: 0.2 !important;
+			}
+			color: $color !important;
 		}
 		&.is-type-link,
 		&.is-type-link:disabled:hover,
@@ -163,31 +165,23 @@ function handleClick(event: PointerEvent) {
 }
 
 // 创建默认主题
-@mixin create-default-theme() {
+@mixin create-default-theme($color, $color-dark, $color-light) {
 	&.is-theme-default {
 		&.is-type-default,
 		&.is-type-default:disabled:hover,
 		&.is-type-default:disabled:active {
-			border-color: var(--popup-plugin-preset-color-background-sub);
-			background-color: var(--popup-plugin-preset-color-background-sub);
+			border-color: $color;
+			background-color: $color;
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-default:not(:disabled):hover:not(.is-mobile) {
-			border-color: var(
-				--popup-plugin-preset-color-background-sub-dark-lite
-			);
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark-lite
-			);
+			border-color: $color-light;
+			background-color: $color-light;
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-default:not(:disabled):active {
-			border-color: var(
-				--popup-plugin-preset-color-background-sub-dark
-			) !important;
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark
-			) !important;
+			border-color: $color-dark !important;
+			background-color: $color-dark !important;
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-plain,
@@ -214,18 +208,12 @@ function handleClick(event: PointerEvent) {
 		}
 		&.is-type-text:not(:disabled):hover:not(.is-mobile) {
 			border-color: transparent;
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark-lite
-			);
+			background-color: $color;
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-text:not(:disabled):active {
-			border-color: var(
-				--popup-plugin-preset-color-background-sub-dark
-			) !important;
-			background-color: var(
-				--popup-plugin-preset-color-background-sub-dark
-			) !important;
+			border-color: $color-dark !important;
+			background-color: $color-dark !important;
 			color: var(--popup-plugin-preset-color-text-main);
 		}
 		&.is-type-link,
@@ -250,6 +238,7 @@ function handleClick(event: PointerEvent) {
 
 .p-button {
 	@include base-transition();
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -260,6 +249,17 @@ function handleClick(event: PointerEvent) {
 	border-style: solid;
 	border-radius: var(--popup-plugin-preset-border-radius);
 	cursor: pointer;
+	.background {
+		@include base-transition();
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: var(--popup-plugin-preset-border-radius);
+		z-index: -1;
+		opacity: 0;
+	}
 	&.is-size-small {
 		gap: 5px;
 		padding: 5px 10px;
@@ -297,41 +297,49 @@ function handleClick(event: PointerEvent) {
 		);
 	}
 	& {
-		@include create-default-theme();
 		@include create-theme(
 			'primary',
 			var(--popup-plugin-preset-color-primary),
 			var(--popup-plugin-preset-color-primary-dark),
-			var(--popup-plugin-preset-color-primary-light),
-			var(--popup-plugin-preset-color-primary-light-most)
+			var(--popup-plugin-preset-color-primary-light)
 		);
 		@include create-theme(
 			'info',
 			var(--popup-plugin-preset-color-info),
 			var(--popup-plugin-preset-color-info-dark),
-			var(--popup-plugin-preset-color-info-light),
-			var(--popup-plugin-preset-color-info-light-most)
+			var(--popup-plugin-preset-color-info-light)
 		);
 		@include create-theme(
 			'success',
 			var(--popup-plugin-preset-color-success),
 			var(--popup-plugin-preset-color-success-dark),
-			var(--popup-plugin-preset-color-success-light),
-			var(--popup-plugin-preset-color-success-light-most)
+			var(--popup-plugin-preset-color-success-light)
 		);
 		@include create-theme(
 			'warning',
 			var(--popup-plugin-preset-color-warning),
 			var(--popup-plugin-preset-color-warning-dark),
-			var(--popup-plugin-preset-color-warning-light),
-			var(--popup-plugin-preset-color-warning-light-most)
+			var(--popup-plugin-preset-color-warning-light)
 		);
 		@include create-theme(
 			'danger',
 			var(--popup-plugin-preset-color-danger),
 			var(--popup-plugin-preset-color-danger-dark),
-			var(--popup-plugin-preset-color-danger-light),
-			var(--popup-plugin-preset-color-danger-light-most)
+			var(--popup-plugin-preset-color-danger-light)
+		);
+		@include create-default-theme(
+			var(--popup-plugin-preset-color-background-sub-dark-lite),
+			var(--popup-plugin-preset-color-background-sub-dark),
+			var(--popup-plugin-preset-color-background-sub)
+		);
+	}
+}
+.dark {
+	.p-button {
+		@include create-default-theme(
+			var(--popup-plugin-preset-color-background-sub-light-lite),
+			var(--popup-plugin-preset-color-background-sub),
+			var(--popup-plugin-preset-color-background-sub-light)
 		);
 	}
 }

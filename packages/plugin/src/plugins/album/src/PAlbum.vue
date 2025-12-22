@@ -339,7 +339,7 @@ $tools-safe-padding: 40px;
 			border-radius: var(--popup-plugin-preset-border-radius);
 			box-sizing: content-box;
 			color: #ffffff;
-			background-color: rgba(100, 100, 100, 0.5);
+			background-color: rgba(0, 0, 0, 0.2);
 			font-size: var(--popup-plugin-preset-font-size-text-main);
 		}
 		.control {
@@ -347,7 +347,7 @@ $tools-safe-padding: 40px;
 			cursor: pointer;
 			&:hover {
 				color: var(--popup-plugin-preset-color-primary);
-				background-color: rgba(50, 50, 50, 0.5);
+				background-color: rgba(0, 0, 0, 0.3);
 			}
 			i {
 				font-size: 26px;
