@@ -79,7 +79,7 @@ function handleCancel() {
 		line-height: 24px;
 	}
 	&.is-skin-modern {
-		width: 420px;
+		width: 400px;
 	}
 	&.is-skin-classic {
 		width: 360px;

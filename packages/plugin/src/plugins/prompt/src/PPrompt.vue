@@ -130,7 +130,7 @@ function handleCancel() {
 		}
 	}
 	&.is-skin-modern {
-		width: 420px;
+		width: 400px;
 	}
 	&.is-skin-classic {
 		width: 360px;
