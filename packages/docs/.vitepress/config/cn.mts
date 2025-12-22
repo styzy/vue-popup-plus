@@ -49,8 +49,8 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: '预置插件指南',
-				link: '/plugin-preset/introduction',
-				activeMatch: '/plugin-preset/',
+				link: '/guide-plugin-preset/introduction',
+				activeMatch: '/guide-plugin-preset/',
 			},
 			// {
 			// 	text: '指南',
@@ -62,8 +62,8 @@ export const themeConfig = defineConfig({
 			// 		},
 			// 		{
 			// 			text: '预置插件',
-			// 			link: '/plugin-preset/introduction',
-			// 			activeMatch: '/plugin-preset/',
+			// 			link: '/guide-plugin-preset/introduction',
+			// 			activeMatch: '/guide-plugin-preset/',
 			// 		},
 			// 	],
 			// },
@@ -136,21 +136,21 @@ export const themeConfig = defineConfig({
 					],
 				},
 			],
-			'/plugin-preset/': [
+			'/guide-plugin-preset/': [
 				{
 					text: '开始',
 					items: [
 						{
 							text: '介绍',
-							link: '/plugin-preset/introduction',
+							link: '/guide-plugin-preset/introduction',
 						},
 						{
 							text: '安装',
-							link: '/plugin-preset/install',
+							link: '/guide-plugin-preset/install',
 						},
 						{
 							text: '注册',
-							link: '/plugin-preset/register',
+							link: '/guide-plugin-preset/register',
 						},
 					],
 				},
@@ -159,35 +159,35 @@ export const themeConfig = defineConfig({
 					items: [
 						{
 							text: '使用说明',
-							link: '/plugin-preset/usage',
+							link: '/guide-plugin-preset/usage',
 						},
 						{
 							text: 'Toast 消息',
-							link: '/plugin-preset/toast',
+							link: '/guide-plugin-preset/toast',
 						},
 						{
 							text: 'Alert 提示',
-							link: '/plugin-preset/alert',
+							link: '/guide-plugin-preset/alert',
 						},
 						{
 							text: 'Confirm 确认',
-							link: '/plugin-preset/confirm',
+							link: '/guide-plugin-preset/confirm',
 						},
 						{
 							text: 'Prompt 提示输入',
-							link: '/plugin-preset/prompt',
+							link: '/guide-plugin-preset/prompt',
 						},
 						{
 							text: 'Dialog 对话',
-							link: '/plugin-preset/dialog',
+							link: '/guide-plugin-preset/dialog',
 						},
 						{
 							text: 'Loading 加载遮罩',
-							link: '/plugin-preset/loading',
+							link: '/guide-plugin-preset/loading',
 						},
 						{
 							text: 'Album 媒体相册',
-							link: '/plugin-preset/album',
+							link: '/guide-plugin-preset/album',
 						},
 					],
 				},

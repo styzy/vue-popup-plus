@@ -51,7 +51,7 @@ const popup = createPopup({
 如果您不需要使用预置插件提供的功能，则可以 [跳过](/guide/render) 这一步。
 :::
 
-具体请查看 [注册预置插件](/plugin-preset/register)。
+具体请查看 [注册预置插件](/guide-plugin-preset/register)。
 
 ## 组件中使用
 

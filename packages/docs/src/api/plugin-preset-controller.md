@@ -98,7 +98,7 @@ console.log('消息消失后，继续执行后续代码')
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息](/plugin-preset/toast)
+- [预置插件指南 - Toast 消息](/guide-plugin-preset/toast)
 
 ## popup.toast.success() <Badge type="tip" text="1.5.0+" />
 
@@ -159,7 +159,7 @@ type ToastOptionWithoutTheme = {
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toast.info() <Badge type="tip" text="1.5.0+" />
 
@@ -217,7 +217,7 @@ type ToastOptionWithoutTheme = {
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toast.warning() <Badge type="tip" text="1.5.0+" />
 
@@ -278,7 +278,7 @@ type ToastOptionWithoutTheme = {
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toast.danger() <Badge type="tip" text="1.5.0+" />
 
@@ -339,7 +339,7 @@ type ToastOptionWithoutTheme = {
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.alert()
 
@@ -417,7 +417,7 @@ console.log('弹出层关闭后，继续执行后续代码')
 
 ### 相关参考
 
-- [预置插件指南 - Alert 提示](/plugin-preset/alert)
+- [预置插件指南 - Alert 提示](/guide-plugin-preset/alert)
 
 ## popup.confirm()
 
@@ -503,7 +503,7 @@ if (await popup.confirm('这是一条确认内容文本')) {
 
 ### 相关参考
 
-- [预置插件指南 - Confirm 确认](/plugin-preset/confirm)
+- [预置插件指南 - Confirm 确认](/guide-plugin-preset/confirm)
 
 ## popup.prompt()
 
@@ -618,7 +618,7 @@ if (name === undefined) {
 
 ### 相关参考
 
-- [预置插件指南 - Prompt 提示输入](/plugin-preset/prompt)
+- [预置插件指南 - Prompt 提示输入](/guide-plugin-preset/prompt)
 
 ## popup.dialog()
 
@@ -795,7 +795,7 @@ if (result === undefined) {
 
 ### 相关参考
 
-- [预置插件指南 - Dialog 对话](/plugin-preset/dialog)
+- [预置插件指南 - Dialog 对话](/guide-plugin-preset/dialog)
 
 ## popup.dialog.close() <Badge type="tip" text="1.5.0+" />
 
@@ -843,7 +843,7 @@ console.log(result) // '关闭成功'
 
 ### 相关参考
 
-- [预置插件指南 - Dialog 对话](/plugin-preset/dialog)
+- [预置插件指南 - Dialog 对话](/guide-plugin-preset/dialog)
 
 ## popup.loading()
 
@@ -929,7 +929,7 @@ stopLoading()
 
 ### 相关参考
 
-- [预置插件指南 - Loading 加载](/plugin-preset/loading)
+- [预置插件指南 - Loading 加载](/guide-plugin-preset/loading)
 
 ## popup.loading.close() <Badge type="tip" text="1.5.0+" />
 
@@ -1065,4 +1065,4 @@ console.log('媒体相册关闭后，继续执行后续代码')
 
 ### 相关参考
 
-- [预置插件指南 - Album 媒体相册](/plugin-preset/album)
+- [预置插件指南 - Album 媒体相册](/guide-plugin-preset/album)

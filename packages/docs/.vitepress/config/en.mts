@@ -11,8 +11,8 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: '预置插件',
-				link: '/plugin-preset/introduction',
-				activeMatch: '/plugin-preset/',
+				link: '/guide-plugin-preset/introduction',
+				activeMatch: '/guide-plugin-preset/',
 			},
 			{
 				text: '示例',
@@ -78,41 +78,41 @@ export const themeConfig = defineConfig({
 					],
 				},
 			],
-			'/plugin-preset/': [
+			'/guide-plugin-preset/': [
 				{
 					text: '预置插件',
 					items: [
 						{
 							text: '使用说明',
-							link: '/plugin-preset/usage',
+							link: '/guide-plugin-preset/usage',
 						},
 						{
 							text: '消息 Toast',
-							link: '/plugin-preset/toast',
+							link: '/guide-plugin-preset/toast',
 						},
 						{
 							text: '提示 Alert',
-							link: '/plugin-preset/alert',
+							link: '/guide-plugin-preset/alert',
 						},
 						{
 							text: '确认 Confirm',
-							link: '/plugin-preset/confirm',
+							link: '/guide-plugin-preset/confirm',
 						},
 						{
 							text: '提示输入 Prompt',
-							link: '/plugin-preset/prompt',
+							link: '/guide-plugin-preset/prompt',
 						},
 						{
 							text: '对话 Dialog',
-							link: '/plugin-preset/dialog',
+							link: '/guide-plugin-preset/dialog',
 						},
 						{
 							text: '加载遮罩 Loading',
-							link: '/plugin-preset/loading',
+							link: '/guide-plugin-preset/loading',
 						},
 						{
 							text: '媒体相册 Album',
-							link: '/plugin-preset/album',
+							link: '/guide-plugin-preset/album',
 						},
 					],
 				},

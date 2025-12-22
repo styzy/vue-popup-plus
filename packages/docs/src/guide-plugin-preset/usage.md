@@ -4,10 +4,10 @@
 
 预置插件提供了开箱即用的功能，包括：
 
-- [消息 Toast](/plugin-preset/toast)
-- [提示 Alert](/plugin-preset/alert)
-- [确认 Confirm](/plugin-preset/confirm)
-- [提示输入 Prompt](/plugin-preset/prompt)
-- [对话 Dialog](/plugin-preset/dialog)
-- [加载遮罩 Loading](/plugin-preset/loading)
-- [媒体相册 Album](/plugin-preset/album)
+- [消息 Toast](/guide-plugin-preset/toast)
+- [提示 Alert](/guide-plugin-preset/alert)
+- [确认 Confirm](/guide-plugin-preset/confirm)
+- [提示输入 Prompt](/guide-plugin-preset/prompt)
+- [对话 Dialog](/guide-plugin-preset/dialog)
+- [加载遮罩 Loading](/guide-plugin-preset/loading)
+- [媒体相册 Album](/guide-plugin-preset/album)

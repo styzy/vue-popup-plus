@@ -3,7 +3,7 @@
 一般用于展示视频和图片等媒体的预览。
 
 ::: tip
-该弹出层支持 `Promise 风格` 调用，具体可以查看 [等待弹出层关闭](/plugin-preset/album#等待弹出层关闭)。
+该弹出层支持 `Promise 风格` 调用，具体可以查看 [等待弹出层关闭](/guide-plugin-preset/album#等待弹出层关闭)。
 :::
 
 ## 基础使用
