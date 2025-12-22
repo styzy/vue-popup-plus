@@ -18,7 +18,7 @@ import type {
 } from '../controller'
 import { wait } from 'utils'
 
-import InstanceComponent from '../components/Popup.vue'
+import PopupInstance from '../components/PopupInstance.vue'
 
 /**
  * 将对象的属性转换为 ref 类型
@@ -44,7 +44,8 @@ interface IInstanceId {
 }
 
 interface IInstance {
-	id: InstanceId
+	readonly id: InstanceId
+	readonly renderType: RenderType
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
 	update(options: UpdateOption): void
@@ -108,95 +109,113 @@ function getParentElement(appendTo: Element | string) {
 }
 
 export class InstanceId implements IInstanceId {
-	#seed: number
+	private _seed: number
 	get seed() {
-		return this.#seed
+		return this._seed
 	}
 	get name() {
 		return `vue-popup-plus-instance-${this.seed}`
 	}
 	constructor(seed: number) {
-		this.#seed = seed
+		this._seed = seed
 	}
 }
 
-const enum RenderType {
-	APP = 'app',
-	VNODE = 'vnode',
+export const enum RenderType {
+	ROOT_COMPONENT = 'RootComponent',
+	APP = 'App',
+	VNODE = 'VNode',
 }
 
 export class Instance implements IInstance {
 	#core: Core
-	#id: InstanceId
-	#store: InstanceStore
+	private _id: InstanceId
+	private _store: InstanceStore
+	readonly renderType: RenderType
 	#app?: App
 	#vNode?: VNode
 	#el?: Element
 	get id() {
-		return this.#id
+		return this._id
 	}
 	get store() {
-		return this.#store
-	}
-	get renderType() {
-		return this.#core.config.debugMode ? RenderType.APP : RenderType.VNODE
+		return this._store
 	}
 	constructor(core: Core, options: InstanceOptions) {
 		this.#core = core
-		this.#id = new InstanceId(core.seed)
-		this.#store = createStore(this.#id, options)
-
+		this._id = new InstanceId(core.seed)
+		this._store = createStore(this._id, options)
+		this.renderType = core.isRootComponentRegistered
+			? RenderType.ROOT_COMPONENT
+			: core.config.debugMode
+				? RenderType.APP
+				: RenderType.VNODE
+	}
+	mount(): InstanceId {
 		if (this.renderType === RenderType.APP) {
-			this.#app = createApp(InstanceComponent, { store: this.#store })
+			this.#el = document.createElement('div')
+
+			this.#app = createApp(PopupInstance, { store: this._store })
 			this.#app._context.components = this.#core.app!._context.components
 			this.#app._context.provides = this.#core.app!._context.provides
 			this.#app._context.config = this.#core.app!._context.config
 			this.#app._context.directives = this.#core.app!._context.directives
 			this.#app._context.mixins = this.#core.app!._context.mixins
-		} else {
-			this.#vNode = createVNode(InstanceComponent, { store: this.#store })
-			this.#vNode.appContext = this.#core.app!._context
-			this.#vNode.appContext.components.Popup = InstanceComponent
-		}
-	}
-	mount(): InstanceId {
-		this.#el = document.createElement('div')
 
-		if (this.renderType === RenderType.APP) {
 			this.#app!.mount(this.#el)
-		} else {
+
+			this._store.parentElement.appendChild(this.#el)
+		} else if (this.renderType === RenderType.VNODE) {
+			this.#el = document.createElement('div')
+
+			this.#vNode = createVNode(PopupInstance, {
+				store: this._store,
+			})
+			this.#vNode.appContext = this.#core.app!._context
+			this.#vNode.appContext.components.Popup = PopupInstance
+
 			render(this.#vNode!, this.#el)
+
+			this._store.parentElement.appendChild(this.#el)
+		} else {
+			// 托管到根组件渲染，无需手动渲染
 		}
 
-		this.#store.parentElement.appendChild(this.#el)
+		this.#core.addInstance(this)
 
-		this.#store.onMounted()
+		this._store.onMounted()
 
 		return this.id
 	}
 	async unmount(payload?: any) {
-		this.#store.isBeforeUnmount.value = true
+		this._store.isBeforeUnmount.value = true
 
-		await wait(this.#store.animationDuration.value)
+		await wait(this._store.animationDuration.value)
 
 		if (this.renderType === RenderType.APP) {
 			this.#app!.unmount()
-		} else {
+
+			this._store.parentElement.removeChild(this.#el!)
+		} else if (this.renderType === RenderType.VNODE) {
 			render(null, this.#el!)
+
+			this._store.parentElement.removeChild(this.#el!)
+		} else {
+			// 托管到根组件渲染，无需手动渲染
 		}
 
-		this.#store.parentElement.removeChild(this.#el!)
+		this.#core.removeInstance(this)
 
-		this.#store.onUnmounted(payload)
+		this._store.onUnmounted(payload)
 	}
 	update(options: UpdateOption): void {
 		for (const _key in options) {
 			const key = _key as keyof UpdateOption
 			const value =
 				options[key] === undefined
-					? this.#store[key].value
+					? this._store[key].value
 					: options[key]
-			this.#store[key].value = value
+			this._store[key].value = value
 		}
 	}
 }

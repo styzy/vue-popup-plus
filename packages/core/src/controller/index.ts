@@ -6,7 +6,7 @@ import {
 	type VNodeProps,
 } from 'vue'
 import type { Core } from '../core'
-import { Instance } from '../instance'
+import { Instance, RenderType } from '../instance'
 import type { InstanceId } from '../instance'
 import {
 	wrapWithPlugin,
@@ -20,8 +20,9 @@ import {
 	type IAnimations,
 } from '../animation'
 import { PopupError } from '../error'
-import { printLog, Log, LogType, LogGroupItemType, type LogGroup } from '../log'
+import { printLog, Log, LogType, LogGroupItemType } from '../log'
 import { version, type Version } from '../version'
+import { DOCUMENT_URL, POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 
 export interface PopupCustomProperties {}
 
@@ -441,6 +442,7 @@ export class Controller implements IController {
 	install(app: App) {
 		app.config.globalProperties[this._core.config.prototypeName] = this
 		this._core.app = app
+		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this._core)
 	}
 	use<TOption extends PluginOption>(
 		plugin: PopupPlugin<TOption>,
@@ -547,11 +549,33 @@ export class Controller implements IController {
 
 		const instance: Instance = new Instance(this._core, mergedOptions)
 
-		this._core.addInstance(instance)
-
 		instance.mount()
 
+		if (instance.renderType !== RenderType.ROOT_COMPONENT) {
+			printLog(
+				new Log({
+					type: LogType.Warning,
+					caller: 'popup.render()',
+					message: `渲染弹出层 ${instance.id.name} 未使用 PopupRoot 根组件渲染，无法同步应用上下文`,
+					group: [
+						{
+							type: LogGroupItemType.Default,
+							message: `修复建议：使用 PopupRoot 根组件包裹 App 组件以同步应用上下文`,
+						},
+						{
+							type: LogGroupItemType.Default,
+							message: `帮助文档：${DOCUMENT_URL}/guide/initialization.html#同步应用上下文`,
+						},
+					],
+				})
+			)
+		}
+
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Default,
+			message: `渲染方式：${instance.renderType}`,
+		})
 		log.group.push({
 			type: LogGroupItemType.Data,
 			dataName: `instanceId`,
@@ -633,8 +657,6 @@ export class Controller implements IController {
 		}
 
 		await instance.unmount(payload)
-
-		this._core.removeInstance(instance)
 
 		log.message = `销毁弹出层 ${instance.id.name} 成功`
 		log.group.push({

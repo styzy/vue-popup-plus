@@ -16,6 +16,8 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
+		"ant-design-vue": "~4.2.6",
+		"element-plus": "^2.13.0",
 		"vue": "catalog:",
 		"vue-router": "catalog:"
 	},

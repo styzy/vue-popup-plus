@@ -1,8 +1,18 @@
-import type { App } from 'vue'
+import { markRaw, reactive, type App, type Reactive } from 'vue'
 import { Controller, type IController } from '../controller'
 import { Instance, InstanceId } from '../instance'
 import type { PopupPlugin } from '../plugin'
-import { defaultPrintLog, type ILog, type ILogHandler } from '../log'
+import {
+	defaultPrintLog,
+	Log,
+	LogGroupItemType,
+	LogType,
+	printLog,
+	type ILog,
+	type ILogHandler,
+} from '../log'
+import { PopupError } from '../error'
+import { PopupRootComponentName } from '../components/PopupRoot.vue'
 
 export type CoreOption = {
 	/**
@@ -67,13 +77,15 @@ export type CoreOption = {
 	 *
 	 * - 默认为 false
 	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
-	 * - 开启后，所有的弹出层将以 Vue app 应用实例的方式创建，可通过 Vue DevTools
-	 *   开发者工具直接访问到内部的相关组件，方便开发者调试。
+	 * - 开启后，将会在控制台输出日志，同时如果未注册根组件，调试模式下
+	 *   将会使用 Vue App 实例渲染弹出层，方便开发者调试。
 	 */
 	debugMode?: boolean
 }
 
 export type CoreConfig = Required<CoreOption>
+
+type Instances = Reactive<Record<InstanceId['name'], Instance>>
 
 export interface ICore {
 	/**
@@ -88,6 +100,22 @@ export interface ICore {
 	 * 弹出层控制器
 	 */
 	controller: IController
+	/**
+	 * 弹出层实例存储
+	 */
+	instances: Instances
+	/**
+	 * 是否已注册根组件
+	 */
+	isRootComponentRegistered: boolean
+	/**
+	 * 注册根组件
+	 */
+	registerRootComponent(): void
+	/**
+	 * 注销根组件
+	 */
+	unregisterRootComponent(): void
 	/**
 	 * 添加弹出层实例
 	 *
@@ -121,11 +149,12 @@ export function getCore(): ICore | null {
 export class Core implements ICore {
 	app?: Readonly<App>
 	#seed: number = 1
-	#instances: Record<InstanceId['name'], Instance> = {}
+	#instances: Instances = reactive({})
 	#controller: IController
 	#config: CoreConfig
 	#plugins: Record<string, PopupPlugin> = {}
 	#originBodyOverflow: string = ''
+	#registeredRootComponentCount: number = 0
 	get seed() {
 		return this.#seed++
 	}
@@ -134,6 +163,12 @@ export class Core implements ICore {
 	}
 	get controller() {
 		return this.#controller
+	}
+	get instances() {
+		return this.#instances
+	}
+	get isRootComponentRegistered() {
+		return this.#registeredRootComponentCount > 0
 	}
 	constructor({
 		zIndex = 1000,
@@ -152,8 +187,28 @@ export class Core implements ICore {
 		this.#controller = new Controller(this)
 		core = this
 	}
+	registerRootComponent(): void {
+		if (this.#registeredRootComponentCount > 0) {
+			const log = new Log({
+				caller: 'core',
+				type: LogType.Warning,
+				message: `检测到同时存在 ${this.#registeredRootComponentCount + 1} 个 ${PopupRootComponentName} 根组件实例`,
+				group: [
+					{
+						type: LogGroupItemType.Default,
+						message: `修改建议：${PopupRootComponentName} 根组件同一时刻应当只存在一个实例，请移除多余的 ${PopupRootComponentName} 根组件`,
+					},
+				],
+			})
+			printLog(log)
+		}
+		this.#registeredRootComponentCount++
+	}
+	unregisterRootComponent(): void {
+		this.#registeredRootComponentCount--
+	}
 	addInstance(instance: Instance) {
-		this.#instances[instance.id.name] = instance
+		this.#instances[instance.id.name] = markRaw(instance)
 		if (this.config.autoDisableScroll && instance.store.disableScroll) {
 			this.#disableScroll()
 		}

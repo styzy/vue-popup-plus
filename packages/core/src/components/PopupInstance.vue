@@ -1,18 +1,20 @@
 <template lang="pug">
-PopupAnimation(
-	:duration="store.animationDuration.value"
-	:type="store.maskAnimation.value"
-	v-if="store.mask")
-	PopupMask
-PopupFrame(:placement="store.placement.value" :zIndex="store.zIndex.value")
-	PopupAnimation(
-		:duration="store.animationDuration.value"
-		:type="store.viewAnimation.value")
-		PopupView
+Teleport(:to="store.appendTo")
+	.popup-instance
+		PopupAnimation(
+			:duration="store.animationDuration.value"
+			:type="store.maskAnimation.value"
+			v-if="store.mask")
+			PopupMask
+		PopupFrame(:placement="store.placement.value" :zIndex="store.zIndex.value")
+			PopupAnimation(
+				:duration="store.animationDuration.value"
+				:type="store.viewAnimation.value")
+				PopupView
 </template>
 
 <script lang="ts" setup>
-import { provide } from 'vue'
+import { provide, Teleport } from 'vue'
 import type { InstanceStore } from '../instance'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -24,7 +26,7 @@ import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
 
 defineOptions({
-	name: 'Popup',
+	name: 'PopupInstance',
 })
 
 type Props = {

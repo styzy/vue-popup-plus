@@ -1,4 +1,5 @@
 import type { InjectionKey } from 'vue'
+import type { ICore } from '../core'
 import type { InstanceId, InstanceStore } from '../instance'
 import type { PopupViewStyle } from '../typings'
 
@@ -84,6 +85,10 @@ export const POPUP_COMPONENT_INJECTS: Readonly<ComponentInjectKeys> = {
  */
 type insideComponentInjectKeys = {
 	/**
+	 * 弹出层核心实例
+	 */
+	CORE: InjectionKey<ICore>
+	/**
 	 * 弹出层响应式数据存储
 	 */
 	INSTANCE_STORE: InjectionKey<InstanceStore>
@@ -94,5 +99,11 @@ type insideComponentInjectKeys = {
  */
 export const POPUP_INSIDE_COMPONENT_INJECTS: Readonly<insideComponentInjectKeys> =
 	{
+		CORE: Symbol(`${NAME_SPACE}-core`),
 		INSTANCE_STORE: Symbol(`${NAME_SPACE}-instance-store`),
 	}
+
+/**
+ * 文档地址
+ */
+export const DOCUMENT_URL = 'http://vue-popup-plus.styzy.cn'

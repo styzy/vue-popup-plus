@@ -5,6 +5,7 @@ import { PopupError } from './error'
 import './assets/style/main.styl'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
+export { default as PopupRoot } from './components/PopupRoot.vue'
 export {
 	type PopupCustomProperties,
 	type RenderOption,
