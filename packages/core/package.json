@@ -32,8 +32,7 @@
 		"format": "prettier --write src/"
 	},
 	"dependencies": {
-		"vue": "catalog:",
-		"utils": "workspace:*"
+		"vue": "catalog:"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",
@@ -56,6 +55,7 @@
 		"pug": "catalog:",
 		"stylus": "catalog:",
 		"typescript": "catalog:",
+		"utils": "workspace:*",
 		"vite": "catalog:",
 		"vite-plugin-css-injected-by-js": "catalog:",
 		"vite-plugin-dts": "catalog:",
