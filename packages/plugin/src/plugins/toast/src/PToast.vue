@@ -153,7 +153,9 @@ $border-radius: 4px;
 			align-items: center;
 			justify-content: center;
 			min-height: 0;
-			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			i {
+				font-size: var(--popup-plugin-preset-font-size-title-sub);
+			}
 		}
 		.content {
 			@include base-scroll-bar();
@@ -172,9 +174,11 @@ $border-radius: 4px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: var(--popup-plugin-preset-font-size-title-sub);
 			color: var(--popup-plugin-preset-color-info);
 			cursor: pointer;
+			i {
+				font-size: var(--popup-plugin-preset-font-size-text-sub);
+			}
 		}
 	}
 	& {
