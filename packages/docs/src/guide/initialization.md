@@ -45,6 +45,30 @@ const popup = createPopup({
 
 具体的配置项，请参考 [全局 API - 控制器实例 createPopup()](/api/controller#createpopup)。
 
+## 同步应用上下文 <Badge type="tip" text="1.5.0+" />
+
+> <DVersionSupport version="1.5.0" />
+
+如果你的应用使用了三方组件库，例如 `Element Plus` 或 `Ant Design Vue` ，并且使用了 `ConfigProvider` 组件来进行全局配置，那么为了同步这些组件库的上下文配置，你需要在 `App.vue` 中引入 `PopupRoot` 根组件，并将其放在 `ConfigProvider` 组件的内部，`PopupRoot` 根组件会自动向弹出层渲染组件提供同步的应用上下文。
+
+这里以 `Element Plus` 为例，具体使用方式如下:
+
+```vue [App.vue]
+<template>
+	<ElConfigProvider :locale="zhCN">
+		<PopupRoot>
+			<HelloWorld />
+		</PopupRoot>
+	</ElConfigProvider>
+</template>
+
+<script lang="ts" setup>
+import { PopupRoot } from 'vue-popup-plus'
+import { ElConfigProvider } from 'element-plus'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+</script>
+```
+
 ## 注册预置插件
 
 ::: tip
