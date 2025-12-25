@@ -38,13 +38,9 @@ function handlePrompt() {
 async function handlePromptResult() {
 	const name = await popup.prompt('请输入您的姓名') // [!code highlight]
 	if (name === undefined) {
-		popup.toast('用户取消输入', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户取消输入')
 	} else {
-		popup.toast('用户输入的是：' + name, {
-			theme: 'success',
-		})
+		popup.toast.success('用户输入的是：' + name)
 	}
 }
 ```
@@ -295,13 +291,9 @@ function handlePrompt() {
 async function handlePromptResult() {
 	const name = await popup.prompt('请输入您的姓名')
 	if (name === undefined) {
-		popup.toast('用户取消输入', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户取消输入')
 	} else {
-		popup.toast('用户输入的是：' + name, {
-			theme: 'success',
-		})
+		popup.toast.success('用户输入的是：' + name)
 	}
 }
 

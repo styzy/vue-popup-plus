@@ -183,6 +183,27 @@ function handleAlbumDisableDrag() {
 
 :::
 
+## 等待弹出层关闭
+
+该方法返回一个 `Promise<void>` 对象，当弹出层关闭后，会执行 `resolve` 方法，因此你可以通过 `await` 来等待弹出层关闭。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumWaitClose">等待弹出层关闭</DButton>
+```
+
+```ts
+async function handleAlbumWaitClose() {
+	await popup.album({
+		sources,
+	})
+	popup.toast('弹出层已关闭')
+}
+```
+
+:::
+
 ## 详细配置
 
 具体可以参考 [预置插件 API - 控制器实例 popup.album()](/api/plugin-preset-controller#popup-album)。
@@ -255,5 +276,12 @@ function handleAlbumDisableDrag() {
 		sources,
 		disableDrag: true,
 	})
+}
+
+async function handleAlbumWaitClose() {
+	await popup.album({
+		sources,
+	})
+	popup.toast('弹出层已关闭')
 }
 </script>

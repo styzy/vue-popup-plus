@@ -38,13 +38,9 @@ function handleConfirm() {
 async function handleConfirmResult() {
 	const isConfirm = await popup.confirm('是否确认操作？') // [!code highlight]
 	if (isConfirm) {
-		popup.toast('用户确认操作', {
-			theme: 'success',
-		})
+		popup.toast.success('用户确认操作')
 	} else {
-		popup.toast('用户取消操作', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户取消操作')
 	}
 }
 ```
@@ -91,13 +87,9 @@ async function handleConfirmHeaderClose() {
 		headerClose: true, // [!code highlight]
 	})
 	if (isConfirm) {
-		popup.toast('用户确认操作', {
-			theme: 'success',
-		})
+		popup.toast.success('用户确认操作')
 	} else {
-		popup.toast('用户点击了关闭按钮或取消按钮', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户点击了关闭按钮或取消按钮')
 	}
 }
 ```
@@ -226,13 +218,9 @@ function handleConfirm() {
 async function handleConfirmResult() {
 	const isConfirm = await popup.confirm('是否确认操作？')
 	if (isConfirm) {
-		popup.toast('用户确认操作', {
-			theme: 'success',
-		})
+		popup.toast.success('用户确认操作')
 	} else {
-		popup.toast('用户取消操作', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户取消操作')
 	}
 }
 
@@ -247,13 +235,9 @@ async function handleConfirmHeaderClose() {
 		headerClose: true,
 	})
 	if (isConfirm) {
-		popup.toast('用户确认操作', {
-			theme: 'success',
-		})
+		popup.toast.success('用户确认操作')
 	} else {
-		popup.toast('用户点击了关闭按钮或取消按钮', {
-			theme: 'danger',
-		})
+		popup.toast.danger('用户点击了关闭按钮或取消按钮')
 	}
 }
 

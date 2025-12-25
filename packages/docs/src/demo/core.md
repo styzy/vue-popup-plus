@@ -34,11 +34,8 @@ function handlePopupWithProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
-				popup.toast(
-					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`,
-					{
-						theme: 'success',
-					}
+				popup.toast.success(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
 		},
@@ -69,9 +66,7 @@ function handlePopupWithOnMounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast('渲染回调 触发', {
-				theme: 'success',
-			})
+			popup.toast.success('渲染回调 触发')
 		},
 	})
 }
@@ -80,9 +75,7 @@ function handlePopupWithOnUnmounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted() {
-			popup.toast('销毁回调 触发', {
-				theme: 'warning',
-			})
+			popup.toast.warning('销毁回调 触发')
 		},
 	})
 }
@@ -92,13 +85,9 @@ function handlePopupWithResult() {
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted(payload?: string) {
 			if (payload) {
-				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
-					theme: 'success',
-				})
+				popup.toast.success(`销毁回调 触发, 携带参数: ${payload}`)
 			} else {
-				popup.toast('销毁回调 触发，未携带参数', {
-					theme: 'warning',
-				})
+				popup.toast.warning('销毁回调 触发，未携带参数')
 			}
 		},
 	})
@@ -396,11 +385,8 @@ function handlePopupWithProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
-				popup.toast(
-					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`,
-					{
-						theme: 'success',
-					}
+				popup.toast.success(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
 		},
@@ -411,9 +397,7 @@ function handlePopupWithOnMounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast('渲染回调 触发', {
-				theme: 'success',
-			})
+			popup.toast.success('渲染回调 触发')
 		},
 	})
 }
@@ -422,9 +406,7 @@ function handlePopupWithOnUnmounted() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted() {
-			popup.toast('销毁回调 触发', {
-				theme: 'warning',
-			})
+			popup.toast.warning('销毁回调 触发')
 		},
 	})
 }
@@ -434,13 +416,9 @@ function handlePopupWithResult() {
 		component: () => import('../HelloWorld.vue'),
 		onUnmounted(payload?: string) {
 			if (payload) {
-				popup.toast(`销毁回调 触发, 携带参数: ${payload}`, {
-					theme: 'success',
-				})
+				popup.toast.success(`销毁回调 触发, 携带参数: ${payload}`)
 			} else {
-				popup.toast('销毁回调 触发，未携带参数', {
-					theme: 'warning',
-				})
+				popup.toast.warning('销毁回调 触发，未携带参数')
 			}
 		},
 	})

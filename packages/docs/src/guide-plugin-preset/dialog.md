@@ -3,7 +3,7 @@
 一般用于展示 `复杂业务` ，例如数据列表、提交表单等。
 
 ::: tip
-该弹出层支持 `Promise 风格` 调用，具体可以查看 [获取销毁携带参数](/guide-plugin-preset/dialog#获取销毁携带参数)。
+该弹出层支持 `Promise 风格` 调用，具体可以查看 [携带参数关闭对话框](/guide-plugin-preset/dialog#携带参数关闭对话框)。
 :::
 
 ## 基础使用
@@ -50,10 +50,10 @@ function handleDialogProps() {
 		component: () => import('./HelloWorld.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
-			onCustomEvent: (params: string) => {
-				popup.toast(`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`, {
-					theme: 'success',
-				})
+			onCustomEvent: (params) => {
+				popup.toast.success(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
+				)
 			},
 		},
 	})
@@ -97,14 +97,23 @@ const result = await popup.dialog({
 })
 ```
 
-如果你使用 `Typescript` ，为了获得更好的类型安全，`popup.dialog()` 方法支持类型参数，可以用来指定关闭时携带参数的类型。
+如果你使用 `Typescript` ，`popup.dialog()` 方法的返回值类型为 `Promise<any>` ，这意味着你通过 `await` 获取到的 `result` 类型是 `any` ，大部分情况下没有问题，但为了类型安全，建议你在定义 `result` 时手动指定类型。
+
+```ts{2} [Parent.vue]
+// void 不可缺少，因为无法保证对话框是否会携带参数
+const result: string | void = await popup.dialog({
+	component: () => import('./HelloWorld.vue'),
+})
+```
+
+<!-- 为了获得更好的类型安全，你可以为 `popup.dialog()` 方法指定一个类型参数，该参数将作为关闭携带参数的类型。
 
 ```ts{2} [Parent.vue]
 // 这里使用类型参数 string，因此 payload 的类型将自动推断为 string | void
 const result = await popup.dialog<string>({
 	component: () => import('./HelloWorld.vue'),
 })
-```
+``` -->
 
 ::: demo
 
@@ -116,19 +125,15 @@ const result = await popup.dialog<string>({
 
 ```ts
 async function handleDialogResult() {
-	const payload = await popup.dialog<string>({
+	const payload: string | void = await popup.dialog({
 		component: () => import('./HelloWorld.vue'),
 	})
 
 	// 判断是否携带参数
 	if (payload !== undefined) {
-		popup.toast(`得到销毁携带的参数：${payload}`, {
-			theme: 'success',
-		})
+		popup.toast.success(`得到销毁携带的参数：${payload}`)
 	} else {
-		popup.toast('销毁时未携带参数', {
-			theme: 'warning',
-		})
+		popup.toast.warning('销毁时未携带参数')
 	}
 }
 ```
@@ -446,9 +451,7 @@ function handleDialogOnMounted() {
 	popup.dialog({
 		component: () => import('./HelloWorld.vue'),
 		onMounted: () => {
-			popup.toast('对话框渲染完成', {
-				theme: 'success',
-			})
+			popup.toast.success('对话框渲染完成')
 		},
 	})
 }
@@ -481,27 +484,23 @@ function handleDialogProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent: (params: string) => {
-				popup.toast(`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`, {
-					theme: 'success',
-				})
+				popup.toast.success(
+					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
+				)
 			},
 		},
 	})
 }
 
 async function handleDialogResult() {
-	const payload = await popup.dialog<string>({
+	const payload: string | void = await popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 	})
 
 	if (payload !== undefined) {
-		popup.toast(`得到销毁携带的参数：${payload}`, {
-			theme: 'success',
-		})
+		popup.toast.success(`得到销毁携带的参数：${payload}`)
 	} else {
-		popup.toast('销毁时未携带参数', {
-			theme: 'warning',
-		})
+		popup.toast.warning('销毁时未携带参数')
 	}
 }
 
@@ -612,9 +611,7 @@ function handleDialogOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		onMounted: () => {
-			popup.toast('对话框渲染完成', {
-				theme: 'success',
-			})
+			popup.toast('对话框渲染完成')
 		},
 	})
 }
