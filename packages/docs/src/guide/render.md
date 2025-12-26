@@ -2,16 +2,16 @@
 
 ## 渲染
 
-作为最核心的渲染功能，只需要调用插件实例的 `render()` 方法即可。
+弹出层所有的功能，都依赖于弹出层控制器，作为最核心的渲染功能，只需要调用弹出层控制器的 `render()` 方法即可。
 
 ::: code-group
 
 ```ts{10} [组合式 API ~vscode-icons:file-type-vue~]
-// 组合式API 通过 usePopup 函数获取插件实例
+// 组合式API 通过 usePopup 函数获取弹出层控制器
 import { usePopup } from 'vue-popup-plus'
 import HelloWorld from './HelloWorld.vue'
 
-// 获取插件实例
+// 获取弹出层控制器
 const popup = usePopup()
 
 function handlePopup() {
@@ -29,7 +29,7 @@ import HelloWorld from './HelloWorld.vue'
 export default {
 	methods: {
 		handlePopup() {
-			// 通过 this.$popup 访问插件实例
+			// 通过 this.$popup 访问弹出层控制器
 			this.$popup.render({
 				// [!code highlight]
 				// 弹出层渲染的组件
