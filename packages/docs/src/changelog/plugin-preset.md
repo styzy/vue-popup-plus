@@ -5,6 +5,12 @@ outline: 2
 
 # 插件预设 更新日志
 
+## 1.5.3 <Badge type="tip" text="2025-12-xx" />
+
+### 修复
+
+- 修复 `Dialog 对话` 内部关闭对话框时，`payload` 参数异常的问题。
+
 ## 1.5.2 <Badge type="tip" text="2025-12-23" />
 
 ### 适配
