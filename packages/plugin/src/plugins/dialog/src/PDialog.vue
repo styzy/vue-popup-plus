@@ -74,7 +74,7 @@ function handleReload() {
 }
 
 function handleClose() {
-	popup.dialog.close(id)
+	popup.dialog.close()
 }
 </script>
 
