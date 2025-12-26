@@ -5,7 +5,7 @@ outline: 2
 
 # 插件预设 更新日志
 
-## 1.5.3 <Badge type="tip" text="2025-12-xx" />
+## 1.5.3 <Badge type="tip" text="2025-12-26" />
 
 ### 修复
 
