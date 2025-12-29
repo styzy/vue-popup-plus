@@ -1,9 +1,9 @@
 import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '../animation'
-import type { IController } from '../controller'
-import type { CoreConfig } from '../core'
+import { type IConfig } from '../config'
+import { Controller, type IController } from '../controller'
 import { PopupError } from '../error'
 import { Log, printLog } from '../log'
-import type { Version } from '../version'
+import { type Version } from '../version'
 
 type ControllerPrototypeFunctionValue = (
 	this: IController,
@@ -29,7 +29,7 @@ export type ControllerPrototype = Record<
 	use: '内置 use 方法'
 }
 
-export interface IPluginWrappedController extends IController {
+export interface IPluginWrappedConfig extends IConfig {
 	/**
 	 * 控制器实例自定义属性原型对象
 	 *
@@ -85,8 +85,7 @@ export interface IPluginWrappedController extends IController {
 export type PluginOption = Record<string, any>
 
 type PluginInstall<TOption extends PluginOption> = (
-	controller: IPluginWrappedController,
-	config: Readonly<CoreConfig>,
+	config: Readonly<IPluginWrappedConfig>,
 	option?: TOption
 ) => void
 
@@ -201,54 +200,57 @@ export interface IDefinePlugin {
 
 export const definePlugin: IDefinePlugin = (options) => options
 
-interface IWrapWithPlugin {
-	(controller: IController): IPluginWrappedController
+interface IWrapConfigWithPlugin {
+	(config: IConfig): IPluginWrappedConfig
 }
 
-export const wrapWithPlugin: IWrapWithPlugin = (controller) => {
-	return new Proxy<IPluginWrappedController>(
-		controller as IPluginWrappedController,
-		{
-			set(target, property: string, value) {
+export const wrapConfigWithPlugin: IWrapConfigWithPlugin = (config) => {
+	return new Proxy<IConfig>(config, {
+		set(target, property: keyof IConfig, value) {
+			if (['customAnimations', 'customProperties'].includes(property)) {
 				const log = new Log({
 					caller: 'definePlugin()',
 					message: `${property} 是只读属性，不能被覆盖`,
 				})
 				printLog(log)
 				throw new PopupError(log)
-			},
-			get(target, property: string) {
-				if (property === 'customProperties') {
-					return createCustomPropertiseProxy(controller)
-				}
-				if (property === 'customAnimations') {
-					return createCustomAnimationsProxy(controller)
-				}
-				return (controller as any)[property]
-			},
-		}
-	)
+			}
+
+			;(target as any)[property] = value
+
+			return true
+		},
+		get(target, property: string) {
+			if (property === 'customProperties') {
+				return createCustomPropertiseProxy()
+			}
+			if (property === 'customAnimations') {
+				return createCustomAnimationsProxy()
+			}
+			return (target as any)[property]
+		},
+	}) as IPluginWrappedConfig
 }
 
-function createCustomPropertiseProxy(controller: IController) {
+function createCustomPropertiseProxy() {
 	return new Proxy(
 		{},
 		{
 			set: (target, property: string, value) => {
-				if (property in controller) {
+				if (property in Controller.prototype) {
 					const log = new Log({
 						caller: 'definePlugin()',
-						message: `定义插件扩展属性 ${property} 时失败，${property} 是只读属性，不能被覆盖`,
+						message: `定义控制器扩展属性 ${property} 时失败，${property} 属性已存在，不能被覆盖`,
 					})
 					printLog(log)
 					throw new PopupError(log)
 				}
-				;(controller as any).__proto__[property] = value
+				;(Controller.prototype as any)[property] = value
 				return true
 			},
 			get: (target, property: string) => {
-				if (property in controller) {
-					return (controller as any).__proto__[property]
+				if (property in Controller.prototype) {
+					return (Controller.prototype as any)[property]
 				}
 				return undefined
 			},
@@ -256,7 +258,7 @@ function createCustomPropertiseProxy(controller: IController) {
 	)
 }
 
-function createCustomAnimationsProxy(controller: IController) {
+function createCustomAnimationsProxy() {
 	return new Proxy(
 		{},
 		{

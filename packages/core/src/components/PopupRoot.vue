@@ -11,7 +11,7 @@ export const PopupRootComponentName = 'PopupRoot'
 </script>
 
 <script lang="ts" setup>
-import { inject, onBeforeMount, onBeforeUnmount } from 'vue'
+import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
 import { PopupError } from '../error'
 import { Log, LogType, printLog } from '../log'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
@@ -34,12 +34,13 @@ if (!core) {
 }
 
 const istances = core?.instances || {}
+const vm = getCurrentInstance()
 
 onBeforeMount(() => {
-	core?.registerRootComponent()
+	core?.registerRootComponent(vm!)
 })
 
 onBeforeUnmount(() => {
-	core?.unregisterRootComponent()
+	core?.unregisterRootComponent(vm!)
 })
 </script>

@@ -258,7 +258,7 @@ import { POPUP_ANIMATIONS, usePopup, version } from 'vue-popup-plus'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 import Demo from '@/views/Demo.vue'
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, getCurrentInstance } from 'vue'
 
 defineOptions({ name: 'Index' })
 

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, ref, watch } from 'vue'
+import { getCurrentInstance, inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
@@ -22,7 +22,7 @@ const popup = usePopup()
 
 defineOptions({ name: 'DemoAntd' })
 
-const locale = inject('localeData')
+console.log('getCurrentInstance', getCurrentInstance())
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 

@@ -6,17 +6,20 @@ import {
 	render,
 	toRefs,
 	type App,
+	type AppContext,
+	type ComponentInternalInstance,
+	type ComponentPublicInstance,
 	type ToRef,
 	type VNode,
 } from 'vue'
-import type { Core } from '../core'
+import { wait } from 'utils'
+import { type ICore } from '../core'
 import type {
 	RenderComponentOptions,
 	RenderConfigOptions,
 	RenderStyleOptions,
 	UpdateOption,
 } from '../controller'
-import { wait } from 'utils'
 
 import PopupInstance from '../components/PopupInstance.vue'
 
@@ -128,10 +131,11 @@ export const enum RenderType {
 }
 
 export class Instance implements IInstance {
-	#core: Core
+	#core: ICore
 	private _id: InstanceId
 	private _store: InstanceStore
 	readonly renderType: RenderType
+	#vm?: ComponentInternalInstance
 	#app?: App
 	#vNode?: VNode
 	#el?: Element
@@ -141,44 +145,33 @@ export class Instance implements IInstance {
 	get store() {
 		return this._store
 	}
-	constructor(core: Core, options: InstanceOptions) {
-		this.#core = core
+	constructor(
+		core: ICore,
+		options: InstanceOptions,
+		vm?: ComponentInternalInstance
+	) {
 		this._id = new InstanceId(core.seed)
 		this._store = createStore(this._id, options)
+		this.#core = core
+		this.#vm = vm
 		this.renderType = core.isRootComponentRegistered
 			? RenderType.ROOT_COMPONENT
 			: core.config.debugMode
-				? RenderType.APP
+				? RenderType.VNODE
 				: RenderType.VNODE
 	}
 	mount(): InstanceId {
-		if (this.renderType === RenderType.APP) {
-			this.#el = document.createElement('div')
-
-			this.#app = createApp(PopupInstance, { store: this._store })
-			this.#app._context.components = this.#core.app!._context.components
-			this.#app._context.provides = this.#core.app!._context.provides
-			this.#app._context.config = this.#core.app!._context.config
-			this.#app._context.directives = this.#core.app!._context.directives
-			this.#app._context.mixins = this.#core.app!._context.mixins
-
-			this.#app!.mount(this.#el)
-
-			this._store.parentElement.appendChild(this.#el)
-		} else if (this.renderType === RenderType.VNODE) {
-			this.#el = document.createElement('div')
-
-			this.#vNode = createVNode(PopupInstance, {
-				store: this._store,
-			})
-			this.#vNode.appContext = this.#core.app!._context
-			this.#vNode.appContext.components.Popup = PopupInstance
-
-			render(this.#vNode!, this.#el)
-
-			this._store.parentElement.appendChild(this.#el)
-		} else {
-			// 托管到根组件渲染，无需手动渲染
+		switch (this.renderType) {
+			case RenderType.ROOT_COMPONENT:
+				this.#mountByRootComponent()
+				break
+			case RenderType.APP:
+				this.#mountByApp()
+				break
+			case RenderType.VNODE:
+			default:
+				this.#mountByVNode()
+				break
 		}
 
 		this.#core.addInstance(this)
@@ -192,16 +185,17 @@ export class Instance implements IInstance {
 
 		await wait(this._store.animationDuration.value)
 
-		if (this.renderType === RenderType.APP) {
-			this.#app!.unmount()
-
-			this._store.parentElement.removeChild(this.#el!)
-		} else if (this.renderType === RenderType.VNODE) {
-			render(null, this.#el!)
-
-			this._store.parentElement.removeChild(this.#el!)
-		} else {
-			// 托管到根组件渲染，无需手动渲染
+		switch (this.renderType) {
+			case RenderType.ROOT_COMPONENT:
+				this.#unmountByRootComponent()
+				break
+			case RenderType.APP:
+				this.#unmountByApp()
+				break
+			case RenderType.VNODE:
+			default:
+				this.#unmountByVNode()
+				break
 		}
 
 		this.#core.removeInstance(this)
@@ -217,5 +211,64 @@ export class Instance implements IInstance {
 					: options[key]
 			this._store[key].value = value
 		}
+	}
+	#mountByRootComponent() {
+		// 托管到根组件渲染，无需手动渲染
+	}
+	#mountByApp() {
+		this.#el = document.createElement('div')
+
+		this.#app = createApp(PopupInstance, { store: this._store })
+
+		const appContext = this.#getAppContext()
+
+		this.#app._context.components = appContext.components
+		this.#app._context.provides = appContext.provides
+		this.#app._context.config = appContext.config
+		this.#app._context.directives = appContext.directives
+		this.#app._context.mixins = appContext.mixins
+
+		this.#app!.mount(this.#el)
+
+		this._store.parentElement.appendChild(this.#el)
+	}
+	#mountByVNode() {
+		this.#el = document.createElement('div')
+
+		this.#vNode = createVNode(PopupInstance, {
+			store: this._store,
+		})
+
+		const appContext = this.#getAppContext()
+		console.log('appContext: ', appContext)
+
+		this.#vNode.appContext = appContext
+		console.log('this.#vNode: ', this.#vNode)
+
+		render(this.#vNode!, this.#el)
+
+		this._store.parentElement.appendChild(this.#el)
+	}
+	#getAppContext() {
+		const appContext = this.#vm?.appContext || this.#core.app!._context
+
+		if (this.#vm) {
+			appContext.provides = (this.#vm as any).provides
+		}
+
+		return appContext
+	}
+	#unmountByRootComponent() {
+		// 托管到根组件渲染，无需手动渲染
+	}
+	#unmountByApp() {
+		this.#app!.unmount()
+
+		this._store.parentElement.removeChild(this.#el!)
+	}
+	#unmountByVNode() {
+		render(null, this.#el!)
+
+		this._store.parentElement.removeChild(this.#el!)
 	}
 }

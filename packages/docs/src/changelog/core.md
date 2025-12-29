@@ -5,6 +5,26 @@ outline: 2
 
 # 核心 更新日志
 
+## 1.6.0 <Badge type="tip" text="2025-12-xx" />
+
+### 特性
+
+- 新增 `usePopupInstanceId()` 工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID
+
+### 优化
+
+- `usePopup()` 函数现在将会自动在组件内获取组件的 `上下文` ，从而提供对其他框架更好的兼容性，如果你仅在组件内使用 `usePopup()` 函数，那么 `PopupRoot` 根组件将并不再是必须。
+
+### 破坏性改动
+
+::: danger
+
+- `createPopup()` 函数现在只会返回插件实例，而不是控制器实例。
+- `definePlugin()` 定义弹出层插件函数的 `install()` 方法移除第一个参数 `controller` ，因为现在控制器不会提前生成，而是在调用 `usePopup()` 时才会生成。
+- 弹出层插件开发者无法直接访问弹出层控制器实例，只能通过 `config.customProperties` 对弹出层控制器进行扩展方法时，通过 `this` 访问弹出层控制器实例。
+
+:::
+
 ## 1.5.2 <Badge type="tip" text="2025-12-23" />
 
 ### 修复

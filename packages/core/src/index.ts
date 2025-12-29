@@ -1,11 +1,10 @@
-import { createCore, getCore, type CoreOption as CreateOption } from './core'
+import { createCore, type ICore as IPopup } from './core'
+import { type ConfigOption } from './config'
 import { type IController } from './controller'
-import { defaultPrintLog, Log, LogType } from './log'
-import { PopupError } from './error'
 import './assets/style/main.styl'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export { default as PopupRoot } from './components/PopupRoot.vue'
+export { type ConfigOption } from './config'
 export {
 	type PopupCustomProperties,
 	type RenderOption,
@@ -13,8 +12,6 @@ export {
 	type UpdateOption,
 	type ExtractComponentPropTypes,
 } from './controller'
-export { type CoreOption as CreateOption } from './core'
-export { PopupError } from './error'
 export { type InstanceId } from './instance'
 export {
 	printLog,
@@ -27,43 +24,21 @@ export {
 	type LogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
-export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
+export { usePopup } from './use-api'
 export { version, type Version } from './version'
+export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
+export { default as PopupRoot } from './components/PopupRoot.vue'
 
 /**
- * 创建一个弹出层控制器实例
+ * 创建一个弹出层插件
  *
- * - 该实例需要被 Vue 的 app.use() 函数后才能使用
+ * - 通过 Vue 的 app.use() 函数安装插件
  *
- * @param options 创建配置，具体请参考 {@link CreateOption}
- * @returns 弹出层控制器实例
+ * @param options 插件配置，具体请参考 {@link CreateOption}
+ * @returns 弹出层插件
  */
-export function createPopup(options?: CreateOption): IController {
-	return createCore(options).controller
-}
-
-/**
- * 获取弹出层控制器实例
- *
- * - 必须先调用 {@link createPopup} 创建弹出层控制器实例，才能使用该函数
- * ，否则会抛出异常
- *
- * @returns 弹出层控制器实例
- */
-export function usePopup(): IController {
-	const core = getCore()
-
-	if (!core) {
-		const log = new Log({
-			type: LogType.Error,
-			caller: 'usePopup()',
-			message: `调用 usePopup() 前请先调用 createPopup() 创建弹出层控制器实例`,
-		})
-		defaultPrintLog(log)
-		throw new PopupError(log)
-	}
-
-	return core.controller
+export function createPopup(options?: ConfigOption): IPopup {
+	return createCore(options)
 }
 
 declare module 'vue' {

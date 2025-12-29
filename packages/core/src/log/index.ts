@@ -35,6 +35,10 @@ export const LogGroupItemType = {
 	 */
 	Default: 'default',
 	/**
+	 * 信息类型
+	 */
+	Info: 'info',
+	/**
 	 * 数据类型
 	 */
 	Data: 'data',
@@ -47,11 +51,30 @@ type LogGroupDefaultItem = {
 	/**
 	 * 组元素类型
 	 */
-	type?: typeof LogGroupItemType.Default
+	type: typeof LogGroupItemType.Default
 	/**
 	 * 组元素消息
 	 */
 	message: string
+}
+
+type LogGroupInfoItem = {
+	/**
+	 * 信息组元素类型
+	 */
+	type: typeof LogGroupItemType.Info
+	/**
+	 * 信息组元素标题
+	 */
+	title: string
+	/**
+	 * 信息组元素内容
+	 */
+	content?: string
+	/**
+	 * 信息组元素数据
+	 */
+	data?: any
 }
 
 type LogGroupDataItem = {
@@ -75,7 +98,7 @@ type LogGroupDataItem = {
 	dataType?: string
 }
 
-type LogGroupItem = LogGroupDefaultItem | LogGroupDataItem
+type LogGroupItem = LogGroupDefaultItem | LogGroupDataItem | LogGroupInfoItem
 
 export type LogGroup = Array<LogGroupItem>
 
@@ -238,12 +261,21 @@ export const defaultPrintLog: ILogHandler = (log) => {
 					item.type === LogGroupItemType.Default
 				) {
 					groupPrinter(item.message)
+				} else if (item.type === LogGroupItemType.Info) {
+					groupPrinter(item.title)
+					if (item.content) {
+						groupPrinter(item.content)
+					}
+					if (item.data) {
+						console.dir(item.data)
+					}
 				} else if (item.type === LogGroupItemType.Data) {
 					// groupPrinter(
 					// 	`数据名称: ${item.dataName} | 约束类型: ${item.dataType ?? 'any'} | 实际类型: ${typeOf(item.dataValue)}`
 					// )
 					groupPrinter(
-						`${item.dataName} : ${item.dataType ?? 'any'} ( ${typeOf(item.dataValue)} )`
+						`${item.dataName} : ${item.dataType ?? 'any'} ( ${typeOf(item.dataValue)} )`,
+						'font-weight: 700;'
 					)
 					console.dir(item.dataValue)
 				}
@@ -298,7 +330,12 @@ const withStyle: IWithStyle = function ({
 }) {
 	const color = COLOR_TYPE_MAP[type]
 
+	const baseStyle = `font-family:
+		Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', '微软雅黑', Arial, sans-serif;`
+
 	const prefixStyle =
+		baseStyle +
 		`color: #FFFFFF;` +
 		`background-color: ${color};` +
 		`padding: 4px 8px;` +
@@ -307,12 +344,14 @@ const withStyle: IWithStyle = function ({
 		`font-weight: 700;`
 
 	const contentStyle =
+		baseStyle +
 		`background-color: ${color}22;` +
 		`padding: 4px 8px;` +
 		`border-radius: 4px;` +
 		`font-weight: 400;`
 
 	const groupContentStyle =
+		baseStyle +
 		`color: ${color};` +
 		`background-color: ${color}22;` +
 		`padding: 4px 8px;` +

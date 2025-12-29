@@ -1,54 +1,36 @@
 import {
 	type AllowedComponentProps,
-	type App,
+	type AppContext,
 	type AsyncComponentLoader,
 	type Component,
+	type ComponentInstance,
+	type ComponentInternalInstance,
+	type ComponentPublicInstance,
 	type VNodeProps,
 } from 'vue'
-import type { Core } from '../core'
-import { Instance, RenderType } from '../instance'
-import type { InstanceId } from '../instance'
-import {
-	wrapWithPlugin,
-	type ExtractPluginOption,
-	type PluginOption,
-	type PopupPlugin,
-} from '../plugin'
 import {
 	POPUP_ANIMATIONS,
 	type Animation,
 	type IAnimations,
 } from '../animation'
+import { type ICore } from '../core'
 import { PopupError } from '../error'
+import { Instance, RenderType, type InstanceId } from '../instance'
 import { printLog, Log, LogType, LogGroupItemType } from '../log'
 import { version, type Version } from '../version'
-import { DOCUMENT_URL, POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
+import { DOCUMENT_URL } from '../CONSTANTS'
 
 export interface PopupCustomProperties {}
 
 export interface IController extends PopupCustomProperties {
 	/**
+	 * 弹出层控制器实例 id
+	 */
+	readonly id: string
+	/**
 	 * 版本号
 	 */
 	readonly version: Version
-	/**
-	 * 安装插件
-	 *
-	 * @param {App} app - Vue应用实例
-	 * @returns {any}
-	 */
-	install(app: App): any
-	/**
-	 * 注册插件
-	 *
-	 * - 可注册使用 `definePlugin()` 方法定义的插件
-	 * - 重复注册相同的插件，会被忽略
-	 * - 具体请参考{@link IDefinePlugin}
-	 */
-	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
-		plugin: TPlugin,
-		options?: ExtractPluginOption<TPlugin>
-	): void
 	/**
 	 * 渲染弹出层
 	 *
@@ -427,104 +409,25 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	animationDuration: 100,
 }
 
-export class Controller implements IController {
-	_core: Core
+let _seed = 0
 
+export class Controller implements IController {
+	#id: string
+	#vm?: ComponentInternalInstance
+	#core: ICore
+	get id() {
+		return this.#id
+	}
 	get isInstalled() {
-		return !!this._core.app
+		return !!this.#core.app
 	}
 	get version() {
 		return version
 	}
-	constructor(core: Core) {
-		this._core = core
-	}
-	install(app: App) {
-		app.config.globalProperties[this._core.config.prototypeName] = this
-		this._core.app = app
-		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this._core)
-	}
-	use<TOption extends PluginOption>(
-		plugin: PopupPlugin<TOption>,
-		options?: TOption
-	) {
-		const log = new Log({
-			type: LogType.Success,
-			caller: 'popup.use()',
-			group: [
-				{
-					type: LogGroupItemType.Default,
-					message: `插件名称: ${plugin.name}`,
-				},
-				{
-					type: LogGroupItemType.Default,
-					message: `插件作者: ${plugin.author ?? '未知（可能存在安全风险）'}`,
-				},
-				{
-					type: LogGroupItemType.Default,
-					message: `插件要求最低核心版本: ${plugin.requiredCoreVersion?.min ?? '-'}`,
-				},
-				{
-					type: LogGroupItemType.Default,
-					message: `插件要求最高核心版本: ${plugin.requiredCoreVersion?.max ?? '-'}`,
-				},
-			],
-		})
-
-		if (!this._core.addPlugin(plugin)) {
-			log.type = LogType.Error
-			log.message = `注册插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
-			printLog(log)
-			return
-		}
-
-		const hasRequiredCoreVersion =
-			plugin.requiredCoreVersion?.min || plugin.requiredCoreVersion?.max
-
-		if (hasRequiredCoreVersion) {
-			if (validPluginVersion(plugin)) {
-				log.group.push({
-					type: LogGroupItemType.Default,
-					message: `插件版本校验: 通过`,
-				})
-			} else {
-				log.type = LogType.Error
-				log.message = `注册插件 ${plugin.name} 失败，未通过核心版本校验`
-				log.group.push({
-					type: LogGroupItemType.Default,
-					message: `插件版本校验: 未通过`,
-				})
-				printLog(log)
-				return
-			}
-		} else {
-			log.group.push({
-				type: LogGroupItemType.Default,
-				message: `插件版本校验: 未校验（可能存在兼容性问题）`,
-			})
-		}
-
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: '插件注册选项',
-			dataValue: options,
-			dataType: 'PluginOption',
-		})
-
-		plugin.install(wrapWithPlugin(this), this._core.config, options)
-
-		const hasAuthor = plugin.author !== undefined
-		const hasRisk = !hasRequiredCoreVersion || !hasAuthor
-
-		if (hasRisk) {
-			log.type = LogType.Warning
-			log.message = `注册插件 ${plugin.name} 成功，但可能存在风险`
-		} else {
-			log.type = LogType.Success
-			log.message = `注册插件 ${plugin.name} 成功`
-		}
-
-		printLog(log)
+	constructor(core: ICore, vm?: ComponentInternalInstance) {
+		this.#id = `popup-controller-${++_seed}`
+		this.#core = core
+		this.#vm = vm
 	}
 	render({ zIndex, ...options }: RenderOption) {
 		const log = new Log({
@@ -539,7 +442,7 @@ export class Controller implements IController {
 			throw new PopupError(log)
 		}
 
-		zIndex = zIndex ?? this._core.config.zIndex++
+		zIndex = zIndex ?? this.#core.config.zIndex++
 
 		const mergedOptions = {
 			...defaultOptions,
@@ -547,29 +450,13 @@ export class Controller implements IController {
 			...{ zIndex },
 		}
 
-		const instance: Instance = new Instance(this._core, mergedOptions)
+		const instance: Instance = new Instance(
+			this.#core,
+			mergedOptions,
+			this.#vm
+		)
 
 		instance.mount()
-
-		if (instance.renderType !== RenderType.ROOT_COMPONENT) {
-			printLog(
-				new Log({
-					type: LogType.Warning,
-					caller: 'popup.render()',
-					message: `渲染弹出层 ${instance.id.name} 未使用 PopupRoot 根组件渲染，无法同步应用上下文`,
-					group: [
-						{
-							type: LogGroupItemType.Default,
-							message: `修复建议：使用 PopupRoot 根组件包裹 App 组件以同步应用上下文`,
-						},
-						{
-							type: LogGroupItemType.Default,
-							message: `帮助文档：${DOCUMENT_URL}/guide/initialization.html#同步应用上下文`,
-						},
-					],
-				})
-			)
-		}
 
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
 		log.group.push({
@@ -612,7 +499,7 @@ export class Controller implements IController {
 			throw new PopupError(log)
 		}
 
-		const instance = this._core.getInstance(instanceId)
+		const instance = this.#core.getInstance(instanceId)
 
 		if (!instance) return
 
@@ -647,7 +534,7 @@ export class Controller implements IController {
 			throw new PopupError(log)
 		}
 
-		const instance = this._core.getInstance(instanceId)
+		const instance = this.#core.getInstance(instanceId)
 
 		if (!instance) {
 			log.type = LogType.Warning
@@ -674,18 +561,4 @@ export class Controller implements IController {
 
 		printLog(log)
 	}
-}
-
-function validPluginVersion(plugin: PopupPlugin) {
-	const { requiredCoreVersion } = plugin
-	const { min, max } = requiredCoreVersion ?? {}
-
-	if (min && version < min) {
-		return false
-	}
-
-	if (max && version > max) {
-		return false
-	}
-	return true
 }

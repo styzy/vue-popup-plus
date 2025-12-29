@@ -1,93 +1,30 @@
-import { markRaw, reactive, type App, type Reactive } from 'vue'
-import { Controller, type IController } from '../controller'
-import { Instance, InstanceId } from '../instance'
-import type { PopupPlugin } from '../plugin'
 import {
-	defaultPrintLog,
-	Log,
-	LogGroupItemType,
-	LogType,
-	printLog,
-	type ILog,
-	type ILogHandler,
-} from '../log'
-import { PopupError } from '../error'
+	markRaw,
+	reactive,
+	type App,
+	type ComponentInternalInstance,
+	type Reactive,
+} from 'vue'
+import { Config, type ConfigOption, type IConfig } from '../config'
+import { Instance, InstanceId } from '../instance'
+import { Log, LogGroupItemType, LogType, printLog } from '../log'
+import {
+	wrapConfigWithPlugin,
+	type ExtractPluginOption,
+	type PluginOption,
+	type PopupPlugin,
+} from '../plugin'
+import { version } from '../version'
+import { DOCUMENT_URL, POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import { PopupRootComponentName } from '../components/PopupRoot.vue'
-
-export type CoreOption = {
-	/**
-	 * 弹出层 zIndex 基础值
-	 *
-	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入
-	 *   zIndex，否则使用此基础值，每次使用后会自动递增
-	 */
-	zIndex?: number
-	/**
-	 * 是否自动禁用滚动
-	 *
-	 * - 默认为 true
-	 * - 开启后，弹出层显示时会自动禁用页面滚动
-	 */
-	autoDisableScroll?: boolean
-	/**
-	 * 弹出层控制器挂载在 Vue 实例上的属性名
-	 *
-	 * - 默认为 $popup ，这在使用 选项式 API 时可以在组件内通过 this.$popup
-	 *   访问控制器实例，可以使用该属性自定义挂载属性名
-	 * - 使用示例：
-	 *
-	 * ```ts
-	 * // main.ts
-	 * import { createPopup } from 'vue-popup-plus'
-	 *
-	 * const popup = createPopup({
-	 * 	prototypeName: '$customPopup',
-	 * })
-	 *
-	 * // 组件内
-	 * this.$customPopup.render({
-	 * 	component: Demo,
-	 * })
-	 * ```
-	 *
-	 * - 注意，如果你使用 TypeScript，则自定义属性名称需要手动同步添加类型扩展，扩展代码可以放在一个
-	 *   .ts 文件，或是一个影响整个项目的 *.d.ts 文件中。
-	 * - 扩展代码示例：
-	 *
-	 * ```ts
-	 * // 扩展自定义属性名类型
-	 * declare module 'vue' {
-	 * 	interface ComponentCustomProperties {
-	 * 		$customPopup: typeof popup
-	 * 	}
-	 * }
-	 * ```
-	 */
-	prototypeName?: string
-	/**
-	 * 日志器
-	 *
-	 * - 默认使用内置的日志器，仅会在开启调试模式时在控制台输出日志
-	 * - 你可以自定义日志器，需要注意日志的接收将不会受到调试模式的影响，
-	 *   无论调试模式是否开启，日志都将被传递给自定义的日志器。
-	 */
-	logHandler?: ILogHandler
-	/**
-	 * 开启调试模式
-	 *
-	 * - 默认为 false
-	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
-	 * - 开启后，将会在控制台输出日志，同时如果未注册根组件，调试模式下
-	 *   将会使用 Vue App 实例渲染弹出层，方便开发者调试。
-	 */
-	debugMode?: boolean
-}
-
-export type CoreConfig = Required<CoreOption>
 
 type Instances = Reactive<Record<InstanceId['name'], Instance>>
 
 export interface ICore {
+	/**
+	 * 插件所挂载的 Vue 应用实例
+	 */
+	app?: Readonly<App>
 	/**
 	 * 弹出层种子，用于生成弹出层实例id，自动递增
 	 */
@@ -95,11 +32,7 @@ export interface ICore {
 	/**
 	 * 弹出层配置项
 	 */
-	config: CoreConfig
-	/**
-	 * 弹出层控制器
-	 */
-	controller: IController
+	config: IConfig
 	/**
 	 * 弹出层实例存储
 	 */
@@ -109,13 +42,28 @@ export interface ICore {
 	 */
 	isRootComponentRegistered: boolean
 	/**
+	 * Vue 插件安装函数
+	 */
+	install(app: App): any
+	/**
+	 * 注册插件
+	 *
+	 * - 可注册使用 `definePlugin()` 方法定义的插件
+	 * - 重复注册相同的插件，会被忽略
+	 * - 具体请参考{@link IDefinePlugin}
+	 */
+	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
+		plugin: TPlugin,
+		options?: ExtractPluginOption<TPlugin>
+	): void
+	/**
 	 * 注册根组件
 	 */
-	registerRootComponent(): void
+	registerRootComponent(vm: ComponentInternalInstance): boolean
 	/**
 	 * 注销根组件
 	 */
-	unregisterRootComponent(): void
+	unregisterRootComponent(vm: ComponentInternalInstance): void
 	/**
 	 * 添加弹出层实例
 	 *
@@ -138,7 +86,7 @@ export interface ICore {
 
 let core: ICore | null = null
 
-export function createCore(options?: CoreOption): ICore {
+export function createCore(options?: ConfigOption): ICore {
 	return new Core(options)
 }
 
@@ -148,51 +96,139 @@ export function getCore(): ICore | null {
 
 export class Core implements ICore {
 	app?: Readonly<App>
+	#config: IConfig
 	#seed: number = 1
 	#instances: Instances = reactive({})
-	#controller: IController
-	#config: CoreConfig
 	#plugins: Record<string, PopupPlugin> = {}
 	#originBodyOverflow: string = ''
-	#registeredRootComponentCount: number = 0
+	#registeredRootComponentInstances: ComponentInternalInstance[] = []
 	get seed() {
 		return this.#seed++
 	}
 	get config() {
 		return this.#config
 	}
-	get controller() {
-		return this.#controller
-	}
 	get instances() {
 		return this.#instances
 	}
 	get isRootComponentRegistered() {
-		return this.#registeredRootComponentCount > 0
+		return this.#registeredRootComponentInstances.length > 0
 	}
-	constructor({
-		zIndex = 1000,
-		prototypeName = '$popup',
-		autoDisableScroll = true,
-		logHandler = defaultPrintLog,
-		debugMode = false,
-	}: CoreOption = {}) {
-		this.#config = {
-			zIndex,
-			prototypeName,
-			autoDisableScroll,
-			logHandler,
-			debugMode,
-		}
-		this.#controller = new Controller(this)
+	constructor(options: ConfigOption = {}) {
+		this.#config = new Config(options)
 		core = this
 	}
-	registerRootComponent(): void {
-		if (this.#registeredRootComponentCount > 0) {
+	install(app: App) {
+		app.config.globalProperties[this.config.prototypeName] = this
+		this.app = app
+		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
+	}
+	use<TOption extends PluginOption>(
+		plugin: PopupPlugin<TOption>,
+		options?: TOption
+	) {
+		const log = new Log({
+			type: LogType.Success,
+			caller: 'popup.use()',
+			group: [
+				{
+					type: LogGroupItemType.Default,
+					message: `插件名称: ${plugin.name}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件作者: ${plugin.author ?? '未知（可能存在安全风险）'}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件要求最低核心版本: ${plugin.requiredCoreVersion?.min ?? '-'}`,
+				},
+				{
+					type: LogGroupItemType.Default,
+					message: `插件要求最高核心版本: ${plugin.requiredCoreVersion?.max ?? '-'}`,
+				},
+			],
+		})
+
+		if (!this.#addPlugin(plugin)) {
+			log.type = LogType.Error
+			log.message = `注册插件 ${plugin.name} 失败，已存在同名插件 ${plugin.name}`
+			printLog(log)
+			return
+		}
+
+		const hasRequiredCoreVersion =
+			plugin.requiredCoreVersion?.min || plugin.requiredCoreVersion?.max
+
+		if (hasRequiredCoreVersion) {
+			if (this.#validPluginVersion(plugin)) {
+				log.group.push({
+					type: LogGroupItemType.Default,
+					message: `插件版本校验: 通过`,
+				})
+			} else {
+				log.type = LogType.Error
+				log.message = `注册插件 ${plugin.name} 失败，未通过核心版本校验`
+				log.group.push({
+					type: LogGroupItemType.Default,
+					message: `插件版本校验: 未通过`,
+				})
+				printLog(log)
+				return
+			}
+		} else {
+			log.group.push({
+				type: LogGroupItemType.Default,
+				message: `插件版本校验: 未校验（可能存在兼容性问题）`,
+			})
+		}
+
+		log.group.push({
+			type: LogGroupItemType.Info,
+			title: '插件注册选项:',
+			data: options,
+		})
+
+		plugin.install(wrapConfigWithPlugin(this.config), options)
+
+		const hasAuthor = plugin.author !== undefined
+		const hasRisk = !hasRequiredCoreVersion || !hasAuthor
+
+		if (hasRisk) {
+			log.type = LogType.Warning
+			log.message = `注册插件 ${plugin.name} 成功，但可能存在风险`
+		} else {
+			log.type = LogType.Success
+			log.message = `注册插件 ${plugin.name} 成功`
+		}
+
+		printLog(log)
+	}
+	registerRootComponent(vm: ComponentInternalInstance): boolean {
+		if (!this.isRootComponentRegistered) {
+			this.#registeredRootComponentInstances.push(vm)
+
+			printLog(
+				new Log({
+					type: LogType.Info,
+					caller: 'core',
+					message: `${PopupRootComponentName} 根组件挂载成功，所有弹出层组件将共享根组件上下文`,
+					group: [
+						{
+							type: LogGroupItemType.Info,
+							title: '帮助文档:',
+							content: `${DOCUMENT_URL}/guide/initialization.html#同步应用上下文`,
+						},
+					],
+				})
+			)
+
+			return true
+		} else {
 			const log = new Log({
 				caller: 'core',
 				type: LogType.Warning,
-				message: `检测到同时存在 ${this.#registeredRootComponentCount + 1} 个 ${PopupRootComponentName} 根组件实例`,
+				message: `检测到重复挂载 ${PopupRootComponentName} 根组件`,
 				group: [
 					{
 						type: LogGroupItemType.Default,
@@ -201,11 +237,15 @@ export class Core implements ICore {
 				],
 			})
 			printLog(log)
+			return false
 		}
-		this.#registeredRootComponentCount++
 	}
-	unregisterRootComponent(): void {
-		this.#registeredRootComponentCount--
+	unregisterRootComponent(vm: ComponentInternalInstance): void {
+		const index = this.#registeredRootComponentInstances.indexOf(vm)
+
+		if (index !== -1) {
+			this.#registeredRootComponentInstances.splice(index, 1)
+		}
 	}
 	addInstance(instance: Instance) {
 		this.#instances[instance.id.name] = markRaw(instance)
@@ -226,17 +266,15 @@ export class Core implements ICore {
 			this.#enableScroll()
 		}
 	}
-	addPlugin(plugin: PopupPlugin): boolean {
-		if (this.getPlugin(plugin.name)) return false
+	#addPlugin(plugin: PopupPlugin): boolean {
+		if (this.#getPlugin(plugin.name)) return false
 
 		this.#plugins[plugin.name] = plugin
 
 		return true
 	}
-	getPlugin(pluginName: string): PopupPlugin | void {
-		return this.#plugins[pluginName]
-	}
-	removePlugin(pluginName: string) {
+	#getPlugin(pluginName: string): PopupPlugin | void {}
+	#removePlugin(pluginName: string) {
 		delete this.#plugins[pluginName]
 	}
 	#disableScroll() {
@@ -249,5 +287,18 @@ export class Core implements ICore {
 		if (!this.config.autoDisableScroll) return
 
 		document.body.style.overflow = this.#originBodyOverflow
+	}
+	#validPluginVersion(plugin: PopupPlugin) {
+		const { requiredCoreVersion } = plugin
+		const { min, max } = requiredCoreVersion ?? {}
+
+		if (min && version < min) {
+			return false
+		}
+
+		if (max && version > max) {
+			return false
+		}
+		return true
 	}
 }
