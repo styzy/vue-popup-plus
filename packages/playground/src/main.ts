@@ -45,8 +45,8 @@ const testPlugin = definePlugin({
 	name: 'test',
 	author: 'STYZY',
 	requiredCoreVersion: {
-		min: coreVersion,
-		max: coreVersion,
+		// min: coreVersion,
+		// max: '1.4.0',
 	},
 	install(
 		popup,
