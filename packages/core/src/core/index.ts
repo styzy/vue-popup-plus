@@ -129,23 +129,27 @@ export class Core implements ICore {
 	) {
 		const log = new Log({
 			type: LogType.Success,
-			caller: 'popup.use()',
+			caller: 'core.use()',
 			group: [
 				{
-					type: LogGroupItemType.Default,
-					message: `插件名称: ${plugin.name}`,
+					type: LogGroupItemType.Info,
+					title: '插件名称',
+					content: plugin.name,
 				},
 				{
-					type: LogGroupItemType.Default,
-					message: `插件作者: ${plugin.author ?? '未知（可能存在安全风险）'}`,
+					type: LogGroupItemType.Info,
+					title: '插件作者',
+					content: plugin.author ?? '未知（可能存在安全风险）',
 				},
 				{
-					type: LogGroupItemType.Default,
-					message: `插件要求最低核心版本: ${plugin.requiredCoreVersion?.min ?? '-'}`,
+					type: LogGroupItemType.Info,
+					title: '插件要求最低核心版本',
+					content: plugin.requiredCoreVersion?.min ?? '-',
 				},
 				{
-					type: LogGroupItemType.Default,
-					message: `插件要求最高核心版本: ${plugin.requiredCoreVersion?.max ?? '-'}`,
+					type: LogGroupItemType.Info,
+					title: '插件要求最高核心版本',
+					content: plugin.requiredCoreVersion?.max ?? '-',
 				},
 			],
 		})
@@ -163,29 +167,32 @@ export class Core implements ICore {
 		if (hasRequiredCoreVersion) {
 			if (this.#validPluginVersion(plugin)) {
 				log.group.push({
-					type: LogGroupItemType.Default,
-					message: `插件版本校验: 通过`,
+					type: LogGroupItemType.Info,
+					title: `插件版本校验`,
+					content: `通过`,
 				})
 			} else {
 				log.type = LogType.Error
 				log.message = `注册插件 ${plugin.name} 失败，未通过核心版本校验`
 				log.group.push({
-					type: LogGroupItemType.Default,
-					message: `插件版本校验: 未通过`,
+					type: LogGroupItemType.Info,
+					title: `插件版本校验`,
+					content: `未通过`,
 				})
 				printLog(log)
 				return
 			}
 		} else {
 			log.group.push({
-				type: LogGroupItemType.Default,
-				message: `插件版本校验: 未校验（可能存在兼容性问题）`,
+				type: LogGroupItemType.Info,
+				title: `插件版本校验`,
+				content: `未校验（可能存在兼容性问题）`,
 			})
 		}
 
 		log.group.push({
 			type: LogGroupItemType.Info,
-			title: '插件注册选项:',
+			title: '插件注册选项',
 			data: options,
 		})
 
@@ -231,7 +238,7 @@ export class Core implements ICore {
 				message: `检测到重复挂载 ${PopupRootComponentName} 根组件`,
 				group: [
 					{
-						type: LogGroupItemType.Default,
+						type: LogGroupItemType.Message,
 						message: `修改建议：${PopupRootComponentName} 根组件同一时刻应当只存在一个实例，请移除多余的 ${PopupRootComponentName} 根组件`,
 					},
 				],
@@ -273,7 +280,9 @@ export class Core implements ICore {
 
 		return true
 	}
-	#getPlugin(pluginName: string): PopupPlugin | void {}
+	#getPlugin(pluginName: string): PopupPlugin | void {
+		return this.#plugins[pluginName]
+	}
 	#removePlugin(pluginName: string) {
 		delete this.#plugins[pluginName]
 	}

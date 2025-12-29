@@ -460,8 +460,9 @@ export class Controller implements IController {
 
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
 		log.group.push({
-			type: LogGroupItemType.Default,
-			message: `渲染方式：${instance.renderType}`,
+			type: LogGroupItemType.Info,
+			title: '渲染方式',
+			content: `${instance.renderType}`,
 		})
 		log.group.push({
 			type: LogGroupItemType.Data,

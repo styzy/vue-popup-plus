@@ -31,9 +31,9 @@ export type LogType = (typeof LogType)[keyof typeof LogType]
  */
 export const LogGroupItemType = {
 	/**
-	 * 默认类型
+	 * 消息类型
 	 */
-	Default: 'default',
+	Message: 'message',
 	/**
 	 * 信息类型
 	 */
@@ -51,7 +51,7 @@ type LogGroupDefaultItem = {
 	/**
 	 * 组元素类型
 	 */
-	type: typeof LogGroupItemType.Default
+	type?: typeof LogGroupItemType.Message
 	/**
 	 * 组元素消息
 	 */
@@ -182,18 +182,6 @@ export class Log implements ILog {
 		this.caller = caller
 		this.message = message
 		this.group = group
-
-		this.group.unshift({
-			type: LogGroupItemType.Default,
-			message: `核心版本: ${version}`,
-		})
-
-		if (this.hasCaller) {
-			this.group.unshift({
-				type: LogGroupItemType.Default,
-				message: `调用者: ${this.caller}`,
-			})
-		}
 	}
 }
 
@@ -227,63 +215,100 @@ export const printLog: ILogHandler = (log) => {
  * @param log 日志实例
  */
 export const defaultPrintLog: ILogHandler = (log) => {
-	const groupPinterWithPrefix = withStyle({
-		printer: console.groupCollapsed,
-		type: log.type,
-		hasPrefix: true,
+	const groupTitlePrinter = createPrinter(
+		console.groupCollapsed,
+		{ theme: log.type, style: PrinterStyle.Prefix },
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		}
+	)
+	const groupMessagePrinter = createPrinter(console.log, {
+		theme: log.type,
+		style: PrinterStyle.Content,
 	})
-	const groupPrinter = withStyle({
-		printer: console.log,
-		type: log.type,
-		isGroupContent: true,
+	const groupInfoPrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+			customStyle: 'background-color: unset; margin-right: 0;',
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Content,
+		}
+	)
+	const groupInfoTitlePrinter = createPrinter(console.log, {
+		theme: log.type,
+		style: PrinterStyle.Title,
+		customStyle: 'background-color: unset;',
 	})
-	const printerWithPrefix = withStyle({
-		printer: getPrinter(log.type),
-		type: log.type,
-		hasPrefix: true,
+	const groupInfoDataPrinter = console.dir
+	const groupDataTitlePrinter = createPrinter(console.log, {
+		theme: log.type,
+		style: PrinterStyle.Content,
 	})
+	const groupDataValuePrinter = console.dir
+	const singlePrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Prefix,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		}
+	)
 
 	const primaryPrefix = `${log.namespace} ${log.type.toUpperCase()}`
 	const primaryMessage = log.message
 
 	if (log.hasGroup) {
-		groupPinterWithPrefix(primaryPrefix, primaryMessage)
-		log.group?.forEach((item, index) => {
-			const isCallerItem = index === 0 && log.hasCaller
+		groupTitlePrinter(primaryPrefix, primaryMessage)
 
-			if (isCallerItem) {
-				const callerItem = item as LogGroupDefaultItem
-				const callerStyle = ''
-				groupPrinter(callerItem.message, callerStyle)
-			} else {
-				if (
-					item.type === undefined ||
-					item.type === LogGroupItemType.Default
-				) {
-					groupPrinter(item.message)
-				} else if (item.type === LogGroupItemType.Info) {
-					groupPrinter(item.title)
-					if (item.content) {
-						groupPrinter(item.content)
-					}
-					if (item.data) {
-						console.dir(item.data)
-					}
-				} else if (item.type === LogGroupItemType.Data) {
-					// groupPrinter(
-					// 	`数据名称: ${item.dataName} | 约束类型: ${item.dataType ?? 'any'} | 实际类型: ${typeOf(item.dataValue)}`
-					// )
-					groupPrinter(
-						`${item.dataName} : ${item.dataType ?? 'any'} ( ${typeOf(item.dataValue)} )`,
-						'font-weight: 700;'
-					)
-					console.dir(item.dataValue)
+		const group = [...log.group]
+
+		if (log.hasCaller) {
+			group.unshift({
+				type: LogGroupItemType.Info,
+				title: '调用者',
+				content: log.caller,
+			})
+			group.unshift({
+				type: LogGroupItemType.Info,
+				title: '核心版本',
+				content: version,
+			})
+		}
+
+		group.forEach((item, index) => {
+			if (
+				item.type === undefined ||
+				item.type === LogGroupItemType.Message
+			) {
+				groupMessagePrinter(item.message)
+			} else if (item.type === LogGroupItemType.Info) {
+				if (item.content) {
+					groupInfoPrinter(`${item.title}：`, item.content)
+				} else if (item.data) {
+					groupInfoTitlePrinter(`${item.title}：`)
+					groupInfoDataPrinter(item.data)
 				}
+			} else if (item.type === LogGroupItemType.Data) {
+				// groupPrinter(
+				// 	`数据名称: ${item.dataName} | 约束类型: ${item.dataType ?? 'any'} | 实际类型: ${typeOf(item.dataValue)}`
+				// )
+				groupDataTitlePrinter(
+					`${item.dataName} : ${item.dataType ?? 'any'} ( ${typeOf(item.dataValue)} )`
+				)
+				groupDataValuePrinter(item.dataValue)
 			}
 		})
 		console.groupEnd()
 	} else {
-		printerWithPrefix(primaryPrefix, primaryMessage)
+		singlePrinter(primaryPrefix, primaryMessage)
 	}
 }
 
@@ -308,72 +333,74 @@ const COLOR_TYPE_MAP = {
 	[LogType.Error]: '#f56c6c',
 }
 
-type IWithStyleOption = {
-	printer: (...args: any[]) => void
-	type: LogType
-	hasPrefix?: boolean
-	isGroupContent?: boolean
+const enum PrinterStyle {
+	Prefix = 'prefix',
+	Title = 'title',
+	Content = 'content',
 }
 
-interface IWithStyle {
-	(
-		options: IWithStyleOption & { hasPrefix: true }
-	): (prefix: string, message: string, customStyle?: string) => void
-	(options: IWithStyleOption): (message: string, customStyle?: string) => void
+type PrinterOption = {
+	theme: LogType
+	style: PrinterStyle
+	customStyle?: string
 }
 
-const withStyle: IWithStyle = function ({
-	printer,
-	type,
-	hasPrefix = false,
-	isGroupContent = false,
-}) {
-	const color = COLOR_TYPE_MAP[type]
+interface ICreatePrinter {
+	<T extends PrinterOption[]>(
+		printer: (...args: any[]) => void,
+		...styleOptions: T
+	): (
+		...args: {
+			[K in keyof T]: string
+		}
+	) => void
+}
 
+const createPrinter: ICreatePrinter = function (printer, ...styleOptions) {
 	const baseStyle = `font-family:
-		Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-		'Microsoft YaHei', '微软雅黑', Arial, sans-serif;`
+	Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+	'Microsoft YaHei', '微软雅黑', Arial, sans-serif;`
 
-	const prefixStyle =
-		baseStyle +
-		`color: #FFFFFF;` +
-		`background-color: ${color};` +
-		`padding: 4px 8px;` +
-		`margin-right: 6px;` +
-		`border-radius: 4px;` +
-		`font-weight: 700;`
+	const styleList = styleOptions.map(({ theme, style, customStyle }) => {
+		const color = COLOR_TYPE_MAP[theme]
 
-	const contentStyle =
-		baseStyle +
-		`background-color: ${color}22;` +
-		`padding: 4px 8px;` +
-		`border-radius: 4px;` +
-		`font-weight: 400;`
+		const prefixStyle =
+			baseStyle +
+			`color: #FFFFFF;` +
+			`background-color: ${color};` +
+			`padding: 4px 8px;` +
+			`margin-right: 8px;` +
+			`border-radius: 4px;` +
+			`font-weight: 700;`
 
-	const groupContentStyle =
-		baseStyle +
-		`color: ${color};` +
-		`background-color: ${color}22;` +
-		`padding: 4px 8px;` +
-		`border-radius: 4px;` +
-		`font-weight: 400;`
+		const titleContentStyle =
+			baseStyle +
+			`background-color: ${color}22;` +
+			`margin-right: 0px;` +
+			`padding: 4px 8px;` +
+			`border-radius: 4px;` +
+			`font-weight: 400;`
 
-	return (
-		hasPrefix
-			? (prefix: string, message: string, customStyle: string = '') => {
-					printer(
-						`%c${prefix}%c${message}`,
-						prefixStyle,
-						(isGroupContent ? groupContentStyle : contentStyle) +
-							customStyle
-					)
-				}
-			: (message: string, customStyle: string = '') => {
-					printer(
-						`%c${message}`,
-						(isGroupContent ? groupContentStyle : contentStyle) +
-							customStyle
-					)
-				}
-	) as (message: string, customStyle?: string) => void
+		const contentStyle =
+			baseStyle +
+			`color: ${color};` +
+			`background-color: ${color}22;` +
+			`padding: 4px 8px;` +
+			`border-radius: 4px;` +
+			`font-weight: 400;`
+
+		switch (style) {
+			case PrinterStyle.Prefix:
+				return prefixStyle + customStyle
+			case PrinterStyle.Title:
+				return titleContentStyle + customStyle
+			case PrinterStyle.Content:
+			default:
+				return contentStyle + customStyle
+		}
+	})
+
+	return (...messages) => {
+		printer(`%c${messages.join('%c')}`, ...styleList)
+	}
 }

@@ -32,23 +32,24 @@ export function usePopup(): IController {
 		throw new PopupError(log)
 	}
 	const vm = getCurrentInstance()
-	console.log('vm: ', vm)
 
 	const controller = new Controller(core, vm || undefined)
 
 	printLog(
 		new Log({
-			type: LogType.Success,
+			type: LogType.Info,
 			caller: 'usePopup()',
 			message: `创建弹出层控制器实例 ${controller.id} 成功`,
 			group: [
 				{
-					type: LogGroupItemType.Default,
-					message: `上下文组件名称：${vm?.type.name}`,
+					type: LogGroupItemType.Info,
+					title: '上下文组件',
+					content: `${vm?.type.name}.vue`,
 				},
 				{
-					type: LogGroupItemType.Default,
-					message: `上下文组件路径：\n${vm?.type.__file}`,
+					type: LogGroupItemType.Info,
+					title: '组件路径',
+					content: vm?.type.__file,
 				},
 			],
 		})
