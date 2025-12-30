@@ -28,7 +28,7 @@ defineOptions({
 })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const computedViewStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE)!
+const viewComputedStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE)!
 const skin = inject(injectSkin, 'modern')
 
 type Props = {
@@ -71,8 +71,8 @@ function handleDragStart(event: MouseEvent) {
 	if (!draggable) return
 	dragOriginMouseX.value = event.clientX
 	dragOriginMouseY.value = event.clientY
-	dragOriginOffsetX.value = computedViewStyle.value.translateX
-	dragOriginOffsetY.value = computedViewStyle.value.translateY
+	dragOriginOffsetX.value = viewComputedStyle.value.translateX
+	dragOriginOffsetY.value = viewComputedStyle.value.translateY
 	isDragging.value = true
 	event.preventDefault()
 	window.addEventListener('mousemove', handleDragMove)
