@@ -144,6 +144,9 @@ export interface ILog {
 	 * 日志组
 	 */
 	group: LogGroup
+	/**
+	 * 是否有调用者
+	 */
 	readonly hasCaller: boolean
 	/**
 	 * 是否有日志组

@@ -1,4 +1,4 @@
-import { createCore, type ICore as IPopup } from './core'
+import { createCore, type ICore as PupupPlus } from './core'
 import { type ConfigOption } from './config'
 import { type IController } from './controller'
 import './assets/style/main.styl'
@@ -6,6 +6,7 @@ import './assets/style/main.styl'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { type ConfigOption } from './config'
 export {
+	type IController,
 	type PopupCustomProperties,
 	type RenderOption,
 	type Placement,
@@ -30,14 +31,25 @@ export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'
 
 /**
- * 创建一个弹出层插件
+ * 创建弹出层插件实例
  *
  * - 通过 Vue 的 app.use() 函数安装插件
  *
- * @param options 插件配置，具体请参考 {@link CreateOption}
+ * @param options 插件配置，具体请参考 {@link ConfigOption}
  * @returns 弹出层插件
+ *
+ * @example
+ * ```ts
+ * import { createPopupPlus } from 'vue-popup-plus'
+ *
+ * // 创建插件实例
+ * const PopupPlus = createPopupPlus()
+ *
+ * // 安装插件
+ * app.use(PopupPlus)
+ * ```
  */
-export function createPopup(options?: ConfigOption): IPopup {
+export function createPopupPlus(options?: ConfigOption): PupupPlus {
 	return createCore(options)
 }
 

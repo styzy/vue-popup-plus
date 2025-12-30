@@ -14,7 +14,7 @@ import {
 	type PluginOption,
 	type PopupPlugin,
 } from '../plugin'
-import { version } from '../version'
+import { version, type Version } from '../version'
 import { DOCUMENT_URL, POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import { PopupRootComponentName } from '../components/PopupRoot.vue'
 
@@ -41,6 +41,10 @@ export interface ICore {
 	 * 是否已注册根组件
 	 */
 	isRootComponentRegistered: boolean
+	/**
+	 * 版本号
+	 */
+	version: Version
 	/**
 	 * Vue 插件安装函数
 	 */
@@ -117,6 +121,9 @@ export class Core implements ICore {
 	constructor(options: ConfigOption = {}) {
 		this.#config = new Config(options)
 		core = this
+	}
+	get version() {
+		return version
 	}
 	install(app: App) {
 		app.config.globalProperties[this.config.prototypeName] = this

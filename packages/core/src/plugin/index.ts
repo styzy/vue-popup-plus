@@ -43,8 +43,8 @@ export interface IPluginWrappedConfig extends IConfig {
 	 *
 	 * const plugin = definePlugin({
 	 * 	name: 'test',
-	 * 	install(popup) {
-	 * 		popup.customProperties.test = function (message: string) {
+	 * 	install(config) {
+	 * 		config.customProperties.test = function (message: string) {
 	 * 			this.render({
 	 * 				component: () => import('./views/Demo.vue'),
 	 * 				componentProps: {
@@ -73,8 +73,8 @@ export interface IPluginWrappedConfig extends IConfig {
 	 *
 	 * const plugin = definePlugin({
 	 * 	name: 'test',
-	 * 	install(popup) {
-	 * 		popup.customAnimations.CUSTOM = 'custom'
+	 * 	install(config) {
+	 * 		config.customAnimations.CUSTOM = 'custom'
 	 * 	},
 	 * })
 	 * ```
@@ -100,9 +100,8 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	/**
 	 * 插件安装函数
 	 *
-	 * - 第一个参数接收注册此插件的弹出层控制器实例
-	 * - 第二个参数接收注册此插件的弹出层的创建配置
-	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 * - 第一个参数接收注册此插件的弹出层的创建配置
+	 * - 第二个参数接收插件自定义选项，可自行定义，插件使用者可在调用
 	 *  `popup.use` 方法时传入
 	 */
 	install: PluginInstall<TOption>
@@ -154,16 +153,15 @@ export interface IDefinePlugin {
 	 * - 插件的作者 `author` 可以是个人或组织名称
 	 * - 插件的核心版本要求 `coreVersion` 可以指定插件所适配的最低和最高核心版本，
 	 * 不符合要求的核心将无法注册该插件
-	 * - 插件的安装函数 `install` 必须是一个函数，接收三个参数：
-	 *   - 第一个参数接收注册此插件的弹出层控制器实例
-	 *   - 第二个参数接收注册此插件的弹出层的创建配置
-	 *   - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 * - 插件的安装函数 `install` 必须是一个函数，接收两个参数：
+	 *   - 第一个参数接收注册此插件的弹出层的创建配置
+	 *   - 第二个参数接收插件自定义选项，可自行定义，插件使用者可在调用
 	 *  `popup.use` 方法时传入
 	 * - 使用示例：
 	 *
 	 * ```ts
-	 * import { createPopup, definePlugin } from 'vue-popup-plus'
-	 * const popup = createPopup()
+	 * import { createPopupPlus, definePlugin } from 'vue-popup-plus'
+	 * const PopupPlus = createPopupPlus()
 	 *
 	 * type TestPluginOption = {
 	 * 	logEnable?: boolean
@@ -176,8 +174,8 @@ export interface IDefinePlugin {
 	 * 		const requiredVersion = '1.5.0'
 	 * 		return coreVersion >= requiredVersion
 	 * 	},
-	 * 	install(popup, config, { logEnable = false }: TestPluginOption = {}) {
-	 * 		popup.customProperties.test = function (message) {
+	 * 	install(config, { logEnable = false }: TestPluginOption = {}) {
+	 * 		config.customProperties.test = function (message: string) {
 	 * 			this.render({
 	 * 				component: () => import('path/Demo.vue'),
 	 * 				componentProps: {
@@ -191,6 +189,9 @@ export interface IDefinePlugin {
 	 * 		}
 	 * 	},
 	 * })
+	 *
+	 * // 注册插件
+	 * PopupPlus.use(plugin)
 	 * ```
 	 */
 	<TOption extends PluginOption>(
