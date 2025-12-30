@@ -63,4 +63,4 @@ export default {
 
 并不是所有的渲染参数都可以更新，例如 `component`、`appendTo` 等，这些参数在渲染时作为一次性的参数，无法在渲染后更新。
 
-具体可以参考 [全局 API - 控制器实例 popup.update()](/api/controller#popup-update)。
+具体可以参考 [核心 API - 控制器实例 popup.update()](/api/controller#popup-update)。

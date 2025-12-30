@@ -79,7 +79,7 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: 'API',
-				link: '/api/controller',
+				link: '/api/guide',
 				activeMatch: '/api/',
 			},
 			{
@@ -112,6 +112,10 @@ export const themeConfig = defineConfig({
 				{
 					text: '基础',
 					items: [
+						{
+							text: '获取控制器实例',
+							link: '/guide/controller',
+						},
 						{
 							text: '渲染弹出层',
 							link: '/guide/render',
@@ -236,24 +240,45 @@ export const themeConfig = defineConfig({
 							text: '动画扩展',
 							link: '/plugin/animation-extend',
 						},
+						{
+							text: '辅助功能',
+							link: '/plugin/helper',
+						},
+					],
+				},
+				{
+					text: '历史',
+					items: [
+						{
+							text: '定义插件 1.5.x',
+							link: '/plugin/define-1.5.x',
+						},
+						{
+							text: '功能扩展 1.5.x',
+							link: '/plugin/function-extend-1.5.x',
+						},
+						{
+							text: '动画扩展 1.5.x',
+							link: '/plugin/animation-extend-1.5.x',
+						},
 					],
 				},
 			],
 			'/api/': [
 				{
-					text: '全局 API',
+					text: '核心 API',
 					items: [
+						{
+							text: '核心实例',
+							link: '/api/core',
+						},
 						{
 							text: '控制器实例',
 							link: '/api/controller',
 						},
 						{
-							text: '动画类型',
-							link: '/api/animation',
-						},
-						{
-							text: '定义插件',
-							link: '/api/define-plugin',
+							text: '组合式工具',
+							link: '/api/use-api',
 						},
 						{
 							text: '通用',
@@ -264,6 +289,18 @@ export const themeConfig = defineConfig({
 				{
 					text: '进阶 API',
 					items: [
+						{
+							text: '常量',
+							link: '/api/constants',
+						},
+						{
+							text: '插件开发',
+							link: '/api/plugin',
+						},
+						{
+							text: '日志工具',
+							link: '/api/log',
+						},
 						{
 							text: 'TypeScript 工具类型',
 							link: '/api/types',

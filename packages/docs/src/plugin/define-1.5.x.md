@@ -1,12 +1,11 @@
-# 定义插件
+# 定义插件 <Badge text="1.5.x" />
 
 这篇文档将介绍如何定义插件以及插件的相关配置参数。
 
 ::: tip
 
-从 <DVersion version="1.6.0" /> 版本开始，插件的定义方式发生了变化，主要是 `definePlugin()` 函数的 `install()` 方法，第一个参数 `popup` 控制器实例将不再提供，取而代之的是 `config` 参数，新的 `config` 参数包含了原有的 `customProperties` 、 `customAnimations` 等配置项。
+这里是 `1.5.x` 版本的插件定义方式，最新版本的插件定义方式请参考 [插件 - 定义插件](/plugin/define)。
 
-如果你需要查看之前版本的插件定义方式，请参考 [插件 - 定义插件 1.5.x](/plugin/define-1.5.x)。
 :::
 
 ## 定义插件
@@ -22,7 +21,7 @@ const myPlugin = definePlugin({
 	// 插件名称，不可重复
 	name: 'my-plugin',
 	// 插件安装函数，将在 popup.use 方法调用时执行
-	install(config) {
+	install(popup) {
 		console.log('myPlugin 安装成功')
 	},
 })
@@ -40,24 +39,31 @@ const myPlugin = definePlugin({
 
 ## 安装函数
 
-`install` 属性用于定义插件的安装函数，插件在安装时会调用该函数，该函数接收两个个参数，分别是：
+`install` 属性用于定义插件的安装函数，插件在安装时会调用该函数，该函数接收三个参数，分别是：
 
+- `popup` 支持扩展的弹出层控制器实例
 - `config` 弹出层控制器初始化配置对象
 - `options` 自定义插件配置对象
 
 ```ts
 definePlugin({
 	name: 'my-plugin',
-	install(config, options) {},
+	install(popup, config, options) {},
 })
 ```
+
+::: tip
+需要注意的是，和正常的控制器实例不同，这里的 `popup` 控制器实例，是一个支持扩展的控制器实例，它除了包含原有控制器实例的相关方法和属性之外，还提供了一些额外的方法和属性，用于插件的开发。
+
+这些额外的方法和属性，仅在 `install` 函数提供的 `popup` 控制器实例中存在。
+:::
 
 这里只是简单的介绍了 `install` 安装函数的参数，插件开发者可以根据实际需求，在安装函数中定义自己的逻辑。
 
 同时我们也针对不同的插件场景，提供了不同扩展方式的详细文档，包括：
 
-- [插件 - 功能扩展](/plugin/function-extend)
-- [插件 - 动画扩展](/plugin/animation-extend)
+- [插件 - 功能扩展 1.5.x](/plugin/function-extend-1.5.x)
+- [插件 - 动画扩展 1.5.x](/plugin/animation-extend-1.5.x)
 
 ## 自定义注册选项
 
@@ -79,7 +85,7 @@ const myPlugin = definePlugin({
 	// 指定注册选项的类型为 MyPluginOptions，同时因为插件注册选项本身是可选的，
 	// 所以需要指定其默认值为空对象
 	// 这里推荐使用解构赋值的方式，为注册选项指定默认值
-	install(config, { foo = '', bar = 0 }: MyPluginOptions = {}) {
+	install(popup, config, { foo = '', bar = 0 }: MyPluginOptions = {}) {
 		console.log('foo: ', foo)
 		console.log('bar: ', bar)
 	},
@@ -100,4 +106,4 @@ popup.use(myPlugin, {
 
 ## 相关参考
 
-具体可以参考 [插件开发 API - 定义插件 definePlugin()](/api/plugin#define-plugin)。
+具体可以参考 [核心 API - 插件开发 definePlugin()](/api/plugin#define-plugin)。

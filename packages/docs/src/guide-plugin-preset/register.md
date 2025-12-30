@@ -8,19 +8,19 @@
 
 ```ts [main.ts]
 import { createApp } from 'vue'
-import { createPopup } from 'vue-popup-plus'
+import { createPopupPlus } from 'vue-popup-plus'
 // 引入预置插件
 import { plugin } from 'vue-popup-plus-plugin-preset' // [!code highlight]
 import App from './App.vue'
 
 const app = createApp(App)
 
-const popup = createPopup()
+const PopupPlus = createPopupPlus()
 
 // 注册预置插件
-popup.use(plugin) // [!code highlight]
+PopupPlus.use(plugin) // [!code highlight]
 
-app.use(popup)
+app.use(PopupPlus)
 
 app.mount('#app')
 ```
@@ -35,20 +35,20 @@ app.mount('#app')
 
 ```ts [main.ts]
 import { createApp } from 'vue'
-import { createPopup } from 'vue-popup-plus'
+import { createPopupPlus } from 'vue-popup-plus'
 // 引入 dialog , toast 子功能插件
 import { dialog, toast } from 'vue-popup-plus-plugin-preset' // [!code highlight]
 import App from './App.vue'
 
 const app = createApp(App)
 
-const popup = createPopup()
+const PopupPlus = createPopupPlus()
 
 // 注册子功能插件
-popup.use(dialog) // [!code highlight]
-popup.use(toast) // [!code highlight]
+PopupPlus.use(dialog) // [!code highlight]
+PopupPlus.use(toast) // [!code highlight]
 
-app.use(popup)
+app.use(PopupPlus)
 
 app.mount('#app')
 ```

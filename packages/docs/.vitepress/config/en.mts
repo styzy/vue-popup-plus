@@ -21,7 +21,7 @@ export const themeConfig = defineConfig({
 			},
 			{
 				text: 'API',
-				link: '/api/createPopup',
+				link: '/api/guide',
 				activeMatch: '/api/',
 			},
 			{

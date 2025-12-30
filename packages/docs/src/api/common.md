@@ -3,7 +3,7 @@ pageClass: api
 outline: 2
 ---
 
-# 全局 API：通用
+# 通用 API
 
 ## version
 

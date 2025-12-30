@@ -7,9 +7,23 @@ outline: 2
 
 ## 1.6.0 <Badge type="tip" text="2025-12-xx" />
 
+### 重大改动
+
+::: tip
+
+从 `1.6.0` 版本开始，`Vue Popup Plus` 的核心实例和控制器实例拆分，核心实例仅负责插件的安装，而控制器实例则负责弹出层的创建和管理。
+
+对于插件使用者，需要将原有的 `createPopup()` 函数替换为 `createPopupPlus()` 函数。
+
+对于插件开发者，需要注意的是 `definePlugin()` 函数的 `install()` 方法，第一个参数 `popup` 控制器实例将不再提供，取而代之的是 `config` 参数，新的 `config` 参数包含了原有的 `customProperties` 、 `customAnimations` 等配置项。
+
+:::
+
 ### 特性
 
-- 新增 `usePopupInstanceId()` 工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID
+- 新增 `createPopupPlus()` 函数，用于创建核心实例。
+- 新增 `usePopupInstanceId()` 组合式工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID。
+- 新增 `usePopupComputedStyle()` 组合式工具函数，用于获取当前弹出层的渲染组件的计算样式。
 
 ### 优化
 
@@ -19,9 +33,8 @@ outline: 2
 
 ::: danger
 
-- `createPopup()` 函数现在只会返回插件实例，而不是控制器实例。
-- `definePlugin()` 定义弹出层插件函数的 `install()` 方法移除第一个参数 `controller` ，因为现在控制器不会提前生成，而是在调用 `usePopup()` 时才会生成。
-- 弹出层插件开发者无法直接访问弹出层控制器实例，只能通过 `config.customProperties` 对弹出层控制器进行扩展方法时，通过 `this` 访问弹出层控制器实例。
+- `createPopup()` 函数现在已经被移除，其原有功能已经被 `createPopupPlus()` 和 `usePopup()` 函数所替代。
+- `definePlugin()` 定义弹出层插件函数的 `install()` 方法移除第一个参数 `controller` ，因为现在控制器不会提前生成，而是在调用 `usePopup()` 时才会生成。 弹出层插件开发者无法直接访问弹出层控制器实例，只能通过第二个参数 `config` 的 `customProperties` 属性对弹出层控制器进行扩展方法时，通过 `this` 访问弹出层控制器实例。
 
 :::
 

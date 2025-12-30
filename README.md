@@ -38,13 +38,13 @@ pnpm add vue-popup-plus
 
 ```js
 import { createApp } from 'vue'
-import { createPopup } from 'vue-popup-plus'
+import { createPopupPlus } from 'vue-popup-plus'
 import App from './App.vue'
 
 const app = createApp(App)
-const popup = createPopup()
+const PopupPlus = createPopupPlus()
 
-app.use(popup)
+app.use(PopupPlus)
 
 app.mount('#app')
 ```

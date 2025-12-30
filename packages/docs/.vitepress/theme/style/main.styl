@@ -27,7 +27,17 @@
 		input:checked + label,
 		label:hover
 			color #dfdfd6
-
+.api-guide
+	@media (min-width 960px)
+		.VPDoc:not(.has-sidebar) .container
+			max-width 900px
+		.VPDoc:not(.has-sidebar) .content
+			max-width 800px
+	@media (min-width 1440px)
+		.VPDoc:not(.has-sidebar) .container
+			max-width 1400px
+		.VPDoc:not(.has-sidebar) .content
+			max-width 1300px
 .api .vp-doc h2 .header-anchor
 	opacity 1
 
