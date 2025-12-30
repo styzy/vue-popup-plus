@@ -10,6 +10,17 @@
 	},
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"eslint.enable": false,
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"vue"
+	],
+	"eslint.workingDirectories": [{
+		"mode": "auto"
+	}],
 	"[vue]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
