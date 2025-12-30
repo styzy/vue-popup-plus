@@ -27,7 +27,8 @@ if (!core) {
 	const log = new Log({
 		type: LogType.Error,
 		caller: 'PopupRoot',
-		message: '根组件初始化失败，请先调用 createPopup() 方法',
+		message:
+			'根组件初始化失败，请先调用 createPopupPlus() 方法创建弹出层插件实例',
 	})
 	printLog(log)
 	throw new PopupError(log)

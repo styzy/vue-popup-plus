@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import {
-	createPopup,
+	createPopupPlus,
 	definePlugin,
 	version as coreVersion,
 } from 'vue-popup-plus'
@@ -20,13 +20,13 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 app.use(ElementPlus)
 
-const popup = createPopup({
+const PopupPlus = createPopupPlus({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',
 	debugMode: true,
 })
 
-popup.use(plugin, {
+PopupPlus.use(plugin, {
 	// skin: 'classic',
 })
 
@@ -66,7 +66,7 @@ const testPlugin = definePlugin({
 	},
 })
 
-popup.use(testPlugin, {
+PopupPlus.use(testPlugin, {
 	a: 'test',
 	b: true,
 })
@@ -76,7 +76,7 @@ popup.use(testPlugin, {
 // })
 
 app.use(router)
-app.use(popup)
+app.use(PopupPlus)
 
 app.mount('#app')
 

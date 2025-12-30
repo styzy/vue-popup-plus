@@ -22,7 +22,7 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
-import type { PopupViewStyle } from '../typings'
+import type { PopupViewComputedStyle } from '../typings'
 
 defineOptions({
 	name: 'PopupView',
@@ -102,7 +102,7 @@ const styleObject = computed(() => {
 	}
 })
 
-const computedViewStyle: PopupViewStyle = computed(() => ({
+const viewComputedStyle: PopupViewComputedStyle = computed(() => ({
 	width: viewWidth.value,
 	height: viewHeight.value,
 	zIndex: store.zIndex.value,
@@ -110,7 +110,7 @@ const computedViewStyle: PopupViewStyle = computed(() => ({
 	translateY: translateY.value,
 }))
 
-provide(POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE, computedViewStyle)
+provide(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE, viewComputedStyle)
 
 onMounted(() => {
 	window.setTimeout(syncViewSize, store.animationDuration.value)

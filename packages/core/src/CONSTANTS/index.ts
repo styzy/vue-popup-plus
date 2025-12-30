@@ -1,7 +1,7 @@
 import type { InjectionKey } from 'vue'
 import type { ICore } from '../core'
 import type { InstanceId, InstanceStore } from '../instance'
-import type { PopupViewStyle } from '../typings'
+import type { PopupViewComputedStyle } from '../typings'
 
 /**
  * 命名空间
@@ -43,6 +43,7 @@ type ComponentInjectKeys = {
 	 * 弹出层视图样式
 	 *
 	 * - 可在弹出层内部组件内获取弹出层根级视图组件的样式
+	 * - 所有的样式具有响应性。
 	 * - 使用示例：
 	 *
 	 * ```ts
@@ -63,11 +64,11 @@ type ComponentInjectKeys = {
 	 *
 	 * // 获取弹出层根级视图组件的样式
 	 * const computedViewStyle = inject(
-	 * 	POPUP_COMPONENT_INJECTS.COMPUTED_VIEW_STYLE
+	 * 	POPUP_COMPONENT_INJECTS.INSTANCE_VIEW_STYLE
 	 * )
 	 * ```
 	 */
-	COMPUTED_VIEW_STYLE: InjectionKey<PopupViewStyle>
+	COMPUTED_STYLE: InjectionKey<PopupViewComputedStyle>
 }
 
 /**
@@ -77,7 +78,7 @@ type ComponentInjectKeys = {
  */
 export const POPUP_COMPONENT_INJECTS: Readonly<ComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${NAME_SPACE}-instance-id`),
-	COMPUTED_VIEW_STYLE: Symbol(`${NAME_SPACE}-computed-view-style`),
+	COMPUTED_STYLE: Symbol(`${NAME_SPACE}-computed-style`),
 }
 
 /**

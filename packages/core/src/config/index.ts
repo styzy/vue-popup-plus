@@ -48,9 +48,9 @@ export type ConfigOption = {
 	 *
 	 * ```ts
 	 * // main.ts
-	 * import { createPopup } from 'vue-popup-plus'
+	 * import { createPopupPlus } from 'vue-popup-plus'
 	 *
-	 * const popup = createPopup({
+	 * const PopupPlus = createPopupPlus({
 	 * 	prototypeName: '$customPopup',
 	 * })
 	 *
@@ -67,8 +67,9 @@ export type ConfigOption = {
 	 * ```ts
 	 * // 扩展自定义属性名类型
 	 * declare module 'vue' {
+	 *  import { type IController } from 'vue-popup-plus'
 	 * 	interface ComponentCustomProperties {
-	 * 		$customPopup: typeof popup
+	 * 		$customPopup: IController
 	 * 	}
 	 * }
 	 * ```
