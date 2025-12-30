@@ -4,7 +4,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
 import { components } from './components'
-import { createPopup } from 'vue-popup-plus'
+import { createPopupPlus } from 'vue-popup-plus'
 import { plugin } from 'vue-popup-plus-plugin-preset'
 
 import './style.css'
@@ -22,11 +22,11 @@ export default {
 	},
 	async enhanceApp({ app, router, siteData }) {
 		if (!import.meta.env.SSR) {
-			const popup = createPopup()
+			const PopupPlus = createPopupPlus()
 
-			popup.use(plugin)
+			PopupPlus.use(plugin)
 
-			app.use(popup)
+			app.use(PopupPlus)
 
 			Object.entries(components).forEach(([name, component]) => {
 				app.component(name, component)

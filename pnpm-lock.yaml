@@ -121,9 +121,6 @@ importers:
 
   packages/core:
     dependencies:
-      utils:
-        specifier: workspace:*
-        version: link:../utils
       vue:
         specifier: 'catalog:'
         version: 3.5.24(typescript@5.8.3)
@@ -188,6 +185,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
+      utils:
+        specifier: workspace:*
+        version: link:../utils
       vite:
         specifier: 'catalog:'
         version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1)
@@ -276,6 +276,9 @@ importers:
       pug:
         specifier: 'catalog:'
         version: 3.0.3
+      sass:
+        specifier: 'catalog:'
+        version: 1.97.0
       stylus:
         specifier: 'catalog:'
         version: 0.64.0
@@ -494,9 +497,6 @@ importers:
 
   packages/plugin:
     dependencies:
-      utils:
-        specifier: workspace:*
-        version: link:../utils
       vue:
         specifier: 'catalog:'
         version: 3.5.24(typescript@5.8.3)
@@ -564,6 +564,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
+      utils:
+        specifier: workspace:*
+        version: link:../utils
       vite:
         specifier: 'catalog:'
         version: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1)

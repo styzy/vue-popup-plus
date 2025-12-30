@@ -5,82 +5,63 @@ outline: 2
 
 # 控制器实例 API
 
-## createPopup()
+## usePopup() {#use-popup}
 
-创建一个弹出层控制器实例。
+获取弹出层控制器实例。
 
 ### 类型
 
 ```ts
-function createPopup(options?: CreateOptions): PopupController
-```
-
-### 参数类型
-
-```ts
-type CreateOptions = {
-	/**
-	 * 弹出层 zIndex 基础值
-	 *
-	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入
-	 *   zIndex，否则使用此基础值，每次使用后会自动递增
-	 */
-	zIndex?: number
-	/**
-	 * 是否自动禁用滚动
-	 *
-	 * - 默认为 true
-	 * - 开启后，弹出层显示时会自动禁用页面滚动
-	 */
-	autoDisableScroll?: boolean
-	/**
-	 * 弹出层控制器挂载在 Vue 实例上的属性名
-	 *
-	 * - 默认为 $popup ，这在使用 选项式 API 时可以在组件内通过 this.$popup
-	 *   访问控制器实例，可以使用该属性自定义挂载属性名
-	 */
-	prototypeName?: string
-	/**
-	 * 开启调试模式
-	 *
-	 * - 默认为 false
-	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
-	 * - 开启后，将会在控制台输出日志，同时如果未注册根组件，调试模式下
-	 *   将会使用 Vue App 实例渲染弹出层，方便开发者调试。
-	 */
-	debugMode?: boolean
-}
+function usePopup(): IController
 ```
 
 ### 详细信息
 
-对于 `prototypeName` 选项，如果你使用 `TypeScript` ，需要手动同步添加类型扩展，扩展代码可以放在一个 `.ts` 文件，或是一个影响整个项目的 `*.d.ts` 文件中。
+作为增强型的 `Vue` 组合式工具函数，除了在组件内使用，还可以在任何非组件的地方使用。
 
-```ts
-declare module 'vue' {
-	interface ComponentCustomProperties {
-		$customPopup: typeof popup
-	}
-}
-```
+唯一的前提是需要先调用 [createPopupPlus()](/api/core#create-popup-plus) 方法创建一个核心实例，并将其安装到 `app` 实例上。
 
 ### 示例
 
-```ts
-import { createApp } from 'vue'
-import { createPopup } from 'vue-popup-plus'
-import App from './App.vue'
+```ts [组合式 API ~vscode-icons:file-type-vue~]
+// 在组件内使用
+import { onMounted } from 'vue'
+import { usePopup } from 'vue-popup-plus'
 
-const app = createApp(App)
+const popup = usePopup()
 
-const popup = createPopup()
-
-app.use(popup)
+onMounted(() => {
+	popup.render({
+		component: () => import('./HelloWorld.vue'),
+	})
+})
 ```
 
-### 相关参考
+```ts [router.ts]
+// 在独立文件中使用
+import { usePopup } from 'vue-popup-plus'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-- [指南 - 初始化](/guide/initialization)
+const popup = usePopup()
+
+const router = createRouter({
+	history: createWebHashHistory(),
+	routes: [
+		{ path: '/', component: () => import('./Home.vue') },
+		{ path: '/login', component: () => import('./Login.vue') },
+	],
+})
+
+router.beforeEach((to, from, next) => {
+	if (!checkAuth() && to.path !== '/login') {
+		popup.render({
+			component: () => import('./HelloWorld.vue'),
+		})
+	} else {
+		next()
+	}
+})
+```
 
 ## popup.render()
 
@@ -270,7 +251,7 @@ type Placement =
 
 `component` 是唯一的必填参数，支持同步组件和异步组件。建议使用异步组件，当弹出层未渲染时，将不会加载其代码，从而优化加载速度和构建体积。
 
-`viewAnimation` 和 `maskAnimation` 仅支持动画类型常量 `POPUP_ANIMATIONS` 中提供的动画类型，具体可以参考 [全局 API - 动画类型](/api/animation)。
+`viewAnimation` 和 `maskAnimation` 仅支持动画类型常量 `POPUP_ANIMATIONS` 中提供的动画类型，具体可以参考 [核心 API - 常量 POPUP_ANIMATIONS](/api/constants#popup_animations)。
 
 ### 示例
 
@@ -459,7 +440,13 @@ popup.destroy(instanceId, 'This is a custom payload')
 
 - [指南 - 销毁弹出层](/guide/destroy)
 
-## popup.use()
+## popup.use() <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport version="1.6.0" deprecated />
+
+::: danger
+该方法已被废弃，请使用 [PopupPlus.use()](/api/core#popup-plus-use) 作为替代。
+:::
 
 注册插件，只需要调用一次即可。名称冲突的插件无法注册。
 
@@ -480,10 +467,10 @@ function use(plugin: Plugin, options?: any): void
 ### 示例
 
 ```ts
-import { usePopup } from 'vue-popup-plus'
+import { createPopup } from 'vue-popup-plus'
 import { presetPlugin } from 'vue-popup-plus-plugin-preset'
 
-const popup = usePopup()
+const popup = createPopup()
 
 popup.use(presetPlugin)
 ```
@@ -504,7 +491,7 @@ const version: string
 
 ### 详细信息
 
-Vue Popup Plus 版本号，格式为 `x.y.z`，其中 `x` 为主版本号，`y` 为次版本号，`z` 为修订版本号。
+`Vue Popup Plus` 版本号，格式为 `x.y.z`，其中 `x` 为主版本号，`y` 为次版本号，`z` 为修订版本号。
 
 主版本号一般不会改变。
 
@@ -524,4 +511,5 @@ console.log(popup.version)
 
 ### 相关参考
 
-- [全局 API - version](/api/common#version)
+- [核心 API - 核心实例 PopupPlus.version](/api/core#popup-plus-version)
+- [核心 API - 通用 version](/api/common#version)

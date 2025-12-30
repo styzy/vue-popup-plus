@@ -45,9 +45,9 @@
 
 :root {
 	--color-primary: rgb(28, 112, 209);
-	--color-primary-light: rgb(38, 136, 248);
+	--color-primary-light-most: rgb(121, 181, 249);
 	--color-primary-light-enhance: rgb(92, 168, 254);
-	--color-primary-light-most: rgb(65, 209, 255);
+	--color-primary-light: rgb(38, 136, 248);
 	--color-primary-dark: rgb(22, 95, 179);
 	--color-primary-soft: rgba(40, 143, 246, 0.7);
 
@@ -136,11 +136,8 @@
 	--vp-home-hero-name-background: -webkit-linear-gradient(
 		-30deg,
 		var(--color-primary) 0%,
-		var(--color-primary-light-most) 50%,
+		rgb(65, 209, 255) 50%,
 		var(--color-primary) 100%
-			/* var(--color-primary-light-most) 0%,
-		var(--color-primary) 50%,
-		var(--color-primary-light-most) 100% */
 	);
 
 	--vp-home-hero-image-background-image: linear-gradient(

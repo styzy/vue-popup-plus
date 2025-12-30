@@ -36,6 +36,7 @@
 		"npm-run-all2": "catalog:",
 		"prettier": "catalog:",
 		"pug": "catalog:",
+		"sass": "catalog:",
 		"stylus": "catalog:",
 		"typescript": "catalog:",
 		"unplugin-vue-markdown": "catalog:",

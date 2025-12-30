@@ -3,13 +3,13 @@ pageClass: api
 outline: 2
 ---
 
-# 定义插件
+# 插件开发 API
 
-## definePlugin()
+## definePlugin() {#define-plugin}
 
 用于定义一个可以被 Vue Popup Plus 注册的插件。
 
-其返回值为一个 `插件实例` ，用于在 [注册插件](/plugin/register.md) 时使用。
+其返回值为一个 `插件实例` ，用于在 [注册插件](/plugin/register) 时使用。
 
 ### 类型
 
@@ -69,5 +69,5 @@ type PopupConfig = Required<CreateOption>
 
 ### 相关参考
 
-- [插件 - 定义插件](/plugin/define.md)
-- [全局 API - 控制器实例](/api/controller.md)
+- [插件 - 定义插件](/plugin/define)
+- [核心 API - 核心实例 PopupPlus.use(())](/api/core)

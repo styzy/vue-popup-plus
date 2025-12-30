@@ -34,4 +34,4 @@ popup.render({
 })
 ```
 
-具体的动画类型可以参考 [全局 API - 动画类型](/api/animation)。
+具体的动画类型可以参考 [核心 API - 常量 POPUP_ANIMATIONS](/api/constants#popup-animations)。

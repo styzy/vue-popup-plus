@@ -1,4 +1,4 @@
-# 动画扩展
+# 动画扩展 <Badge text="1.5.x" />
 
 ## 介绍
 
@@ -45,7 +45,7 @@ Vue Popup Plus 内置了基础动画类型，通过 `POPUP_ANIMATIONS` 常量的
 
 定义好动画样式后，首先在插件中引入该样式文件，例如这里的 `custom_animation.css`。
 
-为了对 `POPUP_ANIMATIONS` 常量进行扩展， `definePligin` 方法的 `install` 函数所提供的 `config` 对象，提供了一个 `customAnimations` 属性，用于添加新的动画。
+为了对 `POPUP_ANIMATIONS` 常量进行扩展， `definePligin` 方法的 `install` 函数所提供的 `popup` 对象，即支持扩展的控制器实例，提供了一个 `customAnimations` 属性，用于添加新的动画。
 
 我们需要对 `customAnimations` 对象新增一个 `CUSTOM` 属性，并将其值设置为 `custom`。
 
@@ -64,9 +64,9 @@ import './custom_animation.css' // [!code highlight]
 
 const animationPlugin = definePlugin({
 	name: 'animation-plugin',
-	install(config) {
+	install(popup) {
 		// 添加自定义动画类型
-		config.customAnimations.CUSTOM = 'custom' // [!code highlight]
+		popup.customAnimations.CUSTOM = 'custom' // [!code highlight]
 	},
 })
 ```
@@ -120,8 +120,8 @@ import './custom_animation.css'
 
 const animationPlugin = definePlugin({
 	name: 'animation-plugin',
-	install(config) {
-		config.customAnimations.CUSTOM = 'custom'
+	install(popup) {
+		popup.customAnimations.CUSTOM = 'custom'
 	},
 })
 

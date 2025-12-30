@@ -7,7 +7,7 @@
 控制器实例 `popup` 的 `use` 方法，专门用于插件的注册。
 
 ```ts
-import { createPopup, definePlugin } from 'vue-popup-plus'
+import { createPopupPlus, definePlugin } from 'vue-popup-plus'
 
 const myPlugin = definePlugin({
 	name: 'my-plugin',
@@ -16,10 +16,10 @@ const myPlugin = definePlugin({
 	},
 })
 
-const popup = createPopup()
+const PopupPlus = createPopupPlus()
 
 // 完成插件的注册
-popup.use(myPlugin) // [!code highlight]
+PopupPlus.use(myPlugin) // [!code highlight]
 ```
 
 ## 注册选项
@@ -29,7 +29,7 @@ popup.use(myPlugin) // [!code highlight]
 注册选项由插件开发者定义，插件使用者可以根据需要进行配置。
 
 ```ts
-popup.use(myPlugin, {
+PopupPlus.use(myPlugin, {
 	// 注册选项，具体请参考插件开发者的文档
 })
 ```
