@@ -25,7 +25,7 @@ export {
 	type LogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
-export { usePopup } from './use-api'
+export { usePopup, usePopupInstanceId } from './use-api'
 export { version, type Version } from './version'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'

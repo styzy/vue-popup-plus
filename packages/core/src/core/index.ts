@@ -129,6 +129,32 @@ export class Core implements ICore {
 		app.config.globalProperties[this.config.prototypeName] = this
 		this.app = app
 		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
+
+		printLog(
+			new Log({
+				type: LogType.Success,
+				caller: {
+					name: 'core.install()',
+					type: 'Function',
+					value: this.install,
+				},
+				message: `注册核心实例到 Vue 成功`,
+				group: [
+					{
+						type: LogGroupItemType.Info,
+						title: 'Vue 版本',
+						content: app.version,
+					},
+					{
+						type: LogGroupItemType.Data,
+						title: 'Vue 应用实例',
+						dataName: 'app',
+						dataType: 'App',
+						dataValue: app,
+					},
+				],
+			})
+		)
 	}
 	use<TOption extends PluginOption>(
 		plugin: PopupPlugin<TOption>,
@@ -136,7 +162,11 @@ export class Core implements ICore {
 	) {
 		const log = new Log({
 			type: LogType.Success,
-			caller: 'core.use()',
+			caller: {
+				name: 'core.use()',
+				type: 'Function',
+				value: this.use,
+			},
 			group: [
 				{
 					type: LogGroupItemType.Info,
@@ -152,11 +182,13 @@ export class Core implements ICore {
 					type: LogGroupItemType.Info,
 					title: '插件要求最低核心版本',
 					content: plugin.requiredCoreVersion?.min ?? '-',
+					important: true,
 				},
 				{
 					type: LogGroupItemType.Info,
 					title: '插件要求最高核心版本',
 					content: plugin.requiredCoreVersion?.max ?? '-',
+					important: true,
 				},
 			],
 		})
@@ -177,6 +209,7 @@ export class Core implements ICore {
 					type: LogGroupItemType.Info,
 					title: `插件版本校验`,
 					content: `通过`,
+					important: true,
 				})
 			} else {
 				log.type = LogType.Error
@@ -185,6 +218,7 @@ export class Core implements ICore {
 					type: LogGroupItemType.Info,
 					title: `插件版本校验`,
 					content: `未通过`,
+					important: true,
 				})
 				printLog(log)
 				return
@@ -194,13 +228,15 @@ export class Core implements ICore {
 				type: LogGroupItemType.Info,
 				title: `插件版本校验`,
 				content: `未校验（可能存在兼容性问题）`,
+				important: true,
 			})
 		}
 
 		log.group.push({
-			type: LogGroupItemType.Info,
+			type: LogGroupItemType.Data,
 			title: '插件注册选项',
-			data: options,
+			dataName: 'options',
+			dataValue: options,
 		})
 
 		plugin.install(wrapConfigWithPlugin(this.config), options)
@@ -225,12 +261,26 @@ export class Core implements ICore {
 			printLog(
 				new Log({
 					type: LogType.Info,
-					caller: 'core',
-					message: `${PopupRootComponentName} 根组件挂载成功，所有弹出层组件将共享根组件上下文`,
+					caller: {
+						name: 'core.registerRootComponent()',
+						type: 'Function',
+						value: this.registerRootComponent,
+					},
+					message: `根组件 ${PopupRootComponentName} 挂载成功`,
 					group: [
 						{
-							type: LogGroupItemType.Info,
-							title: '帮助文档:',
+							type: LogGroupItemType.Component,
+							title: '挂载组件',
+							instance: vm.parent,
+						},
+						{
+							type: LogGroupItemType.Message,
+							title: '功能描述',
+							content: `根组件为 usePopup() 函数提供非组件运行支持，同时所有弹出层组件将共享根组件上下文`,
+						},
+						{
+							type: LogGroupItemType.Message,
+							title: '帮助文档',
 							content: `${DOCUMENT_URL}/guide/initialization.html#同步应用上下文`,
 						},
 					],
@@ -240,13 +290,23 @@ export class Core implements ICore {
 			return true
 		} else {
 			const log = new Log({
-				caller: 'core',
 				type: LogType.Warning,
+				caller: {
+					name: 'core.registerRootComponent()',
+					type: 'Function',
+					value: this.registerRootComponent,
+				},
 				message: `检测到重复挂载 ${PopupRootComponentName} 根组件`,
 				group: [
 					{
+						type: LogGroupItemType.Component,
+						title: '问题定位组件',
+						instance: vm.parent,
+					},
+					{
 						type: LogGroupItemType.Message,
-						message: `修改建议：${PopupRootComponentName} 根组件同一时刻应当只存在一个实例，请移除多余的 ${PopupRootComponentName} 根组件`,
+						title: '修改建议',
+						content: `${PopupRootComponentName} 根组件同一时刻应当只存在一个实例，请移除多余的 ${PopupRootComponentName} 根组件`,
 					},
 				],
 			})

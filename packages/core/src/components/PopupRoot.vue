@@ -17,25 +17,32 @@ import { Log, LogType, printLog } from '../log'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import PopupInstance from './PopupInstance.vue'
 
+const vm = getCurrentInstance()
+
 defineOptions({
-	PopupRootComponentName,
+	name: PopupRootComponentName,
 })
 
-const core = inject(POPUP_INSIDE_COMPONENT_INJECTS.CORE)
+const core = inject(POPUP_INSIDE_COMPONENT_INJECTS.CORE, undefined)
 
 if (!core) {
 	const log = new Log({
 		type: LogType.Error,
-		caller: 'PopupRoot',
 		message:
 			'根组件初始化失败，请先调用 createPopupPlus() 方法创建弹出层插件实例',
+		group: [
+			{
+				type: LogType.Component,
+				title: '调用组件',
+				instance: vm,
+			},
+		],
 	})
 	printLog(log)
-	throw new PopupError(log)
+	// throw new PopupError(log)
 }
 
 const istances = core?.instances || {}
-const vm = getCurrentInstance()
 
 onBeforeMount(() => {
 	core?.registerRootComponent(vm!)
