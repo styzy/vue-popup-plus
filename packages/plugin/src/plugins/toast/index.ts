@@ -6,6 +6,7 @@ import {
 	version as coreVersion,
 	POPUP_ANIMATIONS,
 	type Placement,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import { type GlobalOption, type Theme } from '../../typings'
@@ -74,29 +75,62 @@ export interface IToast {
 	 * // 只有消息消失后，才会继续执行后续代码
 	 * ```
 	 */
-	(content: string, options?: ToastOption): Promise<void>
+	(this: IController, content: string, options?: ToastOption): Promise<void>
+}
+
+export interface IToastPrimary {
+	/**
+	 * 显示主要消息
+	 */
+	(
+		this: IController,
+		content: string,
+		options?: ToastOptionWithoutTheme
+	): Promise<void>
+}
+
+export interface IToastSuccess {
 	/**
 	 * 显示成功消息
 	 */
-	success(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	(
+		this: IController,
+		content: string,
+		options?: ToastOptionWithoutTheme
+	): Promise<void>
+}
+
+export interface IToastInfo {
 	/**
 	 * 显示信息消息
 	 */
-	info(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	(
+		this: IController,
+		content: string,
+		options?: ToastOptionWithoutTheme
+	): Promise<void>
+}
+
+export interface IToastWarning {
 	/**
 	 * 显示警告消息
 	 */
-	warning(content: string, options?: ToastOptionWithoutTheme): Promise<void>
+	(
+		this: IController,
+		content: string,
+		options?: ToastOptionWithoutTheme
+	): Promise<void>
+}
+
+export interface IToastDanger {
 	/**
 	 * 显示错误消息
 	 */
-	danger(content: string, options?: ToastOptionWithoutTheme): Promise<void>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		toast: IToast
-	}
+	(
+		this: IController,
+		content: string,
+		options?: ToastOptionWithoutTheme
+	): Promise<void>
 }
 
 export const toast = definePlugin({
@@ -106,7 +140,7 @@ export const toast = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
 		const toast: IToast = function (
 			content: string = '',
 			{
@@ -118,7 +152,7 @@ export const toast = definePlugin({
 			}: ToastOption = {}
 		) {
 			return new Promise<void>((resolve) => {
-				controller.render({
+				this.render({
 					component: () => import('./src/PToast.vue'),
 					componentProps: {
 						skin,
@@ -191,15 +225,42 @@ export const toast = definePlugin({
 			})
 		}
 
-		toast.success = (content, options) =>
-			toast(content, { theme: 'success', ...options })
-		toast.info = (content, options) =>
-			toast(content, { theme: 'info', ...options })
-		toast.warning = (content, options) =>
-			toast(content, { theme: 'warning', ...options })
-		toast.danger = (content, options) =>
-			toast(content, { theme: 'danger', ...options })
+		const toastPrimary: IToastPrimary = function (content, options) {
+			return toast.call(this, content, { theme: 'primary', ...options })
+		}
 
-		controller.customProperties.toast = toast
+		const toastSuccess: IToastSuccess = function (content, options) {
+			return toast.call(this, content, { theme: 'success', ...options })
+		}
+
+		const toastInfo: IToastInfo = function (content, options) {
+			return toast.call(this, content, { theme: 'info', ...options })
+		}
+
+		const toastWarning: IToastWarning = function (content, options) {
+			return toast.call(this, content, { theme: 'warning', ...options })
+		}
+
+		const toastDanger: IToastDanger = function (content, options) {
+			return toast.call(this, content, { theme: 'danger', ...options })
+		}
+
+		config.customProperties.toast = toast
+		config.customProperties.toastPrimary = toastPrimary
+		config.customProperties.toastSuccess = toastSuccess
+		config.customProperties.toastInfo = toastInfo
+		config.customProperties.toastWarning = toastWarning
+		config.customProperties.toastDanger = toastDanger
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		toast: IToast
+		toastPrimary: IToastPrimary
+		toastSuccess: IToastSuccess
+		toastInfo: IToastInfo
+		toastWarning: IToastWarning
+		toastDanger: IToastDanger
+	}
+}

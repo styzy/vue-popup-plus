@@ -5,6 +5,7 @@ import {
 	printLog,
 	version as coreVersion,
 	type InstanceId,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import { type GlobalOption, type Theme } from '../../typings'
@@ -69,7 +70,7 @@ export interface ILoading {
 	 * await popup.loading.close()
 	 * ```
 	 */
-	(option?: LoadingOption): void
+	(this: IController, option?: LoadingOption): void
 	/**
 	 * 关闭加载遮罩
 	 *
@@ -103,7 +104,7 @@ export const loading = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
 		const record: {
 			id?: string
 			instanceId?: InstanceId
@@ -138,7 +139,7 @@ export const loading = definePlugin({
 
 			const id = createId()
 
-			const instanceId = controller.render({
+			const instanceId = this.render({
 				component: () => import('./src/PLoading.vue'),
 				componentProps: {
 					skin,
@@ -150,6 +151,7 @@ export const loading = definePlugin({
 				},
 				mask,
 				maskBlur,
+				disableScroll: false,
 				zIndex: 99999999,
 				onUnmounted() {
 					const log = new Log({
@@ -244,6 +246,6 @@ export const loading = definePlugin({
 
 		loading.close = stopLoading
 
-		controller.customProperties.loading = loading
+		config.customProperties.loading = loading
 	},
 })

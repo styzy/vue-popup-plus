@@ -14,8 +14,9 @@ next: false
 <DApiGroup>
 	<DApi title="核心实例" :links="PopupPlusApis" />
     <DApi title="控制器实例" :links="ControllerApis" />
-	<DApi title="组合式工具" :links="useApis" />
     <DApi title="通用" :links="CommonApis" />
+	<DApi title="组合式工具" :links="useApis" />
+	<DApi title="选项式工具" :links="optionApis" />
     <DApi title="常量" :links="ConstantsApis" />
 	<DApi title="插件开发" :links="PluginApis" />
 	<DApi title="日志工具" :links="LogApis" />
@@ -55,6 +56,13 @@ const ControllerApis = [
 	}
 ]
 
+const CommonApis = [
+	{
+		label: 'version',
+		url: '/api/common#version',
+	}
+]
+
 const useApis = [
 	{
 		label: 'usePopup()',
@@ -68,10 +76,18 @@ const useApis = [
 	}
 ]
 
-const CommonApis = [
+const optionApis = [
 	{
-		label: 'version',
-		url: '/api/common#version',
+		label: '$popup',
+		url: '/api/option#popup',
+	},
+	{
+		label: '$popupInstanceId',
+		url: '/api/option#popup-instance-id',
+	},
+	{
+		label: '$popupComputedStyle',
+		url: '/api/option#popup-computed-style',
 	}
 ]
 
