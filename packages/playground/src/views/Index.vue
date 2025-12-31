@@ -1,5 +1,8 @@
 <template lang="pug">
 .index
+	.fixed
+		PButtonGroup
+			PButton(@click="handleCloseSelf()" theme="warning" v-if="inPopup") 当前处于弹出层内，点击关闭
 	.title @styzy/vue-popup-plus 版本：{{ version }}
 	.links
 		.label Github:
@@ -15,6 +18,9 @@
 	.row
 		.row-item
 			.title 核心功能单元测试
+			.title.second 修改当前环境
+			PButtonGroup(theme="primary" tight)
+				PButton(@click="handlePopupWithSelf()") 用弹出层渲染当前组件
 			.title.second 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
@@ -254,16 +260,28 @@
 </template>
 
 <script setup lang="ts">
-import { POPUP_ANIMATIONS, usePopup, version } from 'vue-popup-plus'
+import {
+	POPUP_ANIMATIONS,
+	usePopup,
+	usePopupInstanceId,
+	version,
+} from 'vue-popup-plus'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 import Demo from '@/views/Demo.vue'
-import { defineAsyncComponent, getCurrentInstance } from 'vue'
+import { computed, defineAsyncComponent, getCurrentInstance } from 'vue'
 
 defineOptions({ name: 'Index' })
 
 const popup = usePopup()
 // const popup = {} as any
+const popupInstanceId = usePopupInstanceId()
+
+const inPopup = computed(() => !!popupInstanceId)
+
+function handleCloseSelf() {
+	popup.destroy(popupInstanceId!)
+}
 
 function handleJump(url: string, blank = false) {
 	window.open(url, blank ? '_blank' : '_self')
@@ -320,6 +338,15 @@ function handlePopupWithoutMaskClickClose() {
 	popup.render({
 		maskClickClose: true,
 		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupWithSelf() {
+	popup.render({
+		component: () => import('@/views/Index.vue'),
+		mask: false,
+		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
+		animationDuration: 200,
 	})
 }
 
@@ -615,19 +642,19 @@ function handlePopupToastPlacementRightBottom() {
 }
 
 function handlePopupToastSuccess() {
-	popup.toast.success('这是一条成功toast消息')
+	popup.toastSuccess('这是一条成功toast消息')
 }
 
 function handlePopupToastInfo() {
-	popup.toast.info('这是一条信息toast消息')
+	popup.toastInfo('这是一条信息toast消息')
 }
 
 function handlePopupToastWarning() {
-	popup.toast.warning('这是一条警告toast消息')
+	popup.toastWarning('这是一条警告toast消息')
 }
 
 function handlePopupToastDanger() {
-	popup.toast.danger('这是一条危险toast消息')
+	popup.toastDanger('这是一条危险toast消息')
 }
 
 function handlePopupAlert() {
@@ -1241,8 +1268,16 @@ function handlePopupAlbumDisableDrag() {
 	display flex
 	flex-direction column
 	align-items flex-start
-	padding 20px
 	gap 20px
+	padding 20px
+	max-height 100vh
+	box-sizing border-box
+	background-color var(--playground-color-background-main)
+	overflow-y auto
+	.fixed
+		position fixed
+		top 70px
+		right 20px
 	.row
 		display flex
 		flex-direction row

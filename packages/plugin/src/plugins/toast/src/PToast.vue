@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
 import { type Skin, type Theme } from '../../../typings'
 
 const popup = usePopup()
@@ -25,7 +25,7 @@ defineOptions({
 	name: 'PToast',
 })
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const instanceId = usePopupInstanceId()!
 
 type Props = {
 	skin: Skin
