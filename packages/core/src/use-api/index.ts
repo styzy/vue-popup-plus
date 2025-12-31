@@ -10,6 +10,7 @@ import { Controller, type IController } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
 import { type InstanceId } from '../instance'
+import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
 let _noContextController: IController
 
@@ -27,7 +28,11 @@ export function usePopup(): IController {
 	if (!core) {
 		const log = new Log({
 			type: LogType.Error,
-			caller: 'usePopup()',
+			caller: {
+				name: 'usePopup()',
+				type: 'Function',
+				value: usePopup,
+			},
 			message: `调用 usePopup() 前请先调用 createPopupPlus() 创建弹出层插件实例`,
 		})
 		defaultPrintLog(log)
@@ -41,26 +46,29 @@ export function usePopup(): IController {
 	if (vm) {
 		controller = new Controller(core, vm || undefined)
 
+		const componentName = vm?.type.name || '未知'
+
 		printLog(
 			new Log({
 				type: LogType.Info,
-				caller: 'usePopup()',
-				message: `创建弹出层控制器 ${controller.id} 成功，包含 ${vm?.type.name} 组件上下文`,
+				caller: {
+					name: 'usePopup()',
+					type: 'Function',
+					value: usePopup,
+				},
+				message: `创建控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`,
 				group: [
 					{
-						type: LogGroupItemType.Info,
-						title: '上下文组件',
-						content: `${vm?.type.name}.vue`,
+						type: LogGroupItemType.Component,
+						title: '调用组件',
+						instance: vm,
 					},
 					{
-						type: LogGroupItemType.Info,
-						title: '组件路径',
-						content: vm?.type.__file,
-					},
-					{
-						type: LogGroupItemType.Info,
-						title: '组件实例',
-						data: vm,
+						type: LogGroupItemType.Data,
+						title: '控制器',
+						dataName: controller.id,
+						dataType: 'IController',
+						dataValue: controller,
 					},
 				],
 			})
@@ -71,8 +79,21 @@ export function usePopup(): IController {
 			printLog(
 				new Log({
 					type: LogType.Info,
-					caller: 'usePopup()',
-					message: `获取缓存弹出层控制器 ${controller.id} 成功，当前不在组件上下文中`,
+					caller: {
+						name: 'usePopup()',
+						type: 'Function',
+						value: usePopup,
+					},
+					message: `从缓存中获取无上下文控制器 ${controller.id} 成功`,
+					group: [
+						{
+							type: LogGroupItemType.Data,
+							title: '控制器',
+							dataName: controller.id,
+							dataType: 'IController',
+							dataValue: controller,
+						},
+					],
 				})
 			)
 		} else {
@@ -80,8 +101,21 @@ export function usePopup(): IController {
 			printLog(
 				new Log({
 					type: LogType.Info,
-					caller: 'usePopup()',
-					message: `创建弹出层控制器 ${controller.id} 成功，不包含组件上下文`,
+					caller: {
+						name: 'usePopup()',
+						type: 'Function',
+						value: usePopup,
+					},
+					message: `创建无上下文控制器 ${controller.id} 成功，存入缓存`,
+					group: [
+						{
+							type: LogGroupItemType.Data,
+							title: '控制器',
+							dataName: controller.id,
+							dataType: 'IController',
+							dataValue: controller,
+						},
+					],
 				})
 			)
 		}
@@ -90,4 +124,67 @@ export function usePopup(): IController {
 	return controller
 }
 
-// export function usePopupInstanceId(): InstanceId {}
+/**
+ * 获取弹出层实例 ID
+ *
+ * - 如果当前组件不在弹出层内，则返回 `undefined`
+ * - debugMode 为 `true` 时，会打印警告日志
+ *
+ * @returns 弹出层实例 ID
+ */
+export function usePopupInstanceId() {
+	const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID, undefined)
+
+	const vm = getCurrentInstance()
+	const componentName = vm?.type.name || '未知'
+
+	if (instanceId) {
+		printLog(
+			new Log({
+				type: LogType.Info,
+				caller: {
+					name: 'usePopupInstanceId()',
+					type: 'Function',
+					value: usePopupInstanceId,
+				},
+				message: `${componentName} 组件获取弹出层实例ID ${instanceId.name} 成功`,
+				group: [
+					{
+						type: LogGroupItemType.Component,
+						title: '调用组件',
+						instance: vm,
+					},
+					{
+						type: LogGroupItemType.Data,
+						title: '弹出层实例ID',
+						dataType: 'InstanceId',
+						dataName: instanceId.name,
+						dataValue: instanceId,
+					},
+				],
+			})
+		)
+	} else {
+		if (vm) {
+			printLog(
+				new Log({
+					type: LogType.Warning,
+					caller: {
+						name: 'usePopupInstanceId()',
+						type: 'Function',
+						value: usePopupInstanceId,
+					},
+					message: `${componentName} 组件获取弹出层实例ID失败，不在弹出层内`,
+					group: [
+						{
+							type: LogGroupItemType.Component,
+							title: '调用组件',
+							instance: vm,
+						},
+					],
+				})
+			)
+		}
+	}
+	return instanceId
+}

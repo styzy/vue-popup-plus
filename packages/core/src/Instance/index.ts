@@ -117,7 +117,7 @@ export class InstanceId implements IInstanceId {
 		return this._seed
 	}
 	get name() {
-		return `vue-popup-plus-instance-${this.seed}`
+		return `popup-instance-${this.seed}`
 	}
 	constructor(seed: number) {
 		this._seed = seed

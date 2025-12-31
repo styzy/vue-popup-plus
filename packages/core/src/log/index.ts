@@ -1,30 +1,54 @@
-import { typeOf } from 'utils'
+import { typeOf, TypeEnum } from 'utils'
 import { getCore } from '../core'
 import { version } from '../version'
+import type { ComponentInternalInstance } from 'vue'
 
 /**
  * 日志类型
  */
 export const LogType = {
 	/**
-	 * 成功日志
+	 * 成功
 	 */
 	Success: 'success',
 	/**
-	 * 信息日志
+	 * 信息
 	 */
 	Info: 'info',
 	/**
-	 * 警告日志
+	 * 警告
 	 */
 	Warning: 'warning',
 	/**
-	 * 错误日志
+	 * 错误
 	 */
 	Error: 'error',
+	/**
+	 * 组件
+	 */
+	Component: 'component',
 } as const
 
 export type LogType = (typeof LogType)[keyof typeof LogType]
+
+export type LogCallerRecord = {
+	/**
+	 * 调用者名称
+	 */
+	name: string
+	/**
+	 * 调用者参考类型
+	 *
+	 * - 如不传，将自动设置为 any
+	 */
+	type?: string
+	/**
+	 * 调用者值
+	 */
+	value: any
+}
+
+export type LogCaller = string | LogCallerRecord
 
 /**
  * 日志组元素类型
@@ -42,63 +66,98 @@ export const LogGroupItemType = {
 	 * 数据类型
 	 */
 	Data: 'data',
+	/**
+	 * 组件类型
+	 */
+	Component: 'component',
 } as const
 
 export type LogGroupItemType =
 	(typeof LogGroupItemType)[keyof typeof LogGroupItemType]
 
-type LogGroupDefaultItem = {
+type LogGroupMessage = {
 	/**
-	 * 组元素类型
+	 * 消息类型
 	 */
-	type?: typeof LogGroupItemType.Message
+	type: typeof LogGroupItemType.Message
 	/**
-	 * 组元素消息
+	 * 消息标题
 	 */
-	message: string
+	title?: string
+	/**
+	 * 消息内容
+	 */
+	content: string
 }
 
-type LogGroupInfoItem = {
+type LogGroupInfo = {
 	/**
-	 * 信息组元素类型
+	 * 信息类型
 	 */
 	type: typeof LogGroupItemType.Info
 	/**
-	 * 信息组元素标题
+	 * 信息标题
 	 */
 	title: string
 	/**
-	 * 信息组元素内容
+	 * 信息内容
 	 */
-	content?: string
+	content: string
 	/**
-	 * 信息组元素数据
+	 * 是否重要信息
 	 */
-	data?: any
+	important?: boolean
 }
 
-type LogGroupDataItem = {
+type LogGroupData = {
 	/**
-	 * 数据组元素类型
+	 * 数据类型
 	 */
 	type: typeof LogGroupItemType.Data
 	/**
-	 * 数据项名称
+	 * 数据标题
 	 */
-	dataName: string
+	title: string
 	/**
-	 * 数据项值
+	 * 数据名称
+	 */
+	dataName?: string
+	/**
+	 * 数据值
 	 */
 	dataValue: any
 	/**
-	 * 数据项约束类型
+	 * 数据参考类型
 	 *
 	 * - 如不传，将自动设置为 any
 	 */
 	dataType?: string
+	/**
+	 * 是否重要数据
+	 */
+	important?: boolean
 }
 
-type LogGroupItem = LogGroupDefaultItem | LogGroupDataItem | LogGroupInfoItem
+type LogGroupComponent = {
+	/**
+	 * 组件类型
+	 */
+	type: typeof LogGroupItemType.Component
+	/**
+	 * 组件标题
+	 */
+	title: string
+	/**
+	 * 组件实例
+	 */
+	instance?: ComponentInternalInstance | null
+}
+
+type LogGroupItem =
+	| LogGroupMessage
+	| LogGroupInfo
+	| LogGroupData
+	| LogGroupComponent
 
 export type LogGroup = Array<LogGroupItem>
 
@@ -110,7 +169,7 @@ export type LogOption = {
 	/**
 	 * 日志调用者
 	 */
-	caller?: string
+	caller?: LogCaller
 	/**
 	 * 日志消息
 	 */
@@ -135,7 +194,7 @@ export interface ILog {
 	/**
 	 * 调用者
 	 */
-	caller: string
+	caller: LogCaller
 	/**
 	 * 消息
 	 */
@@ -157,7 +216,7 @@ export interface ILog {
 export class Log implements ILog {
 	namespace = 'VuePopupPlus'
 	type: LogType
-	caller: string
+	caller: LogCaller
 	message: string
 	group: LogGroup
 	get hasCaller() {
@@ -212,48 +271,41 @@ export const printLog: ILogHandler = (log) => {
 	core.config.logHandler(log)
 }
 
+const PRINTER_TEXT = {
+	CORE_VERSION_KEY: '核心版本',
+	CALLER_KEY: '调用者',
+	DATA_VALUE_KEY: '数据值',
+	DATA_TYPE_KEY: '参考类型',
+	DATA_ACTUAL_TYPE_KEY: '实际类型',
+	COMPONENT_PATH_KEY: '组件路径',
+	COMPONENT_EDITOR_PATH_KEY: '唤起编辑器',
+	COMPONENT_INSTANCE_KEY: '组件实例',
+	COMPONENT_UNKNOWN_NAME: '未知',
+	COMPONENT_UNKNOWN_PATH: '未知',
+	COMPONENT_UNKNOWN_EDITOR_PATH: '未知',
+	KEY_VALUE_CONNECTOR: '：',
+	// NEXT_LINE_TIP: '👇👇👇👇👇👇',
+	// NEXT_LINE_TIP: '↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴↴‌↴‌↴',
+	NEXT_LINE_TIP: '👇 复杂数据换行查看 👇',
+}
+
+function isSimpleType(data: any) {
+	return [
+		TypeEnum.BigInt,
+		TypeEnum.Number,
+		TypeEnum.String,
+		TypeEnum.Boolean,
+		TypeEnum.Symbol,
+	].includes(typeOf(data))
+}
+
 /**
  * 默认日志处理函数
  *
  * @param log 日志实例
  */
 export const defaultPrintLog: ILogHandler = (log) => {
-	const groupTitlePrinter = createPrinter(
-		console.groupCollapsed,
-		{ theme: log.type, style: PrinterStyle.Prefix },
-		{
-			theme: log.type,
-			style: PrinterStyle.Title,
-		}
-	)
-	const groupMessagePrinter = createPrinter(console.log, {
-		theme: log.type,
-		style: PrinterStyle.Content,
-	})
-	const groupInfoPrinter = createPrinter(
-		console.log,
-		{
-			theme: log.type,
-			style: PrinterStyle.Title,
-			customStyle: 'background-color: unset; margin-right: 0;',
-		},
-		{
-			theme: log.type,
-			style: PrinterStyle.Content,
-		}
-	)
-	const groupInfoTitlePrinter = createPrinter(console.log, {
-		theme: log.type,
-		style: PrinterStyle.Title,
-		customStyle: 'background-color: unset;',
-	})
-	const groupInfoDataPrinter = console.dir
-	const groupDataTitlePrinter = createPrinter(console.log, {
-		theme: log.type,
-		style: PrinterStyle.Content,
-	})
-	const groupDataValuePrinter = console.dir
-	const singlePrinter = createPrinter(
+	const messageWithPrefixPrinter = createPrinter(
 		console.log,
 		{
 			theme: log.type,
@@ -261,7 +313,159 @@ export const defaultPrintLog: ILogHandler = (log) => {
 		},
 		{
 			theme: log.type,
+			style: PrinterStyle.Message,
+		}
+	)
+	const plainDataPrinter = console.dir
+	const groupStartWithPrefixPrinter = createPrinter(
+		console.groupCollapsed,
+		{ theme: log.type, style: PrinterStyle.Prefix },
+		{
+			theme: log.type,
+			style: PrinterStyle.Message,
+		}
+	)
+	const groupMessagePrinter = createPrinter(console.log, {
+		theme: log.type,
+		style: PrinterStyle.Message,
+	})
+	const groupMessageWithTitlePrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
 			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Message,
+		}
+	)
+	const groupInfoPrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Info,
+		}
+	)
+	const groupInfoImportantPrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.InfoImportant,
+		}
+	)
+	const groupDataStartPrinter = createPrinter(
+		console.groupCollapsed,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+			customStyle: 'margin-left: 0px;',
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Data,
+		}
+	)
+	const groupDataImportantStartPrinter = createPrinter(
+		console.groupCollapsed,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+			customStyle: 'margin-left: 0px;',
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.DataImportant,
+		}
+	)
+	const groupDataSimplePrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Data,
+		}
+	)
+	const groupDataImportantSimplePrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.DataImportant,
+		}
+	)
+	const groupDataReferencePrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Message,
+		}
+	)
+
+	const groupComponentStartPrinter = createPrinter(
+		console.groupCollapsed,
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.Title,
+			customStyle: 'margin-left: 0px;',
+		},
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.DataImportant,
+		}
+	)
+
+	const groupComponentMessagePrinter = createPrinter(
+		console.log,
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.MessageImportant,
+		}
+	)
+
+	const groupComponentDataPrinter = createPrinter(
+		console.log,
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: LogType.Component,
+			style: PrinterStyle.Data,
+		}
+	)
+
+	const groupComponentUnknownPrinter = createPrinter(
+		console.log,
+		{
+			theme: log.type,
+			style: PrinterStyle.Title,
+		},
+		{
+			theme: log.type,
+			style: PrinterStyle.Data,
 		}
 	)
 
@@ -269,50 +473,159 @@ export const defaultPrintLog: ILogHandler = (log) => {
 	const primaryMessage = log.message
 
 	if (log.hasGroup) {
-		groupTitlePrinter(primaryPrefix, primaryMessage)
+		groupStartWithPrefixPrinter(primaryPrefix, primaryMessage)
 
 		const group = [...log.group]
 
 		if (log.hasCaller) {
-			group.unshift({
-				type: LogGroupItemType.Info,
-				title: '调用者',
-				content: log.caller,
-			})
-			group.unshift({
-				type: LogGroupItemType.Info,
-				title: '核心版本',
-				content: version,
-			})
+			if (typeof log.caller === 'string') {
+				group.unshift({
+					type: LogGroupItemType.Info,
+					title: PRINTER_TEXT.CALLER_KEY,
+					content: log.caller,
+					important: true,
+				})
+			} else {
+				group.unshift({
+					type: LogGroupItemType.Data,
+					title: PRINTER_TEXT.CALLER_KEY,
+					dataName: log.caller.name,
+					dataType: log.caller.type,
+					dataValue: log.caller.value,
+					important: true,
+				})
+			}
 		}
 
-		group.forEach((item, index) => {
-			if (
-				item.type === undefined ||
-				item.type === LogGroupItemType.Message
-			) {
-				groupMessagePrinter(item.message)
+		group.unshift({
+			type: LogGroupItemType.Info,
+			title: PRINTER_TEXT.CORE_VERSION_KEY,
+			content: version,
+			important: true,
+		})
+
+		group.forEach((item) => {
+			if (item.type === LogGroupItemType.Message) {
+				if (item.title) {
+					groupMessageWithTitlePrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						item.content
+					)
+				} else {
+					groupMessagePrinter(item.content)
+				}
 			} else if (item.type === LogGroupItemType.Info) {
-				if (item.content) {
-					groupInfoPrinter(`${item.title}：`, item.content)
-				} else if (item.data) {
-					groupInfoTitlePrinter(`${item.title}：`)
-					groupInfoDataPrinter(item.data)
+				if (item.important) {
+					groupInfoImportantPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						item.content
+					)
+				} else {
+					groupInfoPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						item.content
+					)
 				}
 			} else if (item.type === LogGroupItemType.Data) {
-				// groupPrinter(
-				// 	`数据名称: ${item.dataName} | 约束类型: ${item.dataType ?? 'any'} | 实际类型: ${typeOf(item.dataValue)}`
-				// )
-				groupDataTitlePrinter(
-					`${item.dataName} : ${item.dataType ?? 'any'} ( ${typeOf(item.dataValue)} )`
+				const isSimple = isSimpleType(item.dataValue)
+
+				if (item.important) {
+					groupDataImportantStartPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						isSimple
+							? emptyStringValueFix(item.dataValue)
+							: item.dataName || item.dataValue
+					)
+				} else {
+					groupDataStartPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						isSimple
+							? emptyStringValueFix(item.dataValue)
+							: item.dataName || item.dataValue
+					)
+				}
+				// if (item.dataName) {
+				// 	groupDataSimplePrinter(
+				// 		`数据名称${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+				// 		item.dataName
+				// 	)
+				// }
+				groupDataSimplePrinter(
+					`${PRINTER_TEXT.DATA_TYPE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+					item.dataType || 'any'
 				)
-				groupDataValuePrinter(item.dataValue)
+				groupDataSimplePrinter(
+					`${PRINTER_TEXT.DATA_ACTUAL_TYPE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+					typeOf(item.dataValue)
+				)
+				if (isSimple) {
+					if (item.important) {
+						groupDataImportantSimplePrinter(
+							`${PRINTER_TEXT.DATA_VALUE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+							emptyStringValueFix(item.dataValue)
+						)
+					} else {
+						groupDataSimplePrinter(
+							`${PRINTER_TEXT.DATA_VALUE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+							emptyStringValueFix(item.dataValue)
+						)
+					}
+				} else {
+					groupDataReferencePrinter(
+						`${PRINTER_TEXT.DATA_VALUE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						PRINTER_TEXT.NEXT_LINE_TIP
+					)
+					plainDataPrinter(item.dataValue)
+				}
+				console.groupEnd()
+			} else if (item.type === LogGroupItemType.Component) {
+				if (item.instance) {
+					const name =
+						item.instance.type?.name ||
+						PRINTER_TEXT.COMPONENT_UNKNOWN_NAME
+					const file = item.instance.type?.__file
+					const path = file || PRINTER_TEXT.COMPONENT_UNKNOWN_PATH
+					const editorPath = file
+						? `vscode://${file}`
+						: PRINTER_TEXT.COMPONENT_UNKNOWN_EDITOR_PATH
+
+					groupComponentStartPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						name
+					)
+					groupComponentMessagePrinter(
+						`${PRINTER_TEXT.COMPONENT_PATH_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						path
+					)
+					groupComponentMessagePrinter(
+						`${PRINTER_TEXT.COMPONENT_EDITOR_PATH_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						editorPath
+					)
+					groupComponentDataPrinter(
+						`${PRINTER_TEXT.COMPONENT_INSTANCE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						PRINTER_TEXT.NEXT_LINE_TIP
+					)
+					plainDataPrinter(item.instance)
+					console.groupEnd()
+				} else {
+					groupComponentUnknownPrinter(
+						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
+						PRINTER_TEXT.COMPONENT_UNKNOWN_NAME
+					)
+				}
 			}
 		})
 		console.groupEnd()
 	} else {
-		singlePrinter(primaryPrefix, primaryMessage)
+		messageWithPrefixPrinter(primaryPrefix, primaryMessage)
 	}
+}
+
+function emptyStringValueFix(value: any) {
+	if (typeof value === 'string') {
+		return `'${value}'`
+	}
+	return value
 }
 
 function getPrinter(type: LogType) {
@@ -334,12 +647,18 @@ const COLOR_TYPE_MAP = {
 	[LogType.Info]: '#3499fe',
 	[LogType.Warning]: '#e6a23c',
 	[LogType.Error]: '#f56c6c',
+	[LogType.Component]: '#42b883',
 }
 
 const enum PrinterStyle {
 	Prefix = 'prefix',
+	Message = 'message',
+	MessageImportant = 'messageImportant',
 	Title = 'title',
-	Content = 'content',
+	Info = 'info',
+	InfoImportant = 'infoImportant',
+	Data = 'data',
+	DataImportant = 'dataImportant',
 }
 
 type PrinterOption = {
@@ -376,30 +695,58 @@ const createPrinter: ICreatePrinter = function (printer, ...styleOptions) {
 			`border-radius: 4px;` +
 			`font-weight: 700;`
 
-		const titleContentStyle =
+		const messageStyle =
 			baseStyle +
 			`background-color: ${color}22;` +
-			`margin-right: 0px;` +
-			`padding: 4px 8px;` +
+			`padding: 4px 6px;` +
 			`border-radius: 4px;` +
 			`font-weight: 400;`
 
-		const contentStyle =
+		const messageImportantStyle = messageStyle + `color: ${color};`
+
+		const titleStyle =
 			baseStyle +
-			`color: ${color};` +
+			`margin-left: 4px;` +
+			`padding: 4px 4px;` +
+			`border-radius: 4px;` +
+			`font-weight: 400;`
+
+		const infoStyle =
+			baseStyle +
+			`background-color: ${color}22;` +
+			`padding: 4px 6px;` +
+			`border-radius: 4px;` +
+			`font-weight: 700;`
+
+		const infoImportantStyle = infoStyle + `color: ${color};`
+
+		const dataStyle =
+			baseStyle +
 			`background-color: ${color}22;` +
 			`padding: 4px 8px;` +
 			`border-radius: 4px;` +
-			`font-weight: 400;`
+			`font-weight: 700;`
+
+		const dataImportantStyle = dataStyle + `color: ${color};`
 
 		switch (style) {
 			case PrinterStyle.Prefix:
 				return prefixStyle + customStyle
-			case PrinterStyle.Title:
-				return titleContentStyle + customStyle
-			case PrinterStyle.Content:
+			case PrinterStyle.Message:
 			default:
-				return contentStyle + customStyle
+				return messageStyle + customStyle
+			case PrinterStyle.MessageImportant:
+				return messageImportantStyle + customStyle
+			case PrinterStyle.Title:
+				return titleStyle + customStyle
+			case PrinterStyle.Info:
+				return infoStyle + customStyle
+			case PrinterStyle.InfoImportant:
+				return infoImportantStyle + customStyle
+			case PrinterStyle.Data:
+				return dataStyle + customStyle
+			case PrinterStyle.DataImportant:
+				return dataImportantStyle + customStyle
 		}
 	})
 

@@ -432,7 +432,32 @@ export class Controller implements IController {
 	render({ zIndex, ...options }: RenderOption) {
 		const log = new Log({
 			type: LogType.Info,
-			caller: 'popup.render()',
+			caller: {
+				name: 'popup.render()',
+				type: 'Function',
+				value: this.render,
+			},
+			group: [
+				{
+					type: LogGroupItemType.Component,
+					title: '调用组件',
+					instance: this.#vm,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '控制器',
+					dataName: this.#id,
+					dataValue: this,
+					dataType: 'IController',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: `调用参数`,
+					dataName: `options`,
+					dataType: 'RenderOption',
+					dataValue: arguments[0],
+				},
+			],
 		})
 
 		if (!this.isInstalled) {
@@ -460,27 +485,25 @@ export class Controller implements IController {
 
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
 		log.group.push({
-			type: LogGroupItemType.Info,
-			title: '渲染方式',
-			content: `${instance.renderType}`,
-		})
-		log.group.push({
 			type: LogGroupItemType.Data,
-			dataName: `instanceId`,
-			dataValue: instance.id,
-			dataType: 'InstanceId',
-		})
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: `options`,
-			dataValue: arguments[0],
-			dataType: 'RenderOption',
-		})
-		log.group.push({
-			type: LogGroupItemType.Data,
+			title: `合并参数`,
 			dataName: `mergedOptions`,
 			dataValue: mergedOptions,
 			dataType: 'RenderOption',
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: '渲染方式',
+			dataType: `${RenderType.APP} | ${RenderType.VNODE} | ${RenderType.ROOT_COMPONENT}`,
+			dataValue: instance.renderType,
+			important: true,
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: `弹出层实例ID`,
+			dataName: instance.id.name,
+			dataValue: instance.id,
+			dataType: 'InstanceId',
 		})
 
 		printLog(log)
@@ -490,7 +513,39 @@ export class Controller implements IController {
 	update(instanceId: InstanceId, options: UpdateOption) {
 		const log = new Log({
 			type: LogType.Info,
-			caller: 'popup.update()',
+			caller: {
+				name: 'popup.update()',
+				type: 'Function',
+				value: this.update,
+			},
+			group: [
+				{
+					type: LogGroupItemType.Component,
+					title: '调用组件',
+					instance: this.#vm,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '控制器',
+					dataName: this.#id,
+					dataValue: this,
+					dataType: 'IController',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '弹出层实例ID',
+					dataName: instanceId.name,
+					dataValue: instanceId,
+					dataType: 'InstanceId',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '调用参数',
+					dataName: `options`,
+					dataValue: options,
+					dataType: 'UpdateOption',
+				},
+			],
 		})
 
 		if (!this.isInstalled) {
@@ -507,25 +562,45 @@ export class Controller implements IController {
 		instance.update(options)
 
 		log.message = `更新弹出层 ${instance.id.name} 成功`
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: `instanceId`,
-			dataValue: instance.id,
-			dataType: 'InstanceId',
-		})
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: `options`,
-			dataValue: options,
-			dataType: 'UpdateOption',
-		})
 
 		printLog(log)
 	}
 	async destroy(instanceId: InstanceId, payload?: any) {
 		const log = new Log({
 			type: LogType.Info,
-			caller: 'popup.destroy()',
+			caller: {
+				name: 'popup.destroy()',
+				type: 'Function',
+				value: this.destroy,
+			},
+			group: [
+				{
+					type: LogGroupItemType.Component,
+					title: '调用组件',
+					instance: this.#vm,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '控制器',
+					dataName: this.#id,
+					dataValue: this,
+					dataType: 'IController',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '弹出层实例ID',
+					dataName: instanceId.name,
+					dataValue: instanceId,
+					dataType: 'InstanceId',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '携带参数',
+					dataName: `payload`,
+					dataValue: payload,
+					dataType: 'any',
+				},
+			],
 		})
 
 		if (!this.isInstalled) {
@@ -547,18 +622,6 @@ export class Controller implements IController {
 		await instance.unmount(payload)
 
 		log.message = `销毁弹出层 ${instance.id.name} 成功`
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: `instanceId`,
-			dataValue: instance.id,
-			dataType: 'InstanceId',
-		})
-		log.group.push({
-			type: LogGroupItemType.Data,
-			dataName: `payload`,
-			dataValue: payload,
-			dataType: 'any',
-		})
 
 		printLog(log)
 	}
