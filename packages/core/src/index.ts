@@ -2,6 +2,8 @@ import { createCore, type ICore as PupupPlus } from './core'
 import { type ConfigOption } from './config'
 import { type IController } from './controller'
 import './assets/style/main.styl'
+import { type InstanceId } from './instance'
+import type { ComputedStyle } from './typings'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { type ConfigOption } from './config'
@@ -56,5 +58,7 @@ export function createPopupPlus(options?: ConfigOption): PupupPlus {
 declare module 'vue' {
 	interface ComponentCustomProperties {
 		$popup: IController
+		$popupInstanceId: InstanceId | undefined
+		$popupComputedStyle: ComputedStyle | undefined
 	}
 }

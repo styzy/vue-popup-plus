@@ -22,7 +22,7 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
-import type { PopupViewComputedStyle } from '../typings'
+import type { ComputedStyle } from '../typings'
 
 defineOptions({
 	name: 'PopupView',
@@ -102,7 +102,7 @@ const styleObject = computed(() => {
 	}
 })
 
-const viewComputedStyle: PopupViewComputedStyle = computed(() => ({
+const viewComputedStyle: ComputedStyle = computed(() => ({
 	width: viewWidth.value,
 	height: viewHeight.value,
 	zIndex: store.zIndex.value,

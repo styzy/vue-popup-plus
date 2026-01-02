@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 
-export type PopupViewComputedStyle = ComputedRef<{
+export type ComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度
 	 */

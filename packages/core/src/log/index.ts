@@ -300,6 +300,8 @@ function isSimpleType(data: any) {
 		TypeEnum.String,
 		TypeEnum.Boolean,
 		TypeEnum.Symbol,
+		TypeEnum.Null,
+		TypeEnum.Undefined,
 	].includes(typeOf(data))
 }
 
@@ -537,14 +539,14 @@ export const defaultPrintLog: ILogHandler = (log) => {
 					groupDataImportantStartPrinter(
 						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
 						isSimple
-							? emptyStringValueFix(item.dataValue)
+							? formatData(item.dataValue)
 							: item.dataName || item.dataValue
 					)
 				} else {
 					groupDataStartPrinter(
 						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
 						isSimple
-							? emptyStringValueFix(item.dataValue)
+							? formatData(item.dataValue)
 							: item.dataName || item.dataValue
 					)
 				}
@@ -566,12 +568,12 @@ export const defaultPrintLog: ILogHandler = (log) => {
 					if (item.important) {
 						groupDataImportantSimplePrinter(
 							`${PRINTER_TEXT.DATA_VALUE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
-							emptyStringValueFix(item.dataValue)
+							formatData(item.dataValue)
 						)
 					} else {
 						groupDataSimplePrinter(
 							`${PRINTER_TEXT.DATA_VALUE_KEY}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
-							emptyStringValueFix(item.dataValue)
+							formatData(item.dataValue)
 						)
 					}
 				} else {
@@ -625,10 +627,11 @@ export const defaultPrintLog: ILogHandler = (log) => {
 	}
 }
 
-function emptyStringValueFix(value: any) {
-	if (typeof value === 'string' && value.length === 0) {
-		return `''`
-	}
+function formatData(value: any) {
+	if (typeof value === 'string') return `'${value}'`
+
+	if (value === null) return 'null'
+	if (value === undefined) return 'undefined'
 	return value
 }
 

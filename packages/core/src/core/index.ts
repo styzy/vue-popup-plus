@@ -1,4 +1,6 @@
 import {
+	getCurrentInstance,
+	hasInjectionContext,
 	markRaw,
 	reactive,
 	type App,
@@ -8,6 +10,7 @@ import {
 import { Config, type ConfigOption, type IConfig } from '../config'
 import { Instance, InstanceId } from '../instance'
 import { Log, LogGroupItemType, LogType, printLog } from '../log'
+import { createMixins } from '../mixins'
 import {
 	wrapConfigWithPlugin,
 	type ExtractPluginOption,
@@ -126,7 +129,9 @@ export class Core implements ICore {
 		return version
 	}
 	install(app: App) {
-		app.config.globalProperties[this.config.prototypeName] = this
+		const mixins = createMixins(this)
+		app.mixin(mixins)
+
 		this.app = app
 		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
 
