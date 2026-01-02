@@ -57,7 +57,7 @@ export interface IController extends PopupCustomProperties {
 	 * - 该函数返回一个 Promise 对象，用于等待弹出层关闭动画完成
 	 * - 如果弹出层不存在，会在调试模式下打印警告日志
 	 */
-	destroy(instanceId: InstanceId, payload?: any): void
+	destroy(instanceId: InstanceId, payload?: any): Promise<void>
 }
 
 type WithDefaultProps<T> =
