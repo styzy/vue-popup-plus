@@ -49,9 +49,9 @@ function handleClose() {
 ### 类型
 
 ```ts
-function usePopupComputedStyle(): PopupViewComputedStyle | undefined
+function usePopupComputedStyle(): ComputedStyle | undefined
 
-type PopupViewComputedStyle = ComputedRef<{
+type ComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度
 	 */
