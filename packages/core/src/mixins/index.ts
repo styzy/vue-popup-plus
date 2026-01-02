@@ -1,8 +1,6 @@
 import { type ComponentInternalInstance, type ComponentOptions } from 'vue'
-import { formatDate } from 'utils'
 import { Controller } from '../controller'
 import { type ICore } from '../core'
-import { usePopup } from '../use-api'
 import { Log, LogType, LogGroupItemType, printLog } from '../log'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 

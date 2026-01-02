@@ -6,6 +6,7 @@ import { type InstanceId } from './instance'
 import type { ComputedStyle } from './typings'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
+export { usePopup, usePopupInstanceId } from './composition-api'
 export { type ConfigOption } from './config'
 export {
 	type IController,
@@ -27,7 +28,6 @@ export {
 	type LogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
-export { usePopup, usePopupInstanceId } from './use-api'
 export { version, type Version } from './version'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'
