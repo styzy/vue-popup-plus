@@ -20,12 +20,11 @@ import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
 import { type Skin, type Theme } from '../../../typings'
 
 const popup = usePopup()
+const instanceId = usePopupInstanceId()!
 
 defineOptions({
 	name: 'PToast',
 })
-
-const instanceId = usePopupInstanceId()!
 
 type Props = {
 	skin: Skin
