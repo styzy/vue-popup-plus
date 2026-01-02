@@ -92,7 +92,7 @@ const POPUP_COMPONENT_INJECTS: {
 	 * - 可在弹出层内部组件内获取弹出层根级视图组件的样式
 	 * - 所有的样式具有响应性。
 	 */
-	readonly COMPUTED_STYLE: InjectionKey<PopupViewComputedStyle>
+	readonly COMPUTED_STYLE: InjectionKey<ComputedStyle>
 }
 ```
 
