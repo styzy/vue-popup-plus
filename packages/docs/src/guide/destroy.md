@@ -63,7 +63,7 @@ export default {
 
 从 <DVersion version="1.6.0" /> 开始，获取弹出层实例 `instanceId` 变得更加方便。
 
-对于组合式 API，我们提供了 [usePopupInstanceId()](/api/use-api#use-popup-instance-id) 工具函数用于在渲染组件内获取当前弹出层的实例 `instanceId`。
+对于组合式 API，我们提供了 [usePopupInstanceId()](/api/composition-api#use-popup-instance-id) 工具函数用于在渲染组件内获取当前弹出层的实例 `instanceId`。
 
 ```ts
 import { usePopupInstanceId } from 'vue-popup-plus'

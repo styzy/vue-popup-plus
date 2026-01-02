@@ -15,8 +15,8 @@ next: false
 	<DApi title="核心实例" :links="PopupPlusApis" />
     <DApi title="控制器实例" :links="ControllerApis" />
     <DApi title="通用" :links="CommonApis" />
-	<DApi title="组合式工具" :links="useApis" />
-	<DApi title="选项式工具" :links="optionApis" />
+	<DApi title="组合式工具" :links="CompositionApis" />
+	<DApi title="选项式工具" :links="OptionsApis" />
     <DApi title="常量" :links="ConstantsApis" />
 	<DApi title="插件开发" :links="PluginApis" />
 	<DApi title="日志工具" :links="LogApis" />
@@ -63,31 +63,31 @@ const CommonApis = [
 	}
 ]
 
-const useApis = [
+const CompositionApis = [
 	{
 		label: 'usePopup()',
 		url: '/api/controller#use-popup',
 	},{
 		label: 'usePopupInstanceId()',
-		url: '/api/use-api#use-popup-instance-id',
+		url: '/api/c-api#use-popup-instance-id',
 	},{
 		label: 'usePopupComputedStyle()',
-		url: '/api/use-api#use-popup-computed-style',
+		url: '/api/composition-api#use-popup-computed-style',
 	}
 ]
 
-const optionApis = [
+const OptionsApis = [
 	{
 		label: '$popup',
-		url: '/api/option#popup',
+		url: '/api/options#popup',
 	},
 	{
 		label: '$popupInstanceId',
-		url: '/api/option#popup-instance-id',
+		url: '/api/options#popup-instance-id',
 	},
 	{
 		label: '$popupComputedStyle',
-		url: '/api/option#popup-computed-style',
+		url: '/api/options#popup-computed-style',
 	}
 ]
 
