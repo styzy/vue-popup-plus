@@ -494,7 +494,8 @@ export class Controller implements IController {
 		log.group.push({
 			type: LogGroupItemType.Data,
 			title: '渲染方式',
-			dataType: `${RenderType.APP} | ${RenderType.VNODE} | ${RenderType.ROOT_COMPONENT}`,
+			dataName: instance.renderType,
+			dataType: `'${RenderType.APP}' | '${RenderType.VNODE}' | '${RenderType.ROOT_COMPONENT}'`,
 			dataValue: instance.renderType,
 			important: true,
 		})

@@ -31,6 +31,8 @@
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupWithProps()") 传入参数
 				PButton(@click="handlePopupWithPayload()") 携带销毁参数
+				PButton(@click="handleOptionPopupWithProps()") 传入参数(选项式)
+				PButton(@click="handleOptionPopupWithPayload()") 携带销毁参数(选项式)
 			.title.second 样式功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupFullScreen()") 全屏
@@ -293,7 +295,6 @@ function handleJump(url: string, blank = false) {
 }
 
 function handlePopup() {
-	usePopupInstanceId()
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
 	})
@@ -318,6 +319,31 @@ function handlePopupWithProps() {
 function handlePopupWithPayload() {
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
+		onUnmounted(payload) {
+			popup.toast(`关闭弹框时携带的参数：${payload}`, {
+				theme: 'success',
+			})
+		},
+	})
+}
+
+function handleOptionPopupWithProps() {
+	popup.render({
+		component: () => import('@/views/DemoOption.vue'),
+		componentProps: {
+			test: 'test',
+			onInputChange(value) {
+				popup.toast(`触发事件：${value}`, {
+					theme: 'primary',
+				})
+			},
+		},
+	})
+}
+
+function handleOptionPopupWithPayload() {
+	popup.render({
+		component: () => import('@/views/DemoOption.vue'),
 		onUnmounted(payload) {
 			popup.toast(`关闭弹框时携带的参数：${payload}`, {
 				theme: 'success',

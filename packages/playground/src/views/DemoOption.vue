@@ -2,7 +2,7 @@
 .demo
 	.header
 		h1(:style="{ margin: '0' }") 这是一个弹框
-		h2(:style="{ margin: '0' }") 组合式 API 组件
+		h2(:style="{ margin: '0' }") 选项式 API 组件
 		h2(:style="{ margin: '0' }") 测试属性：{{ test }}
 	.body
 		GlobalComponent
@@ -14,56 +14,59 @@
 			PButton(@click="handleCloseDialog()" theme="primary" type="plain") 关闭弹框 dialog
 </template>
 
-<script lang="ts" setup>
-import { inject, ref, watch } from 'vue'
-import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 
-const popup = usePopup()
-
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-
-defineOptions({ name: 'Demo' })
-
-type Emits = {
-	/**
-	 * 测试事件
-	 */
-	inputChange: [value: string]
-}
-
-const emit = defineEmits<Emits>()
-
-type Props = {
-	/**
-	 * 测试属性
-	 */
-	test?: string
-}
-
-const { test = '' } = defineProps<Props>()
-
-const result = ref(test)
-
-watch(result, (newValue) => {
-	emit('inputChange', newValue)
+export default defineComponent({
+	name: 'DemoOption',
+	components: {
+		PButtonGroup,
+		PButton,
+	},
+	emits: {
+		/**
+		 * 测试事件
+		 */
+		inputChange: (value: string) => true,
+	},
+	props: {
+		test: {
+			type: String,
+			default: '',
+		},
+	},
+	data() {
+		return {
+			result: this.test,
+		}
+	},
+	watch: {
+		$popupComputedStyle(newStyle) {
+			console.log('newComputedStyle: ', newStyle)
+		},
+	},
+	mounted() {
+		console.log('this.$popup: ', this.$popup)
+		console.log('this.$popupInstanceId: ', this.$popupInstanceId)
+		console.log('this.$popupComputedStyle: ', this.$popupComputedStyle)
+	},
+	methods: {
+		handleUpdateSize() {
+			this.$popup.update(this.$popupInstanceId!, {
+				width: 900,
+				height: '900px',
+			})
+		},
+		handleClose() {
+			this.$popup.destroy(this.$popupInstanceId!, '123')
+		},
+		handleCloseDialog() {
+			this.$popup.dialog.close()
+		},
+	},
 })
-
-function handleUpdateSize() {
-	popup.update(instanceId, {
-		width: 900,
-		height: '900px',
-	})
-}
-
-function handleClose() {
-	popup.destroy(instanceId, result.value)
-}
-
-function handleCloseDialog() {
-	popup.dialog.close(result.value)
-}
 </script>
 
 <style lang="stylus" scoped>

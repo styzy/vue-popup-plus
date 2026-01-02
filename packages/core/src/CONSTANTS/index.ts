@@ -1,7 +1,7 @@
 import type { InjectionKey } from 'vue'
 import type { ICore } from '../core'
 import type { InstanceId, InstanceStore } from '../instance'
-import type { PopupViewComputedStyle } from '../typings'
+import type { ComputedStyle } from '../typings'
 
 /**
  * 命名空间
@@ -68,7 +68,7 @@ type ComponentInjectKeys = {
 	 * )
 	 * ```
 	 */
-	COMPUTED_STYLE: InjectionKey<PopupViewComputedStyle>
+	COMPUTED_STYLE: InjectionKey<ComputedStyle>
 }
 
 /**
