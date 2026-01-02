@@ -256,6 +256,8 @@ export interface ILogHandler {
 	(log: ILog): any
 }
 
+export type LogFilter = (log: ILog) => boolean
+
 /**
  * 打印日志
  *
@@ -267,6 +269,8 @@ export const printLog: ILogHandler = (log) => {
 	const core = getCore()
 
 	if (!core?.config.debugMode) return
+
+	if (core?.config.logFilter?.(log) === false) return
 
 	core.config.logHandler(log)
 }
@@ -622,8 +626,8 @@ export const defaultPrintLog: ILogHandler = (log) => {
 }
 
 function emptyStringValueFix(value: any) {
-	if (typeof value === 'string') {
-		return `'${value}'`
+	if (typeof value === 'string' && value.length === 0) {
+		return `''`
 	}
 	return value
 }
