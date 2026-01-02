@@ -278,7 +278,11 @@ export const themeConfig = defineConfig({
 						},
 						{
 							text: '组合式工具',
-							link: '/api/use-api',
+							link: '/api/composition-api',
+						},
+						{
+							text: '选项式工具',
+							link: '/api/options',
 						},
 						{
 							text: '通用',

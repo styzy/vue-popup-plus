@@ -29,6 +29,10 @@ outline: 2
 
 - `usePopup()` 函数现在将会自动在组件内获取组件的 `上下文` ，从而提供对其他框架更好的兼容性，如果你仅在组件内使用 `usePopup()` 函数，那么 `PopupRoot` 根组件将并不再是必须的。
 
+### 修复
+
+- 修复 `popup.destroy()` 函数返回值类型应该为 `Promise<void>` 但实际返回值类型为 `void` 的bug。
+
 ### 破坏性改动
 
 ::: danger

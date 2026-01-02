@@ -5,6 +5,30 @@ outline: 2
 
 # 插件预设 更新日志
 
+## 1.6.0
+
+### 特性
+
+- 新增 `Drawer 抽屉` 功能插件。
+- 新增 `Message 消息` 功能插件。
+- 新增 `Toast 消息` 主题子方法 `toastPrimary()` 。
+
+### 破坏性改动
+
+::: danger
+
+- `Toast 消息` 主题子方法名称更变：
+    - `toast.success()` 变更为 `toastSuccess()` 。
+    - `toast.info()` 变更为 `toastInfo()` 。
+    - `toast.warning()` 变更为 `toastWarning()` 。
+    - `toast.danger()` 变更为 `toastDanger()` 。
+
+:::
+
+### 适配
+
+- 适配核心 `1.6.0` 版本。
+
 ## 1.5.3 <Badge type="tip" text="2025-12-26" />
 
 ### 修复
