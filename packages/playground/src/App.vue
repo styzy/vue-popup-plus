@@ -1,10 +1,9 @@
 <template lang="pug">
 AConfigProvider(:locale="zhCN")
 	ElConfigProvider(:locale="elZhCn")
-		PopupRoot
-			RouterView
-			.dark-btn
-				PButton(@click="handleDarkMode()" theme="primary") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
+		RouterView
+		.dark-btn
+			PButton(@click="handleDarkMode()" theme="primary") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
 </template>
 
 <script lang="ts" setup>

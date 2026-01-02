@@ -157,7 +157,7 @@ export class Instance implements IInstance {
 		this.renderType = core.isRootComponentRegistered
 			? RenderType.ROOT_COMPONENT
 			: core.config.debugMode
-				? RenderType.VNODE
+				? RenderType.APP
 				: RenderType.VNODE
 	}
 	mount(): InstanceId {

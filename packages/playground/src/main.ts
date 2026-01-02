@@ -68,11 +68,11 @@ const testPlugin = definePlugin({
 	},
 })
 
-PopupPlus.use(testPlugin, {
-	a: 'test',
-	b: true,
-})
-// popup.use(testPlugin, {
+// PopupPlus.use(testPlugin, {
+// 	a: 'test',
+// 	b: true,
+// })
+// PopupPlus.use(testPlugin, {
 // 	a: 'test',
 // 	b: true,
 // })
