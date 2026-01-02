@@ -100,6 +100,7 @@
 				PButton(@click="handlePopupToastPlacementRightBottom()") 右下
 			.title.third 主题方法
 			PButtonGroup(theme="primary" tight)
+				PButton(@click="handlePopupToastPrimary()" theme="primary") 主要主题
 				PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
 				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
@@ -285,6 +286,8 @@ const popup = usePopup()
 const popupInstanceId = usePopupInstanceId()
 
 const inPopup = computed(() => !!popupInstanceId)
+
+onMounted(() => {})
 
 function handleCloseSelf() {
 	popup.destroy(popupInstanceId!)
@@ -671,6 +674,10 @@ function handlePopupToastPlacementRight() {
 
 function handlePopupToastPlacementRightBottom() {
 	popup.toast('这是一条右下toast消息', { placement: 'right-bottom' })
+}
+
+function handlePopupToastPrimary() {
+	popup.toastPrimary('这是一条主要toast消息')
 }
 
 function handlePopupToastSuccess() {

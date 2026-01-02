@@ -172,12 +172,12 @@ export const toast = definePlugin({
 						printLog(
 							new Log({
 								type: LogType.Info,
-								caller: 'popup.toast()',
+								caller: 'popup.destroy()',
 								message: `关闭消息成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,
-										dataName: 'content',
+										title: '消息内容',
 										dataValue: content,
 										dataType: 'string',
 									},
@@ -198,24 +198,30 @@ export const toast = definePlugin({
 				printLog(
 					new Log({
 						type: LogType.Info,
-						caller: 'popup.toast()',
+						caller: {
+							name: 'popup.toast()',
+							type: 'Function',
+							value: toast,
+						},
 						message: `打开消息成功`,
 						group: [
 							{
 								type: LogGroupItemType.Data,
-								dataName: 'content',
+								title: '消息内容',
 								dataValue: content,
 								dataType: 'string',
 							},
 							{
 								type: LogGroupItemType.Data,
-								dataName: 'original options',
+								title: '调用参数',
+								dataName: 'options',
 								dataValue: arguments[1],
 								dataType: 'ToastOption',
 							},
 							{
 								type: LogGroupItemType.Data,
-								dataName: 'merged options',
+								title: '合并参数',
+								dataName: 'mergedOptions',
 								dataValue: mergedOptions,
 								dataType: 'Required<ToastOption>',
 							},
