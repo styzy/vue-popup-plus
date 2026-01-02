@@ -3,6 +3,7 @@ import {
 	createPopupPlus,
 	definePlugin,
 	version as coreVersion,
+	LogType,
 } from 'vue-popup-plus'
 import { plugin } from 'vue-popup-plus-plugin-preset'
 import router from './router'
@@ -24,6 +25,7 @@ const PopupPlus = createPopupPlus({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',
 	debugMode: true,
+	// logFilter: (log) => log.type === LogType.Success,
 })
 
 PopupPlus.use(plugin, {

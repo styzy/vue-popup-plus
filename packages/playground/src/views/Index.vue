@@ -269,7 +269,12 @@ import {
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 import Demo from '@/views/Demo.vue'
-import { computed, defineAsyncComponent, getCurrentInstance } from 'vue'
+import {
+	computed,
+	defineAsyncComponent,
+	getCurrentInstance,
+	onMounted,
+} from 'vue'
 
 defineOptions({ name: 'Index' })
 
@@ -288,6 +293,7 @@ function handleJump(url: string, blank = false) {
 }
 
 function handlePopup() {
+	usePopupInstanceId()
 	popup.render({
 		component: () => import('@/views/Demo.vue'),
 	})

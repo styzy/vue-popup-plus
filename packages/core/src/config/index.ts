@@ -1,4 +1,4 @@
-import { defaultPrintLog, type ILogHandler } from '../log'
+import { defaultPrintLog, type ILogHandler, type LogFilter } from '../log'
 
 export interface IConfig {
 	/**
@@ -15,13 +15,20 @@ export interface IConfig {
 	prototypeName: string
 	/**
 	 * 日志器
+	 *
+	 * @since 1.5.0
 	 */
 	logHandler: ILogHandler
+	/**
+	 * 日志过滤器
+	 *
+	 * @since 1.6.0
+	 */
+	logFilter?: LogFilter
 	/**
 	 * 开启调试模式
 	 */
 	debugMode: boolean
-	// custom
 }
 
 export type ConfigOption = {
@@ -81,8 +88,19 @@ export type ConfigOption = {
 	 * - 默认使用内置的日志器，仅会在开启调试模式时在控制台输出日志
 	 * - 你可以自定义日志器，需要注意日志的接收将不会受到调试模式的影响，
 	 *   无论调试模式是否开启，日志都将被传递给自定义的日志器。
+	 *
+	 * @since 1.5.0
 	 */
 	logHandler?: ILogHandler
+	/**
+	 * 日志过滤器
+	 *
+	 * - 你可以自定义日志过滤器，用于过滤日志，返回 true 表示日志
+	 *   会被打印，返回 false 表示日志会被过滤掉。
+	 *
+	 * @since 1.6.0
+	 */
+	logFilter?: LogFilter
 	/**
 	 * 开启调试模式
 	 *
@@ -99,18 +117,21 @@ export class Config implements IConfig {
 	autoDisableScroll: boolean
 	prototypeName: string
 	logHandler: ILogHandler
+	logFilter?: LogFilter
 	debugMode: boolean
 	constructor({
 		zIndex = 1000,
 		prototypeName = '$popup',
 		autoDisableScroll = true,
 		logHandler = defaultPrintLog,
+		logFilter,
 		debugMode = false,
 	}: ConfigOption = {}) {
 		this.zIndex = zIndex
 		this.autoDisableScroll = autoDisableScroll
 		this.prototypeName = prototypeName
 		this.logHandler = logHandler
+		this.logFilter = logFilter
 		this.debugMode = debugMode
 	}
 }
