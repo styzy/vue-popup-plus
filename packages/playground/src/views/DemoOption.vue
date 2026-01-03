@@ -60,10 +60,10 @@ export default defineComponent({
 			})
 		},
 		handleClose() {
-			this.$popup.destroy(this.$popupInstanceId!, '123')
+			this.$popup.destroy(this.$popupInstanceId!, this.result)
 		},
 		handleCloseDialog() {
-			this.$popup.dialog.close()
+			this.$popup.dialogClose(this.result)
 		},
 	},
 })

@@ -26,6 +26,7 @@ type LoadingOption = {
 	 * 加载遮罩标题文本
 	 *
 	 * - 默认值：''
+	 *
 	 * @since 1.3.3
 	 */
 	title?: string
@@ -39,6 +40,7 @@ type LoadingOption = {
 	 * 是否显示遮罩层
 	 *
 	 * - 默认值：`true`
+	 *
 	 * @since 1.5.0
 	 */
 	mask?: boolean
@@ -46,9 +48,18 @@ type LoadingOption = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 *
 	 * @since 1.3.3
 	 */
 	maskBlur?: boolean
+	/**
+	 * 是否禁用滚动
+	 *
+	 * - 默认值：`false`
+	 *
+	 * @since 1.6.0
+	 */
+	disableScroll?: boolean
 }
 
 export interface ILoading {
@@ -64,13 +75,16 @@ export interface ILoading {
 	 * // 显示加载遮罩
 	 * popup.loading()
 	 * // 关闭加载遮罩
-	 * popup.loading.close()
+	 * popup.loadingClose()
 	 *
 	 * // 如果需要等待关闭动画结束，可通过 await 调用
-	 * await popup.loading.close()
+	 * await popup.loadingClose()
 	 * ```
 	 */
 	(this: IController, option?: LoadingOption): void
+}
+
+export interface ILoadingClose {
 	/**
 	 * 关闭加载遮罩
 	 *
@@ -78,19 +92,13 @@ export interface ILoading {
 	 *
 	 * ```ts
 	 * // 关闭加载遮罩
-	 * popup.loading.close()
+	 * popup.loadingClose()
 	 *
 	 * // 如果需要等待关闭动画结束，可通过 await 调用
-	 * await popup.loading.close()
+	 * await popup.loadingClose()
 	 * ```
 	 */
-	close(): Promise<void>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		loading: ILoading
-	}
+	(this: IController): Promise<void>
 }
 
 let seed = 1
@@ -116,30 +124,43 @@ export const loading = definePlugin({
 			iconSize = 60,
 			mask = true,
 			maskBlur = true,
-		}: LoadingOption = {}) {
+			disableScroll = false,
+		} = {}) {
 			if (record.id) {
 				printLog(
 					new Log({
 						type: LogType.Warning,
-						caller: 'popup.loading()',
+						caller: {
+							name: 'popup.loading()',
+							type: 'Function',
+							value: loading,
+						},
 						message: `即将自动关闭加载遮罩 ${record.id} ，因为有新的加载遮罩打开`,
 						group: [
 							{
 								type: LogGroupItemType.Data,
-								dataName: 'id',
-								dataValue: record.id,
-								dataType: 'string',
+								title: '控制器',
+								dataName: this.id,
+								dataValue: this,
+								dataType: 'IController',
+							},
+							{
+								type: LogGroupItemType.Info,
+								title: '待关闭加载遮罩ID',
+								content: record.id,
+								important: true,
 							},
 						],
 					})
 				)
 
-				stopLoading()
+				this.loadingClose()
 			}
 
 			const id = createId()
 
-			const instanceId = this.render({
+			record.id = id
+			record.instanceId = this.render({
 				component: () => import('./src/PLoading.vue'),
 				componentProps: {
 					skin,
@@ -147,105 +168,138 @@ export const loading = definePlugin({
 					title,
 					iconSize,
 					mask,
+					onClose: () => {
+						this.loadingClose()
+					},
 					debugMode: config.debugMode,
 				},
 				mask,
 				maskBlur,
-				disableScroll: false,
+				disableScroll,
 				zIndex: 99999999,
-				onUnmounted() {
-					const log = new Log({
-						type: LogType.Info,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'id',
-								dataValue: id,
-								dataType: 'string',
+				onMounted: () => {
+					const mergedOptions: Required<LoadingOption> = {
+						theme,
+						title,
+						iconSize,
+						mask,
+						maskBlur,
+						disableScroll,
+					}
+
+					printLog(
+						new Log({
+							type: LogType.Info,
+							caller: {
+								name: 'popup.loading()',
+								type: 'Function',
+								value: loading,
 							},
-						],
-					})
-
-					if (!record.id) {
-						log.caller = 'popup.loading.close()'
-						log.message = `关闭加载遮罩 ${id} 成功`
-						printLog(log)
-						return
-					}
-
-					if (record.id !== id) {
-						log.caller = 'popup.loading()'
-						log.message = `关闭加载遮罩 ${id} 成功，因为有新的加载遮罩打开`
-						log.group.push({
-							type: LogGroupItemType.Data,
-							dataName: 'new loading id',
-							dataValue: record.id,
-							dataType: 'string',
+							message: `显示加载遮罩 ${id} 成功`,
+							group: [
+								{
+									type: LogGroupItemType.Data,
+									title: '控制器',
+									dataName: this.id,
+									dataValue: this,
+									dataType: 'IController',
+								},
+								{
+									type: LogGroupItemType.Info,
+									title: '加载遮罩ID',
+									content: id,
+									important: true,
+								},
+								{
+									type: LogGroupItemType.Data,
+									title: '调用参数',
+									dataName: 'options',
+									dataValue: arguments[0],
+									dataType: 'LoadingOption',
+								},
+								{
+									type: LogGroupItemType.Data,
+									title: '合并参数',
+									dataName: 'mergedOptions',
+									dataValue: mergedOptions,
+									dataType: 'Required<LoadingOption>',
+								},
+							],
 						})
-						printLog(log)
-					} else {
-						log.caller = 'popup.loading.close()'
-						log.message = `关闭加载遮罩 ${id} 成功`
-						printLog(log)
-					}
+					)
 				},
 			})
-
-			record.id = id
-			record.instanceId = instanceId
-
-			const mergedOptions: Required<LoadingOption> = {
-				theme,
-				title,
-				iconSize,
-				mask,
-				maskBlur,
-			}
-
-			printLog(
-				new Log({
-					type: LogType.Info,
-					caller: 'popup.loading()',
-					message: `显示加载遮罩 ${id} 成功`,
-					group: [
-						{
-							type: LogGroupItemType.Data,
-							dataName: 'original options',
-							dataValue: arguments[0],
-							dataType: 'LoadingOption',
-						},
-						{
-							type: LogGroupItemType.Data,
-							dataName: 'merged options',
-							dataValue: mergedOptions,
-							dataType: 'Required<LoadingOption>',
-						},
-					],
-				})
-			)
 		}
 
-		async function stopLoading() {
+		const loadingClose: ILoadingClose = async function () {
 			if (!record.id) {
 				printLog(
 					new Log({
 						type: LogType.Warning,
-						caller: 'popup.loading.close()',
+						caller: {
+							name: 'popup.loadingClose()',
+							type: 'Function',
+							value: loadingClose,
+						},
 						message: `关闭加载遮罩失败，当前不存在加载遮罩`,
+						group: [
+							{
+								type: LogGroupItemType.Data,
+								title: '控制器',
+								dataName: this.id,
+								dataValue: this,
+								dataType: 'IController',
+							},
+						],
 					})
 				)
 				return
 			}
 
-			record.id = undefined
+			const id = record.id
 			const instanceId = record.instanceId!
+
+			record.id = undefined
 			record.instanceId = undefined
 
-			await controller.destroy(instanceId)
+			await this.destroy(instanceId)
+
+			const log = new Log({
+				type: LogType.Info,
+				caller: {
+					name: 'popup.loadingClose()',
+					type: 'Function',
+					value: loadingClose,
+				},
+				message: `关闭加载遮罩 ${id} 成功`,
+				group: [
+					{
+						type: LogGroupItemType.Data,
+						title: '控制器',
+						dataName: this.id,
+						dataValue: this,
+						dataType: 'IController',
+					},
+					{
+						type: LogGroupItemType.Info,
+						title: '加载遮罩ID',
+						content: id,
+						important: true,
+					},
+				],
+			})
+
+			printLog(log)
 		}
 
-		loading.close = stopLoading
-
 		config.customProperties.loading = loading
+		config.customProperties.loadingClose = loadingClose
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		loading: ILoading
+		loadingClose: ILoadingClose
+	}
+}

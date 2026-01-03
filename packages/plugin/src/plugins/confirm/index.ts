@@ -4,6 +4,7 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalOption } from '../../typings'
@@ -73,13 +74,11 @@ export interface IConfirm {
 	 * }
 	 * ```
 	 */
-	(content: string, options?: ConfirmOption): Promise<boolean>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		confirm: IConfirm
-	}
+	(
+		this: IController,
+		content: string,
+		options?: ConfirmOption
+	): Promise<boolean>
 }
 
 export const confirm = definePlugin({
@@ -89,9 +88,9 @@ export const confirm = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
-		controller.customProperties.confirm = function (
-			content: string = '是否确认？',
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+		const confirm: IConfirm = function (
+			content = '是否确认？',
 			{
 				title = '确认',
 				headerClose = false,
@@ -100,10 +99,10 @@ export const confirm = definePlugin({
 				draggable = false,
 				dragOverflow = false,
 				maskBlur = true,
-			}: ConfirmOption = {}
+			} = {}
 		) {
 			return new Promise((resolve) => {
-				this.render({
+				const instanceId = this.render({
 					component: () => import('./src/PConfirm.vue'),
 					componentProps: {
 						skin,
@@ -113,68 +112,114 @@ export const confirm = definePlugin({
 						draggable,
 						confirmText,
 						cancelText,
+						onClose: (isConfirm) => {
+							this.destroy(instanceId, isConfirm)
+						},
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
-					onUnmounted: (isConfirm: boolean) => {
-						resolve(isConfirm)
+					onMounted: () => {
+						const mergedOptions: Required<ConfirmOption> = {
+							title,
+							headerClose,
+							confirmText,
+							cancelText,
+							draggable,
+							dragOverflow,
+							maskBlur,
+						}
 
 						printLog(
 							new Log({
 								type: LogType.Info,
-								caller: 'popup.destroy()',
-								message: `关闭确认框成功，确认结果: ${isConfirm}`,
+								caller: {
+									name: 'popup.confirm()',
+									type: 'Function',
+									value: confirm,
+								},
+								message: `打开确认框成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,
-										dataName: 'isConfirm',
-										dataValue: isConfirm,
-										dataType: 'boolean',
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
+										dataName: 'content',
+										dataValue: content,
+										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '调用参数',
+										dataName: 'options',
+										dataValue: arguments[1],
+										dataType: 'ConfirmOption',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '合并参数',
+										dataName: 'mergedOptions',
+										dataValue: mergedOptions,
+										dataType: 'Required<ConfirmOption>',
 									},
 								],
 							})
 						)
 					},
+					onUnmounted: (isConfirm: boolean) => {
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: {
+									name: 'popup.destroy()',
+									type: 'Function',
+									value: this.destroy,
+								},
+								message: `关闭确认框成功，确认结果: ${isConfirm}`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
+										dataName: 'content',
+										dataValue: content,
+										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '确认结果',
+										dataName: 'isConfirm',
+										dataValue: isConfirm,
+										dataType: 'boolean',
+										important: true,
+									},
+								],
+							})
+						)
+
+						resolve(isConfirm)
+					},
 				})
-
-				const mergedOptions: Required<ConfirmOption> = {
-					title,
-					headerClose,
-					confirmText,
-					cancelText,
-					draggable,
-					dragOverflow,
-					maskBlur,
-				}
-
-				printLog(
-					new Log({
-						type: LogType.Info,
-						caller: 'popup.confirm()',
-						message: `打开确认框成功`,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'content',
-								dataValue: content,
-								dataType: 'string',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'original options',
-								dataValue: arguments[1],
-								dataType: 'ConfirmOption',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'merged options',
-								dataValue: mergedOptions,
-								dataType: 'Required<ConfirmOption>',
-							},
-						],
-					})
-				)
 			})
 		}
+
+		config.customProperties.confirm = confirm
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		confirm: IConfirm
+	}
+}

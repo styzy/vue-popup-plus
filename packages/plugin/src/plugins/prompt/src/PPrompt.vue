@@ -30,8 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, ref } from 'vue'
-import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { computed, ref } from 'vue'
 import { type PromptType } from '../index'
 import { type Skin } from '../../../typings'
 import PScaffold from '../../../components/PScaffold.vue'
@@ -41,13 +40,15 @@ import PFooter from '../../../components/PFooter.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
-const popup = usePopup()
-
 defineOptions({
 	name: 'PPrompt',
 })
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+type Emits = {
+	close: [inputValue?: string]
+}
+
+const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: Skin
@@ -81,11 +82,11 @@ const inputValue = ref(defaultValue)
 const isRenderMessage = computed(() => message !== false)
 
 function handleConfirm() {
-	popup.destroy(instanceId, inputValue.value)
+	emit('close', inputValue.value)
 }
 
 function handleCancel() {
-	popup.destroy(instanceId)
+	emit('close')
 }
 </script>
 

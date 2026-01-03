@@ -15,16 +15,18 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { type Skin, type Theme } from '../../../typings'
-
-const popup = usePopup()
-const instanceId = usePopupInstanceId()!
 
 defineOptions({
 	name: 'PToast',
 })
+
+type Emits = {
+	close: []
+}
+
+const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: Skin
@@ -37,9 +39,9 @@ type Props = {
 
 const { content, theme, duration, showClose, hoverWait } = defineProps<Props>()
 
-const autoClose = computed(() => duration > 0)
-
 const destroyTimer = ref<number>()
+
+const autoClose = computed(() => duration > 0)
 
 onMounted(() => {
 	startDestroyTimer()
@@ -52,9 +54,7 @@ onBeforeUnmount(() => {
 function startDestroyTimer() {
 	if (!autoClose.value) return
 
-	destroyTimer.value = window.setTimeout(() => {
-		popup.destroy(instanceId)
-	}, duration)
+	destroyTimer.value = window.setTimeout(handleClose, duration)
 }
 
 function stopDestroyTimer() {
@@ -76,7 +76,7 @@ function handleMouseLeave() {
 }
 
 function handleClose() {
-	popup.destroy(instanceId)
+	emit('close')
 }
 </script>
 
