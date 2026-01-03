@@ -509,6 +509,8 @@ export class Controller implements IController {
 
 		printLog(log)
 
+		instance.store.onMounted()
+
 		return instance.id
 	}
 	update(instanceId: InstanceId, options: UpdateOption) {
@@ -558,9 +560,21 @@ export class Controller implements IController {
 
 		const instance = this.#core.getInstance(instanceId)
 
-		if (!instance) return
+		if (!instance) {
+			log.type = LogType.Warning
+			log.message = `更新弹出层 ${instanceId.name} 失败，弹出层不存在`
+			printLog(log)
+			return
+		}
 
-		instance.update(options)
+		for (const _key in options) {
+			const key = _key as keyof UpdateOption
+			const value =
+				options[key] === undefined
+					? instance.store[key].value
+					: options[key]
+			instance.store[key].value = value
+		}
 
 		log.message = `更新弹出层 ${instance.id.name} 成功`
 
@@ -620,10 +634,12 @@ export class Controller implements IController {
 			return
 		}
 
-		await instance.unmount(payload)
+		await instance.unmount()
 
 		log.message = `销毁弹出层 ${instance.id.name} 成功`
 
 		printLog(log)
+
+		instance.store.onUnmounted(payload)
 	}
 }
