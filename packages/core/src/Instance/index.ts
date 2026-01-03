@@ -6,9 +6,7 @@ import {
 	render,
 	toRefs,
 	type App,
-	type AppContext,
 	type ComponentInternalInstance,
-	type ComponentPublicInstance,
 	type ToRef,
 	type VNode,
 } from 'vue'
@@ -18,7 +16,6 @@ import type {
 	RenderComponentOptions,
 	RenderConfigOptions,
 	RenderStyleOptions,
-	UpdateOption,
 } from '../controller'
 
 import PopupInstance from '../components/PopupInstance.vue'
@@ -51,7 +48,6 @@ interface IInstance {
 	readonly renderType: RenderType
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
-	update(options: UpdateOption): void
 }
 
 type InstanceOptions = Required<
@@ -176,11 +172,9 @@ export class Instance implements IInstance {
 
 		this.#core.addInstance(this)
 
-		this._store.onMounted()
-
 		return this.id
 	}
-	async unmount(payload?: any) {
+	async unmount() {
 		this._store.isBeforeUnmount.value = true
 
 		await wait(this._store.animationDuration.value)
@@ -199,18 +193,6 @@ export class Instance implements IInstance {
 		}
 
 		this.#core.removeInstance(this)
-
-		this._store.onUnmounted(payload)
-	}
-	update(options: UpdateOption): void {
-		for (const _key in options) {
-			const key = _key as keyof UpdateOption
-			const value =
-				options[key] === undefined
-					? this._store[key].value
-					: options[key]
-			this._store[key].value = value
-		}
 	}
 	#mountByRootComponent() {
 		// 托管到根组件渲染，无需手动渲染

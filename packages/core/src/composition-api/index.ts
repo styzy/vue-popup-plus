@@ -50,7 +50,7 @@ export function usePopup(): IController {
 
 		printLog(
 			new Log({
-				type: LogType.Info,
+				type: LogType.Success,
 				caller: {
 					name: 'usePopup()',
 					type: 'Function',
@@ -100,7 +100,7 @@ export function usePopup(): IController {
 			controller = _noContextController = new Controller(core)
 			printLog(
 				new Log({
-					type: LogType.Info,
+					type: LogType.Success,
 					caller: {
 						name: 'usePopup()',
 						type: 'Function',
