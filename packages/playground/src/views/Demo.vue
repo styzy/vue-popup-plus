@@ -62,7 +62,7 @@ function handleClose() {
 }
 
 function handleCloseDialog() {
-	popup.dialog.close(result.value)
+	popup.dialogClose(result.value)
 }
 </script>
 

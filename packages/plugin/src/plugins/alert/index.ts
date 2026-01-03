@@ -4,6 +4,7 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalOption } from '../../typings'
@@ -67,13 +68,7 @@ export interface IAlert {
 	 * // 只有用户点击了确认按钮，才会继续执行后续代码
 	 * ```
 	 */
-	(content: string, options?: AlertOption): Promise<void>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		alert: IAlert
-	}
+	(this: IController, content: string, options?: AlertOption): Promise<void>
 }
 
 export const alert = definePlugin({
@@ -83,9 +78,9 @@ export const alert = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
-		controller.customProperties.alert = function (
-			content: string = '',
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+		const alert: IAlert = function (
+			content = '',
 			{
 				title = '提示',
 				headerClose = true,
@@ -93,10 +88,10 @@ export const alert = definePlugin({
 				draggable = false,
 				dragOverflow = false,
 				maskBlur = true,
-			}: AlertOption = {}
+			} = {}
 		) {
 			return new Promise<void>((resolve) => {
-				this.render({
+				const instanceId = this.render({
 					component: () => import('./src/PAlert.vue'),
 					componentProps: {
 						skin,
@@ -105,59 +100,103 @@ export const alert = definePlugin({
 						content,
 						confirmText,
 						draggable,
+						onClose: () => {
+							this.destroy(instanceId)
+						},
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
-					onUnmounted: () => {
-						resolve()
+					onMounted: () => {
+						const mergedOptions: Required<AlertOption> = {
+							title,
+							headerClose,
+							confirmText,
+							draggable,
+							dragOverflow,
+							maskBlur,
+						}
 
 						printLog(
 							new Log({
 								type: LogType.Info,
-								caller: 'popup.destroy()',
-								message: `关闭提示框成功`,
+								caller: {
+									name: 'popup.alert()',
+									type: 'Function',
+									value: alert,
+								},
+								message: `打开提示框成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
+										dataValue: content,
+										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '调用参数',
+										dataName: 'options',
+										dataValue: arguments[1],
+										dataType: 'AlertOption',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '合并参数',
+										dataName: 'mergedOptions',
+										dataValue: mergedOptions,
+										dataType: 'Required<AlertOption>',
+									},
+								],
 							})
 						)
 					},
+					onUnmounted: () => {
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: {
+									name: 'popup.destroy()',
+									type: 'Function',
+									value: this.destroy,
+								},
+								message: `关闭提示框成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
+										dataValue: content,
+										dataType: 'string',
+									},
+								],
+							})
+						)
+
+						resolve()
+					},
 				})
-
-				const mergedOptions: Required<AlertOption> = {
-					title,
-					headerClose,
-					confirmText,
-					draggable,
-					dragOverflow,
-					maskBlur,
-				}
-
-				printLog(
-					new Log({
-						type: LogType.Info,
-						caller: 'popup.alert()',
-						message: `打开提示框成功`,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'content',
-								dataValue: content,
-								dataType: 'string',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'original options',
-								dataValue: arguments[1],
-								dataType: 'AlertOption',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'merged options',
-								dataValue: mergedOptions,
-								dataType: 'Required<AlertOption>',
-							},
-						],
-					})
-				)
 			})
 		}
+
+		config.customProperties.alert = alert
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		alert: IAlert
+	}
+}

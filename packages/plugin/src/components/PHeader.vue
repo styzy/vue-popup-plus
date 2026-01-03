@@ -16,12 +16,16 @@
 
 <script lang="ts" setup>
 import { computed, inject, ref, watch } from 'vue'
-import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import {
+	POPUP_COMPONENT_INJECTS,
+	usePopup,
+	type IController,
+} from 'vue-popup-plus'
 import { type Theme } from '../typings'
 import { injectSkin } from './PScaffold.vue'
 import PHeaderButton from './PHeaderButton.vue'
 
-const popup = usePopup()
+let popup: IController | undefined
 
 defineOptions({
 	name: 'PHeader',
@@ -30,6 +34,12 @@ defineOptions({
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const viewComputedStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE)!
 const skin = inject(injectSkin, 'modern')
+
+type Emits = {
+	close: []
+}
+
+const emit = defineEmits<Emits>()
 
 type Props = {
 	title?: string
@@ -47,7 +57,9 @@ const {
 	draggable = false,
 } = defineProps<Props>()
 
-const emit = defineEmits(['close'])
+if (draggable) {
+	popup = usePopup()
+}
 
 const dragOriginMouseX = ref(0)
 const dragOriginMouseY = ref(0)
@@ -95,7 +107,7 @@ function handleDragEnd(event: MouseEvent) {
 }
 
 function handleOffsetChange() {
-	popup.update(instanceId, {
+	popup!.update(instanceId, {
 		viewTranslateX: dragOffsetX.value,
 		viewTranslateY: dragOffsetY.value,
 	})

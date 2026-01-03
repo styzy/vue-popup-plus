@@ -36,7 +36,7 @@ function handleClose() {
 }
 
 function handleCloseDialog() {
-	popup.dialog.close()
+	popup.dialogClose()
 }
 </script>
 

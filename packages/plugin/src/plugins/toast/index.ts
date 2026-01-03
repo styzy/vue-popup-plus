@@ -142,17 +142,17 @@ export const toast = definePlugin({
 	},
 	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
 		const toast: IToast = function (
-			content: string = '',
+			content = '',
 			{
 				theme = 'primary',
 				placement = 'center',
 				duration = 2000,
 				showClose = false,
 				hoverWait = true,
-			}: ToastOption = {}
+			} = {}
 		) {
 			return new Promise<void>((resolve) => {
-				this.render({
+				const instanceId = this.render({
 					component: () => import('./src/PToast.vue'),
 					componentProps: {
 						skin,
@@ -161,73 +161,95 @@ export const toast = definePlugin({
 						duration,
 						showClose,
 						hoverWait,
+						onClose: () => {
+							this.destroy(instanceId)
+						},
 					},
 					placement,
 					mask: false,
 					disableScroll: false,
 					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
-					onUnmounted: () => {
-						resolve()
+					onMounted: () => {
+						const mergedOptions: Required<ToastOption> = {
+							theme,
+							placement,
+							duration,
+							showClose,
+							hoverWait,
+						}
 
 						printLog(
 							new Log({
 								type: LogType.Info,
-								caller: 'popup.destroy()',
+								caller: {
+									name: 'popup.toast()',
+									type: 'Function',
+									value: toast,
+								},
+								message: `打开消息成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
+										dataValue: content,
+										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '调用参数',
+										dataName: 'options',
+										dataValue: arguments[1],
+										dataType: 'ToastOption',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '合并参数',
+										dataName: 'mergedOptions',
+										dataValue: mergedOptions,
+										dataType: 'Required<ToastOption>',
+									},
+								],
+							})
+						)
+					},
+					onUnmounted: () => {
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: {
+									name: 'popup.destroy()',
+									type: 'Function',
+									value: this.destroy,
+								},
 								message: `关闭消息成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,
-										title: '消息内容',
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '内容文本',
 										dataValue: content,
 										dataType: 'string',
 									},
 								],
 							})
 						)
+
+						resolve()
 					},
 				})
-
-				const mergedOptions: Required<ToastOption> = {
-					theme,
-					placement,
-					duration,
-					showClose,
-					hoverWait,
-				}
-
-				printLog(
-					new Log({
-						type: LogType.Info,
-						caller: {
-							name: 'popup.toast()',
-							type: 'Function',
-							value: toast,
-						},
-						message: `打开消息成功`,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								title: '消息内容',
-								dataValue: content,
-								dataType: 'string',
-							},
-							{
-								type: LogGroupItemType.Data,
-								title: '调用参数',
-								dataName: 'options',
-								dataValue: arguments[1],
-								dataType: 'ToastOption',
-							},
-							{
-								type: LogGroupItemType.Data,
-								title: '合并参数',
-								dataName: 'mergedOptions',
-								dataValue: mergedOptions,
-								dataType: 'Required<ToastOption>',
-							},
-						],
-					})
-				)
 			})
 		}
 

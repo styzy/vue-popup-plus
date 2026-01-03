@@ -22,6 +22,10 @@ outline: 2
     - `toast.info()` 变更为 `toastInfo()` 。
     - `toast.warning()` 变更为 `toastWarning()` 。
     - `toast.danger()` 变更为 `toastDanger()` 。
+- `Loading 加载遮罩` 子方法名称更变：
+    - `loading.close()` 变更为 `loadingClose()` 。
+- `Dialog 对话` 子方法名称更变：
+    - `dialog.close()` 变更为 `dialogClose()` 。
 
 :::
 
