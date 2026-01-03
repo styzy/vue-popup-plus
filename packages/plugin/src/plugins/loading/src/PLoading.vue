@@ -3,25 +3,24 @@
 	.wrapper
 		PLoadingIcon(:size="iconSize" :theme)
 		.title(v-if="title") {{ title }}
-	//- PButtonGroup(align="center" v-if="debugMode")
-	//- PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
+	PButtonGroup(align="center" v-if="debugMode")
+		PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
-import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { type Skin, type Theme } from '../../../typings'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
-const popup = usePopup()
-
 defineOptions({
 	name: 'PLoading',
 })
+type Emits = {
+	close: []
+}
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: Skin
@@ -35,7 +34,7 @@ type Props = {
 const { theme, title, iconSize, mask, debugMode } = defineProps<Props>()
 
 function handleClose() {
-	popup.destroy(instanceId)
+	emit('close')
 }
 </script>
 

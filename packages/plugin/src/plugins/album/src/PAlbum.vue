@@ -68,12 +68,11 @@ import { File } from '../../../class'
 import { type Skin } from '../../../typings'
 
 const popup = usePopup()
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 defineOptions({
 	name: 'PAlbum',
 })
-
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	skin: Skin

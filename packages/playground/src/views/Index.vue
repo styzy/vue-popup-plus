@@ -949,59 +949,59 @@ async function handlePopupPromptDraggableOverflow() {
 
 function handlePopupLoading() {
 	popup.loading()
-	window.setTimeout(popup.loading.close, 3000)
+	window.setTimeout(() => popup.loadingClose(), 3000)
 }
 
 function handlePopupLoadingPrimary() {
 	popup.loading({ theme: 'primary' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingInfo() {
 	popup.loading({ theme: 'info' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingSuccess() {
 	popup.loading({ theme: 'success' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWarning() {
 	popup.loading({ theme: 'warning' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingDanger() {
 	popup.loading({ theme: 'danger' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomTitle() {
 	popup.loading({ title: '自定义标题' })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomTitleLong() {
 	popup.loading({
 		title: '自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题.',
 	})
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomIconSize() {
 	popup.loading({ iconSize: 100 })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWithoutMask() {
 	popup.loading({ mask: false })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWithoutMaskBlur() {
 	popup.loading({ maskBlur: false })
-	window.setTimeout(popup.loading.close, 2000)
+	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingForever() {
@@ -1009,7 +1009,7 @@ function handlePopupLoadingForever() {
 }
 
 async function handlePopupDialog() {
-	const result = await popup.dialog<string>({
+	const result: string | void = await popup.dialog({
 		title: '对话框标题',
 		component: () => import('./Demo.vue'),
 	})

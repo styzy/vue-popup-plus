@@ -4,6 +4,7 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalOption } from '../../typings'
@@ -95,7 +96,7 @@ export interface IPrompt {
 	 * - 第二个参数为选项对象，可以自定义输入框默认值、类型、标题、最大长度、
 	 *   占位符、确认按钮文本、取消按钮文本等，具体可以参考 {@link PromptOption}
 	 * - 获取输入的内容，需要通过 `await` 调用，等待执行结束后返回用户输入的内容，类型为 `string`
-	 *   | `void`，如果用户点击了取消按钮或者直接关闭弹出层，则返回 `undefined`
+	 *   | `undefined`，如果用户点击了取消按钮或者直接关闭弹出层，则返回 `undefined`
 	 * - 使用示例：
 	 *
 	 * ```ts
@@ -107,13 +108,11 @@ export interface IPrompt {
 	 * }
 	 * ```
 	 */
-	(message: string | boolean, options?: PromptOption): Promise<string | void>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		prompt: IPrompt
-	}
+	(
+		this: IController,
+		message: string | boolean,
+		options?: PromptOption
+	): Promise<string | undefined>
 }
 
 export const prompt = definePlugin({
@@ -123,9 +122,9 @@ export const prompt = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
-		controller.customProperties.prompt = function (
-			message: string,
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+		const prompt: IPrompt = function (
+			message,
 			{
 				defaultValue = '',
 				type = 'input',
@@ -138,10 +137,10 @@ export const prompt = definePlugin({
 				draggable = false,
 				dragOverflow = false,
 				maskBlur = true,
-			}: PromptOption = {}
+			} = {}
 		) {
-			return new Promise<string>((resolve) => {
-				this.render({
+			return new Promise((resolve) => {
+				const instanceId = this.render({
 					component: () => import('./src/PPrompt.vue'),
 					componentProps: {
 						skin,
@@ -155,72 +154,115 @@ export const prompt = definePlugin({
 						confirmText,
 						cancelText,
 						draggable,
+						onClose: (inputValue?: string) => {
+							this.destroy(instanceId, inputValue)
+						},
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
-					onUnmounted: (value: string) => {
-						resolve(value)
+					onMounted: () => {
+						const mergedOptions: Required<PromptOption> = {
+							defaultValue,
+							type,
+							title,
+							headerClose,
+							maxLength,
+							placeholder,
+							confirmText,
+							cancelText,
+							draggable,
+							dragOverflow,
+							maskBlur,
+						}
 
 						printLog(
 							new Log({
 								type: LogType.Info,
-								caller: 'popup.destroy()',
-								message: `关闭提示输入框成功，输入值为：${value}`,
+								caller: {
+									name: 'popup.prompt()',
+									type: 'Function',
+									value: prompt,
+								},
+								message: `打开提示输入框成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,
-										dataName: 'input value',
-										dataValue: value,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '提示文本',
+										dataValue: message,
 										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '调用参数',
+										dataName: 'options',
+										dataValue: arguments[1],
+										dataType: 'ConfirmOption',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '合并参数',
+										dataName: 'mergedOptions',
+										dataValue: mergedOptions,
+										dataType: 'Required<PromptOption>',
 									},
 								],
 							})
 						)
 					},
+					onUnmounted: (inputValue?: string) => {
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: {
+									name: 'popup.destroy()',
+									type: 'Function',
+									value: this.destroy,
+								},
+								message: `关闭提示输入框成功，输入值为：${inputValue}`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '提示文本',
+										dataName: 'content',
+										dataValue: message,
+										dataType: 'string',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '输入文本值',
+										dataValue: inputValue,
+										dataType: 'string',
+									},
+								],
+							})
+						)
+
+						resolve(inputValue)
+					},
 				})
-
-				const mergedOptions: Required<PromptOption> = {
-					defaultValue,
-					type,
-					title,
-					headerClose,
-					maxLength,
-					placeholder,
-					confirmText,
-					cancelText,
-					draggable,
-					dragOverflow,
-					maskBlur,
-				}
-
-				printLog(
-					new Log({
-						type: LogType.Info,
-						caller: 'popup.prompt()',
-						message: `打开提示输入框成功`,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'content',
-								dataValue: message,
-								dataType: 'string',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'original options',
-								dataValue: arguments[1],
-								dataType: 'PromptOption',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'merged options',
-								dataValue: mergedOptions,
-								dataType: 'Required<PromptOption>',
-							},
-						],
-					})
-				)
 			})
 		}
+
+		config.customProperties.prompt = prompt
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		prompt: IPrompt
+	}
+}

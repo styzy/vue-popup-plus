@@ -22,18 +22,21 @@
 
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, type Component } from 'vue'
-import { usePopup } from 'vue-popup-plus'
 import { type Skin } from '../../../typings'
 import PScaffold from '../../../components/PScaffold.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PHeaderButton from '../../../components/PHeaderButton.vue'
 import PBody from '../../../components/PBody.vue'
 
-const popup = usePopup()
-
 defineOptions({
 	name: 'PDialog',
 })
+
+type Emits = {
+	close: []
+}
+
+const emit = defineEmits<Emits>()
 
 type Props = {
 	id: string
@@ -74,7 +77,7 @@ function handleReload() {
 }
 
 function handleClose() {
-	popup.dialog.close()
+	emit('close')
 }
 </script>
 

@@ -4,6 +4,7 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
+	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalOption } from '../../typings'
@@ -96,13 +97,7 @@ export interface IAlbum {
 	 * })
 	 * ```
 	 */
-	(options: AlbumOption): Promise<void>
-}
-
-declare module 'vue-popup-plus' {
-	interface PopupCustomProperties {
-		album: IAlbum
-	}
+	(this: IController, options: AlbumOption): Promise<void>
 }
 
 export const album = definePlugin({
@@ -112,8 +107,8 @@ export const album = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (controller, config, { skin = 'modern' }: GlobalOption = {}) => {
-		controller.customProperties.album = function ({
+	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+		const album: IAlbum = function ({
 			sources,
 			defaultIndex = 0,
 			disableCounter = false,
@@ -123,7 +118,7 @@ export const album = definePlugin({
 			disableScale = false,
 			disableDrag = false,
 			maskBlur = true,
-		}: AlbumOption) {
+		}) {
 			return new Promise<void>((resolve) => {
 				this.render({
 					component: () => import('./src/PAlbum.vue'),
@@ -141,52 +136,84 @@ export const album = definePlugin({
 					width: '100%',
 					height: '100%',
 					maskBlur,
+					onMounted: () => {
+						const mergedOptions: Required<AlbumOption> = {
+							sources,
+							defaultIndex,
+							disableCounter,
+							disableName,
+							disablePure,
+							disableDownload,
+							disableScale,
+							disableDrag,
+							maskBlur,
+						}
+
+						printLog(
+							new Log({
+								type: LogType.Info,
+								caller: {
+									name: 'popup.album()',
+									type: 'Function',
+									value: album,
+								},
+								message: `打开媒体相册成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '调用参数',
+										dataName: 'options',
+										dataValue: arguments[0],
+										dataType: 'AlbumOption',
+									},
+									{
+										type: LogGroupItemType.Data,
+										title: '合并参数',
+										dataName: 'mergedOptions',
+										dataValue: mergedOptions,
+										dataType: 'Required<AlbumOption>',
+									},
+								],
+							})
+						)
+					},
 					onUnmounted: () => {
-						resolve()
 						printLog(
 							new Log({
 								type: LogType.Info,
 								caller: 'popup.destroy()',
 								message: `关闭媒体相册成功`,
+								group: [
+									{
+										type: LogGroupItemType.Data,
+										title: '控制器',
+										dataName: this.id,
+										dataValue: this,
+										dataType: 'IController',
+									},
+								],
 							})
 						)
+
+						resolve()
 					},
 				})
-
-				const mergedOptions: Required<AlbumOption> = {
-					sources,
-					defaultIndex,
-					disableCounter,
-					disableName,
-					disablePure,
-					disableDownload,
-					disableScale,
-					disableDrag,
-					maskBlur,
-				}
-
-				printLog(
-					new Log({
-						type: LogType.Info,
-						caller: 'popup.album()',
-						message: `打开媒体相册成功`,
-						group: [
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'original options',
-								dataValue: arguments[0],
-								dataType: 'AlbumOption',
-							},
-							{
-								type: LogGroupItemType.Data,
-								dataName: 'merged options',
-								dataValue: mergedOptions,
-								dataType: 'Required<AlbumOption>',
-							},
-						],
-					})
-				)
 			})
 		}
+
+		config.customProperties.album = album
 	},
 })
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		album: IAlbum
+	}
+}
