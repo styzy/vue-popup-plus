@@ -33,7 +33,7 @@ export function createMixins(core: ICore): ComponentOptions {
 
 					printLog(
 						new Log({
-							type: LogType.Info,
+							type: LogType.Success,
 							caller: {
 								name: `this.${core.config.prototypeName}`,
 								type: 'Component',
