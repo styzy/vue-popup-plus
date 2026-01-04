@@ -301,7 +301,7 @@ importers:
         specifier: 'catalog:'
         version: 1.6.5(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1))
       vitepress-plugin-markdown-container-demo:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../md-demo
       vitest:
         specifier: 'catalog:'
