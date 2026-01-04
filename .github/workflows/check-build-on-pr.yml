@@ -2,12 +2,15 @@ name: Check Build on PR to Dev
 
 on:
   pull_request:
-    branches: [ dev ]  # 仅当 PR 的目标分支是 dev 时触发
-    types: [opened, synchronize, reopened]  # 在 PR 被创建、更新或重新打开时运行
+    # 仅当 PR 的目标分支是 dev 时触发
+    branches: [ dev ]  
+    # 在 PR 被创建、更新或重新打开时运行
+    types: [opened, synchronize, reopened]  
 
 jobs:
   check-build:
-    runs-on: ubuntu-latest  # 使用最新 Ubuntu 运行器
+    # 使用最新 Ubuntu 运行器
+    runs-on: ubuntu-latest  
 
     steps:
       # 1. 检出代码
@@ -22,12 +25,13 @@ jobs:
         with:
           version: 9
 
-      # 3. 设置 Node.js 环境（以 Node.js 项目为例）
+      # 3. 设置 Node.js 环境
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # 指定您项目所需的 Node.js 版本
-          cache: 'pnpm'  # 启用 npm 缓存以加速后续安装
+          node-version: '20'
+          # 启用 npm 缓存以加速后续安装
+          cache: 'pnpm'
 
       # 4. 安装依赖
       - name: Install dependencies
@@ -35,15 +39,16 @@ jobs:
 
       # 5. 执行构建核心
       - name: Build core
-        run: pnpm run build:core  # 运行项目定义的构建脚本
-        # 如果构建失败，工作流将自动标记为失败，阻止合并
+        run: pnpm run build:core
         
       # 6. 执行构建预置插件
       - name: Build plugin
-        run: pnpm run build:plugin  # 运行项目定义的构建脚本
-        # 如果构建失败，工作流将自动标记为失败，阻止合并
+        run: pnpm run build:plugin
+
+      # 7. 执行构建文档 Markdown Demo 插件
+      - name: Build md-demo
+        run: pnpm run build:md-demo
         
-      # 7. 执行构建文档
+      # 8. 执行构建文档
       - name: Build docs
-        run: pnpm run build:docs  # 运行项目定义的构建脚本
-        # 如果构建失败，工作流将自动标记为失败，阻止合并
+        run: pnpm run build:docs
