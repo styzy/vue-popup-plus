@@ -15,14 +15,10 @@ export interface IConfig {
 	prototypeName: string
 	/**
 	 * 日志器
-	 *
-	 * @since 1.5.0
 	 */
 	logHandler: ILogHandler
 	/**
 	 * 日志过滤器
-	 *
-	 * @since 1.6.0
 	 */
 	logFilter?: LogFilter
 	/**
@@ -95,8 +91,8 @@ export type ConfigOption = {
 	/**
 	 * 日志过滤器
 	 *
-	 * - 你可以自定义日志过滤器，用于过滤日志，返回 true 表示日志
-	 *   会被打印，返回 false 表示日志会被过滤掉。
+	 * - 你可以自定义日志过滤器，用于过滤日志，该函数接收每个日志对象
+	 *   作为参数，返回 true 表示放行打印，返回 false 将过滤该日志。
 	 *
 	 * @since 1.6.0
 	 */
