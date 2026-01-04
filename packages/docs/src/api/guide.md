@@ -58,35 +58,35 @@ next: false
 
 <DApiGird>
 	<DApiGroup title="Toast 消息">
-		<DApi path="/api-plugin-preset/toast#toast">popup.toast()</DApi>
-		<DApi path="/api-plugin-preset/toast#toast-primary">popup.toastPrimary()</DApi>
-		<DApi path="/api-plugin-preset/toast#toast-success">popup.toastSuccess()</DApi>
-		<DApi path="/api-plugin-preset/toast#toast-info">popup.toastInfo()</DApi>
-		<DApi path="/api-plugin-preset/toast#toast-warning">popup.toastWarning()</DApi>
-		<DApi path="/api-plugin-preset/toast#toast-danger">popup.toastDanger()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast">popup.toast()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast-primary">popup.toastPrimary()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast-success">popup.toastSuccess()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast-info">popup.toastInfo()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast-warning">popup.toastWarning()</DApi>
+		<DApi path="/api-plugin-preset/toast#popup-toast-danger">popup.toastDanger()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Message 消息">
-		<DApi path="/api-plugin-preset/message#message">popup.message()</DApi>
+		<DApi path="/api-plugin-preset/message#popup-message">popup.message()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Alert 提示">
-		<DApi path="/api-plugin-preset/alert#alert">popup.alert()</DApi>
+		<DApi path="/api-plugin-preset/alert#popup-alert">popup.alert()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Confirm 确认">
-		<DApi path="/api-plugin-preset/confirm#confirm">popup.confirm()</DApi>
+		<DApi path="/api-plugin-preset/confirm#popup-confirm">popup.confirm()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Prompt 提示输入">
-		<DApi path="/api-plugin-preset/prompt#prompt">popup.prompt()</DApi>
+		<DApi path="/api-plugin-preset/prompt#popup-prompt">popup.prompt()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Dialog 对话">
-		<DApi path="/api-plugin-preset/dialog#dialog">popup.dialog()</DApi>
-		<DApi path="/api-plugin-preset/dialog#dialog-close">popup.dialogClose()</DApi>
+		<DApi path="/api-plugin-preset/dialog#popup-dialog">popup.dialog()</DApi>
+		<DApi path="/api-plugin-preset/dialog#popup-dialog-close">popup.dialogClose()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Loading 加载遮罩">
-		<DApi path="/api-plugin-preset/loading#loading">popup.loading()</DApi>
-		<DApi path="/api-plugin-preset/loading#loading-close">popup.loadingClose()</DApi>
+		<DApi path="/api-plugin-preset/loading#popup-loading">popup.loading()</DApi>
+		<DApi path="/api-plugin-preset/loading#popup-loading-close">popup.loadingClose()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Album 相册">
-		<DApi path="/api-plugin-preset/album#album">popup.album()</DApi>
+		<DApi path="/api-plugin-preset/album#popup-album">popup.album()</DApi>
 	</DApiGroup>
 	<DApiGroup title="通用">
 		<DApi path="/api-plugin-preset/common#version">version</DApi>

@@ -18,7 +18,6 @@ const { path, label = '' } = defineProps<Props>()
 
 <style lang="scss" scoped>
 .d-api {
-	display: block;
 	color: rgb(66, 81, 95);
 	font-size: 15px;
 	font-weight: 500;

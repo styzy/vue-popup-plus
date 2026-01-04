@@ -31,7 +31,7 @@ function handleLoading() {
 
 :::
 
-## 关闭加载遮罩 <Badge type="tip" text="1.5.0+" />
+## 关闭加载遮罩 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -51,7 +51,7 @@ const closeLoading = popup.loading()
 closeLoading()
 ```
 
-## 等待关闭动画结束 <Badge type="tip" text="1.5.0+" />
+## 等待关闭动画结束 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -117,7 +117,7 @@ function handleLoadingThemeDanger() {
 
 :::
 
-## 自定义标题文本 <Badge type="tip" text="1.3.3+" />
+## 自定义标题文本 <Badge text="1.3.3+" />
 
 > <DVersionSupport package="plugin" version="1.3.3" />
 
@@ -169,7 +169,7 @@ function handleLoadingCustomIconSize() {
 
 :::
 
-## 禁用遮罩层 <Badge type="tip" text="1.5.0+" />
+## 禁用遮罩层 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -192,7 +192,7 @@ function handleLoadingDisableMask() {
 
 :::
 
-## 禁用遮罩层高斯模糊 <Badge type="tip" text="1.3.3+" />
+## 禁用遮罩层高斯模糊 <Badge text="1.3.3+" />
 
 > <DVersionSupport package="plugin" version="1.3.3" />
 

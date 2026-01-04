@@ -9,7 +9,7 @@ outline: 2
 此页面仅列出了一些 `常用的` 工具类型。
 :::
 
-## ExtractComponentPropTypes\<T\> <Badge type="tip" text="1.5.0+" /> {#extract-component-prop-types}
+## ExtractComponentPropTypes\<T\> <Badge text="1.5.0+" /> {#extract-component-prop-types}
 
 > <DVersionSupport version="1.5.0" />
 
@@ -72,7 +72,7 @@ type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 // } & ComponentCustomProps
 ```
 
-## ExtractComponentAllPropTypes\<T\> <Badge type="tip" text="1.5.0+" /> {#extract-component-all-prop-types}
+## ExtractComponentAllPropTypes\<T\> <Badge text="1.5.0+" /> {#extract-component-all-prop-types}
 
 > <DVersionSupport version="1.5.0" />
 

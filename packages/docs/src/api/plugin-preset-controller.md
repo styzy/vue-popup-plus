@@ -465,7 +465,7 @@ if (result === undefined) {
 
 - [预置插件指南 - Dialog 对话](/guide-plugin-preset/dialog)
 
-## popup.dialog.close() <Badge type="tip" text="1.5.0+" />
+## popup.dialog.close() <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -599,7 +599,7 @@ stopLoading()
 
 - [预置插件指南 - Loading 加载](/guide-plugin-preset/loading)
 
-## popup.loading.close() <Badge type="tip" text="1.5.0+" />
+## popup.loading.close() <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 

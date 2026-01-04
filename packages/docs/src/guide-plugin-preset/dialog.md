@@ -51,7 +51,7 @@ function handleDialogProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent: (params) => {
-				popup.toast.success(
+				popup.toastSuccess(
 					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
@@ -62,7 +62,7 @@ function handleDialogProps() {
 
 :::
 
-## 关闭对话框 <Badge type="tip" text="1.5.0+" />
+## 关闭对话框 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -77,7 +77,7 @@ function handleClose() {
 }
 ```
 
-## 携带参数关闭对话框 <Badge type="tip" text="1.5.0+" />
+## 携带参数关闭对话框 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -131,16 +131,16 @@ async function handleDialogResult() {
 
 	// 判断是否携带参数
 	if (payload !== undefined) {
-		popup.toast.success(`得到销毁携带的参数：${payload}`)
+		popup.toastSuccess(`得到销毁携带的参数：${payload}`)
 	} else {
-		popup.toast.warning('销毁时未携带参数')
+		popup.toastWarning('销毁时未携带参数')
 	}
 }
 ```
 
 :::
 
-## 设置位置 <Badge type="tip" text="1.5.0+" />
+## 设置位置 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -451,7 +451,7 @@ function handleDialogOnMounted() {
 	popup.dialog({
 		component: () => import('./HelloWorld.vue'),
 		onMounted: () => {
-			popup.toast.success('对话框渲染完成')
+			popup.toastSuccess('对话框渲染完成')
 		},
 	})
 }
@@ -484,7 +484,7 @@ function handleDialogProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent: (params: string) => {
-				popup.toast.success(
+				popup.toastSuccess(
 					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
@@ -498,9 +498,9 @@ async function handleDialogResult() {
 	})
 
 	if (payload !== undefined) {
-		popup.toast.success(`得到销毁携带的参数：${payload}`)
+		popup.toastSuccess(`得到销毁携带的参数：${payload}`)
 	} else {
-		popup.toast.warning('销毁时未携带参数')
+		popup.toastWarning('销毁时未携带参数')
 	}
 }
 

@@ -71,19 +71,19 @@ function handlePopupToastPrimary() {
 }
 
 function handlePopupToastSuccess() {
-	popup.toast.success('这是一条成功主题的消息')
+	popup.toastSuccess('这是一条成功主题的消息')
 }
 
 function handlePopupToastInfo() {
-	popup.toast.info('这是一条信息主题的消息')
+	popup.toastInfo('这是一条信息主题的消息')
 }
 
 function handlePopupToastWarning() {
-	popup.toast.warning('这是一条警告主题的消息')
+	popup.toastWarning('这是一条警告主题的消息')
 }
 
 function handlePopupToastDanger() {
-	popup.toast.danger('这是一条危险主题的消息')
+	popup.toastDanger('这是一条危险主题的消息')
 }
 ```
 
@@ -320,9 +320,9 @@ async function handlePopupConfirmWithResult() {
 	const result = await popup.confirm('这是一条确认消息')
 
 	if (result) {
-		popup.toast.success('用户点击了确认')
+		popup.toastSuccess('用户点击了确认')
 	} else {
-		popup.toast.warning('用户点击了取消')
+		popup.toastWarning('用户点击了取消')
 	}
 }
 ```
@@ -451,9 +451,9 @@ async function handlePopupPromptWithResult() {
 	const result = await popup.prompt('这是一条提示输入消息')
 
 	if (result !== undefined) {
-		popup.toast.success(`用户输入了：${result}`)
+		popup.toastSuccess(`用户输入了：${result}`)
 	} else {
-		popup.toast.warning('用户取消了输入')
+		popup.toastWarning('用户取消了输入')
 	}
 }
 ```
@@ -574,7 +574,7 @@ function handlePopupDialogWithProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
-				popup.toast.success(
+				popup.toastSuccess(
 					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
@@ -586,7 +586,7 @@ function handlePopupDialogWithOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast.success('渲染回调 触发')
+			popup.toastSuccess('渲染回调 触发')
 		},
 	})
 }
@@ -597,9 +597,9 @@ async function handlePopupDialogWithResult() {
 	})
 
 	if (result !== undefined) {
-		popup.toast.success(`获取销毁携带参数：${result}`)
+		popup.toastSuccess(`获取销毁携带参数：${result}`)
 	} else {
-		popup.toast.warning('销毁未携带参数')
+		popup.toastWarning('销毁未携带参数')
 	}
 }
 ```
@@ -995,19 +995,19 @@ function handlePopupToastPrimary() {
 }
 
 function handlePopupToastSuccess() {
-	popup.toast.success('这是一条成功主题的消息')
+	popup.toastSuccess('这是一条成功主题的消息')
 }
 
 function handlePopupToastInfo() {
-	popup.toast.info('这是一条信息主题的消息')
+	popup.toastInfo('这是一条信息主题的消息')
 }
 
 function handlePopupToastWarning() {
-	popup.toast.warning('这是一条警告主题的消息')
+	popup.toastWarning('这是一条警告主题的消息')
 }
 
 function handlePopupToastDanger() {
-	popup.toast.danger('这是一条危险主题的消息')
+	popup.toastDanger('这是一条危险主题的消息')
 }
 
 function handlePopupToastLeftTop() {
@@ -1130,9 +1130,9 @@ async function handlePopupConfirmWithResult() {
 	const result = await popup.confirm('这是一条确认消息')
 
 	if (result) {
-		popup.toast.success('用户点击了确认')
+		popup.toastSuccess('用户点击了确认')
 	} else {
-		popup.toast.warning('用户点击了取消')
+		popup.toastWarning('用户点击了取消')
 	}
 }
 
@@ -1199,9 +1199,9 @@ async function handlePopupPromptWithResult() {
 	const result = await popup.prompt('这是一条提示输入消息')
 
 	if (result !== undefined) {
-		popup.toast.success(`用户输入了：${result}`)
+		popup.toastSuccess(`用户输入了：${result}`)
 	} else {
-		popup.toast.warning('用户取消了输入')
+		popup.toastWarning('用户取消了输入')
 	}
 }
 
@@ -1260,7 +1260,7 @@ function handlePopupDialogWithProps() {
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
-				popup.toast.success(
+				popup.toastSuccess(
 					`监听组件事件 customEvent 触发，得到自定义事件参数：${params}`
 				)
 			},
@@ -1272,7 +1272,7 @@ function handlePopupDialogWithOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		onMounted() {
-			popup.toast.success('渲染回调 触发')
+			popup.toastSuccess('渲染回调 触发')
 		},
 	})
 }
@@ -1283,9 +1283,9 @@ async function handlePopupDialogWithResult() {
 	})
 
 	if (result !== undefined) {
-		popup.toast.success(`获取销毁携带参数：${result}`)
+		popup.toastSuccess(`获取销毁携带参数：${result}`)
 	} else {
-		popup.toast.warning('销毁未携带参数')
+		popup.toastWarning('销毁未携带参数')
 	}
 }
 
