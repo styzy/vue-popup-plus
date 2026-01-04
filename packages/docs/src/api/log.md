@@ -72,7 +72,7 @@ interface ILog {
 	/**
 	 * 调用者
 	 */
-	caller: string
+	caller: LogCaller
 	/**
 	 * 消息
 	 */
@@ -93,24 +93,47 @@ interface ILog {
 
 const LogType = {
 	/**
-	 * 成功日志
+	 * 成功
 	 */
 	Success: 'success',
 	/**
-	 * 信息日志
+	 * 信息
 	 */
 	Info: 'info',
 	/**
-	 * 警告日志
+	 * 警告
 	 */
 	Warning: 'warning',
 	/**
-	 * 错误日志
+	 * 错误
 	 */
 	Error: 'error',
+	/**
+	 * 组件
+	 */
+	Component: 'component',
 } as const
 
 type LogType = (typeof LogType)[keyof typeof LogType]
+
+type LogCallerRecord = {
+	/**
+	 * 调用者名称
+	 */
+	name: string
+	/**
+	 * 调用者参考类型
+	 *
+	 * - 如不传，将自动设置为 any
+	 */
+	type?: string
+	/**
+	 * 调用者值
+	 */
+	value: any
+}
+
+type LogCaller = string | LogCallerRecord
 
 /**
  * 日志组元素类型
@@ -128,62 +151,97 @@ const LogGroupItemType = {
 	 * 数据类型
 	 */
 	Data: 'data',
+	/**
+	 * 组件类型
+	 */
+	Component: 'component',
 } as const
 
 type LogGroupItemType = (typeof LogGroupItemType)[keyof typeof LogGroupItemType]
 
-type LogGroupDefaultItem = {
+type LogGroupMessage = {
 	/**
-	 * 组元素类型
+	 * 消息类型
 	 */
-	type?: typeof LogGroupItemType.Message
+	type: typeof LogGroupItemType.Message
 	/**
-	 * 组元素消息
+	 * 消息标题
 	 */
-	message: string
+	title?: string
+	/**
+	 * 消息内容
+	 */
+	content: string
 }
 
-type LogGroupInfoItem = {
+type LogGroupInfo = {
 	/**
-	 * 信息组元素类型
+	 * 信息类型
 	 */
 	type: typeof LogGroupItemType.Info
 	/**
-	 * 信息组元素标题
+	 * 信息标题
 	 */
 	title: string
 	/**
-	 * 信息组元素内容
+	 * 信息内容
 	 */
-	content?: string
+	content: string
 	/**
-	 * 信息组元素数据
+	 * 是否重要信息
 	 */
-	data?: any
+	important?: boolean
 }
 
-type LogGroupDataItem = {
+type LogGroupData = {
 	/**
-	 * 数据组元素类型
+	 * 数据类型
 	 */
 	type: typeof LogGroupItemType.Data
 	/**
-	 * 数据项名称
+	 * 数据标题
 	 */
-	dataName: string
+	title: string
 	/**
-	 * 数据项值
+	 * 数据名称
+	 */
+	dataName?: string
+	/**
+	 * 数据值
 	 */
 	dataValue: any
 	/**
-	 * 数据项约束类型
+	 * 数据参考类型
 	 *
 	 * - 如不传，将自动设置为 any
 	 */
 	dataType?: string
+	/**
+	 * 是否重要数据
+	 */
+	important?: boolean
 }
 
-type LogGroupItem = LogGroupDefaultItem | LogGroupDataItem | LogGroupInfoItem
+type LogGroupComponent = {
+	/**
+	 * 组件类型
+	 */
+	type: typeof LogGroupItemType.Component
+	/**
+	 * 组件标题
+	 */
+	title: string
+	/**
+	 * 组件实例
+	 */
+	instance?: ComponentInternalInstance | null
+}
+
+type LogGroupItem =
+	| LogGroupMessage
+	| LogGroupInfo
+	| LogGroupData
+	| LogGroupComponent
 
 type LogGroup = Array<LogGroupItem>
 ```
@@ -199,7 +257,7 @@ type LogOption = {
 	/**
 	 * 日志调用者
 	 */
-	caller?: string
+	caller?: LogCaller
 	/**
 	 * 日志消息
 	 */
@@ -244,21 +302,25 @@ const log = new Log({
 			type: LogGroupItemType.Info,
 			title: '插件要求最低核心版本',
 			content: plugin.requiredCoreVersion?.min ?? '-',
+			important: true,
 		},
 		{
 			type: LogGroupItemType.Info,
 			title: '插件要求最高核心版本',
 			content: plugin.requiredCoreVersion?.max ?? '-',
+			important: true,
 		},
 		{
 			type: LogGroupItemType.Info,
 			title: `插件版本校验`,
 			content: `通过`,
+			important: true,
 		},
 		{
-			type: LogGroupItemType.Info,
+			type: LogGroupItemType.Data,
 			title: '插件注册选项',
-			data: options,
+			dataName: 'options',
+			dataValue: options,
 		},
 	],
 })

@@ -1,4 +1,5 @@
 import DApi from './DApi.vue'
+import DApiGird from './DApiGird.vue'
 import DApiGroup from './DApiGroup.vue'
 import DButton from './DButton.vue'
 import DButtonGroup from './DButtonGroup.vue'
@@ -8,6 +9,7 @@ import DVersionSupport from './DVersionSupport.vue'
 
 export const components = {
 	DApi,
+	DApiGird,
 	DApiGroup,
 	DButton,
 	DButtonGroup,
@@ -19,6 +21,7 @@ export const components = {
 declare module 'vue' {
 	export interface GlobalComponents {
 		DApi: typeof DApi
+		DApiGird: typeof DApiGird
 		DApiGroup: typeof DApiGroup
 		DButton: typeof DButton
 		DButtonGroup: typeof DButtonGroup
