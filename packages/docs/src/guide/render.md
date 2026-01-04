@@ -100,7 +100,7 @@ const emit = defineEmits<Emits>()
 
 需要注意的是，遵从 `Vue 3` 的设计原理，所有的组件事件，都会被统一添加 `on` 前缀，例如 `submit` 事件，其监听函数的名称应该为 `onSubmit`。
 
-## 渲染组件参数类型推导 <Badge type="tip" text="v1.5.0+" />
+## 渲染组件参数类型推导 <Badge text="v1.5.0+" />
 
 > <DVersionSupport version="1.5.0" />
 

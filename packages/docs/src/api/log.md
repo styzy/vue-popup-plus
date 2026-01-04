@@ -9,7 +9,7 @@ outline: 2
 **Vue Popup Plus** 为开发者提供了完善的日志工具，特别是对于 `插件开发者` ，使用这些日志工具可以帮助其开发出稳定、可靠的插件。
 :::
 
-## printLog() <Badge type="tip" text="1.5.0+" /> {#print-log}
+## printLog() <Badge text="1.5.0+" /> {#print-log}
 
 > <DVersionSupport version="1.5.0" />
 
@@ -43,7 +43,7 @@ const log = new Log({
 printLog(log)
 ```
 
-## Log <Badge type="tip" text="1.5.0+" />
+## Log <Badge text="1.5.0+" />
 
 > <DVersionSupport version="1.5.0" />
 

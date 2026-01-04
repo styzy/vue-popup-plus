@@ -25,7 +25,7 @@ app.use(PopupPlus)
 app.mount('#app')
 ```
 
-## 按需注册 <Badge type="tip" text="1.4.0+" />
+## 按需注册 <Badge text="1.4.0+" />
 
 > <DVersionSupport package="plugin" version="1.4.0" />
 
@@ -53,7 +53,7 @@ app.use(PopupPlus)
 app.mount('#app')
 ```
 
-## 注册选项 <Badge type="tip" text="1.5.0+" />
+## 注册选项 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 

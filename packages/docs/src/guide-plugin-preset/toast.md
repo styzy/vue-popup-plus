@@ -24,16 +24,17 @@ function handleToast() {
 
 :::
 
-## 快速使用主题 <Badge type="tip" text="1.5.0+" />
+## 快速使用主题 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-直接使用 `success()` 、 `info()` 、 `warning()` 、 `danger()` 方法可以快速显示不同主题的消息。
+直接使用 `toastPrimary()` 、 `toastSuccess()` 、 `toastInfo()` 、 `toastWarning()` 、 `toastDanger()` 方法可以快速显示不同主题的消息。
 
 ::: demo
 
 ```html
 <DButtonGroup>
+	<DButton theme="primary" @click="handleToastPrimary">主要</DButton>
 	<DButton theme="info" @click="handleToastInfo">信息</DButton>
 	<DButton theme="success" @click="handleToastSuccess">成功</DButton>
 	<DButton theme="warning" @click="handleToastWarning">警告</DButton>
@@ -42,22 +43,44 @@ function handleToast() {
 ```
 
 ```ts
+function handleToastPrimary() {
+	popup.toastPrimary('这是一条主要主题消息')
+}
+
 function handleToastInfo() {
-	popup.toast.info('这是一条信息主题消息')
+	popup.toastInfo('这是一条信息主题消息')
 }
 
 function handleToastSuccess() {
-	popup.toast.success('这是一条成功主题消息')
+	popup.toastSuccess('这是一条成功主题消息')
 }
 
 function handleToastWarning() {
-	popup.toast.warning('这是一条警告主题消息')
+	popup.toastWarning('这是一条警告主题消息')
 }
 
 function handleToastDanger() {
-	popup.toast.danger('这是一条危险主题消息')
+	popup.toastDanger('这是一条危险主题消息')
 }
 ```
+
+:::
+
+::: warning
+在 `1.5.x` 版本，快速主题方法的使用方式是：
+
+- `toast.success()`
+- `toast.info()`
+- `toast.warning()`
+- `toast.danger()`
+
+这些方法使用的是静态方法，无法动态同步组件上下文，因此从 `1.6.0` 版本开始被废弃，因此请使用新的主题方法代替：
+
+- `toastPrimary()`
+- `toastSuccess()`
+- `toastInfo()`
+- `toastWarning()`
+- `toastDanger()`
 
 :::
 
@@ -109,7 +132,7 @@ function handleToastThemeDanger() {
 
 :::
 
-## 设置位置 <Badge type="tip" text="1.5.0+" />
+## 设置位置 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -194,7 +217,7 @@ function handleToastDurationZero() {
 
 :::
 
-## 显示关闭按钮 <Badge type="tip" text="1.5.0+" />
+## 显示关闭按钮 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -218,7 +241,7 @@ function handleToastShowClose() {
 
 :::
 
-## 禁用鼠标悬停持续显示 <Badge type="tip" text="1.5.0+" />
+## 禁用鼠标悬停持续显示 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
@@ -280,20 +303,24 @@ function handleToast() {
 	popup.toast('这是一条消息')
 }
 
+function handleToastPrimary() {
+	popup.toastPrimary('这是一条主要主题消息')
+}
+
 function handleToastInfo() {
-	popup.toast.info('这是一条信息主题消息')
+	popup.toastInfo('这是一条信息主题消息')
 }
 
 function handleToastSuccess() {
-	popup.toast.success('这是一条成功主题消息')
+	popup.toastSuccess('这是一条成功主题消息')
 }
 
 function handleToastWarning() {
-	popup.toast.warning('这是一条警告主题消息')
+	popup.toastWarning('这是一条警告主题消息')
 }
 
 function handleToastDanger() {
-	popup.toast.danger('这是一条危险主题消息')
+	popup.toastDanger('这是一条危险主题消息')
 }
 
 function handleToastThemePrimary() {

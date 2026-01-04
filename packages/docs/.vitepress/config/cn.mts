@@ -95,6 +95,11 @@ export const themeConfig = defineConfig({
 					},
 				],
 			},
+			{
+				text: '团队',
+				link: '/team',
+				activeMatch: '/team',
+			},
 		],
 		sidebar: {
 			'/guide/': [

@@ -45,7 +45,7 @@ const PopupPlus = createPopupPlus({
 
 具体的配置项，请参考 [核心 API - 核心实例 createPopupPlus()](/api/core#create-popup-plus)。
 
-## 同步应用上下文 <Badge type="tip" text="1.5.0+" />
+## 同步应用上下文 <Badge text="1.5.0+" />
 
 > <DVersionSupport version="1.5.0" />
 

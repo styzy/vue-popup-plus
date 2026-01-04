@@ -96,16 +96,77 @@ console.log('消息消失后，继续执行后续代码')
 
 - [预置插件指南 - Toast 消息](/guide-plugin-preset/toast)
 
-## popup.toast.success() <Badge type="tip" text="1.5.0+" />
+## popup.toastPrimary() <Badge text="1.6.0+" /> {#popup-toast-primary}
 
-> <DVersionSupport package="plugin" version="1.5.0" />
+> <DVersionSupport package="plugin" version="1.6.0" />
+
+创建一个主要主题的消息弹出层。
+
+### 类型
+
+```ts
+function toastPrimary(
+	message: string,
+	options?: ToastOptionWithoutTheme
+): Promise<void>
+```
+
+### 参数类型
+
+```ts
+type ToastOptionWithoutTheme = {
+	/**
+	 * 消息显示时间，单位毫秒
+	 *
+	 * - 默认值： 2000 毫秒
+	 */
+	duration?: number
+	/**
+	 * 消息位置
+	 *
+	 * - 默认值为 `center`
+	 * @since 1.5.0
+	 */
+	placement?: Placement
+	/**
+	 * 是否显示关闭按钮
+	 *
+	 * - 默认值： `false`
+	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 * @since 1.5.0
+	 */
+	showClose?: boolean
+	/**
+	 * 是否开启鼠标悬停持续显示
+	 *
+	 * - 默认值： `true`
+	 * - 当持续时间为 `0` 时，该参数无效
+	 * @since 1.5.0
+	 */
+	hoverWait?: boolean
+}
+```
+
+### 详细信息
+
+第一个参数为消息内容文本，第二个参数为消息选项，选填。
+
+和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+
+### 相关参考
+
+- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+
+## popup.toastSuccess() <Badge text="1.6.0+" /> {#popup-toast-success}
+
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 创建一个成功主题的消息弹出层。
 
 ### 类型
 
 ```ts
-function success(
+function toastSuccess(
 	message: string,
 	options?: ToastOptionWithoutTheme
 ): Promise<void>
@@ -157,16 +218,19 @@ type ToastOptionWithoutTheme = {
 
 - [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
-## popup.toast.info() <Badge type="tip" text="1.5.0+" />
+## popup.toastInfo() <Badge text="1.6.0+" /> {#popup-toast-info}
 
-> <DVersionSupport package="plugin" version="1.5.0" />
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 创建一个信息主题的消息弹出层。
 
 ### 类型
 
 ```ts
-function info(message: string, options?: ToastOptionWithoutTheme): Promise<void>
+function toastInfo(
+	message: string,
+	options?: ToastOptionWithoutTheme
+): Promise<void>
 ```
 
 ### 参数类型
@@ -215,16 +279,16 @@ type ToastOptionWithoutTheme = {
 
 - [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
-## popup.toast.warning() <Badge type="tip" text="1.5.0+" />
+## popup.toastWarning() <Badge text="1.6.0+" /> {#popup-toast-warning}
 
-> <DVersionSupport package="plugin" version="1.5.0" />
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 创建一个警告主题的消息弹出层。
 
 ### 类型
 
 ```ts
-function warning(
+function toastWarning(
 	message: string,
 	options?: ToastOptionWithoutTheme
 ): Promise<void>
@@ -276,16 +340,16 @@ type ToastOptionWithoutTheme = {
 
 - [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
-## popup.toast.danger() <Badge type="tip" text="1.5.0+" />
+## popup.toastDanger() <Badge text="1.6.0+" /> {#popup-toast-danger}
 
-> <DVersionSupport package="plugin" version="1.5.0" />
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 创建一个危险主题的消息弹出层。
 
 ### 类型
 
 ```ts
-function danger(
+function toastDanger(
 	message: string,
 	options?: ToastOptionWithoutTheme
 ): Promise<void>
@@ -336,3 +400,43 @@ type ToastOptionWithoutTheme = {
 ### 相关参考
 
 - [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+
+## popup.toast.success() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
+
+创建一个成功主题的消息弹出层。
+
+::: danger
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastSuccess()](#popup-toast-success) 方法代替。
+:::
+
+## popup.toast.info() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
+
+创建一个信息主题的消息弹出层。
+
+::: danger
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastInfo()](#popup-toast-info) 方法代替。
+:::
+
+## popup.toast.warning() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
+
+创建一个警告主题的消息弹出层。
+
+::: danger
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastWarning()](#popup-toast-warning) 方法代替。
+:::
+
+## popup.toast.danger() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
+
+创建一个危险主题的消息弹出层。
+
+::: danger
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastDanger()](#popup-toast-danger) 方法代替。
+:::
