@@ -44,7 +44,7 @@
 		"vite-plugin-vue-devtools": "catalog:",
 		"vitepress": "catalog:",
 		"vitepress-plugin-group-icons": "catalog:",
-		"vitepress-plugin-markdown-container-demo": "workspace:^",
+		"vitepress-plugin-markdown-container-demo": "workspace:*",
 		"vitest": "catalog:",
 		"vue-tsc": "catalog:"
 	}
