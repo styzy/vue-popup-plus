@@ -22,15 +22,15 @@ export const plugin = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install(controller, config, { skin = 'modern' }: GlobalOption = {}) {
+	install(config, { skin = 'modern' }: GlobalOption = {}) {
 		const options = { skin }
 
-		album.install(controller, config, options)
-		alert.install(controller, config, options)
-		confirm.install(controller, config, options)
-		dialog.install(controller, config, options)
-		loading.install(controller, config, options)
-		prompt.install(controller, config, options)
-		toast.install(controller, config, options)
+		album.install(config, options)
+		alert.install(config, options)
+		confirm.install(config, options)
+		dialog.install(config, options)
+		loading.install(config, options)
+		prompt.install(config, options)
+		toast.install(config, options)
 	},
 })
