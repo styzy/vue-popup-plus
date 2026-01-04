@@ -22,6 +22,7 @@ outline: 2
 ### 特性
 
 - 新增 `createPopupPlus()` 函数，用于创建核心实例。
+- `createPopupPlus()` 函数新增 `logFilter` 参数，用于自定义日志过滤函数，默认不进行过滤。
 - 新增 `usePopupInstanceId()` 组合式工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID。
 - 新增 `usePopupComputedStyle()` 组合式工具函数，用于获取当前弹出层的渲染组件的计算样式。
 
