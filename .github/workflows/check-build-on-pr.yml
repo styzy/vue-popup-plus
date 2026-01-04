@@ -16,28 +16,34 @@ jobs:
         with:
           fetch-depth: 0  # 获取完整历史，有助于某些工具分析
 
-      # 2. 设置 Node.js 环境（以 Node.js 项目为例）
+      # 2. 设置 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      # 3. 设置 Node.js 环境（以 Node.js 项目为例）
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'  # 指定您项目所需的 Node.js 版本
-          cache: 'npm'  # 启用 npm 缓存以加速后续安装
+          cache: 'pnpm'  # 启用 npm 缓存以加速后续安装
 
-      # 3. 安装依赖
+      # 4. 安装依赖
       - name: Install dependencies
         run: pnpm i
 
-      # 4. 执行构建核心
+      # 5. 执行构建核心
       - name: Build core
         run: pnpm run build:core  # 运行项目定义的构建脚本
         # 如果构建失败，工作流将自动标记为失败，阻止合并
         
-      # 5. 执行构建预置插件
+      # 6. 执行构建预置插件
       - name: Build plugin
         run: pnpm run build:plugin  # 运行项目定义的构建脚本
         # 如果构建失败，工作流将自动标记为失败，阻止合并
         
-      # 6. 执行构建文档
+      # 7. 执行构建文档
       - name: Build docs
         run: pnpm run build:docs  # 运行项目定义的构建脚本
         # 如果构建失败，工作流将自动标记为失败，阻止合并
