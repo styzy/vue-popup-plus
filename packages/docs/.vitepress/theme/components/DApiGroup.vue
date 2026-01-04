@@ -1,26 +1,51 @@
 <template lang="pug">
 .d-api-group
-	slot
+	.title {{ title }}
+	.body
+		slot
 </template>
 
 <script setup lang="ts">
 defineOptions({
 	name: 'DApiGroup',
 })
+
+type Props = {
+	title: string
+}
+
+const { title } = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
 .d-api-group {
-	// display: flex;
-	// flex-direction: wrap;
-	columns: 2;
-	// align-items: flex-start;
-	// justify-content: flex-start;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	gap: 20px;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	box-sizing: border-box;
+	background-color: #edf2f7;
+	overflow: hidden;
+	.title {
+		color: var(--doc-color-primary);
+		font-size: var(--doc-font-size-title-main);
+		font-weight: 700;
+	}
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
 }
-@media screen and (min-width: 1440px) {
+.dark {
 	.d-api-group {
-		columns: 3;
+		background-color: #252527;
+		.title {
+			color: var(--doc-color-primary-light);
+		}
 	}
 }
 </style>
