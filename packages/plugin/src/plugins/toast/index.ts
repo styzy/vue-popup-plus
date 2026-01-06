@@ -17,20 +17,20 @@ class Log extends PluginLog {
 
 type ToastOption = {
 	/**
-	 * 消息主题
+	 * 主题
 	 *
-	 * - 默认值： 'default'
+	 * - 默认值： 'primary'
 	 * - 具体的可选主题请参考 {@link Theme }
 	 */
 	theme?: Theme
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 显示位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -61,21 +61,21 @@ type ToastOptionWithoutTheme = Omit<ToastOption, 'theme'>
 
 export interface IToast {
 	/**
-	 * 显示消息
+	 * 显示轻量提示
 	 *
-	 * - 第一个参数为消息内容
-	 * - 第二个参数为消息选项，可自定义消息显示时间，默认值为 `2000` 毫秒
-	 *   ，如果设置为 `0` ，则消息不会自动关闭
-	 * - 如果需要等待消息消失后继续执行后续代码，需要通过 `await` 调用，
+	 * - 第一个参数为提示内容
+	 * - 第二个参数为提示选项，可自定义显示时间，默认值为 `2000` 毫秒
+	 *   如果设置为 `0` ，则提示不会自动关闭
+	 * - 如果需要等待提示消失后继续执行后续代码，需要通过 `await` 调用，
 	 *   等待执行结束后继续执行后续代码
 	 * - 使用示例：
 	 *
 	 * ```ts
-	 * popup.toast('这是一条消息')
+	 * popup.toast('这是一条轻量提示')
 	 * // 不会阻塞后续代码执行
 	 *
-	 * await popup.toast('这是一条消息')
-	 * // 只有消息消失后，才会继续执行后续代码
+	 * await popup.toast('这是一条轻量提示')
+	 * // 只有提示消失后，才会继续执行后续代码
 	 * ```
 	 */
 	(this: IController, content: string, options?: ToastOption): Promise<void>
@@ -83,7 +83,7 @@ export interface IToast {
 
 export interface IToastPrimary {
 	/**
-	 * 显示主要消息
+	 * 显示主要轻量提示
 	 */
 	(
 		this: IController,
@@ -94,7 +94,7 @@ export interface IToastPrimary {
 
 export interface IToastSuccess {
 	/**
-	 * 显示成功消息
+	 * 显示成功轻量提示
 	 */
 	(
 		this: IController,
@@ -105,7 +105,7 @@ export interface IToastSuccess {
 
 export interface IToastInfo {
 	/**
-	 * 显示信息消息
+	 * 显示信息轻量提示
 	 */
 	(
 		this: IController,
@@ -116,7 +116,7 @@ export interface IToastInfo {
 
 export interface IToastWarning {
 	/**
-	 * 显示警告消息
+	 * 显示警告轻量提示
 	 */
 	(
 		this: IController,
@@ -127,7 +127,7 @@ export interface IToastWarning {
 
 export interface IToastDanger {
 	/**
-	 * 显示错误消息
+	 * 显示错误轻量提示
 	 */
 	(
 		this: IController,
@@ -189,7 +189,7 @@ export const toast = definePlugin({
 									type: 'Function',
 									value: toast,
 								},
-								message: `打开消息成功`,
+								message: `打开轻量提示成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,
@@ -231,7 +231,7 @@ export const toast = definePlugin({
 									type: 'Function',
 									value: this.destroy,
 								},
-								message: `关闭消息成功`,
+								message: `关闭轻量提示成功`,
 								group: [
 									{
 										type: LogGroupItemType.Data,

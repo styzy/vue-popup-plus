@@ -34,7 +34,7 @@ i.iconfont-popup-plugin-preset {
 	&.download::after {
 		content: '\e66c';
 	}
-	// 消息
+	// 轻量提示
 	&.toast {
 		&-primary::after,
 		&-info::after {
