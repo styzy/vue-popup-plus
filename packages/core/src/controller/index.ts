@@ -322,6 +322,7 @@ export type RenderStyleOptions = {
 	 *
 	 * - 默认为 center ，即居中显示
 	 * - 更多位置请查看 {@link Placement}
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -329,6 +330,7 @@ export type RenderStyleOptions = {
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
+	 *
 	 *   {@link IAnimations}
 	 */
 	viewAnimation?: Animation
