@@ -33,6 +33,7 @@ type ToastOption = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -41,6 +42,7 @@ type ToastOption = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -49,6 +51,7 @@ type ToastOption = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean

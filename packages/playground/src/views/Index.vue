@@ -380,6 +380,7 @@ function handlePopupWithSelf() {
 	popup.render({
 		component: () => import('@/views/Index.vue'),
 		mask: false,
+		maxHeight: '100%',
 		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
 		animationDuration: 200,
 	})
@@ -1309,7 +1310,7 @@ function handlePopupAlbumDisableDrag() {
 	align-items flex-start
 	gap 20px
 	padding 20px
-	max-height 100vh
+	max-height 100%
 	box-sizing border-box
 	background-color var(--playground-color-background-main)
 	overflow-y auto
