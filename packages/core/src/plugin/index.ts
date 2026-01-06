@@ -98,19 +98,13 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	 */
 	name: string
 	/**
-	 * 插件安装函数
-	 *
-	 * - 第一个参数接收注册此插件的弹出层的创建配置
-	 * - 第二个参数接收插件自定义选项，可自行定义，插件使用者可在调用
-	 *  `popup.use` 方法时传入
-	 */
-	install: PluginInstall<TOption>
-	/**
 	 * 插件作者
 	 *
 	 * - 插件作者可以是个人或组织名称
-	 * - 从核心 `1.5.0` 版本开始，不设置插件作者将会导致在插件注册时
+	 * - 不设置插件作者将会导致在插件注册时
 	 * 通过日志输出一个警告，用以提示插件使用者相关风险
+	 *
+	 * @since 1.5.0
 	 */
 	author?: string
 	/**
@@ -119,7 +113,7 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	 * - 插件作者需要在插件安装函数中校验弹出层核心版本是否符合插件要求
 	 * - 该函数需要返回一个布尔值，`true` 表示核心版本符合要求，`false`
 	 * 表示不符合要求，核心将会阻止该插件的注册
-	 * - 从核心 `1.5.0` 版本开始，不设置该校验函数将会导致在插件注册时
+	 * - 不设置该校验函数将会导致在插件注册时
 	 * 通过日志输出一个警告，用以提示插件使用者相关风险
 	 */
 	// coreVersionValidator?: (coreVersion: Version) => boolean
@@ -128,6 +122,8 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	 *
 	 * - 插件作者可以指定插件所适配的最低和最高核心版本
 	 * - 不符合要求的核心将无法注册该插件
+	 *
+	 * @since 1.5.0
 	 */
 	requiredCoreVersion?: {
 		/**
@@ -139,6 +135,14 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 		 */
 		max?: Version
 	}
+	/**
+	 * 插件安装函数
+	 *
+	 * - 第一个参数接收注册此插件的弹出层的创建配置
+	 * - 第二个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 *  `popup.use` 方法时传入
+	 */
+	install: PluginInstall<TOption>
 }
 
 export type ExtractPluginOption<TPlugin extends PopupPlugin> =
