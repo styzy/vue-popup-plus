@@ -216,7 +216,16 @@ export const themeConfig = defineConfig({
 			],
 			'/demo/': [
 				{
-					text: '示例',
+					text: '核心',
+					items: [
+						{
+							text: '核心示例',
+							link: '/demo/core',
+						},
+					],
+				},
+				{
+					text: '预置插件',
 					items: [
 						{
 							text: '核心示例',

@@ -25,24 +25,53 @@ type PluginOption = {
 	 * 插件名称
 	 *
 	 * - 插件名称必须唯一
+	 * - 名称冲突将导致插件注册失败
 	 */
 	name: string
 	/**
+	 * 插件作者
+	 *
+	 * - 插件作者可以是个人或组织名称
+	 * - 不设置插件作者将会导致在插件注册时
+	 * 通过日志输出一个警告，用以提示插件使用者相关风险
+	 *
+	 * @since 1.5.0
+	 */
+	author?: string
+	/**
+	 * 插件核心版本要求
+	 *
+	 * - 插件作者可以指定插件所适配的最低和最高核心版本
+	 * - 不符合要求的核心将无法注册该插件
+	 *
+	 * @since 1.5.0
+	 */
+	requiredCoreVersion?: {
+		/**
+		 * 插件所适配的最低核心版本
+		 */
+		min?: Version
+		/**
+		 * 插件所适配的最高核心版本
+		 */
+		max?: Version
+	}
+	/**
 	 * 插件安装函数
 	 *
-	 * - 第一个参数接收安装此插件的弹出层控制器实例
-	 * - 第二个参数接收安装此插件的弹出层的创建配置
-	 * - 第三个参数接收插件自定义选项，可自行定义，插件使用者可在调用
+	 * - 第一个参数接收注册此插件的弹出层的创建配置
+	 * - 第二个参数接收插件自定义选项，可自行定义，插件使用者可在调用
 	 *  `popup.use` 方法时传入
 	 */
-	install: (
-		controller: PluginPopupController,
-		config: Readonly<PopupConfig>,
-		option?: any
-	) => void
+	install: PluginInstall<TOption>
 }
 
-type PluginPopupController = PopupController & {
+type PluginInstall<TOption extends PluginOption> = (
+	config: Readonly<IPluginWrappedConfig>,
+	option?: TOption
+) => void
+
+export interface IPluginWrappedConfig extends IConfig {
 	/**
 	 * 控制器实例自定义属性原型对象
 	 *
@@ -59,8 +88,32 @@ type PluginPopupController = PopupController & {
 	readonly customAnimations: PopupCustomAnimations
 }
 
-// 弹出层控制器实例的创建选项
-type PopupConfig = Required<CreateOption>
+interface IConfig {
+	/**
+	 * 弹出层 zIndex 基础值
+	 */
+	zIndex: number
+	/**
+	 * 是否自动禁用滚动
+	 */
+	autoDisableScroll: boolean
+	/**
+	 * 弹出层控制器挂载在 Vue 实例上的属性名
+	 */
+	prototypeName: string
+	/**
+	 * 日志器
+	 */
+	logHandler: ILogHandler
+	/**
+	 * 日志过滤器
+	 */
+	logFilter?: LogFilter
+	/**
+	 * 开启调试模式
+	 */
+	debugMode: boolean
+}
 ```
 
 ### 详细信息
@@ -70,4 +123,4 @@ type PopupConfig = Required<CreateOption>
 ### 相关参考
 
 - [插件 - 定义插件](/plugin/define)
-- [核心 API - 核心实例 PopupPlus.use(())](/api/core)
+- [核心 API - 核心实例 PopupPlus.use()](/api/core#popup-plus-use)
