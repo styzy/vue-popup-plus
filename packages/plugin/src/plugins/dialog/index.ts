@@ -94,6 +94,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * 对话框位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -125,6 +126,8 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
+	 *
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }

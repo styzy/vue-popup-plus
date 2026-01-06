@@ -24,6 +24,7 @@ app.use(ElementPlus)
 const PopupPlus = createPopupPlus({
 	zIndex: 1000,
 	// prototypeName: '$customPopup',
+	// autoDisableScroll: false,
 	debugMode: true,
 	// logFilter: (log) => log.type === LogType.Success,
 })
@@ -47,8 +48,8 @@ const testPlugin = definePlugin({
 	name: 'test',
 	author: 'STYZY',
 	requiredCoreVersion: {
-		// min: coreVersion,
-		// max: '1.4.0',
+		min: coreVersion,
+		max: coreVersion,
 	},
 	install(
 		popup,

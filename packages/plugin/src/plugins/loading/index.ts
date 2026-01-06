@@ -124,7 +124,7 @@ export const loading = definePlugin({
 			iconSize = 60,
 			mask = true,
 			maskBlur = true,
-			disableScroll = false,
+			disableScroll = true,
 		} = {}) {
 			if (record.id) {
 				printLog(
