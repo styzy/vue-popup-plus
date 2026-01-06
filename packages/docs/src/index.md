@@ -15,7 +15,7 @@ hero:
           link: /guide/introduction
         - theme: alt
           text: 查看示例 ✨
-          link: /examples/core
+          link: /demo/core
 
 features:
     - title: 🚀 函数式渲染
