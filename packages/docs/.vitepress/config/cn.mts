@@ -180,7 +180,7 @@ export const themeConfig = defineConfig({
 							link: '/guide-plugin-preset/usage',
 						},
 						{
-							text: 'Toast 消息',
+							text: 'Toast 轻量提示',
 							link: '/guide-plugin-preset/toast',
 						},
 						{
@@ -329,7 +329,7 @@ export const themeConfig = defineConfig({
 					text: '预置插件 API',
 					items: [
 						{
-							text: 'Toast 消息',
+							text: 'Toast 轻量提示',
 							link: '/api/plugin-preset/toast',
 						},
 						{

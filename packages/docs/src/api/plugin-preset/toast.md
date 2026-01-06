@@ -11,7 +11,7 @@ outline: 2
 
 ## popup.toast()
 
-创建一个消息弹出层。
+创建一个轻量提示弹出层。
 
 ### 类型
 
@@ -24,19 +24,19 @@ function toast(message: string, options?: ToastOption): Promise<void>
 ```ts
 type ToastOption = {
 	/**
-	 * 消息主题
+	 * 主题
 	 *
-	 * - 默认值： 'default'
+	 * - 默认值： 'primary'
 	 */
 	theme?: Theme
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -63,10 +63,10 @@ type ToastOption = {
 	hoverWait?: boolean
 }
 
-// 消息主题
+// 主题
 type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
-// 消息位置
+// 位置
 type Placement =
 	| 'left-top'
 	| 'left'
@@ -81,33 +81,33 @@ type Placement =
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-函数返回一个 `Promise` 对象，用于等待消息消失后继续执行后续代码。
+函数返回一个 `Promise` 对象，用于等待提示消失后继续执行后续代码。
 
 ### 示例
 
 ```ts
 // 直接调用
-popup.toast('这是一条消息内容文本')
+popup.toast('这是一条轻量提示')
 ```
 
 ```ts
 // 异步等待
-await popup.toast('这是一条消息内容文本')
-// 只有消息消失后，才会继续执行后续代码
-console.log('消息消失后，继续执行后续代码')
+await popup.toast('这是一条轻量提示')
+// 只有提示消失后，才会继续执行后续代码
+console.log('提示消失后，继续执行后续代码')
 ```
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息](/guide-plugin-preset/toast)
+- [预置插件指南 - Toast 轻量提示](/guide-plugin-preset/toast)
 
 ## popup.toastPrimary() <Badge text="1.6.0+" /> {#popup-toast-primary}
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-创建一个主要主题的消息弹出层。
+创建一个主要主题的轻量提示弹出层。
 
 ### 类型
 
@@ -123,13 +123,13 @@ function toastPrimary(
 ```ts
 type ToastOptionWithoutTheme = {
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -159,19 +159,19 @@ type ToastOptionWithoutTheme = {
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+和 `toast` 方法唯一的区别是，提示选项的 `theme` 属性不可用。
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 轻量提示 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toastSuccess() <Badge text="1.6.0+" /> {#popup-toast-success}
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-创建一个成功主题的消息弹出层。
+创建一个成功主题的轻量提示弹出层。
 
 ### 类型
 
@@ -187,13 +187,13 @@ function toastSuccess(
 ```ts
 type ToastOptionWithoutTheme = {
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -223,19 +223,19 @@ type ToastOptionWithoutTheme = {
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+和 `toast` 方法唯一的区别是，提示选项的 `theme` 属性不可用。
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 轻量提示 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toastInfo() <Badge text="1.6.0+" /> {#popup-toast-info}
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-创建一个信息主题的消息弹出层。
+创建一个信息主题的轻量提示弹出层。
 
 ### 类型
 
@@ -251,13 +251,13 @@ function toastInfo(
 ```ts
 type ToastOptionWithoutTheme = {
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -287,19 +287,19 @@ type ToastOptionWithoutTheme = {
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+和 `toast` 方法唯一的区别是，提示选项的 `theme` 属性不可用。
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 轻量提示 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toastWarning() <Badge text="1.6.0+" /> {#popup-toast-warning}
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-创建一个警告主题的消息弹出层。
+创建一个警告主题的轻量提示弹出层。
 
 ### 类型
 
@@ -315,13 +315,13 @@ function toastWarning(
 ```ts
 type ToastOptionWithoutTheme = {
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -351,19 +351,19 @@ type ToastOptionWithoutTheme = {
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+和 `toast` 方法唯一的区别是，提示选项的 `theme` 属性不可用。
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 轻量提示 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toastDanger() <Badge text="1.6.0+" /> {#popup-toast-danger}
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-创建一个危险主题的消息弹出层。
+创建一个危险主题的轻量提示弹出层。
 
 ### 类型
 
@@ -379,13 +379,13 @@ function toastDanger(
 ```ts
 type ToastOptionWithoutTheme = {
 	/**
-	 * 消息显示时间，单位毫秒
+	 * 显示时间，单位毫秒
 	 *
 	 * - 默认值： 2000 毫秒
 	 */
 	duration?: number
 	/**
-	 * 消息位置
+	 * 位置
 	 *
 	 * - 默认值为 `center`
 	 *
@@ -415,19 +415,19 @@ type ToastOptionWithoutTheme = {
 
 ### 详细信息
 
-第一个参数为消息内容文本，第二个参数为消息选项，选填。
+第一个参数为提示内容文本，第二个参数为提示选项，选填。
 
-和 `toast` 方法唯一的区别是，消息选项的 `theme` 属性不可用。
+和 `toast` 方法唯一的区别是，提示选项的 `theme` 属性不可用。
 
 ### 相关参考
 
-- [预置插件指南 - Toast 消息 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
+- [预置插件指南 - Toast 轻量提示 快速使用主题](/guide-plugin-preset/toast#快速使用主题)
 
 ## popup.toast.success() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
 
 > <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
 
-创建一个成功主题的消息弹出层。
+创建一个成功主题的轻量提示弹出层。
 
 ::: danger
 该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastSuccess()](#popup-toast-success) 方法代替。
@@ -437,7 +437,7 @@ type ToastOptionWithoutTheme = {
 
 > <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
 
-创建一个信息主题的消息弹出层。
+创建一个信息主题的轻量提示弹出层。
 
 ::: danger
 该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastInfo()](#popup-toast-info) 方法代替。
@@ -447,7 +447,7 @@ type ToastOptionWithoutTheme = {
 
 > <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
 
-创建一个警告主题的消息弹出层。
+创建一个警告主题的轻量提示弹出层。
 
 ::: danger
 该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastWarning()](#popup-toast-warning) 方法代替。
@@ -457,7 +457,7 @@ type ToastOptionWithoutTheme = {
 
 > <DVersionSupport package="plugin" version="1.6.0"  deprecated/>
 
-创建一个危险主题的消息弹出层。
+创建一个危险主题的轻量提示弹出层。
 
 ::: danger
 该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastDanger()](#popup-toast-danger) 方法代替。

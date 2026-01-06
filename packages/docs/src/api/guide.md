@@ -77,8 +77,8 @@ watch(() => filter.showVersion, (newVal) => {
 	</DApiGroup>
 </DApiGird>
 
-<DApiGird title="预置插件 API" :filter>
-	<DApiGroup title="Toast 消息">
+<DApiGird title="预置插件 API" :filter="filter">
+	<DApiGroup title="Toast 轻量提示">
 		<DApi path="/api/plugin-preset/toast#popup-toast">popup.toast()</DApi>
 		<DApi path="/api/plugin-preset/toast#popup-toast-primary" support="1.6.0">popup.toastPrimary()</DApi>
 		<DApi path="/api/plugin-preset/toast#popup-toast-success" support="1.6.0">popup.toastSuccess()</DApi>

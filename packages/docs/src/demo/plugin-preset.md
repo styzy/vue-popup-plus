@@ -8,7 +8,7 @@ outline: 2
 以下示例由 `vue-popup-plus-plugin-preset` 预置插件包提供技术支持。
 :::
 
-## Toast 消息
+## Toast 轻量提示
 
 ### 基础功能
 
@@ -16,7 +16,7 @@ outline: 2
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupToast" type="default">消息</DButton>
+	<DButton @click="handlePopupToast" type="default">轻量提示</DButton>
 	<DButton @click="handlePopupToastLongText">长文本</DButton>
 	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
 	<DButton @click="handlePopupToastDurationZero">持续显示</DButton>
@@ -25,23 +25,23 @@ outline: 2
 
 ```ts
 function handlePopupToast() {
-	popup.toast('这是一条消息')
+	popup.toast('这是一条轻量提示消息')
 }
 
 function handlePopupToastLongText() {
 	popup.toast(
-		'这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果。'
+		'这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；'
 	)
 }
 
 function handlePopupToastDuration() {
-	popup.toast('这是一条持续10秒的消息', {
+	popup.toast('这是一条持续10秒的轻量提示消息', {
 		duration: 10000,
 	})
 }
 
 function handlePopupToastDurationZero() {
-	popup.toast('这是一条持续显示的消息', {
+	popup.toast('这是一条持续显示的轻量提示消息', {
 		duration: 0,
 	})
 }
@@ -67,23 +67,23 @@ function handlePopupToastDurationZero() {
 
 ```ts
 function handlePopupToastPrimary() {
-	popup.toast('这是一条主要主题的消息')
+	popup.toastPrimary('这是一条主要主题的轻量提示消息')
 }
 
 function handlePopupToastSuccess() {
-	popup.toastSuccess('这是一条成功主题的消息')
+	popup.toastSuccess('这是一条成功主题的轻量提示消息')
 }
 
 function handlePopupToastInfo() {
-	popup.toastInfo('这是一条信息主题的消息')
+	popup.toastInfo('这是一条信息主题的轻量提示消息')
 }
 
 function handlePopupToastWarning() {
-	popup.toastWarning('这是一条警告主题的消息')
+	popup.toastWarning('这是一条警告主题的轻量提示消息')
 }
 
 function handlePopupToastDanger() {
-	popup.toastDanger('这是一条危险主题的消息')
+	popup.toastDanger('这是一条危险主题的轻量提示消息')
 }
 ```
 
@@ -111,55 +111,55 @@ function handlePopupToastDanger() {
 
 ```ts
 function handlePopupToastLeftTop() {
-	popup.toast('这是一条左上位置的消息', {
+	popup.toast('这是一条左上位置的轻量提示消息', {
 		placement: 'left-top',
 	})
 }
 
 function handlePopupToastLeft() {
-	popup.toast('这是一条左侧位置的消息', {
+	popup.toast('这是一条左侧位置的轻量提示消息', {
 		placement: 'left',
 	})
 }
 
 function handlePopupToastLeftBottom() {
-	popup.toast('这是一条左下位置的消息', {
+	popup.toast('这是一条左下位置的轻量提示消息', {
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupToastTop() {
-	popup.toast('这是一条顶部位置的消息', {
+	popup.toast('这是一条顶部位置的轻量提示消息', {
 		placement: 'top',
 	})
 }
 
 function handlePopupToastCenter() {
-	popup.toast('这是一条居中位置的消息', {
+	popup.toast('这是一条居中位置的轻量提示消息', {
 		placement: 'center',
 	})
 }
 
 function handlePopupToastBottom() {
-	popup.toast('这是一条底部位置的消息', {
+	popup.toast('这是一条底部位置的轻量提示消息', {
 		placement: 'bottom',
 	})
 }
 
 function handlePopupToastRightTop() {
-	popup.toast('这是一条右上位置的消息', {
+	popup.toast('这是一条右上位置的轻量提示消息', {
 		placement: 'right-top',
 	})
 }
 
 function handlePopupToastRight() {
-	popup.toast('这是一条右侧位置的消息', {
+	popup.toast('这是一条右侧位置的轻量提示消息', {
 		placement: 'right',
 	})
 }
 
 function handlePopupToastRightBottom() {
-	popup.toast('这是一条右下位置的消息', {
+	popup.toast('这是一条右下位置的轻量提示消息', {
 		placement: 'right-bottom',
 	})
 }
@@ -184,13 +184,13 @@ function handlePopupToastRightBottom() {
 
 ```ts
 function handlePopupToastShowClose() {
-	popup.toast('这是一条显示关闭按钮的消息', {
+	popup.toast('这是一条显示关闭按钮的轻量提示消息', {
 		showClose: true,
 	})
 }
 
 function handlePopupToastHoverWait() {
-	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+	popup.toast('这是一条禁用鼠标悬停持续显示的轻量提示消息', {
 		hoverWait: false,
 	})
 }
@@ -963,23 +963,23 @@ if (!import.meta.env.SSR) {
 }
 
 function handlePopupToast() {
-	popup.toast('这是一条消息')
+	popup.toast('这是一条轻量提示消息')
 }
 
 function handlePopupToastLongText() {
 	popup.toast(
-		'这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果；这是一条长文本消息，用于测试 toast 组件的长文本显示效果。'
+		'这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；'
 	)
 }
 
 function handlePopupToastDuration() {
-	popup.toast('这是一条持续10秒的消息', {
+	popup.toast('这是一条持续10秒的轻量提示消息', {
 		duration: 10000,
 	})
 }
 
 function handlePopupToastDurationZero() {
-	popup.toast('这是一条持续显示的消息', {
+	popup.toast('这是一条持续显示的轻量提示消息', {
 		duration: 0,
 	})
 }
@@ -987,91 +987,91 @@ function handlePopupToastDurationZero() {
 
 
 function handlePopupToastDefault() {
-	popup.toast('这是一条默认主题的消息')
+	popup.toast('这是一条默认主题的轻量提示消息')
 }
 
 function handlePopupToastPrimary() {
-	popup.toast('这是一条主要主题的消息')
+	popup.toast('这是一条主要主题的轻量提示消息')
 }
 
 function handlePopupToastSuccess() {
-	popup.toastSuccess('这是一条成功主题的消息')
+	popup.toastSuccess('这是一条成功主题的轻量提示消息')
 }
 
 function handlePopupToastInfo() {
-	popup.toastInfo('这是一条信息主题的消息')
+	popup.toastInfo('这是一条信息主题的轻量提示消息')
 }
 
 function handlePopupToastWarning() {
-	popup.toastWarning('这是一条警告主题的消息')
+	popup.toastWarning('这是一条警告主题的轻量提示消息')
 }
 
 function handlePopupToastDanger() {
-	popup.toastDanger('这是一条危险主题的消息')
+	popup.toastDanger('这是一条危险主题的轻量提示消息')
 }
 
 function handlePopupToastLeftTop() {
-	popup.toast('这是一条左上位置的消息', {
+	popup.toast('这是一条左上位置的轻量提示消息', {
 		placement: 'left-top',
 	})
 }
 
 function handlePopupToastLeft() {
-	popup.toast('这是一条左侧位置的消息', {
+	popup.toast('这是一条左侧位置的轻量提示消息', {
 		placement: 'left',
 	})
 }
 
 function handlePopupToastLeftBottom() {
-	popup.toast('这是一条左下位置的消息', {
+	popup.toast('这是一条左下位置的轻量提示消息', {
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupToastTop() {
-	popup.toast('这是一条顶部位置的消息', {
+	popup.toast('这是一条顶部位置的轻量提示消息', {
 		placement: 'top',
 	})
 }
 
 function handlePopupToastCenter() {
-	popup.toast('这是一条居中位置的消息', {
+	popup.toast('这是一条居中位置的轻量提示消息', {
 		placement: 'center',
 	})
 }
 
 function handlePopupToastBottom() {
-	popup.toast('这是一条底部位置的消息', {
+	popup.toast('这是一条底部位置的轻量提示消息', {
 		placement: 'bottom',
 	})
 }
 
 function handlePopupToastRightTop() {
-	popup.toast('这是一条右上位置的消息', {
+	popup.toast('这是一条右上位置的轻量提示消息', {
 		placement: 'right-top',
 	})
 }
 
 function handlePopupToastRight() {
-	popup.toast('这是一条右侧位置的消息', {
+	popup.toast('这是一条右侧位置的轻量提示消息', {
 		placement: 'right',
 	})
 }
 
 function handlePopupToastRightBottom() {
-	popup.toast('这是一条右下位置的消息', {
+	popup.toast('这是一条右下位置的轻量提示消息', {
 		placement: 'right-bottom',
 	})
 }
 
 function handlePopupToastShowClose() {
-	popup.toast('这是一条显示关闭按钮的消息', {
+	popup.toast('这是一条显示关闭按钮的轻量提示消息', {
 		showClose: true,
 	})
 }
 
 function handlePopupToastHoverWait() {
-	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+	popup.toast('这是一条禁用鼠标悬停持续显示的轻量提示消息', {
 		hoverWait: false,
 	})
 }

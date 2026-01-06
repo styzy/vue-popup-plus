@@ -1,6 +1,6 @@
-# Toast 消息
+# Toast 轻量提示
 
-一般用于提示用户 `轻量简短` 的消息，例如操作成功、操作失败等。
+一般用于展示 `轻量简短` 的提示，例如操作成功、操作失败等。
 
 ::: tip
 该弹出层支持 `Promise 风格` 调用，具体可以查看 [等待弹出层关闭](/guide-plugin-preset/toast#等待弹出层关闭)。
@@ -8,17 +8,17 @@
 
 ## 基础使用
 
-调用 `toast` 方法可以弹出一条消息，在屏幕居中显示。
+调用 `toast` 方法可以弹出一条轻量提示，在屏幕居中显示。
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleToast">消息</DButton>
+<DButton theme="primary" @click="handleToast">轻量提示</DButton>
 ```
 
 ```ts
 function handleToast() {
-	popup.toast('这是一条消息') // [!code highlight]
+	popup.toast('这是一条轻量提示消息') // [!code highlight]
 }
 ```
 
@@ -28,7 +28,7 @@ function handleToast() {
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-直接使用 `toastPrimary()` 、 `toastSuccess()` 、 `toastInfo()` 、 `toastWarning()` 、 `toastDanger()` 方法可以快速显示不同主题的消息。
+直接使用 `toastPrimary()` 、 `toastSuccess()` 、 `toastInfo()` 、 `toastWarning()` 、 `toastDanger()` 方法可以快速显示不同主题的轻量提示。
 
 ::: demo
 
@@ -44,23 +44,23 @@ function handleToast() {
 
 ```ts
 function handleToastPrimary() {
-	popup.toastPrimary('这是一条主要主题消息')
+	popup.toastPrimary('这是一条主要主题的轻量提示消息')
 }
 
 function handleToastInfo() {
-	popup.toastInfo('这是一条信息主题消息')
+	popup.toastInfo('这是一条信息主题的轻量提示消息')
 }
 
 function handleToastSuccess() {
-	popup.toastSuccess('这是一条成功主题消息')
+	popup.toastSuccess('这是一条成功主题的轻量提示消息')
 }
 
 function handleToastWarning() {
-	popup.toastWarning('这是一条警告主题消息')
+	popup.toastWarning('这是一条警告主题的轻量提示消息')
 }
 
 function handleToastDanger() {
-	popup.toastDanger('这是一条危险主题消息')
+	popup.toastDanger('这是一条危险主题的轻量提示消息')
 }
 ```
 
@@ -86,7 +86,7 @@ function handleToastDanger() {
 
 ## 设置主题
 
-通过 `theme` 属性可以设置消息的主题，默认值为 `primary`，支持的主题有 `primary`、`info`、`success`、`warning`、`danger`。
+通过 `theme` 属性可以设置轻量提示的主题，默认值为 `primary`，支持的主题有 `primary`、`info`、`success`、`warning`、`danger`。
 
 ::: demo
 
@@ -102,29 +102,29 @@ function handleToastDanger() {
 
 ```ts
 function handleToastThemePrimary() {
-	popup.toast('这是一条主要主题消息')
+	popup.toast('这是一条主要主题的轻量提示消息')
 }
 
 function handleToastThemeInfo() {
-	popup.toast('这是一条信息主题消息', {
+	popup.toast('这是一条信息主题的轻量提示消息', {
 		theme: 'info', // [!code highlight]
 	})
 }
 
 function handleToastThemeSuccess() {
-	popup.toast('这是一条成功主题消息', {
+	popup.toast('这是一条成功主题的轻量提示消息', {
 		theme: 'success', // [!code highlight]
 	})
 }
 
 function handleToastThemeWarning() {
-	popup.toast('这是一条警告主题消息', {
+	popup.toast('这是一条警告主题的轻量提示消息', {
 		theme: 'warning', // [!code highlight]
 	})
 }
 
 function handleToastThemeDanger() {
-	popup.toast('这是一条危险主题消息', {
+	popup.toast('这是一条危险主题的轻量提示消息', {
 		theme: 'danger', // [!code highlight]
 	})
 }
@@ -136,7 +136,7 @@ function handleToastThemeDanger() {
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-通过 `placement` 属性可以设置消息的位置，默认值为 `center`，支持的位置有：
+通过 `placement` 属性可以设置轻量提示的位置，默认值为 `center`，支持的位置有：
 
 - `left-top`
 - `left`
@@ -162,19 +162,19 @@ function handleToastThemeDanger() {
 
 ```ts
 function handleToastPlacementLeft() {
-	popup.toast('这是一条左侧位置的消息', {
+	popup.toast('这是一条左侧位置的轻量提示消息', {
 		placement: 'left', // [!code highlight]
 	})
 }
 
 function handleToastPlacementTop() {
-	popup.toast('这是一条顶部位置的消息', {
+	popup.toast('这是一条顶部位置的轻量提示消息', {
 		placement: 'top', // [!code highlight]
 	})
 }
 
 function handleToastPlacementRightTop() {
-	popup.toast('这是一条右上位置的消息', {
+	popup.toast('这是一条右上位置的轻量提示消息', {
 		placement: 'right-top', // [!code highlight]
 	})
 }
@@ -184,32 +184,32 @@ function handleToastPlacementRightTop() {
 
 ## 持续时间
 
-通过 `duration` 属性可以设置消息显示的持续时间，单位为毫秒，默认值为 `2000` 毫秒。
+通过 `duration` 属性可以设置轻量提示显示的持续时间，单位为毫秒，默认值为 `2000` 毫秒。
 
-从 <DVersion package="plugin" version="1.5.0" plus /> 开始，`duration` 属性支持设置为 `0` ，表示消息不会自动关闭，会强制显示关闭按钮。
+从 <DVersion package="plugin" version="1.5.0" plus /> 开始，`duration` 属性支持设置为 `0` ，表示不会自动关闭，同时会强制显示关闭按钮。
 
 ::: demo
 
 ```html
 <DButtonGroup>
 	<DButton theme="primary" @click="handleToastDuration"
-		>持续5秒的消息</DButton
+		>持续5秒的轻量提示</DButton
 	>
 	<DButton theme="primary" @click="handleToastDurationZero"
-		>不会自动关闭的消息</DButton
+		>不会自动关闭的轻量提示</DButton
 	>
 </DButtonGroup>
 ```
 
 ```ts
 function handleToastDuration() {
-	popup.toast('这是一条持续5秒的消息', {
+	popup.toast('这是一条持续5秒的轻量提示消息', {
 		duration: 5000, // [!code highlight]
 	})
 }
 
 function handleToastDurationZero() {
-	popup.toast('这是一条不会自动关闭的消息', {
+	popup.toast('这是一条不会自动关闭的轻量提示消息', {
 		duration: 0, // [!code highlight]
 	})
 }
@@ -221,19 +221,19 @@ function handleToastDurationZero() {
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-通过 `showClose` 属性可以设置是否显示关闭按钮，允许用户手动关闭消息，默认值为 `false`。
+通过 `showClose` 属性可以设置是否显示关闭按钮，允许用户手动关闭轻量提示，默认值为 `false`。
 
 ::: demo
 
 ```html
 <DButton theme="primary" @click="handleToastShowClose"
-	>显示关闭按钮的消息</DButton
+	>显示关闭按钮的轻量提示</DButton
 >
 ```
 
 ```ts
 function handleToastShowClose() {
-	popup.toast('这是一条显示关闭按钮的消息', {
+	popup.toast('这是一条显示关闭按钮的轻量提示消息', {
 		showClose: true, // [!code highlight]
 	})
 }
@@ -245,7 +245,7 @@ function handleToastShowClose() {
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-从 <DVersion package="plugin" version="1.5.0" plus /> 开始，消息默认开启鼠标悬停持续显示，当用户鼠标悬停在消息上时，消息将会持续显示，直到鼠标移出消息区域，消息才会自动关闭。
+从 <DVersion package="plugin" version="1.5.0" plus /> 开始，轻量提示默认开启鼠标悬停持续显示，当用户鼠标悬停在轻量提示上时，将会持续显示，直到鼠标移出轻量提示区域，轻量提示才会自动关闭。
 
 通过将 `hoverWait` 属性设置为 `false` 可以禁用鼠标悬停持续显示。
 
@@ -259,7 +259,7 @@ function handleToastShowClose() {
 
 ```ts
 function handleToastHoverWaitFalse() {
-	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+	popup.toast('这是一条禁用鼠标悬停持续显示的轻量提示消息', {
 		hoverWait: false, // [!code highlight]
 	})
 }
@@ -274,13 +274,15 @@ function handleToastHoverWaitFalse() {
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleToastWaitClose">等待弹出层关闭</DButton>
+<DButton theme="primary" @click="handleToastWaitClose"
+	>等待轻量提示关闭</DButton
+>
 ```
 
 ```ts
 async function handleToastWaitClose() {
-	await popup.toast('这是一条消息')
-	popup.toast('弹出层已关闭')
+	await popup.toast('这是一条轻量提示消息')
+	popup.toast('轻量提示已关闭')
 }
 ```
 
@@ -288,7 +290,7 @@ async function handleToastWaitClose() {
 
 ## 详细配置
 
-具体可以参考 [预置插件 API - Toast 消息](/api/plugin-preset/toast)。
+具体可以参考 [预置插件 API - Toast 轻量提示](/api/plugin-preset/toast)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
@@ -300,104 +302,104 @@ if (!import.meta.env.SSR) {
 }
 
 function handleToast() {
-	popup.toast('这是一条消息')
+	popup.toast('这是一条轻量提示消息')
 }
 
 function handleToastPrimary() {
-	popup.toastPrimary('这是一条主要主题消息')
+	popup.toastPrimary('这是一条主要主题的轻量提示消息')
 }
 
 function handleToastInfo() {
-	popup.toastInfo('这是一条信息主题消息')
+	popup.toastInfo('这是一条信息主题的轻量提示消息')
 }
 
 function handleToastSuccess() {
-	popup.toastSuccess('这是一条成功主题消息')
+	popup.toastSuccess('这是一条成功主题的轻量提示消息')
 }
 
 function handleToastWarning() {
-	popup.toastWarning('这是一条警告主题消息')
+	popup.toastWarning('这是一条警告主题的轻量提示消息')
 }
 
 function handleToastDanger() {
-	popup.toastDanger('这是一条危险主题消息')
+	popup.toastDanger('这是一条危险主题的轻量提示消息')
 }
 
 function handleToastThemePrimary() {
-	popup.toast('这是一条主要主题消息', {
+	popup.toast('这是一条主要主题的轻量提示消息', {
 		theme: 'primary',
 	})
 }
 
 function handleToastThemeInfo() {
-	popup.toast('这是一条信息主题消息', {
+	popup.toast('这是一条信息主题的轻量提示消息', {
 		theme: 'info',
 	})
 }
 
 function handleToastThemeSuccess() {
-	popup.toast('这是一条成功主题消息', {
+	popup.toast('这是一条成功主题的轻量提示消息', {
 		theme: 'success',
 	})
 }
 
 function handleToastThemeWarning() {
-	popup.toast('这是一条警告主题消息', {
+	popup.toast('这是一条警告主题的轻量提示消息', {
 		theme: 'warning',
 	})
 }
 
 function handleToastThemeDanger() {
-	popup.toast('这是一条危险主题消息', {
+	popup.toast('这是一条危险主题的轻量提示消息', {
 		theme: 'danger',
 	})
 }
 
 function handleToastPlacementLeft() {
-	popup.toast('这是一条左侧位置的消息', {
+	popup.toast('这是一条左侧位置的轻量提示消息', {
 		placement: 'left',
 	})
 }
 
 function handleToastPlacementTop() {
-	popup.toast('这是一条顶部位置的消息', {
+	popup.toast('这是一条顶部位置的轻量提示消息', {
 		placement: 'top',
 	})
 }
 
 function handleToastPlacementRightTop() {
-	popup.toast('这是一条右上位置的消息', {
+	popup.toast('这是一条右上位置的轻量提示消息', {
 		placement: 'right-top',
 	})
 }
 
 function handleToastDuration() {
-	popup.toast('这是一条持续5秒的消息', {
+	popup.toast('这是一条持续5秒的轻量提示消息', {
 		duration: 5000,
 	})
 }
 
 function handleToastDurationZero() {
-	popup.toast('这是一条不会自动关闭的消息', {
+	popup.toast('这是一条不会自动关闭的轻量提示消息', {
 		duration: 0,
 	})
 }
 
 
 function handleToastShowClose() {
-	popup.toast('这是一条显示关闭按钮的消息', {
+	popup.toast('这是一条显示关闭按钮的轻量提示消息', {
 		showClose: true,
 	})
 }
 
 function handleToastHoverWaitFalse() {
-	popup.toast('这是一条禁用鼠标悬停持续显示的消息', {
+	popup.toast('这是一条禁用鼠标悬停持续显示的轻量提示消息', {
 		hoverWait: false,
 	})
 }
 
 async function handleToastWaitClose() {
-	await popup.toast('这是一条消息')
+	await popup.toast('这是一条轻量提示消息')
 	popup.toast('弹出层已关闭',{
 		theme: 'success',
 	})
