@@ -180,6 +180,7 @@ type RenderStyleOptions = {
 	 * 弹出层位置
 	 *
 	 * - 默认为 center ，即居中
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -217,6 +218,7 @@ type RenderStyleOptions = {
 	 * 弹出层遮罩是否启用模糊效果，默认为 true
 	 *
 	 * - 默认为 true
+	 *
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
@@ -333,6 +335,7 @@ type UpdateOption = {
 	 * 弹出层位置
 	 *
 	 * - 默认为 center ，即居中
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -370,6 +373,7 @@ type UpdateOption = {
 	 * 弹出层遮罩是否启用模糊效果
 	 *
 	 * - 默认为 true
+	 *
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean

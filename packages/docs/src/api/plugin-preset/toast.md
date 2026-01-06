@@ -5,6 +5,10 @@ outline: 2
 
 # Toast 提示 API
 
+::: tip
+以下 API 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
+:::
+
 ## popup.toast()
 
 创建一个消息弹出层。
@@ -35,6 +39,7 @@ type ToastOption = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -43,6 +48,7 @@ type ToastOption = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -51,6 +57,7 @@ type ToastOption = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -125,6 +132,7 @@ type ToastOptionWithoutTheme = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -133,6 +141,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -141,6 +150,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -186,6 +196,7 @@ type ToastOptionWithoutTheme = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -194,6 +205,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -202,6 +214,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -247,6 +260,7 @@ type ToastOptionWithoutTheme = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -255,6 +269,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -263,6 +278,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -308,6 +324,7 @@ type ToastOptionWithoutTheme = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -316,6 +333,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -324,6 +342,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -369,6 +388,7 @@ type ToastOptionWithoutTheme = {
 	 * 消息位置
 	 *
 	 * - 默认值为 `center`
+	 *
 	 * @since 1.5.0
 	 */
 	placement?: Placement
@@ -377,6 +397,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
+	 *
 	 * @since 1.5.0
 	 */
 	showClose?: boolean
@@ -385,6 +406,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
+	 *
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
@@ -408,7 +430,7 @@ type ToastOptionWithoutTheme = {
 创建一个成功主题的消息弹出层。
 
 ::: danger
-该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastSuccess()](#popup-toast-success) 方法代替。
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastSuccess()](#popup-toast-success) 方法代替。
 :::
 
 ## popup.toast.info() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
@@ -418,7 +440,7 @@ type ToastOptionWithoutTheme = {
 创建一个信息主题的消息弹出层。
 
 ::: danger
-该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastInfo()](#popup-toast-info) 方法代替。
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastInfo()](#popup-toast-info) 方法代替。
 :::
 
 ## popup.toast.warning() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
@@ -428,7 +450,7 @@ type ToastOptionWithoutTheme = {
 创建一个警告主题的消息弹出层。
 
 ::: danger
-该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastWarning()](#popup-toast-warning) 方法代替。
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastWarning()](#popup-toast-warning) 方法代替。
 :::
 
 ## popup.toast.danger() <Badge text="1.5.0+" /> <Badge type="danger" text="1.6.0-" />
@@ -438,5 +460,5 @@ type ToastOptionWithoutTheme = {
 创建一个危险主题的消息弹出层。
 
 ::: danger
-该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [toastDanger()](#popup-toast-danger) 方法代替。
+该方法因为静态方法的局限性，从 <DVersion package="plugin" version="1.6.0" /> 开始已被弃用，请使用 [popup.toastDanger()](#popup-toast-danger) 方法代替。
 :::

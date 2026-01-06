@@ -7,9 +7,9 @@ import { components } from './components'
 import { createPopupPlus } from 'vue-popup-plus'
 import { plugin } from 'vue-popup-plus-plugin-preset'
 
-import './style.css'
 import 'virtual:group-icons.css'
-import './style/main.styl'
+import './style.css'
+import '@theme/styles/main.scss'
 
 export default {
 	extends: DefaultTheme,

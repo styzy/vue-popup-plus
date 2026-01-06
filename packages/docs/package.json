@@ -12,10 +12,10 @@
 		"preview": "vitepress preview"
 	},
 	"dependencies": {
+		"utils": "workspace:*",
 		"vue": "catalog:",
 		"vue-popup-plus": "workspace:*",
-		"vue-popup-plus-plugin-preset": "workspace:*",
-		"utils": "workspace:*"
+		"vue-popup-plus-plugin-preset": "workspace:*"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",
@@ -37,7 +37,6 @@
 		"prettier": "catalog:",
 		"pug": "catalog:",
 		"sass": "catalog:",
-		"stylus": "catalog:",
 		"typescript": "catalog:",
 		"unplugin-vue-markdown": "catalog:",
 		"vite": "catalog:",

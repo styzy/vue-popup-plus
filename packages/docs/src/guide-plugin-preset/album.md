@@ -206,7 +206,7 @@ async function handleAlbumWaitClose() {
 
 ## 详细配置
 
-具体可以参考 [预置插件 API - 控制器实例 popup.album()](/api/plugin-preset-controller#popup-album)。
+具体可以参考 [预置插件 API - Album 媒体相册](/api/plugin-preset/album)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

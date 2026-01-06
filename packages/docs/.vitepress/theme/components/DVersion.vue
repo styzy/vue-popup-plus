@@ -30,27 +30,32 @@ function handleJump() {
 }
 </script>
 
-<style scoped lang="stylus">
-.d-version
-	display inline-block
-	.wrapper
-		baseTrans()
-		position relative
-		display flex
-		align-items center
-		justify-content flex-start
-		gap 5px
-		padding 0px 6px
-		border-radius 4px
-		background-color var(--doc-color-primary)
-		color #FFFFFF
-		font-size var(--doc-font-size-text-sub)
-		line-height 24px
-		cursor pointer
-		.version
-			font-weight 700
-		&:hover
-			background-color var(--doc-color-primary-light)
-			&:after
-				content '[点击查看更新日志]'
+<style lang="scss" scoped>
+.d-version {
+	display: inline-block;
+	.wrapper {
+		@include base-transition();
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 5px;
+		padding: 0px 6px;
+		border-radius: 4px;
+		background-color: var(--docs-color-primary);
+		color: #ffffff;
+		font-size: var(--docs-font-size-text-sub);
+		line-height: 24px;
+		cursor: pointer;
+		.version {
+			font-weight: 700;
+		}
+		&:hover {
+			background-color: var(--docs-color-primary-light);
+			&:after {
+				content: '[点击查看更新日志]';
+			}
+		}
+	}
+}
 </style>

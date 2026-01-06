@@ -73,9 +73,9 @@ outline: 2
 - `Toast 消息` 新增 `showClose` 参数，默认为 `false` ，表示是否显示关闭按钮。
 - `Toast 消息` 新增 `hoverWait` 参数，默认为 `true` ，表示开启鼠标悬停持续显示，当鼠标进入时，将会移除自动关闭定时器（如果存在），鼠标离开时，会重新开启自动关闭定时器。
 - `Dialog 对话` 新增 `placement` 参数，用于指定对话框的位置，默认值为 `center` ，可选值和核心 `render()` 函数的 `placement` 参数一致。
-- `Dialog 对话` 新增 `popup.dialog.close()` 方法用于关闭最后一个渲染的对话框。
+- `Dialog 对话` 新增 `close()` 方法用于关闭最后一个渲染的对话框。
 - `Loading 加载遮罩` 改为同时仅会有一个实例存在，每次显示加载遮罩时，如果已经有正在显示的加载遮罩，会自动关闭之前的加载遮罩，并显示新的加载遮罩。
-- `Loading 加载遮罩` 调用 `popup.loading()` 方法时，返回的关闭加载遮罩的函数，现在调用关闭函数会返回一个 `Promise<void>` 类型的 Promise 对象，用于等待加载遮罩关闭动画完成。
+- `Loading 加载遮罩` 调用 `popup.loading.close()` 方法时，现在会返回一个 `Promise<void>` 类型的 Promise 对象，用于等待加载遮罩关闭动画完成。
 - `Loading 加载遮罩` 新增 `mask` 参数，用于控制是否显示遮罩层，默认值为 `true`。
 
 ### 优化
