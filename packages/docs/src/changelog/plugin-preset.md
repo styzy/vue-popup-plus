@@ -13,6 +13,10 @@ outline: 2
 - 新增 `Message 消息` 功能插件。
 - 新增 `Toast 轻量提示` 主题子方法 `toastPrimary()` 。
 
+### 优化
+
+- 所有预置插件默认关闭 `maskBlur` 遮罩高斯模糊效果以提高性能。
+
 ### 破坏性改动
 
 ::: danger

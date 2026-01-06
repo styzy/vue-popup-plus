@@ -15,9 +15,15 @@ type Level = 'high' | 'medium' | 'low'
 type Props = {
 	version: Version
 	level?: Level
+	author?: string
 }
-const { version, level = 'medium' } = defineProps<Props>()
-const badgeText = computed(() => `${version} - ${level}`)
+const {
+	version,
+	level = 'medium',
+	author = 'unassigned',
+} = defineProps<Props>()
+
+const badgeText = computed(() => `${version} - ${level} - ${author}`)
 const badgeType = computed(
 	() =>
 		({
