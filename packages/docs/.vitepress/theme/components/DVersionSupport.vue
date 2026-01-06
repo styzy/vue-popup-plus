@@ -23,19 +23,23 @@ const {
 } = defineProps<Props>()
 </script>
 
-<style lang="stylus" scoped>
-.d-version-support
-	display flex
-	align-items center
-	justify-content flex-start
-	gap 5px
-	color var(--vp-c-text-1)
-	font-size var(--doc-font-size-text-sub)
-	overflow hidden
-	.type
-		color var(--doc-color-success)
-		font-weight 700
-	&.is-deprecated
-		.type
-			color var(--doc-color-danger)
+<style lang="scss" scoped>
+.d-version-support {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 5px;
+	color: var(--vp-c-text-1);
+	font-size: var(--docs-font-size-text-sub);
+	overflow: hidden;
+	.type {
+		color: var(--docs-color-success);
+		font-weight: 700;
+	}
+	&.is-deprecated {
+		.type {
+			color: var(--docs-color-danger);
+		}
+	}
+}
 </style>

@@ -72,18 +72,19 @@ export default defineConfig({
 		server: {
 			port: 9528,
 		},
-		// resolve: {
-		// 	alias: {
-		// 		'vitepress-plugin-markdown-container-demo': fileURLToPath(
-		// 			new URL('../../../md-demo/src/index', import.meta.url)
-		// 		),
-		// 	},
-		// },
+		resolve: {
+			alias: {
+				// 'vitepress-plugin-markdown-container-demo': fileURLToPath(
+				// 	new URL('../../../md-demo/src/index', import.meta.url)
+				// ),
+				'@theme': fileURLToPath(new URL('../theme', import.meta.url)),
+			},
+		},
 		plugins: [groupIconVitePlugin()],
 		css: {
 			preprocessorOptions: {
-				stylus: {
-					additionalData: `@import "${fileURLToPath(new URL('../theme/style/inject.styl', import.meta.url))}";`,
+				scss: {
+					additionalData: `@use '@theme/styles/inject.scss' as *;`,
 				},
 			},
 		},

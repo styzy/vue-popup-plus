@@ -279,9 +279,6 @@ importers:
       sass:
         specifier: 'catalog:'
         version: 1.97.0
-      stylus:
-        specifier: 'catalog:'
-        version: 0.64.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3

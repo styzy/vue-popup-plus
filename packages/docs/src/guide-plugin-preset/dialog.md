@@ -66,27 +66,38 @@ function handleDialogProps() {
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-通过调用 `popup.dialog.close()` 方法可以手动关闭最后一个打开的对话框。
+通过调用 `popup.dialogClose()` 方法可以手动关闭最后一个打开的对话框。
 
-如果不存在打开的对话框，调用 `popup.dialog.close()` 方法将不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
+如果不存在打开的对话框，调用 `popup.dialogClose()` 方法将不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
 
 ```ts [HelloWorld.vue]
 // 关闭对话框
 function handleClose() {
-	popup.dialog.close()
+	popup.dialogClose()
 }
 ```
+
+::: warning
+在 `1.5.x` 版本，关闭对话框的使用方式是：
+
+- `popup.dialog.close()`
+
+该方法使用的是静态方法，无法动态同步组件上下文，因此从 `1.6.0` 版本开始被废弃，因此请使用新的关闭对话框方法代替：
+
+- `popup.dialogClose()`
+
+:::
 
 ## 携带参数关闭对话框 <Badge text="1.5.0+" />
 
 > <DVersionSupport package="plugin" version="1.5.0" />
 
-当调用 `popup.dialog.close()` 方法时，可以传入一个 `payload` 参数，该参数会作为关闭携带参数返回给打开对话框的 `Promise` 对象，因此可以通过 `await` 来获取关闭携带参数。
+当调用 `popup.dialogClose()` 方法时，可以传入一个 `payload` 参数，该参数会作为关闭携带参数返回给打开对话框的 `Promise` 对象，因此可以通过 `await` 来获取关闭携带参数。
 
 ```ts{3} [HelloWorld.vue]
 // 关闭对话框
 function handleClose() {
-	popup.dialog.close('awesome !')
+	popup.dialogClose('awesome !')
 }
 ```
 
@@ -461,7 +472,7 @@ function handleDialogOnMounted() {
 
 ## 详细配置
 
-具体可以参考 [API 控制器实例 popup.dialog()](/api/plugin-preset-controller#popup-dialog)。
+具体可以参考 [预置插件 API - Dialog 对话框](/api/plugin-preset/dialog)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

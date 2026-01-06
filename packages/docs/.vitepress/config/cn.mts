@@ -96,9 +96,18 @@ export const themeConfig = defineConfig({
 				],
 			},
 			{
-				text: '团队',
-				link: '/team',
-				activeMatch: '/team',
+				text: '关于',
+				activeMatch: '/about',
+				items: [
+					{
+						text: '常见问题',
+						link: '/about/faq',
+					},
+					{
+						text: '团队',
+						link: '/about/team',
+					},
+				],
 			},
 		],
 		sidebar: {
@@ -320,12 +329,36 @@ export const themeConfig = defineConfig({
 					text: '预置插件 API',
 					items: [
 						{
-							text: '控制器实例',
-							link: '/api/plugin-preset-controller',
+							text: 'Toast 消息',
+							link: '/api/plugin-preset/toast',
+						},
+						{
+							text: 'Alert 提示',
+							link: '/api/plugin-preset/alert',
+						},
+						{
+							text: 'Confirm 确认',
+							link: '/api/plugin-preset/confirm',
+						},
+						{
+							text: 'Prompt 提示输入',
+							link: '/api/plugin-preset/prompt',
+						},
+						{
+							text: 'Dialog 对话',
+							link: '/api/plugin-preset/dialog',
+						},
+						{
+							text: 'Loading 加载遮罩',
+							link: '/api/plugin-preset/loading',
+						},
+						{
+							text: 'Album 媒体相册',
+							link: '/api/plugin-preset/album',
 						},
 						{
 							text: '通用',
-							link: '/api/plugin-preset-common',
+							link: '/api/plugin-preset/common',
 						},
 					],
 				},

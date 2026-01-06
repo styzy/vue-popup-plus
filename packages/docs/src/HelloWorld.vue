@@ -48,11 +48,11 @@ function handleClose(payload?: any) {
 	gap 20px
 	width 400px
 	height 300px
-	background-color var(--doc-color-background-main)
+	background-color var(--docs-color-background-main)
 	.title
 		padding 30px 0 10px
 		font-size 30px
 		font-weight bold
 	.value
-		color var(--doc-color-primary)
+		color var(--docs-color-primary)
 </style>

@@ -200,7 +200,7 @@ function handleConfirmDraggableOverflow() {
 
 ## 详细配置
 
-具体可以参考 [API 控制器实例 popup.confirm()](/api/plugin-preset-controller#popup-confirm)。
+具体可以参考 [预置插件 API - Confirm 确认](/api/plugin-preset/confirm)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'

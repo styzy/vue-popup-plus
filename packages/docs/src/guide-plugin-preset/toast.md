@@ -69,18 +69,18 @@ function handleToastDanger() {
 ::: warning
 在 `1.5.x` 版本，快速主题方法的使用方式是：
 
-- `toast.success()`
-- `toast.info()`
-- `toast.warning()`
-- `toast.danger()`
+- `popup.toast.success()`
+- `popup.toast.info()`
+- `popup.toast.warning()`
+- `popup.toast.danger()`
 
 这些方法使用的是静态方法，无法动态同步组件上下文，因此从 `1.6.0` 版本开始被废弃，因此请使用新的主题方法代替：
 
-- `toastPrimary()`
-- `toastSuccess()`
-- `toastInfo()`
-- `toastWarning()`
-- `toastDanger()`
+- `popup.toastPrimary()`
+- `popup.toastSuccess()`
+- `popup.toastInfo()`
+- `popup.toastWarning()`
+- `popup.toastDanger()`
 
 :::
 
@@ -288,7 +288,7 @@ async function handleToastWaitClose() {
 
 ## 详细配置
 
-具体可以参考 [API 控制器实例 popup.toast()](/api/plugin-preset-controller#popup-toast)。
+具体可以参考 [预置插件 API - Toast 消息](/api/plugin-preset/toast)。
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
