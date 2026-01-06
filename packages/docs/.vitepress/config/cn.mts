@@ -93,6 +93,10 @@ export const themeConfig = defineConfig({
 						text: '预置插件日志',
 						link: '/changelog/plugin-preset',
 					},
+					{
+						text: '开发规划',
+						link: '/changelog/todo',
+					},
 				],
 			},
 			{

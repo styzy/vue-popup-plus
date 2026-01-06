@@ -7,6 +7,7 @@ import DButtonGroup from './DButtonGroup.vue'
 import DVersion from './DVersion.vue'
 import DVersionPanel from './DVersionPanel.vue'
 import DVersionSupport from './DVersionSupport.vue'
+import DVersionTodo from './DVersionTodo.vue'
 
 export const components = {
 	DApi,
@@ -18,6 +19,7 @@ export const components = {
 	DVersion,
 	DVersionPanel,
 	DVersionSupport,
+	DVersionTodo,
 }
 
 declare module 'vue' {
@@ -31,5 +33,6 @@ declare module 'vue' {
 		DVersion: typeof DVersion
 		DVersionPanel: typeof DVersionPanel
 		DVersionSupport: typeof DVersionSupport
+		DVersionTodo: typeof DVersionTodo
 	}
 }
