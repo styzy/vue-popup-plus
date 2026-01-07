@@ -15,7 +15,6 @@ outline: 2
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupToast" type="default">轻量提示</DButton>
-	<DButton @click="handlePopupToastLongText">长文本</DButton>
 	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
 	<DButton @click="handlePopupToastDurationZero">持续显示</DButton>
 </DButtonGroup>
@@ -24,12 +23,6 @@ outline: 2
 ```ts
 function handlePopupToast() {
 	popup.toast('这是一条轻量提示消息')
-}
-
-function handlePopupToastLongText() {
-	popup.toast(
-		'这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；'
-	)
 }
 
 function handlePopupToastDuration() {
@@ -211,12 +204,6 @@ if (!import.meta.env.SSR) {
 
 function handlePopupToast() {
 	popup.toast('这是一条轻量提示消息')
-}
-
-function handlePopupToastLongText() {
-	popup.toast(
-		'这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；这是一条长文本轻量提示，用于测试 toast 组件的长文本显示效果；'
-	)
 }
 
 function handlePopupToastDuration() {

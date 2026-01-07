@@ -22,12 +22,14 @@ outline: 2
 ### 特性
 
 - 新增 `createPopupPlus()` 函数，用于创建核心实例。
-- `createPopupPlus()` 函数新增 `logFilter` 参数，用于自定义日志过滤函数，默认不进行过滤。
+- `createPopupPlus()` 函数新增 `logFilter` 参数，用于自定义日志过滤函数，默认为 `undefined`。
 - 新增 `usePopupInstanceId()` 组合式工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID。
 - 新增 `usePopupComputedStyle()` 组合式工具函数，用于获取当前弹出层的渲染组件的计算样式。
+- `render()` 函数新增 `maskTransparent` 参数，用于指定是否启用透明遮罩层，默认值为 `false` 。
 
 ### 优化
 
+- 优化遮罩层显示效果。
 - `usePopup()` 函数现在将会自动在组件内获取组件的 `上下文` ，从而提供对其他框架更好的兼容性，如果你仅在组件内使用 `usePopup()` 函数，那么 `PopupRoot` 根组件将并不再是必须的。
 
 ### 修复

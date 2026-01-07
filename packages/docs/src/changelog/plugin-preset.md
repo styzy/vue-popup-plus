@@ -3,19 +3,21 @@ pageClass: changelog
 outline: 2
 ---
 
-# 插件预设 更新日志
+# 预置插件 更新日志
 
 ## 1.6.0
 
 ### 特性
 
-- 新增 `Drawer 抽屉` 功能插件。
-- 新增 `Message 消息` 功能插件。
+- 新增 `Drawer 抽屉` 插件。
+- 新增 `Message 消息` 插件。
+- 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - 新增 `Toast 轻量提示` 主题子方法 `toastPrimary()` 。
 
 ### 优化
 
-- 所有预置插件默认关闭 `maskBlur` 遮罩高斯模糊效果以提高性能。
+- 所有插件修改 `maskBlur` 参数的默认值为 `false` ，默认关闭遮罩高斯模糊效果以提高性能。
+- 优化 `Loading 加载遮罩` 插件的展示效果，适配 `dark` 主题下的背景颜色。
 
 ### 破坏性改动
 

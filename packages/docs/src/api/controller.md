@@ -122,7 +122,8 @@ type RenderConfigOptions = {
 	/**
 	 * 点击遮罩层是否关闭弹出层
 	 *
-	 * - 默认值为 false ，仅在 mask 为 true 时有效
+	 * - 默认值为 false
+	 * - 仅在 `mask` 参数为 `true` 时有效
 	 */
 	maskClickClose?: boolean
 	/**
@@ -137,49 +138,92 @@ type RenderStyleOptions = {
 	/**
 	 * 弹出层宽度
 	 *
-	 * - 默认为 auto，即自适应，支持 string 和 number 类型，string
-	 *   类型更为灵活，number 类型方便计算
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * width: 300
+	 * width: '300px'
+	 * width: '50%'
+	 * width: 'inherit'
 	 */
 	width?: string | number
 	/**
 	 * 弹出层最大宽度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * maxWidth: 300
+	 * maxWidth: '300px'
+	 * maxWidth: '50%'
+	 * maxWidth: 'inherit'
 	 */
 	maxWidth?: string | number
 	/**
 	 * 弹出层最小宽度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * minWidth: 300
+	 * minWidth: '300px'
+	 * minWidth: '50%'
+	 * minWidth: 'inherit'
 	 */
 	minWidth?: string | number
 	/**
 	 * 弹出层高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * height: 300
+	 * height: '300px'
+	 * height: '50%'
+	 * height: 'inherit'
 	 */
 	height?: string | number
 	/**
 	 * 弹出层最大高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * maxHeight: 300
+	 * maxHeight: '300px'
+	 * maxHeight: '50%'
+	 * maxHeight: 'inherit'
 	 */
 	maxHeight?: string | number
 	/**
 	 * 弹出层最小高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * minHeight: 300
+	 * minHeight: '300px'
+	 * minHeight: '50%'
+	 * minHeight: 'inherit'
 	 */
 	minHeight?: string | number
 	/**
 	 * 弹出层位置
 	 *
-	 * - 默认为 center ，即居中
+	 * - 默认为 `'center'` ，即居中显示
+	 * - 更多位置请查看 {@link Placement}
 	 *
 	 * @since 1.5.0
 	 */
@@ -188,6 +232,7 @@ type RenderStyleOptions = {
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
+	 * - 更多动画类型请查看 {@link IAnimations}
 	 */
 	viewAnimation?: Animation
 	/**
@@ -212,20 +257,32 @@ type RenderStyleOptions = {
 	 * 弹出层遮罩动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
+	 * - 更多动画类型请查看 {@link IAnimations}
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 弹出层遮罩是否启用模糊效果，默认为 true
+	 * 弹出层遮罩是否启用模糊效果
 	 *
-	 * - 默认为 true
+	 * - 默认为 `false`
+	 * - 仅在 `mask` 参数为 `true` 时有效
 	 *
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**
+	 * 弹出层遮罩是否启用透明效果
+	 *
+	 * - 默认为 `false`
+	 * - 优先级高于 `maskBlur`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
 	 * 弹出层动画时长
 	 *
-	 * - 默认为 100 ，单位为 毫秒
+	 * - 默认为 `100` ，单位为 毫秒
 	 */
 	animationDuration?: number
 	/**
