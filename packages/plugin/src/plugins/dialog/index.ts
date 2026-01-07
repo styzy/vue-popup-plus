@@ -99,18 +99,6 @@ type DialogOption<TComponent extends Component = Component> = {
 	 */
 	placement?: Placement
 	/**
-	 * 是否显示对话框遮罩层
-	 *
-	 * - 默认值为 `true`
-	 */
-	mask?: boolean
-	/**
-	 * 是否点击遮罩层关闭对话框
-	 *
-	 * - 默认值为 `false`
-	 */
-	maskClickClose?: boolean
-	/**
 	 * 是否可拖拽
 	 *
 	 * - 默认值为 `false`
@@ -122,6 +110,18 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * - 默认值为 `false`
 	 */
 	dragOverflow?: boolean
+	/**
+	 * 是否显示对话框遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
+	/**
+	 * 是否点击遮罩层关闭对话框
+	 *
+	 * - 默认值为 `false`
+	 */
+	maskClickClose?: boolean
 	/**
 	 * 遮罩层是否模糊
 	 *
