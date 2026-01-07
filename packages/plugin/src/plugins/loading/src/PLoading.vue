@@ -67,12 +67,26 @@ function handleClose() {
 	}
 	&.has-mask {
 		.wrapper {
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: rgba(0, 0, 0, 0.75);
 		}
 	}
 	&:not(.has-mask) {
 		.wrapper {
 			background-color: rgba(0, 0, 0, 0.8);
+		}
+	}
+}
+.dark {
+	.p-loading {
+		&.has-mask {
+			.wrapper {
+				background-color: rgba(50, 50, 50, 0.85);
+			}
+		}
+		&:not(.has-mask) {
+			.wrapper {
+				background-color: rgba(50, 50, 50, 0.9);
+			}
 		}
 	}
 }
