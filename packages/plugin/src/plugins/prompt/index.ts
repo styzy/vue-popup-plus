@@ -7,7 +7,11 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalOption } from '../../typings'
+import type {
+	GlobalPluginOption,
+	MergedOption,
+	SharedOption,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Prompt'
@@ -87,7 +91,7 @@ type PromptOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-}
+} & SharedOption
 
 export interface IPrompt {
 	/**
@@ -124,7 +128,7 @@ export const prompt = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const prompt: IPrompt = function (
 			message,
 			{
@@ -139,6 +143,7 @@ export const prompt = definePlugin({
 				draggable = false,
 				dragOverflow = false,
 				maskBlur = false,
+				zIndex,
 			} = {}
 		) {
 			return new Promise((resolve) => {
@@ -162,8 +167,9 @@ export const prompt = definePlugin({
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<PromptOption> = {
+						const mergedOptions: MergedOption<PromptOption> = {
 							defaultValue,
 							type,
 							title,
@@ -175,6 +181,7 @@ export const prompt = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							zIndex,
 						}
 
 						printLog(

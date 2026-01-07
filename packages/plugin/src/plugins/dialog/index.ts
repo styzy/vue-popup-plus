@@ -11,7 +11,11 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalOption } from '../../typings'
+import type {
+	GlobalPluginOption,
+	MergedOption,
+	SharedOption,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Dialog'
@@ -130,7 +134,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-}
+} & SharedOption
 
 export interface IDialog {
 	/**
@@ -171,7 +175,7 @@ export const dialog = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const recordList: Array<{
 			id: string
 			instanceId: InstanceId
@@ -197,6 +201,7 @@ export const dialog = definePlugin({
 			draggable = false,
 			dragOverflow = false,
 			maskBlur = false,
+			zIndex,
 		}) {
 			return new Promise((resolve) => {
 				const id = createId()
@@ -223,12 +228,13 @@ export const dialog = definePlugin({
 					maxHeight,
 					minHeight,
 					placement,
-					mask,
-					maskClickClose,
 					viewTranslateOverflow: dragOverflow,
+					mask,
 					maskBlur,
+					maskClickClose,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<DialogOption> = {
+						const mergedOptions: MergedOption<DialogOption> = {
 							title,
 							component,
 							componentProps,
@@ -247,6 +253,7 @@ export const dialog = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							zIndex,
 						}
 
 						printLog(

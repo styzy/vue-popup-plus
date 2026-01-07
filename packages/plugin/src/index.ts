@@ -6,7 +6,7 @@ import { dialog, type IDialog } from './plugins/dialog'
 import { loading, type ILoading } from './plugins/loading'
 import { prompt, type IPrompt } from './plugins/prompt'
 import { toast, type IToast } from './plugins/toast'
-import type { GlobalOption } from './typings'
+import type { GlobalPluginOption } from './typings'
 
 import './assets/styles/main.scss'
 
@@ -22,7 +22,7 @@ export const plugin = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install(config, { skin = 'modern' }: GlobalOption = {}) {
+	install(config, { skin = 'modern' }: GlobalPluginOption = {}) {
 		const options = { skin }
 
 		album.install(config, options)

@@ -1,5 +1,6 @@
 <template lang="pug">
-.p-loading(:class="[`is-skin-${skin}`, { 'has-mask': mask }]")
+.p-loading(
+	:class="[`is-skin-${skin}`, { 'has-mask': mask && !maskTransparent }]")
 	.wrapper
 		PLoadingIcon(:size="iconSize" :theme)
 		.title(v-if="title") {{ title }}
@@ -28,10 +29,12 @@ type Props = {
 	title: string
 	iconSize: number
 	mask: boolean
+	maskTransparent: boolean
 	debugMode: boolean
 }
 
-const { theme, title, iconSize, mask, debugMode } = defineProps<Props>()
+const { theme, title, iconSize, mask, maskTransparent, debugMode } =
+	defineProps<Props>()
 
 function handleClose() {
 	emit('close')

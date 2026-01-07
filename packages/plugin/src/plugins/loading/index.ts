@@ -8,7 +8,12 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import { type GlobalOption, type Theme } from '../../typings'
+import {
+	type GlobalPluginOption,
+	type MergedOption,
+	type SharedOption,
+	type Theme,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Loading'
@@ -53,6 +58,14 @@ type LoadingOption = {
 	 */
 	maskBlur?: boolean
 	/**
+	 * 遮罩层是否透明
+	 *
+	 * - 默认值：`false`
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
 	 * 是否禁用滚动
 	 *
 	 * - 默认值：`false`
@@ -60,7 +73,7 @@ type LoadingOption = {
 	 * @since 1.6.0
 	 */
 	disableScroll?: boolean
-}
+} & SharedOption
 
 export interface ILoading {
 	/**
@@ -112,7 +125,7 @@ export const loading = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const record: {
 			id?: string
 			instanceId?: InstanceId
@@ -124,7 +137,9 @@ export const loading = definePlugin({
 			iconSize = 60,
 			mask = true,
 			maskBlur = false,
+			maskTransparent = false,
 			disableScroll = true,
+			zIndex,
 		} = {}) {
 			if (record.id) {
 				printLog(
@@ -168,6 +183,7 @@ export const loading = definePlugin({
 					title,
 					iconSize,
 					mask,
+					maskTransparent,
 					onClose: () => {
 						this.loadingClose()
 					},
@@ -175,16 +191,19 @@ export const loading = definePlugin({
 				},
 				mask,
 				maskBlur,
+				maskTransparent,
 				disableScroll,
-				zIndex: 99999999,
+				zIndex,
 				onMounted: () => {
-					const mergedOptions: Required<LoadingOption> = {
+					const mergedOptions: MergedOption<LoadingOption> = {
 						theme,
 						title,
 						iconSize,
 						mask,
 						maskBlur,
+						maskTransparent,
 						disableScroll,
+						zIndex,
 					}
 
 					printLog(

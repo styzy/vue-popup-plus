@@ -7,7 +7,11 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalOption } from '../../typings'
+import type {
+	GlobalPluginOption,
+	MergedOption,
+	SharedOption,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Album'
@@ -71,15 +75,7 @@ type AlbumOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-	/**
-	 * 弹窗的 z-index 层级
-	 *
-	 * - 默认值：`1000`
-	 *
-	 * @since 1.3.0
-	 */
-	// zIndex?: number
-}
+} & SharedOption
 
 export interface IAlbum {
 	/**
@@ -117,7 +113,7 @@ export const album = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const album: IAlbum = function ({
 			sources,
 			defaultIndex = 0,
@@ -128,6 +124,7 @@ export const album = definePlugin({
 			disableScale = false,
 			disableDrag = false,
 			maskBlur = false,
+			zIndex,
 		}) {
 			return new Promise<void>((resolve) => {
 				this.render({
@@ -146,8 +143,9 @@ export const album = definePlugin({
 					width: '100%',
 					height: '100%',
 					maskBlur,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<AlbumOption> = {
+						const mergedOptions: MergedOption<AlbumOption> = {
 							sources,
 							defaultIndex,
 							disableCounter,
@@ -157,6 +155,7 @@ export const album = definePlugin({
 							disableScale,
 							disableDrag,
 							maskBlur,
+							zIndex,
 						}
 
 						printLog(

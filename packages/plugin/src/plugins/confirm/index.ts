@@ -7,7 +7,7 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalOption } from '../../typings'
+import type { GlobalPluginOption } from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Confirm'
@@ -90,7 +90,7 @@ export const confirm = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const confirm: IConfirm = function (
 			content = '是否确认？',
 			{

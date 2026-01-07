@@ -159,6 +159,7 @@
 				PButton(@click="handlePopupLoadingForever()") 持续显示
 				PButton(@click="handlePopupLoadingWithoutMask()") 禁用遮罩层
 				PButton(@click="handlePopupLoadingWithMaskBlur()") 启用遮罩模糊
+				PButton(@click="handlePopupLoadingWithMaskTransparent()") 启用遮罩透明
 			.title.second Dialog 对话框
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
@@ -1020,6 +1021,11 @@ function handlePopupLoadingWithoutMask() {
 
 function handlePopupLoadingWithMaskBlur() {
 	popup.loading({ maskBlur: true })
+	window.setTimeout(() => popup.loadingClose(), 2000)
+}
+
+function handlePopupLoadingWithMaskTransparent() {
+	popup.loading({ maskTransparent: true })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 

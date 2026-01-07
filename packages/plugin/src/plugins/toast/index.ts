@@ -9,7 +9,12 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import { type GlobalOption, type Theme } from '../../typings'
+import {
+	type GlobalPluginOption,
+	type MergedOption,
+	type SharedOption,
+	type Theme,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Toast'
@@ -55,7 +60,7 @@ type ToastOption = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
-}
+} & SharedOption
 
 type ToastOptionWithoutTheme = Omit<ToastOption, 'theme'>
 
@@ -143,7 +148,7 @@ export const toast = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const toast: IToast = function (
 			content = '',
 			{
@@ -152,6 +157,7 @@ export const toast = definePlugin({
 				duration = 2000,
 				showClose = false,
 				hoverWait = true,
+				zIndex,
 			} = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -169,16 +175,18 @@ export const toast = definePlugin({
 						},
 					},
 					placement,
+					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 					mask: false,
 					disableScroll: false,
-					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<ToastOption> = {
+						const mergedOptions: MergedOption<ToastOption> = {
 							theme,
 							placement,
 							duration,
 							showClose,
 							hoverWait,
+							zIndex,
 						}
 
 						printLog(

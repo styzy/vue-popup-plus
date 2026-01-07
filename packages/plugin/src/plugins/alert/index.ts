@@ -7,7 +7,11 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalOption } from '../../typings'
+import type {
+	GlobalPluginOption,
+	MergedOption,
+	SharedOption,
+} from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Alert'
@@ -52,7 +56,7 @@ type AlertOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-}
+} & SharedOption
 
 export interface IAlert {
 	/**
@@ -80,7 +84,7 @@ export const alert = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalOption = {}) => {
+	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
 		const alert: IAlert = function (
 			content = '',
 			{
@@ -90,6 +94,7 @@ export const alert = definePlugin({
 				draggable = false,
 				dragOverflow = false,
 				maskBlur = false,
+				zIndex,
 			} = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -108,14 +113,16 @@ export const alert = definePlugin({
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<AlertOption> = {
+						const mergedOptions: MergedOption<AlertOption> = {
 							title,
 							headerClose,
 							confirmText,
 							draggable,
 							dragOverflow,
 							maskBlur,
+							zIndex,
 						}
 
 						printLog(
