@@ -1,12 +1,12 @@
 <template lang="pug">
 .popup-mask(
-	:class="{ 'is-blur': store.maskBlur.value }"
+	:class="classObject"
 	:style="{ zIndex: store.zIndex.value }"
 	@click="handleClick")
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import { usePopup } from '../'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -19,6 +19,11 @@ defineOptions({
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
+
+const classObject = computed(() => ({
+	'is-transparent': store.maskTransparent.value,
+	'is-blur': !store.maskTransparent.value && store.maskBlur.value,
+}))
 
 function handleClick() {
 	if (store.maskClickClose) {
@@ -36,6 +41,8 @@ function handleClick() {
 	bottom 0
 	left 0
 	background-color var(--popup-color-mask)
+	&.is-transparent
+		background-color transparent
 	&.is-blur
 		backdrop-filter blur(15px)  saturate(180%)
 </style>

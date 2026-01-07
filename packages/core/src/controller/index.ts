@@ -156,7 +156,8 @@ export type RenderConfigOptions = {
 	/**
 	 * 点击遮罩层是否关闭弹出层
 	 *
-	 * - 默认值为 false ，仅在 mask 为 true 时有效
+	 * - 默认值为 false
+	 * - 仅在 `mask` 参数为 `true` 时有效
 	 */
 	maskClickClose?: boolean
 	/**
@@ -182,145 +183,91 @@ export type RenderStyleOptions = {
 	/**
 	 * 弹出层宽度
 	 *
-	 * - 默认为 auto，即自适应，支持 string 和 number 类型，string
-	 *   类型更为灵活，number 类型方便计算
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	width: '300px',
-	 * 	// rem
-	 * 	width: '30rem',
-	 * 	// vw
-	 * 	width: '30vw',
-	 * 	// 百分比
-	 * 	width: '30%',
-	 * 	// css 动态计算
-	 * 	width: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	width: 'var(--width)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	width: 300,
+	 * width: 300
+	 * width: '300px'
+	 * width: '50%'
+	 * width: 'inherit'
 	 */
 	width?: string | number
 	/**
 	 * 弹出层最大宽度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	maxWidth: '300px',
-	 * 	// rem
-	 * 	maxWidth: '30rem',
-	 * 	// vw
-	 * 	maxWidth: '30vw',
-	 * 	// 百分比
-	 * 	maxWidth: '30%',
-	 * 	// css 动态计算
-	 * 	maxWidth: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	maxWidth: 'var(--width)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	maxWidth: 300,
+	 * maxWidth: 300
+	 * maxWidth: '300px'
+	 * maxWidth: '50%'
+	 * maxWidth: 'inherit'
 	 */
 	maxWidth?: string | number
 	/**
 	 * 弹出层最小宽度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	minWidth: '300px',
-	 * 	// rem
-	 * 	minWidth: '30rem',
-	 * 	// vw
-	 * 	minWidth: '30vw',
-	 * 	// 百分比
-	 * 	minWidth: '30%',
-	 * 	// css 动态计算
-	 * 	minWidth: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	minWidth: 'var(--width)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	minWidth: 300,
+	 * minWidth: 300
+	 * minWidth: '300px'
+	 * minWidth: '50%'
+	 * minWidth: 'inherit'
 	 */
 	minWidth?: string | number
 	/**
 	 * 弹出层高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	height: '300px',
-	 * 	// rem
-	 * 	height: '30rem',
-	 * 	// vh
-	 * 	height: '30vh',
-	 * 	// 百分比
-	 * 	height: '30%',
-	 * 	// css 动态计算
-	 * 	height: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	height: 'var(--height)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	height: 300,
+	 * height: 300
+	 * height: '300px'
+	 * height: '50%'
+	 * height: 'inherit'
 	 */
 	height?: string | number
 	/**
 	 * 弹出层最大高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	maxHeight: '300px',
-	 * 	// rem
-	 * 	maxHeight: '30rem',
-	 * 	// vh
-	 * 	maxHeight: '30vh',
-	 * 	// 百分比
-	 * 	maxHeight: '30%',
-	 * 	// css 动态计算
-	 * 	maxHeight: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	maxHeight: 'var(--height)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	maxHeight: 300,
+	 * maxHeight: 300
+	 * maxHeight: '300px'
+	 * maxHeight: '50%'
+	 * maxHeight: 'inherit'
 	 */
 	maxHeight?: string | number
 	/**
 	 * 弹出层最小高度
 	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
 	 * @example
-	 * 	// px
-	 * 	minHeight: '300px',
-	 * 	// rem
-	 * 	minHeight: '30rem',
-	 * 	// vh
-	 * 	minHeight: '30vh',
-	 * 	// 百分比
-	 * 	minHeight: '30%',
-	 * 	// css 动态计算
-	 * 	minHeight: 'calc(50% + 20px)',
-	 * 	// css 变量
-	 * 	minHeight: 'var(--height)',
-	 * 	// number 类型，方便计算，单位为 px
-	 * 	minHeight: 300,
+	 * minHeight: 300
+	 * minHeight: '300px'
+	 * minHeight: '50%'
+	 * minHeight: 'inherit'
 	 */
 	minHeight?: string | number
 	/**
 	 * 弹出层位置
 	 *
-	 * - 默认为 center ，即居中显示
+	 * - 默认为 `'center'` ，即居中显示
 	 * - 更多位置请查看 {@link Placement}
 	 *
 	 * @since 1.5.0
@@ -329,9 +276,8 @@ export type RenderStyleOptions = {
 	/**
 	 * 弹出层视图动画类型
 	 *
-	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
-	 *
-	 *   {@link IAnimations}
+	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
+	 * - 更多动画类型请查看 {@link IAnimations}
 	 */
 	viewAnimation?: Animation
 	/**
@@ -355,21 +301,33 @@ export type RenderStyleOptions = {
 	/**
 	 * 弹出层遮罩动画类型
 	 *
-	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出，更多动画类型请查看
-	 *   {@link IAnimations}
+	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
+	 * - 更多动画类型请查看 {@link IAnimations}
 	 */
 	maskAnimation?: Animation
 	/**
-	 * 弹出层遮罩是否启用模糊效果
+	 * 弹出层遮罩是否启用高斯模糊
 	 *
-	 * - 默认为 true
+	 * - 默认为 `false`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 	/**
+	 * 弹出层遮罩是否启用透明效果
+	 *
+	 * - 默认为 `false`
+	 * - 优先级高于 `maskBlur`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
 	 * 弹出层动画时长
 	 *
-	 * - 默认为 100 ，单位为 毫秒
+	 * - 默认为 `100` ，单位为 毫秒
 	 */
 	animationDuration?: number
 	/**
@@ -407,7 +365,8 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	viewTranslateOverflow: false,
 	viewAnimation: POPUP_ANIMATIONS.FADE,
 	maskAnimation: POPUP_ANIMATIONS.FADE,
-	maskBlur: true,
+	maskBlur: false,
+	maskTransparent: false,
 	animationDuration: 100,
 }
 

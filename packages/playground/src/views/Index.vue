@@ -25,7 +25,8 @@
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
 				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
-				PButton(@click="handlePopupWithoutMaskBlur()") 遮罩层禁用模糊
+				PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
+				PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果
 				PButton(@click="handlePopupWithoutMaskClickClose()") 启用遮罩层点击关闭
 			.title.second 组件功能
 			PButtonGroup(theme="primary" tight type="plain")
@@ -355,17 +356,24 @@ function handleOptionPopupWithPayload() {
 	})
 }
 
-function handlePopupWithoutMaskBlur() {
-	popup.render({
-		component: () => import('@/views/Demo.vue'),
-		maskBlur: false,
-	})
-}
-
 function handlePopupWithoutMask() {
 	popup.render({
 		mask: false,
 		component: () => import('@/views/Demo.vue'),
+	})
+}
+
+function handlePopupWithMaskBlur() {
+	popup.render({
+		component: () => import('@/views/Demo.vue'),
+		maskBlur: true,
+	})
+}
+
+function handlePopupWithMaskTransparent() {
+	popup.render({
+		component: () => import('@/views/Demo.vue'),
+		maskTransparent: true,
 	})
 }
 
