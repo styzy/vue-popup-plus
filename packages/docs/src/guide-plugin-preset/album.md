@@ -183,6 +183,35 @@ function handleAlbumDisableDrag() {
 
 :::
 
+## 启用遮罩层高斯模糊 <Badge text="1.3.0+" />
+
+> <DVersionSupport version="1.3.0+" />
+
+如果需要提升用户对弹出层的关注度，可以通过 `maskBlur` 选项来启用遮罩层的高斯模糊效果。
+
+::: warning
+启用遮罩层高斯模糊，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
+:::
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumMaskBlur"
+	>启用遮罩层高斯模糊</DButton
+>
+```
+
+```ts
+function handleAlbumMaskBlur() {
+	popup.album({
+		sources,
+		maskBlur: true, // [!code highlight]
+	})
+}
+```
+
+:::
+
 ## 等待弹出层关闭
 
 该方法返回一个 `Promise<void>` 对象，当弹出层关闭后，会执行 `resolve` 方法，因此你可以通过 `await` 来等待弹出层关闭。
@@ -275,6 +304,13 @@ function handleAlbumDisableDrag() {
 	popup.album({
 		sources,
 		disableDrag: true,
+	})
+}
+
+function handleAlbumMaskBlur() {
+	popup.album({
+		sources,
+		maskBlur: true,
 	})
 }
 

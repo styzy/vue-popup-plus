@@ -104,18 +104,6 @@ type DialogOption = {
 	 */
 	placement?: Placement
 	/**
-	 * 是否显示对话框遮罩层
-	 *
-	 * - 默认值为 `true`
-	 */
-	mask?: boolean
-	/**
-	 * 是否点击遮罩层关闭对话框
-	 *
-	 * - 默认值为 `false`
-	 */
-	maskClickClose?: boolean
-	/**
 	 * 是否可拖拽
 	 *
 	 * - 默认值为 `false`
@@ -128,6 +116,12 @@ type DialogOption = {
 	 */
 	dragOverflow?: boolean
 	/**
+	 * 是否显示对话框遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
+	/**
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`true`
@@ -135,6 +129,12 @@ type DialogOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 是否点击遮罩层关闭对话框
+	 *
+	 * - 默认值为 `false`
+	 */
+	maskClickClose?: boolean
 }
 
 // 对话框位置

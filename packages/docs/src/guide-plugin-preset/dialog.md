@@ -340,73 +340,6 @@ function handleDialogHeaderClose() {
 
 :::
 
-## 禁用遮罩层
-
-可以通过 `mask` 选项来禁用遮罩层。
-
-::: demo
-
-```html
-<DButton theme="primary" @click="handleDialogDisableMask">禁用遮罩层</DButton>
-```
-
-```ts
-function handleDialogDisableMask() {
-	popup.dialog({
-		mask: false, // [!code highlight]
-		component: () => import('./HelloWorld.vue'),
-	})
-}
-```
-
-:::
-
-## 启用遮罩层点击关闭对话框
-
-可以通过 `maskClickClose` 选项来启用遮罩层点击关闭对话框。
-
-::: demo
-
-```html
-<DButton theme="primary" @click="handleDialogMaskClickClose"
-	>启用遮罩层点击关闭对话框</DButton
->
-```
-
-```ts
-function handleDialogMaskClickClose() {
-	popup.dialog({
-		maskClickClose: true, // [!code highlight]
-		component: () => import('./HelloWorld.vue'),
-	})
-}
-```
-
-:::
-
-## 禁用遮罩层高斯模糊
-
-为了提升用户关注度，该弹出层使用了 `高斯模糊` 背景遮罩，可以通过 `maskBlur` 选项来禁用遮罩层的高斯模糊效果。
-
-::: demo
-
-```html
-<DButton theme="primary" @click="handleDialogMaskBlur"
-	>禁用遮罩层高斯模糊</DButton
->
-```
-
-```ts
-function handleDialogMaskBlur() {
-	popup.dialog({
-		maskBlur: false, // [!code highlight]
-		component: () => import('./HelloWorld.vue'),
-	})
-}
-```
-
-:::
-
 ## 启用窗口拖拽功能
 
 可以通过 `draggable` 选项来启用窗口的拖拽功能，开启后允许拖拽标题栏从而实现窗口的移动。
@@ -438,6 +371,79 @@ function handleDialogDraggableOverflow() {
 	popup.dialog({
 		draggable: true,
 		dragOverflow: true, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 禁用遮罩层
+
+可以通过 `mask` 选项来禁用遮罩层。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogDisableMask">禁用遮罩层</DButton>
+```
+
+```ts
+function handleDialogDisableMask() {
+	popup.dialog({
+		mask: false, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 启用遮罩层高斯模糊 <Badge text="1.3.0+" />
+
+> <DVersionSupport package="plugin" version="1.3.0" />
+
+如果需要提升用户对弹出层的关注度，可以通过 `maskBlur` 选项来启用遮罩层的高斯模糊效果。
+
+::: warning
+启用遮罩层高斯模糊，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
+:::
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogMaskBlur"
+	>启用遮罩层高斯模糊</DButton
+>
+```
+
+```ts
+function handleDialogMaskBlur() {
+	popup.dialog({
+		maskBlur: true, // [!code highlight]
+		component: () => import('./HelloWorld.vue'),
+	})
+}
+```
+
+:::
+
+## 启用遮罩层点击关闭对话框
+
+可以通过 `maskClickClose` 选项来启用遮罩层点击关闭对话框。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogMaskClickClose"
+	>启用遮罩层点击关闭对话框</DButton
+>
+```
+
+```ts
+function handleDialogMaskClickClose() {
+	popup.dialog({
+		maskClickClose: true, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
 	})
 }
@@ -582,27 +588,6 @@ function handleDialogHeaderClose() {
 	})
 }
 
-function handleDialogDisableMask() {
-	popup.dialog({
-		mask: false,
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handleDialogMaskClickClose() {
-	popup.dialog({
-		maskClickClose: true,
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handleDialogMaskBlur() {
-	popup.dialog({
-		maskBlur: false,
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
 function handleDialogDraggable() {
 	popup.dialog({
 		draggable: true,
@@ -618,6 +603,27 @@ function handleDialogDraggableOverflow() {
 	})
 }
 
+function handleDialogDisableMask() {
+	popup.dialog({
+		mask: false,
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogMaskBlur() {
+	popup.dialog({
+		maskBlur: true,
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handleDialogMaskClickClose() {
+	popup.dialog({
+		maskClickClose: true,
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
 function handleDialogOnMounted() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
@@ -626,5 +632,4 @@ function handleDialogOnMounted() {
 		},
 	})
 }
-
 </script>

@@ -201,24 +201,28 @@ function handleLoadingDisableMask() {
 
 :::
 
-## 禁用遮罩层高斯模糊 <Badge text="1.3.3+" />
+## 启用遮罩层高斯模糊 <Badge text="1.3.3+" />
 
 > <DVersionSupport package="plugin" version="1.3.3" />
 
-为了提升用户关注度，该弹出层使用了 `高斯模糊` 背景遮罩，可以通过 `maskBlur` 选项来禁用遮罩层的高斯模糊效果。
+如果需要提升用户对弹出层的关注度，可以通过 `maskBlur` 选项来启用遮罩层的高斯模糊效果。
+
+::: warning
+启用遮罩层高斯模糊，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
+:::
 
 ::: demo
 
 ```html
 <DButton theme="primary" @click="handleLoadingMaskBlur"
-	>禁用遮罩层高斯模糊</DButton
+	>启用遮罩层高斯模糊</DButton
 >
 ```
 
 ```ts
 function handleLoadingMaskBlur() {
 	popup.loading({
-		maskBlur: false, // [!code highlight]
+		maskBlur: true, // [!code highlight]
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }
@@ -295,7 +299,7 @@ function handleLoadingDisableMask() {
 
 function handleLoadingMaskBlur() {
 	popup.loading({
-		maskBlur: false,
+		maskBlur: true,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }

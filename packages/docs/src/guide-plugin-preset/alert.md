@@ -88,28 +88,6 @@ function handleAlertConfirmText() {
 
 :::
 
-## 禁用遮罩层高斯模糊
-
-为了提升用户关注度，该弹出层使用了 `高斯模糊` 背景遮罩，可以通过 `maskBlur` 选项来禁用遮罩层的高斯模糊效果。
-
-::: demo
-
-```html
-<DButton theme="primary" @click="handleAlertMaskBlur"
-	>禁用遮罩层高斯模糊</DButton
->
-```
-
-```ts
-function handleAlertMaskBlur() {
-	popup.alert('这是一条提示信息', {
-		maskBlur: false, // [!code highlight]
-	})
-}
-```
-
-:::
-
 ## 启用窗口拖拽功能
 
 可以通过 `draggable` 选项来启用窗口的拖拽功能，开启后允许拖拽标题栏从而实现窗口的移动。
@@ -140,6 +118,34 @@ function handleAlertDraggableOverflow() {
 	popup.alert('这是一条提示信息', {
 		draggable: true,
 		dragOverflow: true, // [!code highlight]
+	})
+}
+```
+
+:::
+
+## 启用遮罩层高斯模糊 <Badge text="1.3.0+" />
+
+> <DVersionSupport package="plugin" version="1.3.0" />
+
+如果需要提升用户对弹出层的关注度，可以通过 `maskBlur` 选项来启用遮罩层的高斯模糊效果。
+
+::: warning
+启用遮罩层高斯模糊，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
+:::
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlertMaskBlur"
+	>启用遮罩层高斯模糊</DButton
+>
+```
+
+```ts
+function handleAlertMaskBlur() {
+	popup.alert('这是一条提示信息', {
+		maskBlur: true, // [!code highlight]
 	})
 }
 ```
@@ -200,12 +206,6 @@ function handleAlertConfirmText() {
 	})
 }
 
-function handleAlertMaskBlur() {
-	popup.alert('这是一条提示信息', {
-		maskBlur: false,
-	})
-}
-
 function handleAlertDraggable() {
 	popup.alert('这是一条提示信息', {
 		draggable: true,
@@ -216,6 +216,12 @@ function handleAlertDraggableOverflow() {
 	popup.alert('这是一条提示信息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handleAlertMaskBlur() {
+	popup.alert('这是一条提示信息', {
+		maskBlur: true,
 	})
 }
 

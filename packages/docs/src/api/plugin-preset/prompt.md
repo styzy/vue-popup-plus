@@ -89,7 +89,7 @@ type PromptOption = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
 	 *
 	 * @since 1.3.0
 	 */
