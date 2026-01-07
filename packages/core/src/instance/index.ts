@@ -222,10 +222,8 @@ export class Instance implements IInstance {
 		})
 
 		const appContext = this.#getAppContext()
-		console.log('appContext: ', appContext)
 
 		this.#vNode.appContext = appContext
-		console.log('this.#vNode: ', this.#vNode)
 
 		render(this.#vNode!, this.#el)
 
