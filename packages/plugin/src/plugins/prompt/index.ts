@@ -82,7 +82,7 @@ type PromptOption = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
 	 *
 	 * @since 1.3.0
 	 */
@@ -138,7 +138,7 @@ export const prompt = definePlugin({
 				cancelText = '取消',
 				draggable = false,
 				dragOverflow = false,
-				maskBlur = true,
+				maskBlur = false,
 			} = {}
 		) {
 			return new Promise((resolve) => {

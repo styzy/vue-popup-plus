@@ -66,7 +66,9 @@ type AlbumOption = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
+	 *
+	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
 }
@@ -117,7 +119,7 @@ export const album = definePlugin({
 			disableDownload = false,
 			disableScale = false,
 			disableDrag = false,
-			maskBlur = true,
+			maskBlur = false,
 		}) {
 			return new Promise<void>((resolve) => {
 				this.render({

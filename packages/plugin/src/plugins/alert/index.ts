@@ -47,7 +47,7 @@ type AlertOption = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
 	 *
 	 * @since 1.3.0
 	 */
@@ -89,7 +89,7 @@ export const alert = definePlugin({
 				confirmText = '确定',
 				draggable = false,
 				dragOverflow = false,
-				maskBlur = true,
+				maskBlur = false,
 			} = {}
 		) {
 			return new Promise<void>((resolve) => {

@@ -125,7 +125,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
 	 *
 	 * @since 1.3.0
 	 */
@@ -196,7 +196,7 @@ export const dialog = definePlugin({
 			maskClickClose = false,
 			draggable = false,
 			dragOverflow = false,
-			maskBlur = true,
+			maskBlur = false,
 		}) {
 			return new Promise((resolve) => {
 				const id = createId()

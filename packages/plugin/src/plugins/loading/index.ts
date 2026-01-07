@@ -47,7 +47,7 @@ type LoadingOption = {
 	/**
 	 * 遮罩层是否模糊
 	 *
-	 * - 默认值：`true`
+	 * - 默认值：`false`
 	 *
 	 * @since 1.3.3
 	 */
@@ -123,7 +123,7 @@ export const loading = definePlugin({
 			title = '',
 			iconSize = 60,
 			mask = true,
-			maskBlur = true,
+			maskBlur = false,
 			disableScroll = true,
 		} = {}) {
 			if (record.id) {
