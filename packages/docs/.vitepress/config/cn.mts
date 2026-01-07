@@ -68,19 +68,19 @@ export const themeConfig = defineConfig({
 			// 	],
 			// },
 			{
-				text: '示例',
+				text: 'DEMO',
 				link: '/demo/core',
 				activeMatch: '/demo/',
-			},
-			{
-				text: '插件',
-				link: '/plugin/introduction',
-				activeMatch: '/plugin/',
 			},
 			{
 				text: 'API',
 				link: '/api/guide',
 				activeMatch: '/api/',
+			},
+			{
+				text: '插件',
+				link: '/plugin/introduction',
+				activeMatch: '/plugin/',
 			},
 			{
 				text: '更新日志',
@@ -188,6 +188,10 @@ export const themeConfig = defineConfig({
 							link: '/guide-plugin-preset/toast',
 						},
 						{
+							text: 'Message 消息',
+							link: '/guide-plugin-preset/message',
+						},
+						{
 							text: 'Alert 提示',
 							link: '/guide-plugin-preset/alert',
 						},
@@ -204,6 +208,10 @@ export const themeConfig = defineConfig({
 							link: '/guide-plugin-preset/dialog',
 						},
 						{
+							text: 'Drawer 抽屉',
+							link: '/guide-plugin-preset/drawer',
+						},
+						{
 							text: 'Loading 加载遮罩',
 							link: '/guide-plugin-preset/loading',
 						},
@@ -216,24 +224,52 @@ export const themeConfig = defineConfig({
 			],
 			'/demo/': [
 				{
-					text: '核心',
+					text: '核心 DEMO',
 					items: [
 						{
-							text: '核心示例',
+							text: '核心',
 							link: '/demo/core',
 						},
 					],
 				},
 				{
-					text: '预置插件',
+					text: '预置插件 DEMO',
 					items: [
 						{
-							text: '核心示例',
-							link: '/demo/core',
+							text: 'Toast 轻量提示',
+							link: '/demo/plugin-preset/toast',
 						},
 						{
-							text: '预置插件示例',
-							link: '/demo/plugin-preset',
+							text: 'Message 消息',
+							link: '/demo/plugin-preset/message',
+						},
+						{
+							text: 'Alert 提示',
+							link: '/demo/plugin-preset/alert',
+						},
+						{
+							text: 'Confirm 确认',
+							link: '/demo/plugin-preset/confirm',
+						},
+						{
+							text: 'Prompt 提示输入',
+							link: '/demo/plugin-preset/prompt',
+						},
+						{
+							text: 'Dialog 对话',
+							link: '/demo/plugin-preset/dialog',
+						},
+						{
+							text: 'Drawer 抽屉',
+							link: '/demo/plugin-preset/drawer',
+						},
+						{
+							text: 'Loading 加载遮罩',
+							link: '/demo/plugin-preset/loading',
+						},
+						{
+							text: 'Album 媒体相册',
+							link: '/demo/plugin-preset/album',
 						},
 					],
 				},
@@ -346,6 +382,10 @@ export const themeConfig = defineConfig({
 							link: '/api/plugin-preset/toast',
 						},
 						{
+							text: 'Message 消息',
+							link: '/api/plugin-preset/message',
+						},
+						{
 							text: 'Alert 提示',
 							link: '/api/plugin-preset/alert',
 						},
@@ -360,6 +400,10 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Dialog 对话',
 							link: '/api/plugin-preset/dialog',
+						},
+						{
+							text: 'Drawer 抽屉',
+							link: '/api/plugin-preset/drawer',
 						},
 						{
 							text: 'Loading 加载遮罩',

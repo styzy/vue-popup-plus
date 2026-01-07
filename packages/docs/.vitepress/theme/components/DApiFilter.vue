@@ -1,11 +1,14 @@
 <template lang="pug">
 .d-api-filter
 	.filter
-		label 过滤
-		input(placeholder="请输入过滤关键字" type="text" v-model.trim="filter.keyword")
+		label(for="keyword") 过滤
+		input#keyword(
+			placeholder="请输入过滤关键字"
+			type="text"
+			v-model.trim="filter.keyword")
 	.filter
-		label 显示版本信息
-		input(type="checkbox" v-model="filter.showVersion")
+		label(for="showVersion") 显示版本标签
+		input#showVersion(type="checkbox" v-model="filter.showVersion")
 </template>
 
 <script lang="ts">
@@ -33,7 +36,17 @@ const { filter } = defineProps<Props>()
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 15px;
+		label {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-right: 15px;
+			font-size: var(--docs-font-size-title-sub);
+			font-weight: 700;
+			&::after {
+				content: ':';
+			}
+		}
 		input[type='text'] {
 			display: flex;
 			align-items: center;
@@ -48,8 +61,8 @@ const { filter } = defineProps<Props>()
 			}
 		}
 		input[type='checkbox'] {
-			width: 20px;
-			height: 20px;
+			width: 18px;
+			height: 18px;
 		}
 	}
 }

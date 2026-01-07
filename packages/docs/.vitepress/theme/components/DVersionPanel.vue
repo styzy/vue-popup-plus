@@ -38,6 +38,12 @@ const { mode = 'sidebar' } = defineProps<Props>()
 		justify-content: flex-start;
 		padding-bottom: 0;
 	}
+	&:not(.is-home) {
+		position: sticky;
+		top: 0px;
+		background-color: var(--vp-sidebar-bg-color);
+		z-index: 100;
+	}
 	.item {
 		display: flex;
 		flex-direction: row;

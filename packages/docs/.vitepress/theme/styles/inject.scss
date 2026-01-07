@@ -29,9 +29,29 @@
 }
 
 // 彩色文本
-@mixin base-colorful-text() {
+@mixin base-colorful-background($speed: 1) {
 	background-image: linear-gradient(
-		135deg,
+		45deg,
+		rgb(249, 85, 35) 0%,
+		rgb(249, 246, 31) 33%,
+		rgb(38, 207, 254) 66%,
+		rgb(37, 33, 252) 100%
+	);
+	animation: run calc(10000 / $speed) + s linear infinite;
+	@keyframes run {
+		from {
+			background-position: 0 0;
+		}
+		to {
+			background-position: -400000px 0;
+		}
+	}
+}
+
+// 彩色文本
+@mixin base-colorful-text($speed: 1) {
+	background-image: linear-gradient(
+		45deg,
 		#ff0000,
 		#ff8600,
 		#fffd00,
@@ -43,13 +63,13 @@
 	);
 	background-clip: text;
 	color: transparent;
-	animation: run 100s linear infinite;
+	animation: run calc(10000 / $speed) + s linear infinite;
 	@keyframes run {
 		from {
 			background-position: 0 0;
 		}
 		to {
-			background-position: -10000px 0;
+			background-position: -400000px 0;
 		}
 	}
 }
