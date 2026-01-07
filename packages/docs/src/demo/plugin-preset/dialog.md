@@ -105,15 +105,16 @@ function handlePopupDialogWithCustomPlacement() {
 		>禁用标题关闭按钮</DButton
 	>
 	<DButton @click="handlePopupDialogWithoutHeader">禁用标题栏</DButton>
-	<DButton @click="handlePopupDialogWithMaskClickClose"
-		>启用遮罩点击关闭弹出层</DButton
-	>
-	<DButton @click="handlePopupDialogWithoutMaskBlur"
-		>禁用遮罩高斯模糊</DButton
-	>
 	<DButton @click="handlePopupDialogWithDraggable">标题栏允许拖拽</DButton>
 	<DButton @click="handlePopupDialogWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
+	>
+	<DButton @click="handlePopupDialogWithoutMask">禁用遮罩</DButton>
+	<DButton @click="handlePopupDialogWithMaskBlur" theme="warning"
+		>启用遮罩高斯模糊</DButton
+	>
+	<DButton @click="handlePopupDialogWithMaskClickClose"
+		>启用遮罩点击关闭弹出层</DButton
 	>
 </DButtonGroup>
 ```
@@ -122,7 +123,7 @@ function handlePopupDialogWithCustomPlacement() {
 function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
-		headClose: false,
+		headerClose: false,
 	})
 }
 
@@ -130,20 +131,6 @@ function handlePopupDialogWithoutHeader() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
 		header: false,
-	})
-}
-
-function handlePopupDialogWithMaskClickClose() {
-	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
-	})
-}
-
-function handlePopupDialogWithoutMaskBlur() {
-	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: false,
 	})
 }
 
@@ -161,13 +148,34 @@ function handlePopupDialogWithDragOverflow() {
 		dragOverflow: true,
 	})
 }
+
+function handlePopupDialogWithoutMask() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		mask: false,
+	})
+}
+
+function handlePopupDialogWithMaskBlur() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
+	})
+}
+
+function handlePopupDialogWithMaskClickClose() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskClickClose: true,
+	})
+}
 ```
 
 :::
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Prompt 提示输入](/guide-plugin-preset/prompt)
+具体可以参考 [预置插件指南 - Dialog 对话框](/guide-plugin-preset/dialog)
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
@@ -248,20 +256,6 @@ function handlePopupDialogWithoutHeader() {
 	})
 }
 
-function handlePopupDialogWithMaskClickClose() {
-	popup.dialog({
-		component: HelloWorld,
-		maskClickClose: true,
-	})
-}
-
-function handlePopupDialogWithoutMaskBlur() {
-	popup.dialog({
-		component: HelloWorld,
-		maskBlur: false,
-	})
-}
-
 function handlePopupDialogWithDraggable() {
 	popup.dialog({
 		component: HelloWorld,
@@ -274,6 +268,27 @@ function handlePopupDialogWithDragOverflow() {
 		component: HelloWorld,
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupDialogWithoutMask() {
+	popup.dialog({
+		component: HelloWorld,
+		mask: false,
+	})
+}
+
+function handlePopupDialogWithMaskBlur() {
+	popup.dialog({
+		component: HelloWorld,
+		maskBlur: true,
+	})
+}
+
+function handlePopupDialogWithMaskClickClose() {
+	popup.dialog({
+		component: HelloWorld,
+		maskClickClose: true,
 	})
 }
 </script>

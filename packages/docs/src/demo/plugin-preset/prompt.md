@@ -98,12 +98,12 @@ function handlePopupPromptWithCustomCancelText() {
 	<DButton @click="handlePopupPromptWithHeaderClose"
 		>禁用标题关闭按钮</DButton
 	>
-	<DButton @click="handlePopupPromptWithoutMaskBlur"
-		>禁用遮罩高斯模糊</DButton
-	>
 	<DButton @click="handlePopupPromptWithDraggable">标题栏允许拖拽</DButton>
 	<DButton @click="handlePopupPromptWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
+	>
+	<DButton @click="handlePopupPromptWithMaskBlur" theme="warning"
+		>启用遮罩高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -112,12 +112,6 @@ function handlePopupPromptWithCustomCancelText() {
 function handlePopupPromptWithHeaderClose() {
 	popup.prompt('这是一条提示输入消息', {
 		headClose: false,
-	})
-}
-
-function handlePopupPromptWithoutMaskBlur() {
-	popup.prompt('这是一条提示输入消息', {
-		maskBlur: false,
 	})
 }
 
@@ -131,6 +125,12 @@ function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupPromptWithMaskBlur() {
+	popup.prompt('这是一条提示输入消息', {
+		maskBlur: true,
 	})
 }
 ```
@@ -200,12 +200,6 @@ function handlePopupPromptWithHeaderClose() {
 	})
 }
 
-function handlePopupPromptWithoutMaskBlur() {
-	popup.prompt('这是一条提示输入消息', {
-		maskBlur: false,
-	})
-}
-
 function handlePopupPromptWithDraggable() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
@@ -216,6 +210,12 @@ function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupPromptWithMaskBlur() {
+	popup.prompt('这是一条提示输入消息', {
+		maskBlur: true,
 	})
 }
 </script>

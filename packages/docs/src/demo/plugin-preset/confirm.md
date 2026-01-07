@@ -84,12 +84,12 @@ function handlePopupConfirmWithCustomCancelText() {
 	<DButton @click="handlePopupConfirmWithHeaderClose"
 		>启用标题关闭按钮</DButton
 	>
-	<DButton @click="handlePopupConfirmWithoutMaskBlur"
-		>禁用遮罩高斯模糊</DButton
-	>
 	<DButton @click="handlePopupConfirmWithDraggable">标题栏允许拖拽</DButton>
 	<DButton @click="handlePopupConfirmWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
+	>
+	<DButton @click="handlePopupConfirmWithMaskBlur" theme="warning"
+		>启用遮罩高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -98,12 +98,6 @@ function handlePopupConfirmWithCustomCancelText() {
 function handlePopupConfirmWithHeaderClose() {
 	popup.confirm('这是一条确认消息', {
 		headClose: false,
-	})
-}
-
-function handlePopupConfirmWithoutMaskBlur() {
-	popup.confirm('这是一条确认消息', {
-		maskBlur: false,
 	})
 }
 
@@ -117,6 +111,12 @@ function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupConfirmWithMaskBlur() {
+	popup.confirm('这是一条确认消息', {
+		maskBlur: true,
 	})
 }
 ```
@@ -174,12 +174,6 @@ function handlePopupConfirmWithHeaderClose() {
 	})
 }
 
-function handlePopupConfirmWithoutMaskBlur() {
-	popup.confirm('这是一条确认消息', {
-		maskBlur: false,
-	})
-}
-
 function handlePopupConfirmWithDraggable() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
@@ -190,6 +184,12 @@ function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupConfirmWithMaskBlur() {
+	popup.confirm('这是一条确认消息', {
+		maskBlur: true,
 	})
 }
 </script>

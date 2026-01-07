@@ -22,7 +22,9 @@ export default {
 	},
 	async enhanceApp({ app, router, siteData }) {
 		if (!import.meta.env.SSR) {
-			const PopupPlus = createPopupPlus()
+			const PopupPlus = createPopupPlus({
+				debugMode: true,
+			})
 
 			PopupPlus.use(plugin)
 

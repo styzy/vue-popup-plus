@@ -111,8 +111,8 @@ function handlePopupLoadingWithThemeDanger() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupLoadingWithoutMask">禁用遮罩层</DButton>
-	<DButton @click="handlePopupLoadingWithoutMaskBlur"
-		>禁用遮罩高斯模糊</DButton
+	<DButton @click="handlePopupLoadingWithMaskBlur" theme="warning"
+		>启用遮罩高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -125,9 +125,9 @@ function handlePopupLoadingWithoutMask() {
 	setTimeout(() => popup.loadingClose(), 3000)
 }
 
-function handlePopupLoadingWithoutMaskBlur() {
+function handlePopupLoadingWithMaskBlur() {
 	popup.loading({
-		maskBlur: false,
+		maskBlur: true,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }
@@ -137,7 +137,7 @@ function handlePopupLoadingWithoutMaskBlur() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Prompt 提示输入](/guide-plugin-preset/prompt)
+具体可以参考 [预置插件指南 - Loading 加载遮罩](/guide-plugin-preset/loading)
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
@@ -207,9 +207,9 @@ function handlePopupLoadingWithoutMask() {
 	setTimeout(() => popup.loadingClose(), 3000)
 }
 
-function handlePopupLoadingWithoutMaskBlur() {
+function handlePopupLoadingWithMaskBlur() {
 	popup.loading({
-		maskBlur: false,
+		maskBlur: true,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }

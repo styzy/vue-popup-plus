@@ -69,10 +69,12 @@ function handlePopupAlertWithCustomConfirmText() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupAlertWithHeaderClose">禁用标题关闭按钮</DButton>
-	<DButton @click="handlePopupAlertWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
 	<DButton @click="handlePopupAlertWithDraggable">标题栏允许拖拽</DButton>
 	<DButton @click="handlePopupAlertWithDragOverflow"
 		>允许拖拽超出屏幕</DButton
+	>
+	<DButton @click="handlePopupAlertWithMaskBlur" theme="warning"
+		>启用遮罩高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -81,12 +83,6 @@ function handlePopupAlertWithCustomConfirmText() {
 function handlePopupAlertWithHeaderClose() {
 	popup.alert('这是一条提示消息', {
 		headClose: false,
-	})
-}
-
-function handlePopupAlertWithoutMaskBlur() {
-	popup.alert('这是一条提示消息', {
-		maskBlur: false,
 	})
 }
 
@@ -102,6 +98,12 @@ function handlePopupAlertWithDragOverflow() {
 		dragOverflow: true,
 	})
 }
+
+function handlePopupAlertWithMaskBlur() {
+	popup.alert('这是一条提示消息', {
+		maskBlur: true,
+	})
+}
 ```
 
 :::
@@ -112,7 +114,6 @@ function handlePopupAlertWithDragOverflow() {
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
-import HelloWorld from './HelloWorld.vue'
 
 let popup
 
@@ -147,12 +148,6 @@ function handlePopupAlertWithHeaderClose() {
 	})
 }
 
-function handlePopupAlertWithoutMaskBlur() {
-	popup.alert('这是一条提示消息', {
-		maskBlur: false,
-	})
-}
-
 function handlePopupAlertWithDraggable() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
@@ -163,6 +158,12 @@ function handlePopupAlertWithDragOverflow() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+}
+
+function handlePopupAlertWithMaskBlur() {
+	popup.alert('这是一条提示消息', {
+		maskBlur: true,
 	})
 }
 </script>
