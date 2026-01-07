@@ -73,7 +73,7 @@ function handleCloseDialog() {
 	// height 900px
 	min-width 300px
 	min-height 300px
-	background-color #FFFFFF
+	background-color #EEEEEE
 	.header,
 	.body,
 	.footer

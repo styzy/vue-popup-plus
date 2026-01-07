@@ -112,9 +112,9 @@
 				PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
 				PButton(@click="handlePopupAlertHeaderClose()") 禁用标题栏关闭
 				PButton(@click="handlePopupAlertCustomConfirmButtonText()") 自定义确认按钮
-				PButton(@click="handlePopupAlertWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupAlertDraggable()") 可拖拽
 				PButton(@click="handlePopupAlertDraggableOverflow()") 可拖拽溢出屏幕
+				PButton(@click="handlePopupAlertWithMaskBlur()") 启用遮罩模糊
 			.title.second 确认
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupConfirm()" type="default") 默认
@@ -128,9 +128,9 @@
 					@click="handlePopupConfirmCustomCancelButtonText()"
 					theme="primary"
 					type="plain") 自定义取消按钮文本
-				PButton(@click="handlePopupConfirmWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupConfirmDraggable()") 可拖拽
 				PButton(@click="handlePopupConfirmDraggableOverflow()") 可拖拽溢出屏幕
+				PButton(@click="handlePopupConfirmWithMaskBlur()") 启用遮罩模糊
 			.title.second 提示输入
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupPrompt()" type="default") 默认
@@ -142,9 +142,9 @@
 				PButton(@click="handlePopupPromptCustomPlaceholder()") 自定义占位符
 				PButton(@click="handlePopupPromptCustomConfirmButtonText()") 自定义确认按钮文本
 				PButton(@click="handlePopupPromptCustomCancelButtonText()") 自定义取消按钮文本
-				PButton(@click="handlePopupPromptWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupPromptDraggable()") 可拖拽
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
+				PButton(@click="handlePopupPromptWithMaskBlur()") 启用遮罩模糊
 			.title.second 加载遮罩
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupLoading()" theme="primary" type="default") 默认
@@ -156,9 +156,9 @@
 				PButton(@click="handlePopupLoadingCustomTitle()") 自定义标题
 				PButton(@click="handlePopupLoadingCustomTitleLong()") 自定义长标题
 				PButton(@click="handlePopupLoadingCustomIconSize()") 自定义图标尺寸
-				PButton(@click="handlePopupLoadingWithoutMask()") 禁用遮罩层
-				PButton(@click="handlePopupLoadingWithoutMaskBlur()") 禁用遮罩模糊
 				PButton(@click="handlePopupLoadingForever()") 持续显示
+				PButton(@click="handlePopupLoadingWithoutMask()") 禁用遮罩层
+				PButton(@click="handlePopupLoadingWithMaskBlur()") 启用遮罩模糊
 			.title.second Dialog 对话框
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
@@ -169,10 +169,11 @@
 				PButton(@click="handlePopupDialogCustomTitle()") 自定义标题
 				PButton(@click="handlePopupDialogHideHeader()") 隐藏标题栏
 				PButton(@click="handlePopupDialogHeaderClose()") 禁用标题栏关闭
-				PButton(@click="handlePopupDialogWithoutMaskBlur()") 禁用遮罩模糊
-				PButton(@click="handlePopupDialogWithoutMaskClickClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupDialogDraggable()") 可拖拽
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
+				PButton(@click="handlePopupDialogWithoutMask()") 禁用遮罩层
+				PButton(@click="handlePopupDialogWithMaskBlur()") 启用遮罩模糊
+				PButton(@click="handlePopupDialogWithoutMaskClickClose()") 启用遮罩层点击关闭
 			.title.third 位置
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDialogPlacementLeftTop()") 左上
@@ -184,6 +185,9 @@
 				PButton(@click="handlePopupDialogPlacementRightTop()") 右上
 				PButton(@click="handlePopupDialogPlacementRight()") 右侧
 				PButton(@click="handlePopupDialogPlacementRightBottom()") 右下
+			.title.third 嵌套
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopupDialogSelf()" type="default") 弹出当前页
 			.title.second 媒体相册
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlbum()" type="default") 默认
@@ -194,6 +198,8 @@
 				PButton(@click="handlePopupAlbumDisableDownload()") 禁用下载
 				PButton(@click="handlePopupAlbumDisableScale()") 禁用缩放
 				PButton(@click="handlePopupAlbumDisableDrag()") 禁用拖动
+				//- PButton(@click="handlePopupAlbumWithoutMask()") 禁用遮罩层
+				PButton(@click="handlePopupAlbumWithMaskBlur()") 启用遮罩模糊
 	.row
 		.row-item
 			.title 按钮单元测试
@@ -723,16 +729,16 @@ function handlePopupAlertCustomConfirmButtonText() {
 	})
 }
 
-function handlePopupAlertWithoutMaskBlur() {
-	popup.alert('这是一条确认框消息', { maskBlur: false })
-}
-
 function handlePopupAlertDraggable() {
 	popup.alert('这是一条确认框消息', { draggable: true })
 }
 
 function handlePopupAlertDraggableOverflow() {
 	popup.alert('这是一条确认框消息', { draggable: true, dragOverflow: true })
+}
+
+function handlePopupAlertWithMaskBlur() {
+	popup.alert('这是一条确认框消息', { maskBlur: true })
 }
 
 async function handlePopupConfirm() {
@@ -788,17 +794,6 @@ async function handlePopupConfirmCustomCancelButtonText() {
 	}
 }
 
-async function handlePopupConfirmWithoutMaskBlur() {
-	const isConfirm = await popup.confirm('这是一条确认框消息', {
-		maskBlur: false,
-	})
-	if (isConfirm) {
-		popup.toast('选择了确认')
-	} else {
-		popup.toast('选择了取消')
-	}
-}
-
 async function handlePopupConfirmDraggable() {
 	const isConfirm = await popup.confirm('这是一条确认框消息', {
 		draggable: true,
@@ -814,6 +809,17 @@ async function handlePopupConfirmDraggableOverflow() {
 	const isConfirm = await popup.confirm('这是一条确认框消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+	if (isConfirm) {
+		popup.toast('选择了确认')
+	} else {
+		popup.toast('选择了取消')
+	}
+}
+
+async function handlePopupConfirmWithMaskBlur() {
+	const isConfirm = await popup.confirm('这是一条确认框消息', {
+		maskBlur: true,
 	})
 	if (isConfirm) {
 		popup.toast('选择了确认')
@@ -922,17 +928,6 @@ async function handlePopupPromptCustomCancelButtonText() {
 	}
 }
 
-async function handlePopupPromptWithoutMaskBlur() {
-	const result = await popup.prompt('这是一条提示输入框消息', {
-		maskBlur: false,
-	})
-	if (result === undefined) {
-		popup.toast('取消输入')
-	} else {
-		popup.toast(`您输入的内容是：${result}`)
-	}
-}
-
 async function handlePopupPromptDraggable() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
 		draggable: true,
@@ -948,6 +943,17 @@ async function handlePopupPromptDraggableOverflow() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
 		draggable: true,
 		dragOverflow: true,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptWithMaskBlur() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		maskBlur: true,
 	})
 	if (result === undefined) {
 		popup.toast('取消输入')
@@ -1003,18 +1009,18 @@ function handlePopupLoadingCustomIconSize() {
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
+function handlePopupLoadingForever() {
+	popup.loading({ title: '持续显示' })
+}
+
 function handlePopupLoadingWithoutMask() {
 	popup.loading({ mask: false })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
-function handlePopupLoadingWithoutMaskBlur() {
-	popup.loading({ maskBlur: false })
+function handlePopupLoadingWithMaskBlur() {
+	popup.loading({ maskBlur: true })
 	window.setTimeout(() => popup.loadingClose(), 2000)
-}
-
-function handlePopupLoadingForever() {
-	popup.loading({ title: '持续显示' })
 }
 
 async function handlePopupDialog() {
@@ -1087,20 +1093,11 @@ async function handlePopupDialogHeaderClose() {
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
 
-async function handlePopupDialogWithoutMaskBlur() {
+async function handlePopupDialogWithoutMask() {
 	const result = await popup.dialog({
-		title: '禁用遮罩模糊',
+		title: '禁用遮罩层',
 		component: () => import('./Demo.vue'),
-		maskBlur: false,
-	})
-	popup.toast(`对话框关闭时传递的参数是：${result}`)
-}
-
-async function handlePopupDialogWithoutMaskClickClose() {
-	const result = await popup.dialog({
-		title: '启用遮罩层点击关闭',
-		component: () => import('./Demo.vue'),
-		maskClickClose: true,
+		mask: false,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
@@ -1120,6 +1117,24 @@ async function handlePopupDialogDraggableOverflow() {
 		component: () => import('./Demo.vue'),
 		draggable: true,
 		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogWithMaskBlur() {
+	const result = await popup.dialog({
+		title: '启用遮罩模糊',
+		component: () => import('./Demo.vue'),
+		maskBlur: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogWithoutMaskClickClose() {
+	const result = await popup.dialog({
+		title: '启用遮罩层点击关闭',
+		component: () => import('./Demo.vue'),
+		maskClickClose: true,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
@@ -1223,90 +1238,88 @@ async function handlePopupDialogPlacementRightBottom() {
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }
 
+async function handlePopupDialogSelf() {
+	const result = await popup.dialog({
+		title: '嵌套',
+		component: () => import('./Index.vue'),
+		width: '80%',
+		height: '80%',
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
+	'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
+]
+
 function handlePopupAlbum() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 	})
 }
 
 function handlePopupAlbumDefaultIndex() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		defaultIndex: 2,
 	})
 }
 
 function handlePopupAlbumDisableCount() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disableCounter: true,
 	})
 }
 
 function handlePopupAlbumDisableName() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disableName: true,
 	})
 }
 
 function handlePopupAlbumDisablePureMode() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disablePure: true,
 	})
 }
 
 function handlePopupAlbumDisableDownload() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disableDownload: true,
 	})
 }
 
 function handlePopupAlbumDisableScale() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disableScale: true,
 	})
 }
 
 function handlePopupAlbumDisableDrag() {
 	popup.album({
-		sources: [
-			'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
-			'http://static.styzy.cn/stranger/articleImage/14/15160252620376011.jpg',
-			'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
-		],
+		sources,
 		disableDrag: true,
+	})
+}
+
+// function handlePopupAlbumWithoutMask() {
+// 	popup.album({
+// 		sources,
+// 		mask: false,
+// 	})
+// }
+
+function handlePopupAlbumWithMaskBlur() {
+	popup.album({
+		sources,
+		maskBlur: true,
 	})
 }
 </script>
@@ -1326,6 +1339,7 @@ function handlePopupAlbumDisableDrag() {
 		position fixed
 		top 70px
 		right 20px
+		z-index 1
 	.row
 		display flex
 		flex-direction row

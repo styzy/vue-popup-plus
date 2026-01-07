@@ -71,6 +71,14 @@ type AlbumOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 弹窗的 z-index 层级
+	 *
+	 * - 默认值：`1000`
+	 *
+	 * @since 1.3.0
+	 */
+	// zIndex?: number
 }
 
 export interface IAlbum {

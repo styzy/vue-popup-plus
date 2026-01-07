@@ -37,12 +37,6 @@ provide(injectSkin, skin)
 	justify-content: flex-start;
 	align-items: stretch;
 	overflow: hidden;
-	width: inherit;
-	height: inherit;
-	max-width: inherit;
-	max-height: inherit;
-	min-width: inherit;
-	min-height: inherit;
 	box-sizing: border-box;
 	box-shadow: var(--popup-plugin-preset-box-shadow);
 	border-radius: var(--popup-plugin-preset-border-radius-large);
