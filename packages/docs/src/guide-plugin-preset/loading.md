@@ -201,6 +201,31 @@ function handleLoadingDisableMask() {
 
 :::
 
+## 启用遮罩层透明效果 <Badge text="1.6.0+" />
+
+> <DVersionSupport package="plugin" version="1.6.0" />
+
+可以通过 `maskTransparent` 选项来启用遮罩层的透明效果。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleLoadingMaskTransparent"
+	>启用遮罩层透明效果</DButton
+>
+```
+
+```ts
+function handleLoadingMaskTransparent() {
+	popup.loading({
+		maskTransparent: true, // [!code highlight]
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+```
+
+:::
+
 ## 启用遮罩层高斯模糊 <Badge text="1.3.3+" />
 
 > <DVersionSupport package="plugin" version="1.3.3" />
@@ -293,6 +318,13 @@ function handleLoadingCustomIconSize() {
 function handleLoadingDisableMask() {
 	popup.loading({
 		mask: false,
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+
+function handleLoadingMaskTransparent() {
+	popup.loading({
+		maskTransparent: true, // [!code highlight]
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }

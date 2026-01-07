@@ -111,8 +111,11 @@ function handlePopupLoadingWithThemeDanger() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupLoadingWithoutMask">禁用遮罩层</DButton>
+	<DButton @click="handlePopupLoadingMaskTransparent"
+		>启用遮罩层透明效果</DButton
+	>
 	<DButton @click="handlePopupLoadingWithMaskBlur" theme="warning"
-		>启用遮罩高斯模糊</DButton
+		>启用遮罩层高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -121,6 +124,13 @@ function handlePopupLoadingWithThemeDanger() {
 function handlePopupLoadingWithoutMask() {
 	popup.loading({
 		mask: false,
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+
+function handlePopupLoadingMaskTransparent() {
+	popup.loading({
+		maskTransparent: true,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }
@@ -203,6 +213,13 @@ function handlePopupLoadingWithThemeDanger() {
 function handlePopupLoadingWithoutMask() {
 	popup.loading({
 		mask: false,
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+
+function handlePopupLoadingMaskTransparent() {
+	popup.loading({
+		maskTransparent: true,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }

@@ -67,6 +67,14 @@ type ConfirmOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 

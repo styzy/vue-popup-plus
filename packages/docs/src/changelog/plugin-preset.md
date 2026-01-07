@@ -12,12 +12,17 @@ outline: 2
 - 新增 `Drawer 抽屉` 插件。
 - 新增 `Message 消息` 插件。
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
-- 新增 `Toast 轻量提示` 主题子方法 `toastPrimary()` 。
+- `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
+- `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
+- 所有插件修改 `maskBlur` 参数的默认值为 `false` ，默认关闭遮罩高斯模糊效果以提高性能。
+
+### 修复
+
+- `Dialog 对话` 修复因为内部布局组件样式导致的 `width` 和 `height` 参数在使用百分比值时无法正确生效的bug。
 
 ### 优化
 
-- 所有插件修改 `maskBlur` 参数的默认值为 `false` ，默认关闭遮罩高斯模糊效果以提高性能。
-- 优化 `Loading 加载遮罩` 插件的展示效果，适配 `dark` 主题下的背景颜色。
+- `Loading 加载遮罩` 优化插件的展示效果，适配 `dark` 主题下的背景颜色。
 
 ### 破坏性改动
 

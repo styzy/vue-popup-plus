@@ -61,6 +61,14 @@ type ToastOption = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 
 // 主题
@@ -154,6 +162,14 @@ type ToastOptionWithoutTheme = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 
@@ -218,6 +234,14 @@ type ToastOptionWithoutTheme = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 
@@ -282,6 +306,14 @@ type ToastOptionWithoutTheme = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 
@@ -346,6 +378,14 @@ type ToastOptionWithoutTheme = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 
@@ -410,6 +450,14 @@ type ToastOptionWithoutTheme = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 ```
 

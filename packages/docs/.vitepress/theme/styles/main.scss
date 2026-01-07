@@ -56,14 +56,45 @@
 		}
 	}
 }
-.api .vp-doc h2 .header-anchor {
-	opacity: 1;
+
+.api .vp-doc {
+	h2 .header-anchor {
+		opacity: 1;
+	}
 }
 
-.changelog .vp-doc h2 {
-	color: var(--docs-color-primary);
-	font-size: 36px;
+.changelog .vp-doc {
+	h2 {
+		color: var(--docs-color-primary);
+		font-size: 36px;
+	}
 }
+
+.todo .vp-doc {
+	h2 {
+		color: var(--docs-color-primary);
+		font-size: 36px;
+	}
+	h3 {
+		font-size: 26px;
+		margin: 40px 0;
+	}
+	h4 {
+		font-size: 20px;
+		margin: 30px 0;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		code {
+			color: var(--docs-color-primary);
+		}
+	}
+}
+
 .VPButton {
 	border: none !important;
 	&.demo {
@@ -102,6 +133,14 @@
 					rgb(35, 31, 239) 100%
 				);
 			}
+		}
+	}
+}
+
+.VPNavBarTitle {
+	span {
+		&:hover {
+			@include base-colorful-text();
 		}
 	}
 }

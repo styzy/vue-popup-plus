@@ -62,6 +62,22 @@ type LoadingOption = {
 	 * @since 1.3.3
 	 */
 	maskBlur?: boolean
+	/**
+	 * 遮罩层是否透明
+	 *
+	 * - 默认值：`false`
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
+	 * 弹出层 z-index 层级
+	 *
+	 * - 如果不设置，则使用内部自增的 zIndex 值
+	 *
+	 * @since 1.6.0
+	 */
+	zIndex?: number
 }
 
 // 加载遮罩主题
