@@ -179,9 +179,6 @@ importers:
       pug:
         specifier: 'catalog:'
         version: 3.0.3
-      stylus:
-        specifier: 'catalog:'
-        version: 0.64.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3

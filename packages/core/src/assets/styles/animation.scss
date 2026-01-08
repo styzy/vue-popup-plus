@@ -1,0 +1,148 @@
+@use './config.scss' as config;
+
+@mixin generate-naimation($type, $name) {
+	.#{config.$animation-namespace}-#{$type}-#{$name} {
+		animation-name: #{config.$animation-namespace}-#{$type}-#{$name};
+	}
+}
+
+@include generate-naimation('enter', 'fade');
+@include generate-naimation('leave', 'fade');
+@include generate-naimation('enter', 'scale-enlarge');
+@include generate-naimation('leave', 'scale-enlarge');
+@include generate-naimation('enter', 'scale-reduce');
+@include generate-naimation('leave', 'scale-reduce');
+@include generate-naimation('enter', 'fly-top');
+@include generate-naimation('leave', 'fly-top');
+@include generate-naimation('enter', 'fly-left');
+@include generate-naimation('leave', 'fly-left');
+@include generate-naimation('enter', 'fly-right');
+@include generate-naimation('leave', 'fly-right');
+@include generate-naimation('enter', 'fly-bottom');
+@include generate-naimation('leave', 'fly-bottom');
+
+@keyframes #{config.$animation-namespace}-enter-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-fade {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-scale-enlarge {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-scale-enlarge {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(0);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-scale-reduce {
+	from {
+		transform: scale(5);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-scale-reduce {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(5);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-fly-top {
+	from {
+		transform: translateY(-100vh);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-fly-top {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(-100vh);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-fly-left {
+	from {
+		transform: translateX(-100vw);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-fly-left {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100vw);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-fly-right {
+	from {
+		transform: translateX(100vw);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-fly-right {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(100vw);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-enter-fly-bottom {
+	from {
+		transform: translateY(100vh);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes #{config.$animation-namespace}-leave-fly-bottom {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(100vh);
+	}
+}

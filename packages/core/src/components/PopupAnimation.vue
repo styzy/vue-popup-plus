@@ -12,6 +12,8 @@ import { computed, inject, onMounted, ref } from 'vue'
 import type { Animation } from '../animation'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 
+const ANIMATION_NAMESPACE = 'popup-animation'
+
 defineOptions({
 	name: 'PopupAnimation',
 })
@@ -26,11 +28,11 @@ const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 const isShow = ref(false)
 
 const enterActiveClass = computed(
-	() => `vue-popup-plus-animation vue-popup-plus-animation-enter-${type}`
+	() => `${ANIMATION_NAMESPACE} ${ANIMATION_NAMESPACE}-enter-${type}`
 )
 
 const leaveActiveClass = computed(
-	() => `vue-popup-plus-animation vue-popup-plus-animation-leave-${type}`
+	() => `${ANIMATION_NAMESPACE} ${ANIMATION_NAMESPACE}-leave-${type}`
 )
 
 const animationDuration = computed(() => `${duration}ms`)
@@ -40,8 +42,11 @@ onMounted(() => {
 })
 </script>
 
-<style lang="stylus">
-.vue-popup-plus-animation
-	animation-timing-function linear
-	animation-duration v-bind(animationDuration)
+<style lang="scss" scoped>
+@use '../assets/styles/config.scss' as config;
+
+.#{config.$animation-namespace} {
+	animation-timing-function: linear;
+	animation-duration: v-bind(animationDuration);
+}
 </style>

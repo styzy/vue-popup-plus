@@ -1,7 +1,7 @@
 import { createCore, type ICore as PupupPlus } from './core'
 import { type ConfigOption } from './config'
 import { type IController } from './controller'
-import './assets/style/main.styl'
+import './assets/styles/main.scss'
 import { type InstanceId } from './instance'
 import type { ComputedStyle } from './typings'
 

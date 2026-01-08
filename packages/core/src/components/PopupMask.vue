@@ -33,16 +33,19 @@ function handleClick() {
 }
 </script>
 
-<style lang="stylus" scoped>
-.popup-mask
-	position fixed
-	top 0
-	right 0
-	bottom 0
-	left 0
-	background-color var(--popup-color-mask)
-	&.is-transparent
-		background-color transparent
-	&.is-blur
-		backdrop-filter blur(15px)  saturate(180%)
+<style lang="scss" scoped>
+.popup-mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: var(--popup-color-mask);
+	&.is-transparent {
+		background-color: transparent;
+	}
+	&.is-blur {
+		backdrop-filter: blur(15px) saturate(180%);
+	}
+}
 </style>

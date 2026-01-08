@@ -134,9 +134,9 @@ function formatSize(size: string | number): string {
 }
 </script>
 
-<style lang="stylus" scoped>
-.popup-view
-	position relative
-	// overflow auto
-	pointer-events auto
+<style lang="scss" scoped>
+.popup-view {
+	position: relative;
+	pointer-events: auto;
+}
 </style>

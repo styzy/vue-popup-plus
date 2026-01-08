@@ -1,0 +1,35 @@
+@use 'sass:color';
+@use './config.scss' as config;
+
+// 生成css颜色变量
+@mixin css-color-variables($name, $color) {
+	$color-dark: color.mix($color, #000000, 70%);
+	$color-dark-lite: color.mix($color, #000000, 90%);
+	$color-dark-most: color.mix($color, #000000, 10%);
+
+	$color-light: color.mix($color, #ffffff, 70%);
+	$color-light-lite: color.mix($color, #ffffff, 90%);
+	$color-light-most: color.mix($color, #ffffff, 10%);
+
+	--#{config.$color-namespace}-#{$name}: #{$color};
+	--#{config.$color-namespace}-#{$name}-dark: #{$color-dark};
+	--#{config.$color-namespace}-#{$name}-dark-lite: #{$color-dark-lite};
+	--#{config.$color-namespace}-#{$name}-dark-most: #{$color-dark-most};
+	--#{config.$color-namespace}-#{$name}-light: #{$color-light};
+	--#{config.$color-namespace}-#{$name}-light-lite: #{$color-light-lite};
+	--#{config.$color-namespace}-#{$name}-light-most: #{$color-light-most};
+}
+
+// 预置颜色
+$preset-color-mask: rgba(0, 0, 0, 0.45);
+
+:root {
+	@include css-color-variables('mask', $preset-color-mask);
+}
+
+// 预置暗色主题颜色
+$preset-dark-color-mask: rgba(0, 0, 0, 0.45);
+
+.dark {
+	@include css-color-variables('mask', $preset-dark-color-mask);
+}
