@@ -138,6 +138,16 @@ export type RenderConfigOptions = {
 	 */
 	maskDestroy?: boolean | MaskDestroyHandler
 	/**
+	 * @deprecated 1.6.0
+	 * 请使用 {@link maskDestroy} 作为代替
+	 *
+	 * 点击遮罩层是否关闭弹出层
+	 *
+	 * - 默认值为 false
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 */
+	maskClickClose?: boolean
+	/**
 	 * 弹出层是否禁用窗口滚动
 	 *
 	 * - 默认值为 `true`
@@ -350,23 +360,6 @@ type Placement =
 	| 'right-top'
 	| 'right'
 	| 'right-bottom'
-```
-
-### 已废弃参数
-
-```ts
-type DeprecatedOptions = {
-	/**
-	 * @deprecated 1.6.0
-	 * 请使用 {@link maskDestroy} 作为代替
-	 *
-	 * 点击遮罩层是否关闭弹出层
-	 *
-	 * - 默认值为 false
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 */
-	maskClickClose?: boolean
-}
 ```
 
 ### 详细信息

@@ -14,6 +14,7 @@ outline: 2
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
 - `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
+- `Dialog 对话` 新增 `maskClose` 参数，用于设置遮罩层点击是否可以关闭对话框，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将关闭对话框，可传入关闭携带的负载参数，返回的 `Promise` 对象会在对话框关闭动画完成后 `resolve()` 。
 - 所有插件修改 `maskBlur` 参数的默认值为 `false` ，默认关闭遮罩高斯模糊效果以提高性能。
 
 ### 修复
@@ -28,6 +29,7 @@ outline: 2
 
 ::: danger
 
+- `Dialog 对话` 移除 `maskClickClose()` 属性，可使用功能更强大的 `maskClose` 参数代替。
 - `Toast 轻量提示` 主题子方法名称更变：
     - `toast.success()` 变更为 `toastSuccess()` 。
     - `toast.info()` 变更为 `toastInfo()` 。

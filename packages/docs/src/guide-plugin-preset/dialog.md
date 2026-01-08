@@ -182,22 +182,22 @@ async function handleDialogResult() {
 ```ts
 function handleDialogPlacementLeft() {
 	popup.dialog({
-		placement: 'left', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'left', // [!code highlight]
 	})
 }
 
 function handleDialogPlacementTop() {
 	popup.dialog({
-		placement: 'top', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'top', // [!code highlight]
 	})
 }
 
 function handleDialogPlacementRightBottom() {
 	popup.dialog({
-		placement: 'right-bottom', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'right-bottom', // [!code highlight]
 	})
 }
 ```
@@ -286,8 +286,8 @@ function handleDialogCustomMaxSize() {
 ```ts
 function handleDialogHideHeader() {
 	popup.dialog({
-		header: false, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		header: false, // [!code highlight]
 	})
 }
 ```
@@ -309,8 +309,8 @@ function handleDialogHideHeader() {
 ```ts
 function handleDialogCustomTitle() {
 	popup.dialog({
-		title: '自定义标题', // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		title: '自定义标题', // [!code highlight]
 	})
 }
 ```
@@ -332,8 +332,8 @@ function handleDialogCustomTitle() {
 ```ts
 function handleDialogHeaderClose() {
 	popup.dialog({
-		headerClose: false, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		headerClose: false, // [!code highlight]
 	})
 }
 ```
@@ -362,16 +362,16 @@ function handleDialogHeaderClose() {
 ```ts
 function handleDialogDraggable() {
 	popup.dialog({
-		draggable: true, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		draggable: true, // [!code highlight]
 	})
 }
 
 function handleDialogDraggableOverflow() {
 	popup.dialog({
+		component: () => import('./HelloWorld.vue'),
 		draggable: true,
 		dragOverflow: true, // [!code highlight]
-		component: () => import('./HelloWorld.vue'),
 	})
 }
 ```
@@ -391,8 +391,8 @@ function handleDialogDraggableOverflow() {
 ```ts
 function handleDialogDisableMask() {
 	popup.dialog({
-		mask: false, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		mask: false, // [!code highlight]
 	})
 }
 ```
@@ -420,8 +420,8 @@ function handleDialogDisableMask() {
 ```ts
 function handleDialogMaskBlur() {
 	popup.dialog({
-		maskBlur: true, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		maskBlur: true, // [!code highlight]
 	})
 }
 ```
@@ -430,26 +430,70 @@ function handleDialogMaskBlur() {
 
 ## 启用遮罩层点击关闭对话框
 
-可以通过 `maskClickClose` 选项来启用遮罩层点击关闭对话框。
+可以通过 `maskClose` 选项来启用遮罩层点击关闭对话框。
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleDialogMaskClickClose"
+<DButton theme="primary" @click="handleDialogMaskClose"
 	>启用遮罩层点击关闭对话框</DButton
 >
 ```
 
 ```ts
-function handleDialogMaskClickClose() {
+function handleDialogMaskClose() {
 	popup.dialog({
-		maskClickClose: true, // [!code highlight]
 		component: () => import('./HelloWorld.vue'),
+		maskClose: true, // [!code highlight]
 	})
 }
 ```
 
 :::
+
+::: tip
+在 <DVersion package="plugin-preset" version="1.6.0" /> 版本以前，请使用 `maskClickClose` 选项来启用遮罩层点击关闭对话框。
+:::
+
+## 自定义遮罩层点击关闭逻辑 <Badge text="1.6.0+" />
+
+> <DVersionSupport package="plugin-preset" version="1.6.0" />
+
+`maskClose` 选项同时支持传入一个函数来自定义遮罩层点击关闭逻辑。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDialogMaskCloseHandler"
+	>自定义遮罩层点击关闭逻辑</DButton
+>
+```
+
+```ts
+async function handleDialogMaskCloseHandler() {
+	const payload = await popup.dialog({
+		title: '请点击遮罩层关闭对话框',
+		component: () => import('./HelloWorld.vue'),
+		maskClose: async (close) => {
+			if (await popup.confirm('确定关闭对话框吗？')) {
+				await close('123456')
+				popup.toastSuccess('对话框关闭成功，且关闭动画执行完成')
+			}
+		},
+	})
+
+	// 返回结果请打开控制台查看
+	console.log('dialog payload: ', payload)
+}
+```
+
+:::
+
+传入的函数将接收一个类型为 `(payload?: any) => Promise<void>` 的 `close()` 函数作为参数，执行 `close()` 函数即可关闭对话框。
+
+`close()` 函数可以接收一个可选的参数 `payload`，该参数将作为关闭携带的参数。
+
+`close()` 函数返回一个 `Promise` 对象，用于等待对话框关闭动画结束后执行后续操作。
 
 ## 渲染完成的回调函数
 
@@ -524,22 +568,22 @@ async function handleDialogResult() {
 
 function handleDialogPlacementLeft() {
 	popup.dialog({
-		placement: 'left', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'left',
 	})
 }
 
 function handleDialogPlacementTop() {
 	popup.dialog({
-		placement: 'top', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'top',
 	})
 }
 
 function handleDialogPlacementRightBottom() {
 	popup.dialog({
-		placement: 'right-bottom', // [!code highlight]
 		component: () => import('../HelloWorld.vue'),
+		placement: 'right-bottom',
 	})
 }
 
@@ -569,59 +613,74 @@ function handleDialogCustomMaxSize() {
 
 function handleDialogHideHeader() {
 	popup.dialog({
-		header: false,
 		component: () => import('../HelloWorld.vue'),
+		header: false,
 	})
 }
 
 function handleDialogCustomTitle() {
 	popup.dialog({
-		title: '自定义标题',
 		component: () => import('../HelloWorld.vue'),
+		title: '自定义标题',
 	})
 }
 
 function handleDialogHeaderClose() {
 	popup.dialog({
-		headerClose: false,
 		component: () => import('../HelloWorld.vue'),
+		headerClose: false,
 	})
 }
 
 function handleDialogDraggable() {
 	popup.dialog({
-		draggable: true,
 		component: () => import('../HelloWorld.vue'),
+		draggable: true,
 	})
 }
 
 function handleDialogDraggableOverflow() {
 	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 		dragOverflow: true,
-		component: () => import('../HelloWorld.vue'),
 	})
 }
 
 function handleDialogDisableMask() {
 	popup.dialog({
-		mask: false,
 		component: () => import('../HelloWorld.vue'),
+		mask: false,
 	})
 }
 
 function handleDialogMaskBlur() {
 	popup.dialog({
-		maskBlur: true,
 		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
 	})
 }
 
-function handleDialogMaskClickClose() {
+function handleDialogMaskClose() {
 	popup.dialog({
-		maskClickClose: true,
 		component: () => import('../HelloWorld.vue'),
+		maskClose: true,
 	})
+}
+
+async function handleDialogMaskCloseHandler() {
+	const payload = await popup.dialog({
+		title: '请点击遮罩层关闭对话框',
+		component: () => import('../HelloWorld.vue'),
+		maskClose: async (close) => {
+			if (await popup.confirm('确定关闭对话框吗？')) {
+				await close('123456')
+				popup.toastSuccess('对话框关闭成功，且关闭动画执行完成')
+			}
+		},
+	})
+
+	console.log('dialog payload: ', payload)
 }
 
 function handleDialogOnMounted() {

@@ -113,8 +113,11 @@ function handlePopupDialogWithCustomPlacement() {
 	<DButton @click="handlePopupDialogWithMaskBlur" theme="warning"
 		>启用遮罩高斯模糊</DButton
 	>
-	<DButton @click="handlePopupDialogWithMaskClickClose"
-		>启用遮罩点击关闭弹出层</DButton
+	<DButton @click="handlePopupDialogWithMaskClose"
+		>启用遮罩点击关闭对话框</DButton
+	>
+	<DButton @click="handlePopupDialogWithMaskCloseHandler"
+		>自定义遮罩点击关闭逻辑</DButton
 	>
 </DButtonGroup>
 ```
@@ -163,11 +166,27 @@ function handlePopupDialogWithMaskBlur() {
 	})
 }
 
-function handlePopupDialogWithMaskClickClose() {
+function handlePopupDialogWithMaskClose() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
+		maskClose: true,
 	})
+}
+
+async function handlePopupDialogWithMaskCloseHandler() {
+	const payload = await popup.dialog({
+		title: '请点击遮罩层关闭对话框',
+		component: () => import('../HelloWorld.vue'),
+		maskClose: async (close) => {
+			if (await popup.confirm('确定关闭对话框吗？')) {
+				await close('123456')
+				popup.toastSuccess('对话框关闭成功，且关闭动画执行完成')
+			}
+		},
+	})
+
+	// 返回结果请打开控制台查看
+	console.log('dialog payload: ', payload)
 }
 ```
 
@@ -285,10 +304,25 @@ function handlePopupDialogWithMaskBlur() {
 	})
 }
 
-function handlePopupDialogWithMaskClickClose() {
+function handlePopupDialogWithMaskClose() {
 	popup.dialog({
 		component: HelloWorld,
-		maskClickClose: true,
+		maskClose: true,
 	})
+}
+
+async function handlePopupDialogWithMaskCloseHandler() {
+	const payload = await popup.dialog({
+		title: '请点击遮罩层关闭对话框',
+		component: HelloWorld,
+		maskClose: async (close) => {
+			if (await popup.confirm('确定关闭对话框吗？')) {
+				await close('123456')
+				popup.toastSuccess('对话框关闭成功，且关闭动画执行完成')
+			}
+		},
+	})
+
+	console.log('dialog payload: ', payload)
 }
 </script>
