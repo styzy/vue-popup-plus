@@ -90,5 +90,8 @@ function handleClose() {
 	justify-content: stretch;
 	align-items: stretch;
 	height: 100%;
+	box-shadow: var(--popup-plugin-preset-box-shadow);
+	border-radius: var(--popup-plugin-preset-border-radius-large);
+	overflow: hidden;
 }
 </style>

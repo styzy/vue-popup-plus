@@ -36,10 +36,7 @@ provide(injectSkin, skin)
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: stretch;
-	overflow: hidden;
 	box-sizing: border-box;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
-	border-radius: var(--popup-plugin-preset-border-radius-large);
 	.body {
 		flex: 1;
 		display: flex;

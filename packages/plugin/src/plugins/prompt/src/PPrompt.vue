@@ -97,7 +97,9 @@ function handleCancel() {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
-	width: 360px;
+	box-shadow: var(--popup-plugin-preset-box-shadow);
+	border-radius: var(--popup-plugin-preset-border-radius-large);
+	overflow: hidden;
 	.message {
 		padding-bottom: 20px;
 		max-height: calc(100vh - 122px);
