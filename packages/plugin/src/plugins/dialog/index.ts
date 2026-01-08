@@ -5,10 +5,11 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
-	type InstanceId,
 	type ExtractComponentPropTypes,
-	type Placement,
 	type IController,
+	type InstanceId,
+	type MaskDestroyHandler,
+	type Placement,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -121,12 +122,6 @@ type DialogOption<TComponent extends Component = Component> = {
 	 */
 	mask?: boolean
 	/**
-	 * 是否点击遮罩层关闭对话框
-	 *
-	 * - 默认值为 `false`
-	 */
-	maskClickClose?: boolean
-	/**
 	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`false`
@@ -134,6 +129,38 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 点击遮罩层是否关闭对话框
+	 *
+	 * - 默认值为 `false` ，点击遮罩层不会关闭对话框
+	 * - 传入 `true` ，点击遮罩层将关闭对话框
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将关闭对话框，可传入关闭携带的负载参数，返回的
+	 *   `Promise` 对象会在对话框关闭动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有
+	 *
+	 * - 使用示例：
+	 * ```ts
+	 * popup.dialog({
+	 *     component: () => import('./HelloWorld.vue'),
+	 *     componentProps: {
+	 *         maskClose: async (close)=>{
+	 *             if(...自定义拦截条件) return
+	 *
+	 *             // 直接关闭
+	 *             close('携带的关闭参数')
+	 *
+	 *             // 异步等待关闭动画结束
+	 *             await close('携带的关闭参数')
+	 *             // 关闭后执行其他操作
+	 *         },
+	 *     },
+	 * })
+	 * ```
+	 *
+	 * @since 1.6.0
+	 */
+	maskClose?: boolean | MaskDestroyHandler
 } & SharedOption
 
 export interface IDialog {
@@ -197,7 +224,7 @@ export const dialog = definePlugin({
 			minHeight = 'auto',
 			placement = 'center',
 			mask = true,
-			maskClickClose = false,
+			maskClose = false,
 			draggable = false,
 			dragOverflow = false,
 			maskBlur = false,
@@ -231,7 +258,7 @@ export const dialog = definePlugin({
 					viewTranslateOverflow: dragOverflow,
 					mask,
 					maskBlur,
-					maskClickClose,
+					maskDestroy: maskClose,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<DialogOption> = {
@@ -249,7 +276,7 @@ export const dialog = definePlugin({
 							minHeight,
 							placement,
 							mask,
-							maskClickClose,
+							maskClose,
 							draggable,
 							dragOverflow,
 							maskBlur,
