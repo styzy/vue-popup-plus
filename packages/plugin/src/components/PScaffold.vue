@@ -37,6 +37,7 @@ provide(injectSkin, skin)
 	justify-content: flex-start;
 	align-items: stretch;
 	box-sizing: border-box;
+	overflow: hidden;
 	.body {
 		flex: 1;
 		display: flex;
@@ -45,6 +46,7 @@ provide(injectSkin, skin)
 		align-items: stretch;
 		min-width: 0;
 		min-height: 0;
+		transform: translate(0);
 	}
 }
 </style>

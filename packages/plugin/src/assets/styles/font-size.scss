@@ -1,8 +1,8 @@
+@use './config.scss' as config;
+
 // 生成css字体大小变量
 @mixin css-font-size-variables($name, $size) {
-	$name-space: 'popup-plugin-preset-font-size';
-
-	--#{$name-space}-#{$name}: #{$size};
+	--#{config.$namespace}-font-size-#{$name}: #{$size};
 }
 
 // 预置字体大小

@@ -1,9 +1,8 @@
 @use 'sass:color';
+@use './config.scss' as config;
 
 // 生成css颜色变量
 @mixin css-color-variables($name, $color) {
-	$name-space: 'popup-plugin-preset-color';
-
 	$color-dark: color.mix($color, #000000, 70%);
 	$color-dark-lite: color.mix($color, #000000, 90%);
 	$color-dark-most: color.mix($color, #000000, 10%);
@@ -12,13 +11,13 @@
 	$color-light-lite: color.mix($color, #ffffff, 90%);
 	$color-light-most: color.mix($color, #ffffff, 10%);
 
-	--#{$name-space}-#{$name}: #{$color};
-	--#{$name-space}-#{$name}-dark: #{$color-dark};
-	--#{$name-space}-#{$name}-dark-lite: #{$color-dark-lite};
-	--#{$name-space}-#{$name}-dark-most: #{$color-dark-most};
-	--#{$name-space}-#{$name}-light: #{$color-light};
-	--#{$name-space}-#{$name}-light-lite: #{$color-light-lite};
-	--#{$name-space}-#{$name}-light-most: #{$color-light-most};
+	--#{config.$namespace}-color-#{$name}: #{$color};
+	--#{config.$namespace}-color-#{$name}-dark: #{$color-dark};
+	--#{config.$namespace}-color-#{$name}-dark-lite: #{$color-dark-lite};
+	--#{config.$namespace}-color-#{$name}-dark-most: #{$color-dark-most};
+	--#{config.$namespace}-color-#{$name}-light: #{$color-light};
+	--#{config.$namespace}-color-#{$name}-light-lite: #{$color-light-lite};
+	--#{config.$namespace}-color-#{$name}-light-most: #{$color-light-most};
 }
 
 // 预置颜色
