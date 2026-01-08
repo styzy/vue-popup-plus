@@ -84,7 +84,7 @@ export function usePopup(): IController {
 						type: 'Function',
 						value: usePopup,
 					},
-					message: `从缓存中获取无上下文控制器 ${controller.id} 成功`,
+					message: `从缓存中获取无状态控制器 ${controller.id} 成功`,
 					group: [
 						{
 							type: LogGroupItemType.Data,
@@ -106,7 +106,7 @@ export function usePopup(): IController {
 						type: 'Function',
 						value: usePopup,
 					},
-					message: `创建无上下文控制器 ${controller.id} 成功，存入缓存`,
+					message: `创建无状态控制器 ${controller.id} 成功，存入缓存`,
 					group: [
 						{
 							type: LogGroupItemType.Data,

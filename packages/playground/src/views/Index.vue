@@ -27,7 +27,8 @@
 				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
 				PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
 				PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果
-				PButton(@click="handlePopupWithoutMaskClickClose()") 启用遮罩层点击关闭
+				PButton(@click="handlePopupWithMaskDestroy()") 启用遮罩层点击销毁
+				PButton(@click="handlePopupWithMaskDestroyHandler()") 遮罩层点击销毁处理器
 			.title.second 组件功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupWithProps()") 传入参数
@@ -365,8 +366,8 @@ function handleOptionPopupWithPayload() {
 
 function handlePopupWithoutMask() {
 	popup.render({
-		mask: false,
 		component: () => import('@/views/Demo.vue'),
+		mask: false,
 	})
 }
 
@@ -384,10 +385,23 @@ function handlePopupWithMaskTransparent() {
 	})
 }
 
-function handlePopupWithoutMaskClickClose() {
+function handlePopupWithMaskDestroy() {
 	popup.render({
-		maskClickClose: true,
 		component: () => import('@/views/Demo.vue'),
+		maskDestroy: true,
+	})
+}
+
+function handlePopupWithMaskDestroyHandler() {
+	popup.render({
+		component: () => import('@/views/Demo.vue'),
+		onUnmounted(payload) {
+			console.log('payload: ', payload)
+		},
+		maskDestroy: async (destroy) => {
+			await destroy('自定义销毁参数')
+			console.log('已等待 destroy() 方法异步执行结束')
+		},
 	})
 }
 

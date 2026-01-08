@@ -92,7 +92,9 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	 */
 	component: TComponent
 	/**
-	 * 弹出层渲染组件的 props ，会传递给弹出层组件
+	 * 弹出层渲染组件的 props
+	 * - 除了组件的属性，还支持传入组件的事件监听器，事件监听器的名称需要以
+	 *   `on` 开头，例如 `onClick` 、 `onInput` 等。
 	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
 	 */
 	componentProps?: ExtractComponentPropTypes<TComponent>
@@ -101,10 +103,48 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	 */
 	onMounted?: () => void
 	/**
-	 * 弹出层关闭之后的回调，触发时会将destroy() 方法的负载参数 payload 作为参数传入
+	 * 弹出层关闭之后的回调
+	 * - 触发时会将 popup.destroy() 方法的负载参数 payload 作为参数传入
 	 */
 	onUnmounted?: (payload?: any) => void
 }
+
+type MaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
+
+export type RenderConfigOptions = {
+	/**
+	 * 弹出层挂载的父元素
+	 *
+	 * - 不指定时，默认挂载到 body 元素下
+	 */
+	appendTo?: Element | string
+	/**
+	 * 弹出层是否显示遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
+	/**
+	 * 点击遮罩层是否销毁弹出层
+	 *
+	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
+	 * - 传入 `true` ，点击遮罩层会销毁弹出层
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
+	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskDestroy?: boolean | MaskDestroyHandler
+	/**
+	 * 弹出层是否禁用窗口滚动
+	 *
+	 * - 默认值为 `true`
+	 */
+	disableScroll?: boolean
+}
+type MaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
 
 type RenderConfigOptions = {
 	/**
@@ -116,20 +156,26 @@ type RenderConfigOptions = {
 	/**
 	 * 弹出层是否显示遮罩层
 	 *
-	 * - 默认值为 true
+	 * - 默认值为 `true`
 	 */
 	mask?: boolean
 	/**
-	 * 点击遮罩层是否关闭弹出层
+	 * 点击遮罩层是否销毁弹出层
 	 *
-	 * - 默认值为 false
+	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
+	 * - 传入 `true` ，点击遮罩层会销毁弹出层
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
+	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
 	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
 	 */
-	maskClickClose?: boolean
+	maskDestroy?: boolean | MaskDestroyHandler
 	/**
 	 * 弹出层是否禁用窗口滚动
 	 *
-	 * - 默认值为 true
+	 * - 默认值为 `true`
 	 */
 	disableScroll?: boolean
 }
@@ -306,6 +352,23 @@ type Placement =
 	| 'right-bottom'
 ```
 
+### 已废弃参数
+
+```ts
+type DeprecatedOptions = {
+	/**
+	 * @deprecated 1.6.0
+	 * 请使用 {@link maskDestroy} 作为代替
+	 *
+	 * 点击遮罩层是否关闭弹出层
+	 *
+	 * - 默认值为 false
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 */
+	maskClickClose?: boolean
+}
+```
+
 ### 详细信息
 
 `component` 是唯一的必填参数，支持同步组件和异步组件。建议使用异步组件，当弹出层未渲染时，将不会加载其代码，从而优化加载速度和构建体积。
@@ -406,12 +469,16 @@ type UpdateOption = {
 	 * 弹出层视图水平偏移量
 	 *
 	 * - 默认为 0 ，单位为 px
+	 *
+	 * @since 1.1.0
 	 */
 	viewTranslateX?: number
 	/**
 	 * 弹出层视图垂直偏移量
 	 *
 	 * - 默认为 0 ，单位为 px
+	 *
+	 * @since 1.1.0
 	 */
 	viewTranslateY?: number
 	/**

@@ -79,7 +79,7 @@ const createStore: ICreateStore = (
 		onUnmounted,
 		appendTo,
 		mask,
-		maskClickClose,
+		maskDestroy,
 		disableScroll,
 		...options
 	}
@@ -89,7 +89,7 @@ const createStore: ICreateStore = (
 		parentElement: getParentElement(appendTo),
 		appendTo,
 		mask,
-		maskClickClose,
+		maskDestroy,
 		disableScroll,
 		component,
 		componentProps,

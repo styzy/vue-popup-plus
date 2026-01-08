@@ -2,7 +2,7 @@
 .popup-mask(
 	:class="classObject"
 	:style="{ zIndex: store.zIndex.value }"
-	@click="handleClick")
+	@click="handleClick()")
 </template>
 
 <script lang="ts" setup>
@@ -26,9 +26,18 @@ const classObject = computed(() => ({
 }))
 
 function handleClick() {
-	if (store.maskClickClose) {
-		const popup = usePopup()
+	if (store.maskDestroy === false) return
+
+	// 不在 setup 根层级创建控制器，因为可以使用全局缓存的无状态控制器，从而提高性能
+	const popup = usePopup()
+
+	if (store.maskDestroy === true) {
 		popup.destroy(instanceId)
+	} else {
+		const destroy = async (payload?: any) => {
+			await popup.destroy(instanceId, payload)
+		}
+		store.maskDestroy(destroy)
 	}
 }
 </script>

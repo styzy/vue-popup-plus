@@ -25,7 +25,8 @@ outline: 2
 - `createPopupPlus()` 函数新增 `logFilter` 参数，用于自定义日志过滤函数，默认为 `undefined`。
 - 新增 `usePopupInstanceId()` 组合式工具函数，用于在弹出层所渲染的 `所有子代组件` 中获取当前的弹出层实例ID。
 - 新增 `usePopupComputedStyle()` 组合式工具函数，用于获取当前弹出层的渲染组件的计算样式。
-- `render()` 函数新增 `maskTransparent` 参数，用于指定是否启用透明遮罩层，默认值为 `false` 。
+- `render()` 函数新增 `maskTransparent` 参数，用于设置是否启用透明遮罩层，默认值为 `false` 。
+- `render()` 函数新增 `maskDestroy` 参数，用于设置遮罩层点击是否可以销毁弹出层，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的 `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
 - `usePopup()` 函数现在将会自动在组件内获取组件的 `上下文` ，从而提供对其他框架更好的兼容性，如果你仅在组件内使用 `usePopup()` 函数，那么 `PopupRoot` 根组件将并不再是必须的。
 
 ### 优化
@@ -42,6 +43,7 @@ outline: 2
 
 - `createPopup()` 函数现在已经被移除，其原有功能已经被 `createPopupPlus()` 和 `usePopup()` 函数所替代。
 - `definePlugin()` 定义弹出层插件函数的 `install()` 方法移除第一个参数 `controller` ，因为现在控制器不会提前生成，而是在调用 `usePopup()` 时才会生成。 弹出层插件开发者无法直接访问弹出层控制器实例，只能通过第二个参数 `config` 的 `customProperties` 属性对弹出层控制器进行扩展方法时，通过 `this` 访问弹出层控制器实例。
+- `render()` 函数移除 `maskClickClose` 参数，可使用功能更强大的 `maskDestroy` 参数代替。
 
 :::
 

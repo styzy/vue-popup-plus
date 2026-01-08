@@ -11,8 +11,8 @@ outline: 2
 
 #### `render()`
 
-- <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增选项 `maskTransparent` ，设置透明遮罩，默认值为 `false` 。
-- <DVersionTodo version="1.6.0" level="medium" author="STYZY" /> 优化选项 `maskClickClose` ，支持传入函数，接受一个 `(payload?: any)=>Promise<void>` 类型的异步函数，执行后关闭弹出层，可 `await` 执行等待关闭动画结束。
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增 `maskTransparent` 参数，用于设置是否启用透明遮罩层，默认值为 `false` 。
+- <DVersionTodo version="1.6.0" level="medium" author="STYZY" /> 新增 `maskDestroy` 参数，用于设置遮罩层点击是否可以销毁弹出层，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的 `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
 
 ### 预置插件
 
