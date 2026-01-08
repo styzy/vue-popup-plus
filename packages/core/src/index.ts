@@ -9,12 +9,13 @@ export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { usePopup, usePopupInstanceId } from './composition-api'
 export { type ConfigOption } from './config'
 export {
+	type ExtractComponentPropTypes,
 	type IController,
+	type MaskDestroyHandler,
+	type Placement,
 	type PopupCustomProperties,
 	type RenderOption,
-	type Placement,
 	type UpdateOption,
-	type ExtractComponentPropTypes,
 } from './controller'
 export { type InstanceId } from './instance'
 export {
