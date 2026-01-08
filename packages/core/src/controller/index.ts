@@ -141,7 +141,9 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	onUnmounted?: (payload?: any) => void
 }
 
-type MaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
+export type MaskDestroyHandler = (
+	close: (payload?: any) => Promise<void>
+) => void
 
 export type RenderConfigOptions = {
 	/**
