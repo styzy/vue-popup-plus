@@ -41,6 +41,7 @@ export default defineConfig({
 			message: 'Released under the MIT License.',
 			copyright: `Copyright © ${new Date().getFullYear()} Vue Popup Plus`,
 		},
+		externalLinkIcon: true,
 	},
 	locales: {
 		root: {

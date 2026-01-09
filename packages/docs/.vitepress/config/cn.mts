@@ -10,6 +10,8 @@ export const themeConfig = defineConfig({
 			label: '页面导航',
 		},
 		sidebarMenuLabel: '菜单',
+		returnToTopLabel: '返回顶部',
+		langMenuLabel: '多语言',
 		docFooter: {
 			prev: '上一页',
 			next: '下一页',

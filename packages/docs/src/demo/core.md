@@ -99,12 +99,15 @@ function handlePopupWithResult() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupWithMask" type="default"
-		>默认高斯模糊遮罩层</DButton
+		>默认开启遮罩层</DButton
 	>
-	<DButton @click="handlePopupWithoutMaskBlur">禁用遮罩层高斯模糊</DButton>
 	<DButton @click="handlePopupWithoutMask">禁用遮罩层</DButton>
-	<DButton @click="handlePopupWithMaskClickClose"
-		>启用遮罩层点击关闭弹出层</DButton
+	<DButton @click="handlePopupWithMaskDestroy"
+		>启用遮罩层点击销毁弹出层</DButton
+	>
+	<DButton @click="handlePopupWitMaskTransparent">启用透明遮罩层</DButton>
+	<DButton @click="handlePopupWitMaskBlur" theme="warning"
+		>启用遮罩层高斯模糊</DButton
 	>
 </DButtonGroup>
 ```
@@ -116,13 +119,6 @@ function handlePopupWithMask() {
 	})
 }
 
-function handlePopupWithoutMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: false,
-	})
-}
-
 function handlePopupWithoutMask() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -130,10 +126,24 @@ function handlePopupWithoutMask() {
 	})
 }
 
-function handlePopupWithMaskClickClose() {
+function handlePopupWithMaskDestroy() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
+		maskDestroy: true,
+	})
+}
+
+function handlePopupWitMaskTransparent() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskTransparent: true,
+	})
+}
+
+function handlePopupWitMaskBlur() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
 	})
 }
 ```
@@ -426,13 +436,6 @@ function handlePopupWithMask() {
 	})
 }
 
-function handlePopupWithoutMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: false,
-	})
-}
-
 function handlePopupWithoutMask() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -440,10 +443,24 @@ function handlePopupWithoutMask() {
 	})
 }
 
-function handlePopupWithMaskClickClose() {
+function handlePopupWithMaskDestroy() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
-		maskClickClose: true,
+		maskDestroy: true,
+	})
+}
+
+function handlePopupWitMaskTransparent() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskTransparent: true,
+	})
+}
+
+function handlePopupWitMaskBlur() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
 	})
 }
 
