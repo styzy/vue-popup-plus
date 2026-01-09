@@ -60,13 +60,14 @@ pnpm add vue-popup-plus vue-popup-plus-plugin-preset
 ```js
 import { createApp } from 'vue'
 import { createPopupPlus } from 'vue-popup-plus'
-import { plugin } from 'vue-popup-plus-plugin-preset'
+import { createPresetPlugin } from 'vue-popup-plus-plugin-preset'
 import App from './App.vue'
 
 const app = createApp(App)
 const PopupPlus = createPopupPlus()
+const PresetPlugin  = createPresetPlugin()
 
-PopupPlus.use(plugin)
+PopupPlus.use(PresetPlugin)
 
 app.use(PopupPlus)
 
