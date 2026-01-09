@@ -2,6 +2,7 @@ import { Log, LogGroupItemType, type LogOption } from 'vue-popup-plus'
 import { version } from '../version'
 
 export class PluginLog extends Log {
+	namespace = 'VuePopupPlusPluginPreset'
 	constructor({ group = [], ...options }: LogOption) {
 		group.unshift({
 			type: LogGroupItemType.Info,

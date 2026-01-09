@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
-import { injectSkin } from './PScaffold.vue'
+import { useSkin } from '../skin'
 
-const skin = inject(injectSkin, 'modern')
+const skin = useSkin()
+
 defineOptions({
 	name: 'PBody',
 })

@@ -15,25 +15,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import {
-	POPUP_COMPONENT_INJECTS,
 	usePopup,
+	usePopupComputedStyle,
+	usePopupInstanceId,
 	type IController,
 } from 'vue-popup-plus'
 import { type Theme } from '../typings'
-import { injectSkin } from './PScaffold.vue'
 import PHeaderButton from './PHeaderButton.vue'
+import { useSkin } from '../skin'
 
 let popup: IController | undefined
+
+const skin = useSkin()
+const instanceId = usePopupInstanceId()!
+const viewComputedStyle = usePopupComputedStyle()!
 
 defineOptions({
 	name: 'PHeader',
 })
-
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const viewComputedStyle = inject(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE)!
-const skin = inject(injectSkin, 'modern')
 
 type Emits = {
 	close: []

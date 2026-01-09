@@ -1,6 +1,6 @@
 <template lang="pug">
-.p-dialog(:class="{ 'no-header': !header }")
-	PScaffold(:skin="skin")
+PSkin.p-dialog(:class="{ 'no-header': !header }" :skin="skin")
+	PLayout
 		template(#header v-if="header")
 			PHeader(
 				:draggable="draggable"
@@ -22,8 +22,9 @@
 
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, type Component } from 'vue'
-import { type Skin } from '../../../typings'
-import PScaffold from '../../../components/PScaffold.vue'
+import { type Skin } from '../../../skin'
+import PSkin from '../../../components/PSkin.vue'
+import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PHeaderButton from '../../../components/PHeaderButton.vue'
 import PBody from '../../../components/PBody.vue'
@@ -39,8 +40,8 @@ type Emits = {
 const emit = defineEmits<Emits>()
 
 type Props = {
-	id: string
 	skin: Skin
+	id: string
 	title: string
 	customComponent: Component
 	customComponentProps: Record<string, any>
@@ -51,6 +52,7 @@ type Props = {
 }
 
 const {
+	skin,
 	id,
 	title,
 	customComponent,
@@ -59,6 +61,7 @@ const {
 	headerClose,
 	debugMode,
 } = defineProps<Props>()
+console.log('skin: ', skin)
 
 const customComponentKeySeed = ref(1)
 

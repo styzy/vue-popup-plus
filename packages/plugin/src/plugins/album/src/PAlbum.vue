@@ -65,7 +65,7 @@ import {
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { download, setClipboard } from 'utils'
 import { File } from '../../../class'
-import { type Skin } from '../../../typings'
+import { type Skin } from '../../../skin'
 
 const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!

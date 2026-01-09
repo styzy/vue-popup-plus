@@ -1,6 +1,6 @@
 <template lang="pug">
-.p-prompt(:class="`is-skin-${skin}`")
-	PScaffold(:skin="skin")
+PSkin.p-prompt(:skin="skin")
+	PLayout
 		template(#header)
 			PHeader(
 				:draggable="draggable"
@@ -32,8 +32,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { type PromptType } from '../index'
-import { type Skin } from '../../../typings'
-import PScaffold from '../../../components/PScaffold.vue'
+import { type Skin } from '../../../skin'
+import PSkin from '../../../components/PSkin.vue'
+import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
 import PBody from '../../../components/PBody.vue'
 import PFooter from '../../../components/PFooter.vue'
@@ -97,6 +98,7 @@ function handleCancel() {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
+	width: 440px;
 	box-shadow: var(--popup-plugin-preset-box-shadow);
 	border-radius: var(--popup-plugin-preset-border-radius-large);
 	overflow: hidden;
@@ -131,12 +133,6 @@ function handleCancel() {
 			height: 100px;
 			resize: none;
 		}
-	}
-	&.is-skin-modern {
-		width: 400px;
-	}
-	&.is-skin-classic {
-		width: 360px;
 	}
 }
 </style>

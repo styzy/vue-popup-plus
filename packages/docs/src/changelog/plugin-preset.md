@@ -29,6 +29,7 @@ outline: 2
 
 ::: danger
 
+- 移除所有子插件的独立导出，因为内部部分子插件存在依赖关系，现在只允许全量注册子插件。
 - `Dialog 对话` 移除 `maskClickClose()` 属性，可使用功能更强大的 `maskClose` 参数代替。
 - `Toast 轻量提示` 主题子方法名称更变：
     - `toast.success()` 变更为 `toastSuccess()` 。

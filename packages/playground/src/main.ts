@@ -5,7 +5,11 @@ import {
 	version as coreVersion,
 	LogType,
 } from 'vue-popup-plus'
-import { plugin } from 'vue-popup-plus-plugin-preset'
+import {
+	createPresetPlugin,
+	plugin,
+	type Skin,
+} from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
 import GlobalComponent from './views/GlobalComponent.vue'
@@ -29,9 +33,11 @@ const PopupPlus = createPopupPlus({
 	// logFilter: (log) => log.type === LogType.Success,
 })
 
-PopupPlus.use(plugin, {
-	// skin: 'classic',
-})
+const skin = (localStorage.getItem('skin') || 'modern') as Skin
+
+const presetPlugin = createPresetPlugin()
+
+PopupPlus.use(presetPlugin)
 
 type TestPluginOption = {
 	/**

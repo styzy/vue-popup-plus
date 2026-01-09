@@ -4,14 +4,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject } from 'vue'
-import { injectSkin } from './PScaffold.vue'
+import { computed } from 'vue'
+import { useSkin } from '../skin'
+
+const skin = useSkin()
 
 defineOptions({
 	name: 'PHeaderButton',
 })
-
-const skin = inject(injectSkin, 'modern')
 
 type ButtonTheme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 

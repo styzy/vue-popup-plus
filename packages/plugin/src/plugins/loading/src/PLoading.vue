@@ -9,7 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { type Skin, type Theme } from '../../../typings'
+import { type Skin } from '../../../skin'
+import { type Theme } from '../../../typings'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'

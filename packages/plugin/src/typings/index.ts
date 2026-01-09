@@ -1,6 +1,6 @@
-export type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+import { type Skin } from '../skin'
 
-export type Skin = 'classic' | 'modern'
+export type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
 export type GlobalPluginOption = {
 	/**

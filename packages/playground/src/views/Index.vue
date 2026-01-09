@@ -75,6 +75,8 @@
 	.row
 		.row-item
 			.title 插件功能单元测试
+			PButtonGroup(theme="primary")
+				PButton(@click="handleSkinChange()" size="large" theme="success") 切换皮肤，当前为{{ skin }}
 			.title.second 消息
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
@@ -273,21 +275,17 @@
 </template>
 
 <script setup lang="ts">
+import { computed, defineAsyncComponent, onMounted } from 'vue'
 import {
 	POPUP_ANIMATIONS,
 	usePopup,
 	usePopupInstanceId,
 	version,
 } from 'vue-popup-plus'
+import { type Skin } from 'vue-popup-plus-plugin-preset'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 import Demo from '@/views/Demo.vue'
-import {
-	computed,
-	defineAsyncComponent,
-	getCurrentInstance,
-	onMounted,
-} from 'vue'
 
 defineOptions({ name: 'Index' })
 
@@ -298,6 +296,13 @@ const popupInstanceId = usePopupInstanceId()
 const inPopup = computed(() => !!popupInstanceId)
 
 onMounted(() => {})
+
+const skin = (localStorage.getItem('skin') || 'modern') as Skin
+
+function handleSkinChange() {
+	localStorage.setItem('skin', skin === 'modern' ? 'classic' : 'modern')
+	window.location.reload()
+}
 
 function handleCloseSelf() {
 	popup.destroy(popupInstanceId!)

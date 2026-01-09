@@ -1,36 +1,26 @@
 <template lang="pug">
-.p-scaffold(:class="`is-skin-${skin}`")
+.p-layout(:class="`is-skin-${skin}`")
 	slot(name="header")
 	.body
 		slot
 	slot(name="footer")
 </template>
 
-<script lang="ts">
-export const injectSkin = Symbol('skin') as InjectionKey<Skin>
-</script>
-
 <script lang="ts" setup>
-import { provide, type InjectionKey } from 'vue'
-import type { Skin } from '../typings'
+import { inject } from 'vue'
+import { injectSkin } from '../skin'
 
 defineOptions({
-	name: 'PScaffold',
+	name: 'PLayout',
 })
 
-type Props = {
-	skin: Skin
-}
-
-const { skin } = defineProps<Props>()
-
-provide(injectSkin, skin)
+const skin = inject(injectSkin, 'modern')
 </script>
 
 <style lang="scss" scoped>
 @use '../assets/styles/inject.scss' as *;
 
-.p-scaffold {
+.p-layout {
 	flex: 1;
 	display: flex;
 	flex-direction: column;

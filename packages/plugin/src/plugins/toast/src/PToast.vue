@@ -16,7 +16,8 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { type Skin, type Theme } from '../../../typings'
+import { type Skin } from '../../../skin'
+import { type Theme } from '../../../typings'
 
 defineOptions({
 	name: 'PToast',
