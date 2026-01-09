@@ -21,7 +21,7 @@ export { type Skin } from './skin'
 export { version } from './version'
 export type { IAlbum, IAlert, IConfirm, IDialog, ILoading, IPrompt, IToast }
 
-export type PresetPluginOption = GlobalPluginConfig & {
+export type PresetPluginConfig = GlobalPluginConfig & {
 	/**
 	 * 媒体相册 插件配置
 	 */
@@ -58,7 +58,7 @@ export type PresetPluginOption = GlobalPluginConfig & {
  * - 可全局定义默认皮肤
  * - 可全局配置所有子插件的默认参数
  */
-export function createPresetPlugin(options?: PresetPluginOption) {
+export function createPresetPlugin(config?: PresetPluginConfig) {
 	const {
 		skin = 'modern',
 		album: albumConfig = {},
@@ -68,7 +68,7 @@ export function createPresetPlugin(options?: PresetPluginOption) {
 		loading: loadingConfig = {},
 		prompt: promptConfig = {},
 		toast: toastConfig = {},
-	} = options || {}
+	} = config || {}
 
 	albumConfig.skin = albumConfig.skin || skin
 	alertConfig.skin = alertConfig.skin || skin
@@ -85,14 +85,14 @@ export function createPresetPlugin(options?: PresetPluginOption) {
 			min: coreVersion,
 			max: coreVersion,
 		},
-		install(config) {
-			album.install(config, albumConfig)
-			alert.install(config, alertConfig)
-			confirm.install(config, confirmConfig)
-			dialog.install(config, dialogConfig)
-			loading.install(config, loadingConfig)
-			prompt.install(config, promptConfig)
-			toast.install(config, toastConfig)
+		install(_) {
+			album.install(_, albumConfig)
+			alert.install(_, alertConfig)
+			confirm.install(_, confirmConfig)
+			dialog.install(_, dialogConfig)
+			loading.install(_, loadingConfig)
+			prompt.install(_, promptConfig)
+			toast.install(_, toastConfig)
 
 			printLog(
 				new PluginLog({
@@ -114,10 +114,10 @@ export function createPresetPlugin(options?: PresetPluginOption) {
 						},
 						{
 							type: LogGroupItemType.Data,
-							title: '调用参数',
-							dataName: 'options',
-							dataType: 'PresetPluginOption',
-							dataValue: options,
+							title: '配置',
+							dataName: 'config',
+							dataType: 'PresetPluginConfig',
+							dataValue: config,
 						},
 					],
 				})
