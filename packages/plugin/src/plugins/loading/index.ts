@@ -9,7 +9,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import {
-	type GlobalPluginOption,
+	type GlobalPluginConfig,
 	type MergedOption,
 	type SharedOption,
 	type Theme,
@@ -114,6 +114,17 @@ export interface ILoadingClose {
 	(this: IController): Promise<void>
 }
 
+type LoadingDefaultOption = LoadingOption
+
+export type LoadingConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.loading()` 方法的默认选项
+	 */
+	defaultOptions?: LoadingDefaultOption
+}
+
 let seed = 1
 
 const createId = () => `loading-${seed++}`
@@ -125,21 +136,24 @@ export const loading = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: LoadingConfig = {}
+	) => {
 		const record: {
 			id?: string
 			instanceId?: InstanceId
 		} = {}
 
 		const loading: ILoading = function ({
-			theme = 'primary',
-			title = '',
-			iconSize = 60,
-			mask = true,
-			maskBlur = false,
-			maskTransparent = false,
-			disableScroll = true,
-			zIndex,
+			theme = defaultOptions.theme || 'primary',
+			title = defaultOptions.title || '',
+			iconSize = defaultOptions.iconSize || 60,
+			mask = defaultOptions.mask || true,
+			maskBlur = defaultOptions.maskBlur || false,
+			maskTransparent = defaultOptions.maskTransparent || false,
+			disableScroll = defaultOptions.disableScroll || true,
+			zIndex = defaultOptions.zIndex,
 		} = {}) {
 			if (record.id) {
 				printLog(

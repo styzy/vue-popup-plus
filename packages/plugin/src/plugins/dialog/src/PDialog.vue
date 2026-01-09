@@ -61,7 +61,6 @@ const {
 	headerClose,
 	debugMode,
 } = defineProps<Props>()
-console.log('skin: ', skin)
 
 const customComponentKeySeed = ref(1)
 

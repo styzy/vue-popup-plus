@@ -7,7 +7,7 @@ import {
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
-import type { GlobalPluginOption } from '../../typings'
+import type { GlobalPluginConfig } from '../../typings'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Confirm'
@@ -83,6 +83,17 @@ export interface IConfirm {
 	): Promise<boolean>
 }
 
+type ConfirmDefaultOption = Omit<ConfirmOption, 'zIndex'>
+
+export type ConfirmConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.confirm()` 方法的默认选项
+	 */
+	defaultOptions?: ConfirmDefaultOption
+}
+
 export const confirm = definePlugin({
 	name: 'plugin-preset-confirm',
 	author: 'STYZY',
@@ -90,17 +101,20 @@ export const confirm = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: ConfirmConfig = {}
+	) => {
 		const confirm: IConfirm = function (
 			content = '是否确认？',
 			{
-				title = '确认',
-				headerClose = false,
-				confirmText = '确定',
-				cancelText = '取消',
-				draggable = false,
-				dragOverflow = false,
-				maskBlur = false,
+				title = defaultOptions.title ?? '确认',
+				headerClose = defaultOptions.headerClose ?? false,
+				confirmText = defaultOptions.confirmText ?? '确定',
+				cancelText = defaultOptions.cancelText ?? '取消',
+				draggable = defaultOptions.draggable ?? false,
+				dragOverflow = defaultOptions.dragOverflow ?? false,
+				maskBlur = defaultOptions.maskBlur ?? false,
 			} = {}
 		) {
 			return new Promise((resolve) => {

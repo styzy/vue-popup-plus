@@ -13,7 +13,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
-	GlobalPluginOption,
+	GlobalPluginConfig,
 	MergedOption,
 	SharedOption,
 } from '../../typings'
@@ -191,6 +191,20 @@ export interface IDialogClose {
 	<T extends any = any>(this: IController, payload?: T): Promise<void>
 }
 
+type DialogDefaultOption = Omit<
+	DialogOption,
+	'component' | 'componentProps' | 'onMounted' | 'zIndex'
+>
+
+export type DialogConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.dialog()` 方法的默认选项
+	 */
+	defaultOptions?: DialogDefaultOption
+}
+
 let seed = 1
 
 const createId = () => `dialog-${seed++}`
@@ -202,7 +216,10 @@ export const dialog = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: DialogConfig = {}
+	) => {
 		const recordList: Array<{
 			id: string
 			instanceId: InstanceId
@@ -210,24 +227,24 @@ export const dialog = definePlugin({
 		}> = []
 
 		const dialog: IDialog = function ({
-			title = '对话',
+			title = defaultOptions.title ?? '对话',
 			component,
 			componentProps = {},
 			onMounted = () => {},
-			header = true,
-			headerClose = true,
-			width = 'auto',
-			maxWidth = '100%',
-			minWidth = 'auto',
-			height = 'auto',
-			maxHeight = '100%',
-			minHeight = 'auto',
-			placement = 'center',
-			mask = true,
-			maskClose = false,
-			draggable = false,
-			dragOverflow = false,
-			maskBlur = false,
+			header = defaultOptions.header ?? true,
+			headerClose = defaultOptions.headerClose ?? true,
+			width = defaultOptions.width ?? 'auto',
+			maxWidth = defaultOptions.maxWidth ?? '100%',
+			minWidth = defaultOptions.minWidth ?? 'auto',
+			height = defaultOptions.height ?? 'auto',
+			maxHeight = defaultOptions.maxHeight ?? '100%',
+			minHeight = defaultOptions.minHeight ?? 'auto',
+			placement = defaultOptions.placement ?? 'center',
+			mask = defaultOptions.mask ?? true,
+			maskClose = defaultOptions.maskClose ?? false,
+			draggable = defaultOptions.draggable ?? false,
+			dragOverflow = defaultOptions.dragOverflow ?? false,
+			maskBlur = defaultOptions.maskBlur ?? false,
 			zIndex,
 		}) {
 			return new Promise((resolve) => {

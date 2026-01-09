@@ -8,7 +8,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
-	GlobalPluginOption,
+	GlobalPluginConfig,
 	MergedOption,
 	SharedOption,
 } from '../../typings'
@@ -77,6 +77,17 @@ export interface IAlert {
 	(this: IController, content: string, options?: AlertOption): Promise<void>
 }
 
+type AlertDefaultOption = Omit<AlertOption, 'zIndex'>
+
+export type AlertConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.alert()` 方法的默认选项
+	 */
+	defaultOptions?: AlertDefaultOption
+}
+
 export const alert = definePlugin({
 	name: 'plugin-preset-alert',
 	author: 'STYZY',
@@ -84,16 +95,19 @@ export const alert = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: AlertConfig = {}
+	) => {
 		const alert: IAlert = function (
 			content = '',
 			{
-				title = '提示',
-				headerClose = true,
-				confirmText = '确定',
-				draggable = false,
-				dragOverflow = false,
-				maskBlur = false,
+				title = defaultOptions.title ?? '提示',
+				headerClose = defaultOptions.headerClose ?? true,
+				confirmText = defaultOptions.confirmText ?? '确定',
+				draggable = defaultOptions.draggable ?? false,
+				dragOverflow = defaultOptions.dragOverflow ?? false,
+				maskBlur = defaultOptions.maskBlur ?? false,
 				zIndex,
 			} = {}
 		) {

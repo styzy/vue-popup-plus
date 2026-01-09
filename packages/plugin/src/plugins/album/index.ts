@@ -8,7 +8,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
-	GlobalPluginOption,
+	GlobalPluginConfig,
 	MergedOption,
 	SharedOption,
 } from '../../typings'
@@ -106,6 +106,20 @@ export interface IAlbum {
 	(this: IController, options: AlbumOption): Promise<void>
 }
 
+type AlbumDefaultOption = Omit<
+	AlbumOption,
+	'sources' | 'defaultIndex' | 'zIndex'
+>
+
+export type AlbumConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.album()` 方法的默认选项
+	 */
+	defaultOptions?: AlbumDefaultOption
+}
+
 export const album = definePlugin({
 	name: 'plugin-preset-album',
 	author: 'STYZY',
@@ -113,19 +127,22 @@ export const album = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: AlbumConfig = {}
+	) => {
 		const album: IAlbum = function ({
 			sources,
 			defaultIndex = 0,
-			disableCounter = false,
-			disableName = false,
-			disablePure = false,
-			disableDownload = false,
-			disableScale = false,
-			disableDrag = false,
-			maskBlur = false,
+			disableCounter = defaultOptions.disableCounter ?? false,
+			disableName = defaultOptions.disableName ?? false,
+			disablePure = defaultOptions.disablePure ?? false,
+			disableDownload = defaultOptions.disableDownload ?? false,
+			disableScale = defaultOptions.disableScale ?? false,
+			disableDrag = defaultOptions.disableDrag ?? false,
+			maskBlur = defaultOptions.maskBlur ?? false,
 			zIndex,
-		}) {
+		}: AlbumOption) {
 			return new Promise<void>((resolve) => {
 				this.render({
 					component: () => import('./src/PAlbum.vue'),

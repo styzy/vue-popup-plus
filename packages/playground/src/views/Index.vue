@@ -2,7 +2,11 @@
 .index
 	.fixed
 		PButtonGroup
-			PButton(@click="handleCloseSelf()" theme="warning" v-if="inPopup") 当前处于弹出层内，点击关闭
+			PButton(
+				@click="handleCloseSelf()"
+				size="large"
+				theme="warning"
+				v-if="inPopup") 当前处于弹出层内，点击关闭
 	.title @styzy/vue-popup-plus 版本：{{ version }}
 	.links
 		.label Github:
@@ -20,7 +24,7 @@
 			.title 核心功能单元测试
 			.title.second 修改当前环境
 			PButtonGroup(theme="primary" tight)
-				PButton(@click="handlePopupWithSelf()") 用弹出层渲染当前组件
+				PButton(@click="handlePopupWithSelf()" size="large") 用弹出层渲染当前组件
 			.title.second 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
@@ -1375,7 +1379,7 @@ function handlePopupAlbumWithMaskBlur() {
 	overflow-y auto
 	.fixed
 		position fixed
-		top 70px
+		top 80px
 		right 20px
 		z-index 1
 	.row

@@ -10,7 +10,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import {
-	type GlobalPluginOption,
+	type GlobalPluginConfig,
 	type MergedOption,
 	type SharedOption,
 	type Theme,
@@ -141,6 +141,17 @@ export interface IToastDanger {
 	): Promise<void>
 }
 
+type ToastDefaultOption = Omit<ToastOption, 'zIndex'>
+
+export type ToastConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.toast()` 方法的默认选项
+	 */
+	defaultOptions?: ToastDefaultOption
+}
+
 export const toast = definePlugin({
 	name: 'plugin-preset-toast',
 	author: 'STYZY',
@@ -148,15 +159,18 @@ export const toast = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: ToastConfig = {}
+	) => {
 		const toast: IToast = function (
 			content = '',
 			{
-				theme = 'primary',
-				placement = 'center',
-				duration = 2000,
-				showClose = false,
-				hoverWait = true,
+				theme = defaultOptions.theme ?? 'primary',
+				placement = defaultOptions.placement ?? 'center',
+				duration = defaultOptions.duration ?? 2000,
+				showClose = defaultOptions.showClose ?? false,
+				hoverWait = defaultOptions.hoverWait ?? true,
 				zIndex,
 			} = {}
 		) {

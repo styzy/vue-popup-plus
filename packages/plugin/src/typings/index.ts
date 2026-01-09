@@ -2,7 +2,7 @@ import { type Skin } from '../skin'
 
 export type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
-export type GlobalPluginOption = {
+export type GlobalPluginConfig = {
 	/**
 	 * 插件弹出层皮肤
 	 * - 默认为 `modern` 现代皮肤

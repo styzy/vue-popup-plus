@@ -8,7 +8,7 @@ import {
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
-	GlobalPluginOption,
+	GlobalPluginConfig,
 	MergedOption,
 	SharedOption,
 } from '../../typings'
@@ -121,6 +121,17 @@ export interface IPrompt {
 	): Promise<string | undefined>
 }
 
+type PromptDefaultOption = Omit<PromptOption, 'defaultValue' | 'zIndex'>
+
+export type PromptConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.prompt()` 方法的默认选项
+	 */
+	defaultOptions?: PromptDefaultOption
+}
+
 export const prompt = definePlugin({
 	name: 'plugin-preset-prompt',
 	author: 'STYZY',
@@ -128,21 +139,24 @@ export const prompt = definePlugin({
 		min: coreVersion,
 		max: coreVersion,
 	},
-	install: (config, { skin = 'modern' }: GlobalPluginOption = {}) => {
+	install: (
+		config,
+		{ skin = 'modern', defaultOptions = {} }: PromptConfig = {}
+	) => {
 		const prompt: IPrompt = function (
 			message,
 			{
 				defaultValue = '',
-				type = 'input',
-				title = '提示输入',
-				headerClose = true,
-				maxLength = null,
-				placeholder = '请输入',
-				confirmText = '确定',
-				cancelText = '取消',
-				draggable = false,
-				dragOverflow = false,
-				maskBlur = false,
+				type = defaultOptions.type ?? 'input',
+				title = defaultOptions.title ?? '提示输入',
+				headerClose = defaultOptions.headerClose ?? true,
+				maxLength = defaultOptions.maxLength ?? null,
+				placeholder = defaultOptions.placeholder ?? '请输入',
+				confirmText = defaultOptions.confirmText ?? '确定',
+				cancelText = defaultOptions.cancelText ?? '取消',
+				draggable = defaultOptions.draggable ?? false,
+				dragOverflow = defaultOptions.dragOverflow ?? false,
+				maskBlur = defaultOptions.maskBlur ?? false,
 				zIndex,
 			} = {}
 		) {

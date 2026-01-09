@@ -9,6 +9,7 @@ outline: 2
 
 ### 特性
 
+- 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - 新增 `Drawer 抽屉` 插件。
 - 新增 `Message 消息` 插件。
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
@@ -29,6 +30,7 @@ outline: 2
 
 ::: danger
 
+- 移除导出的预置插件 `plugin` 变量，请使用新的 `createPresetPlugin()` 函数创建预置插件。
 - 移除所有子插件的独立导出，因为内部部分子插件存在依赖关系，现在只允许全量注册子插件。
 - `Dialog 对话` 移除 `maskClickClose()` 属性，可使用功能更强大的 `maskClose` 参数代替。
 - `Toast 轻量提示` 主题子方法名称更变：
