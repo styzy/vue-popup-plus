@@ -1,6 +1,4 @@
 import {
-	getCurrentInstance,
-	hasInjectionContext,
 	markRaw,
 	reactive,
 	type App,
@@ -24,30 +22,35 @@ import { PopupRootComponentName } from '../components/PopupRoot.vue'
 type Instances = Reactive<Record<InstanceId['name'], Instance>>
 
 export interface ICore {
+	readonly id: string
 	/**
 	 * 插件所挂载的 Vue 应用实例
 	 */
-	app?: Readonly<App>
+	readonly app?: Readonly<App>
 	/**
-	 * 弹出层种子，用于生成弹出层实例id，自动递增
+	 * 控制器实例种子，用于生成控制器实例id，自动递增
 	 */
-	seed: number
+	readonly controllerSeed: number
+	/**
+	 * 弹出层实例种子，用于生成弹出层实例id，自动递增
+	 */
+	readonly instanceSeed: number
 	/**
 	 * 弹出层配置项
 	 */
-	config: IConfig
+	readonly config: IConfig
 	/**
 	 * 弹出层实例存储
 	 */
-	instances: Instances
+	readonly instances: Instances
 	/**
 	 * 是否已注册根组件
 	 */
-	isRootComponentRegistered: boolean
+	readonly isRootComponentRegistered: boolean
 	/**
 	 * 版本号
 	 */
-	version: Version
+	readonly version: Version
 	/**
 	 * Vue 插件安装函数
 	 */
@@ -101,16 +104,30 @@ export function getCore(): ICore | null {
 	return core
 }
 
+// 核心种子，用于生成核心实例id，自动递增
+let _coreSeed = 0
+
 export class Core implements ICore {
-	app?: Readonly<App>
+	#id: string
+	#app?: Readonly<App>
 	#config: IConfig
-	#seed: number = 1
+	#controllerSeed: number = 0
+	#instanceSeed: number = 0
 	#instances: Instances = reactive({})
 	#plugins: Record<string, PopupPlugin> = {}
 	#originBodyOverflow: string = ''
 	#registeredRootComponentInstances: ComponentInternalInstance[] = []
-	get seed() {
-		return this.#seed++
+	get id() {
+		return this.#id
+	}
+	get app() {
+		return this.#app
+	}
+	get controllerSeed() {
+		return ++this.#controllerSeed
+	}
+	get instanceSeed() {
+		return ++this.#instanceSeed
 	}
 	get config() {
 		return this.#config
@@ -122,7 +139,9 @@ export class Core implements ICore {
 		return this.#registeredRootComponentInstances.length > 0
 	}
 	constructor(options: ConfigOption = {}) {
+		this.#id = `popup-core-${++_coreSeed}`
 		this.#config = new Config(options)
+
 		core = this
 	}
 	get version() {
@@ -130,10 +149,12 @@ export class Core implements ICore {
 	}
 	install(app: App) {
 		const mixins = createMixins(this)
+
 		app.mixin(mixins)
 
-		this.app = app
 		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
+
+		this.#app = app
 
 		printLog(
 			new Log({

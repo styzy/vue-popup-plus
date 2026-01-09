@@ -1,12 +1,17 @@
-import { createCore, type ICore as PupupPlus } from './core'
+import { createCore, type ICore } from './core'
 import { type ConfigOption } from './config'
 import { type IController } from './controller'
 import './assets/styles/main.scss'
 import { type InstanceId } from './instance'
+import { Log, LogGroupItemType, LogType, printLog } from './log'
 import type { ComputedStyle } from './typings'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export { usePopup, usePopupInstanceId } from './composition-api'
+export {
+	usePopup,
+	usePopupInstanceId,
+	usePopupComputedStyle,
+} from './composition-api'
 export { type ConfigOption } from './config'
 export {
 	type ExtractComponentPropTypes,
@@ -17,6 +22,7 @@ export {
 	type RenderOption,
 	type UpdateOption,
 } from './controller'
+export { type ICore } from './core'
 export { type InstanceId } from './instance'
 export {
 	printLog,
@@ -34,7 +40,7 @@ export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'
 
 /**
- * 创建弹出层插件实例
+ * 创建弹出层插件
  *
  * - 通过 Vue 的 app.use() 函数安装插件
  *
@@ -52,8 +58,44 @@ export { default as PopupRoot } from './components/PopupRoot.vue'
  * app.use(PopupPlus)
  * ```
  */
-export function createPopupPlus(options?: ConfigOption): PupupPlus {
-	return createCore(options)
+export function createPopupPlus(options?: ConfigOption): ICore {
+	const core = createCore(options)
+
+	printLog(
+		new Log({
+			type: LogType.Success,
+			caller: {
+				name: 'createPopupPlus()',
+				type: 'Function',
+				value: createPopupPlus,
+			},
+			message: `创建弹出层核心 ${core.id} 成功`,
+			group: [
+				{
+					type: LogGroupItemType.Data,
+					title: '核心',
+					dataName: core.id,
+					dataType: 'ICore',
+					dataValue: core,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '调用参数',
+					dataName: 'options',
+					dataType: 'ConfigOption',
+					dataValue: options,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '合并参数',
+					dataName: 'mergedOptions',
+					dataType: 'ConfigOption',
+					dataValue: core.config,
+				},
+			],
+		})
+	)
+	return core
 }
 
 declare module 'vue' {

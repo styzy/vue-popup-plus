@@ -30,17 +30,17 @@ type PropertiseToRef<T extends Record<string, any>> = {
 /**
  * 实例 id 接口
  */
-interface IInstanceId {
+interface _IInstanceId {
 	/**
 	 * 生成该实例 id 的种子
 	 *
 	 * @internal
 	 */
-	seed: Readonly<number>
+	readonly seed: number
 	/**
 	 * 实例 id 名称
 	 */
-	name: Readonly<string>
+	readonly name: string
 }
 
 interface IInstance {
@@ -107,16 +107,16 @@ function getParentElement(appendTo: Element | string) {
 	return appendTo
 }
 
-export class InstanceId implements IInstanceId {
-	private _seed: number
+export class InstanceId implements _IInstanceId {
+	#seed: number
 	get seed() {
-		return this._seed
+		return this.#seed
 	}
 	get name() {
-		return `popup-instance-${this.seed}`
+		return `popup-instance-${this.#seed}`
 	}
 	constructor(seed: number) {
-		this._seed = seed
+		this.#seed = seed
 	}
 }
 
@@ -146,7 +146,7 @@ export class Instance implements IInstance {
 		options: InstanceOptions,
 		vm?: ComponentInternalInstance
 	) {
-		this._id = new InstanceId(core.seed)
+		this._id = new InstanceId(core.instanceSeed)
 		this._store = createStore(this._id, options)
 		this.#core = core
 		this.#vm = vm

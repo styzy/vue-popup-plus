@@ -1,11 +1,8 @@
 import {
 	type AllowedComponentProps,
-	type AppContext,
 	type AsyncComponentLoader,
 	type Component,
-	type ComponentInstance,
 	type ComponentInternalInstance,
-	type ComponentPublicInstance,
 	type VNodeProps,
 } from 'vue'
 import {
@@ -18,7 +15,6 @@ import { PopupError } from '../error'
 import { Instance, RenderType, type InstanceId } from '../instance'
 import { printLog, Log, LogType, LogGroupItemType } from '../log'
 import { version, type Version } from '../version'
-import { DOCUMENT_URL } from '../CONSTANTS'
 
 export interface PopupCustomProperties {}
 
@@ -385,8 +381,6 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	animationDuration: 100,
 }
 
-let _seed = 0
-
 export class Controller implements IController {
 	#id: string
 	#vm?: ComponentInternalInstance
@@ -401,7 +395,7 @@ export class Controller implements IController {
 		return version
 	}
 	constructor(core: ICore, vm?: ComponentInternalInstance) {
-		this.#id = `popup-controller-${++_seed}`
+		this.#id = `popup-controller-${core.controllerSeed}`
 		this.#core = core
 		this.#vm = vm
 	}
@@ -428,7 +422,7 @@ export class Controller implements IController {
 				},
 				{
 					type: LogGroupItemType.Data,
-					title: `调用参数`,
+					title: `渲染参数`,
 					dataName: `options`,
 					dataType: 'RenderOption',
 					dataValue: arguments[0],
@@ -462,7 +456,7 @@ export class Controller implements IController {
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
 		log.group.push({
 			type: LogGroupItemType.Data,
-			title: `合并参数`,
+			title: `渲染合并参数`,
 			dataName: `mergedOptions`,
 			dataValue: mergedOptions,
 			dataType: 'RenderOption',
@@ -477,10 +471,10 @@ export class Controller implements IController {
 		})
 		log.group.push({
 			type: LogGroupItemType.Data,
-			title: `弹出层实例ID`,
+			title: `弹出层实例`,
 			dataName: instance.id.name,
-			dataValue: instance.id,
-			dataType: 'InstanceId',
+			dataValue: instance,
+			dataType: 'Instance',
 		})
 
 		printLog(log)
@@ -512,17 +506,18 @@ export class Controller implements IController {
 				},
 				{
 					type: LogGroupItemType.Data,
-					title: '弹出层实例ID',
+					title: '更新实例ID',
 					dataName: instanceId.name,
 					dataValue: instanceId,
 					dataType: 'InstanceId',
 				},
 				{
 					type: LogGroupItemType.Data,
-					title: '调用参数',
+					title: '更新参数',
 					dataName: `options`,
 					dataValue: options,
 					dataType: 'UpdateOption',
+					important: true,
 				},
 			],
 		})
@@ -553,6 +548,13 @@ export class Controller implements IController {
 		}
 
 		log.message = `更新弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: '弹出层实例',
+			dataName: instanceId.name,
+			dataType: 'Instance',
+			dataValue: instance,
+		})
 
 		printLog(log)
 	}
@@ -579,14 +581,14 @@ export class Controller implements IController {
 				},
 				{
 					type: LogGroupItemType.Data,
-					title: '弹出层实例ID',
+					title: '销毁实例ID',
 					dataName: instanceId.name,
 					dataValue: instanceId,
 					dataType: 'InstanceId',
 				},
 				{
 					type: LogGroupItemType.Data,
-					title: '携带参数',
+					title: '销毁携带参数',
 					dataName: `payload`,
 					dataValue: payload,
 					dataType: 'any',
@@ -613,6 +615,13 @@ export class Controller implements IController {
 		await instance.unmount()
 
 		log.message = `销毁弹出层 ${instance.id.name} 成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: '弹出层实例',
+			dataName: instanceId.name,
+			dataValue: instance,
+			dataType: 'Instance',
+		})
 
 		printLog(log)
 

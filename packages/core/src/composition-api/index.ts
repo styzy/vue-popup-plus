@@ -9,7 +9,6 @@ import {
 import { Controller, type IController } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
-import { type InstanceId } from '../instance'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
 let _noContextController: IController
@@ -202,6 +201,14 @@ export function usePopupInstanceId() {
 	return instanceId
 }
 
+/**
+ * 获取弹出层视图计算样式
+ *
+ * - 如果当前组件不在弹出层内，则返回 `undefined`
+ * - debugMode 为 `true` 时，会打印警告日志
+ *
+ * @returns 弹出层视图计算样式
+ */
 export function usePopupComputedStyle() {
 	if (!hasInjectionContext()) {
 		printLog(
