@@ -96,7 +96,7 @@ export const themeConfig = defineConfig({
 						link: '/changelog/plugin-preset',
 					},
 					{
-						text: '开发规划',
+						text: '版本规划',
 						link: '/changelog/todo',
 					},
 				],
