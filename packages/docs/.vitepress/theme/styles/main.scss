@@ -138,9 +138,11 @@
 }
 
 .VPNavBarTitle {
-	span {
+	.title {
 		&:hover {
-			@include base-colorful-text();
+			span {
+				@include base-colorful-text();
+			}
 		}
 	}
 }
