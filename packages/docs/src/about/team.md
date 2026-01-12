@@ -17,7 +17,6 @@ const creator = [
 		title: 'Creator & Core Developer',
 		org: 'Tao Universe',
 		orgLink: 'https://github.com/tao-universe',
-		desc: '123',
 		links: [
 			{ icon: 'github', link: 'https://github.com/styzy' },
 			// { icon: 'twitter', link: 'https://twitter.com/styzy' },
