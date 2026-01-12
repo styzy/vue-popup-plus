@@ -124,8 +124,12 @@ export const themeConfig = defineConfig({
 						{ text: '介绍', link: '/guide/introduction' },
 						{ text: '安装', link: '/guide/install' },
 						{
-							text: '初始化',
-							link: '/guide/initialization',
+							text: '注册',
+							link: '/guide/register',
+						},
+						{
+							text: '初始化配置',
+							link: '/guide/initialization-config',
 						},
 					],
 				},
@@ -141,6 +145,34 @@ export const themeConfig = defineConfig({
 							link: '/guide/render',
 						},
 						{
+							text: '视图尺寸',
+							link: '/guide/size',
+						},
+						{
+							text: '视图位置',
+							link: '/guide/placement',
+						},
+						{
+							text: '视图位置偏移',
+							link: '/guide/translation',
+						},
+						{
+							text: '遮罩层样式',
+							link: '/guide/mask',
+						},
+						{
+							text: '遮罩层行为',
+							link: '/guide/mask-behavior',
+						},
+						{
+							text: '过渡动画',
+							link: '/guide/animation',
+						},
+						{
+							text: '渲染行为',
+							link: '/guide/behavior',
+						},
+						{
 							text: '销毁弹出层',
 							link: '/guide/destroy',
 						},
@@ -150,12 +182,12 @@ export const themeConfig = defineConfig({
 					text: '进阶',
 					items: [
 						{
-							text: '更新渲染参数',
-							link: '/guide/update',
+							text: '获取弹出层实例ID',
+							link: '/guide/get-instance-id',
 						},
 						{
-							text: '过渡动画',
-							link: '/guide/animation',
+							text: '更新渲染参数',
+							link: '/guide/update',
 						},
 					],
 				},

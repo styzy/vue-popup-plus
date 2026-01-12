@@ -44,7 +44,7 @@ function handleClose() {
 
 > <DVersionSupport version="1.6.0" />
 
-获取当前弹出层的渲染组件的计算样式。
+获取当前弹出层的视图组件的计算样式。
 
 ### 类型
 
@@ -83,4 +83,4 @@ type ComputedStyle = ComputedRef<{
 
 ### 相关参考
 
-- [插件 - 辅助功能 获取渲染组件实时样式](/plugin/helper#获取渲染组件实时样式)
+- [插件 - 辅助功能 获取视图组件实时样式](/plugin/helper#获取视图组件实时样式)

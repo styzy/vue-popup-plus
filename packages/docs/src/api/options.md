@@ -103,5 +103,5 @@ export default defineComponent({
 
 ### 相关参考
 
-- [插件 - 辅助功能 获取渲染组件实时样式](/plugin/helper#获取渲染组件实时样式)
+- [插件 - 辅助功能 获取视图组件实时样式](/plugin/helper#获取视图组件实时样式)
 - [核心 API - 组合式工具 usePopupComputedStyle()](/api/composition-api#use-popup-computed-style)

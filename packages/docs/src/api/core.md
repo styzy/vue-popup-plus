@@ -101,7 +101,7 @@ app.use(PopupPlus)
 
 ### 相关参考
 
-- [指南 - 初始化](/guide/initialization)
+- [指南 - 注册](/guide/register)
 
 ## createPopup() <Badge type="danger" text="1.6.0-" /> {#create-popup}
 
@@ -184,7 +184,7 @@ app.use(popup)
 
 ### 相关参考
 
-- [指南 - 初始化](/guide/initialization)
+- [指南 - 注册](/guide/register)
 
 ## PopupPlus.use() <Badge text="1.6.0+" /> {#popup-plus-use}
 

@@ -74,7 +74,7 @@ popup.render({
 
 ## POPUP_COMPONENT_INJECTS
 
-弹出层渲染组件注入的常量键。
+弹出层视图组件注入的常量键。
 
 ### 类型
 
