@@ -307,7 +307,7 @@ export class Core implements ICore {
 						{
 							type: LogGroupItemType.Message,
 							title: '帮助文档',
-							content: `${DOCUMENT_URL}/guide/initialization.html#同步应用上下文`,
+							content: `${DOCUMENT_URL}/about/faq.html#同步应用上下文`,
 						},
 					],
 				})
