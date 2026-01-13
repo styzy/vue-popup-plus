@@ -1,16 +1,11 @@
-# 核心 DEMO
+# Core 核心 DEMO
 
-## 基础功能
-
-### 渲染
+## 渲染
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopup" type="default">基础弹出层</DButton>
-	<DButton @click="handlePopupWithProps">携带组件参数</DButton>
-</DButtonGroup>
+<DButton @click="handlePopup" theme="primary">渲染弹出层</DButton>
 ```
 
 ```ts
@@ -23,6 +18,24 @@ function handlePopup() {
 		component: () => import('../HelloWorld.vue'),
 	})
 }
+```
+
+:::
+
+## 组件属性
+
+::: demo
+
+```html
+<DButton @click="handlePopupWithProps" theme="primary" type="plain"
+	>传递组件属性</DButton
+>
+```
+
+```ts
+import { usePopup } from 'vue-popup-plus'
+
+const popup = usePopup()
 
 function handlePopupWithProps() {
 	popup.render({
@@ -41,7 +54,7 @@ function handlePopupWithProps() {
 
 :::
 
-### 生命周期
+## 生命周期
 
 ::: demo
 
@@ -92,94 +105,38 @@ function handlePopupWithResult() {
 
 :::
 
-### 遮罩层
+## 位置
 
 ::: demo
 
 ```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupWithMask" type="default"
-		>默认开启遮罩层</DButton
+<div
+	style="display: flex; flex-direction: row; justify-content: center; gap: 20px">
+	<DButtonGroup theme="primary" type="plain" direction="vertical">
+		<DButton @click="handlePopupWithPlacementLeftTop">左上</DButton>
+		<DButton @click="handlePopupWithPlacementLeft">左侧</DButton>
+		<DButton @click="handlePopupWithPlacementLeftBottom">左下</DButton>
+	</DButtonGroup>
+	<DButtonGroup theme="primary" type="plain" direction="vertical">
+		<DButton @click="handlePopupWithPlacementTop">顶部</DButton>
+		<DButton @click="handlePopupWithPlacementCenter" type="default"
+			>居中</DButton
+		>
+		<DButton @click="handlePopupWithPlacementBottom"
+			>底部</DButton
+		></DButtonGroup
 	>
-	<DButton @click="handlePopupWithoutMask">禁用遮罩层</DButton>
-	<DButton @click="handlePopupWithMaskDestroy"
-		>启用遮罩层点击销毁弹出层</DButton
+	<DButtonGroup theme="primary" type="plain" direction="vertical">
+		<DButton @click="handlePopupWithPlacementRightTop">右上</DButton>
+		<DButton @click="handlePopupWithPlacementRight">右侧</DButton>
+		<DButton @click="handlePopupWithPlacementRightBottom"
+			>右下</DButton
+		></DButtonGroup
 	>
-	<DButton @click="handlePopupWitMaskTransparent">启用透明遮罩层</DButton>
-	<DButton @click="handlePopupWitMaskBlur" theme="warning"
-		>启用遮罩层高斯模糊</DButton
-	>
-</DButtonGroup>
+</div>
 ```
 
 ```ts
-function handlePopupWithMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handlePopupWithoutMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		mask: false,
-	})
-}
-
-function handlePopupWithMaskDestroy() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskDestroy: true,
-	})
-}
-
-function handlePopupWitMaskTransparent() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskTransparent: true,
-	})
-}
-
-function handlePopupWitMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: true,
-	})
-}
-```
-
-:::
-
-## 进阶功能
-
-### 位置
-
-::: demo
-
-```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupWithPlacementCenter" type="default"
-		>默认居中</DButton
-	>
-	<DButton @click="handlePopupWithPlacementLeftTop">左上</DButton>
-	<DButton @click="handlePopupWithPlacementLeft">左侧</DButton>
-	<DButton @click="handlePopupWithPlacementLeftBottom">左下</DButton>
-	<DButton @click="handlePopupWithPlacementTop">顶部</DButton>
-	<DButton @click="handlePopupWithPlacementBottom">底部</DButton>
-	<DButton @click="handlePopupWithPlacementRightTop">右上</DButton>
-	<DButton @click="handlePopupWithPlacementRight">右侧</DButton>
-	<DButton @click="handlePopupWithPlacementRightBottom">右下</DButton>
-</DButtonGroup>
-```
-
-```ts
-function handlePopupWithPlacementCenter() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		placement: 'center',
-	})
-}
-
 function handlePopupWithPlacementLeftTop() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
@@ -205,6 +162,13 @@ function handlePopupWithPlacementTop() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		placement: 'top',
+	})
+}
+
+function handlePopupWithPlacementCenter() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'center',
 	})
 }
 
@@ -239,7 +203,7 @@ function handlePopupWithPlacementRightBottom() {
 
 :::
 
-### 位置偏移
+## 位置偏移
 
 ::: demo
 
@@ -247,10 +211,10 @@ function handlePopupWithPlacementRightBottom() {
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupWithTranslateX">设置横向偏移</DButton>
 	<DButton @click="handlePopupWithTranslateY">设置纵向偏移</DButton>
-	<DButton @click="handlePopupWithTranslateXY"
+	<DButton @click="handlePopupWithTranslateXY" theme="success"
 		>设置大幅度偏移（默认溢出保护）</DButton
 	>
-	<DButton @click="handlePopupWithTranslateXYOverflow"
+	<DButton @click="handlePopupWithTranslateXYOverflow" theme="warning"
 		>设置大幅度偏移（允许溢出）</DButton
 	>
 </DButtonGroup>
@@ -291,20 +255,22 @@ function handlePopupWithTranslateXYOverflow() {
 
 :::
 
-### 动画类型
+## 动画
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopup" type="default">默认淡入淡出</DButton>
+	<DButton @click="handlePopup" type="default">淡入淡出 (默认)</DButton>
 	<DButton @click="handlePopupWithFlyTop">顶部飞入</DButton>
 	<DButton @click="handlePopupWithFlyRight">右侧飞入</DButton>
 	<DButton @click="handlePopupWithFlyBottom">底部飞入</DButton>
 	<DButton @click="handlePopupWithFlyLeft">左侧飞入</DButton>
 	<DButton @click="handlePopupWithScaleEnlarge">放大</DButton>
 	<DButton @click="handlePopupWithScaleReduce">缩小</DButton>
-	<DButton @click="handlePopupWithAnimationNone">禁用动画</DButton>
+	<DButton @click="handlePopupWithAnimationNone" theme="warning"
+		>禁用动画</DButton
+	>
 </DButtonGroup>
 ```
 
@@ -363,6 +329,89 @@ function handlePopupWithAnimationNone() {
 		component: () => import('../HelloWorld.vue'),
 		viewAnimation: POPUP_ANIMATIONS.NONE,
 		maskAnimation: POPUP_ANIMATIONS.NONE,
+	})
+}
+```
+
+:::
+
+## 遮罩层
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupWithMask" type="default"
+		>开启遮罩层 (默认)</DButton
+	>
+	<DButton @click="handlePopupWithoutMask">禁用遮罩层</DButton>
+	<DButton @click="handlePopupWitMaskTransparent">透明遮罩层</DButton>
+	<DButton @click="handlePopupWitMaskBlur" theme="warning"
+		>高斯模糊遮罩层</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupWithMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupWithoutMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		mask: false,
+	})
+}
+
+function handlePopupWitMaskTransparent() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskTransparent: true,
+	})
+}
+
+function handlePopupWitMaskBlur() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
+	})
+}
+```
+
+:::
+
+## 遮罩层行为
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupWithMaskDestroy">点击销毁弹出层</DButton>
+	<DButton @click="handlePopupWithMaskDestroyHandler" theme="success"
+		>点击自定义逻辑</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupWithMaskDestroy() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskDestroy: true,
+	})
+}
+
+function handlePopupWithMaskDestroyHandler() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskDestroy: (destroy) => {
+			if (window.confirm('确认销毁弹出层？')) {
+				destroy()
+			}
+		},
 	})
 }
 ```
@@ -430,46 +479,6 @@ function handlePopupWithResult() {
 	})
 }
 
-function handlePopupWithMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-	})
-}
-
-function handlePopupWithoutMask() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		mask: false,
-	})
-}
-
-function handlePopupWithMaskDestroy() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskDestroy: true,
-	})
-}
-
-function handlePopupWitMaskTransparent() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskTransparent: true,
-	})
-}
-
-function handlePopupWitMaskBlur() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: true,
-	})
-}
-
-function handlePopupWithPlacementCenter() {
-	popup.render({
-		component: () => import('../HelloWorld.vue'),
-		placement: 'center',
-	})
-}
 
 function handlePopupWithPlacementLeftTop() {
 	popup.render({
@@ -496,6 +505,13 @@ function handlePopupWithPlacementTop() {
 	popup.render({
 		component: () => import('../HelloWorld.vue'),
 		placement: 'top',
+	})
+}
+
+function handlePopupWithPlacementCenter() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'center',
 	})
 }
 
@@ -605,6 +621,53 @@ function handlePopupWithAnimationNone() {
 		component: () => import('../HelloWorld.vue'),
 		viewAnimation: POPUP_ANIMATIONS.NONE,
 		maskAnimation: POPUP_ANIMATIONS.NONE,
+	})
+}
+
+function handlePopupWithMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupWithoutMask() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		mask: false,
+	})
+}
+
+
+function handlePopupWitMaskTransparent() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskTransparent: true,
+	})
+}
+
+function handlePopupWitMaskBlur() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
+	})
+}
+
+function handlePopupWithMaskDestroy() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskDestroy: true,
+	})
+}
+
+
+function handlePopupWithMaskDestroyHandler() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		maskDestroy: (destroy) => {
+			if (window.confirm('确认销毁弹出层？')) {
+				destroy()
+			}
+		},
 	})
 }
 </script>

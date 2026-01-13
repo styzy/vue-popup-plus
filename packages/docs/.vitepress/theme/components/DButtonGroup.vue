@@ -128,7 +128,7 @@ onMounted(() => {
 })
 
 function checkSlots() {
-	const defaultSlots = slots.default()
+	const defaultSlots = slots.default?.() || []
 	if (
 		defaultSlots.some((vNode) => {
 			vNode.type !== DButton

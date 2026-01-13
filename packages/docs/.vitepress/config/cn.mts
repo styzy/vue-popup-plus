@@ -129,7 +129,7 @@ export const themeConfig = defineConfig({
 						},
 						{
 							text: '初始化配置',
-							link: '/guide/initialization-config',
+							link: '/guide/config',
 						},
 					],
 				},
@@ -261,7 +261,7 @@ export const themeConfig = defineConfig({
 					text: '核心 DEMO',
 					items: [
 						{
-							text: '核心',
+							text: 'Core 核心',
 							link: '/demo/core',
 						},
 					],

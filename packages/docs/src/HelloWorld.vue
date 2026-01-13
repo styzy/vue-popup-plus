@@ -3,7 +3,7 @@
 	.title Hello World
 	h1(v-if="test") 接收的参数：
 		span.value {{ test }}
-	DButton(@click="handleCustomEvent()" theme="primary" type="plain" v-if="test") 触发自定义事件
+	DButton(@click="handleCustomEvent()" theme="success" v-if="test") 触发自定义事件
 	DButton(@click="handleClose()" theme="primary") 关闭对话框
 	DButton(@click="handleClose('awesome !')" theme="success" type="plain") 携带参数 awesome ! 关闭对话框
 </template>
