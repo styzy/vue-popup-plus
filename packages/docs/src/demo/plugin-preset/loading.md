@@ -1,22 +1,16 @@
----
-outline: 2
----
-
 # Loading 加载遮罩 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupLoading" type="default">加载遮罩</DButton>
-	<DButton @click="handlePopupLoadingWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopupLoadingWithIconSize">自定义图标尺寸</DButton>
 </DButtonGroup>
 ```
 
@@ -25,25 +19,11 @@ function handlePopupLoading() {
 	popup.loading()
 	setTimeout(() => popup.loadingClose(), 3000)
 }
-
-function handlePopupLoadingWithCustomTitle() {
-	popup.loading({
-		title: '加载中...',
-	})
-	setTimeout(() => popup.loadingClose(), 3000)
-}
-
-function handlePopupLoadingWithIconSize() {
-	popup.loading({
-		iconSize: 200,
-	})
-	setTimeout(() => popup.loadingClose(), 3000)
-}
 ```
 
 :::
 
-## 进阶功能
+## 主题
 
 ::: demo
 
@@ -104,18 +84,58 @@ function handlePopupLoadingWithThemeDanger() {
 
 :::
 
-## 高级功能
+## 标题
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupLoadingWithCustomTitle">自定义标题文本</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupLoadingWithCustomTitle() {
+	popup.loading({
+		title: '加载中...',
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+```
+
+:::
+
+## 图标
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupLoadingWithIconSize">自定义图标尺寸</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupLoadingWithIconSize() {
+	popup.loading({
+		iconSize: 200,
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+```
+
+:::
+
+## 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupLoadingWithoutMask">禁用遮罩层</DButton>
-	<DButton @click="handlePopupLoadingMaskTransparent"
-		>启用遮罩层透明效果</DButton
-	>
+	<DButton @click="handlePopupLoadingMaskTransparent">透明遮罩层</DButton>
 	<DButton @click="handlePopupLoadingWithMaskBlur" theme="warning"
-		>启用遮罩层高斯模糊</DButton
+		>高斯模糊遮罩层</DButton
 	>
 </DButtonGroup>
 ```
@@ -163,20 +183,6 @@ function handlePopupLoading() {
 	setTimeout(() => popup.loadingClose(), 3000)
 }
 
-function handlePopupLoadingWithCustomTitle() {
-	popup.loading({
-		title: '加载中...',
-	})
-	setTimeout(() => popup.loadingClose(), 3000)
-}
-
-function handlePopupLoadingWithIconSize() {
-	popup.loading({
-		iconSize: 200,
-	})
-	setTimeout(() => popup.loadingClose(), 3000)
-}
-
 function handlePopupLoadingWithThemePrimary() {
 	popup.loading()
 	setTimeout(() => popup.loadingClose(), 3000)
@@ -206,6 +212,20 @@ function handlePopupLoadingWithThemeWarning() {
 function handlePopupLoadingWithThemeDanger() {
 	popup.loading({
 		theme: 'danger',
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+
+function handlePopupLoadingWithCustomTitle() {
+	popup.loading({
+		title: '加载中...',
+	})
+	setTimeout(() => popup.loadingClose(), 3000)
+}
+
+function handlePopupLoadingWithIconSize() {
+	popup.loading({
+		iconSize: 200,
 	})
 	setTimeout(() => popup.loadingClose(), 3000)
 }

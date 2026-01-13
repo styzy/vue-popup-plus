@@ -1,14 +1,10 @@
----
-outline: 2
----
-
 # Alert 提示 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
@@ -26,23 +22,20 @@ function handlePopupAlert() {
 
 async function handlePopupAlertWaitClose() {
 	await popup.alert('这是一条提示消息，关闭后将执行后续代码')
-
 	popup.toast('提示已关闭')
 }
 ```
 
 :::
 
-## 进阶功能
+## 标题栏
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupAlertWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopupAlertWithCustomConfirmText"
-		>自定义确认按钮文本</DButton
-	>
+	<DButton @click="handlePopupAlertWithHeaderClose">禁用标题关闭按钮</DButton>
 </DButtonGroup>
 ```
 
@@ -53,6 +46,28 @@ function handlePopupAlertWithCustomTitle() {
 	})
 }
 
+function handlePopupAlertWithHeaderClose() {
+	popup.alert('这是一条提示消息', {
+		headClose: false,
+	})
+}
+```
+
+:::
+
+## 底部按钮
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlertWithCustomConfirmText"
+		>自定义确认按钮文本</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupAlertWithCustomConfirmText() {
 	popup.alert('这是一条提示消息', {
 		confirmText: '自定义确认按钮文本',
@@ -62,17 +77,12 @@ function handlePopupAlertWithCustomConfirmText() {
 
 :::
 
-## 高级功能
+## 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupAlertWithHeaderClose">禁用标题关闭按钮</DButton>
-	<DButton @click="handlePopupAlertWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopupAlertWithDragOverflow"
-		>允许拖拽超出屏幕</DButton
-	>
 	<DButton @click="handlePopupAlertWithMaskBlur" theme="warning"
 		>启用遮罩高斯模糊</DButton
 	>
@@ -80,12 +90,29 @@ function handlePopupAlertWithCustomConfirmText() {
 ```
 
 ```ts
-function handlePopupAlertWithHeaderClose() {
+function handlePopupAlertWithMaskBlur() {
 	popup.alert('这是一条提示消息', {
-		headClose: false,
+		maskBlur: true,
 	})
 }
+```
 
+:::
+
+## 交互
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlertWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupAlertWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupAlertWithDraggable() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
@@ -136,15 +163,21 @@ function handlePopupAlertWithCustomTitle() {
 	})
 }
 
+function handlePopupAlertWithHeaderClose() {
+	popup.alert('这是一条提示消息', {
+		headerClose: false,
+	})
+}
+
 function handlePopupAlertWithCustomConfirmText() {
 	popup.alert('这是一条提示消息', {
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
-function handlePopupAlertWithHeaderClose() {
+function handlePopupAlertWithMaskBlur() {
 	popup.alert('这是一条提示消息', {
-		headerClose: false,
+		maskBlur: true,
 	})
 }
 
@@ -158,12 +191,6 @@ function handlePopupAlertWithDragOverflow() {
 	popup.alert('这是一条提示消息', {
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupAlertWithMaskBlur() {
-	popup.alert('这是一条提示消息', {
-		maskBlur: true,
 	})
 }
 </script>

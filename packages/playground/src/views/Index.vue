@@ -181,6 +181,7 @@
 				PButton(@click="handlePopupDialogDraggableOverflow()") 可拖拽溢出屏幕
 				PButton(@click="handlePopupDialogWithoutMask()") 禁用遮罩层
 				PButton(@click="handlePopupDialogWithMaskBlur()") 启用遮罩模糊
+				PButton(@click="handlePopupDialogWithMaskTransparent()") 启用遮罩透明
 				PButton(@click="handlePopupDialogWithMaskClose()") 启用遮罩层点击关闭
 				PButton(@click="handlePopupDialogWithMaskCloseHandler()") 遮罩层点击关闭处理器
 			.title.third 位置
@@ -1156,6 +1157,15 @@ async function handlePopupDialogWithMaskBlur() {
 		title: '启用遮罩模糊',
 		component: () => import('./Demo.vue'),
 		maskBlur: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogWithMaskTransparent() {
+	const result = await popup.dialog({
+		title: '启用遮罩透明',
+		component: () => import('./Demo.vue'),
+		maskTransparent: true,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }

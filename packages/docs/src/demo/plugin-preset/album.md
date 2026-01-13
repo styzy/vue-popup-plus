@@ -1,14 +1,10 @@
----
-outline: 2
----
-
 # Album 媒体相册 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
@@ -42,21 +38,13 @@ function handlePopupAlbumWithDefaultIndex() {
 
 :::
 
-## 进阶功能
+## 计数器
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupAlbumWithoutCounter">禁用计数器</DButton>
-	<DButton @click="handlePopupAlbumWithoutName">禁用媒体名称</DButton>
-	<DButton @click="handlePopupAlbumWithoutPure">禁用纯净预览</DButton>
-	<DButton @click="handlePopupAlbumWithoutDownload">禁用下载功能</DButton>
-	<DButton @click="handlePopupAlbumWithoutScale">禁用缩放功能</DButton>
-	<DButton @click="handlePopupAlbumWithoutDrag">禁用拖动功能</DButton>
-	<DButton @click="handlePopupAlbumWithMaskBlur" theme="warning"
-		>启用遮罩高斯模糊</DButton
-	>
 </DButtonGroup>
 ```
 
@@ -67,67 +55,132 @@ function handlePopupWithoutCounter() {
 		disableCounter: true,
 	})
 }
+```
 
+:::
+
+## 媒体名称
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutName">禁用媒体名称</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupWithoutName() {
 	popup.album({
 		sources,
 		disableName: true,
 	})
 }
+```
 
+:::
+
+## 纯净模式
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutPure">禁用纯净模式</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupWithoutPure() {
 	popup.album({
 		sources,
 		disablePure: true,
 	})
 }
+```
 
+:::
+
+## 下载
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutDownload">禁用下载功能</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupWithoutDownload() {
 	popup.album({
 		sources,
 		disableDownload: true,
 	})
 }
+```
 
+:::
+
+## 缩放
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutScale">禁用缩放功能</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupWithoutScale() {
 	popup.album({
 		sources,
 		disableScale: true,
 	})
 }
+```
 
+:::
+
+## 拖拽
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupAlbumWithoutDrag">禁用拖拽功能</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupWithoutDrag() {
 	popup.album({
 		sources,
 		disableDrag: true,
 	})
 }
-
-function handlePopupAlbumWithMaskBlur() {
-	popup.album({
-		sources,
-		maskBlur: true,
-	})
-}
 ```
 
 :::
 
-## 高级功能
+## 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupAlbumWithoutMaskBlur">禁用遮罩高斯模糊</DButton>
+	<DButton @click="handlePopupAlbumWithMaskBlur" theme="warning"
+		>启用高斯模糊遮罩层</DButton
+	>
 </DButtonGroup>
 ```
 
 ```ts
-function handlePopupAlbumWithoutMaskBlur() {
+function handlePopupAlbumWithMaskBlur() {
 	popup.album({
 		sources,
-		maskBlur: false,
+		maskBlur: true,
 	})
 }
 ```

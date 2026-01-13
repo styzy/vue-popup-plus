@@ -1,14 +1,10 @@
----
-outline: 2
----
-
 # Confirm 确认 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
@@ -37,18 +33,15 @@ async function handlePopupConfirmWithResult() {
 
 :::
 
-## 进阶功能
+## 标题栏
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupConfirmWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopupConfirmWithCustomConfirmText"
-		>自定义确认按钮文本</DButton
-	>
-	<DButton @click="handlePopupConfirmWithCustomCancelText"
-		>自定义取消按钮文本</DButton
+	<DButton @click="handlePopupConfirmWithHeaderClose"
+		>启用标题关闭按钮</DButton
 	>
 </DButtonGroup>
 ```
@@ -60,6 +53,31 @@ function handlePopupConfirmWithCustomTitle() {
 	})
 }
 
+function handlePopupConfirmWithHeaderClose() {
+	popup.confirm('这是一条确认消息', {
+		headClose: false,
+	})
+}
+```
+
+:::
+
+## 底部按钮
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupConfirmWithCustomConfirmText"
+		>自定义确认按钮文本</DButton
+	>
+	<DButton @click="handlePopupConfirmWithCustomCancelText"
+		>自定义取消按钮文本</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupConfirmWithCustomConfirmText() {
 	popup.confirm('这是一条确认消息', {
 		confirmText: '自定义确认按钮文本',
@@ -75,19 +93,12 @@ function handlePopupConfirmWithCustomCancelText() {
 
 :::
 
-## 高级功能
+## 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupConfirmWithHeaderClose"
-		>启用标题关闭按钮</DButton
-	>
-	<DButton @click="handlePopupConfirmWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopupConfirmWithDragOverflow"
-		>允许拖拽超出屏幕</DButton
-	>
 	<DButton @click="handlePopupConfirmWithMaskBlur" theme="warning"
 		>启用遮罩高斯模糊</DButton
 	>
@@ -95,12 +106,29 @@ function handlePopupConfirmWithCustomCancelText() {
 ```
 
 ```ts
-function handlePopupConfirmWithHeaderClose() {
+function handlePopupConfirmWithMaskBlur() {
 	popup.confirm('这是一条确认消息', {
-		headClose: false,
+		maskBlur: true,
 	})
 }
+```
 
+:::
+
+## 交互
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupConfirmWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupConfirmWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupConfirmWithDraggable() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
@@ -111,12 +139,6 @@ function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupConfirmWithMaskBlur() {
-	popup.confirm('这是一条确认消息', {
-		maskBlur: true,
 	})
 }
 ```
@@ -156,6 +178,12 @@ function handlePopupConfirmWithCustomTitle() {
 	})
 }
 
+function handlePopupConfirmWithHeaderClose() {
+	popup.confirm('这是一条确认消息', {
+		headerClose: true,
+	})
+}
+
 function handlePopupConfirmWithCustomConfirmText() {
 	popup.confirm('这是一条确认消息', {
 		confirmText: '自定义确认按钮文本',
@@ -168,9 +196,9 @@ function handlePopupConfirmWithCustomCancelText() {
 	})
 }
 
-function handlePopupConfirmWithHeaderClose() {
+function handlePopupConfirmWithMaskBlur() {
 	popup.confirm('这是一条确认消息', {
-		headerClose: true,
+		maskBlur: true,
 	})
 }
 
@@ -184,12 +212,6 @@ function handlePopupConfirmWithDragOverflow() {
 	popup.confirm('这是一条确认消息', {
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupConfirmWithMaskBlur() {
-	popup.confirm('这是一条确认消息', {
-		maskBlur: true,
 	})
 }
 </script>

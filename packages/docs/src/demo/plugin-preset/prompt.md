@@ -1,22 +1,16 @@
----
-outline: 2
----
-
 # Prompt 提示输入 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupPrompt" type="default">提示输入</DButton>
-	<DButton @click="handlePopupPromptWithDefaultValue">默认值</DButton>
-	<DButton @click="handlePopupPromptWithTextarea">文本域类型</DButton>
 	<DButton @click="handlePopupPromptWithResult">获取用户输入结果</DButton>
 </DButtonGroup>
 ```
@@ -24,18 +18,6 @@ outline: 2
 ```ts
 function handlePopupPrompt() {
 	popup.prompt('这是一条提示输入消息')
-}
-
-function handlePopupPromptWithDefaultValue() {
-	popup.prompt('这是一条提示输入消息', {
-		defaultValue: '这是默认值',
-	})
-}
-
-function handlePopupPromptWithTextarea() {
-	popup.prompt('这是一条提示输入消息', {
-		type: 'textarea',
-	})
 }
 
 async function handlePopupPromptWithResult() {
@@ -51,18 +33,62 @@ async function handlePopupPromptWithResult() {
 
 :::
 
-## 进阶功能
+## 输入框
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupPromptWithDefaultValue">使用默认值</DButton>
+	<DButton @click="handlePopupPromptWithPlaceholder">自定义占位文本</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupPromptWithDefaultValue() {
+	popup.prompt('这是一条提示输入消息', {
+		defaultValue: '123456',
+	})
+}
+
+function handlePopupPromptWithPlaceholder() {
+	popup.prompt('这是一条提示输入消息', {
+		placeholder: '自定义占位文本',
+	})
+}
+```
+
+:::
+
+## 文本域
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupPromptWithTextarea">文本域类型</DButton>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupPromptWithTextarea() {
+	popup.prompt('这是一条提示输入消息', {
+		type: 'textarea',
+	})
+}
+```
+
+:::
+
+## 标题栏
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupPromptWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopupPromptWithCustomConfirmText"
-		>自定义确认按钮文本</DButton
-	>
-	<DButton @click="handlePopupPromptWithCustomCancelText"
-		>自定义取消按钮文本</DButton
+	<DButton @click="handlePopupPromptWithHeaderClose"
+		>禁用标题关闭按钮</DButton
 	>
 </DButtonGroup>
 ```
@@ -74,6 +100,31 @@ function handlePopupPromptWithCustomTitle() {
 	})
 }
 
+function handlePopupPromptWithHeaderClose() {
+	popup.prompt('这是一条提示输入消息', {
+		headClose: false,
+	})
+}
+```
+
+:::
+
+## 底部按钮
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupPromptWithCustomConfirmText"
+		>自定义确认按钮文本</DButton
+	>
+	<DButton @click="handlePopupPromptWithCustomCancelText"
+		>自定义取消按钮文本</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupPromptWithCustomConfirmText() {
 	popup.prompt('这是一条提示输入消息', {
 		confirmText: '自定义确认按钮文本',
@@ -89,19 +140,12 @@ function handlePopupPromptWithCustomCancelText() {
 
 :::
 
-## 高级功能
+## 遮罩层
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupPromptWithHeaderClose"
-		>禁用标题关闭按钮</DButton
-	>
-	<DButton @click="handlePopupPromptWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopupPromptWithDragOverflow"
-		>允许拖拽超出屏幕</DButton
-	>
 	<DButton @click="handlePopupPromptWithMaskBlur" theme="warning"
 		>启用遮罩高斯模糊</DButton
 	>
@@ -109,12 +153,29 @@ function handlePopupPromptWithCustomCancelText() {
 ```
 
 ```ts
-function handlePopupPromptWithHeaderClose() {
+function handlePopupPromptWithMaskBlur() {
 	popup.prompt('这是一条提示输入消息', {
-		headClose: false,
+		maskBlur: true,
 	})
 }
+```
 
+:::
+
+## 交互
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupPromptWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupPromptWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupPromptWithDraggable() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
@@ -125,12 +186,6 @@ function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupPromptWithMaskBlur() {
-	popup.prompt('这是一条提示输入消息', {
-		maskBlur: true,
 	})
 }
 ```
@@ -154,18 +209,6 @@ function handlePopupPrompt() {
 	popup.prompt('这是一条提示输入消息')
 }
 
-function handlePopupPromptWithDefaultValue() {
-	popup.prompt('这是一条提示输入消息', {
-		defaultValue: '这是默认值',
-	})
-}
-
-function handlePopupPromptWithTextarea() {
-	popup.prompt('这是一条提示输入消息', {
-		type: 'textarea',
-	})
-}
-
 async function handlePopupPromptWithResult() {
 	const result = await popup.prompt('这是一条提示输入消息')
 
@@ -176,9 +219,33 @@ async function handlePopupPromptWithResult() {
 	}
 }
 
+function handlePopupPromptWithDefaultValue() {
+	popup.prompt('这是一条提示输入消息', {
+		defaultValue: '123456',
+	})
+}
+
+function handlePopupPromptWithPlaceholder() {
+	popup.prompt('这是一条提示输入消息', {
+		placeholder: '自定义占位文本',
+	})
+}
+
+function handlePopupPromptWithTextarea() {
+	popup.prompt('这是一条提示输入消息', {
+		type: 'textarea',
+	})
+}
+
 function handlePopupPromptWithCustomTitle() {
 	popup.prompt('这是一条提示输入消息', {
 		title: '自定义标题',
+	})
+}
+
+function handlePopupPromptWithHeaderClose() {
+	popup.prompt('这是一条提示输入消息', {
+		headerClose: false,
 	})
 }
 
@@ -194,9 +261,9 @@ function handlePopupPromptWithCustomCancelText() {
 	})
 }
 
-function handlePopupPromptWithHeaderClose() {
+function handlePopupPromptWithMaskBlur() {
 	popup.prompt('这是一条提示输入消息', {
-		headerClose: false,
+		maskBlur: true,
 	})
 }
 
@@ -210,12 +277,6 @@ function handlePopupPromptWithDragOverflow() {
 	popup.prompt('这是一条提示输入消息', {
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupPromptWithMaskBlur() {
-	popup.prompt('这是一条提示输入消息', {
-		maskBlur: true,
 	})
 }
 </script>

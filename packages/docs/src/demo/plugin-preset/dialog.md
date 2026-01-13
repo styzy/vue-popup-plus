@@ -1,22 +1,16 @@
----
-outline: 2
----
-
 # Dialog 对话 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupDialog" type="default">对话</DButton>
-	<DButton @click="handlePopupDialogWithProps">携带组件参数</DButton>
-	<DButton @click="handlePopupDialogWithOnMounted">渲染回调</DButton>
 	<DButton @click="handlePopupDialogWithResult">获取销毁携带参数</DButton>
 </DButtonGroup>
 ```
@@ -28,6 +22,33 @@ function handlePopupDialog() {
 	})
 }
 
+async function handlePopupDialogWithResult() {
+	const result = await popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+	})
+
+	if (result !== undefined) {
+		popup.toastSuccess(`获取销毁携带参数：${result}`)
+	} else {
+		popup.toastWarning('销毁未携带参数')
+	}
+}
+```
+
+:::
+
+## 视图组件
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupDialogWithProps">传递组件参数</DButton>
+	<DButton @click="handlePopupDialogWithOnMounted">渲染回调</DButton>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupDialogWithProps() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
@@ -50,30 +71,123 @@ function handlePopupDialogWithOnMounted() {
 		},
 	})
 }
+```
 
-async function handlePopupDialogWithResult() {
-	const result = await popup.dialog({
+:::
+
+## 位置
+
+::: demo
+
+```html
+<div
+	style="display: flex; flex-direction: row; justify-content: center; gap: 20px">
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupDialogLeftTop" theme="primary"
+			>左上</DButton
+		>
+		<DButton @click="handlePopupDialogLeft" theme="primary">左侧</DButton>
+		<DButton @click="handlePopupDialogLeftBottom" theme="primary"
+			>左下</DButton
+		>
+	</DButtonGroup>
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupDialogTop" theme="primary">顶部</DButton>
+		<DButton @click="handlePopupDialogCenter" theme="primary" type="default"
+			>居中</DButton
+		>
+		<DButton @click="handlePopupDialogBottom" theme="primary">底部</DButton>
+	</DButtonGroup>
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupDialogRightTop" theme="primary"
+			>右上</DButton
+		>
+		<DButton @click="handlePopupDialogRight" theme="primary">右侧</DButton>
+		<DButton @click="handlePopupDialogRightBottom" theme="primary"
+			>右下</DButton
+		>
+	</DButtonGroup>
+</div>
+```
+
+```ts
+function handlePopupDialogLeftTop() {
+	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
+		placement: 'left-top',
 	})
+}
 
-	if (result !== undefined) {
-		popup.toastSuccess(`获取销毁携带参数：${result}`)
-	} else {
-		popup.toastWarning('销毁未携带参数')
-	}
+function handlePopupDialogLeft() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left',
+	})
+}
+
+function handlePopupDialogLeftBottom() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupDialogTop() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'top',
+	})
+}
+
+function handlePopupDialogCenter() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'center',
+	})
+}
+
+function handlePopupDialogBottom() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'bottom',
+	})
+}
+
+function handlePopupDialogRightTop() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-top',
+	})
+}
+
+function handlePopupDialogRight() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right',
+	})
+}
+
+function handlePopupDialogRightBottom() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		placement: 'right-bottom',
+	})
 }
 ```
 
 :::
 
-## 进阶功能
+## 标题栏
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupDialogWithCustomTitle">自定义标题文本</DButton>
-	<DButton @click="handlePopupDialogWithCustomPlacement">自定义位置</DButton>
+	<DButton @click="handlePopupDialogWithHeaderClose"
+		>禁用标题关闭按钮</DButton
+	>
+	<DButton @click="handlePopupDialogWithoutHeader">禁用标题栏</DButton>
 </DButtonGroup>
 ```
 
@@ -85,44 +199,6 @@ function handlePopupDialogWithCustomTitle() {
 	})
 }
 
-function handlePopupDialogWithCustomPlacement() {
-	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
-		placement: 'left-top',
-	})
-}
-```
-
-:::
-
-## 高级功能
-
-::: demo
-
-```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupDialogWithHeaderClose"
-		>禁用标题关闭按钮</DButton
-	>
-	<DButton @click="handlePopupDialogWithoutHeader">禁用标题栏</DButton>
-	<DButton @click="handlePopupDialogWithDraggable">标题栏允许拖拽</DButton>
-	<DButton @click="handlePopupDialogWithDragOverflow"
-		>允许拖拽超出屏幕</DButton
-	>
-	<DButton @click="handlePopupDialogWithoutMask">禁用遮罩</DButton>
-	<DButton @click="handlePopupDialogWithMaskBlur" theme="warning"
-		>启用遮罩高斯模糊</DButton
-	>
-	<DButton @click="handlePopupDialogWithMaskClose"
-		>启用遮罩点击关闭对话框</DButton
-	>
-	<DButton @click="handlePopupDialogWithMaskCloseHandler"
-		>自定义遮罩点击关闭逻辑</DButton
-	>
-</DButtonGroup>
-```
-
-```ts
 function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
@@ -136,7 +212,69 @@ function handlePopupDialogWithoutHeader() {
 		header: false,
 	})
 }
+```
 
+:::
+
+## 遮罩层
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupDialogWithoutMask">禁用遮罩层</DButton>
+	<DButton @click="handlePopupDialogWithMaskTransparent">透明遮罩层</DButton>
+	<DButton @click="handlePopupDialogWithMaskBlur" theme="warning"
+		>高斯模糊遮罩层</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePopupDialogWithoutMask() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		mask: false,
+	})
+}
+
+function handlePopupDialogWithMaskTransparent() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskTransparent: true,
+	})
+}
+
+function handlePopupDialogWithMaskBlur() {
+	popup.dialog({
+		component: () => import('../HelloWorld.vue'),
+		maskBlur: true,
+	})
+}
+```
+
+:::
+
+## 交互
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupDialogWithDraggable">标题栏允许拖拽</DButton>
+	<DButton @click="handlePopupDialogWithDragOverflow"
+		>允许拖拽超出屏幕</DButton
+	>
+	<DButton @click="handlePopupDialogWithMaskClose"
+		>启用遮罩点击关闭对话框</DButton
+	>
+	<DButton @click="handlePopupDialogWithMaskCloseHandler"
+		>自定义遮罩点击关闭逻辑</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
 function handlePopupDialogWithDraggable() {
 	popup.dialog({
 		component: () => import('../HelloWorld.vue'),
@@ -149,20 +287,6 @@ function handlePopupDialogWithDragOverflow() {
 		component: () => import('../HelloWorld.vue'),
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupDialogWithoutMask() {
-	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
-		mask: false,
-	})
-}
-
-function handlePopupDialogWithMaskBlur() {
-	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
-		maskBlur: true,
 	})
 }
 
@@ -212,6 +336,18 @@ function handlePopupDialog() {
 	})
 }
 
+async function handlePopupDialogWithResult() {
+	const result = await popup.dialog({
+		component: HelloWorld,
+	})
+
+	if (result !== undefined) {
+		popup.toastSuccess(`获取销毁携带参数：${result}`)
+	} else {
+		popup.toastWarning('销毁未携带参数')
+	}
+}
+
 function handlePopupDialogWithProps() {
 	popup.dialog({
 		component: HelloWorld,
@@ -235,29 +371,73 @@ function handlePopupDialogWithOnMounted() {
 	})
 }
 
-async function handlePopupDialogWithResult() {
-	const result = await popup.dialog({
+function handlePopupDialogLeftTop() {
+	popup.dialog({
 		component: HelloWorld,
+		placement: 'left-top',
 	})
+}
 
-	if (result !== undefined) {
-		popup.toastSuccess(`获取销毁携带参数：${result}`)
-	} else {
-		popup.toastWarning('销毁未携带参数')
-	}
+function handlePopupDialogLeft() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'left',
+	})
+}
+
+function handlePopupDialogLeftBottom() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupDialogTop() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'top',
+	})
+}
+
+function handlePopupDialogCenter() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'center',
+	})
+}
+
+function handlePopupDialogBottom() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'bottom',
+	})
+}
+
+function handlePopupDialogRightTop() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'right-top',
+	})
+}
+
+function handlePopupDialogRight() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'right',
+	})
+}
+
+function handlePopupDialogRightBottom() {
+	popup.dialog({
+		component: HelloWorld,
+		placement: 'right-bottom',
+	})
 }
 
 function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
 		component: HelloWorld,
 		title: '自定义标题',
-	})
-}
-
-function handlePopupDialogWithCustomPlacement() {
-	popup.dialog({
-		component: HelloWorld,
-		placement: 'left-top',
 	})
 }
 
@@ -275,6 +455,27 @@ function handlePopupDialogWithoutHeader() {
 	})
 }
 
+function handlePopupDialogWithoutMask() {
+	popup.dialog({
+		component: HelloWorld,
+		mask: false,
+	})
+}
+
+function handlePopupDialogWithMaskTransparent() {
+	popup.dialog({
+		component: HelloWorld,
+		maskTransparent: true,
+	})
+}
+
+function handlePopupDialogWithMaskBlur() {
+	popup.dialog({
+		component: HelloWorld,
+		maskBlur: true,
+	})
+}
+
 function handlePopupDialogWithDraggable() {
 	popup.dialog({
 		component: HelloWorld,
@@ -287,20 +488,6 @@ function handlePopupDialogWithDragOverflow() {
 		component: HelloWorld,
 		draggable: true,
 		dragOverflow: true,
-	})
-}
-
-function handlePopupDialogWithoutMask() {
-	popup.dialog({
-		component: HelloWorld,
-		mask: false,
-	})
-}
-
-function handlePopupDialogWithMaskBlur() {
-	popup.dialog({
-		component: HelloWorld,
-		maskBlur: true,
 	})
 }
 

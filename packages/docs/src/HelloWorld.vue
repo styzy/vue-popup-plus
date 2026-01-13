@@ -46,8 +46,10 @@ function handleClose(payload?: any) {
 	flex-direction column
 	align-items center
 	gap 20px
-	width 400px
-	height 300px
+	min-width 500px
+	min-height 360px
+	width 100%
+	height 100%
 	background-color var(--docs-color-background-main)
 	.title
 		padding 30px 0 10px

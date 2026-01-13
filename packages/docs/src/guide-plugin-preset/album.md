@@ -183,21 +183,21 @@ function handleAlbumDisableDrag() {
 
 :::
 
-## 启用遮罩层高斯模糊 <Badge text="1.3.0+" />
+## 启用高斯模糊遮罩层 <Badge text="1.3.0+" />
 
 > <DVersionSupport version="1.3.0+" />
 
 如果需要提升用户对弹出层的关注度，可以通过 `maskBlur` 选项来启用遮罩层的高斯模糊效果。
 
 ::: warning
-启用遮罩层高斯模糊，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
+启用高斯模糊遮罩层，对浏览器的渲染性能有一定要求，具体取决于设备性能，请根据实际情况选择是否启用。
 :::
 
 ::: demo
 
 ```html
 <DButton theme="primary" @click="handleAlbumMaskBlur"
-	>启用遮罩层高斯模糊</DButton
+	>启用高斯模糊遮罩层</DButton
 >
 ```
 

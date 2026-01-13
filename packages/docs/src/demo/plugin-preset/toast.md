@@ -1,22 +1,16 @@
----
-outline: 2
----
-
 # Toast 轻量提示 DEMO
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## 基础功能
+## 基础
 
 ::: demo
 
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupToast" type="default">轻量提示</DButton>
-	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
-	<DButton @click="handlePopupToastDurationZero">持续显示</DButton>
 </DButtonGroup>
 ```
 
@@ -24,25 +18,11 @@ outline: 2
 function handlePopupToast() {
 	popup.toast('这是一条轻量提示消息')
 }
-
-function handlePopupToastDuration() {
-	popup.toast('这是一条持续10秒的轻量提示消息', {
-		duration: 10000,
-	})
-}
-
-function handlePopupToastDurationZero() {
-	popup.toast('这是一条持续显示的轻量提示消息', {
-		duration: 0,
-	})
-}
 ```
 
 :::
 
-## 进阶功能
-
-### 主题
+## 主题
 
 ::: demo
 
@@ -80,24 +60,64 @@ function handlePopupToastDanger() {
 
 :::
 
-### 位置
+## 持续时间
 
 ::: demo
 
 ```html
-<DButtonGroup type="plain">
-	<DButton @click="handlePopupToastLeftTop" theme="primary">左上</DButton>
-	<DButton @click="handlePopupToastLeft" theme="primary">左侧</DButton>
-	<DButton @click="handlePopupToastLeftBottom" theme="primary">左下</DButton>
-	<DButton @click="handlePopupToastTop" theme="primary">顶部</DButton>
-	<DButton @click="handlePopupToastCenter" theme="primary" type="default"
-		>居中</DButton
-	>
-	<DButton @click="handlePopupToastBottom" theme="primary">底部</DButton>
-	<DButton @click="handlePopupToastRightTop" theme="primary">右上</DButton>
-	<DButton @click="handlePopupToastRight" theme="primary">右侧</DButton>
-	<DButton @click="handlePopupToastRightBottom" theme="primary">右下</DButton>
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupToastDuration">持续10秒</DButton>
+	<DButton @click="handlePopupToastDurationZero">持续显示</DButton>
 </DButtonGroup>
+```
+
+```ts
+function handlePopupToastDuration() {
+	popup.toast('这是一条持续10秒的轻量提示消息', {
+		duration: 10000,
+	})
+}
+
+function handlePopupToastDurationZero() {
+	popup.toast('这是一条持续显示的轻量提示消息', {
+		duration: 0,
+	})
+}
+```
+
+:::
+
+## 位置
+
+::: demo
+
+```html
+<div
+	style="display: flex; flex-direction: row; justify-content: center; gap: 20px">
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupToastLeftTop" theme="primary">左上</DButton>
+		<DButton @click="handlePopupToastLeft" theme="primary">左侧</DButton>
+		<DButton @click="handlePopupToastLeftBottom" theme="primary"
+			>左下</DButton
+		>
+	</DButtonGroup>
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupToastTop" theme="primary">顶部</DButton>
+		<DButton @click="handlePopupToastCenter" theme="primary" type="default"
+			>居中</DButton
+		>
+		<DButton @click="handlePopupToastBottom" theme="primary">底部</DButton>
+	</DButtonGroup>
+	<DButtonGroup type="plain" direction="vertical">
+		<DButton @click="handlePopupToastRightTop" theme="primary"
+			>右上</DButton
+		>
+		<DButton @click="handlePopupToastRight" theme="primary">右侧</DButton>
+		<DButton @click="handlePopupToastRightBottom" theme="primary"
+			>右下</DButton
+		>
+	</DButtonGroup>
+</div>
 ```
 
 ```ts
@@ -158,7 +178,7 @@ function handlePopupToastRightBottom() {
 
 :::
 
-## 高级功能
+## 交互
 
 ::: demo
 
@@ -206,22 +226,6 @@ function handlePopupToast() {
 	popup.toast('这是一条轻量提示消息')
 }
 
-function handlePopupToastDuration() {
-	popup.toast('这是一条持续10秒的轻量提示消息', {
-		duration: 10000,
-	})
-}
-
-function handlePopupToastDurationZero() {
-	popup.toast('这是一条持续显示的轻量提示消息', {
-		duration: 0,
-	})
-}
-
-function handlePopupToastDefault() {
-	popup.toast('这是一条默认主题的轻量提示消息')
-}
-
 function handlePopupToastPrimary() {
 	popup.toast('这是一条主要主题的轻量提示消息')
 }
@@ -240,6 +244,18 @@ function handlePopupToastWarning() {
 
 function handlePopupToastDanger() {
 	popup.toastDanger('这是一条危险主题的轻量提示消息')
+}
+
+function handlePopupToastDuration() {
+	popup.toast('这是一条持续10秒的轻量提示消息', {
+		duration: 10000,
+	})
+}
+
+function handlePopupToastDurationZero() {
+	popup.toast('这是一条持续显示的轻量提示消息', {
+		duration: 0,
+	})
 }
 
 function handlePopupToastLeftTop() {

@@ -105,6 +105,39 @@ function handlePopupWithResult() {
 
 :::
 
+## 尺寸
+
+::: demo
+
+```html
+<DButtonGroup theme="primary" type="plain">
+	<DButton @click="handlePopupWithAutoSize" type="default">自适应</DButton>
+	<DButton @click="handlePopupWithFixedSize">固定尺寸</DButton>
+</DButtonGroup>
+```
+
+```ts
+import { usePopup } from 'vue-popup-plus'
+
+const popup = usePopup()
+
+function handlePopupWithAutoSize() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupWithFixedSize() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		width: 800,
+		height: 600,
+	})
+}
+```
+
+:::
+
 ## 位置
 
 ::: demo
@@ -479,6 +512,19 @@ function handlePopupWithResult() {
 	})
 }
 
+function handlePopupWithAutoSize() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+	})
+}
+
+function handlePopupWithFixedSize() {
+	popup.render({
+		component: () => import('../HelloWorld.vue'),
+		width: 800,
+		height: 600,
+	})
+}
 
 function handlePopupWithPlacementLeftTop() {
 	popup.render({
