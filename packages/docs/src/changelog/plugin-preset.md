@@ -100,7 +100,7 @@ outline: 2
 - 优化主题颜色，现在使用更加柔和的颜色。
 - 优化图标细节，现在图标会更加清晰。
 - `Toast 轻量提示` 优化显示长文本时滚动条的展示效果。
-- `Dialog 对话` 的渲染参数 `componentProps` 现在会自动根据传入的视图组件进行类型推断和代码提示。
+- `Dialog 对话` 的渲染选项 `componentProps` 现在会自动根据传入的视图组件进行类型推断和代码提示。
 - `Loading 加载遮罩` 样式优化，图标周围会显示一个半透明的背景，用于突出显示图标和标题文本。
 - 统一适配核心的日志输出打印功能，提供更好的开发调试体验。
 
@@ -181,7 +181,7 @@ outline: 2
 
 ::: danger
 
-- 将 `Dialog 对话` 的渲染参数 `props` 改为 `componentProps` ，和 `render()` 函数保持统一。
+- 将 `Dialog 对话` 的渲染选项 `props` 改为 `componentProps` ，和 `render()` 函数保持统一。
 - `Prompt 提示输入` 返回值类型从原有的 `string | null` 改为 `string | void`
 
 :::

@@ -42,7 +42,7 @@ export default {
 
 ## 定义视图组件
 
-从上面的示例可以看到，我们调用 `render()` 方法的时候，传递了一个 `component` 渲染参数，该参数用于指定弹出层渲染的 `Vue` 组件，是 **_唯一必填_** 的参数。
+从上面的示例可以看到，我们调用 `render()` 方法的时候，传递了一个 `component` 渲染选项，该选项用于指定弹出层渲染的 `Vue` 组件，是 **_唯一必填_** 的参数。
 
 所有符合 `Vue` 规范的组件都可以作为弹出层的视图组件，包括 `同步组件` 、 `异步组件` 等。
 
@@ -62,7 +62,7 @@ popup.render({
 
 ## 给视图组件传递参数
 
-通过 `componentProps` 渲染参数，我们可以给视图组件传递 **属性** 以及 **事件监听函数**。
+通过 `componentProps` 渲染选项，我们可以给视图组件传递 **属性** 以及 **事件监听函数**。
 
 ::: code-group
 
@@ -104,7 +104,7 @@ const emit = defineEmits<Emits>()
 
 > <DVersionSupport version="1.5.0" />
 
-如果你使用 `TypeScript` ，`componentProps` 渲染参数会自动根据所传入的组件进行类型推导，从而提供类型提示。
+如果你使用 `TypeScript` ，`componentProps` 渲染选项会自动根据所传入的组件进行类型推导，从而提供类型提示。
 
 以上面的代码为例，`message` 属性的类型会被推导为 `string`，而 `onSubmit` 事件的类型会被推导为 `() => void`。
 
@@ -120,4 +120,4 @@ popup.render({
 
 ## 返回值
 
-`render` 方法的返回值是弹出层的 `id` ，可以用来 [更新弹出层的渲染参数](/guide/update) 以及 [销毁弹出层](/guide/destroy)。
+`render` 方法的返回值是弹出层的 `instanceId 实例ID` ，可以用来 [更新弹出层的渲染选项](/guide/update) 以及 [销毁弹出层](/guide/destroy)。

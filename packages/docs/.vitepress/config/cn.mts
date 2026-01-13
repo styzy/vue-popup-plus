@@ -186,7 +186,7 @@ export const themeConfig = defineConfig({
 							link: '/guide/get-instance-id',
 						},
 						{
-							text: '更新渲染参数',
+							text: '更新渲染选项',
 							link: '/guide/update',
 						},
 					],

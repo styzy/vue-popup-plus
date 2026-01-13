@@ -8,7 +8,7 @@
 
 ## 修改动画持续时间
 
-动画持续时间可以通过配置渲染参数的 `animationDuration` 来改变，单位为毫秒，默认值为 100 。
+动画持续时间可以通过配置渲染选项的 `animationDuration` 来改变，单位为毫秒，默认值为 100 。
 
 ```ts
 popup.render({
@@ -19,7 +19,7 @@ popup.render({
 
 ## 修改动画类型
 
-默认的动画类型是 `淡入淡出`，可以通过配置渲染参数的 `maskAnimation` 和 `viewAnimation` 来改变动画类型。
+默认的动画类型是 `淡入淡出`，可以通过配置渲染选项的 `maskAnimation` 和 `viewAnimation` 来改变动画类型。
 
 Vue Popup Plus 提供了多个内置的过渡动画类型，全都以集合的形式通过 `POPUP_ANIMATIONS` 常量导出，下面展示使用示例：
 

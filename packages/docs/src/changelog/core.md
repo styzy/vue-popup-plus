@@ -96,7 +96,7 @@ outline: 2
 ### 修复
 
 - 修复 `debugMode` 模式下无法正常销毁弹出层根节点的问题。
-- 修复渲染参数 `maxWidth` 和 `maxHeight` 无法正确生效的问题。
+- 修复渲染选项 `maxWidth` 和 `maxHeight` 无法正确生效的问题。
 
 ## 1.3.3 <Badge text="2025-11-08" />
 
@@ -114,7 +114,7 @@ outline: 2
 
 ### 修复
 
-- 修复渲染参数 `viewAnimation` 偶现无法正确触发动画的问题。
+- 修复渲染选项 `viewAnimation` 偶现无法正确触发动画的问题。
 
 ## 1.3.0 <Badge text="2025-11-05" />
 
@@ -128,7 +128,7 @@ outline: 2
 
 ::: danger
 
-- 优化部分渲染参数名称。
+- 优化部分渲染选项名称。
 
 :::
 
@@ -190,8 +190,8 @@ outline: 2
 
 ### 特性
 
-- 新增控制器实例 `render()` 函数的渲染参数 `viewTranslateX` 、 `viewTranslateY` ，用于控制弹出层的位移。
-- 新增控制器实例 `update()` 函数，用于更新弹出层的渲染参数。
+- 新增控制器实例 `render()` 函数的渲染选项 `viewTranslateX` 、 `viewTranslateY` ，用于控制弹出层的位移。
+- 新增控制器实例 `update()` 函数，用于更新弹出层的渲染选项。
 
 ### 代码重构
 
