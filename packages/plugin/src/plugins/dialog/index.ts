@@ -130,6 +130,16 @@ type DialogOption<TComponent extends Component = Component> = {
 	 */
 	maskBlur?: boolean
 	/**
+	 * 遮罩层是否透明
+	 *
+	 * - 默认为 `false`
+	 * - 优先级高于 `maskBlur`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
 	 * 点击遮罩层是否关闭对话框
 	 *
 	 * - 默认值为 `false` ，点击遮罩层不会关闭对话框
@@ -245,6 +255,7 @@ export const dialog = definePlugin({
 			draggable = defaultOptions.draggable ?? false,
 			dragOverflow = defaultOptions.dragOverflow ?? false,
 			maskBlur = defaultOptions.maskBlur ?? false,
+			maskTransparent = defaultOptions.maskTransparent ?? false,
 			zIndex,
 		}) {
 			return new Promise((resolve) => {
@@ -275,6 +286,7 @@ export const dialog = definePlugin({
 					viewTranslateOverflow: dragOverflow,
 					mask,
 					maskBlur,
+					maskTransparent,
 					maskDestroy: maskClose,
 					zIndex,
 					onMounted: () => {
@@ -297,6 +309,7 @@ export const dialog = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							maskTransparent,
 							zIndex,
 						}
 

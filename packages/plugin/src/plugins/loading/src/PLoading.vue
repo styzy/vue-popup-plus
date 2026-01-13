@@ -1,19 +1,15 @@
 <template lang="pug">
 .p-loading(
 	:class="[`is-skin-${skin}`, { 'has-mask': mask && !maskTransparent }]")
-	.wrapper
+	.wrapper(@click="handleCloseOnDebugMode()")
 		PLoadingIcon(:size="iconSize" :theme)
 		.title(v-if="title") {{ title }}
-	PButtonGroup(align="center" v-if="debugMode")
-		PButton(:theme @click="handleClose") 强制关闭遮罩（仅在调试模式下可用）
 </template>
 
 <script lang="ts" setup>
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
-import PButtonGroup from '../../../components/PButtonGroup.vue'
-import PButton from '../../../components/PButton.vue'
 
 defineOptions({
 	name: 'PLoading',
@@ -37,7 +33,7 @@ type Props = {
 const { theme, title, iconSize, mask, maskTransparent, debugMode } =
 	defineProps<Props>()
 
-function handleClose() {
+function handleCloseOnDebugMode() {
 	emit('close')
 }
 </script>
