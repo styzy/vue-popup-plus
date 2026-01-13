@@ -31,6 +31,6 @@ function handlePopupResize() {
 
 ## 支持更新的渲染选项
 
-并不是所有的渲染选项都可以更新，例如 `component`、`appendTo` 等，这些选项在渲染时作为一次性的参数，无法在渲染后更新。
+并不是所有的渲染选项都可以更新，例如 `component`、`appendTo` 等，这些选项在渲染时作为一次性的参数已被应用，无法在渲染后更新。
 
 具体可以参考 [核心 API - 控制器实例 popup.update()](/api/controller#popup-update)。
