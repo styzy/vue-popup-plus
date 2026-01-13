@@ -55,7 +55,7 @@ const PopupPlus = createPopupPlus({
 
 修改后对于使用 **选项式 API** 的组件，可以通过 `this.$customPopup` 来访问弹出层控制器。
 
-```js [Index.vue]
+```js [Vue]
 export default {
 	methods: {
 		handlePopup() {
