@@ -103,8 +103,8 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
 	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入
 	 *   ()=>import() 函数即可。
-	 * - 使用示例：
 	 *
+	 * - 使用示例：
 	 * ```ts
 	 * // 异步组件
 	 * popup.render({
@@ -121,6 +121,7 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	component: TComponent
 	/**
 	 * 弹出层渲染的视图组件的 props
+	 *
 	 * - 除了组件的属性，还支持传入组件的事件监听器，事件监听器的名称需要以
 	 *   `on` 开头，例如 `onClick` 、 `onInput` 等。
 	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
@@ -132,6 +133,7 @@ export type RenderComponentOptions<TComponent extends Component = Component> = {
 	onMounted?: () => void
 	/**
 	 * 弹出层销毁之后的回调
+	 *
 	 * - 触发时会将 popup.destroy() 方法的负载参数 payload 作为参数传入
 	 */
 	onUnmounted?: (payload?: any) => void

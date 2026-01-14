@@ -31,24 +31,25 @@ export type ConfigOption = {
 	/**
 	 * 弹出层 zIndex 基础值
 	 *
-	 * - 默认为1000，每次生成弹出层时，除非 render() 方法传入
+	 * - 默认为 `1000`
+	 * - 每次生成弹出层时，除非 render() 方法传入
 	 *   zIndex，否则使用此基础值，每次使用后会自动递增
 	 */
 	zIndex?: number
 	/**
 	 * 是否自动禁用滚动
 	 *
-	 * - 默认为 true
+	 * - 默认为 `true`
 	 * - 开启后，弹出层显示时会自动禁用页面滚动
 	 */
 	autoDisableScroll?: boolean
 	/**
 	 * 弹出层控制器挂载在 Vue 实例上的属性名
 	 *
-	 * - 默认为 $popup ，这在使用 选项式 API 时可以在组件内通过 this.$popup
+	 * - 默认为 `$popup` ，这在使用 选项式 API 时可以在组件内通过 `this.$popup`
 	 *   访问控制器实例，可以使用该属性自定义挂载属性名
-	 * - 使用示例：
 	 *
+	 * - 使用示例：
 	 * ```ts
 	 * // main.ts
 	 * import { createPopupPlus } from 'vue-popup-plus'
@@ -92,7 +93,7 @@ export type ConfigOption = {
 	 * 日志过滤器
 	 *
 	 * - 你可以自定义日志过滤器，用于过滤日志，该函数接收每个日志对象
-	 *   作为参数，返回 true 表示放行打印，返回 false 将过滤该日志。
+	 *   作为参数，返回 `true` 表示放行打印，返回 `false` 将过滤该日志。
 	 *
 	 * @since 1.6.0
 	 */
@@ -100,10 +101,10 @@ export type ConfigOption = {
 	/**
 	 * 开启调试模式
 	 *
-	 * - 默认为 false
-	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
+	 * - 默认为 `false`
 	 * - 开启后，将会在控制台输出日志，同时如果未注册根组件，调试模式下
 	 *   将会使用 Vue App 实例渲染弹出层，方便开发者调试。
+	 * - 注意：开启调试模式可能会影响到性能，不建议在生产环境开启。
 	 */
 	debugMode?: boolean
 }
