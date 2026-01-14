@@ -52,3 +52,5 @@ import zhCN from 'ant-design-vue/es/locale/zh_CN'
 ::: tip
 需要注意的是，配置了 `PopupRoot` 根组件后，所有的弹出层组件将会作为根组件的子代组件渲染，而非独立渲染。
 :::
+
+具体可以参考 [核心 API - 内置组件 {{ '<PopupRoot>' }}](/api/components#popup-root)。

@@ -208,6 +208,10 @@ export const themeConfig = defineConfig({
 							text: '注册',
 							link: '/guide-plugin-preset/register',
 						},
+						{
+							text: '初始化配置',
+							link: '/guide-plugin-preset/config',
+						},
 					],
 				},
 				{

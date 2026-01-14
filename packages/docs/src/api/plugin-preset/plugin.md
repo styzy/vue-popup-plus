@@ -188,4 +188,4 @@ popup.dialog({
 
 ### 相关参考
 
-- [预置插件指南 - 配置](/guide-plugin-preset/config)
+- [预置插件指南 - 初始化配置](/guide-plugin-preset/config)

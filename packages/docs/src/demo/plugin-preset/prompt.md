@@ -194,7 +194,7 @@ function handlePopupPromptWithDragOverflow() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Prompt 提示输入](/guide-plugin-preset/prompt)
+具体可以参考 [预置插件指南 - Prompt 提示输入](/guide-plugin-preset/prompt)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

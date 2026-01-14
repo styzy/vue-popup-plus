@@ -137,7 +137,7 @@ function handlePopupAlertWithMaskBlur() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Alert 提示](/guide-plugin-preset/alert)
+具体可以参考 [预置插件指南 - Alert 提示](/guide-plugin-preset/alert)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

@@ -318,7 +318,7 @@ async function handlePopupDialogWithMaskCloseHandler() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Dialog 对话框](/guide-plugin-preset/dialog)
+具体可以参考 [预置插件指南 - Dialog 对话框](/guide-plugin-preset/dialog)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

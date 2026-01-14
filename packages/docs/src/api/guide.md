@@ -60,6 +60,9 @@ watch(() => filter.showVersion, (newVal) => {
 		<DApi path="/api/options#popup-instance-id" support="1.6.0">$popupInstanceId</DApi>
 		<DApi path="/api/options#popup-computed-style" support="1.6.0">$popupComputedStyle</DApi>
 	</DApiGroup>
+	<DApiGroup title="内置组件">
+		<DApi path="/api/components#popup-root" support="1.5.0">{{ '<PopupRoot>' }}</DApi>
+	</DApiGroup>
 	<DApiGroup title="常量">
 		<DApi path="/api/constants#popup-animations">POPUP_ANIMATIONS</DApi>
 		<DApi path="/api/constants#popup-component-injects">POPUP_COMPONENT_INJECTS</DApi>

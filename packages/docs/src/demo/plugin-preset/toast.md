@@ -211,7 +211,7 @@ function handlePopupToastHoverWait() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Toast 轻量提示](/guide-plugin-preset/toast)
+具体可以参考 [预置插件指南 - Toast 轻量提示](/guide-plugin-preset/toast)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

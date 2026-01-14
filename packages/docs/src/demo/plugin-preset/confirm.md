@@ -147,7 +147,7 @@ function handlePopupConfirmWithDragOverflow() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Confirm 确认](/guide-plugin-preset/confirm)
+具体可以参考 [预置插件指南 - Confirm 确认](/guide-plugin-preset/confirm)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'

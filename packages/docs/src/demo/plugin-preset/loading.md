@@ -167,7 +167,7 @@ function handlePopupLoadingWithMaskBlur() {
 
 ## 详细说明
 
-具体可以参考 [预置插件指南 - Loading 加载遮罩](/guide-plugin-preset/loading)
+具体可以参考 [预置插件指南 - Loading 加载遮罩](/guide-plugin-preset/loading)。
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
