@@ -93,9 +93,9 @@ watch(() => filter.showVersion, (newVal) => {
 		<DApi path="/api/plugin-preset/toast#popup-toast-warning-1" support="1.5.0" deprecated="1.6.0">popup.toast.warning()</DApi>
 		<DApi path="/api/plugin-preset/toast#popup-toast-danger-1" support="1.5.0" deprecated="1.6.0">popup.toast.danger()</DApi>
 	</DApiGroup>
-	<DApiGroup title="Message 消息">
+	<!-- <DApiGroup title="Message 消息">
 		<DApi path="/api/plugin-preset/message#popup-message">popup.message()</DApi>
-	</DApiGroup>
+	</DApiGroup> -->
 	<DApiGroup title="Alert 提示">
 		<DApi path="/api/plugin-preset/alert#popup-alert">popup.alert()</DApi>
 	</DApiGroup>
@@ -111,12 +111,12 @@ watch(() => filter.showVersion, (newVal) => {
 		<DApi path="/api/plugin-preset/dialog#popup-dialog-close-1" support="1.5.0" deprecated="1.6.0">popup.dialog.close()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Drawer 抽屉">
-		<DApi path="/api/plugin-preset/drawer#popup-drawer">popup.drawer()</DApi>
+		<DApi path="/api/plugin-preset/drawer#popup-drawer" support="1.6.0">popup.drawer()</DApi>
 		<DApi path="/api/plugin-preset/drawer#popup-drawer-close" support="1.6.0">popup.drawerClose()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Loading 加载遮罩">
 		<DApi path="/api/plugin-preset/loading#popup-loading">popup.loading()</DApi>
-		<DApi path="/api/plugin-preset/loading#popup-loading-close">popup.loadingClose()</DApi>
+		<DApi path="/api/plugin-preset/loading#popup-loading-close" support="1.6.0">popup.loadingClose()</DApi>
 		<DApi path="/api/plugin-preset/loading#popup-loading-close-1" support="1.5.0" deprecated="1.6.0">popup.loading.close()</DApi>
 	</DApiGroup>
 	<DApiGroup title="Album 相册">

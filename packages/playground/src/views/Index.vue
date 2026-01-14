@@ -80,7 +80,9 @@
 		.row-item
 			.title 插件功能单元测试
 			PButtonGroup(theme="primary")
-				PButton(@click="handleSkinChange()" size="large" theme="success") 切换皮肤，当前为{{ skin }}
+				PButton(@click="handleSkinChange()" size="large" theme="success")
+					| 切换皮肤，当前为
+					strong {{ skin }}
 			.title.second 消息
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")

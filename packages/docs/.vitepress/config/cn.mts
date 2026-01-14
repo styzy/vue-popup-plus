@@ -221,10 +221,10 @@ export const themeConfig = defineConfig({
 							text: 'Toast 轻量提示',
 							link: '/guide-plugin-preset/toast',
 						},
-						{
-							text: 'Message 消息',
-							link: '/guide-plugin-preset/message',
-						},
+						// {
+						// 	text: 'Message 消息',
+						// 	link: '/guide-plugin-preset/message',
+						// },
 						{
 							text: 'Alert 提示',
 							link: '/guide-plugin-preset/alert',
@@ -273,10 +273,10 @@ export const themeConfig = defineConfig({
 							text: 'Toast 轻量提示',
 							link: '/demo/plugin-preset/toast',
 						},
-						{
-							text: 'Message 消息',
-							link: '/demo/plugin-preset/message',
-						},
+						// {
+						// 	text: 'Message 消息',
+						// 	link: '/demo/plugin-preset/message',
+						// },
 						{
 							text: 'Alert 提示',
 							link: '/demo/plugin-preset/alert',
@@ -415,10 +415,10 @@ export const themeConfig = defineConfig({
 							text: 'Toast 轻量提示',
 							link: '/api/plugin-preset/toast',
 						},
-						{
-							text: 'Message 消息',
-							link: '/api/plugin-preset/message',
-						},
+						// {
+						// 	text: 'Message 消息',
+						// 	link: '/api/plugin-preset/message',
+						// },
 						{
 							text: 'Alert 提示',
 							link: '/api/plugin-preset/alert',

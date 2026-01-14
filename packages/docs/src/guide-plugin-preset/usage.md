@@ -23,7 +23,7 @@ popup.dialog({
 预置插件提供了开箱即用的功能，包括：
 
 - [Toast 轻量提示](/guide-plugin-preset/toast)
-- [Message 消息](/guide-plugin-preset/message)
+  <!-- - [Message 消息](/guide-plugin-preset/message) -->
 - [Alert 提示](/guide-plugin-preset/alert)
 - [Confirm 确认](/guide-plugin-preset/confirm)
 - [Prompt 提示输入](/guide-plugin-preset/prompt)

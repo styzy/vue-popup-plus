@@ -93,6 +93,7 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	component: TComponent
 	/**
 	 * 弹出层渲染的视图组件的 props
+	 *
 	 * - 除了组件的属性，还支持传入组件的事件监听器，事件监听器的名称需要以
 	 *   `on` 开头，例如 `onClick` 、 `onInput` 等。
 	 * - 会自动根据传入的组件进行类型推导，提供完善的类型提示
@@ -103,7 +104,8 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	 */
 	onMounted?: () => void
 	/**
-	 * 弹出层关闭之后的回调
+	 * 弹出层销毁之后的回调
+	 *
 	 * - 触发时会将 popup.destroy() 方法的负载参数 payload 作为参数传入
 	 */
 	onUnmounted?: (payload?: any) => void
