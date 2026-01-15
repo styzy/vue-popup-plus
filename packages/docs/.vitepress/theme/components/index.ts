@@ -4,6 +4,7 @@ import DApiGird from './DApiGird.vue'
 import DApiGroup from './DApiGroup.vue'
 import DButton from './DButton.vue'
 import DButtonGroup from './DButtonGroup.vue'
+import DNavDemo from './DNavDemo.vue'
 import DVersion from './DVersion.vue'
 import DVersionPanel from './DVersionPanel.vue'
 import DVersionSupport from './DVersionSupport.vue'
@@ -16,6 +17,7 @@ export const components = {
 	DApiGroup,
 	DButton,
 	DButtonGroup,
+	DNavDemo,
 	DVersion,
 	DVersionPanel,
 	DVersionSupport,
@@ -30,6 +32,7 @@ declare module 'vue' {
 		DApiGroup: typeof DApiGroup
 		DButton: typeof DButton
 		DButtonGroup: typeof DButtonGroup
+		DNavDemo: typeof DNavDemo
 		DVersion: typeof DVersion
 		DVersionPanel: typeof DVersionPanel
 		DVersionSupport: typeof DVersionSupport

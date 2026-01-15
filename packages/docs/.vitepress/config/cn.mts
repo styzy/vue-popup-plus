@@ -73,6 +73,7 @@ export const themeConfig = defineConfig({
 				text: 'DEMO',
 				link: '/demo/core',
 				activeMatch: '/demo/',
+				// component: 'DNavDemo',
 			},
 			{
 				text: 'API',

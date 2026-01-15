@@ -13,7 +13,7 @@ hero:
         - theme: brand
           text: 快速上手 🚀
           link: /guide/introduction
-        - theme: alt demo
+        - theme: demo
           text: DEMO ✨
           link: /demo/core
 
