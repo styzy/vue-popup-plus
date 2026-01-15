@@ -151,20 +151,31 @@ function checkSlots() {
 	&.is-direction {
 		&-horizontal {
 			flex-direction: row;
+			&.is-align {
+				&-start {
+					justify-content: flex-start;
+				}
+				&-center {
+					justify-content: center;
+				}
+				&-end {
+					justify-content: flex-end;
+				}
+			}
 		}
 		&-vertical {
 			flex-direction: column;
-		}
-	}
-	&.is-align {
-		&-start {
-			justify-content: flex-start;
-		}
-		&-center {
-			justify-content: center;
-		}
-		&-end {
-			justify-content: flex-end;
+			&.is-align {
+				&-start {
+					align-items: flex-start;
+				}
+				&-center {
+					align-items: center;
+				}
+				&-end {
+					align-items: flex-end;
+				}
+			}
 		}
 	}
 	&.is-tight {

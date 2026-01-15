@@ -1,6 +1,6 @@
 <template lang="pug">
 PSkin.p-drawer(:class="{ 'no-header': !header }" :skin="skin")
-	PLayout(:skin="skin")
+	PLayout
 		template(#header v-if="header")
 			PHeader(
 				:draggable="draggable"
@@ -90,11 +90,8 @@ function handleClose() {
 	flex-direction: column;
 	justify-content: stretch;
 	align-items: stretch;
-	width: inherit;
-	height: inherit;
-	max-width: inherit;
-	max-height: inherit;
-	min-width: inherit;
-	min-height: inherit;
+	height: 100%;
+	box-shadow: var(--popup-plugin-preset-box-shadow);
+	overflow: hidden;
 }
 </style>

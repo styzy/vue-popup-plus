@@ -5,10 +5,11 @@ import {
 	LogGroupItemType,
 	printLog,
 	version as coreVersion,
+	POPUP_ANIMATIONS,
 	type InstanceId,
 	type ExtractComponentPropTypes,
-	type Placement,
 	type IController,
+	type MaskDestroyHandler,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -20,6 +21,8 @@ import type {
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Drawer'
 }
+
+type Placement = 'top' | 'right' | 'bottom' | 'left'
 
 // 抽屉的配置（插件使用者传入的参数类型）
 type DrawerOption<TComponent extends Component = Component> = {
@@ -84,9 +87,9 @@ type DrawerOption<TComponent extends Component = Component> = {
 	 *
 	 * - 默认值为 `right`
 	 */
-	placement?: 'top' | 'right' | 'bottom' | 'left'
+	placement?: Placement
 	/**
-	 * 是否显示对话框遮罩层
+	 * 是否显示抽屉遮罩层
 	 *
 	 * - 默认值为 `true`
 	 */
@@ -106,11 +109,33 @@ type DrawerOption<TComponent extends Component = Component> = {
 	 */
 	maskTransparent?: boolean
 	/**
-	 * 是否点击遮罩层关闭对话框
+	 * 点击遮罩层是否关闭抽屉
 	 *
-	 * - 默认值为 `false`
+	 * - 默认值为 `true` ，点击遮罩层将关闭抽屉
+	 * - 传入 `false` ，点击遮罩层不会关闭抽屉
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将关闭抽屉，可传入关闭携带的负载参数，返回的
+	 *   `Promise` 对象会在抽屉关闭动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有
+	 *
+	 * - 使用示例：
+	 * ```ts
+	 * popup.drawer({
+	 *     component: () => import('./HelloWorld.vue'),
+	 *     maskClose: async (close)=>{
+	 *         if(...自定义拦截条件) return
+	 *
+	 *         // 直接关闭
+	 *         close('携带的关闭参数')
+	 *
+	 *         // 异步等待关闭动画结束
+	 *         await close('携带的关闭参数')
+	 *         // 关闭后执行其他操作
+	 *     },
+	 * })
+	 * ```
 	 */
-	maskClose?: boolean
+	maskClose?: boolean | MaskDestroyHandler
 } & SharedOption
 
 // popup.drawer()这个方法的类型
@@ -136,7 +161,7 @@ export interface IDrawerClose {
 	 *
 	 * - 将会关闭最后一个创建的抽屉
 	 * - 如果当前没有抽屉正在显示，则不会有任何效果	，调试模式下会抛出警告
-	 * - 可传递任意类型的参数，该参数将会被传递给打开对话框时的 Promise resolve 函数
+	 * - 可传递任意类型的参数，该参数将会被传递给打开抽屉时的 Promise resolve 函数
 	 * @param payload 关闭时传递的参数
 	 */
 	<T extends any = any>(this: IController, payload?: T): Promise<void>
@@ -191,7 +216,7 @@ export const drawer = definePlugin({
 			minSize = defaultOptions.minSize ?? 'auto',
 			placement = defaultOptions.placement ?? 'right',
 			mask = defaultOptions.mask ?? true,
-			maskClose = defaultOptions.maskClose ?? false,
+			maskClose = defaultOptions.maskClose ?? true,
 			maskBlur = defaultOptions.maskBlur ?? false,
 			maskTransparent = defaultOptions.maskTransparent ?? false,
 			zIndex,
@@ -233,6 +258,7 @@ export const drawer = definePlugin({
 						? minSize
 						: undefined,
 					placement,
+					viewAnimation: getAnimation(placement),
 					mask,
 					maskDestroy: maskClose,
 					maskBlur,
@@ -276,7 +302,7 @@ export const drawer = definePlugin({
 									},
 									{
 										type: LogGroupItemType.Info,
-										title: '对话框ID',
+										title: '抽屉ID',
 										content: id,
 										important: true,
 									},
@@ -377,7 +403,7 @@ export const drawer = definePlugin({
 						},
 						{
 							type: LogGroupItemType.Info,
-							title: '对话框ID',
+							title: '抽屉ID',
 							content: id!,
 							important: true,
 						},
@@ -393,6 +419,21 @@ export const drawer = definePlugin({
 			)
 
 			resolve!(payload)
+		}
+
+		function getAnimation(placement: Placement) {
+			switch (placement) {
+				case 'top':
+					return POPUP_ANIMATIONS.FLY_TOP
+				case 'right':
+					return POPUP_ANIMATIONS.FLY_RIGHT
+				case 'bottom':
+					return POPUP_ANIMATIONS.FLY_BOTTOM
+				case 'left':
+					return POPUP_ANIMATIONS.FLY_LEFT
+				default:
+					return
+			}
 		}
 
 		config.customProperties.drawer = drawer

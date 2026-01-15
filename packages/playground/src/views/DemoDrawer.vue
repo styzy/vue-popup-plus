@@ -2,6 +2,7 @@
 .demo
 	.header
 		h1(:style="{ margin: '0' }") 这是一个抽屉组件
+		h3(:style="{ margin: '0' }") 测试属性：{{ test }}
 	.body
 		//- GlobalComponent
 	.footer

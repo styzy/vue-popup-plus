@@ -153,17 +153,15 @@ type DialogOption<TComponent extends Component = Component> = {
 	 * ```ts
 	 * popup.dialog({
 	 *     component: () => import('./HelloWorld.vue'),
-	 *     componentProps: {
-	 *         maskClose: async (close)=>{
-	 *             if(...自定义拦截条件) return
+	 *     maskClose: async (close)=>{
+	 *         if(...自定义拦截条件) return
 	 *
-	 *             // 直接关闭
-	 *             close('携带的关闭参数')
+	 *         // 直接关闭
+	 *         close('携带的关闭参数')
 	 *
-	 *             // 异步等待关闭动画结束
-	 *             await close('携带的关闭参数')
-	 *             // 关闭后执行其他操作
-	 *         },
+	 *         // 异步等待关闭动画结束
+	 *         await close('携带的关闭参数')
+	 *         // 关闭后执行其他操作
 	 *     },
 	 * })
 	 * ```
