@@ -23,7 +23,7 @@ export default {
 	async enhanceApp({ app, router, siteData }) {
 		if (!import.meta.env.SSR) {
 			const PopupPlus = createPopupPlus({
-				debugMode: true,
+				// debugMode: true,
 			})
 
 			const presetPlugin = createPresetPlugin()
