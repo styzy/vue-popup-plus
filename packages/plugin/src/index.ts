@@ -15,6 +15,7 @@ import { loading, type ILoading, type LoadingConfig } from './plugins/loading'
 import { prompt, type IPrompt, type PromptConfig } from './plugins/prompt'
 import { toast, type IToast, type ToastConfig } from './plugins/toast'
 import { type GlobalPluginConfig } from './typings'
+import { toLooseVersion } from './version'
 
 import './assets/styles/main.scss'
 
@@ -94,12 +95,13 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 	promptConfig.skin = promptConfig.skin || skin
 	toastConfig.skin = toastConfig.skin || skin
 
+	console.log('toLooseVersion(coreVersion): ', toLooseVersion(coreVersion))
 	return definePlugin({
 		name: 'plugin-preset',
 		author: 'STYZY',
 		requiredCoreVersion: {
 			min: coreVersion,
-			max: coreVersion,
+			max: toLooseVersion(coreVersion),
 		},
 		install(_) {
 			album.install(_, albumConfig)

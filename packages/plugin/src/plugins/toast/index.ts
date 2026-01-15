@@ -15,6 +15,7 @@ import {
 	type SharedOption,
 	type Theme,
 } from '../../typings'
+import { toLooseVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Toast'
@@ -157,7 +158,7 @@ export const toast = definePlugin({
 	author: 'STYZY',
 	requiredCoreVersion: {
 		min: coreVersion,
-		max: coreVersion,
+		max: toLooseVersion(coreVersion),
 	},
 	install: (
 		config,

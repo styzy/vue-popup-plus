@@ -14,6 +14,7 @@ import {
 	type SharedOption,
 	type Theme,
 } from '../../typings'
+import { toLooseVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Loading'
@@ -134,7 +135,7 @@ export const loading = definePlugin({
 	author: 'STYZY',
 	requiredCoreVersion: {
 		min: coreVersion,
-		max: coreVersion,
+		max: toLooseVersion(coreVersion),
 	},
 	install: (
 		config,

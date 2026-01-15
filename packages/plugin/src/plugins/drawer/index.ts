@@ -17,6 +17,7 @@ import type {
 	MergedOption,
 	SharedOption,
 } from '../../typings'
+import { toLooseVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Drawer'
@@ -192,7 +193,7 @@ export const drawer = definePlugin({
 	author: 'STYZY',
 	requiredCoreVersion: {
 		min: coreVersion,
-		max: coreVersion,
+		max: toLooseVersion(coreVersion),
 	},
 	install: (
 		config,
