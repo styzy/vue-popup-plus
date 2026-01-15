@@ -10,6 +10,7 @@ import { album, type AlbumConfig, type IAlbum } from './plugins/album'
 import { alert, type AlertConfig, type IAlert } from './plugins/alert'
 import { confirm, type ConfirmConfig, type IConfirm } from './plugins/confirm'
 import { dialog, type DialogConfig, type IDialog } from './plugins/dialog'
+import { drawer, type DrawerConfig, type IDrawer } from './plugins/drawer'
 import { loading, type ILoading, type LoadingConfig } from './plugins/loading'
 import { prompt, type IPrompt, type PromptConfig } from './plugins/prompt'
 import { toast, type IToast, type ToastConfig } from './plugins/toast'
@@ -19,7 +20,16 @@ import './assets/styles/main.scss'
 
 export { type Skin } from './skin'
 export { version } from './version'
-export type { IAlbum, IAlert, IConfirm, IDialog, ILoading, IPrompt, IToast }
+export type {
+	IAlbum,
+	IAlert,
+	IConfirm,
+	IDialog,
+	ILoading,
+	IPrompt,
+	IToast,
+	IDrawer,
+}
 
 export type PresetPluginConfig = GlobalPluginConfig & {
 	/**
@@ -38,6 +48,10 @@ export type PresetPluginConfig = GlobalPluginConfig & {
 	 * 对话 插件配置
 	 */
 	dialog?: DialogConfig
+	/**
+	 * 抽屉 插件配置
+	 */
+	drawer?: DrawerConfig
 	/**
 	 * 加载遮罩 插件配置
 	 */
@@ -65,6 +79,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 		alert: alertConfig = {},
 		confirm: confirmConfig = {},
 		dialog: dialogConfig = {},
+		drawer: drawerConfig = {},
 		loading: loadingConfig = {},
 		prompt: promptConfig = {},
 		toast: toastConfig = {},
@@ -74,6 +89,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 	alertConfig.skin = alertConfig.skin || skin
 	confirmConfig.skin = confirmConfig.skin || skin
 	dialogConfig.skin = dialogConfig.skin || skin
+	drawerConfig.skin = drawerConfig.skin || skin
 	loadingConfig.skin = loadingConfig.skin || skin
 	promptConfig.skin = promptConfig.skin || skin
 	toastConfig.skin = toastConfig.skin || skin
@@ -90,6 +106,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 			alert.install(_, alertConfig)
 			confirm.install(_, confirmConfig)
 			dialog.install(_, dialogConfig)
+			drawer.install(_, drawerConfig)
 			loading.install(_, loadingConfig)
 			prompt.install(_, promptConfig)
 			toast.install(_, toastConfig)
