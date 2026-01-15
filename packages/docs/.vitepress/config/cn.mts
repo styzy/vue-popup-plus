@@ -189,6 +189,10 @@ export const themeConfig = defineConfig({
 							text: '更新渲染选项',
 							link: '/guide/update',
 						},
+						{
+							text: '获取视图计算样式',
+							link: '/guide/get-computed-style',
+						},
 					],
 				},
 			],

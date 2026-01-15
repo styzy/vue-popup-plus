@@ -567,6 +567,67 @@ popup.destroy(instanceId, 'This is a custom payload')
 
 - [指南 - 销毁弹出层](/guide/destroy)
 
+## popup.getComputedStyle() <Badge text="1.6.0+" /> {#popup-get-computed-style}
+
+> <DVersionSupport version="1.6.0" />
+
+获取弹出层视图的计算样式。
+
+### 类型
+
+```ts
+function getComputedStyle(instanceId: InstanceId): ComputedStyle | null
+
+type ComputedStyle = ComputedRef<{
+	/**
+	 * 弹出层的宽度
+	 */
+	width: number
+	/**
+	 * 弹出层的高度
+	 */
+	height: number
+	/**
+	 * 弹出层的 z-index
+	 */
+	zIndex: number
+	/**
+	 * 弹出层的 translateX
+	 */
+	translateX: number
+	/**
+	 * 弹出层的 translateY
+	 */
+	translateY: number
+}>
+```
+
+### 详细信息
+
+传入弹出层的实例 ID，当该弹出层视图已挂载时，返回该弹出层视图的计算样式。否则返回 `null`。
+
+计算样式本质是一个 `Vue` 的计算属性。
+
+### 示例
+
+```ts
+// 视图组件内
+import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
+
+const popup = usePopup()
+const instanceId = usePopupInstanceId()
+
+function getComputedStyle() {
+	const computedStyle = popup.getComputedStyle(instanceId)
+
+	console.log(computedStyle?.value.width) // 弹出层的宽度
+}
+```
+
+### 相关参考
+
+- [指南 - 获取视图计算样式](/guide/get-computed-style)
+
 ## popup.use() <Badge type="danger" text="1.6.0-" />
 
 > <DVersionSupport version="1.6.0" deprecated />

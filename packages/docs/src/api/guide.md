@@ -45,6 +45,7 @@ watch(() => filter.showVersion, (newVal) => {
 		<DApi path="/api/controller#popup-render">popup.render()</DApi>
 		<DApi path="/api/controller#popup-update">popup.update()</DApi>
 		<DApi path="/api/controller#popup-destroy">popup.destroy()</DApi>
+		<DApi path="/api/controller#popup-get-computed-style" support="1.6.0">popup.getComputedStyle()</DApi>
 		<DApi path="/api/controller#popup-version">popup.version</DApi>
 	</DApiGroup>
 	<DApiGroup title="通用">
