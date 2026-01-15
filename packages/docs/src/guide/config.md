@@ -8,7 +8,7 @@
 
 ## 设置初始层级
 
-通过 `zIndex` 配置项可以设置全局起始 `z-index` 值，默认值为 `2000`。
+通过 `zIndex` 配置项可以设置全局起始 `z-index` 值，默认值为 `1000`。
 
 ```ts [main.ts]
 import { createPopupPlus } from 'vue-popup-plus'

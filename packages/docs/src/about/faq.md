@@ -10,8 +10,8 @@
 import { createPopupPlus } from 'vue-popup-plus'
 
 const PopupPlus = createPopupPlus({
-	// 默认 2000，这里降低为 1000 来提供更好的兼容性
-	zIndex: 1000,
+	// 默认 1000，这里降低为 500 来提供更好的兼容性
+	zIndex: 500,
 })
 ```
 

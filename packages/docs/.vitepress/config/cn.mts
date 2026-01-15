@@ -386,6 +386,10 @@ export const themeConfig = defineConfig({
 							link: '/api/options',
 						},
 						{
+							text: '内置组件',
+							link: '/api/components',
+						},
+						{
 							text: '通用',
 							link: '/api/common',
 						},
