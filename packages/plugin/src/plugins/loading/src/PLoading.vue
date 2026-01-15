@@ -34,7 +34,9 @@ const { theme, title, iconSize, mask, maskTransparent, debugMode } =
 	defineProps<Props>()
 
 function handleCloseOnDebugMode() {
-	emit('close')
+	if (debugMode) {
+		emit('close')
+	}
 }
 </script>
 
