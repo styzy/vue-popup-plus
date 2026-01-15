@@ -218,7 +218,7 @@
 				PButton(@click="handlePopupDrawerWithoutMask()") 禁用遮罩层
 				PButton(@click="handlePopupDrawerWithMaskBlur()") 启用遮罩模糊
 				PButton(@click="handlePopupDrawerWithMaskTransparent()") 启用遮罩透明
-				PButton(@click="handlePopupDrawerWithMaskClose()") 启用遮罩层点击关闭
+				PButton(@click="handlePopupDrawerWithoutMaskClose()") 禁用遮罩层点击关闭
 				PButton(@click="handlePopupDrawerWithMaskCloseHandler()") 遮罩层点击关闭处理器
 			.title.third 位置
 			PButtonGroup(theme="primary" tight type="plain")
@@ -1471,11 +1471,11 @@ function handlePopupDrawerWithMaskTransparent() {
 	})
 }
 
-function handlePopupDrawerWithMaskClose() {
+function handlePopupDrawerWithoutMaskClose() {
 	popup.drawer({
-		title: '启用遮罩层点击关闭',
+		title: '禁用遮罩层点击关闭',
 		component: () => import('./DemoDrawer.vue'),
-		maskClose: true,
+		maskClose: false,
 	})
 }
 

@@ -11,7 +11,7 @@ outline: 2
 
 - 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - 新增 `Drawer 抽屉` 插件。
-  <!-- - 新增 `Message 消息` 插件。 -->
+    <!-- - 新增 `Message 消息` 插件。 -->
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
 - `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
@@ -24,6 +24,8 @@ outline: 2
 
 ### 优化
 
+- `Toast 轻量提示` 优化插件的展示效果，适配 `dark` 主题下的背景颜色。
+- `Dialog 对话` 优化插件的展示效果，适配 `dark` 主题下的背景颜色。
 - `Loading 加载遮罩` 优化插件的展示效果，适配 `dark` 主题下的背景颜色。
 
 ### 破坏性改动
