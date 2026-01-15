@@ -15,6 +15,7 @@ import { PopupError } from '../error'
 import { Instance, RenderType, type InstanceId } from '../instance'
 import { printLog, Log, LogType, LogGroupItemType } from '../log'
 import { version, type Version } from '../version'
+import { type ComputedStyle } from '../typings'
 
 export interface PopupCustomProperties {}
 
@@ -23,6 +24,10 @@ export interface IController extends PopupCustomProperties {
 	 * 弹出层控制器实例 id
 	 */
 	readonly id: string
+	/**
+	 * 是否已安装
+	 */
+	readonly isInstalled: boolean
 	/**
 	 * 版本号
 	 */
@@ -37,6 +42,14 @@ export interface IController extends PopupCustomProperties {
 	render<TComponent extends Component = Component>(
 		options: RenderOption<TComponent>
 	): InstanceId
+	/**
+	 * 获取弹出层视图的计算样式
+	 *
+	 * - 传入弹出层的实例 id ，用于获取指定弹出层的计算样式
+	 * - 返回的计算样式是具有响应性的只读对象
+	 * - 如果弹出层视图组件未渲染，则返回 undefined
+	 */
+	getComputedStyle(instanceId: InstanceId): ComputedStyle | null
 	/**
 	 * 更新弹出层
 	 *
@@ -485,6 +498,80 @@ export class Controller implements IController {
 
 		return instance.id
 	}
+	getComputedStyle(instanceId: InstanceId) {
+		const log = new Log({
+			type: LogType.Info,
+			caller: {
+				name: 'popup.getComputedStyle()',
+				type: 'Function',
+				value: this.getComputedStyle,
+			},
+			group: [
+				{
+					type: LogGroupItemType.Component,
+					title: '调用组件',
+					instance: this.#vm,
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '控制器',
+					dataName: this.#id,
+					dataValue: this,
+					dataType: 'IController',
+				},
+				{
+					type: LogGroupItemType.Data,
+					title: '目标实例ID',
+					dataName: instanceId.name,
+					dataValue: instanceId,
+					dataType: 'InstanceId',
+				},
+			],
+		})
+
+		if (!this.isInstalled) {
+			log.type = LogType.Error
+			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，请先调用 app.use() 注册插件`
+			printLog(log)
+			throw new PopupError(log)
+		}
+
+		const instance = this.#core.getInstance(instanceId)
+
+		if (!instance) {
+			log.type = LogType.Warning
+			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，弹出层不存在`
+			printLog(log)
+			return null
+		}
+
+		const computedStyle = instance.store.computedStyle
+
+		if (!computedStyle) {
+			log.type = LogType.Warning
+			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，弹出层未挂载`
+			printLog(log)
+			return null
+		}
+
+		log.message = `获取弹出层 ${instanceId.name} 计算样式成功`
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: '弹出层实例',
+			dataName: instanceId.name,
+			dataType: 'Instance',
+			dataValue: instance,
+		})
+		log.group.push({
+			type: LogGroupItemType.Data,
+			title: '弹出层计算样式',
+			dataName: 'computedStyle',
+			dataType: 'ComputedStyle',
+			dataValue: computedStyle,
+		})
+
+		return computedStyle
+	}
 	update(instanceId: InstanceId, options: UpdateOption) {
 		const log = new Log({
 			type: LogType.Info,
@@ -526,7 +613,7 @@ export class Controller implements IController {
 
 		if (!this.isInstalled) {
 			log.type = LogType.Error
-			log.message = `更新弹出层失败，请先调用 app.use() 注册插件`
+			log.message = `更新弹出层 ${instanceId.name} 失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
 		}
@@ -600,7 +687,7 @@ export class Controller implements IController {
 
 		if (!this.isInstalled) {
 			log.type = LogType.Error
-			log.message = `销毁弹出层失败，请先调用 app.use() 注册插件`
+			log.message = `销毁弹出层 ${instanceId.name} 失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
 		}

@@ -19,6 +19,7 @@ import type {
 } from '../controller'
 
 import PopupInstance from '../components/PopupInstance.vue'
+import type { ComputedStyle } from 'src/typings'
 
 /**
  * 将对象的属性转换为 ref 类型
@@ -46,6 +47,7 @@ interface _IInstanceId {
 interface IInstance {
 	readonly id: InstanceId
 	readonly renderType: RenderType
+	readonly store: InstanceStore
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
 }
@@ -64,6 +66,7 @@ export type InstanceStore = PropertiseToRef<
 	Required<RenderConfigOptions & RenderComponentOptions> & {
 		id: InstanceId
 		parentElement: Element
+		computedStyle: ComputedStyle | null
 	}
 
 interface ICreateStore {
@@ -96,6 +99,7 @@ const createStore: ICreateStore = (
 		onMounted,
 		onUnmounted,
 		isBeforeUnmount: ref(false),
+		computedStyle: null,
 		...toRefs(reactive(options)),
 	}
 }
@@ -130,13 +134,19 @@ export class Instance implements IInstance {
 	#core: ICore
 	private _id: InstanceId
 	private _store: InstanceStore
-	readonly renderType: RenderType
 	#vm?: ComponentInternalInstance
 	#app?: App
 	#vNode?: VNode
 	#el?: Element
 	get id() {
 		return this._id
+	}
+	get renderType() {
+		return this.#core.isRootComponentRegistered
+			? RenderType.ROOT_COMPONENT
+			: this.#core.config.debugMode
+				? RenderType.APP
+				: RenderType.VNODE
 	}
 	get store() {
 		return this._store
@@ -147,14 +157,9 @@ export class Instance implements IInstance {
 		vm?: ComponentInternalInstance
 	) {
 		this._id = new InstanceId(core.instanceSeed)
-		this._store = createStore(this._id, options)
 		this.#core = core
 		this.#vm = vm
-		this.renderType = core.isRootComponentRegistered
-			? RenderType.ROOT_COMPONENT
-			: core.config.debugMode
-				? RenderType.APP
-				: RenderType.VNODE
+		this._store = createStore(this._id, options)
 	}
 	mount(): InstanceId {
 		switch (this.renderType) {

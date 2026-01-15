@@ -17,6 +17,7 @@ import {
 	onMounted,
 	onUpdated,
 	provide,
+	onUnmounted,
 } from 'vue'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -28,11 +29,10 @@ defineOptions({
 	name: 'PopupView',
 })
 
-const popupViewRef = ref<HTMLDivElement>()
-
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
 
+const popupViewRef = ref<HTMLDivElement>()
 const viewWidth = ref(0)
 const viewHeight = ref(0)
 
@@ -102,7 +102,7 @@ const styleObject = computed(() => {
 	}
 })
 
-const viewComputedStyle: ComputedStyle = computed(() => ({
+const viewComputedStyle = computed(() => ({
 	width: viewWidth.value,
 	height: viewHeight.value,
 	zIndex: store.zIndex.value,
@@ -112,12 +112,18 @@ const viewComputedStyle: ComputedStyle = computed(() => ({
 
 provide(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE, viewComputedStyle)
 
+store.computedStyle = viewComputedStyle
+
 onMounted(() => {
 	window.setTimeout(syncViewSize, store.animationDuration.value)
 })
 
 onUpdated(() => {
 	syncViewSize()
+})
+
+onUnmounted(() => {
+	store.computedStyle = null
 })
 
 async function syncViewSize() {

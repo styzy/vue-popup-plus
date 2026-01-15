@@ -1,6 +1,6 @@
 <template lang="pug">
 .global-component
-	div 全局组件
+	div 这是一个全局组件
 	PButton(@click="handleClick" theme="danger") 全局组件按钮
 </template>
 
