@@ -80,12 +80,12 @@ function handleCloseOnDebugMode() {
 	.p-loading {
 		&.has-mask {
 			.wrapper {
-				background-color: rgba(50, 50, 50, 0.85);
+				background-color: rgba(40, 40, 40, 0.85);
 			}
 		}
 		&:not(.has-mask) {
 			.wrapper {
-				background-color: rgba(50, 50, 50, 0.9);
+				background-color: rgba(40, 40, 40, 0.9);
 			}
 		}
 	}
