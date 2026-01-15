@@ -95,7 +95,6 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 	promptConfig.skin = promptConfig.skin || skin
 	toastConfig.skin = toastConfig.skin || skin
 
-	console.log('toLooseVersion(coreVersion): ', toLooseVersion(coreVersion))
 	return definePlugin({
 		name: 'plugin-preset',
 		author: 'STYZY',
