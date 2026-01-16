@@ -141,8 +141,8 @@ const testPlugin = definePlugin({
 // 	b: true,
 // })
 
-app.use(router)
 app.use(PopupPlus)
+app.use(router)
 
 app.mount('#app')
 

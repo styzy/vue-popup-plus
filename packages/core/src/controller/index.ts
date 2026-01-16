@@ -12,7 +12,7 @@ import {
 } from '../animation'
 import { type ICore } from '../core'
 import { PopupError } from '../error'
-import { Instance, RenderType, type InstanceId } from '../instance'
+import { Instance, InstanceRenderType, type InstanceId } from '../instance'
 import { printLog, Log, LogType, LogGroupItemType } from '../log'
 import { version, type Version } from '../version'
 import { type ComputedStyle } from '../typings'
@@ -480,7 +480,7 @@ export class Controller implements IController {
 			type: LogGroupItemType.Data,
 			title: '渲染方式',
 			dataName: instance.renderType,
-			dataType: `'${RenderType.APP}' | '${RenderType.VNODE}' | '${RenderType.ROOT_COMPONENT}'`,
+			dataType: `'${InstanceRenderType.APP}' | '${InstanceRenderType.VNODE}' | '${InstanceRenderType.ROOT_COMPONENT}'`,
 			dataValue: instance.renderType,
 			important: true,
 		})

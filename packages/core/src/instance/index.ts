@@ -17,9 +17,9 @@ import type {
 	RenderConfigOptions,
 	RenderStyleOptions,
 } from '../controller'
+import type { ComputedStyle } from '../typings'
 
 import PopupInstance from '../components/PopupInstance.vue'
-import type { ComputedStyle } from 'src/typings'
 
 /**
  * 将对象的属性转换为 ref 类型
@@ -44,9 +44,9 @@ interface _IInstanceId {
 	readonly name: string
 }
 
-interface IInstance {
+export interface IInstance {
 	readonly id: InstanceId
-	readonly renderType: RenderType
+	readonly renderType: InstanceRenderType
 	readonly store: InstanceStore
 	mount(): InstanceId
 	unmount(payload?: any): Promise<void>
@@ -124,7 +124,7 @@ export class InstanceId implements _IInstanceId {
 	}
 }
 
-export const enum RenderType {
+export const enum InstanceRenderType {
 	ROOT_COMPONENT = 'RootComponent',
 	APP = 'App',
 	VNODE = 'VNode',
@@ -143,10 +143,10 @@ export class Instance implements IInstance {
 	}
 	get renderType() {
 		return this.#core.isRootComponentRegistered
-			? RenderType.ROOT_COMPONENT
+			? InstanceRenderType.ROOT_COMPONENT
 			: this.#core.config.debugMode
-				? RenderType.APP
-				: RenderType.VNODE
+				? InstanceRenderType.APP
+				: InstanceRenderType.VNODE
 	}
 	get store() {
 		return this._store
@@ -163,13 +163,13 @@ export class Instance implements IInstance {
 	}
 	mount(): InstanceId {
 		switch (this.renderType) {
-			case RenderType.ROOT_COMPONENT:
+			case InstanceRenderType.ROOT_COMPONENT:
 				this.#mountByRootComponent()
 				break
-			case RenderType.APP:
+			case InstanceRenderType.APP:
 				this.#mountByApp()
 				break
-			case RenderType.VNODE:
+			case InstanceRenderType.VNODE:
 			default:
 				this.#mountByVNode()
 				break
@@ -185,13 +185,13 @@ export class Instance implements IInstance {
 		await wait(this._store.animationDuration.value)
 
 		switch (this.renderType) {
-			case RenderType.ROOT_COMPONENT:
+			case InstanceRenderType.ROOT_COMPONENT:
 				this.#unmountByRootComponent()
 				break
-			case RenderType.APP:
+			case InstanceRenderType.APP:
 				this.#unmountByApp()
 				break
-			case RenderType.VNODE:
+			case InstanceRenderType.VNODE:
 			default:
 				this.#unmountByVNode()
 				break
@@ -205,15 +205,15 @@ export class Instance implements IInstance {
 	#mountByApp() {
 		this.#el = document.createElement('div')
 
-		this.#app = createApp(PopupInstance, { store: this._store })
+		this.#app = createApp(PopupInstance, { instance: this })
 
 		const appContext = this.#getAppContext()
 
-		this.#app._context.components = appContext.components
-		this.#app._context.provides = appContext.provides
-		this.#app._context.config = appContext.config
-		this.#app._context.directives = appContext.directives
-		this.#app._context.mixins = appContext.mixins
+		this.#app._context.components = Object.create(appContext.components)
+		this.#app._context.provides = Object.create(appContext.provides)
+		this.#app._context.config = Object.create(appContext.config)
+		this.#app._context.directives = Object.create(appContext.directives)
+		this.#app._context.mixins = Object.create(appContext.mixins)
 
 		this.#app!.mount(this.#el)
 
@@ -223,7 +223,7 @@ export class Instance implements IInstance {
 		this.#el = document.createElement('div')
 
 		this.#vNode = createVNode(PopupInstance, {
-			store: this._store,
+			instance: this,
 		})
 
 		const appContext = this.#getAppContext()

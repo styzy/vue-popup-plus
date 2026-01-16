@@ -6,6 +6,7 @@ import {
 	type Reactive,
 } from 'vue'
 import { Config, type ConfigOption, type IConfig } from '../config'
+import { type IController } from '../controller'
 import { Instance, InstanceId } from '../instance'
 import { Log, LogGroupItemType, LogType, printLog } from '../log'
 import { createMixins } from '../mixins'
@@ -43,6 +44,10 @@ export interface ICore {
 	 * 弹出层实例存储
 	 */
 	readonly instances: Instances
+	/**
+	 * 无状态控制器实例
+	 */
+	noStateController?: IController
 	/**
 	 * 是否已注册根组件
 	 */

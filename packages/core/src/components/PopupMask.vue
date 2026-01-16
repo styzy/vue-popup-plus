@@ -18,7 +18,9 @@ defineOptions({
 })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
+const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+
+const store = instance.store
 
 const classObject = computed(() => ({
 	'is-transparent': store.maskTransparent.value,

@@ -86,7 +86,7 @@ function handleCloseDialog() {
 	// height 900px
 	min-width 300px
 	min-height 300px
-	background-color #EEEEEE
+	background-color var(--playground-color-background-main)
 	overflow hidden
 	.header,
 	.body,

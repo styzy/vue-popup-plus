@@ -1,6 +1,6 @@
 import type { InjectionKey } from 'vue'
 import type { ICore } from '../core'
-import type { InstanceId, InstanceStore } from '../instance'
+import type { Instance, InstanceId } from '../instance'
 import type { ComputedStyle } from '../typings'
 
 /**
@@ -90,9 +90,9 @@ type insideComponentInjectKeys = {
 	 */
 	CORE: InjectionKey<ICore>
 	/**
-	 * 弹出层响应式数据存储
+	 * 弹出层实例
 	 */
-	INSTANCE_STORE: InjectionKey<InstanceStore>
+	INSTANCE: InjectionKey<Instance>
 }
 
 /**
@@ -101,7 +101,7 @@ type insideComponentInjectKeys = {
 export const POPUP_INSIDE_COMPONENT_INJECTS: Readonly<insideComponentInjectKeys> =
 	{
 		CORE: Symbol(`${NAME_SPACE}-core`),
-		INSTANCE_STORE: Symbol(`${NAME_SPACE}-instance-store`),
+		INSTANCE: Symbol(`${NAME_SPACE}-instance`),
 	}
 
 /**

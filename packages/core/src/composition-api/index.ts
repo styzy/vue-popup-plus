@@ -11,8 +11,6 @@ import { getCore } from '../core'
 import { PopupError } from '../error'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
-let _noContextController: IController
-
 /**
  * 获取弹出层控制器
  *
@@ -42,7 +40,8 @@ export function usePopup(): IController {
 
 	let controller: IController
 
-	if (vm) {
+	// 当使用根组件时，不创建有状态控制器，因为根组件会自动同步上下文
+	if (!core.isRootComponentRegistered && vm) {
 		controller = new Controller(core, vm || undefined)
 
 		const componentName = vm?.type.name || '未知'
@@ -73,8 +72,8 @@ export function usePopup(): IController {
 			})
 		)
 	} else {
-		if (_noContextController) {
-			controller = _noContextController
+		if (core.noStateController) {
+			controller = core.noStateController
 			printLog(
 				new Log({
 					type: LogType.Info,
@@ -96,7 +95,7 @@ export function usePopup(): IController {
 				})
 			)
 		} else {
-			controller = _noContextController = new Controller(core)
+			controller = core.noStateController = new Controller(core)
 			printLog(
 				new Log({
 					type: LogType.Success,

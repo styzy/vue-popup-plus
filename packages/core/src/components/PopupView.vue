@@ -23,14 +23,15 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
-import type { ComputedStyle } from '../typings'
 
 defineOptions({
 	name: 'PopupView',
 })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
+const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+
+const store = instance.store
 
 const popupViewRef = ref<HTMLDivElement>()
 const viewWidth = ref(0)

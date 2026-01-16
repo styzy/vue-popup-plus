@@ -4,13 +4,12 @@ Transition(
 	:leave-active-class="leaveActiveClass")
 	slot(
 		:style="{ animationDuration: `${duration}ms` }"
-		v-if="isShow && !store.isBeforeUnmount.value")
+		v-if="isShow && !isBeforeUnmount")
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type { Animation } from '../animation'
-import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 
 const ANIMATION_NAMESPACE = 'popup-animation'
 
@@ -18,12 +17,13 @@ defineOptions({
 	name: 'PopupAnimation',
 })
 
-const { type, duration } = defineProps<{
+type Props = {
 	type: Animation
 	duration: number
-}>()
+	isBeforeUnmount: boolean
+}
 
-const store = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE_STORE)!
+const { type, duration, isBeforeUnmount } = defineProps<Props>()
 
 const isShow = ref(false)
 

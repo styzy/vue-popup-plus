@@ -1,8 +1,8 @@
 <template lang="pug">
 slot
 PopupInstance(
+	:instance="instance"
 	:key="instance.id.name"
-	:store="instance.store"
 	v-for="instance in istances")
 </template>
 
@@ -12,7 +12,6 @@ export const PopupRootComponentName = 'PopupRoot'
 
 <script lang="ts" setup>
 import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
-import { PopupError } from '../error'
 import { Log, LogType, printLog } from '../log'
 import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import PopupInstance from './PopupInstance.vue'
@@ -39,7 +38,6 @@ if (!core) {
 		],
 	})
 	printLog(log)
-	// throw new PopupError(log)
 }
 
 const istances = core?.instances || {}

@@ -25,11 +25,18 @@ export function createMixins(core: ICore): ComponentOptions {
 				enumerable: true,
 				configurable: false,
 				get() {
+					if (core.isRootComponentRegistered) {
+						if (!core.noStateController) {
+							core.noStateController = new Controller(core)
+						}
+						return core.noStateController
+					}
+
 					if (controller) return controller
 
-					controller = new Controller(core, vm || undefined)
+					controller = new Controller(core, vm)
 
-					const componentName = vm?.type.name || '未知'
+					const componentName = vm.type.name
 
 					printLog(
 						new Log({
