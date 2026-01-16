@@ -1,8 +1,7 @@
 <template lang="pug">
 AConfigProvider(:locale="zhCN")
 	ElConfigProvider(:locale="elZhCn")
-		PopupRoot
-			RouterView
+		RouterView
 </template>
 
 <script lang="ts" setup>
