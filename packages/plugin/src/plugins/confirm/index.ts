@@ -3,12 +3,11 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalPluginConfig } from '../../typings'
-import { toLooseVersion } from '../../version'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Confirm'
@@ -98,10 +97,7 @@ export type ConfirmConfig = GlobalPluginConfig & {
 export const confirm = definePlugin({
 	name: 'plugin-preset-confirm',
 	author: 'STYZY',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: toLooseVersion(coreVersion),
-	},
+	requiredCoreVersion,
 	install: (
 		config,
 		{ skin = 'modern', defaultOptions = {} }: ConfirmConfig = {}

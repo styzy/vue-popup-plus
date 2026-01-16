@@ -3,7 +3,6 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	type InstanceId,
 	type IController,
 } from 'vue-popup-plus'
@@ -14,7 +13,7 @@ import {
 	type SharedOption,
 	type Theme,
 } from '../../typings'
-import { toLooseVersion } from '../../version'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Loading'
@@ -133,10 +132,7 @@ const createId = () => `loading-${seed++}`
 export const loading = definePlugin({
 	name: 'plugin-preset-loading',
 	author: 'STYZY',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: toLooseVersion(coreVersion),
-	},
+	requiredCoreVersion,
 	install: (
 		config,
 		{ skin = 'modern', defaultOptions = {} }: LoadingConfig = {}

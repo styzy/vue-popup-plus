@@ -1,5 +1,4 @@
 import {
-	version as coreVersion,
 	definePlugin,
 	LogGroupItemType,
 	LogType,
@@ -15,7 +14,7 @@ import { loading, type ILoading, type LoadingConfig } from './plugins/loading'
 import { prompt, type IPrompt, type PromptConfig } from './plugins/prompt'
 import { toast, type IToast, type ToastConfig } from './plugins/toast'
 import { type GlobalPluginConfig } from './typings'
-import { toLooseVersion } from './version'
+import { requiredCoreVersion } from './version'
 
 import './assets/styles/main.scss'
 
@@ -98,10 +97,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 	return definePlugin({
 		name: 'plugin-preset',
 		author: 'STYZY',
-		requiredCoreVersion: {
-			min: coreVersion,
-			max: toLooseVersion(coreVersion),
-		},
+		requiredCoreVersion,
 		install(_) {
 			album.install(_, albumConfig)
 			alert.install(_, alertConfig)

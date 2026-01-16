@@ -3,7 +3,6 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	POPUP_ANIMATIONS,
 	type Placement,
 	type IController,
@@ -15,7 +14,7 @@ import {
 	type SharedOption,
 	type Theme,
 } from '../../typings'
-import { toLooseVersion } from '../../version'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Toast'
@@ -156,10 +155,7 @@ export type ToastConfig = GlobalPluginConfig & {
 export const toast = definePlugin({
 	name: 'plugin-preset-toast',
 	author: 'STYZY',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: toLooseVersion(coreVersion),
-	},
+	requiredCoreVersion,
 	install: (
 		config,
 		{ skin = 'modern', defaultOptions = {} }: ToastConfig = {}

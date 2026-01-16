@@ -3,7 +3,6 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	type IController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
@@ -12,7 +11,7 @@ import type {
 	MergedOption,
 	SharedOption,
 } from '../../typings'
-import { toLooseVersion } from '../../version'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Alert'
@@ -92,10 +91,7 @@ export type AlertConfig = GlobalPluginConfig & {
 export const alert = definePlugin({
 	name: 'plugin-preset-alert',
 	author: 'STYZY',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: toLooseVersion(coreVersion),
-	},
+	requiredCoreVersion,
 	install: (
 		config,
 		{ skin = 'modern', defaultOptions = {} }: AlertConfig = {}

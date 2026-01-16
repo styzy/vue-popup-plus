@@ -4,7 +4,6 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	POPUP_ANIMATIONS,
 	type InstanceId,
 	type ExtractComponentPropTypes,
@@ -17,7 +16,7 @@ import type {
 	MergedOption,
 	SharedOption,
 } from '../../typings'
-import { toLooseVersion } from '../../version'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Drawer'
@@ -191,10 +190,7 @@ const createId = () => `drawer-${seed++}`
 export const drawer = definePlugin({
 	name: 'plugin-preset-drawer',
 	author: 'STYZY',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: toLooseVersion(coreVersion),
-	},
+	requiredCoreVersion,
 	install: (
 		config,
 		{ skin = 'modern', defaultOptions = {} }: DrawerConfig = {}
