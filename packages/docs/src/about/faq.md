@@ -1,10 +1,25 @@
 # 常见问题
 
-## 与组件库的层级冲突问题
+## 第三方组件库的层级冲突
 
-对于目前主流的 **Vue3** 开源组件库，例如 `ElementPlus` 、 `Ant Design Vue` 等，这些组件库内部在实现部分组件以及弹出层时，自己维护了一套层级 zIndex 体系。
+对于目前主流的 **Vue 3** 开源组件库，例如 `ElementPlus` 、 `Ant Design Vue` 等，这些组件库内部在实现部分组件以及弹出层时，自己维护了一套层级 zIndex 体系。
 
-如果出现和 **vue-popup-plus** 弹出层 `zIndex` 冲突的情况，可以通过 `createPopupPlus()` 的 `zIndex` 选项来降低 **vue-popup-plus** 的全局 `zIndex` 基准值。
+### ElementPlus 适配
+
+从 <DVersion version="1.6.1" /> 版本开始，`Vue Popup Plus` 的 `createPopupPlus()` 函数的 `zIndex` 配置项支持传入一个工厂函数，每次渲染弹出层时，会调用该函数获取一个新的 `z-index` 值。
+
+对于 `Element Plus` 组件库，其暴露了一个 `useZIndex()` 钩子函数用于获取其内部维护的 `z-index` 值，因此可以通过下面示例将 `Vue Popup Plus` 的 `zIndex` 托管给 `Element Plus` 组件库去统一维护。
+
+```ts [main.ts]
+import { createPopupPlus } from 'vue-popup-plus'
+import { useZIndex } from 'element-plus'
+
+const PopupPlus = createPopupPlus({
+	zIndex: () => useZIndex().nextZIndex(),
+})
+```
+
+对于 <DVersion version="1.6.1" /> 之前的版本，则只能通过降低 `zIndex` 基准值来解决冲突问题。
 
 ```ts
 import { createPopupPlus } from 'vue-popup-plus'
@@ -15,9 +30,9 @@ const PopupPlus = createPopupPlus({
 })
 ```
 
-## 预置插件版本问题
+### Ant Design Vue 适配
 
-预置插件对核心版本具有较强的依赖关系，因此最佳实践是使用与核心版本相同的预置插件版本。
+由于 `Ant Design Vue` 组件库内部目前并没有暴露其内部维护的 `z-index` 值，因此无法直接将 `Vue Popup Plus` 的 `zIndex` 托管给 `Ant Design Vue` 组件库去统一维护，所以只能通过降低 `zIndex` 基准值来解决冲突问题。
 
 ## 同步应用上下文 <Badge text="1.5.0+" />
 
@@ -54,3 +69,22 @@ import zhCN from 'ant-design-vue/es/locale/zh_CN'
 :::
 
 具体可以参考 [核心 API - 内置组件 {{ '<PopupRoot>' }}](/api/components#popup-root)。
+
+## 预置插件依赖的核心版本
+
+从 <DVersion package="plugin" version="1.6.2" /> 版本开始，预置插件对核心的版本要求 **更加包容** ，这是因为核心从 <DVersion version="1.6.0" /> 版本开始进入稳定迭代状态，因此后续预置插件只需要 `主要版本` 和 `次版本号` 与核心保持一致即可。例如：
+
+| 预置插件版本    | 依赖的核心版本 |
+| :-------------- | :------------- |
+| `1.8.x`         | `1.8.x`        |
+| `1.7.x`         | `1.7.x`        |
+| `1.6.x(x >= 2)` | `1.6.x`        |
+
+对于 <DVersion package="plugin" version="1.6.1" /> 版本及之前的版本，核心版本号 **必须** 和预置插件的版本号 **保持一致** 。例如：
+
+| 预置插件版本 | 依赖的核心版本 |
+| :----------- | :------------- |
+| `1.6.1`      | `1.6.1`        |
+| `1.6.0`      | `1.6.0`        |
+| `1.5.0`      | `1.5.0`        |
+| `1.4.0`      | `1.4.0`        |

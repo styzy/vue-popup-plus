@@ -27,8 +27,10 @@ type ConfigOption = {
 	 * - 默认为 `1000`
 	 * - 每次生成弹出层时，除非 render() 方法传入
 	 *   zIndex，否则使用此基础值，每次使用后会自动递增
+	 * - 从 `1.6.1` 版本开始，支持传入一个工厂函数，每次渲染弹出层时，
+	 *   会调用该函数获取一个新的 `z-index` 值。
 	 */
-	zIndex?: number
+	zIndex?: number | ZIndexGetter
 	/**
 	 * 是否自动禁用滚动
 	 *
@@ -72,6 +74,8 @@ type ConfigOption = {
 	 */
 	debugMode?: boolean
 }
+
+type ZIndexGetter = () => number
 ```
 
 ### 详细信息

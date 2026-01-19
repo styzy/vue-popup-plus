@@ -3,7 +3,11 @@
 	.header
 		h2(:style="{ margin: '0' }") Element UI
 		h2(:style="{ margin: '0' }") 测试
+		h4(:style="{ margin: '0' }") initialZIndex: {{ zIndex.initialZIndex }}
+		h4(:style="{ margin: '0' }") currentZIndex: {{ zIndex.currentZIndex }}
 	.body
+		PButtonGroup(align="center" direction="vertical" type="plain")
+			PButton(@click="handleUpdateZIndex" theme="primary") 增加zIndex
 		ElSelect
 	.footer
 		PButtonGroup(direction="vertical")
@@ -15,6 +19,7 @@
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
+import { useZIndex } from 'element-plus'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 
@@ -23,6 +28,13 @@ const popup = usePopup()
 defineOptions({ name: 'DemoAntd' })
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const zIndex = useZIndex()
+
+function handleUpdateZIndex() {
+	const zIndex = useZIndex()
+	const nextZIndex = zIndex.nextZIndex()
+	popup.toastSuccess(`nextZIndex: ${nextZIndex}`)
+}
 
 function handleUpdateSize() {
 	popup.update(instanceId, {

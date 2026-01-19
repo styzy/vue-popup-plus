@@ -17,12 +17,12 @@ app.component('GlobalComponent', GlobalComponent)
 import Antd from 'ant-design-vue'
 app.use(Antd)
 
-import ElementPlus from 'element-plus'
+import ElementPlus, { useZIndex } from 'element-plus'
 import 'element-plus/dist/index.css'
 app.use(ElementPlus)
 
 const PopupPlus = createPopupPlus({
-	zIndex: 1000,
+	zIndex: () => useZIndex().nextZIndex(),
 	// prototypeName: '$customPopup',
 	// autoDisableScroll: false,
 	debugMode: true,
