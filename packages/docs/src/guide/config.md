@@ -60,7 +60,7 @@ export default {
 	methods: {
 		handlePopup() {
 			this.$customPopup.render({
-				component: () => import('./HelloWorld.vue'),
+				component: () => import('./HelloPopup.vue'),
 			})
 		},
 	},

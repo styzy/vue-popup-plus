@@ -6,7 +6,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	appendTo: '#custom',
 })
 ```
@@ -15,7 +15,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	appendTo: document.getElementById('custom'),
 })
 ```
@@ -28,7 +28,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	// 关闭自动禁用滚动条
 	disableScroll: true, // [!code highlight]
 })

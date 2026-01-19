@@ -18,13 +18,13 @@
 ```ts
 function handlePopupDialog() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 	})
 }
 
 async function handlePopupDialogWithResult() {
 	const result = await popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 	})
 
 	if (result !== undefined) {
@@ -51,7 +51,7 @@ async function handlePopupDialogWithResult() {
 ```ts
 function handlePopupDialogWithProps() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
@@ -65,7 +65,7 @@ function handlePopupDialogWithProps() {
 
 function handlePopupDialogWithOnMounted() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		onMounted() {
 			popup.toastSuccess('渲染回调 触发')
 		},
@@ -113,63 +113,63 @@ function handlePopupDialogWithOnMounted() {
 ```ts
 function handlePopupDialogLeftTop() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'left-top',
 	})
 }
 
 function handlePopupDialogLeft() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'left',
 	})
 }
 
 function handlePopupDialogLeftBottom() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupDialogTop() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'top',
 	})
 }
 
 function handlePopupDialogCenter() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'center',
 	})
 }
 
 function handlePopupDialogBottom() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'bottom',
 	})
 }
 
 function handlePopupDialogRightTop() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'right-top',
 	})
 }
 
 function handlePopupDialogRight() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'right',
 	})
 }
 
 function handlePopupDialogRightBottom() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		placement: 'right-bottom',
 	})
 }
@@ -194,21 +194,21 @@ function handlePopupDialogRightBottom() {
 ```ts
 function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		title: '自定义标题',
 	})
 }
 
 function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		headerClose: false,
 	})
 }
 
 function handlePopupDialogWithoutHeader() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		header: false,
 	})
 }
@@ -233,21 +233,21 @@ function handlePopupDialogWithoutHeader() {
 ```ts
 function handlePopupDialogWithoutMask() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		mask: false,
 	})
 }
 
 function handlePopupDialogWithMaskTransparent() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskTransparent: true,
 	})
 }
 
 function handlePopupDialogWithMaskBlur() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskBlur: true,
 	})
 }
@@ -277,14 +277,14 @@ function handlePopupDialogWithMaskBlur() {
 ```ts
 function handlePopupDialogWithDraggable() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		draggable: true,
 	})
 }
 
 function handlePopupDialogWithDragOverflow() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		draggable: true,
 		dragOverflow: true,
 	})
@@ -292,7 +292,7 @@ function handlePopupDialogWithDragOverflow() {
 
 function handlePopupDialogWithMaskClose() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskClose: true,
 	})
 }
@@ -300,7 +300,7 @@ function handlePopupDialogWithMaskClose() {
 async function handlePopupDialogWithMaskCloseHandler() {
 	const payload = await popup.dialog({
 		title: '请点击遮罩层关闭对话框',
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskClose: async (close) => {
 			if (await popup.confirm('确定关闭对话框吗？')) {
 				await close('123456')
@@ -322,7 +322,7 @@ async function handlePopupDialogWithMaskCloseHandler() {
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
-import HelloWorld from '../../HelloWorld.vue'
+import HelloDialog from '../../HelloDialog.vue'
 
 let popup
 
@@ -332,13 +332,13 @@ if (!import.meta.env.SSR) {
 
 function handlePopupDialog() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 	})
 }
 
 async function handlePopupDialogWithResult() {
 	const result = await popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 	})
 
 	if (result !== undefined) {
@@ -350,7 +350,7 @@ async function handlePopupDialogWithResult() {
 
 function handlePopupDialogWithProps() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
@@ -364,7 +364,7 @@ function handlePopupDialogWithProps() {
 
 function handlePopupDialogWithOnMounted() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		onMounted() {
 			popup.toastSuccess('渲染回调 触发')
 		},
@@ -373,119 +373,119 @@ function handlePopupDialogWithOnMounted() {
 
 function handlePopupDialogLeftTop() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'left-top',
 	})
 }
 
 function handlePopupDialogLeft() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'left',
 	})
 }
 
 function handlePopupDialogLeftBottom() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupDialogTop() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'top',
 	})
 }
 
 function handlePopupDialogCenter() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'center',
 	})
 }
 
 function handlePopupDialogBottom() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'bottom',
 	})
 }
 
 function handlePopupDialogRightTop() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'right-top',
 	})
 }
 
 function handlePopupDialogRight() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'right',
 	})
 }
 
 function handlePopupDialogRightBottom() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		placement: 'right-bottom',
 	})
 }
 
 function handlePopupDialogWithCustomTitle() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		title: '自定义标题',
 	})
 }
 
 function handlePopupDialogWithHeaderClose() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		headerClose: false,
 	})
 }
 
 function handlePopupDialogWithoutHeader() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		header: false,
 	})
 }
 
 function handlePopupDialogWithoutMask() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		mask: false,
 	})
 }
 
 function handlePopupDialogWithMaskTransparent() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		maskTransparent: true,
 	})
 }
 
 function handlePopupDialogWithMaskBlur() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		maskBlur: true,
 	})
 }
 
 function handlePopupDialogWithDraggable() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		draggable: true,
 	})
 }
 
 function handlePopupDialogWithDragOverflow() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		draggable: true,
 		dragOverflow: true,
 	})
@@ -493,7 +493,7 @@ function handlePopupDialogWithDragOverflow() {
 
 function handlePopupDialogWithMaskClose() {
 	popup.dialog({
-		component: HelloWorld,
+		component: HelloDialog,
 		maskClose: true,
 	})
 }
@@ -501,7 +501,7 @@ function handlePopupDialogWithMaskClose() {
 async function handlePopupDialogWithMaskCloseHandler() {
 	const payload = await popup.dialog({
 		title: '请点击遮罩层关闭对话框',
-		component: HelloWorld,
+		component: HelloDialog,
 		maskClose: async (close) => {
 			if (await popup.confirm('确定关闭对话框吗？')) {
 				await close('123456')

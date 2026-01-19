@@ -195,9 +195,9 @@ type Placement =
 ```ts
 // 直接调用
 popup.dialog({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 	componentProps: {
-		/** HelloWorld 组件的 props */
+		/** HelloDialog 组件的 props */
 	},
 })
 ```
@@ -205,9 +205,9 @@ popup.dialog({
 ```ts
 // 异步等待
 const result = await popup.dialog<string>({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 	componentProps: {
-		/** HelloWorld 组件的 props */
+		/** HelloDialog 组件的 props */
 	},
 })
 

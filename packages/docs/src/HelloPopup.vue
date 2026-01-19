@@ -1,0 +1,60 @@
+<template lang="pug">
+.hello-popup
+	.title Hello Popup
+	h1(v-if="test") 接收的参数：
+		span.value {{ test }}
+	DButton(@click="handleCustomEvent()" theme="success" v-if="test") 触发自定义事件
+	DButton(@click="handleClose()" theme="primary") 关闭弹出层
+	DButton(@click="handleClose('awesome !')" theme="success" type="plain") 携带参数 awesome ! 关闭弹出层
+</template>
+
+<script setup lang="ts">
+import { inject } from 'vue'
+import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+
+const popup = usePopup()
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+
+defineOptions({
+	name: 'HelloPopup',
+	inheritAttrs: false,
+})
+
+type Props = {
+	test?: string
+}
+
+const { test = '' } = defineProps<Props>()
+
+const emit = defineEmits<{
+	customEvent: [params: string]
+}>()
+
+function handleCustomEvent() {
+	emit('customEvent', 'customEvent params')
+}
+
+function handleClose(payload?: any) {
+	popup.destroy(instanceId!, payload)
+}
+</script>
+
+<style scoped lang="stylus">
+.hello-popup
+	display flex
+	flex-direction column
+	align-items center
+	gap 20px
+	min-width 500px
+	min-height 360px
+	width 100%
+	height 100%
+	background-color var(--docs-color-background-main)
+	.title
+		padding 30px 0 10px
+		font-size 30px
+		font-weight bold
+	.value
+		color var(--docs-color-primary)
+</style>

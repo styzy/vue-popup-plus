@@ -10,7 +10,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	// 点击遮罩层销毁弹出层
 	maskDestroy: true, // [!code highlight]
 })
@@ -30,7 +30,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	maskDestroy: (destory) => {
 		// 自定义销毁处理逻辑
 		if (window.confirm('是否确认销毁弹出层？')) {
@@ -44,7 +44,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	maskDestroy: async (destory) => {
 		if (window.confirm('是否确认销毁弹出层？')) {
 			// 使用 await 等待异步动画执行结束

@@ -15,7 +15,7 @@ const popup = usePopup()
 
 function handlePopup() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 }
 ```
@@ -39,7 +39,7 @@ const popup = usePopup()
 
 function handlePopupWithProps() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
@@ -73,7 +73,7 @@ const popup = usePopup()
 
 function handlePopupWithOnMounted() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		onMounted() {
 			popup.toastSuccess('渲染回调 触发')
 		},
@@ -82,7 +82,7 @@ function handlePopupWithOnMounted() {
 
 function handlePopupWithOnUnmounted() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		onUnmounted() {
 			popup.toastWarning('销毁回调 触发')
 		},
@@ -91,7 +91,7 @@ function handlePopupWithOnUnmounted() {
 
 function handlePopupWithResult() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		onUnmounted(payload?: string) {
 			if (payload) {
 				popup.toastSuccess(`销毁回调 触发, 携带参数: ${payload}`)
@@ -123,13 +123,13 @@ const popup = usePopup()
 
 function handlePopupWithAutoSize() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 }
 
 function handlePopupWithFixedSize() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		width: 800,
 		height: 600,
 	})
@@ -172,63 +172,63 @@ function handlePopupWithFixedSize() {
 ```ts
 function handlePopupWithPlacementLeftTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'left-top',
 	})
 }
 
 function handlePopupWithPlacementLeft() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'left',
 	})
 }
 
 function handlePopupWithPlacementLeftBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupWithPlacementTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'top',
 	})
 }
 
 function handlePopupWithPlacementCenter() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'center',
 	})
 }
 
 function handlePopupWithPlacementBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'bottom',
 	})
 }
 
 function handlePopupWithPlacementRightTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'right-top',
 	})
 }
 
 function handlePopupWithPlacementRight() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'right',
 	})
 }
 
 function handlePopupWithPlacementRightBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		placement: 'right-bottom',
 	})
 }
@@ -256,21 +256,21 @@ function handlePopupWithPlacementRightBottom() {
 ```ts
 function handlePopupWithTranslateX() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewTranslateX: 200,
 	})
 }
 
 function handlePopupWithTranslateY() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewTranslateY: 200,
 	})
 }
 
 function handlePopupWithTranslateXY() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
 		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
 	})
@@ -278,7 +278,7 @@ function handlePopupWithTranslateXY() {
 
 function handlePopupWithTranslateXYOverflow() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
 		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
 		viewTranslateOverflow: true,
@@ -311,55 +311,55 @@ function handlePopupWithTranslateXYOverflow() {
 import { POPUP_ANIMATIONS } from 'vue-popup-plus'
 function handlePopup() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 }
 
 function handlePopupWithFlyTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.FLY_TOP,
 	})
 }
 
 function handlePopupWithFlyRight() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.FLY_RIGHT,
 	})
 }
 
 function handlePopupWithFlyBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
 	})
 }
 
 function handlePopupWithFlyLeft() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
 	})
 }
 
 function handlePopupWithScaleEnlarge() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 	})
 }
 
 function handlePopupWithScaleReduce() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.SCALE_REDUCE,
 	})
 }
 
 function handlePopupWithAnimationNone() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		viewAnimation: POPUP_ANIMATIONS.NONE,
 		maskAnimation: POPUP_ANIMATIONS.NONE,
 	})
@@ -388,27 +388,27 @@ function handlePopupWithAnimationNone() {
 ```ts
 function handlePopupWithMask() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 }
 
 function handlePopupWithoutMask() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		mask: false,
 	})
 }
 
 function handlePopupWitMaskTransparent() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		maskTransparent: true,
 	})
 }
 
 function handlePopupWitMaskBlur() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		maskBlur: true,
 	})
 }
@@ -432,14 +432,14 @@ function handlePopupWitMaskBlur() {
 ```ts
 function handlePopupWithMaskDestroy() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		maskDestroy: true,
 	})
 }
 
 function handlePopupWithMaskDestroyHandler() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		maskDestroy: (destroy) => {
 			if (window.confirm('确认销毁弹出层？')) {
 				destroy()
@@ -453,7 +453,7 @@ function handlePopupWithMaskDestroyHandler() {
 
 <script setup lang="ts">
 import { usePopup, POPUP_ANIMATIONS } from 'vue-popup-plus'
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from '../HelloPopup.vue'
 
 let popup
 
@@ -463,13 +463,13 @@ if (!import.meta.env.SSR) {
 
 function handlePopup(){
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 	})
 }
 
 function handlePopupWithProps() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent(params: string) {
@@ -483,7 +483,7 @@ function handlePopupWithProps() {
 
 function handlePopupWithOnMounted() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		onMounted() {
 			popup.toastSuccess('渲染回调 触发')
 		},
@@ -492,7 +492,7 @@ function handlePopupWithOnMounted() {
 
 function handlePopupWithOnUnmounted() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		onUnmounted() {
 			popup.toastWarning('销毁回调 触发')
 		},
@@ -501,7 +501,7 @@ function handlePopupWithOnUnmounted() {
 
 function handlePopupWithResult() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		onUnmounted(payload?: string) {
 			if (payload) {
 				popup.toastSuccess(`销毁回调 触发, 携带参数: ${payload}`)
@@ -514,13 +514,13 @@ function handlePopupWithResult() {
 
 function handlePopupWithAutoSize() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 	})
 }
 
 function handlePopupWithFixedSize() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		width: 800,
 		height: 600,
 	})
@@ -528,84 +528,84 @@ function handlePopupWithFixedSize() {
 
 function handlePopupWithPlacementLeftTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'left-top',
 	})
 }
 
 function handlePopupWithPlacementLeft() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'left',
 	})
 }
 
 function handlePopupWithPlacementLeftBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'left-bottom',
 	})
 }
 
 function handlePopupWithPlacementTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'top',
 	})
 }
 
 function handlePopupWithPlacementCenter() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'center',
 	})
 }
 
 function handlePopupWithPlacementBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'bottom',
 	})
 }
 
 function handlePopupWithPlacementRightTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'right-top',
 	})
 }
 
 function handlePopupWithPlacementRight() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'right',
 	})
 }
 
 function handlePopupWithPlacementRightBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		placement: 'right-bottom',
 	})
 }
 
 function handlePopupWithTranslateX() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewTranslateX: 200,
 	})
 }
 
 function handlePopupWithTranslateY() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewTranslateY: 200,
 	})
 }
 
 function handlePopupWithTranslateXY() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
 		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
 	})
@@ -613,7 +613,7 @@ function handlePopupWithTranslateXY() {
 
 function handlePopupWithTranslateXYOverflow() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
 		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
 		viewTranslateOverflow: true,
@@ -622,49 +622,49 @@ function handlePopupWithTranslateXYOverflow() {
 
 function handlePopupWithFlyTop() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.FLY_TOP,
 	})
 }
 
 function handlePopupWithFlyRight() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.FLY_RIGHT,
 	})
 }
 
 function handlePopupWithFlyBottom() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.FLY_BOTTOM,
 	})
 }
 
 function handlePopupWithFlyLeft() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
 	})
 }
 
 function handlePopupWithScaleEnlarge() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 	})
 }
 
 function handlePopupWithScaleReduce() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.SCALE_REDUCE,
 	})
 }
 
 function handlePopupWithAnimationNone() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		viewAnimation: POPUP_ANIMATIONS.NONE,
 		maskAnimation: POPUP_ANIMATIONS.NONE,
 	})
@@ -672,13 +672,13 @@ function handlePopupWithAnimationNone() {
 
 function handlePopupWithMask() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 	})
 }
 
 function handlePopupWithoutMask() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		mask: false,
 	})
 }
@@ -686,21 +686,21 @@ function handlePopupWithoutMask() {
 
 function handlePopupWitMaskTransparent() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		maskTransparent: true,
 	})
 }
 
 function handlePopupWitMaskBlur() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		maskBlur: true,
 	})
 }
 
 function handlePopupWithMaskDestroy() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		maskDestroy: true,
 	})
 }
@@ -708,7 +708,7 @@ function handlePopupWithMaskDestroy() {
 
 function handlePopupWithMaskDestroyHandler() {
 	popup.render({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloPopup,
 		maskDestroy: (destroy) => {
 			if (window.confirm('确认销毁弹出层？')) {
 				destroy()

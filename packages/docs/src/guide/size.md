@@ -4,9 +4,9 @@
 
 弹出层的视图默认会自动根据内部视图组件的内容 `自动适配` ，因此大部分情况下你无需手动设置，只需要在弹出的组件内设置好尺寸即可。
 
-```vue [HelloWorld.vue]
+```vue [HelloPopup.vue]
 <style scoped>
-.hello-world {
+.hello-popup {
 	width: 300px;
 	height: 300px;
 }
@@ -28,7 +28,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	width: '50%',
 	height: 600,
 })
@@ -51,7 +51,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	height: 1000,
 	maxHeight: '90%',
 })

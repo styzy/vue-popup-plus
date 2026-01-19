@@ -32,7 +32,7 @@ const popup = usePopup()
 
 onMounted(() => {
 	popup.render({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 })
 ```
@@ -55,7 +55,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	if (!checkAuth() && to.path !== '/login') {
 		popup.render({
-			component: () => import('./HelloWorld.vue'),
+			component: () => import('./HelloPopup.vue'),
 		})
 	} else {
 		next()
@@ -377,16 +377,16 @@ type Placement =
 ### 示例
 
 ```ts
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from './HelloPopup.vue'
 
 // 同步组件
 popup.render({
-	component: HelloWorld,
+	component: HelloPopup,
 })
 
 // 异步组件
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 })
 ```
 
@@ -552,7 +552,7 @@ function destroy(instanceId: InstanceId, payload?: any): void
 
 ```ts
 const instanceId = popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	onUnmounted: (payload) => {
 		// 弹出层销毁时将获取自定义数据
 		console.log(payload) // 'This is a custom payload'

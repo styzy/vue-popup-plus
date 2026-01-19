@@ -10,7 +10,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	placement: 'top',
 })
 ```

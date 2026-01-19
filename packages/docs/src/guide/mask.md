@@ -12,7 +12,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	// 禁用遮罩层
 	mask: false, // [!code highlight]
 })
@@ -30,7 +30,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	// 使用透明遮罩层
 	maskTransparent: true, // [!code highlight]
 })
@@ -52,7 +52,7 @@ popup.render({
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	// 使用高斯模糊遮罩层
 	maskBlur: true, // [!code highlight]
 })

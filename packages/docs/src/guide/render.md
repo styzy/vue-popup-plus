@@ -8,7 +8,7 @@
 
 ```ts{9} [组合式 API ~vscode-icons:file-type-vue~]
 import { usePopup } from 'vue-popup-plus'
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from './HelloPopup.vue'
 
 // 获取弹出层控制器
 const popup = usePopup()
@@ -17,13 +17,13 @@ function handlePopup() {
 	// 调用 render 方法渲染弹出层
 	popup.render({
 		// 弹出层渲染的组件
-		component: HelloWorld,
+		component: HelloPopup,
 	})
 }
 ```
 
 ```ts{7} [选项式 API ~vscode-icons:file-type-vue~]
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from './HelloPopup.vue'
 
 export default {
 	methods: {
@@ -31,7 +31,7 @@ export default {
 			// 通过 this.$popup 访问弹出层控制器
 			this.$popup.render({
 				// 弹出层渲染的组件
-				component: HelloWorld,
+				component: HelloPopup,
 			})
 		},
 	},
@@ -54,7 +54,7 @@ export default {
 
 ```ts [Vue]
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 })
 ```
 
@@ -68,7 +68,7 @@ popup.render({
 
 ```ts [Parent.vue]
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	componentProps: {
 		// 传递 props 属性
 		message: 'Hello World',
@@ -78,7 +78,7 @@ popup.render({
 })
 ```
 
-```vue [HelloWorld.Vue]
+```vue [HelloPopup.Vue]
 <script lang="ts" setup>
 type Props = {
 	// 定义 message 属性
@@ -110,7 +110,7 @@ const emit = defineEmits<Emits>()
 
 ```ts [Parent.vue]
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	componentProps: {
 		// 只能够传递 string 类型的数据
 		message: 'Hello World',

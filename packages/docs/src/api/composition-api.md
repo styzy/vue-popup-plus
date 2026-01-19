@@ -23,7 +23,7 @@ function usePopupInstanceId(): InstanceId | undefined
 
 ### 示例
 
-```ts [HelloWorld.vue]
+```ts [HelloPopup.vue]
 // 弹出层渲染的组件
 import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
 

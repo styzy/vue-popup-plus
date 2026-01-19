@@ -19,11 +19,11 @@
 ```
 
 ```ts
-import HelloWorld from 'HelloWorld.vue'
+import HelloDialog from 'HelloDialog.vue'
 
 function handleDialog() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'), // [!code highlight]
+		component: () => import('./HelloDialog.vue'), // [!code highlight]
 	})
 }
 ```
@@ -43,11 +43,11 @@ function handleDialog() {
 ```
 
 ```ts{6}
-import HelloWorld from 'HelloWorld.vue'
+import HelloDialog from 'HelloDialog.vue'
 
 function handleDialogProps() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent: (params) => {
@@ -70,7 +70,7 @@ function handleDialogProps() {
 
 如果不存在打开的对话框，调用 `popup.dialogClose()` 方法将不会有任何效果，`debugMode 调试模式` 开启的情况下，将会在控制台输出警告信息。
 
-```ts [HelloWorld.vue]
+```ts [HelloDialog.vue]
 // 关闭对话框
 function handleClose() {
 	popup.dialogClose()
@@ -94,7 +94,7 @@ function handleClose() {
 
 当调用 `popup.dialogClose()` 方法时，可以传入一个 `payload` 参数，该参数会作为关闭携带参数返回给打开对话框的 `Promise` 对象，因此可以通过 `await` 来获取关闭携带参数。
 
-```ts{3} [HelloWorld.vue]
+```ts{3} [HelloDialog.vue]
 // 关闭对话框
 function handleClose() {
 	popup.dialogClose('awesome !')
@@ -104,7 +104,7 @@ function handleClose() {
 ```ts{3} [Parent.vue]
 // 这里 await 的返回值为关闭携带的参数 'awesome !'
 const result = await popup.dialog({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 })
 ```
 
@@ -113,7 +113,7 @@ const result = await popup.dialog({
 ```ts{2} [Parent.vue]
 // void 不可缺少，因为无法保证对话框是否会携带参数
 const result: string | void = await popup.dialog({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 })
 ```
 
@@ -122,7 +122,7 @@ const result: string | void = await popup.dialog({
 ```ts{2} [Parent.vue]
 // 这里使用类型参数 string，因此 payload 的类型将自动推断为 string | void
 const result = await popup.dialog<string>({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 })
 ``` -->
 
@@ -137,7 +137,7 @@ const result = await popup.dialog<string>({
 ```ts
 async function handleDialogResult() {
 	const payload: string | void = await popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 	})
 
 	// 判断是否携带参数
@@ -182,21 +182,21 @@ async function handleDialogResult() {
 ```ts
 function handleDialogPlacementLeft() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('../HelloDialog.vue'),
 		placement: 'left', // [!code highlight]
 	})
 }
 
 function handleDialogPlacementTop() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('../HelloDialog.vue'),
 		placement: 'top', // [!code highlight]
 	})
 }
 
 function handleDialogPlacementRightBottom() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: () => import('../HelloDialog.vue'),
 		placement: 'right-bottom', // [!code highlight]
 	})
 }
@@ -208,7 +208,7 @@ function handleDialogPlacementRightBottom() {
 
 默认情况下，对话框会自动根据内部所渲染的组件的实际宽高自适应，但也可以通过 `width` 和 `height` 属性来手动设置对话框的尺寸。
 
-下面的示例中，`HelloWorld` 组件内部的跟层级元素定义了宽高为 `400  * 300`，而我们将手动设置其宽高为 `600 * 600`。
+下面的示例中，`HelloDialog` 组件内部的跟层级元素定义了宽高为 `400  * 300`，而我们将手动设置其宽高为 `600 * 600`。
 
 ::: demo
 
@@ -221,7 +221,7 @@ function handleDialogPlacementRightBottom() {
 ```ts
 function handleDialogCustomSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		width: 600, // [!code highlight]
 		height: '600px', // [!code highlight]
 	})
@@ -252,11 +252,11 @@ function handleDialogCustomSize() {
 ```
 
 ```ts
-import HelloWorld from 'HelloWorld.vue'
+import HelloDialog from 'HelloDialog.vue'
 
 function handleDialogCustomMinSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		minWidth: 500, // [!code highlight]
 		minHeight: 500, // [!code highlight]
 	})
@@ -264,7 +264,7 @@ function handleDialogCustomMinSize() {
 
 function handleDialogCustomMaxSize() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maxWidth: 200, // [!code highlight]
 		maxHeight: 200, // [!code highlight]
 	})
@@ -286,7 +286,7 @@ function handleDialogCustomMaxSize() {
 ```ts
 function handleDialogHideHeader() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		header: false, // [!code highlight]
 	})
 }
@@ -309,7 +309,7 @@ function handleDialogHideHeader() {
 ```ts
 function handleDialogCustomTitle() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		title: '自定义标题', // [!code highlight]
 	})
 }
@@ -332,7 +332,7 @@ function handleDialogCustomTitle() {
 ```ts
 function handleDialogHeaderClose() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		headerClose: false, // [!code highlight]
 	})
 }
@@ -362,14 +362,14 @@ function handleDialogHeaderClose() {
 ```ts
 function handleDialogDraggable() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		draggable: true, // [!code highlight]
 	})
 }
 
 function handleDialogDraggableOverflow() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		draggable: true,
 		dragOverflow: true, // [!code highlight]
 	})
@@ -391,7 +391,7 @@ function handleDialogDraggableOverflow() {
 ```ts
 function handleDialogDisableMask() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		mask: false, // [!code highlight]
 	})
 }
@@ -416,7 +416,7 @@ function handleDialogDisableMask() {
 ```ts
 function handleDialogMaskTransparent() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskTransparent: true, // [!code highlight]
 	})
 }
@@ -445,7 +445,7 @@ function handleDialogMaskTransparent() {
 ```ts
 function handleDialogMaskBlur() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskBlur: true, // [!code highlight]
 	})
 }
@@ -468,7 +468,7 @@ function handleDialogMaskBlur() {
 ```ts
 function handleDialogMaskClose() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskClose: true, // [!code highlight]
 	})
 }
@@ -498,7 +498,7 @@ function handleDialogMaskClose() {
 async function handleDialogMaskCloseHandler() {
 	const payload = await popup.dialog({
 		title: '请点击遮罩层关闭对话框',
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		maskClose: async (close) => {
 			if (await popup.confirm('确定关闭对话框吗？')) {
 				await close('123456')
@@ -535,7 +535,7 @@ async function handleDialogMaskCloseHandler() {
 ```ts{4}
 function handleDialogOnMounted() {
 	popup.dialog({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloDialog.vue'),
 		onMounted: () => {
 			popup.toastSuccess('对话框渲染完成')
 		},
@@ -551,6 +551,7 @@ function handleDialogOnMounted() {
 
 <script setup lang="ts">
 import { usePopup } from 'vue-popup-plus'
+import HelloDialog from '../HelloDialog.vue'
 
 let popup
 
@@ -560,13 +561,13 @@ if (!import.meta.env.SSR) {
 
 function handleDialog() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 	})
 }
 
 function handleDialogProps() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		componentProps: {
 			test: '这是一个组件参数',
 			onCustomEvent: (params: string) => {
@@ -580,7 +581,7 @@ function handleDialogProps() {
 
 async function handleDialogResult() {
 	const payload: string | void = await popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 	})
 
 	if (payload !== undefined) {
@@ -593,28 +594,28 @@ async function handleDialogResult() {
 
 function handleDialogPlacementLeft() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		placement: 'left',
 	})
 }
 
 function handleDialogPlacementTop() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		placement: 'top',
 	})
 }
 
 function handleDialogPlacementRightBottom() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		placement: 'right-bottom',
 	})
 }
 
 function handleDialogCustomSize() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		width: 600,
 		height: '600px',
 	})
@@ -622,7 +623,7 @@ function handleDialogCustomSize() {
 
 function handleDialogCustomMinSize() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		minWidth: 500,
 		minHeight: 500,
 	})
@@ -630,7 +631,7 @@ function handleDialogCustomMinSize() {
 
 function handleDialogCustomMaxSize() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		maxWidth: 200,
 		maxHeight: 200,
 	})
@@ -638,35 +639,35 @@ function handleDialogCustomMaxSize() {
 
 function handleDialogHideHeader() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		header: false,
 	})
 }
 
 function handleDialogCustomTitle() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		title: '自定义标题',
 	})
 }
 
 function handleDialogHeaderClose() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		headerClose: false,
 	})
 }
 
 function handleDialogDraggable() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		draggable: true,
 	})
 }
 
 function handleDialogDraggableOverflow() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		draggable: true,
 		dragOverflow: true,
 	})
@@ -674,28 +675,28 @@ function handleDialogDraggableOverflow() {
 
 function handleDialogDisableMask() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		mask: false,
 	})
 }
 
 function handleDialogMaskTransparent() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		maskTransparent: true,
 	})
 }
 
 function handleDialogMaskBlur() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		maskBlur: true,
 	})
 }
 
 function handleDialogMaskClose() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		maskClose: true,
 	})
 }
@@ -703,7 +704,7 @@ function handleDialogMaskClose() {
 async function handleDialogMaskCloseHandler() {
 	const payload = await popup.dialog({
 		title: '请点击遮罩层关闭对话框',
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		maskClose: async (close) => {
 			if (await popup.confirm('确定关闭对话框吗？')) {
 				await close('123456')
@@ -717,7 +718,7 @@ async function handleDialogMaskCloseHandler() {
 
 function handleDialogOnMounted() {
 	popup.dialog({
-		component: () => import('../HelloWorld.vue'),
+		component: HelloDialog,
 		onMounted: () => {
 			popup.toast('对话框渲染完成')
 		},

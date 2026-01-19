@@ -15,7 +15,7 @@ let instanceId: InstanceId | null = null
 
 function handlePopup() {
 	instanceId = popup.render({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 	})
 }
 
@@ -40,7 +40,7 @@ export default {
 	methods: {
 		handlePopup() {
 			this.instanceId = this.$popup.render({
-				component: ()=>import('./HelloWorld.vue'),
+				component: ()=>import('./HelloPopup.vue'),
 				},
 			})
 		},
@@ -77,7 +77,7 @@ function handleClose() {
 // 渲染弹出层的组件
 function handleRender() {
 	popup.render({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		onUnmounted(payload) {
 			console.log(payload) // 'This is a custom payload'
 		},

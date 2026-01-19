@@ -26,7 +26,7 @@ export default defineComponent({
 	methods: {
 		handlePopup() {
 			this.$popup.render({
-				component: () => import('./HelloWorld.vue'),
+				component: () => import('./HelloPopup.vue'),
 			})
 		},
 	},

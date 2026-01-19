@@ -176,13 +176,13 @@ const presetPlugin = createPresetPlugin({
 
 // 标题会被设置为 hello
 popup.dialog({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 })
 
 // 标题会被设置为 abc
 popup.dialog({
 	title: 'abc',
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloDialog.vue'),
 })
 ```
 

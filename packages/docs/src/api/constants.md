@@ -62,7 +62,7 @@ import { usePopup, POPUP_ANIMATIONS } from 'vue-popup-plus'
 const popup = usePopup()
 
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	viewAnimation: POPUP_ANIMATIONS.FLY_TOP,
 	maskAnimation: POPUP_ANIMATIONS.FADE,
 })
@@ -102,7 +102,7 @@ const POPUP_COMPONENT_INJECTS: {
 
 ### 示例
 
-```ts [HelloWorld.vue]
+```ts [HelloPopup.vue]
 // 弹出层渲染的所有子代组件中
 import { inject } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'

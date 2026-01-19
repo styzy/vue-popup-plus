@@ -14,7 +14,7 @@ let instanceId: InstanceId | null = null
 function handlePopup() {
 	// 渲染并获取实例 id
 	instanceId = popup.render({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		width: '500px',
 		height: 300,
 	})

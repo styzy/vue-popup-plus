@@ -1,6 +1,6 @@
 <template lang="pug">
-.hello-world
-	.title Hello World
+.hello-dialog
+	.title Hello Dialog
 	h1(v-if="test") 接收的参数：
 		span.value {{ test }}
 	DButton(@click="handleCustomEvent()" theme="success" v-if="test") 触发自定义事件
@@ -9,15 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
-import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-
 defineOptions({
-	name: 'HelloWorld',
+	name: 'HelloDialog',
 	inheritAttrs: false,
 })
 
@@ -36,12 +33,12 @@ function handleCustomEvent() {
 }
 
 function handleClose(payload?: any) {
-	popup.destroy(instanceId!, payload)
+	popup.dialogClose(payload)
 }
 </script>
 
 <style scoped lang="stylus">
-.hello-world
+.hello-dialog
 	display flex
 	flex-direction column
 	align-items center

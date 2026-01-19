@@ -19,7 +19,7 @@ outline: 2
 
 ### 示例
 
-```ts [HelloWorld.vue]
+```ts [HelloPopup.vue]
 // 组合式 + TypeScript 类型定义
 type Props = {
 	foo: string
@@ -51,18 +51,18 @@ export default {
 ```ts
 import { defineAsyncComponent } from 'vue'
 import { type ExtractComponentPropTypes } from 'vue-popup-plus'
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from './HelloPopup.vue'
 
 // 同步组件
-type HelloWorldProps = ExtractComponentPropTypes<typeof HelloWorld>
+type HelloPopupProps = ExtractComponentPropTypes<typeof HelloPopup>
 
 // 异步组件 不使用 defineAsyncComponent 导入
-const asyncComponent = () => import('./HelloWorld.vue')
-type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
+const asyncComponent = () => import('./HelloPopup.vue')
+type HelloPopupProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 // 异步组件 使用 defineAsyncComponent 导入
-const asyncComponent = defineAsyncComponent(() => import('./HelloWorld.vue'))
-type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
+const asyncComponent = defineAsyncComponent(() => import('./HelloPopup.vue'))
+type HelloPopupProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 // 三种组件引用方式均可以提取如下类型
 // {
@@ -82,9 +82,9 @@ type HelloWorldProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 ```ts
 import { type ExtractComponentAllPropTypes } from 'vue-popup-plus'
-import HelloWorld from './HelloWorld.vue'
+import HelloPopup from './demo/HelloPopup.vue'
 
-type HelloWorldAllProps = ExtractComponentAllPropTypes<typeof HelloWorld>
+type HelloPopupAllProps = ExtractComponentAllPropTypes<typeof HelloPopup>
 
 // {
 // 	foo: string

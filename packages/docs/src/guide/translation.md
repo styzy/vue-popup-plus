@@ -10,7 +10,7 @@
 
 ```ts
 popup.render({
-	component: () => import('./HelloWorld.vue'),
+	component: () => import('./HelloPopup.vue'),
 	placement: 'top',
 	// 垂直方向偏移量为 20px
 	viewTranslateY: 20, // [!code highlight]

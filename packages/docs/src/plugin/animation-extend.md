@@ -83,7 +83,7 @@ const popup = usePopup()
 
 onMounted(() => {
 	popup.render({
-		component: () => import('./HelloWorld.vue'),
+		component: () => import('./HelloPopup.vue'),
 		// 使用自定义动画
 		animation: POPUP_ANIMATIONS.CUSTOM, // [!code highlight]
 	})
@@ -96,7 +96,7 @@ import { POPUP_ANIMATIONS } from 'vue-popup-plus'
 export default {
 	mounted() {
 		this.$popup.render({
-			component: () => import('./HelloWorld.vue'),
+			component: () => import('./HelloPopup.vue'),
 			// 使用自定义动画
 			animation: POPUP_ANIMATIONS.CUSTOM, // [!code highlight]
 		})

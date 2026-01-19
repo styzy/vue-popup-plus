@@ -17,7 +17,7 @@ const popup = usePopup() // [!code highlight]
 onMounted(() => {
 	// 调用弹出层渲染方法
 	popup.render({
-		component: () => import('@/components/HelloWorld.vue'),
+		component: () => import('@/components/HelloPopup.vue'),
 	})
 })
 ```
@@ -29,7 +29,7 @@ export default {
 	mounted() {
 		// 调用弹出层渲染方法
 		this.$popup.render({
-			component: () => import('@/components/HelloWorld.vue'),
+			component: () => import('@/components/HelloPopup.vue'),
 		})
 	},
 }
@@ -63,7 +63,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	if (!checkAuth() && to.path !== '/login') {
 		popup.render({
-			component: () => import('./HelloWorld.vue'),
+			component: () => import('./HelloPopup.vue'),
 		})
 	} else {
 		next()
