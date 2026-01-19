@@ -1,3 +1,9 @@
+// 通用样式
+@mixin base-style {
+	font-size: var(--docs-font-size-text-main);
+	color: var(--docs-color-text-main);
+}
+
 // 超出文本省略号
 @mixin base-ellipsis() {
 	overflow: hidden;
@@ -28,26 +34,7 @@
 	}
 }
 
-// 彩色文本
-@mixin base-colorful-background($speed: 1) {
-	background-image: linear-gradient(
-		45deg,
-		rgb(249, 85, 35) 0%,
-		rgb(249, 246, 31) 33%,
-		rgb(38, 207, 254) 66%,
-		rgb(37, 33, 252) 100%
-	);
-	animation: run calc(10000 / $speed) + s linear infinite;
-	@keyframes run {
-		from {
-			background-position: 0 0;
-		}
-		to {
-			background-position: -400000px 0;
-		}
-	}
-}
-
+// 彩虹背景
 @mixin base-rainbow-background() {
 	background-image: linear-gradient(
 		45deg,
@@ -58,7 +45,7 @@
 	);
 }
 
-// 彩色文本
+// 彩虹文本
 @mixin base-rainbow-text($speed: 1) {
 	background-image: linear-gradient(
 		45deg,

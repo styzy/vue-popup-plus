@@ -1,4 +1,6 @@
-# Dialog 对话
+# Dialog 对话 <Badge text="1.6.0+" />
+
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 一般用于展示 `复杂业务` ，例如数据列表、提交表单等。
 
