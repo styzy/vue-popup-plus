@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"vue": "catalog:",
-		"vue-popup-plus": "workspace:*"
+		"vue-popup-plus": "workspace:~"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",
