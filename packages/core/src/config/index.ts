@@ -145,10 +145,8 @@ export class Config implements IConfig {
 	}
 	nextZIndex(): number {
 		if (typeof this.zIndex === 'function') {
-			console.log('this: ', this)
 			return this.zIndex()
 		}
-		console.log('this: ', this)
 		return this.zIndex + this.#zIndexOffset++
 	}
 }
