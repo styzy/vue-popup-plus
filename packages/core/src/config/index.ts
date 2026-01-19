@@ -1,10 +1,19 @@
 import { defaultPrintLog, type ILogHandler, type LogFilter } from '../log'
 
+type ZIndexGetter = () => number
+
 export interface IConfig {
 	/**
 	 * 弹出层 zIndex 基础值
 	 */
-	zIndex: number
+	zIndex: number | ZIndexGetter
+	/**
+	 * 获取下一个弹出层 zIndex 值
+	 *
+	 * - 如果 `zIndex` 是一个工厂函数，则每次调用该函数获取一个新的 `z-index` 值。
+	 * - 否则，每次调用该方法会返回基础值并自动递增。
+	 */
+	nextZIndex(): number
 	/**
 	 * 是否自动禁用滚动
 	 */
@@ -34,8 +43,10 @@ export type ConfigOption = {
 	 * - 默认为 `1000`
 	 * - 每次生成弹出层时，除非 render() 方法传入
 	 *   zIndex，否则使用此基础值，每次使用后会自动递增
+	 * - 从 `1.6.1` 版本开始，支持传入一个工厂函数，每次渲染弹出层时，
+	 *   会调用该函数获取一个新的 `z-index` 值。
 	 */
-	zIndex?: number
+	zIndex?: number | ZIndexGetter
 	/**
 	 * 是否自动禁用滚动
 	 *
@@ -110,12 +121,13 @@ export type ConfigOption = {
 }
 
 export class Config implements IConfig {
-	zIndex: number
+	zIndex: number | ZIndexGetter
 	autoDisableScroll: boolean
 	prototypeName: string
 	logHandler: ILogHandler
 	logFilter?: LogFilter
 	debugMode: boolean
+	#zIndexOffset = 0
 	constructor({
 		zIndex = 1000,
 		prototypeName = '$popup',
@@ -130,5 +142,13 @@ export class Config implements IConfig {
 		this.logHandler = logHandler
 		this.logFilter = logFilter
 		this.debugMode = debugMode
+	}
+	nextZIndex(): number {
+		if (typeof this.zIndex === 'function') {
+			console.log('this: ', this)
+			return this.zIndex()
+		}
+		console.log('this: ', this)
+		return this.zIndex + this.#zIndexOffset++
 	}
 }

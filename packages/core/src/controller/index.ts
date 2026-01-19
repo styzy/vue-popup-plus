@@ -452,7 +452,7 @@ export class Controller implements IController {
 			throw new PopupError(log)
 		}
 
-		zIndex = zIndex ?? this.#core.config.zIndex++
+		zIndex = zIndex ?? this.#core.config.nextZIndex()
 
 		const mergedOptions = {
 			...defaultOptions,
