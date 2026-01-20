@@ -2,7 +2,7 @@
 
 > <DVersionSupport package="plugin" version="1.6.0" />
 
-一般用于展示 `复杂业务` ，例如数据列表、提交表单等。
+一般用于半屏展示 `详细信息` ，例如数据详情，提交表单等。
 
 ::: tip
 该弹出层支持 `Promise 风格` 调用，具体可以查看 [携带参数关闭抽屉](/guide-plugin-preset/drawer#携带参数关闭抽屉)。
@@ -10,9 +10,9 @@
 
 ## 基础使用
 
-`抽屉 Drawer` 更像是对最基础的 `popup.render()` 方法的二次封装，提供了更多开箱即用的抽屉功能。
+`Drawer 抽屉` 和 `Dialog 对话` 一样，是对最基础的 `popup.render()` 方法的二次封装，提供了更多开箱即用的抽屉功能。
 
-和 `render` 方法一样，调用 `popup.drawer()` 方法并传入 `component` 视图组件选项，即可弹出一个抽屉，默认在屏幕右侧弹出。
+和 `popup.dialog()` 方法一样，调用 `popup.drawer()` 方法并传入 `component` 视图组件选项，即可弹出一个抽屉，默认在屏幕右侧弹出。
 
 ::: demo
 
@@ -189,11 +189,9 @@ function handleDrawerPlacementBottom() {
 
 ## 手动设置尺寸
 
-默认情况下，抽屉会自动根据内部所渲染的组件的实际宽高自适应，但也可以通过 `size` 属性来手动设置抽屉的尺寸。
-当 `placement` 的值为 `top` | `bottom` 时， `size`会应用给抽屉的高度。
-当 `placement` 的值为 `left` | `right` 时， `size`会应用给抽屉的宽度。
+默认情况下，抽屉会自动根据内部所渲染的组件的实际宽高自适应，但也可以通过 `size` 属性来手动设置抽屉的尺寸。当 `placement` 的值为 `top` | `bottom` 时， `size`会应用给抽屉的高度；当 `placement` 的值为 `left` | `right` 时， `size`会应用给抽屉的宽度。
 
-下面的示例中，`HelloDrawer` 组件内部的根层级元素使用组件默认尺寸`placement` 为 `top`,，而我们将手动设置其尺寸为 `600 `。
+下面的示例中，`HelloDrawer` 组件内部的根层级元素使用组件默认尺寸`placement` 为 `top` ，而我们将手动设置其尺寸为 `600` 。
 
 ::: demo
 
@@ -228,7 +226,7 @@ function handleDrawerCustomSize() {
 ```html
 <DButtonGroup>
 	<DButton theme="primary" @click="handleDrawerCustomMinSize"
-		>设置最小尺寸为： 500
+		>设置最小尺寸为： 1000
 	</DButton>
 	<DButton theme="primary" @click="handleDrawerCustomMaxSize"
 		>设置最大尺寸为： 200
@@ -242,7 +240,7 @@ import HelloDrawer from 'HelloDrawer.vue'
 function handleDrawerCustomMinSize() {
 	popup.drawer({
 		component: () => import('./HelloDrawer.vue'),
-		minSize: 500,
+		minSize: 1000,
 	})
 }
 
@@ -394,23 +392,23 @@ function handleDrawerMaskBlur() {
 
 :::
 
-## 启用遮罩层点击关闭抽屉
+## 禁用遮罩层点击关闭抽屉
 
-可以通过 `maskClose` 选项来启用遮罩层点击关闭抽屉。
+和 `Dialog 对话` 不同，抽屉点击遮罩层默认会关闭，你也可以通过 `maskClose` 选项来禁用遮罩层点击关闭抽屉。
 
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handleDrawerMaskClose"
-	>启用遮罩层点击关闭抽屉</DButton
+<DButton theme="primary" @click="handleDrawerMaskCloseDisable"
+	>禁用遮罩层点击关闭抽屉</DButton
 >
 ```
 
 ```ts
-function handleDrawerMaskClose() {
+function handleDrawerMaskCloseDisable() {
 	popup.drawer({
 		component: () => import('./HelloDrawer.vue'),
-		maskClose: true, // [!code highlight]
+		maskClose: false, // [!code highlight]
 	})
 }
 ```
@@ -565,7 +563,7 @@ function handleDrawerCustomSize() {
 function handleDrawerCustomMinSize() {
 	popup.drawer({
 		component: HelloDrawer,
-		minSize: 500,
+		minSize: 1000,
 	})
 }
 
@@ -618,10 +616,10 @@ function handleDrawerMaskBlur() {
 	})
 }
 
-function handleDrawerMaskClose() {
+function handleDrawerMaskCloseDisable() {
 	popup.drawer({
 		component: HelloDrawer,
-		maskClose: true,
+		maskClose: false,
 	})
 }
 

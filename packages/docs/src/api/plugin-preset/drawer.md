@@ -9,7 +9,9 @@ outline: 2
 以下 API 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## popup.drawer()
+## popup.drawer() <Badge text="1.6.0+" />
+
+> <DVersionSupport package="plugin" version="1.6.0" />
 
 创建一个抽屉弹出层。
 
@@ -151,7 +153,7 @@ popup.drawer({
 
 ```ts
 // 异步等待
-const result = await popup.drawer<string>({
+const result: string | void = await popup.drawer({
 	component: () => import('./HelloDrawer.vue'),
 	componentProps: {
 		/** HelloDrawer 组件的 props */

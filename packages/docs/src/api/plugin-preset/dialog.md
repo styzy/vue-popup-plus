@@ -204,7 +204,7 @@ popup.dialog({
 
 ```ts
 // 异步等待
-const result = await popup.dialog<string>({
+const result: string | void = await popup.dialog({
 	component: () => import('./HelloDialog.vue'),
 	componentProps: {
 		/** HelloDialog 组件的 props */

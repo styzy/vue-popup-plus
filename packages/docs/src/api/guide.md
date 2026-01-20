@@ -16,14 +16,14 @@ const filter = reactive({
 })
 
 onMounted(() => {
-	filter.showVersion = !!window.localStorage.getItem('apiShowVersion') || false
+	filter.showVersion = window.localStorage.getItem('apiShowVersion') === null ? true : !!window.localStorage.getItem('apiShowVersion')
 })
 
 watch(() => filter.showVersion, (newVal) => {
 	if(newVal) {
 		window.localStorage.setItem('apiShowVersion', '1')
 	} else {
-		window.localStorage.removeItem('apiShowVersion')
+		window.localStorage.setItem('apiShowVersion', '')
 	}
 })
 

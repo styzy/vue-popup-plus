@@ -266,10 +266,10 @@ function handlePopupDialogWithMaskBlur() {
 		>允许拖拽超出屏幕</DButton
 	>
 	<DButton @click="handlePopupDialogWithMaskClose"
-		>启用遮罩点击关闭对话框</DButton
+		>启用遮罩层点击关闭对话框</DButton
 	>
 	<DButton @click="handlePopupDialogWithMaskCloseHandler"
-		>自定义遮罩点击关闭逻辑</DButton
+		>自定义遮罩层点击关闭逻辑</DButton
 	>
 </DButtonGroup>
 ```

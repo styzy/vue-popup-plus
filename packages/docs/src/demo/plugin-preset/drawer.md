@@ -1,5 +1,7 @@
 # Drawer 抽屉 DEMO <Badge text="1.6.0+" />
 
+> <DVersionSupport package="plugin" version="1.6.0" />
+
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
@@ -80,12 +82,33 @@ function handlePopupDrawerWithOnMounted() {
 ::: demo
 
 ```html
-<DButtonGroup theme="primary" type="plain">
-	<DButton @click="handlePopupDrawerLeft">左侧</DButton>
-	<DButton @click="handlePopupDrawerRight">右侧</DButton>
-	<DButton @click="handlePopupDrawerTop">顶部</DButton>
-	<DButton @click="handlePopupDrawerBottom">底部</DButton>
-</DButtonGroup>
+<div
+	style="display: flex; flex-direction: row; align-items: stretch; justify-content: center; gap: 20px">
+	<DButtonGroup
+		theme="primary"
+		type="plain"
+		direction="vertical"
+		align="center">
+		<DButton @click="handlePopupDrawerLeft">左侧</DButton>
+	</DButtonGroup>
+	<DButtonGroup
+		theme="primary"
+		type="plain"
+		direction="vertical"
+		align="center">
+		<DButton @click="handlePopupDrawerTop">顶部</DButton>
+		<br />
+		<br />
+		<DButton @click="handlePopupDrawerBottom">底部</DButton>
+	</DButtonGroup>
+	<DButtonGroup
+		theme="primary"
+		type="plain"
+		direction="vertical"
+		align="center">
+		<DButton @click="handlePopupDrawerRight" type="default">右侧</DButton>
+	</DButtonGroup>
+</div>
 ```
 
 ```ts
@@ -205,10 +228,10 @@ function handlePopupDrawerWithMaskBlur() {
 ```html
 <DButtonGroup theme="primary" type="plain">
 	<DButton @click="handlePopupDrawerWithMaskClose"
-		>禁遮罩点击关闭抽屉</DButton
+		>禁用遮罩层点击关闭对话框</DButton
 	>
 	<DButton @click="handlePopupDrawerWithMaskCloseHandler"
-		>自定义遮罩点击关闭逻辑</DButton
+		>自定义遮罩层点击关闭逻辑</DButton
 	>
 </DButtonGroup>
 ```
