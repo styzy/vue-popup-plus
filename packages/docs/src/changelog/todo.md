@@ -9,7 +9,7 @@ outline: 2
 
 #### `createPopupPlus()`
 
-- <DVersionTodo version="1.6.1" level="high" author="STYZY" /> 修改 `zIndex` 参数，支持传入一个工厂函数，返回一个 `number` 类型的 `z-index` 值。
+- <DVersionTodo version="1.6.1" level="high" author="STYZY" finish /> 修改 `zIndex` 参数，支持传入一个工厂函数，返回一个 `number` 类型的 `z-index` 值。
 
 #### `render()`
 
@@ -22,7 +22,7 @@ outline: 2
 #### `plugin`
 
 - <DVersionTodo version="1.7.0" level="high" author="Sakura" /> 新增 `Message 消息` 插件。
-- <DVersionTodo version="1.6.0" level="high" author="HL"  /> 新增 `Drawer 抽屉` 插件。
+- <DVersionTodo version="1.6.0" level="high" author="HL" finish /> 新增 `Drawer 抽屉` 插件。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 所有插件支持公共参数 `zIndex`。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 所有插件支持全局配置参数默认值。
