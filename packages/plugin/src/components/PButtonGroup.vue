@@ -87,6 +87,12 @@ type Props = {
 	 */
 	align?: GroupAlign
 	/**
+	 * 按钮组交叉轴对齐方式
+	 *
+	 * - 默认值为 `start`
+	 */
+	crossAlign?: GroupAlign
+	/**
 	 * 是否紧凑模式
 	 *
 	 * - 默认值为 `false`
@@ -106,6 +112,7 @@ const {
 	size = 'default',
 	direction = 'horizontal',
 	align = 'start',
+	crossAlign = 'start',
 	tight = false,
 	cutline = false,
 } = defineProps<Props>()
@@ -113,6 +120,7 @@ const {
 const hasCutline = computed(() => cutline && !tight)
 const classObject = computed(() => ({
 	[`is-align-${align}`]: true,
+	[`is-cross-align-${crossAlign}`]: true,
 	[`is-direction-${direction}`]: true,
 	'is-tight': tight,
 	'has-cutline': hasCutline.value,
@@ -151,31 +159,31 @@ function checkSlots() {
 	&.is-direction {
 		&-horizontal {
 			flex-direction: row;
-			&.is-align {
-				&-start {
-					justify-content: flex-start;
-				}
-				&-center {
-					justify-content: center;
-				}
-				&-end {
-					justify-content: flex-end;
-				}
-			}
 		}
 		&-vertical {
 			flex-direction: column;
-			&.is-align {
-				&-start {
-					align-items: flex-start;
-				}
-				&-center {
-					align-items: center;
-				}
-				&-end {
-					align-items: flex-end;
-				}
-			}
+		}
+	}
+	&.is-align {
+		&-start {
+			justify-content: flex-start;
+		}
+		&-center {
+			justify-content: center;
+		}
+		&-end {
+			justify-content: flex-end;
+		}
+	}
+	&.is-cross-align {
+		&-start {
+			align-items: flex-start;
+		}
+		&-center {
+			align-items: center;
+		}
+		&-end {
+			align-items: flex-end;
 		}
 	}
 	&.is-tight {

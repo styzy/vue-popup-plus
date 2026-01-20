@@ -1,7 +1,7 @@
 <template lang="pug">
 .index
 	.fixed
-		PButtonGroup(align="end" direction="vertical")
+		PButtonGroup(cross-align="end" direction="vertical")
 			PButton(@click="handleDarkMode()" size="large" theme="primary") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
 			PButton(
 				@click="handleCloseSelf()"
@@ -253,7 +253,7 @@
 				PButton(theme="warning") Button
 				PButton(theme="danger") Button
 			.title.second 默认 禁用
-			PButtonGroup
+			PButtonGroup(align="end" direction="vertical")
 				PButton(disabled) Button
 				PButton(disabled theme="primary") Button
 				PButton(disabled theme="info") Button
