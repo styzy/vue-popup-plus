@@ -8,11 +8,11 @@ next: false
 ---
 
 <script lang="ts" setup>
-import { ref,reactive, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { data as coreApi } from './api.data.ts'
 import { data as pluginApi } from './plugin-preset/api.data.ts'
 
-const filter = reactive({
+const filter = ref({
 	keyword: '',
 	showVersion: false,
 })
@@ -23,10 +23,10 @@ const apiModules = ref({
 })
 
 onMounted(() => {
-	filter.showVersion = window.localStorage.getItem('apiShowVersion') === null ? true : !!window.localStorage.getItem('apiShowVersion')
+	filter.value.showVersion = window.localStorage.getItem('apiShowVersion') === null ? true : !!window.localStorage.getItem('apiShowVersion')
 })
 
-watch(() => filter.showVersion, (newVal) => {
+watch(() => filter.value.showVersion, (newVal) => {
 	if(newVal) {
 		window.localStorage.setItem('apiShowVersion', '1')
 	} else {
