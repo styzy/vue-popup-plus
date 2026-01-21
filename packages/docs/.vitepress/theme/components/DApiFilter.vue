@@ -19,11 +19,61 @@ export type Filter = {
 </script>
 
 <script lang="ts" setup>
-type Props = {
-	filter: Filter
-}
+import { type ApiModule } from './DApi.vue'
+import { onMounted, ref, watch } from 'vue'
 
-const { filter } = defineProps<Props>()
+type Apis = Record<string, ApiModule>
+
+const filter = defineModel<Filter>('filter', {
+	required: true,
+})
+
+const apis = defineModel<Apis>('apis', {
+	required: true,
+})
+
+const originApis = ref<Apis>({})
+
+onMounted(() => {
+	originApis.value = Object.fromEntries(
+		Object.entries(apis.value).map(([key, module]) => [
+			key,
+			{
+				...module,
+				groups: module.groups.map((group) => ({
+					...group,
+					items: group.items.map((item) => ({
+						...item,
+						showVersion: filter.value.showVersion,
+					})),
+				})),
+			},
+		])
+	)
+})
+
+watch(
+	() => filter.value.keyword,
+	(keyword) => {
+		apis.value = Object.fromEntries(
+			Object.entries(originApis.value).map(([key, module]) => [
+				key,
+				{
+					...module,
+					groups: module.groups.map((group) => ({
+						...group,
+						items: group.items.filter(
+							(item) =>
+								item.text.includes(keyword) ||
+								item.support?.includes(keyword) ||
+								item.deprecated?.includes(keyword)
+						),
+					})),
+				},
+			])
+		)
+	}
+)
 </script>
 
 <style lang="scss" scoped>

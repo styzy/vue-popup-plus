@@ -5,6 +5,7 @@
 		"./.vitepress/**/*.ts",
 		"./.vitepress/**/*.vue",
 		"./.vitepress/**/*.mts",
+		"./src/**/*.ts",
 		"./src/**/*.vue"
 	],
 	"compilerOptions": {

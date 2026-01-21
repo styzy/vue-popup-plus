@@ -1,110 +1,80 @@
 <template lang="pug">
-.d-api(:class="{ 'is-deprecated': isDeprecated }" v-if="isMatchedKeyword")
-	a(:href="path" :title="isDeprecated ? `已废弃${deprecated}` : label")
-		slot {{ label }}
-	.version(:class="{ 'keep-show': showVersion }")
-		Badge(:text="`${support}+`" v-if="support")
-		Badge(:text="`${deprecated}-`" type="danger" v-if="deprecated")
+.d-api
+	h2 {{ api.text }}
+	.grid(v-if="hasFilteredApiGroup()")
+		template(:key="group.text" v-for="group in api.groups")
+			DApiGroup(:title="group.text" v-if="!!group.items.length")
+				DApiItem(
+					v-bind="{ ...api, showVersion: filter.showVersion }"
+					v-for="api in group.items")
+	.empty(v-else) 没有匹配到 '{{ filter.keyword }}'
 </template>
 
-<script setup lang="ts">
-import { computed, inject, useSlots, watch } from 'vue'
+<script lang="ts">
+type Api = {
+	text: string
+	link: string
+	support?: Version
+	deprecated?: Version
+	showVersion?: boolean
+	items?: never
+}
+type ApiGroup = {
+	text: string
+	items: Api[]
+}
+export type ApiModule = {
+	text: string
+	groups: ApiGroup[]
+}
+</script>
+
+<script lang="ts" setup>
 import { type Version } from 'vue-popup-plus'
-import { filterInjectKey } from './DApiGird.vue'
-import { updateApiMatchedInjectKey } from './DApiGroup.vue'
+import { type Filter } from './DApiFilter.vue'
+import DApiGroup from './DApiGroup.vue'
+import DApiItem from './DApiItem.vue'
 
 defineOptions({
 	name: 'DApi',
 })
 
-const slots = useSlots()
-
-const filter = inject(filterInjectKey)
-const updateApiMatched = inject(updateApiMatchedInjectKey)
-
 type Props = {
-	path: string
-	label?: string
-	support?: Version
-	deprecated?: Version
+	api: ApiModule
+	filter: Filter
 }
 
-const { path, label, support, deprecated } = defineProps<Props>()
+const { api, filter } = defineProps<Props>()
 
-const isDeprecated = computed(() => !!deprecated)
-const showVersion = computed(() => filter?.showVersion ?? true)
-const isMatchedKeyword = computed(() => {
-	if (!filter || !filter.keyword) return true
-
-	if (label) {
-		return label.includes(filter.keyword)
-	} else {
-		return (
-			(slots.default?.()?.[0].children as string | undefined)?.includes(
-				filter.keyword
-			) ?? true
-		)
-	}
-})
-
-watch(
-	isMatchedKeyword,
-	(isMatched) => {
-		updateApiMatched?.(path, isMatched)
-	},
-	{
-		immediate: true,
-	}
-)
+function hasFilteredApiGroup(): boolean {
+	return api.groups.some((group) => !!group.items.length)
+}
 </script>
 
 <style lang="scss" scoped>
 .d-api {
 	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	a {
-		@include base-transition(0);
-		color: rgb(66, 81, 95);
-		font-size: 15px;
-		font-weight: 500;
-		text-decoration: none;
-		&:hover {
-			color: var(--docs-color-primary);
-		}
-	}
-	.version {
-		display: none;
-		flex-direction: row;
-		gap: 5px;
-		&.keep-show {
-			display: flex;
-		}
-		:deep(.VPBadge) {
-			transform: none;
-		}
-	}
-	&:hover {
-		.version {
-			display: flex;
-		}
-	}
-	&.is-deprecated {
-		opacity: 0.35;
-		&:hover {
-			opacity: 1;
+	flex-direction: column;
+	gap: 20px;
+	.grid {
+		columns: 2;
+		gap: 20px;
+		&:empty {
+			columns: unset;
+			&:after {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				content: attr(data-empty-content);
+				color: var(--docs-color-info);
+			}
 		}
 	}
 }
-.dark {
+@media screen and (min-width: 1440px) {
 	.d-api {
-		a {
-			color: rgb(207, 228, 250);
-			&:hover {
-				color: var(--docs-color-primary-light);
-			}
+		.grid {
+			columns: 3;
 		}
 	}
 }
