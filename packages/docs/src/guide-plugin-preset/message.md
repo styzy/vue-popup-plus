@@ -6,7 +6,7 @@
 
 ## 基础使用
 
-调用 `message` 方法可以弹出一条提示，默认在屏幕上方显示。
+调用 `popup.message()` 方法可以弹出一条提示，默认在屏幕上方显示。
 
 ::: demo
 
@@ -22,7 +22,7 @@ function handleMessage() {
 
 :::
 
-## 快速使用主题 <Badge text="1.7.0+" />
+## 快速使用主题
 
 > <DVersionSupport package="plugin" version="1.7.0" />
 
@@ -112,7 +112,7 @@ function handleMessageThemeDanger() {
 
 :::
 
-## 设置位置 <Badge text="1.7.0+" />
+## 设置位置
 
 > <DVersionSupport package="plugin" version="1.7.0" />
 
@@ -255,7 +255,7 @@ function handleMessageDurationZero() {
 
 :::
 
-## 显示关闭按钮 <Badge text="1.7.0+" />
+## 显示关闭按钮
 
 > <DVersionSupport package="plugin" version="1.7.0" />
 
@@ -279,7 +279,7 @@ function handleMessageShowClose() {
 
 :::
 
-## 禁用鼠标悬停持续显示 <Badge text="1.7.0+" />
+## 禁用鼠标悬停持续显示
 
 > <DVersionSupport package="plugin" version="1.7.0" />
 

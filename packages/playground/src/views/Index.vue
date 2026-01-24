@@ -84,7 +84,7 @@
 				PButton(@click="handleSkinChange()" size="large" theme="success")
 					| 切换皮肤，当前为
 					strong {{ skin }}
-			.title.second 消息
+			.title.second 轻量提示
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
@@ -116,7 +116,7 @@
 				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
-			.title.second 消息提示
+			.title.second 消息
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupMessage()" type="default") 默认

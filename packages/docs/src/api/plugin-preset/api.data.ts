@@ -77,6 +77,7 @@ const api: ApiModule = {
 				{
 					text: 'popup.message()',
 					link: '/api/plugin-preset/message#popup-message',
+					support: '1.7.0',
 				},
 				{
 					text: 'popup.messagePrimary()',

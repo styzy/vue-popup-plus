@@ -9,7 +9,7 @@ outline: 2
 以下 API 由 预置插件 `vue-popup-plus-plugin-preset` 提供。
 :::
 
-## popup.message()
+## popup.message() <Badge text="1.7.0+" /> {#popup-message}
 
 创建一个消息弹出层。
 
@@ -41,7 +41,6 @@ type MessageOption = {
 	 *
 	 * - 默认值为 `top`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -50,7 +49,6 @@ type MessageOption = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -59,7 +57,6 @@ type MessageOption = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -67,7 +64,6 @@ type MessageOption = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }
@@ -140,7 +136,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 默认值为 `center`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -149,7 +144,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -158,7 +152,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -166,7 +159,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }
@@ -212,7 +204,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 默认值为 `center`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -221,7 +212,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -230,7 +220,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -238,7 +227,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }
@@ -284,7 +272,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 默认值为 `center`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -293,7 +280,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -302,7 +288,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -310,7 +295,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }
@@ -356,7 +340,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 默认值为 `center`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -365,7 +348,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -374,7 +356,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -382,7 +363,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }
@@ -428,7 +408,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 默认值为 `center`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -437,7 +416,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -446,7 +424,6 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 	/**
@@ -454,7 +431,6 @@ type MessageOptionWithoutTheme = {
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
 	 *
-	 * @since 1.7.0
 	 */
 	zIndex?: number
 }

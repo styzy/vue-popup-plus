@@ -3,13 +3,12 @@ import {
 	LogType,
 	LogGroupItemType,
 	printLog,
-	version as coreVersion,
 	type IController,
 	type InstanceId,
 	type Placement,
 	POPUP_ANIMATIONS,
 } from 'vue-popup-plus'
-import { reactive } from 'vue'
+import { reactive, type Reactive } from 'vue'
 import { PluginLog } from '../../log'
 import {
 	type GlobalPluginConfig,
@@ -18,6 +17,7 @@ import {
 	type Theme,
 } from '../../typings'
 import type { Skin } from 'src/skin'
+import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Message'
@@ -42,7 +42,6 @@ type MessageOption = {
 	 *
 	 * - 默认值为 `top`
 	 *
-	 * @since 1.7.0
 	 */
 	placement?: Placement
 	/**
@@ -51,7 +50,6 @@ type MessageOption = {
 	 * - 默认值： `false`
 	 * - 当持续时间为 `0` 时，关闭按钮将会强制显示
 	 *
-	 * @since 1.7.0
 	 */
 	showClose?: boolean
 	/**
@@ -60,7 +58,6 @@ type MessageOption = {
 	 * - 默认值： `true`
 	 * - 当持续时间为 `0` 时，该参数无效
 	 *
-	 * @since 1.7.0
 	 */
 	hoverWait?: boolean
 } & SharedOption
@@ -129,7 +126,7 @@ export type MessageRecord = {
 
 export type MessageGroup = {
 	placement: Placement
-	list: ReturnType<typeof reactive<MessageRecord[]>>
+	list: Reactive<MessageRecord[]>
 	instanceId?: InstanceId
 }
 
@@ -149,7 +146,7 @@ function getOrCreateGroup(
 	if (!group) {
 		group = {
 			placement,
-			list: reactive([]) as MessageRecord[],
+			list: reactive<MessageRecord[]>([]),
 		}
 
 		const instanceId = controller.render({
@@ -206,7 +203,7 @@ function removeMessage(
 					type: 'Function',
 					value: message,
 				},
-				message: `关闭消息提示成功`,
+				message: `关闭消息成功`,
 				group: [
 					{
 						type: LogGroupItemType.Data,
@@ -244,10 +241,7 @@ function removeMessage(
 export const message = definePlugin({
 	name: 'plugin-preset-message',
 	author: 'Sakura',
-	requiredCoreVersion: {
-		min: coreVersion,
-		max: coreVersion,
-	},
+	requiredCoreVersion,
 	install(
 		config,
 		{ skin = 'modern', defaultOptions = {} }: MessageConfig = {}
