@@ -11,6 +11,7 @@ import { confirm, type ConfirmConfig, type IConfirm } from './plugins/confirm'
 import { dialog, type DialogConfig, type IDialog } from './plugins/dialog'
 import { drawer, type DrawerConfig, type IDrawer } from './plugins/drawer'
 import { loading, type ILoading, type LoadingConfig } from './plugins/loading'
+import { message, type IMessage, type MessageConfig } from './plugins/message'
 import { prompt, type IPrompt, type PromptConfig } from './plugins/prompt'
 import { toast, type IToast, type ToastConfig } from './plugins/toast'
 import { type GlobalPluginConfig } from './typings'
@@ -29,6 +30,7 @@ export type {
 	IPrompt,
 	IToast,
 	IDrawer,
+	IMessage,
 }
 
 export type PresetPluginConfig = GlobalPluginConfig & {
@@ -64,6 +66,10 @@ export type PresetPluginConfig = GlobalPluginConfig & {
 	 * 轻量提示 插件配置
 	 */
 	toast?: ToastConfig
+	/**
+	 * 消息提示 插件配置
+	 */
+	message?: MessageConfig
 }
 
 /**
@@ -83,6 +89,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 		loading: loadingConfig = {},
 		prompt: promptConfig = {},
 		toast: toastConfig = {},
+		message: messageConfig = {},
 	} = config || {}
 
 	albumConfig.skin = albumConfig.skin || skin
@@ -93,6 +100,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 	loadingConfig.skin = loadingConfig.skin || skin
 	promptConfig.skin = promptConfig.skin || skin
 	toastConfig.skin = toastConfig.skin || skin
+	messageConfig.skin = messageConfig.skin || skin
 
 	return definePlugin({
 		name: 'plugin-preset',
@@ -107,6 +115,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 			loading.install(_, loadingConfig)
 			prompt.install(_, promptConfig)
 			toast.install(_, toastConfig)
+			message.install(_, messageConfig)
 
 			printLog(
 				new PluginLog({
