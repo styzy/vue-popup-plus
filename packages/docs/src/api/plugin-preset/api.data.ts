@@ -71,15 +71,41 @@ const api: ApiModule = {
 				},
 			],
 		},
-		// {
-		// 	text: 'Message 消息',
-		// 	items: [
-		// 		{
-		// 			text: 'popup.message()',
-		// 			link: '/api/plugin-preset/message#popup-message',
-		// 		},
-		// 	],
-		// },
+		{
+			text: 'Message 消息',
+			items: [
+				{
+					text: 'popup.message()',
+					link: '/api/plugin-preset/message#popup-message',
+					support: '1.7.0',
+				},
+				{
+					text: 'popup.messagePrimary()',
+					link: '/api/plugin-preset/message#popup-message-primary',
+					support: '1.7.0',
+				},
+				{
+					text: 'popup.messageSuccess()',
+					link: '/api/plugin-preset/message#popup-message-success',
+					support: '1.7.0',
+				},
+				{
+					text: 'popup.messageInfo()',
+					link: '/api/plugin-preset/message#popup-message-info',
+					support: '1.7.0',
+				},
+				{
+					text: 'popup.messageWarning()',
+					link: '/api/plugin-preset/message#popup-message-warning',
+					support: '1.7.0',
+				},
+				{
+					text: 'popup.messageDanger()',
+					link: '/api/plugin-preset/message#popup-message-danger',
+					support: '1.7.0',
+				},
+			],
+		},
 		{
 			text: 'Alert 提示',
 			items: [
