@@ -80,10 +80,12 @@ app.mount('#app')
 <template>
 	<button @click="handlePopup">显示弹出层</button>
 	<button @click="handleToast">显示轻量提示</button>
+	<button @click="handleMessage">显示消息</button>
 	<button @click="handleAlert">显示提示</button>
 	<button @click="handleConfirm">显示确认</button>
 	<button @click="handlePrompt">显示提示输入</button>
 	<button @click="handleDialog">显示对话</button>
+	<button @click="handleDrawer">显示抽屉</button>
 	<button @click="handleLoading">显示加载遮罩</button>
 	<button @click="handleAlbum">显示相册</button>
 </template>
@@ -109,6 +111,10 @@ function handleToast() {
 	popup.toast('这是一个轻量提示')
 }
 
+function handleMessage() {
+	popup.message('这是一条消息')
+}
+
 function handleAlert() {
 	popup.alert('这是一个提示')
 }
@@ -132,20 +138,31 @@ async function handlePrompt() {
 
 function handleDialog() {
 	popup.dialog({
+		title: '对话',
 		// 组件
 		component: () => import('./HelloWorld.vue'),
 		// 组件属性
 		componentProps: {
 			// 根据你的组件属性传入
 		},
-		mask: false,
 	})
 }
 
-function handleLoading() {
-	popup.loading({
-		title: '加载中...',
+function handleDrawer() {
+	popup.drawer({
+		title: '抽屉',
+		// 组件
+		component: () => import('./HelloWorld.vue'),
+		// 组件属性
+		componentProps: {
+			// 根据你的组件属性传入
+		},
 	})
+}
+
+
+function handleLoading() {
+	popup.loading()
 
 	setTimeout(() => {
 		popup.loadingClose()
