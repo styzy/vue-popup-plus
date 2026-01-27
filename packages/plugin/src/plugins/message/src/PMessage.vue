@@ -1,6 +1,7 @@
 <template lang="pug">
-.p-message(
+PSkin.p-message(
 	:class="`is-theme-${theme}`"
+	:skin="skin"
 	@mouseenter="handleMouseEnter"
 	@mouseleave="handleMouseLeave")
 	.background
@@ -13,10 +14,12 @@
 		.close-btn(@click="handleClose" v-if="showClose || !autoClose")
 			i.iconfont-popup-plugin-preset.close
 </template>
+
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
+import PSkin from '../../../components/PSkin.vue'
 
 defineOptions({
 	name: 'PMessage',
@@ -106,13 +109,14 @@ function handleClose() {
 $border-radius: 4px;
 
 .p-message {
+	@include base-style();
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	max-width: 30vw;
-	border-radius: $border-radius;
+	border-radius: var(--popup-plugin-preset-border-radius);
 	.background,
 	.background-theme,
 	.background-border {
@@ -121,7 +125,7 @@ $border-radius: 4px;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		border-radius: $border-radius;
+		border-radius: var(--popup-plugin-preset-border-radius);
 	}
 	.background {
 		background-color: var(--popup-plugin-preset-color-background-sub);
@@ -176,7 +180,7 @@ $border-radius: 4px;
 			color: var(--popup-plugin-preset-color-info);
 			cursor: pointer;
 			i {
-				font-size: var(--popup-plugin-preset-font-size-text-sub);
+				font-size: var(--popup-plugin-preset-font-size-text-mini);
 			}
 		}
 	}
@@ -198,6 +202,13 @@ $border-radius: 4px;
 			'danger',
 			var(--popup-plugin-preset-color-danger)
 		);
+	}
+}
+.dark {
+	.p-message {
+		.background {
+			background-color: #111111;
+		}
 	}
 }
 </style>

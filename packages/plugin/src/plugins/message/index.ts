@@ -16,7 +16,7 @@ import {
 	type SharedOption,
 	type Theme,
 } from '../../typings'
-import type { Skin } from 'src/skin'
+import type { Skin } from '../../skin'
 import { requiredCoreVersion } from '../../version'
 
 class Log extends PluginLog {
@@ -126,7 +126,7 @@ export type MessageRecord = {
 
 export type MessageGroup = {
 	placement: Placement
-	list: Reactive<MessageRecord[]>
+	messages: Reactive<MessageRecord[]>
 	instanceId?: InstanceId
 }
 
@@ -146,17 +146,17 @@ function getOrCreateGroup(
 	if (!group) {
 		group = {
 			placement,
-			list: reactive<MessageRecord[]>([]),
+			messages: reactive<MessageRecord[]>([]),
 		}
 
 		const instanceId = controller.render({
 			component: () => import('./src/PMessageGroup.vue'),
 			componentProps: {
 				placement,
-				list: group.list,
+				messages: group.messages,
 				skin,
 				onItemClose: (id: string) => {
-					removeMessage(controller, placement, id)
+					onMessageClose(controller, placement, id)
 				},
 			},
 			placement,
@@ -173,7 +173,7 @@ function getOrCreateGroup(
 	return group
 }
 
-function removeMessage(
+function onMessageClose(
 	controller: IController,
 	placement: Placement,
 	id: string
@@ -181,10 +181,10 @@ function removeMessage(
 	const group = groupMap.get(placement)
 	if (!group) return
 
-	const index = group.list.findIndex((item) => item.id === id)
+	const index = group.messages.findIndex((item) => item.id === id)
 	if (index !== -1) {
 		const { content, theme, duration, showClose, hoverWait } =
-			group.list[index]
+			group.messages[index]
 
 		const messageValue: MessageDefaultOption = {
 			theme,
@@ -193,7 +193,7 @@ function removeMessage(
 			hoverWait,
 		}
 
-		const [item] = group.list.splice(index, 1)
+		const [item] = group.messages.splice(index, 1)
 
 		printLog(
 			new Log({
@@ -232,7 +232,7 @@ function removeMessage(
 		item.resolve()
 	}
 
-	if (group.list.length === 0 && group.instanceId) {
+	if (group.messages.length === 0 && group.instanceId) {
 		controller.destroy(group.instanceId)
 		groupMap.delete(placement)
 	}
@@ -262,7 +262,7 @@ export const message = definePlugin({
 
 				const group = getOrCreateGroup(this, placement, skin, zIndex)
 
-				group.list.push({
+				group.messages.push({
 					id,
 					content,
 					theme,
