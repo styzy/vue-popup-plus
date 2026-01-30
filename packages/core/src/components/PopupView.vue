@@ -46,7 +46,7 @@ const resolvedComponent = computed(() => {
 })
 
 const translateXRange = computed(() => {
-	const offset = Math.ceil(window.innerWidth - viewWidth.value)
+	const offset = Math.max(0, window.innerWidth - viewWidth.value)
 
 	if (store.placement.value.includes('left')) {
 		return [0, offset]
@@ -60,7 +60,7 @@ const translateXRange = computed(() => {
 })
 
 const translateYRange = computed(() => {
-	const offset = Math.ceil(window.innerHeight - viewHeight.value)
+	const offset = Math.max(0, window.innerHeight - viewHeight.value)
 
 	if (store.placement.value.includes('top')) {
 		return [0, offset]
