@@ -32,10 +32,10 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-	(e: 'itemClose', id: string): void
+	(e: 'messageClose', id: string): void
 }>()
 
-const emitClose = (id: string) => emit('itemClose', id)
+const emitClose = (id: string) => emit('messageClose', id)
 </script>
 
 <style scoped lang="scss">

@@ -106,8 +106,6 @@ function handleClose() {
 	}
 }
 
-$border-radius: 4px;
-
 .p-message {
 	@include base-style();
 	position: relative;

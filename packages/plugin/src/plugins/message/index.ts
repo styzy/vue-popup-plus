@@ -155,8 +155,8 @@ function getOrCreateGroup(
 				placement,
 				messages: group.messages,
 				skin,
-				onItemClose: (id: string) => {
-					onMessageClose(controller, placement, id)
+				onMessageClose: (id: string) => {
+					removeMessage(controller, placement, id)
 				},
 			},
 			placement,
@@ -173,7 +173,7 @@ function getOrCreateGroup(
 	return group
 }
 
-function onMessageClose(
+function removeMessage(
 	controller: IController,
 	placement: Placement,
 	id: string
@@ -289,7 +289,7 @@ export const message = definePlugin({
 							type: 'Function',
 							value: message,
 						},
-						message: `打开消息提示成功`,
+						message: `打开消息成功`,
 						group: [
 							{
 								type: LogGroupItemType.Data,
