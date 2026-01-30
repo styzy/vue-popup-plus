@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use './config.scss' as config;
+@use './namespace.scss' as namespace;
 
 // 生成css颜色变量
 @mixin css-color-variables($name, $color) {
@@ -11,13 +11,13 @@
 	$color-light-lite: color.mix($color, #ffffff, 90%);
 	$color-light-most: color.mix($color, #ffffff, 10%);
 
-	--#{config.$color-namespace}-#{$name}: #{$color};
-	--#{config.$color-namespace}-#{$name}-dark: #{$color-dark};
-	--#{config.$color-namespace}-#{$name}-dark-lite: #{$color-dark-lite};
-	--#{config.$color-namespace}-#{$name}-dark-most: #{$color-dark-most};
-	--#{config.$color-namespace}-#{$name}-light: #{$color-light};
-	--#{config.$color-namespace}-#{$name}-light-lite: #{$color-light-lite};
-	--#{config.$color-namespace}-#{$name}-light-most: #{$color-light-most};
+	--#{namespace.$color}-#{$name}: #{$color};
+	--#{namespace.$color}-#{$name}-dark: #{$color-dark};
+	--#{namespace.$color}-#{$name}-dark-lite: #{$color-dark-lite};
+	--#{namespace.$color}-#{$name}-dark-most: #{$color-dark-most};
+	--#{namespace.$color}-#{$name}-light: #{$color-light};
+	--#{namespace.$color}-#{$name}-light-lite: #{$color-light-lite};
+	--#{namespace.$color}-#{$name}-light-most: #{$color-light-most};
 }
 
 // 预置颜色

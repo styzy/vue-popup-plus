@@ -43,9 +43,9 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@use '../assets/styles/config.scss' as config;
+@use '../assets/styles/namespace.scss' as namespace;
 
-.#{config.$animation-namespace} {
+.#{namespace.$animation} {
 	animation-timing-function: linear;
 	animation-duration: v-bind(animationDuration);
 }
