@@ -89,11 +89,11 @@ export const themeConfig = defineConfig({
 				text: '更新日志',
 				items: [
 					{
-						text: '核心日志',
+						text: '核心',
 						link: '/changelog/core',
 					},
 					{
-						text: '预置插件日志',
+						text: '预置插件',
 						link: '/changelog/plugin-preset',
 					},
 					{
