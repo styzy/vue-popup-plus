@@ -11,6 +11,8 @@ outline: 2
 
 ## popup.message() <Badge text="1.7.0+" /> {#popup-message}
 
+> <DVersionSupport package="plugin" version="1.7.0" />
+
 创建一个消息弹出层。
 
 ### 类型
