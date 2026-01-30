@@ -137,10 +137,10 @@ function handleClick(event: PointerEvent) {
 		}
 		&.is-type-text:not(:disabled):active {
 			border-color: transparent;
+			color: $color !important;
 			.background {
 				opacity: 0.2 !important;
 			}
-			color: $color !important;
 		}
 		&.is-type-link,
 		&.is-type-link:disabled:hover,
@@ -253,8 +253,9 @@ function handleClick(event: PointerEvent) {
 		right: 0;
 		bottom: 0;
 		border-radius: 4px;
-		z-index: -1;
 		opacity: 0;
+		pointer-events: none;
+		z-index: 0;
 	}
 	&.is-size-small {
 		gap: 5px;

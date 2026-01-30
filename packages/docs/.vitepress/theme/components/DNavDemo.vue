@@ -34,10 +34,14 @@ function handleNavigate() {
 	&.is-active {
 		position: relative;
 		color: #ffffff;
-		text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+		text-shadow:
+			0px 2px 4px rgba(0, 0, 0, 0.3),
+			0px 2px 4px rgba(0, 0, 0, 0.3),
+			0px -1px 4px rgba(0, 0, 0, 0.3),
+			0px 0px 4px rgba(0, 0, 0, 0.3);
 		z-index: 0;
 		&:before {
-			@include base-rainbow-background();
+			@include base-background-rainbow();
 			content: '';
 			display: block;
 			position: absolute;
