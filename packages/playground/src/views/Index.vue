@@ -84,7 +84,7 @@
 				PButton(@click="handleSkinChange()" size="large" theme="success")
 					| 切换皮肤，当前为
 					strong {{ skin }}
-			.title.second 轻量提示
+			.title.second Toast 轻量提示
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupToast()" type="default") 默认
@@ -93,9 +93,9 @@
 				PButton(@click="handlePopupToastThemeInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupToastThemeWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
-				PButton(@click="handlePopupToastLong()") 长消息
-				PButton(@click="handlePopupToastTenSecond()") 10秒消息
-				PButton(@click="handlePopupToastZeroSecond()") 0秒消息
+				PButton(@click="handlePopupToastLong()") 长文本轻量提示
+				PButton(@click="handlePopupToastTenSecond()" theme="warning") 10秒轻量提示
+				PButton(@click="handlePopupToastZeroSecond()" theme="success") 0秒轻量提示
 				PButton(@click="handlePopupToastShowClose()") 显示关闭按钮
 				PButton(@click="handlePopupToastHoverWait()") 禁用悬停等待
 			.title.third 位置
@@ -116,7 +116,7 @@
 				PButton(@click="handlePopupToastInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
-			.title.second 消息
+			.title.second Message 消息
 			.title.third 基础
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupMessage()" type="default") 默认
@@ -148,7 +148,7 @@
 				PButton(@click="handlePopupMessageInfo()" theme="info") 信息主题
 				PButton(@click="handlePopupMessageWarning()" theme="warning") 警告主题
 				PButton(@click="handlePopupMessageDanger()" theme="danger") 危险主题
-			.title.second 提示
+			.title.second Alert 提示
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlert()" type="default") 默认
 				PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
@@ -157,7 +157,7 @@
 				PButton(@click="handlePopupAlertDraggable()") 可拖拽
 				PButton(@click="handlePopupAlertDraggableOverflow()") 可拖拽溢出屏幕
 				PButton(@click="handlePopupAlertWithMaskBlur()") 启用遮罩模糊
-			.title.second 确认
+			.title.second Confirm 确认
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupConfirm()" type="default") 默认
 				PButton(@click="handlePopupConfirmCustomTitle()") 自定义标题
@@ -173,7 +173,7 @@
 				PButton(@click="handlePopupConfirmDraggable()") 可拖拽
 				PButton(@click="handlePopupConfirmDraggableOverflow()") 可拖拽溢出屏幕
 				PButton(@click="handlePopupConfirmWithMaskBlur()") 启用遮罩模糊
-			.title.second 提示输入
+			.title.second Prompt 提示输入
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupPrompt()" type="default") 默认
 				PButton(@click="handlePopupPromptDefaultValue()") 默认值
@@ -187,7 +187,7 @@
 				PButton(@click="handlePopupPromptDraggable()") 可拖拽
 				PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
 				PButton(@click="handlePopupPromptWithMaskBlur()") 启用遮罩模糊
-			.title.second 加载遮罩
+			.title.second Loading 加载遮罩
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupLoading()" theme="primary" type="default") 默认
 				PButton(@click="handlePopupLoadingPrimary()" theme="primary") 主要主题
@@ -261,7 +261,7 @@
 			.title.third 嵌套
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupDrawerSelf()" type="default") 弹出当前页
-			.title.second 媒体相册
+			.title.second Album 媒体相册
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupAlbum()" type="default") 默认
 				PButton(@click="handlePopupAlbumDefaultIndex()") 默认下标
@@ -749,7 +749,7 @@ function handlePopupToastTenSecond() {
 }
 
 function handlePopupToastZeroSecond() {
-	popup.toast('这是一条0秒的toast消息', { duration: 0 })
+	popup.toastSuccess('这是一条0秒的toast消息', { duration: 0 })
 }
 
 function handlePopupToastShowClose() {

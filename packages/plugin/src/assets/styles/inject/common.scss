@@ -1,0 +1,5 @@
+@use '../namespace.scss' as namespace;
+
+@function use-var($name) {
+	@return var(--#{namespace.$base}-#{$name});
+}

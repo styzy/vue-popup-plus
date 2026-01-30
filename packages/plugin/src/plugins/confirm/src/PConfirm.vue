@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-confirm(:skin="skin")
+PSkin.popup-confirm(:skin="skin")
 	PLayout
 		template(#header)
 			PHeader(
@@ -70,13 +70,13 @@ function handleCancel() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-confirm {
+.popup-confirm {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
 	width: 400px;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
-	border-radius: var(--popup-plugin-preset-border-radius-large);
+	box-shadow: use-var('box-shadow-large');
+	border-radius: use-var('border-radius-large');
 	overflow: hidden;
 	.content {
 		word-break: break-all;

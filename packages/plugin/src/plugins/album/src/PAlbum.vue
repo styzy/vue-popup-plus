@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-media-album(:class="`is-skin-${skin}`" @dblclick="handlePureExit()")
+.popup-media-album(:class="`is-skin-${skin}`" @dblclick="handlePureExit()")
 	.media(@wheel="handleImageMouseScale($event)")
 		template(v-for="(media, mediaIndex) in mediaList")
 			template(v-if="mediaIndex === currentIndex")
@@ -264,7 +264,7 @@ function handleClose() {
 
 $tools-safe-padding: 40px;
 
-.p-media-album {
+.popup-media-album {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -335,21 +335,21 @@ $tools-safe-padding: 40px;
 			justify-content: center;
 			width: 40px;
 			height: 40px;
-			border-radius: var(--popup-plugin-preset-border-radius);
+			border-radius: use-var('border-radius');
 			box-sizing: content-box;
 			color: #ffffff;
 			background-color: rgba(0, 0, 0, 0.2);
-			font-size: var(--popup-plugin-preset-font-size-text-main);
+			font-size: use-font-size('text-main');
 		}
 		.control {
 			@include base-transition();
 			cursor: pointer;
 			&:hover {
-				color: var(--popup-plugin-preset-color-primary);
+				color: use-color('primary');
 				background-color: rgba(0, 0, 0, 0.3);
 			}
 			i {
-				font-size: 26px;
+				font-size: 24px;
 			}
 		}
 		.empty {
@@ -361,7 +361,7 @@ $tools-safe-padding: 40px;
 			align-items: center;
 			justify-content: center;
 			gap: 10px;
-			padding: 0 20px;
+			padding: 0 use-var('spacing');
 			.current {
 				font-weight: 700;
 			}
@@ -373,7 +373,7 @@ $tools-safe-padding: 40px;
 			justify-content: center;
 			width: auto;
 			max-width: 50%;
-			padding: 0 20px;
+			padding: 0 use-var('spacing');
 		}
 		.back,
 		.next {
@@ -389,7 +389,7 @@ $tools-safe-padding: 40px;
 		}
 		.close {
 			&:hover {
-				color: var(--popup-plugin-preset-color-danger);
+				color: use-color('danger');
 			}
 		}
 	}

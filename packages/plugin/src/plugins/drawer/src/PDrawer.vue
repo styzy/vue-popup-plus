@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-drawer(:class="{ 'no-header': !header }" :skin="skin")
+PSkin.popup-drawer(:class="{ 'no-header': !header }" :skin="skin")
 	PLayout
 		template(#header v-if="header")
 			PHeader(
@@ -85,13 +85,13 @@ function handleClose() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-drawer {
+.popup-drawer {
 	display: flex;
 	flex-direction: column;
 	justify-content: stretch;
 	align-items: stretch;
 	height: 100%;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
+	box-shadow: use-var('box-shadow-large');
 	overflow: hidden;
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-button-group(:class="classObject" ref="group")
+.popup-button-group(:class="classObject" ref="group")
 	template(v-if="hasCutline")
 		template(:key="index" v-for="(slot, index) in slots.default?.()")
 			component(:is="slot")
@@ -148,7 +148,9 @@ function checkSlots() {
 </script>
 
 <style lang="scss" scoped>
-.p-button-group {
+@use '../assets/styles/inject.scss' as *;
+
+.popup-button-group {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -203,7 +205,7 @@ function checkSlots() {
 			left: 50%;
 			height: 70%;
 			width: 1px;
-			background-color: var(--popup-plugin-preset-color-border);
+			background-color: use-color('border');
 			z-index: 1;
 		}
 		&.is-tight {

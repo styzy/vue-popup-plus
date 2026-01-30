@@ -1,5 +1,5 @@
 <template lang="pug">
-button.p-button(
+button.popup-button(
 	:class="classObject"
 	:disabled="disabled"
 	@click="handleClick($event)"
@@ -139,10 +139,10 @@ function handleClick(event: PointerEvent) {
 		}
 		&.is-type-text:not(:disabled):active {
 			border-color: transparent;
+			color: $color !important;
 			.background {
 				opacity: 0.2 !important;
 			}
-			color: $color !important;
 		}
 		&.is-type-link,
 		&.is-type-link:disabled:hover,
@@ -172,71 +172,69 @@ function handleClick(event: PointerEvent) {
 		&.is-type-default:disabled:active {
 			border-color: $color;
 			background-color: $color;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-default:not(:disabled):hover:not(.is-mobile) {
 			border-color: $color-light;
 			background-color: $color-light;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-default:not(:disabled):active {
 			border-color: $color-dark !important;
 			background-color: $color-dark !important;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-plain,
 		&.is-type-plain:disabled:hover,
 		&.is-type-plain:disabled:active {
-			border-color: var(--popup-plugin-preset-color-border);
+			border-color: use-color('border');
 			background-color: transparent;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-plain:not(:disabled):hover:not(.is-mobile) {
-			border-color: var(--popup-plugin-preset-color-primary);
-			color: var(--popup-plugin-preset-color-primary);
+			border-color: use-color('primary');
+			color: use-color('primary');
 		}
 		&.is-type-plain:not(:disabled):active {
-			border-color: var(
-				--popup-plugin-preset-color-primary-dark
-			) !important;
-			color: var(--popup-plugin-preset-color-primary-dark) !important;
+			border-color: use-color('primary-dark') !important;
+			color: use-color('primary-dark') !important;
 		}
 		&.is-type-text {
 			border-color: transparent;
 			background-color: transparent;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-text:not(:disabled):hover:not(.is-mobile) {
 			border-color: transparent;
 			background-color: $color;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-text:not(:disabled):active {
 			border-color: $color-dark !important;
 			background-color: $color-dark !important;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-link,
 		&.is-type-link:disabled:hover,
 		&.is-type-link:disabled:active {
 			border-color: transparent;
 			background-color: transparent;
-			color: var(--popup-plugin-preset-color-text-main);
+			color: use-color('text-main');
 		}
 		&.is-type-link:not(:disabled):hover:not(.is-mobile) {
 			border-color: transparent;
 			background-color: transparent;
-			color: var(--popup-plugin-preset-color-text-main-light);
+			color: use-color('text-main-light');
 		}
 		&.is-type-link:not(:disabled):active {
 			border-color: transparent;
 			background-color: transparent;
-			color: var(--popup-plugin-preset-color-text-main-dark) !important;
+			color: use-color('text-main-dark') !important;
 		}
 	}
 }
 
-.p-button {
+.popup-button {
 	@include base-transition();
 	position: relative;
 	display: flex;
@@ -247,7 +245,7 @@ function handleClick(event: PointerEvent) {
 	outline: none;
 	border-width: 1px;
 	border-style: solid;
-	border-radius: var(--popup-plugin-preset-border-radius);
+	border-radius: use-var('border-radius');
 	cursor: pointer;
 	.background {
 		@include base-transition();
@@ -256,24 +254,25 @@ function handleClick(event: PointerEvent) {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		border-radius: var(--popup-plugin-preset-border-radius);
-		z-index: -1;
+		border-radius: use-var('border-radius');
 		opacity: 0;
+		pointer-events: none;
+		z-index: 0;
 	}
 	&.is-size-small {
 		gap: 5px;
 		padding: 5px 10px;
-		font-size: var(--popup-plugin-preset-font-size-text-mini);
+		font-size: use-font-size('text-mini');
 	}
 	&.is-size-default {
 		gap: 10px;
 		padding: 8px 15px;
-		font-size: var(--popup-plugin-preset-font-size-text-main);
+		font-size: use-font-size('text-main');
 	}
 	&.is-size-large {
 		gap: 15px;
 		padding: 12px 19px;
-		font-size: var(--popup-plugin-preset-font-size-title-sub);
+		font-size: use-font-size('title-sub');
 	}
 	&.is-type-link {
 		&.is-size-small {
@@ -292,54 +291,52 @@ function handleClick(event: PointerEvent) {
 	}
 	&.is-mobile {
 		user-select: none;
-		-webkit-tap-highlight-color: var(
-			--popup-plugin-preset-color-background-main
-		);
+		-webkit-tap-highlight-color: use-color('background-main');
 	}
 	& {
 		@include create-theme(
 			'primary',
-			var(--popup-plugin-preset-color-primary),
-			var(--popup-plugin-preset-color-primary-dark),
-			var(--popup-plugin-preset-color-primary-light)
+			use-color('primary'),
+			use-color('primary-dark'),
+			use-color('primary-light')
 		);
 		@include create-theme(
 			'info',
-			var(--popup-plugin-preset-color-info),
-			var(--popup-plugin-preset-color-info-dark),
-			var(--popup-plugin-preset-color-info-light)
+			use-color('info'),
+			use-color('info-dark'),
+			use-color('info-light')
 		);
 		@include create-theme(
 			'success',
-			var(--popup-plugin-preset-color-success),
-			var(--popup-plugin-preset-color-success-dark),
-			var(--popup-plugin-preset-color-success-light)
+			use-color('success'),
+			use-color('success-dark'),
+			use-color('success-light')
 		);
 		@include create-theme(
 			'warning',
-			var(--popup-plugin-preset-color-warning),
-			var(--popup-plugin-preset-color-warning-dark),
-			var(--popup-plugin-preset-color-warning-light)
+			use-color('warning'),
+			use-color('warning-dark'),
+			use-color('warning-light')
 		);
 		@include create-theme(
 			'danger',
-			var(--popup-plugin-preset-color-danger),
-			var(--popup-plugin-preset-color-danger-dark),
-			var(--popup-plugin-preset-color-danger-light)
+			use-color('danger'),
+			use-color('danger-dark'),
+			use-color('danger-light')
 		);
 		@include create-default-theme(
-			var(--popup-plugin-preset-color-background-sub-dark-lite),
-			var(--popup-plugin-preset-color-background-sub-dark),
-			var(--popup-plugin-preset-color-background-sub)
+			use-color('background-sub-dark-lite'),
+			use-color('background-sub-dark'),
+			use-color('background-sub')
 		);
 	}
 }
 .dark {
-	.p-button {
+	.popup-button {
 		@include create-default-theme(
-			var(--popup-plugin-preset-color-background-sub-light-lite),
-			var(--popup-plugin-preset-color-background-sub),
-			var(--popup-plugin-preset-color-background-sub-light)
+			use-color('background-sub-light-lite'),
+			use-color('background-sub'),
+			use-color('background-sub-light')
 		);
 	}
 }

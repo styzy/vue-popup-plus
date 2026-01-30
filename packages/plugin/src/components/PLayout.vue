@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-layout(:class="`is-skin-${skin}`")
+.popup-layout
 	slot(name="header")
 	.body
 		slot
@@ -7,20 +7,15 @@
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
-import { injectSkin } from '../skin'
-
 defineOptions({
 	name: 'PLayout',
 })
-
-const skin = inject(injectSkin, 'modern')
 </script>
 
 <style lang="scss" scoped>
 @use '../assets/styles/inject.scss' as *;
 
-.p-layout {
+.popup-layout {
 	flex: 1;
 	display: flex;
 	flex-direction: column;

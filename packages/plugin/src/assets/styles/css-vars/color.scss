@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use './config.scss' as config;
+@use '../namespace.scss' as namespace;
 
 // 生成css颜色变量
 @mixin css-color-variables($name, $color) {
@@ -11,13 +11,13 @@
 	$color-light-lite: color.mix($color, #ffffff, 90%);
 	$color-light-most: color.mix($color, #ffffff, 10%);
 
-	--#{config.$namespace}-color-#{$name}: #{$color};
-	--#{config.$namespace}-color-#{$name}-dark: #{$color-dark};
-	--#{config.$namespace}-color-#{$name}-dark-lite: #{$color-dark-lite};
-	--#{config.$namespace}-color-#{$name}-dark-most: #{$color-dark-most};
-	--#{config.$namespace}-color-#{$name}-light: #{$color-light};
-	--#{config.$namespace}-color-#{$name}-light-lite: #{$color-light-lite};
-	--#{config.$namespace}-color-#{$name}-light-most: #{$color-light-most};
+	--#{namespace.$color}-#{$name}: #{$color};
+	--#{namespace.$color}-#{$name}-dark: #{$color-dark};
+	--#{namespace.$color}-#{$name}-dark-lite: #{$color-dark-lite};
+	--#{namespace.$color}-#{$name}-dark-most: #{$color-dark-most};
+	--#{namespace.$color}-#{$name}-light: #{$color-light};
+	--#{namespace.$color}-#{$name}-light-lite: #{$color-light-lite};
+	--#{namespace.$color}-#{$name}-light-most: #{$color-light-most};
 }
 
 // 预置颜色
@@ -33,7 +33,7 @@ $preset-color-text-placeholder: #b6b6b6;
 $preset-color-border: #d8d8d8;
 $preset-color-background-main: #ffffff;
 $preset-color-background-sub: #f8f8f8;
-$preset-color-shadow: rgba(50, 50, 50, 0.3);
+$preset-color-shadow: rgba(50, 50, 50, 0.4);
 
 :root {
 	@include css-color-variables('primary', $preset-color-primary);
@@ -67,7 +67,7 @@ $preset-dark-color-text-placeholder: #656464;
 $preset-dark-color-border: #383838;
 $preset-dark-color-background-main: #1e1e1e;
 $preset-dark-color-background-sub: #222222;
-$preset-dark-color-shadow: rgba(0, 0, 0, 0.3);
+$preset-dark-color-shadow: rgba(0, 0, 0, 0.4);
 
 .dark {
 	@include css-color-variables('text-main', $preset-dark-color-text-main);

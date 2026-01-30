@@ -1,0 +1,16 @@
+@use '../namespace.scss' as namespace;
+
+// 使用皮肤
+@mixin use-skin($skin) {
+	@at-root .#{namespace.$skin}-#{$skin} {
+		@content;
+	}
+}
+
+// 皮肤集合
+$skin: (
+	// 经典皮肤
+	'classic': 'classic',
+	// 现代皮肤
+	'modern': 'modern'
+);

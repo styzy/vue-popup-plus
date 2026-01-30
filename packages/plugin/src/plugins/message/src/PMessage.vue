@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-message(
+PSkin.popup-message(
 	:class="`is-theme-${theme}`"
 	:skin="skin"
 	@mouseenter="handleMouseEnter"
@@ -106,7 +106,7 @@ function handleClose() {
 	}
 }
 
-.p-message {
+.popup-message {
 	@include base-style();
 	position: relative;
 	display: flex;
@@ -114,7 +114,7 @@ function handleClose() {
 	align-items: center;
 	justify-content: center;
 	max-width: 30vw;
-	border-radius: var(--popup-plugin-preset-border-radius);
+	border-radius: use-var('border-radius');
 	.background,
 	.background-theme,
 	.background-border {
@@ -123,10 +123,10 @@ function handleClose() {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		border-radius: var(--popup-plugin-preset-border-radius);
+		border-radius: use-var('border-radius');
 	}
 	.background {
-		background-color: var(--popup-plugin-preset-color-background-sub);
+		background-color: use-color('background-sub');
 		z-index: -3;
 	}
 	.background-theme {
@@ -155,7 +155,7 @@ function handleClose() {
 			justify-content: center;
 			min-height: 0;
 			i {
-				font-size: var(--popup-plugin-preset-font-size-title-sub);
+				font-size: use-font-size('title-sub');
 			}
 		}
 		.content {
@@ -165,7 +165,7 @@ function handleClose() {
 			max-height: calc(100vh - 40px);
 			line-height: 1.6;
 			box-sizing: border-box;
-			font-size: var(--popup-plugin-preset-font-size-text-main);
+			font-size: use-font-size('text-main');
 			word-break: break-all;
 			overflow-x: hidden;
 			overflow-y: auto;
@@ -175,35 +175,23 @@ function handleClose() {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			color: var(--popup-plugin-preset-color-info);
+			color: use-color('info');
 			cursor: pointer;
 			i {
-				font-size: var(--popup-plugin-preset-font-size-text-mini);
+				font-size: use-font-size('text-mini');
 			}
 		}
 	}
 	& {
-		@include create-theme(
-			'primary',
-			var(--popup-plugin-preset-color-primary)
-		);
-		@include create-theme('info', var(--popup-plugin-preset-color-info));
-		@include create-theme(
-			'success',
-			var(--popup-plugin-preset-color-success)
-		);
-		@include create-theme(
-			'warning',
-			var(--popup-plugin-preset-color-warning)
-		);
-		@include create-theme(
-			'danger',
-			var(--popup-plugin-preset-color-danger)
-		);
+		@include create-theme('primary', use-color('primary'));
+		@include create-theme('info', use-color('info'));
+		@include create-theme('success', use-color('success'));
+		@include create-theme('warning', use-color('warning'));
+		@include create-theme('danger', use-color('danger'));
 	}
 }
 .dark {
-	.p-message {
+	.popup-message {
 		.background {
 			background-color: #111111;
 		}

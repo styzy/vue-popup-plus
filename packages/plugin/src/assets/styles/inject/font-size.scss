@@ -1,0 +1,5 @@
+@use '../namespace.scss' as namespace;
+
+@function use-font-size($name) {
+	@return var(--#{namespace.$font-size}-#{$name});
+}

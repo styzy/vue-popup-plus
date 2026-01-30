@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-loading(
+.popup-loading(
 	:class="[`is-skin-${skin}`, { 'has-mask': mask && !maskTransparent }]")
 	.wrapper(@click="handleCloseOnDebugMode()")
 		PLoadingIcon(:size="iconSize" :theme)
@@ -43,27 +43,27 @@ function handleCloseOnDebugMode() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-loading {
+.popup-loading {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 20px;
+	gap: use-var('spacing');
 	.wrapper {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 20px;
-		padding: 20px;
+		gap: use-var('spacing');
+		padding: use-var('spacing');
 		max-width: v-bind('`${iconSize * 4}px`');
 		min-width: 120px;
 		min-height: 120px;
-		border-radius: var(--popup-plugin-preset-border-radius-large);
-		box-shadow: var(--popup-plugin-preset-box-shadow);
+		border-radius: use-var('border-radius-large');
+		box-shadow: use-var('box-shadow-large');
 		box-sizing: border-box;
 		.title {
-			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			font-size: use-font-size('title-sub');
 			color: #ffffff;
 		}
 	}
@@ -79,7 +79,7 @@ function handleCloseOnDebugMode() {
 	}
 }
 .dark {
-	.p-loading {
+	.popup-loading {
 		&.has-mask {
 			.wrapper {
 				background-color: rgba(40, 40, 40, 0.85);

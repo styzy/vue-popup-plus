@@ -1,5 +1,5 @@
 <template>
-	<div class="p-skin" :class="`is-skin-${skin}`">
+	<div class="popup-skin" :class="`popup-skin-${skin}`">
 		<slot></slot>
 	</div>
 </template>

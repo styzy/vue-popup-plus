@@ -1,13 +1,10 @@
 <template lang="pug">
-.p-header-button(:class="classObject" @click.stop="handleClick()")
+.popup-header-button(:class="classObject" @click.stop="handleClick()")
 	i.iconfont-popup-plugin-preset(:class="iconClass")
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useSkin } from '../skin'
-
-const skin = useSkin()
 
 defineOptions({
 	name: 'PHeaderButton',
@@ -32,7 +29,6 @@ const {
 const emit = defineEmits(['click'])
 
 const classObject = computed(() => ({
-	[`is-skin-${skin}`]: true,
 	[`is-theme-${theme}`]: true,
 	'is-disabled': disabled,
 	'is-active': actived,
@@ -48,8 +44,8 @@ function handleClick() {
 <style lang="scss" scoped>
 @use '../assets/styles/inject.scss' as *;
 
-.p-header-button {
-	&.is-skin-classic {
+@include use-skin('classic') {
+	.popup-header-button {
 		@include base-style();
 		@include base-transition();
 
@@ -58,7 +54,7 @@ function handleClick() {
 		align-items: center;
 		width: 40px;
 		height: 40px;
-		color: var(--popup-plugin-preset-color-text-sub);
+		color: use-color('text-sub');
 		cursor: pointer;
 		i {
 			font-size: 12px;
@@ -71,23 +67,26 @@ function handleClick() {
 		&:not(.is-disabled):hover {
 			color: #ffffff;
 			&.is-theme-primary {
-				background-color: var(--popup-plugin-preset-color-primary);
+				background-color: use-color('primary');
 			}
 			&.is-theme-info {
-				background-color: var(--popup-plugin-preset-color-info);
+				background-color: use-color('info');
 			}
 			&.is-theme-success {
-				background-color: var(--popup-plugin-preset-color-success);
+				background-color: use-color('success');
 			}
 			&.is-theme-warning {
-				background-color: var(--popup-plugin-preset-color-warning);
+				background-color: use-color('warning');
 			}
 			&.is-theme-danger {
-				background-color: var(--popup-plugin-preset-color-danger);
+				background-color: use-color('danger');
 			}
 		}
 	}
-	&.is-skin-modern {
+}
+
+@include use-skin('modern') {
+	.popup-header-button {
 		@include base-style();
 		@include base-transition();
 
@@ -96,8 +95,8 @@ function handleClick() {
 		align-items: center;
 		width: 24px;
 		height: 24px;
-		border-radius: var(--popup-plugin-preset-border-radius);
-		color: var(--popup-plugin-preset-color-text-sub);
+		border-radius: use-var('border-radius');
+		color: use-color('text-sub');
 		cursor: pointer;
 		i {
 			display: block;
@@ -109,21 +108,21 @@ function handleClick() {
 		}
 		&.is-active,
 		&:not(.is-disabled):hover {
-			background-color: var(--popup-plugin-preset-color-background-sub);
+			background-color: use-color('background-sub');
 			&.is-theme-primary {
-				color: var(--popup-plugin-preset-color-primary);
+				color: use-color('primary');
 			}
 			&.is-theme-info {
-				color: var(--popup-plugin-preset-color-info);
+				color: use-color('info');
 			}
 			&.is-theme-success {
-				color: var(--popup-plugin-preset-color-success);
+				color: use-color('success');
 			}
 			&.is-theme-warning {
-				color: var(--popup-plugin-preset-color-warning);
+				color: use-color('warning');
 			}
 			&.is-theme-danger {
-				color: var(--popup-plugin-preset-color-danger);
+				color: use-color('danger');
 			}
 		}
 	}

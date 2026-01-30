@@ -1,0 +1,15 @@
+@use '../namespace.scss' as namespace;
+@use '../inject/color.scss' as *;
+
+:root,
+.#{namespace.$base}-skin-modern {
+	--#{namespace.$base}-border-radius: 4px;
+	--#{namespace.$base}-border-radius-large: 8px;
+	--#{namespace.$base}-border-radius-small: 2px;
+
+	--#{namespace.$base}-box-shadow-large:
+		0 6px 16px 0 #{use-color('shadow')},
+		0 3px 6px -4px #{use-color('shadow-dark')},
+		0 9px 28px 8px #{use-color('shadow')};
+	--#{namespace.$base}-box-shadow: 0 0 5px 0 #{use-color('shadow')};
+}

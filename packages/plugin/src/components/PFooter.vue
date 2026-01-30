@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-footer
+.popup-footer
 	slot
 </template>
 
@@ -12,10 +12,10 @@ defineOptions({
 <style lang="scss" scoped>
 @use '../assets/styles/inject.scss' as *;
 
-.p-footer {
+.popup-footer {
 	@include base-container(padding);
 
 	box-sizing: border-box;
-	background-color: var(--popup-plugin-preset-color-background-main);
+	background-color: use-color('background-main');
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-.p-loading-icon(:class="`is-theme-${theme}`")
+.popup-loading-icon(:class="`is-theme-${theme}`")
 	svg(viewBox="25 25 50 50")
 		circle(cx="50" cy="50" fill="none" r="20")
 </template>
@@ -28,7 +28,9 @@ const { theme = 'primary', size = 60 } = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
-.p-loading-icon {
+@use '../assets/styles/inject.scss' as *;
+
+.popup-loading-icon {
 	display: inline-block;
 	width: v-bind('`${size}px`');
 	height: v-bind('`${size}px`');
@@ -45,19 +47,19 @@ const { theme = 'primary', size = 60 } = defineProps<Props>()
 		}
 	}
 	&.is-theme-primary {
-		stroke: var(--popup-plugin-preset-color-primary);
+		stroke: use-color('primary');
 	}
 	&.is-theme-info {
-		stroke: var(--popup-plugin-preset-color-info);
+		stroke: use-color('info');
 	}
 	&.is-theme-success {
-		stroke: var(--popup-plugin-preset-color-success);
+		stroke: use-color('success');
 	}
 	&.is-theme-warning {
-		stroke: var(--popup-plugin-preset-color-warning);
+		stroke: use-color('warning');
 	}
 	&.is-theme-danger {
-		stroke: var(--popup-plugin-preset-color-danger);
+		stroke: use-color('danger');
 	}
 }
 @keyframes rotate {

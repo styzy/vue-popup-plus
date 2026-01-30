@@ -1,8 +1,8 @@
-@use './config.scss' as config;
+@use '../namespace.scss' as namespace;
 
 // 生成css字体大小变量
 @mixin css-font-size-variables($name, $size) {
-	--#{config.$namespace}-font-size-#{$name}: #{$size};
+	--#{namespace.$font-size}-#{$name}: #{$size};
 }
 
 // 预置字体大小

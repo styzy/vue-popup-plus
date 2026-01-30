@@ -1,9 +1,9 @@
 <template>
-	<div class="p-message-group">
+	<div class="popup-message-group">
 		<TransitionGroup
-			name="p-message"
+			name="popup-message"
 			tag="div"
-			class="p-message-group-inner">
+			class="popup-message-group-inner">
 			<PMessage
 				v-for="item in messages"
 				:key="item.id"
@@ -39,33 +39,33 @@ const emitClose = (id: string) => emit('messageClose', id)
 </script>
 
 <style scoped lang="scss">
-.p-message-group {
+.popup-message-group {
 	padding: 20px;
 	z-index: inherit;
 
-	.p-message-group-inner {
+	.popup-message-group-inner {
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 		gap: 12px;
 	}
 
-	.p-message-enter-active,
-	.p-message-leave-active {
+	.popup-message-enter-active,
+	.popup-message-leave-active {
 		transition: all 0.25s ease;
 	}
 
-	.p-message-enter-from {
+	.popup-message-enter-from {
 		opacity: 0;
 		transform: translateY(-12px);
 	}
 
-	.p-message-leave-to {
+	.popup-message-leave-to {
 		opacity: 0;
 		transform: translateY(-12px);
 	}
 
-	.p-message-move {
+	.popup-message-move {
 		transition: transform 0.25s ease;
 	}
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-prompt(:skin="skin")
+PSkin.popup-prompt(:skin="skin")
 	PLayout
 		template(#header)
 			PHeader(
@@ -94,16 +94,16 @@ function handleCancel() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-prompt {
+.popup-prompt {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
 	width: 440px;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
-	border-radius: var(--popup-plugin-preset-border-radius-large);
+	box-shadow: use-var('box-shadow-large');
+	border-radius: use-var('border-radius-large');
 	overflow: hidden;
 	.message {
-		padding-bottom: 20px;
+		padding-bottom: use-var('spacing');
 		max-height: calc(100vh - 122px);
 		line-height: 24px;
 		box-sizing: border-box;
@@ -119,14 +119,14 @@ function handleCancel() {
 			justify-content: flex-start;
 			box-sizing: border-box;
 			width: 100%;
-			padding: 10px;
-			border: 1px solid var(--popup-plugin-preset-color-border);
-			border-radius: var(--popup-plugin-preset-border-radius);
-			color: var(--popup-plugin-preset-color-text-main);
+			padding: use-var('spacing-small');
+			border: 1px solid use-color('border');
+			border-radius: use-var('border-radius');
+			color: use-color('text-main');
 			background-color: transparent;
 			outline: none;
 			&:focus {
-				border-color: var(--popup-plugin-preset-color-primary);
+				border-color: use-color('primary');
 			}
 		}
 		textarea {

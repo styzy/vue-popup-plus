@@ -1,6 +1,6 @@
 <template lang="pug">
-.p-header(
-	:class="[`is-skin-${skin}`, { 'is-draggable': draggable }]"
+.popup-header(
+	:class="{ 'is-draggable': draggable }"
 	@mousedown="handleDragStart($event)")
 	.icon(:class="`is-theme-${iconTheme}`" v-if="hasIcon")
 		i.iconfont-popup-plugin-preset(:class="iconClass")
@@ -24,11 +24,9 @@ import {
 } from 'vue-popup-plus'
 import { type Theme } from '../typings'
 import PHeaderButton from './PHeaderButton.vue'
-import { useSkin } from '../skin'
 
 let popup: IController | undefined
 
-const skin = useSkin()
 const instanceId = usePopupInstanceId()!
 const viewComputedStyle = usePopupComputedStyle()!
 
@@ -118,29 +116,32 @@ function handleOffsetChange() {
 <style lang="scss" scoped>
 @use '../assets/styles/inject.scss' as *;
 
-.p-header {
+.popup-header {
 	.icon {
 		&.is-theme-primary {
-			color: var(--popup-plugin-preset-color-primary);
+			color: use-color('primary');
 		}
 		&.is-theme-info {
-			color: var(--popup-plugin-preset-color-info);
+			color: use-color('info');
 		}
 		&.is-theme-success {
-			color: var(--popup-plugin-preset-color-success);
+			color: use-color('success');
 		}
 		&.is-theme-warning {
-			color: var(--popup-plugin-preset-color-warning);
+			color: use-color('warning');
 		}
 		&.is-theme-danger {
-			color: var(--popup-plugin-preset-color-danger);
+			color: use-color('danger');
 		}
 	}
 	&.is-draggable {
 		cursor: move;
 		user-select: none;
 	}
-	&.is-skin-classic {
+}
+
+@include use-skin('classic') {
+	.popup-header {
 		@include base-style();
 
 		display: flex;
@@ -150,8 +151,8 @@ function handleOffsetChange() {
 		gap: 15px;
 		padding-left: 20px;
 		height: 40px;
-		border-bottom: 1px solid var(--popup-plugin-preset-color-border);
-		background-color: var(--popup-plugin-preset-color-background-sub);
+		border-bottom: 1px solid use-color('border');
+		background-color: use-color('background-sub');
 		.icon {
 			display: flex;
 			justify-content: center;
@@ -164,7 +165,7 @@ function handleOffsetChange() {
 			@include base-ellipsis();
 
 			flex: 1;
-			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			font-size: use-font-size('title-sub');
 		}
 		.btn-ctn {
 			display: flex;
@@ -173,7 +174,10 @@ function handleOffsetChange() {
 			justify-content: space-between;
 		}
 	}
-	&.is-skin-modern {
+}
+
+@include use-skin('modern') {
+	.popup-header {
 		@include base-style();
 
 		display: flex;
@@ -181,7 +185,7 @@ function handleOffsetChange() {
 		justify-content: space-between;
 		align-items: center;
 		padding: 20px;
-		background-color: var(--popup-plugin-preset-color-background-main);
+		background-color: use-color('background-main');
 		.icon {
 			width: 40px;
 			height: 24px;
@@ -193,7 +197,7 @@ function handleOffsetChange() {
 			@include base-ellipsis();
 
 			flex: 1;
-			font-size: var(--popup-plugin-preset-font-size-title-sub);
+			font-size: use-font-size('title-sub');
 			font-weight: 600;
 		}
 		.btn-ctn {

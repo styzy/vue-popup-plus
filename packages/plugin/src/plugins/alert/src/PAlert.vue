@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-alert(:skin="skin")
+PSkin.popup-alert(:skin="skin")
 	PLayout
 		template(#header)
 			PHeader(
@@ -56,13 +56,13 @@ function handleConfirm() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-alert {
+.popup-alert {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
 	width: 400px;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
-	border-radius: var(--popup-plugin-preset-border-radius-large);
+	box-shadow: use-var('box-shadow-large');
+	border-radius: use-var('border-radius-large');
 	overflow: hidden;
 	.content {
 		word-break: break-all;

@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.p-dialog(:class="{ 'no-header': !header }" :skin="skin")
+PSkin.popup-dialog(:class="{ 'no-header': !header }" :skin="skin")
 	PLayout
 		template(#header v-if="header")
 			PHeader(
@@ -86,14 +86,14 @@ function handleClose() {
 <style lang="scss" scoped>
 @use '../../../assets/styles/inject.scss' as *;
 
-.p-dialog {
+.popup-dialog {
 	display: flex;
 	flex-direction: column;
 	justify-content: stretch;
 	align-items: stretch;
 	height: 100%;
-	box-shadow: var(--popup-plugin-preset-box-shadow);
-	border-radius: var(--popup-plugin-preset-border-radius-large);
+	box-shadow: use-var('box-shadow-large');
+	border-radius: use-var('border-radius-large');
 	overflow: hidden;
 }
 </style>
