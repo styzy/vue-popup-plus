@@ -3,3 +3,10 @@
 @function use-var($name) {
 	@return var(--#{namespace.$base}-#{$name});
 }
+
+// 使用暗黑主题
+@mixin use-dark() {
+	@at-root .dark {
+		@content;
+	}
+}

@@ -216,7 +216,7 @@ function handleClose() {
 	}
 }
 
-.dark {
+@include use-dark() {
 	.popup-toast {
 		.background {
 			background-color: #111111;

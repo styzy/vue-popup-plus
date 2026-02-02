@@ -331,7 +331,8 @@ function handleClick(event: PointerEvent) {
 		);
 	}
 }
-.dark {
+
+@include use-dark() {
 	.popup-button {
 		@include create-default-theme(
 			use-color('background-sub-light-lite'),

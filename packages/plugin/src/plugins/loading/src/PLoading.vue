@@ -78,7 +78,8 @@ function handleCloseOnDebugMode() {
 		}
 	}
 }
-.dark {
+
+@include use-dark() {
 	.popup-loading {
 		&.has-mask {
 			.wrapper {

@@ -190,7 +190,8 @@ function handleClose() {
 		@include create-theme('danger', use-color('danger'));
 	}
 }
-.dark {
+
+@include use-dark() {
 	.popup-message {
 		.background {
 			background-color: #111111;
