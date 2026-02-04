@@ -17,6 +17,10 @@ outline: 2
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" finish /> 新增 `maskDestroy` 参数，用于设置遮罩层点击是否可以销毁弹出层，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的 `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" finish /> 移除 `maskClickClose` 参数，可使用功能更强大的 `maskDestroy` 参数代替。
 
+#### `directive`
+
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `v-popup` 指令，用于在元素上通过指令快速添加弹出层。
+
 ### 预置插件
 
 #### `plugin`
