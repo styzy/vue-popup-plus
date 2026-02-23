@@ -27,7 +27,8 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"vue": "catalog:"
+		"vue": "catalog:",
+		"markdown-it-container": "catalog:"
 	},
 	"devDependencies": {
 		"@prettier/plugin-pug": "catalog:",
@@ -48,7 +49,6 @@
 		"jiti": "catalog:",
 		"jsdom": "catalog:",
 		"markdown-it": "catalog:",
-		"markdown-it-container": "catalog:",
 		"npm-run-all2": "catalog:",
 		"prettier": "catalog:",
 		"pug": "catalog:",
