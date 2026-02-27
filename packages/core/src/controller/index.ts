@@ -372,7 +372,7 @@ export type RenderOption<TComponent extends Component = Component> =
 export type UpdateOption = Partial<RenderStyleOptions>
 
 const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
-	appendTo: document.body,
+	appendTo: 'body',
 	mask: true,
 	maskDestroy: false,
 	disableScroll: true,
