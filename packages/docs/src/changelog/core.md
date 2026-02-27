@@ -5,6 +5,12 @@ outline: 2
 
 # 核心 更新日志
 
+## 1.6.3 <Badge text="2026-02-27" />
+
+### 优化
+
+- 优化对 [服务端渲染（SSR）](https://cn.vuejs.org/guide/scaling-up/ssr.html) 的支持。
+
 ## 1.6.2 <Badge text="2026-01-19" />
 
 ### 特性
