@@ -47,7 +47,11 @@ export interface ICore {
 	/**
 	 * 无状态控制器实例
 	 */
-	noStateController?: IController
+	statelessController?: IController
+	/**
+	 * 有状态控制器实例集合
+	 */
+	statefulControllers: Map<ComponentInternalInstance, IController>
 	/**
 	 * 是否已注册根组件
 	 */
@@ -122,6 +126,8 @@ export class Core implements ICore {
 	#plugins: Record<string, PopupPlugin> = {}
 	#originBodyOverflow: string = ''
 	#registeredRootComponentInstances: ComponentInternalInstance[] = []
+	statelessController?: IController
+	statefulControllers: Map<ComponentInternalInstance, IController> = new Map()
 	get id() {
 		return this.#id
 	}
@@ -158,6 +164,10 @@ export class Core implements ICore {
 		app.mixin(mixins)
 
 		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
+
+		Object.entries(this.#config.directives).forEach(([name, directive]) => {
+			app.directive(name, directive)
+		})
 
 		this.#app = app
 

@@ -26,6 +26,9 @@
 			.title.second 修改当前环境
 			PButtonGroup(theme="primary" tight)
 				PButton(@click="handlePopupWithSelf()" size="large") 用弹出层渲染当前组件
+			.title.second Vue 指令
+			PButtonGroup(theme="success" tight)
+				PButton(@click="handleToDemoDirective()" size="large") 跳转到指令测试
 			.title.second 基础功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopup()" type="default") 默认
@@ -351,6 +354,7 @@ import {
 	version,
 } from 'vue-popup-plus'
 import { type Skin } from 'vue-popup-plus-plugin-preset'
+import { useRouter } from 'vue-router'
 import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
 import PButton from '../../../plugin/src/components/PButton.vue'
 import Demo from '@/views/Demo.vue'
@@ -360,6 +364,8 @@ defineOptions({ name: 'Index' })
 const popup = usePopup()
 // const popup = {} as any
 const popupInstanceId = usePopupInstanceId()
+
+const router = useRouter()
 
 const inPopup = computed(() => !!popupInstanceId)
 
@@ -503,6 +509,10 @@ function handlePopupWithSelf() {
 		viewAnimation: POPUP_ANIMATIONS.FLY_LEFT,
 		animationDuration: 200,
 	})
+}
+
+function handleToDemoDirective() {
+	router.push('/directive')
 }
 
 function handlePopupFullScreen() {

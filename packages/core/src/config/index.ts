@@ -1,3 +1,5 @@
+import type { Directive } from 'vue'
+import { directives } from '../directive'
 import { defaultPrintLog, type ILogHandler, type LogFilter } from '../log'
 
 type ZIndexGetter = () => number
@@ -34,6 +36,10 @@ export interface IConfig {
 	 * 开启调试模式
 	 */
 	debugMode: boolean
+	/**
+	 * 自定义指令集合
+	 */
+	directives: typeof directives
 }
 
 export type ConfigOption = {
@@ -127,6 +133,7 @@ export class Config implements IConfig {
 	logHandler: ILogHandler
 	logFilter?: LogFilter
 	debugMode: boolean
+	directives = directives
 	#zIndexOffset = 0
 	constructor({
 		zIndex = 1000,

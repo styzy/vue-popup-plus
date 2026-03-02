@@ -25,16 +25,15 @@ export type ButtonSize = 'default' | 'small' | 'large'
 </script>
 
 <script lang="ts" setup>
-import { computed, inject, useTemplateRef } from 'vue'
+import { computed, inject, ref, useTemplateRef } from 'vue'
 
 defineOptions({
 	name: 'PButton',
 })
 
-const inButtonGroup = inject(buttonGroupInjects.inButtonGroup, false)
-const groupType = inject(buttonGroupInjects.groupType, 'default')
-const groupTheme = inject(buttonGroupInjects.groupTheme, 'default')
-const groupSize = inject(buttonGroupInjects.groupSize, 'default')
+const groupType = inject(buttonGroupInjects.groupType, ref('default'))
+const groupTheme = inject(buttonGroupInjects.groupTheme, ref('default'))
+const groupSize = inject(buttonGroupInjects.groupSize, ref('default'))
 
 const buttonRef = useTemplateRef<HTMLButtonElement>('button')
 
@@ -70,9 +69,9 @@ const emit = defineEmits<{
 const isMobile = computed(() => window.innerWidth <= 600)
 
 const classObject = computed(() => ({
-	[`is-type-${type || groupType}`]: true,
-	[`is-theme-${theme || groupTheme}`]: true,
-	[`is-size-${size || groupSize}`]: true,
+	[`is-type-${type || groupType.value}`]: true,
+	[`is-theme-${theme || groupTheme.value}`]: true,
+	[`is-size-${size || groupSize.value}`]: true,
 	'is-mobile': isMobile.value,
 }))
 

@@ -396,6 +396,87 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	animationDuration: 100,
 }
 
+export function createController(
+	core: ICore,
+	vm: ComponentInternalInstance | null,
+	log: Log = new Log({
+		type: LogType.Success,
+		caller: '未知',
+	})
+): IController {
+	let controller: IController
+
+	// 当不使用根组件并且提供组件实例时，使用有状态控制器
+	const useStatefulController = !core.isRootComponentRegistered && vm
+
+	if (useStatefulController) {
+		const componentName = vm.type.name || vm.type.__name || '未知'
+
+		if (core.statefulControllers.has(vm)) {
+			controller = core.statefulControllers.get(vm)!
+
+			log.type = LogType.Info
+			log.message = `从缓存中获取有状态控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`
+			log.group.push({
+				type: LogGroupItemType.Component,
+				title: '调用组件',
+				instance: vm,
+			})
+			log.group.push({
+				type: LogGroupItemType.Data,
+				title: '控制器',
+				dataName: controller.id,
+				dataType: 'IController',
+				dataValue: controller,
+			})
+		} else {
+			controller = new Controller(core, vm || undefined)
+			core.statefulControllers.set(vm, controller)
+
+			log.message = `创建有状态控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`
+			log.group.push({
+				type: LogGroupItemType.Component,
+				title: '调用组件',
+				instance: vm,
+			})
+			log.group.push({
+				type: LogGroupItemType.Data,
+				title: '控制器',
+				dataName: controller.id,
+				dataType: 'IController',
+				dataValue: controller,
+			})
+		}
+	} else {
+		if (core.statelessController) {
+			controller = core.statelessController
+
+			log.type = LogType.Info
+			log.message = `从缓存中获取无状态控制器 ${controller.id} 成功`
+			log.group.push({
+				type: LogGroupItemType.Data,
+				title: '控制器',
+				dataName: controller.id,
+				dataType: 'IController',
+				dataValue: controller,
+			})
+		} else {
+			controller = core.statelessController = new Controller(core)
+
+			log.message = `创建无状态控制器 ${controller.id} 成功，存入缓存`
+			log.group.push({
+				type: LogGroupItemType.Data,
+				title: '控制器',
+				dataName: controller.id,
+				dataType: 'IController',
+				dataValue: controller,
+			})
+		}
+	}
+
+	return controller
+}
+
 export class Controller implements IController {
 	#id: string
 	#vm?: ComponentInternalInstance

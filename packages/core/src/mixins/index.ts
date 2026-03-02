@@ -1,8 +1,33 @@
 import { type ComponentInternalInstance, type ComponentOptions } from 'vue'
-import { Controller } from '../controller'
+import { createController, type IController } from '../controller'
 import { type ICore } from '../core'
+import { type InstanceId } from '../instance'
 import { Log, LogType, LogGroupItemType, printLog } from '../log'
+import { type ComputedStyle } from '../typings'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
+
+declare module 'vue' {
+	interface ComponentCustomProperties {
+		/**
+		 * 当前组件的弹出层控制器
+		 *
+		 * - 该控制器包含当前组件的上下文
+		 */
+		$popup: IController
+		/**
+		 * 当前组件所在弹出层的实例 ID
+		 *
+		 * - 如果当前组件不在弹出层内，则返回 `undefined`
+		 */
+		$popupInstanceId: InstanceId | undefined
+		/**
+		 * 当前组件所在弹出层的视图计算样式
+		 *
+		 * - 如果当前组件不在弹出层内，则返回 `undefined`
+		 */
+		$popupComputedStyle: ComputedStyle | undefined
+	}
+}
 
 export function createMixins(core: ICore): ComponentOptions {
 	return {
@@ -19,51 +44,20 @@ export function createMixins(core: ICore): ComponentOptions {
 		created() {
 			const vm: ComponentInternalInstance = this.$
 
-			let controller: Controller
-
 			Object.defineProperty(this, core.config.prototypeName, {
 				enumerable: true,
 				configurable: false,
 				get() {
-					if (core.isRootComponentRegistered) {
-						if (!core.noStateController) {
-							core.noStateController = new Controller(core)
-						}
-						return core.noStateController
-					}
+					const log = new Log({
+						type: LogType.Success,
+						caller: {
+							name: `this.${core.config.prototypeName}`,
+							type: 'Component',
+							value: vm,
+						},
+					})
 
-					if (controller) return controller
-
-					controller = new Controller(core, vm)
-
-					const componentName = vm.type.name
-
-					printLog(
-						new Log({
-							type: LogType.Success,
-							caller: {
-								name: `this.${core.config.prototypeName}`,
-								type: 'Component',
-								value: vm,
-							},
-							message: `创建控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`,
-							group: [
-								{
-									type: LogGroupItemType.Component,
-									title: '调用组件',
-									instance: vm,
-								},
-								{
-									type: LogGroupItemType.Data,
-									title: '控制器',
-									dataName: controller.id,
-									dataType: 'IController',
-									dataValue: controller,
-								},
-							],
-						})
-					)
-					return controller
+					return createController(core, vm, log)
 				},
 				set() {
 					printLog(

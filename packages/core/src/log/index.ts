@@ -588,6 +588,7 @@ export const defaultPrintLog: ILogHandler = (log) => {
 				if (item.instance) {
 					const name =
 						item.instance.type?.name ||
+						item.instance.type?.__name ||
 						PRINTER_TEXT.COMPONENT_UNKNOWN_NAME
 					const file = item.instance.type?.__file
 					const path = file || PRINTER_TEXT.COMPONENT_UNKNOWN_PATH
@@ -633,20 +634,6 @@ function formatData(value: any) {
 	if (value === null) return 'null'
 	if (value === undefined) return 'undefined'
 	return value
-}
-
-function getPrinter(type: LogType) {
-	switch (type) {
-		case LogType.Success:
-			return console.log
-		case LogType.Info:
-		default:
-			return console.log
-		case LogType.Warning:
-			return console.warn
-		case LogType.Error:
-			return console.error
-	}
 }
 
 const COLOR_TYPE_MAP = {

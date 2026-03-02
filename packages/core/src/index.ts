@@ -1,10 +1,7 @@
 import { createCore, type ICore } from './core'
 import { type ConfigOption } from './config'
-import { type IController } from './controller'
-import './assets/styles/main.scss'
-import { type InstanceId } from './instance'
 import { Log, LogGroupItemType, LogType, printLog } from './log'
-import type { ComputedStyle } from './typings'
+import './assets/styles/main.scss'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export {
@@ -96,12 +93,4 @@ export function createPopupPlus(options?: ConfigOption): ICore {
 		})
 	)
 	return core
-}
-
-declare module 'vue' {
-	interface ComponentCustomProperties {
-		$popup: IController
-		$popupInstanceId: InstanceId | undefined
-		$popupComputedStyle: ComputedStyle | undefined
-	}
 }

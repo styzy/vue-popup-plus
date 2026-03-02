@@ -6,7 +6,7 @@ import {
 	LogType,
 	LogGroupItemType,
 } from '../log'
-import { Controller, type IController } from '../controller'
+import { createController, type IController } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
@@ -20,106 +20,29 @@ import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
  * @returns 弹出层控制器实例
  */
 export function usePopup(): IController {
+	const log = new Log({
+		type: LogType.Success,
+		caller: {
+			name: 'usePopup()',
+			type: 'Function',
+			value: usePopup,
+		},
+	})
+
 	const core = getCore()
 
 	if (!core) {
-		const log = new Log({
-			type: LogType.Error,
-			caller: {
-				name: 'usePopup()',
-				type: 'Function',
-				value: usePopup,
-			},
-			message: `调用 usePopup() 前请先调用 createPopupPlus() 创建弹出层插件实例`,
-		})
+		log.type = LogType.Error
+		log.message = `调用 usePopup() 前请先调用 createPopupPlus() 创建弹出层插件实例`
+
 		defaultPrintLog(log)
+
 		throw new PopupError(log)
 	}
 
 	const vm = getCurrentInstance()
 
-	let controller: IController
-
-	// 当使用根组件时，不创建有状态控制器，因为根组件会自动同步上下文
-	if (!core.isRootComponentRegistered && vm) {
-		controller = new Controller(core, vm || undefined)
-
-		const componentName = vm?.type.name || '未知'
-
-		printLog(
-			new Log({
-				type: LogType.Success,
-				caller: {
-					name: 'usePopup()',
-					type: 'Function',
-					value: usePopup,
-				},
-				message: `创建控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`,
-				group: [
-					{
-						type: LogGroupItemType.Component,
-						title: '调用组件',
-						instance: vm,
-					},
-					{
-						type: LogGroupItemType.Data,
-						title: '控制器',
-						dataName: controller.id,
-						dataType: 'IController',
-						dataValue: controller,
-					},
-				],
-			})
-		)
-	} else {
-		if (core.noStateController) {
-			controller = core.noStateController
-			printLog(
-				new Log({
-					type: LogType.Info,
-					caller: {
-						name: 'usePopup()',
-						type: 'Function',
-						value: usePopup,
-					},
-					message: `从缓存中获取无状态控制器 ${controller.id} 成功`,
-					group: [
-						{
-							type: LogGroupItemType.Data,
-							title: '控制器',
-							dataName: controller.id,
-							dataType: 'IController',
-							dataValue: controller,
-						},
-					],
-				})
-			)
-		} else {
-			controller = core.noStateController = new Controller(core)
-			printLog(
-				new Log({
-					type: LogType.Success,
-					caller: {
-						name: 'usePopup()',
-						type: 'Function',
-						value: usePopup,
-					},
-					message: `创建无状态控制器 ${controller.id} 成功，存入缓存`,
-					group: [
-						{
-							type: LogGroupItemType.Data,
-							title: '控制器',
-							dataName: controller.id,
-							dataType: 'IController',
-							dataValue: controller,
-						},
-					],
-				})
-			)
-		}
-	}
-
-	return controller
+	return createController(core, vm, log)
 }
 
 /**
