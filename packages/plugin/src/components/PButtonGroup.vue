@@ -17,14 +17,12 @@ import {
 } from './PButton.vue'
 
 type ButtonGroupInjects = {
-	inButtonGroup: InjectionKey<boolean>
-	groupType: InjectionKey<ButtonType>
-	groupTheme: InjectionKey<ButtonTheme>
-	groupSize: InjectionKey<ButtonSize>
+	groupType: InjectionKey<Ref<ButtonType>>
+	groupTheme: InjectionKey<Ref<ButtonTheme>>
+	groupSize: InjectionKey<Ref<ButtonSize>>
 }
 
 export const buttonGroupInjects: ButtonGroupInjects = {
-	inButtonGroup: Symbol('inButtonGroup'),
 	groupType: Symbol('groupType'),
 	groupTheme: Symbol('groupTheme'),
 	groupSize: Symbol('groupSize'),
@@ -32,8 +30,7 @@ export const buttonGroupInjects: ButtonGroupInjects = {
 </script>
 
 <script lang="ts" setup>
-import { computed, onMounted, provide, type VNode } from 'vue'
-import PButton from './PButton.vue'
+import { computed, provide, type Ref, type VNode } from 'vue'
 
 defineOptions({
 	name: 'PButtonGroup',
@@ -126,25 +123,13 @@ const classObject = computed(() => ({
 	'has-cutline': hasCutline.value,
 }))
 
-provide(buttonGroupInjects.inButtonGroup, true)
-provide(buttonGroupInjects.groupType, type)
-provide(buttonGroupInjects.groupTheme, theme)
-provide(buttonGroupInjects.groupSize, size)
+const groupType = computed(() => type)
+const groupTheme = computed(() => theme)
+const groupSize = computed(() => size)
 
-onMounted(() => {
-	checkSlots()
-})
-
-function checkSlots() {
-	const defaultSlots = slots.default?.() || []
-	if (
-		defaultSlots.some((vNode) => {
-			vNode.type !== PButton
-		})
-	) {
-		console.warn('PButtonGroup 只能包含 PButton 组件')
-	}
-}
+provide(buttonGroupInjects.groupType, groupType)
+provide(buttonGroupInjects.groupTheme, groupTheme)
+provide(buttonGroupInjects.groupSize, groupSize)
 </script>
 
 <style lang="scss" scoped>
