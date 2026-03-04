@@ -1,19 +1,19 @@
 // 是否是父节点
-export function isParentNode(parentObj: HTMLElement, obj: HTMLElement) {
-	if (parentObj === obj) return false
+export function isParentNode(parent: HTMLElement, child: HTMLElement) {
+	if (parent === child) return false
 
-	let currentObj = obj
+	let current = child
 
 	while (
-		currentObj != undefined &&
-		currentObj != null &&
-		currentObj.tagName &&
-		currentObj.tagName.toUpperCase() != 'BODY'
+		current != undefined &&
+		current != null &&
+		current.tagName &&
+		current.tagName.toUpperCase() != 'BODY'
 	) {
-		if (currentObj == parentObj) {
+		if (current === parent) {
 			return true
 		}
-		currentObj = (currentObj.parentNode as HTMLElement) || null
+		current = (current.parentNode as HTMLElement) || null
 	}
 	return false
 }

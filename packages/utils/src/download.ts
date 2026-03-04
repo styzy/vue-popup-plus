@@ -1,18 +1,18 @@
-type DownloadOptions = {
-	allowCrossOrigin?: boolean
+type DownloadOption = {
 	fileName?: string
 	headers?: Record<string, string>
 	onSuccess?: (fileName: string) => void
+	allowCrossOrigin?: boolean
 }
 
 export function download(
 	url: string,
 	{
-		allowCrossOrigin = false,
 		fileName = getFileName(url),
 		headers = {},
 		onSuccess = () => {},
-	}: DownloadOptions = {}
+		allowCrossOrigin = false,
+	}: DownloadOption = {}
 ) {
 	try {
 		if (isSameOrigin(url)) {
