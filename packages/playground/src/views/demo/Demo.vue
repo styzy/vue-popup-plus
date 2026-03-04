@@ -6,11 +6,12 @@
 			h3(:style="{ margin: '0' }") 组合式 API 组件
 			h3(:style="{ margin: '0' }") 测试属性：{{ test }}
 		.body
-			GlobalComponent
+			GComponent
 		.footer
 			input(placeholder="请输入返回值" type="text" v-model="result")
 			PButtonGroup(cross-align="center" direction="vertical")
 				PButton(@click="handleUpdateSize" theme="success") 更新弹框尺寸
+				PButton(@click="handleUpdatePlacement" theme="warning") 更新弹框位置
 				PButton(@click="handleClose" theme="primary" type="default") 关闭弹框 core
 				PButton(@click="handleCloseDialog()" theme="primary" type="plain") 关闭弹框 dialog
 	.right
@@ -25,8 +26,6 @@
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
-import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
-import PButton from '../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 
@@ -64,6 +63,12 @@ function handleUpdateSize() {
 	popup.update(instanceId, {
 		width: 900,
 		height: '900px',
+	})
+}
+
+function handleUpdatePlacement() {
+	popup.update(instanceId, {
+		placement: 'left',
 	})
 }
 

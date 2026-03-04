@@ -4,7 +4,7 @@
 		h1(:style="{ margin: '0' }") 这是一个抽屉组件
 		h3(:style="{ margin: '0' }") 测试属性：{{ test }}
 	.body
-		//- GlobalComponent
+		//- GComponent
 	.footer
 		input(placeholder="请输入返回值" type="text" v-model="result")
 		PButtonGroup(direction="vertical")
@@ -14,8 +14,6 @@
 <script lang="ts" setup>
 import { inject, ref, watch } from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from 'vue-popup-plus'
-import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
-import PButton from '../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 

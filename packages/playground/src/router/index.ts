@@ -9,8 +9,20 @@ const router: Router = createRouter({
 			component: () => import('@/views/Index.vue'),
 		},
 		{
+			path: '/core',
+			component: () => import('@/views/Core.vue'),
+		},
+		{
+			path: '/plugin',
+			component: () => import('@/views/Plugin.vue'),
+		},
+		{
 			path: '/directive',
-			component: () => import('@/views/DemoDirective.vue'),
+			component: () => import('@/views/Directive.vue'),
+		},
+		{
+			path: '/button',
+			component: () => import('@/views/Button.vue'),
 		},
 	],
 })

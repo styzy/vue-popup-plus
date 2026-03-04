@@ -53,8 +53,12 @@ export interface IInstance {
 }
 
 type InstanceOptions = Required<
-	RenderComponentOptions & RenderConfigOptions & RenderStyleOptions
->
+	Omit<
+		RenderComponentOptions & RenderConfigOptions & RenderStyleOptions,
+		'anchor'
+	>
+> &
+	Partial<Pick<RenderConfigOptions, 'anchor'>>
 
 type InstanceState = {
 	isBeforeUnmount: boolean
@@ -63,11 +67,11 @@ type InstanceState = {
 export type InstanceStore = PropertiseToRef<
 	Required<RenderStyleOptions & InstanceState>
 > &
-	Required<RenderConfigOptions & RenderComponentOptions> & {
+	Required<Omit<RenderConfigOptions, 'anchor'> & RenderComponentOptions> & {
 		id: InstanceId
 		parentElement: Element
 		computedStyle: ComputedStyle | null
-	}
+	} & Partial<Pick<RenderConfigOptions, 'anchor'>>
 
 interface ICreateStore {
 	(id: InstanceId, options: InstanceOptions): InstanceStore
@@ -81,6 +85,7 @@ const createStore: ICreateStore = (
 		onMounted,
 		onUnmounted,
 		appendTo,
+		anchor,
 		mask,
 		maskDestroy,
 		disableScroll,
@@ -91,6 +96,7 @@ const createStore: ICreateStore = (
 		id,
 		parentElement: getParentElement(appendTo),
 		appendTo,
+		anchor,
 		mask,
 		maskDestroy,
 		disableScroll,

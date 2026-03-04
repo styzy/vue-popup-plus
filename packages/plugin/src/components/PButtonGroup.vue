@@ -139,7 +139,7 @@ provide(buttonGroupInjects.groupSize, groupSize)
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 10px 20px;
+	gap: 20px 20px;
 	&.has-cutline {
 		gap: 10px 0;
 	}
@@ -180,21 +180,40 @@ provide(buttonGroupInjects.groupSize, groupSize)
 		}
 	}
 	.cutline {
+		align-self: stretch;
 		position: relative;
-		width: 21px;
-		height: 100%;
 		&:after {
 			content: '';
 			position: absolute;
-			top: 15%;
-			left: 50%;
-			height: 70%;
-			width: 1px;
 			background-color: use-color('border');
 			z-index: 1;
 		}
 		&.is-tight {
 			width: 11px;
+		}
+	}
+	&.is-direction {
+		&-horizontal {
+			.cutline {
+				width: 20px;
+				&:after {
+					top: 15%;
+					left: 50%;
+					height: 70%;
+					width: 1px;
+				}
+			}
+		}
+		&-vertical {
+			.cutline {
+				height: 20px;
+				&:after {
+					top: 50%;
+					left: 15%;
+					height: 1px;
+					width: 70%;
+				}
+			}
 		}
 	}
 }

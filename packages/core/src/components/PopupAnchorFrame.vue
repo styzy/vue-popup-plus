@@ -1,0 +1,123 @@
+<template lang="pug">
+.popup-anchor-frame(:style="styleObject")
+	slot
+</template>
+
+<script lang="ts" setup>
+import { onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import { type AnchorPlacement, type RenderConfigOptions } from '../controller'
+
+defineOptions({
+	name: 'PopupAnchorFrame',
+})
+
+type Props = {
+	anchor: Required<RenderConfigOptions>['anchor']
+	anchorPlacement: AnchorPlacement
+	zIndex: number
+}
+
+const { anchor, anchorPlacement, zIndex } = defineProps<Props>()
+
+const anchorElement =
+	typeof anchor === 'string' ? document.querySelector(anchor) : anchor
+const styleObject = ref(createStyle())
+const resizeObserver = shallowRef<ResizeObserver>()
+
+onMounted(() => {
+	bindResizeObserver()
+	bindWindowResizeObserver()
+})
+
+onBeforeUnmount(() => {
+	unbindResizeObserver()
+	unbindWindowResizeObserver()
+})
+
+function bindResizeObserver() {
+	if (anchorElement) {
+		resizeObserver.value = new ResizeObserver(updateStyle)
+		resizeObserver.value.observe(anchorElement)
+	}
+}
+
+function unbindResizeObserver() {
+	if (anchorElement && resizeObserver.value) {
+		resizeObserver.value.unobserve(anchorElement)
+		resizeObserver.value.disconnect()
+	}
+}
+
+function bindWindowResizeObserver() {
+	window.addEventListener('resize', updateStyle)
+}
+
+function unbindWindowResizeObserver() {
+	window.removeEventListener('resize', updateStyle)
+}
+
+function updateStyle() {
+	styleObject.value = createStyle()
+}
+
+function createStyle() {
+	const style: Record<string, string | number> = {
+		zIndex,
+	}
+
+	if (anchorElement) {
+		const viewportWidth = document.documentElement.clientWidth
+		const viewportHeight = document.documentElement.clientHeight
+		const scrollX = window.scrollX
+		const scrollY = window.scrollY
+		const { top, right, bottom, left, width, height } =
+			anchorElement.getBoundingClientRect()
+
+		if (
+			anchorPlacement.startsWith('left') ||
+			anchorPlacement.startsWith('right')
+		) {
+			if (anchorPlacement.startsWith('left')) {
+				style.right = `${Math.ceil(viewportWidth - scrollX - left)}px`
+			} else {
+				style.left = `${Math.ceil(scrollX + right)}px`
+			}
+
+			if (anchorPlacement.includes('top')) {
+				style.top = `${Math.ceil(scrollY + top)}px`
+			} else if (anchorPlacement.includes('bottom')) {
+				style.bottom = `${Math.ceil(viewportHeight - scrollY - bottom)}px`
+			} else {
+				style.top = `${Math.ceil(scrollY + top + height / 2)}px`
+				style.transform = 'translateY(-50%)'
+			}
+		} else {
+			if (anchorPlacement.startsWith('top')) {
+				style.bottom = `${Math.ceil(viewportHeight - scrollY - top)}px`
+			} else {
+				style.top = `${Math.ceil(scrollY + bottom)}px`
+			}
+
+			if (anchorPlacement.includes('left')) {
+				style.left = `${Math.ceil(scrollX + left)}px`
+			} else if (anchorPlacement.includes('right')) {
+				style.right = `${Math.ceil(viewportWidth - scrollX - right)}px`
+			} else {
+				style.left = `${Math.ceil(scrollX + left + width / 2)}px`
+				style.transform = 'translateX(-50%)'
+			}
+		}
+	}
+
+	return style
+}
+</script>
+
+<style lang="scss" scoped>
+.popup-anchor-frame {
+	// display: flex;
+	// flex-direction: column;
+	position: absolute;
+	// pointer-events: none;
+}
+</style>

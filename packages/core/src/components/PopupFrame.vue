@@ -5,7 +5,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { Placement } from '../controller'
+import { type Placement } from '../controller'
 
 defineOptions({
 	name: 'PopupFrame',

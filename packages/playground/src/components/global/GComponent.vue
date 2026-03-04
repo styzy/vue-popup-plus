@@ -1,17 +1,17 @@
 <template lang="pug">
-.global-component
+.g-component
 	div 这是一个全局组件
 	PButton(@click="handleClick" theme="danger") 全局组件按钮
 </template>
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
-import PButton from '../../../plugin/src/components/PButton.vue'
+import PButton from '../../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 
 defineOptions({
-	name: 'GlobalComponent',
+	name: 'GComponent',
 })
 
 function handleClick() {
@@ -20,7 +20,7 @@ function handleClick() {
 </script>
 
 <style lang="stylus" scoped>
-.global-component
+.g-component
 	display flex
 	flex-direction column
 	align-items center

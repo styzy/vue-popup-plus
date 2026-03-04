@@ -5,7 +5,7 @@
 		h2(:style="{ margin: '0' }") 选项式 API 组件
 		h2(:style="{ margin: '0' }") 测试属性：{{ test }}
 	.body
-		GlobalComponent
+		GComponent
 	.footer
 		input(placeholder="请输入返回值" type="text" v-model="result")
 		PButtonGroup(direction="vertical")
@@ -16,15 +16,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PButtonGroup from '../../../plugin/src/components/PButtonGroup.vue'
-import PButton from '../../../plugin/src/components/PButton.vue'
 
 export default defineComponent({
 	name: 'DemoOption',
-	components: {
-		PButtonGroup,
-		PButton,
-	},
 	emits: {
 		/**
 		 * 测试事件

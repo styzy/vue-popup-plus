@@ -8,7 +8,20 @@ template(v-if="hackInject")
 				:type="store.maskAnimation.value"
 				v-if="store.mask")
 				PopupMask
-			PopupFrame(:placement="store.placement.value" :zIndex="store.zIndex.value")
+			PopupAnchorFrame(
+				:anchor="store.anchor"
+				:anchorPlacement="store.anchorPlacement.value"
+				:zIndex="store.zIndex.value"
+				v-if="store.anchor")
+				PopupAnimation(
+					:duration="store.animationDuration.value"
+					:isBeforeUnmount="store.isBeforeUnmount.value"
+					:type="store.viewAnimation.value")
+					PopupView
+			PopupFrame(
+				:placement="store.placement.value"
+				:zIndex="store.zIndex.value"
+				v-else)
 				PopupAnimation(
 					:duration="store.animationDuration.value"
 					:isBeforeUnmount="store.isBeforeUnmount.value"
@@ -25,6 +38,7 @@ import {
 } from '../CONSTANTS'
 import PopupAnimation from './PopupAnimation.vue'
 import PopupFrame from './PopupFrame.vue'
+import PopupAnchorFrame from './PopupAnchorFrame.vue'
 import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
 

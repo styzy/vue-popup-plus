@@ -164,6 +164,17 @@ export type RenderConfigOptions = {
 	 */
 	appendTo?: Element | string
 	/**
+	 * 弹出层位置的锚点元素
+	 *
+	 * - 不指定时，弹出层以整个窗口为锚点
+	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
+	 * - 可配合 `anchorPlacement` 参数指定弹出层相对于锚点的对齐方式
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 *
+	 * @since 1.7.0
+	 */
+	anchor?: Element | string
+	/**
 	 * 弹出层是否显示遮罩层
 	 *
 	 * - 默认值为 `true`
@@ -197,6 +208,20 @@ export type Placement =
 	| 'top'
 	| 'center'
 	| 'bottom'
+	| 'right-top'
+	| 'right'
+	| 'right-bottom'
+
+export type AnchorPlacement =
+	| 'left-top'
+	| 'left'
+	| 'left-bottom'
+	| 'top-left'
+	| 'top'
+	| 'top-right'
+	| 'bottom-left'
+	| 'bottom'
+	| 'bottom-right'
 	| 'right-top'
 	| 'right'
 	| 'right-bottom'
@@ -296,6 +321,17 @@ export type RenderStyleOptions = {
 	 */
 	placement?: Placement
 	/**
+	 * 弹出层锚点对齐方式
+	 *
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 * - 默认为 `'center'` ，即居中对齐
+	 * - 更多对齐方式请查看 {@link AnchorAlign}
+	 *
+	 * @since 1.7.0
+	 */
+	anchorPlacement?: AnchorPlacement
+	/**
 	 * 弹出层视图动画类型
 	 *
 	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
@@ -371,7 +407,9 @@ export type RenderOption<TComponent extends Component = Component> =
 
 export type UpdateOption = Partial<RenderStyleOptions>
 
-const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
+const defaultOptions: Required<
+	Omit<RenderOption, 'zIndex' | 'component' | 'anchor'>
+> = {
 	appendTo: 'body',
 	mask: true,
 	maskDestroy: false,
@@ -386,6 +424,7 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	maxHeight: 'auto',
 	minHeight: 'auto',
 	placement: 'center',
+	anchorPlacement: 'top',
 	viewTranslateX: 0,
 	viewTranslateY: 0,
 	viewTranslateOverflow: false,

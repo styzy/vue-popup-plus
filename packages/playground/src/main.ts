@@ -8,11 +8,14 @@ import {
 import { createPresetPlugin, type Skin } from 'vue-popup-plus-plugin-preset'
 import router from './router'
 import App from './App.vue'
-import GlobalComponent from './views/GlobalComponent.vue'
+import { components } from './components/global'
 import './assets/main.styl'
 
 const app = createApp(App)
-app.component('GlobalComponent', GlobalComponent)
+
+Object.entries(components).forEach(([name, component]) => {
+	app.component(name, component)
+})
 
 import Antd from 'ant-design-vue'
 app.use(Antd)
@@ -122,7 +125,7 @@ const testPlugin = definePlugin({
 	) {
 		popup.customProperties.test = function (test: string) {
 			this.render({
-				component: () => import('./views/Demo.vue'),
+				component: () => import('./views/demo/Demo.vue'),
 				componentProps: {
 					test,
 				},
@@ -160,11 +163,5 @@ declare module 'vue-popup-plus' {
 
 	interface PopupCustomAnimations {
 		CUSTOM: 'custom'
-	}
-}
-
-declare module 'vue' {
-	export interface GlobalComponents {
-		GlobalComponent: typeof GlobalComponent
 	}
 }
