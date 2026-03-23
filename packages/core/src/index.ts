@@ -20,6 +20,11 @@ export {
 	type UpdateOption,
 } from './controller'
 export { type ICore } from './core'
+export {
+	createPopupDirective,
+	type PopupDirective,
+	type ICreatePopupDirective,
+} from './directive'
 export { type InstanceId } from './instance'
 export {
 	printLog,

@@ -18,7 +18,7 @@ type PopupDirectiveTrigger = 'click' | 'hover' | 'contextmenu'
 type PopupDirectiveTriggerModifiers = 'stop' | 'prevent'
 
 /**
- * 弹出层指令类型
+ * 弹出层指令工具类型
  *
  * - 使用该类型可以快速为弹出层指令创建指令类型
  * - 一般搭配 `createPopupDirective()` 函数使用
@@ -89,7 +89,7 @@ type PopupDirectiveHook<
 	getController: PopupDirectiveHookControllerGetter
 }) => void
 
-export type PopupDirectiveHookContext = {
+type PopupDirectiveHookContext = {
 	eventStore: PopupDirectiveEventHandlersStore
 	renderHook: PopupDirectiveHook<PopupDirective>
 	el: HTMLElement
@@ -98,7 +98,7 @@ export type PopupDirectiveHookContext = {
 	prevVNode: VNode<any, HTMLElement> | null
 }
 
-export type PopupDirectiveEventHandlersStore = Map<
+type PopupDirectiveEventHandlersStore = Map<
 	HTMLElement,
 	Array<{
 		event: PopupDirectiveTrigger

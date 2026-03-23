@@ -325,7 +325,7 @@ export type RenderStyleOptions = {
 	 *
 	 * - 指定弹出层渲染对于锚点的对齐方式
 	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 * - 默认为 `'center'` ，即居中对齐
+	 * - 默认为 `'top'` ，即顶部居中对齐
 	 * - 更多对齐方式请查看 {@link AnchorAlign}
 	 *
 	 * @since 1.7.0
