@@ -152,7 +152,6 @@ function getOrCreateGroup(
 		const instanceId = controller.render({
 			component: () => import('./src/PMessageGroup.vue'),
 			componentProps: {
-				placement,
 				messages: group.messages,
 				skin,
 				onMessageClose: (id: string) => {
