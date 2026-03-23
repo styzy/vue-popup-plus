@@ -306,6 +306,9 @@ importers:
 
   packages/md-demo:
     dependencies:
+      markdown-it-container:
+        specifier: 'catalog:'
+        version: 4.0.0
       vue:
         specifier: 'catalog:'
         version: 3.5.24(typescript@5.8.3)
@@ -364,9 +367,6 @@ importers:
       markdown-it:
         specifier: 'catalog:'
         version: 14.1.0
-      markdown-it-container:
-        specifier: 'catalog:'
-        version: 4.0.0
       npm-run-all2:
         specifier: 'catalog:'
         version: 8.0.4

@@ -20,16 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import type { Placement } from 'vue-popup-plus'
 import type { MessageRecord } from '../index'
 import PMessage from './PMessage.vue'
 import type { Skin } from '../../../skin'
 
-defineProps<{
+type Props = {
 	skin: Skin
-	placement: Placement
 	messages: MessageRecord[]
-}>()
+}
+
+const { skin, messages } = defineProps<Props>()
 
 const emit = defineEmits<{
 	(e: 'messageClose', id: string): void
@@ -42,6 +42,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 .popup-message-group {
 	padding: 20px;
 	z-index: inherit;
+	pointer-events: none;
 
 	.popup-message-group-inner {
 		display: flex;
