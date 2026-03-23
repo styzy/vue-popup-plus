@@ -23,15 +23,18 @@ const anchorElement =
 	typeof anchor === 'string' ? document.querySelector(anchor) : anchor
 const styleObject = ref(createStyle())
 const resizeObserver = shallowRef<ResizeObserver>()
+const scrollTargets = shallowRef<Array<Element | Window>>([])
 
 onMounted(() => {
 	bindResizeObserver()
 	bindWindowResizeObserver()
+	bindScrollObservers()
 })
 
 onBeforeUnmount(() => {
 	unbindResizeObserver()
 	unbindWindowResizeObserver()
+	unbindScrollObservers()
 })
 
 function bindResizeObserver() {
@@ -54,6 +57,33 @@ function bindWindowResizeObserver() {
 
 function unbindWindowResizeObserver() {
 	window.removeEventListener('resize', updateStyle)
+}
+
+function bindScrollObservers() {
+	const targets: Array<Element | Window> = []
+	if (anchorElement) {
+		let parent: Element | null = anchorElement.parentElement
+		const reg = /(auto|scroll|overlay)/
+		while (parent) {
+			const style = getComputedStyle(parent)
+			if (reg.test(style.overflowX) || reg.test(style.overflowY)) {
+				targets.push(parent)
+			}
+			parent = parent.parentElement
+		}
+	}
+	targets.push(window)
+	scrollTargets.value = targets
+	scrollTargets.value.forEach((element) =>
+		element.addEventListener('scroll', updateStyle, { passive: true })
+	)
+}
+
+function unbindScrollObservers() {
+	scrollTargets.value.forEach((element) =>
+		element.removeEventListener('scroll', updateStyle)
+	)
+	scrollTargets.value = []
 }
 
 function updateStyle() {

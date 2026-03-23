@@ -399,6 +399,7 @@ function handlePopupAnchorLeftTop() {
 	popup.render({
 		anchor: anchorLeftTop.value?.$el,
 		anchorPlacement: 'left-top',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -408,6 +409,7 @@ function handlePopupAnchorLeft() {
 	popup.render({
 		anchor: anchorLeft.value?.$el,
 		anchorPlacement: 'left',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -417,6 +419,7 @@ function handlePopupAnchorLeftBottom() {
 	popup.render({
 		anchor: anchorLeftBottom.value?.$el,
 		anchorPlacement: 'left-bottom',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -426,6 +429,7 @@ function handlePopupAnchorTopLeft() {
 	popup.render({
 		anchor: anchorTopLeft.value?.$el,
 		anchorPlacement: 'top-left',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -435,6 +439,7 @@ function handlePopupAnchorTop() {
 	popup.render({
 		anchor: anchorTop.value?.$el,
 		anchorPlacement: 'top',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -444,6 +449,7 @@ function handlePopupAnchorTopRight() {
 	popup.render({
 		anchor: anchorTopRight.value?.$el,
 		anchorPlacement: 'top-right',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -453,6 +459,7 @@ function handlePopupAnchorBottomLeft() {
 	popup.render({
 		anchor: anchorBottomLeft.value?.$el,
 		anchorPlacement: 'bottom-left',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -462,6 +469,7 @@ function handlePopupAnchorBottom() {
 	popup.render({
 		anchor: anchorBottom.value?.$el,
 		anchorPlacement: 'bottom',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -471,6 +479,7 @@ function handlePopupAnchorBottomRight() {
 	popup.render({
 		anchor: anchorBottomRight.value?.$el,
 		anchorPlacement: 'bottom-right',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -480,6 +489,7 @@ function handlePopupAnchorRightTop() {
 	popup.render({
 		anchor: anchorRightTop.value?.$el,
 		anchorPlacement: 'right-top',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -489,6 +499,7 @@ function handlePopupAnchorRight() {
 	popup.render({
 		anchor: anchorRight.value?.$el,
 		anchorPlacement: 'right',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
@@ -498,6 +509,7 @@ function handlePopupAnchorRightBottom() {
 	popup.render({
 		anchor: anchorRightBottom.value?.$el,
 		anchorPlacement: 'right-bottom',
+		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
