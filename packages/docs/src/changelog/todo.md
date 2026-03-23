@@ -13,19 +13,26 @@ outline: 2
 
 #### `render()`
 
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" finish /> 新增 `anchor` 参数，用于设置弹出层的锚点元素，默认值为 `undefined` 。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" finish /> 新增 `anchorPlacement` 参数，用于设置弹出层的锚点位置，默认值为 `undefined` 。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增 `maskTransparent` 参数，用于设置是否启用透明遮罩层，默认值为 `false` 。
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" finish /> 新增 `maskDestroy` 参数，用于设置遮罩层点击是否可以销毁弹出层，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的 `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" finish /> 移除 `maskClickClose` 参数，可使用功能更强大的 `maskDestroy` 参数代替。
 
 #### `directive`
 
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `v-popup` 指令，用于在元素上通过指令快速添加弹出层。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" finish /> 新增 `v-popup` 指令，用于在元素上通过指令快速添加弹出层。
+
+#### `其他`
+
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" finish /> 新增 `createPopupDirective()` 工具函数，帮助插件开发者快速创建弹出层预置指令。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" finish /> 新增 `PopupDirective<T, K>` 工具类型，帮助插件开发者快速定义弹出层预置指令类型。
 
 ### 预置插件
 
 #### `plugin`
 
-- <DVersionTodo version="1.7.0" level="high" author="Sakura" /> 新增 `Message 消息` 插件。
+- <DVersionTodo version="1.7.0" level="high" author="Sakura" finish /> 新增 `Message 消息` 插件。
 - <DVersionTodo version="1.6.0" level="high" author="HL" finish /> 新增 `Drawer 抽屉` 插件。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 所有插件支持公共参数 `zIndex`。
@@ -37,7 +44,7 @@ outline: 2
 
 #### `component`
 
-- <DVersionTodo version="1.7.0" level="low" author="STYZY" /> 公开组件 `PScaffold`
-- <DVersionTodo version="1.7.0" level="low" author="STYZY" /> 公开组件 `PHeader`
-- <DVersionTodo version="1.7.0" level="low" author="STYZY" /> 公开组件 `PBody`
-- <DVersionTodo version="1.7.0" level="low" author="STYZY" /> 公开组件 `PFooter`
+- <DVersionTodo version="1.8.0+" level="low" author="STYZY" /> 公开组件 `PScaffold`
+- <DVersionTodo version="1.8.0+" level="low" author="STYZY" /> 公开组件 `PHeader`
+- <DVersionTodo version="1.8.0+" level="low" author="STYZY" /> 公开组件 `PBody`
+- <DVersionTodo version="1.8.0+" level="low" author="STYZY" /> 公开组件 `PFooter`

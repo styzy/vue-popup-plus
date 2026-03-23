@@ -1,5 +1,5 @@
 <template lang="pug">
-.demo-anchor(@click="handleClose()")
+.demo-anchor(@click="handleClose()") 点击关闭点击关闭点击关闭
 </template>
 
 <script lang="ts" setup>
@@ -15,10 +15,10 @@ function handleClose() {
 </script>
 <style lang="scss" scoped>
 .demo-anchor {
-	width: 60px;
-	height: 20px;
 	background-color: var(--popup-color-danger);
 	color: #ffffff;
+	padding: 5px 10px;
+	font-size: 14px;
 	cursor: pointer;
 	&:hover {
 		background-color: var(--popup-color-danger-light);

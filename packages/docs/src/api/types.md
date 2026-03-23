@@ -92,3 +92,11 @@ type HelloPopupAllProps = ExtractComponentAllPropTypes<typeof HelloPopup>
 // 	baz?: boolean
 // } & ComponentCustomProps & VNodeProps & AllowedComponentProps
 ```
+
+## PopupDirective\<T, K\> <Badge text="1.7.0+" /> {#popup-directive}
+
+> <DVersionSupport version="1.7.0" />
+
+用于创建弹出层指令的类型。
+
+第一个泛型参数 `T` 用于指定弹出层指令的 `value` 值类型，第二个泛型参数 `K` 用于指定弹出层指令的 `Modifier` 修饰符类型。

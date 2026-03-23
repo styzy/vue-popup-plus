@@ -121,6 +121,17 @@ export type RenderConfigOptions = {
 	 */
 	appendTo?: Element | string
 	/**
+	 * 弹出层位置的锚点元素
+	 *
+	 * - 不指定时，弹出层以整个窗口为锚点
+	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
+	 * - 可配合 `anchorPlacement` 参数指定弹出层相对于锚点的对齐方式
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 *
+	 * @since 1.7.0
+	 */
+	anchor?: Element | string
+	/**
 	 * 弹出层是否显示遮罩层
 	 *
 	 * - 默认值为 `true`
@@ -149,41 +160,6 @@ export type RenderConfigOptions = {
 	 * - 仅在 `mask` 参数为 `true` 时有效
 	 */
 	maskClickClose?: boolean
-	/**
-	 * 弹出层是否禁用窗口滚动
-	 *
-	 * - 默认值为 `true`
-	 */
-	disableScroll?: boolean
-}
-type MaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
-
-type RenderConfigOptions = {
-	/**
-	 * 弹出层挂载的父元素
-	 *
-	 * - 不指定时，默认挂载到 body 元素下
-	 */
-	appendTo?: Element | string
-	/**
-	 * 弹出层是否显示遮罩层
-	 *
-	 * - 默认值为 `true`
-	 */
-	mask?: boolean
-	/**
-	 * 点击遮罩层是否销毁弹出层
-	 *
-	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
-	 * - 传入 `true` ，点击遮罩层将销毁弹出层
-	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
-	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
-	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.6.0
-	 */
-	maskDestroy?: boolean | MaskDestroyHandler
 	/**
 	 * 弹出层是否禁用窗口滚动
 	 *
@@ -286,6 +262,17 @@ type RenderStyleOptions = {
 	 * @since 1.5.0
 	 */
 	placement?: Placement
+	/**
+	 * 弹出层锚点对齐方式
+	 *
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 * - 默认为 `'top'` ，即顶部居中对齐
+	 * - 更多对齐方式请查看 {@link AnchorAlign}
+	 *
+	 * @since 1.7.0
+	 */
+	anchorPlacement?: AnchorPlacement
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -458,6 +445,17 @@ type UpdateOption = {
 	 * @since 1.5.0
 	 */
 	placement?: Placement
+	/**
+	 * 弹出层锚点对齐方式
+	 *
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 * - 默认为 `'top'` ，即顶部居中对齐
+	 * - 更多对齐方式请查看 {@link AnchorAlign}
+	 *
+	 * @since 1.7.0
+	 */
+	anchorPlacement?: AnchorPlacement
 	/**
 	 * 弹出层视图动画类型
 	 *

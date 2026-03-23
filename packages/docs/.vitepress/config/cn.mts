@@ -347,6 +347,10 @@ export const themeConfig = defineConfig({
 							link: '/plugin/animation-extend',
 						},
 						{
+							text: '自定义指令扩展',
+							link: '/plugin/directive-extend',
+						},
+						{
 							text: '辅助功能',
 							link: '/plugin/helper',
 						},

@@ -188,9 +188,6 @@ provide(buttonGroupInjects.groupSize, groupSize)
 			background-color: use-color('border');
 			z-index: 1;
 		}
-		&.is-tight {
-			width: 11px;
-		}
 	}
 	&.is-direction {
 		&-horizontal {

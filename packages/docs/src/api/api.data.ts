@@ -135,6 +135,11 @@ const api: ApiModule = {
 					text: 'definePlugin()',
 					link: '/api/plugin#define-plugin',
 				},
+				{
+					text: 'createPopupDirective()',
+					link: '/api/plugin#create-popup-directive',
+					support: '1.7.0',
+				},
 			],
 		},
 		{
@@ -164,6 +169,11 @@ const api: ApiModule = {
 					text: 'ExtractComponentAllPropTypes<T>',
 					link: '/api/types#extract-component-all-prop-types',
 					support: '1.5.0',
+				},
+				{
+					text: 'PopupDirective<T, K>',
+					link: '/api/types#popup-directive',
+					support: '1.7.0',
 				},
 			],
 		},

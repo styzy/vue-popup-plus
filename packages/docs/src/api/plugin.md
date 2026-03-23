@@ -124,3 +124,65 @@ interface IConfig {
 
 - [插件 - 定义插件](/plugin/define)
 - [核心 API - 核心实例 PopupPlus.use()](/api/core#popup-plus-use)
+
+## createPopupDirective() <Badge text="1.7.0+" /> {#create-popup-directive}
+
+> <DVersionSupport version="1.7.0" />
+
+快速创建一个弹出层的 Vue 指令，用于在元素上绑定弹出层。
+
+### 类型
+
+```ts
+function createPopupDirective<TDirective extends PopupDirective>(
+	renderHook: PopupDirectiveHook<TDirective>
+): TDirective
+```
+
+### 详细信息
+
+直接传入一个渲染钩子函数，内部会自动根据渲染的时机调用该钩子函数。
+
+::: tip
+如果使用 `TypeScript` ，则需要使用 `PopupDirective<T, K>` 类型来指定弹出层指令的类型参数，具体可以参考 [核心 API - TypeScript 工具类型 PopupDirective<T, K>](/api/types#popup-directive) 。
+:::
+
+### 示例
+
+```ts
+import { createPopupDirective, PopupDirective } from 'vue-popup-plus'
+
+type CustomDirective = PopupDirective<'number', 'modifier1' | 'modifier2'>
+
+const customDirective = createPopupDirective<CustomDirective>(
+	({ el, binding, vNode, prevVNode, getController }) => {
+		const controller = getController()
+		controller.render({
+			component: () => import('./CustomPopup.vue'),
+			props: {
+				value: binding.value,
+				modifier1: binding.modifiers.modifier1,
+				modifier2: binding.modifiers.modifier2,
+			},
+		})
+	}
+)
+
+// 注册自定义指令类型
+declare module 'vue' {
+	export interface GlobalDirectives {
+		vPopupCustom: CustomDirective
+	}
+}
+
+// 使用方式
+// v-popup-custom="123"
+// 自定义修饰符
+// v-popup-custom.modifier1="123"
+// v-popup-custom.modifier2="123"
+```
+
+### 相关参考
+
+- [插件 - 自定义指令扩展](/plugin/directive-extend)
+- [核心 API - TypeScript 工具类型 PopupDirective<T, K>](/api/types#popup-directive)
