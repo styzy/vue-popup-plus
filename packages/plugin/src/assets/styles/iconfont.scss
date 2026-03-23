@@ -70,17 +70,13 @@ i.iconfont-popup-plugin-preset {
 		&-pure::after {
 			content: '\e655';
 		}
-		&-narrow::after {
-			content: '\ec13';
-		}
-		&-prev::after {
-			content: '\e7b3';
-		}
-		&-next::after {
-			content: '\e7b1';
-		}
-		&-pure::after {
-			content: '\e655';
+		&-rotate {
+			&-left::after {
+				content: '\e69a';
+			}
+			&-right::after {
+				content: '\e69b';
+			}
 		}
 	}
 }
