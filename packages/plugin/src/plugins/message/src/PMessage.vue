@@ -40,7 +40,8 @@ type Props = {
 	hoverWait: boolean
 }
 
-const { content, theme, duration, showClose, hoverWait } = defineProps<Props>()
+const { skin, content, theme, duration, showClose, hoverWait } =
+	defineProps<Props>()
 
 const destroyTimer = ref<number>()
 
@@ -115,6 +116,7 @@ function handleClose() {
 	justify-content: center;
 	max-width: 30vw;
 	border-radius: use-var('border-radius');
+	pointer-events: auto;
 	.background,
 	.background-theme,
 	.background-border {
@@ -126,7 +128,7 @@ function handleClose() {
 		border-radius: use-var('border-radius');
 	}
 	.background {
-		background-color: use-color('background-sub');
+		background-color: use-color('background-main');
 		z-index: -3;
 	}
 	.background-theme {
@@ -188,6 +190,30 @@ function handleClose() {
 		@include create-theme('success', use-color('success'));
 		@include create-theme('warning', use-color('warning'));
 		@include create-theme('danger', use-color('danger'));
+	}
+}
+
+@include use-skin('modern') {
+	&.popup-toast {
+		box-shadow: use-var('box-shadow');
+		.background-theme {
+			display: none;
+		}
+		.background-border {
+			display: none;
+		}
+		.wrapper {
+			.icon {
+				i {
+					font-size: 18px;
+				}
+			}
+			.close {
+				i {
+					font-size: 14px;
+				}
+			}
+		}
 	}
 }
 
