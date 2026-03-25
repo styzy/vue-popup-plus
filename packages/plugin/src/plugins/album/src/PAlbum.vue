@@ -10,7 +10,7 @@
 					:style="imageStyleObject"
 					@mousedown="handleImageDragStart($event)"
 					dragable="false"
-					v-if="media.type === FileTypes.IMAGE")
+					v-if="getMediaType(media) === FileTypes.IMAGE")
 				video(
 					:poster="media.poster"
 					:src="media.url"
@@ -18,14 +18,15 @@
 					controlslist="nodownload noremoteplayback noplaybackrate"
 					disablePictureInPicture
 					disableRemotePlayback
-					v-if="media.type === FileTypes.VIDEO")
+					v-if="getMediaType(media) === FileTypes.VIDEO")
 	.tools.top(v-if="!pureMode")
 		.info.count(v-if="!disableCounter")
 			span.number.current {{ `${currentIndex + 1} ` }}
 			span.connect /
 			span.number {{ mediaList.length }}
 		.emyty(v-else)
-		.control.name(@click="handleNameCopy()" v-if="!disableName") {{ currentMedia.name }}
+		.control.name(@click="handleNameCopy()" v-if="!disableName")
+			span.name-text {{ currentMedia.name }}
 		.control.close(@click="handleClose()")
 			i.iconfont-popup-plugin-preset.album-close
 	.tools.left(v-if="!pureMode")
@@ -47,6 +48,10 @@
 				@click="handleScale(false, buttonScaleLevel)"
 				v-if="!disableScale && scaleEnable")
 				i.iconfont-popup-plugin-preset.album-narrow
+			.control(@click="handleRotate(false)" v-if="rotateEnable")
+				i.iconfont-popup-plugin-preset.album-rotate-left
+			.control(@click="handleRotate(true)" v-if="rotateEnable")
+				i.iconfont-popup-plugin-preset.album-rotate-right
 		.control.download(@click="handleDownload()" v-if="!disableDownload")
 			i.iconfont-popup-plugin-preset.download
 		.emyty(v-else)
@@ -64,8 +69,13 @@ import {
 } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { download, setClipboard } from 'utils'
-import { File } from '../../../class'
+import { File, type FileType } from '../../../class'
 import { type Skin } from '../../../skin'
+import { type AlbumMediaSource } from '../index'
+
+type Media = File & {
+	manualType?: 'image' | 'video'
+}
 
 const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
@@ -76,7 +86,7 @@ defineOptions({
 
 type Props = {
 	skin: Skin
-	sources: Array<string>
+	sources: Array<string | AlbumMediaSource>
 	defaultIndex: number
 	disableCounter: boolean
 	disableName: boolean
@@ -84,6 +94,8 @@ type Props = {
 	disablePure: boolean
 	disableScale: boolean
 	disableDrag: boolean
+	disableLoop: boolean
+	disableRotate: boolean
 }
 
 const {
@@ -96,6 +108,8 @@ const {
 	disablePure,
 	disableScale,
 	disableDrag,
+	disableLoop,
+	disableRotate,
 } = defineProps<Props>()
 
 const currentIndex = ref(defaultIndex)
@@ -112,36 +126,61 @@ const dragOriginX = ref(0)
 const dragOriginY = ref(0)
 const dragOffsetX = ref(0)
 const dragOffsetY = ref(0)
+const currentRotate = ref(0)
 const pureMode = ref(false)
 
 const FileTypes = computed(() => File.FILE_TYPES)
 
+const getMediaType = (file: Media) => (file.manualType as FileType) || file.type
+
 const mediaList = computed(() =>
 	sources
-		.map((source) => new File(source))
+		.map((source) => {
+			if (typeof source === 'string') {
+				return new File(source)
+			} else {
+				const file: Media = new File(source.url)
+				file.manualType = source.type
+				return file
+			}
+		})
 		.filter((file) =>
-			[FileTypes.value.IMAGE, FileTypes.value.VIDEO].includes(file.type)
+			[FileTypes.value.IMAGE, FileTypes.value.VIDEO].includes(
+				getMediaType(file)
+			)
 		)
 )
 const currentMedia = computed(() => mediaList.value[currentIndex.value])
 const imageStyleObject = computed(() => ({
-	transform: `translate(${dragOffsetX.value}px, ${dragOffsetY.value}px) scale(${currentScale.value})`,
+	transform: `translate(${dragOffsetX.value}px, ${dragOffsetY.value}px) scale(${currentScale.value}) rotate(${currentRotate.value}deg)`,
 	transitionDuration: isDrag.value ? '0s' : undefined,
 }))
-const backEnable = computed(() => currentIndex.value !== 0)
+const backEnable = computed(
+	() =>
+		mediaList.value.length > 1 &&
+		(disableLoop ? currentIndex.value > 0 : true)
+)
 const nextEnable = computed(
 	() =>
-		currentIndex.value !== mediaList.value.length - 1 &&
-		mediaList.value.length
+		mediaList.value.length > 1 &&
+		(disableLoop ? currentIndex.value < mediaList.value.length - 1 : true)
 )
 const scaleEnable = computed(
 	() =>
-		currentMedia.value && currentMedia.value.type === FileTypes.value.IMAGE
+		currentMedia.value &&
+		getMediaType(currentMedia.value) === FileTypes.value.IMAGE
+)
+const rotateEnable = computed(
+	() =>
+		!disableRotate &&
+		currentMedia.value &&
+		getMediaType(currentMedia.value) === FileTypes.value.IMAGE
 )
 
 watch(currentIndex, () => {
 	resetScale()
 	resetDrag()
+	resetRotate()
 })
 
 onBeforeMount(() => {
@@ -161,11 +200,25 @@ onBeforeUnmount(() => {
 })
 
 function handleBack() {
-	currentIndex.value--
+	if (!backEnable.value) return
+	if (currentIndex.value === 0) {
+		if (!disableLoop) {
+			currentIndex.value = mediaList.value.length - 1
+		}
+	} else {
+		currentIndex.value--
+	}
 }
 
 function handleNext() {
-	currentIndex.value++
+	if (!nextEnable.value) return
+	if (currentIndex.value === mediaList.value.length - 1) {
+		if (!disableLoop) {
+			currentIndex.value = 0
+		}
+	} else {
+		currentIndex.value++
+	}
 }
 
 function handleScale(isAdd: boolean, scaleLevel = buttonScaleLevel.value) {
@@ -193,12 +246,26 @@ function resetDrag() {
 	dragOffsetY.value = 0
 }
 
+function resetRotate() {
+	currentRotate.value = 0
+}
+
 function handleImageMouseScale(event: any) {
 	if (disableScale) return
 
 	const isUp = event.wheelDelta > 0
 
 	handleScale(isUp, mouseScaleLevel.value)
+}
+
+function handleRotate(isClockwise: boolean) {
+	if (!rotateEnable.value) return
+
+	if (isClockwise) {
+		currentRotate.value += 90
+	} else {
+		currentRotate.value -= 90
+	}
 }
 
 function handleImageDragStart(event: MouseEvent) {
@@ -367,13 +434,17 @@ $tools-safe-padding: 40px;
 			}
 		}
 		.name {
-			@include base-ellipsis();
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			width: auto;
 			max-width: 50%;
 			padding: 0 use-var('spacing');
+
+			.name-text {
+				@include base-ellipsis();
+				width: 100%;
+			}
 		}
 		.back,
 		.next {
