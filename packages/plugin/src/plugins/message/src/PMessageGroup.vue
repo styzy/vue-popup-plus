@@ -39,6 +39,8 @@ const emitClose = (id: string) => emit('messageClose', id)
 </script>
 
 <style scoped lang="scss">
+@use '../../../assets/styles/inject.scss' as *;
+
 .popup-message-group {
 	padding: 20px;
 	z-index: inherit;
@@ -48,7 +50,8 @@ const emitClose = (id: string) => emit('messageClose', id)
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		gap: 12px;
+		gap: use-var('spacing-small');
+		width: 30vw;
 	}
 
 	.popup-message-enter-active,
