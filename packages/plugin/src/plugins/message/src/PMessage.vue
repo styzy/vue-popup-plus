@@ -147,7 +147,7 @@ function handleClose() {
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		gap: 11px;
+		gap: use-var('spacing-small');
 		padding: 0 15px;
 		box-sizing: border-box;
 		overflow: hidden;
@@ -194,7 +194,7 @@ function handleClose() {
 }
 
 @include use-skin('modern') {
-	&.popup-toast {
+	&.popup-message {
 		box-shadow: use-var('box-shadow');
 		.background-theme {
 			display: none;
