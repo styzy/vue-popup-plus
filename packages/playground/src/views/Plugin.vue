@@ -7,7 +7,7 @@ GContainer
 			| 切换皮肤，当前为
 			strong {{ skin }}
 	GTitle(second) Toast 轻量提示
-	.title.third 基础
+	GTitle(third) 基础
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupToast()" type="default") 默认
 		PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
@@ -20,7 +20,7 @@ GContainer
 		PButton(@click="handlePopupToastZeroSecond()" theme="success") 0秒轻量提示
 		PButton(@click="handlePopupToastShowClose()") 显示关闭按钮
 		PButton(@click="handlePopupToastHoverWait()") 禁用悬停等待
-	.title.third 位置
+	GTitle(third) 位置
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupToastPlacementLeftTop()") 左上
 		PButton(@click="handlePopupToastPlacementLeft()") 左侧
@@ -31,7 +31,7 @@ GContainer
 		PButton(@click="handlePopupToastPlacementRightTop()") 右上
 		PButton(@click="handlePopupToastPlacementRight()") 右侧
 		PButton(@click="handlePopupToastPlacementRightBottom()") 右下
-	.title.third 主题方法
+	GTitle(third) 主题方法
 	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupToastPrimary()" theme="primary") 主要主题
 		PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
@@ -39,7 +39,7 @@ GContainer
 		PButton(@click="handlePopupToastWarning()" theme="warning") 警告主题
 		PButton(@click="handlePopupToastDanger()" theme="danger") 危险主题
 	GTitle(second) Message 消息
-	.title.third 基础
+	GTitle(third) 基础
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupMessage()" type="default") 默认
 		PButton(@click="handlePopupMessageThemePrimary()" theme="primary") 主要主题
@@ -52,7 +52,7 @@ GContainer
 		PButton(@click="handlePopupMessageZeroSecond()") 0秒消息
 		PButton(@click="handlePopupMessageShowClose()") 显示关闭按钮
 		PButton(@click="handlePopupMessageHoverWait()") 禁用悬停等待
-	.title.third 位置
+	GTitle(third) 位置
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupMessagePlacementLeftTop()") 左上
 		PButton(@click="handlePopupMessagePlacementLeft()") 左侧
@@ -63,7 +63,7 @@ GContainer
 		PButton(@click="handlePopupMessagePlacementRightTop()") 右上
 		PButton(@click="handlePopupMessagePlacementRight()") 右侧
 		PButton(@click="handlePopupMessagePlacementRightBottom()") 右下
-	.title.third 主题方法
+	GTitle(third) 主题方法
 	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupMessagePrimary()" theme="primary") 主要主题
 		PButton(@click="handlePopupMessageSuccess()" theme="success") 成功主题
@@ -125,7 +125,7 @@ GContainer
 		PButton(@click="handlePopupLoadingWithMaskBlur()") 启用遮罩模糊
 		PButton(@click="handlePopupLoadingWithMaskTransparent()") 启用遮罩透明
 	GTitle(second) Dialog 对话框
-	.title.third 基础
+	GTitle(third) 基础
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupDialog()" type="default") 默认
 		PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
@@ -141,7 +141,7 @@ GContainer
 		PButton(@click="handlePopupDialogWithMaskTransparent()") 启用遮罩透明
 		PButton(@click="handlePopupDialogWithMaskClose()") 启用遮罩层点击关闭
 		PButton(@click="handlePopupDialogWithMaskCloseHandler()") 遮罩层点击关闭处理器
-	.title.third 位置
+	GTitle(third) 位置
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupDialogPlacementLeftTop()") 左上
 		PButton(@click="handlePopupDialogPlacementLeft()") 左侧
@@ -153,7 +153,7 @@ GContainer
 		PButton(@click="handlePopupDialogPlacementRight()") 右侧
 		PButton(@click="handlePopupDialogPlacementRightBottom()") 右下
 	GTitle(second) Drawer 抽屉
-	.title.third 基础
+	GTitle(third) 基础
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupDrawer()" type="default") 默认
 		PButton(@click="handlePopupDrawerCustomComponentProps()") 自定义组件参数
@@ -171,7 +171,7 @@ GContainer
 		PButton(@click="handlePopupDrawerWithMaskTransparent()") 启用遮罩透明
 		PButton(@click="handlePopupDrawerWithoutMaskClose()") 禁用遮罩层点击关闭
 		PButton(@click="handlePopupDrawerWithMaskCloseHandler()") 遮罩层点击关闭处理器
-	.title.third 位置
+	GTitle(third) 位置
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupDrawerPlacementTop()") 顶部
 		PButton(@click="handlePopupDrawerPlacementBottom()") 底部

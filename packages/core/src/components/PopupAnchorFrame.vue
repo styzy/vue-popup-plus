@@ -4,12 +4,15 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import { inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import { POPUP_COMPONENT_INJECTS, usePopup } from '../'
 import { type AnchorPlacement, type RenderConfigOptions } from '../controller'
 
 defineOptions({
 	name: 'PopupAnchorFrame',
 })
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	anchor: Required<RenderConfigOptions>['anchor']
@@ -86,8 +89,21 @@ function unbindScrollObservers() {
 	scrollTargets.value = []
 }
 
+function checkAnchorConnected() {
+	return !!anchorElement?.isConnected
+}
+
 function updateStyle() {
-	styleObject.value = createStyle()
+	if (checkAnchorConnected()) {
+		styleObject.value = createStyle()
+	} else {
+		destroy()
+	}
+}
+
+function destroy() {
+	const popup = usePopup()
+	popup.destroy(instanceId)
 }
 
 function createStyle() {
@@ -102,7 +118,6 @@ function createStyle() {
 		const scrollY = window.scrollY
 		const { top, right, bottom, left, width, height } =
 			anchorElement.getBoundingClientRect()
-
 		if (
 			anchorPlacement.startsWith('left') ||
 			anchorPlacement.startsWith('right')

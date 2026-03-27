@@ -144,6 +144,9 @@ function formatSize(size: string | number): string {
 <style lang="scss" scoped>
 .popup-view {
 	position: relative;
-	pointer-events: auto;
+	pointer-events: none;
+	& > * {
+		pointer-events: auto;
+	}
 }
 </style>

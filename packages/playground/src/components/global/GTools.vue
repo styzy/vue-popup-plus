@@ -18,7 +18,7 @@
 			PButton(@click="handleJumpIndex()" theme="success") 首页
 			PButton(@click="handleJumpCore()") 核心功能测试
 			PButton(@click="handleJumpDirective()") 核心指令测试
-			PButton(@click="handleJumpPlugin()") 预置插件测试
+			PButton(@click="handleJumpPlugin()" theme="success") 预置插件测试
 			PButton(@click="handleJumpButton()" theme="warning") 预置插件按钮测试
 	PButton(@click="isExpand = !isExpand" theme="success") {{ isExpand ? '折叠工具面板' : '工具' }}
 </template>
