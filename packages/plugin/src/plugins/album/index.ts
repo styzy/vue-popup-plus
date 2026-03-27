@@ -17,13 +17,20 @@ class Log extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Album'
 }
 
+export type AlbumMediaSource = {
+	url: string
+	type: 'image' | 'video'
+}
+
 type AlbumOption = {
 	/**
 	 * 数据源
 	 *
 	 * - 支持主流图片资源和视频资源
+	 * - `string` 类型的数据源将被自动识别为图片或视频
+	 * - `AlbumMediaSource` 类型的数据源可以手动指定媒体类型
 	 */
-	sources: Array<string>
+	sources: Array<string | AlbumMediaSource>
 	/**
 	 * 默认选中的媒体索引
 	 *
@@ -75,6 +82,22 @@ type AlbumOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 禁用循环
+	 *
+	 * - 默认值：`false`
+	 *
+	 * @since 1.7.0
+	 */
+	disableLoop?: boolean
+	/**
+	 * 禁用旋转
+	 *
+	 * - 默认值：`false`
+	 * - 注意：旋转功能仅对图片启用
+	 * @since 1.7.0
+	 */
+	disableRotate?: boolean
 } & SharedOption
 
 export interface IAlbum {
@@ -138,6 +161,8 @@ export const album = definePlugin({
 			disableScale = defaultOptions.disableScale ?? false,
 			disableDrag = defaultOptions.disableDrag ?? false,
 			maskBlur = defaultOptions.maskBlur ?? false,
+			disableLoop = defaultOptions.disableLoop ?? false,
+			disableRotate = defaultOptions.disableRotate ?? false,
 			zIndex,
 		}: AlbumOption) {
 			return new Promise<void>((resolve) => {
@@ -153,6 +178,8 @@ export const album = definePlugin({
 						disableDownload,
 						disableScale,
 						disableDrag,
+						disableLoop,
+						disableRotate,
 					},
 					width: '100%',
 					height: '100%',
@@ -169,6 +196,8 @@ export const album = definePlugin({
 							disableScale,
 							disableDrag,
 							maskBlur,
+							disableLoop,
+							disableRotate,
 							zIndex,
 						}
 
