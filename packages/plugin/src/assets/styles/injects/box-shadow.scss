@@ -1,0 +1,10 @@
+@use '../namespace.scss' as namespace;
+
+// 盒子阴影
+@function use-box-shadow($variant: null) {
+	@if $variant == null {
+		@return var(--#{namespace.$box-shadow});
+	} @else {
+		@return var(--#{namespace.$box-shadow}-#{$variant});
+	}
+}

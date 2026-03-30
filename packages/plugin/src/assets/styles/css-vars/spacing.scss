@@ -1,0 +1,11 @@
+@use '../namespace.scss' as namespace;
+
+:root {
+	$spacing-large: 30px;
+	$spacing: 20px;
+	$spacing-small: 10px;
+
+	--#{namespace.$spacing}-large: #{$spacing-large};
+	--#{namespace.$spacing}: #{$spacing};
+	--#{namespace.$spacing}-small: #{$spacing-small};
+}

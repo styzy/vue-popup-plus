@@ -1,9 +1,9 @@
 <template>
-	<div class="popup-message-group">
+	<div :class="ns.block()">
 		<TransitionGroup
 			name="popup-message"
 			tag="div"
-			class="popup-message-group-inner">
+			:class="ns.element('inner')">
 			<PMessage
 				v-for="item in messages"
 				:key="item.id"
@@ -21,8 +21,16 @@
 
 <script setup lang="ts">
 import type { MessageRecord } from '../index'
-import PMessage from './PMessage.vue'
 import type { Skin } from '../../../skin'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import PMessage from './PMessage.vue'
+
+defineOptions({
+	name: P_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP,
+})
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP)
 
 type Props = {
 	skin: Skin
@@ -38,19 +46,19 @@ const emit = defineEmits<{
 const emitClose = (id: string) => emit('messageClose', id)
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
-.popup-message-group {
+@include ns-block('message-group') {
 	padding: 20px;
 	z-index: inherit;
 	pointer-events: none;
 
-	.popup-message-group-inner {
+	@include ns-element('inner') {
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		gap: use-var('spacing-small');
+		gap: use-spacing(small);
 		width: 30vw;
 	}
 

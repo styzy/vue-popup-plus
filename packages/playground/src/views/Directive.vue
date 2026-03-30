@@ -8,7 +8,7 @@ GContainer.directive
 		PButton(v-popup="Demo") 组件触发
 	GTitle(second) 触发方式
 	PButtonGroup(theme="primary" type="plain")
-		PButton(type="default" v-popup.click="Demo") 点击触发
+		PButton(type="fill" v-popup.click="Demo") 点击触发
 		div(@click="handleParentClick()")
 			PButton(v-popup.click.stop="Demo") 点击触发(阻止冒泡)
 		PButton(v-popup.hover="Demo") 悬浮触发
@@ -18,7 +18,7 @@ GContainer.directive
 	ElInput(placeholder="请输入参数" style="width: 200px" v-model="test")
 	PButtonGroup(theme="primary" type="plain")
 		PButton(
-			type="default"
+			type="fill"
 			v-popup="{ component: () => import('./demo/Demo.vue'), componentProps: { test } }") 携带参数
 </template>
 

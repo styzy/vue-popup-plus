@@ -1,0 +1,10 @@
+@use '../namespace.scss' as namespace;
+
+// 字体大小
+@function use-font-size($size: text, $variant: null) {
+	@if $variant == null {
+		@return var(--#{namespace.$font-size}-#{$size});
+	} @else {
+		@return var(--#{namespace.$font-size}-#{$size}-#{$variant});
+	}
+}

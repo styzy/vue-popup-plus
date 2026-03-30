@@ -4,17 +4,13 @@ import { Log, LogGroupItemType, LogType, printLog } from './log'
 import './assets/styles/main.scss'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export {
-	usePopup,
-	usePopupInstanceId,
-	usePopupComputedStyle,
-} from './composition-api'
 export { type ConfigOption } from './config'
 export {
 	type ExtractComponentPropTypes,
 	type IController,
 	type MaskDestroyHandler,
 	type Placement,
+	type AnchorPlacement,
 	type PopupCustomProperties,
 	type RenderOption,
 	type UpdateOption,
@@ -25,6 +21,7 @@ export {
 	type PopupDirective,
 	type ICreatePopupDirective,
 } from './directive'
+export { usePopup, usePopupInstanceId, usePopupComputedStyle } from './hooks'
 export { type InstanceId } from './instance'
 export {
 	printLog,

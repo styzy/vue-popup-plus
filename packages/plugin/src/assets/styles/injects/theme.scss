@@ -1,0 +1,13 @@
+// 使用暗黑主题
+@mixin use-dark() {
+	$parent: &;
+	@if $parent {
+		@at-root .dark & {
+			@content;
+		}
+	} @else {
+		@at-root .dark {
+			@content;
+		}
+	}
+}

@@ -1,0 +1,68 @@
+@use '../namespace.scss' as namespace;
+
+// 分隔符
+$common-separator: '-';
+// 元素分隔符
+$element-separator: '__';
+// 修饰符分隔符
+$modifier-separator: '--';
+// 状态分隔符
+$state-separator: 'is-';
+$BLOCK: null;
+$ELEMENT: null;
+
+@mixin ns-block($block) {
+	$BLOCK: namespace.$base + $common-separator + $block !global;
+
+	@at-root .#{$BLOCK} {
+		@content;
+	}
+}
+
+@mixin ns-element($element) {
+	$ELEMENT: $element !global;
+	$parent: &;
+
+	@if $parent {
+		@at-root {
+			#{$parent} {
+				.#{$BLOCK + $element-separator + $element} {
+					@content;
+				}
+			}
+		}
+	} @else {
+		@at-root {
+			.#{$BLOCK + $element-separator + $element} {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin ns-modifier($modify) {
+	$parent: &;
+	$selector: $modify;
+
+	@at-root {
+		#{$parent + $modifier-separator + $selector} {
+			@content;
+		}
+	}
+}
+
+@mixin ns-is($state) {
+	@at-root {
+		&.#{$state-separator + $state} {
+			@content;
+		}
+	}
+}
+
+@mixin ns-not($state) {
+	@at-root {
+		&:not(.#{$state-separator + $state}) {
+			@content;
+		}
+	}
+}

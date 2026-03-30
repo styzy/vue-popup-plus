@@ -4,8 +4,20 @@ $base: 'popup';
 // 颜色命名空间
 $color: '#{$base}-color';
 
+// 皮肤命名空间
+$skin: '#{$base}-skin';
+
 // 字体大小命名空间
 $font-size: '#{$base}-font-size';
 
-// 皮肤命名空间
-$skin: '#{$base}-skin';
+// 间距命名空间
+$spacing: '#{$base}-spacing';
+
+// 盒子阴影命名空间
+$box-shadow: '#{$base}-box-shadow';
+
+// 文本阴影命名空间
+$text-shadow: '#{$base}-text-shadow';
+
+// 圆角命名空间
+$radius: '#{$base}-radius';

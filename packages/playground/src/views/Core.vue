@@ -4,7 +4,7 @@ GContainer
 	GTitle 核心功能单元测试
 	GTitle(second) 基础功能
 	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handlePopup()" type="default") 默认
+		PButton(@click="handlePopup()" type="fill") 默认
 		PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
 		PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
 		PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果

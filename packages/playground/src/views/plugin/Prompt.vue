@@ -1,0 +1,157 @@
+<template lang="pug">
+GContainer
+	GTitle Prompt 提示输入
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handlePopupPrompt()" type="fill") 默认
+		PButton(@click="handlePopupPromptDefaultValue()") 默认值
+		PButton(@click="handlePopupPromptCustomType()") 自定义类型
+		PButton(@click="handlePopupPromptCustomTitle()") 自定义标题
+		PButton(@click="handlePopupPromptHeaderClose()") 禁用标题栏关闭
+		PButton(@click="handlePopupPromptCustomMaxLength()") 自定义最大长度
+		PButton(@click="handlePopupPromptCustomPlaceholder()") 自定义占位符
+		PButton(@click="handlePopupPromptCustomConfirmButtonText()") 自定义确认按钮文本
+		PButton(@click="handlePopupPromptCustomCancelButtonText()") 自定义取消按钮文本
+		PButton(@click="handlePopupPromptDraggable()") 可拖拽
+		PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
+		PButton(@click="handlePopupPromptWithMaskBlur()") 启用遮罩模糊
+</template>
+
+<script lang="ts" setup>
+import { usePopup } from 'vue-popup-plus'
+
+const popup = usePopup()
+
+async function handlePopupPrompt() {
+	const result = await popup.prompt('这是一条提示输入框消息')
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptDefaultValue() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		defaultValue: '123',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomType() {
+	const result = await popup.prompt('这是一条提示输入框消息，类型为文本域', {
+		type: 'textarea',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomTitle() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		title: '自定义标题',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptHeaderClose() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		headerClose: false,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomPlaceholder() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		placeholder: '自定义占位符',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomMaxLength() {
+	const result = await popup.prompt(
+		'这是一条提示输入框消息，最大长度为10个字符',
+		{
+			maxLength: 10,
+		}
+	)
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomConfirmButtonText() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		confirmText: '自定义确认按钮文本',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptCustomCancelButtonText() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		cancelText: '自定义取消按钮文本',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptDraggable() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		draggable: true,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptDraggableOverflow() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		draggable: true,
+		dragOverflow: true,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptWithMaskBlur() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		maskBlur: true,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+</script>

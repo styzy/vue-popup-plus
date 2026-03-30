@@ -173,7 +173,7 @@ export type RenderConfigOptions = {
 	 *
 	 * @since 1.7.0
 	 */
-	anchor?: Element | string
+	anchor?: HTMLElement | string
 	/**
 	 * 弹出层是否显示遮罩层
 	 *
@@ -201,30 +201,32 @@ export type RenderConfigOptions = {
 	disableScroll?: boolean
 }
 
-export type Placement =
-	| 'left-top'
-	| 'left'
-	| 'left-bottom'
-	| 'top'
-	| 'center'
-	| 'bottom'
-	| 'right-top'
-	| 'right'
-	| 'right-bottom'
+export type Placement = [
+	'left-top',
+	'left',
+	'left-bottom',
+	'top',
+	'center',
+	'bottom',
+	'right-top',
+	'right',
+	'right-bottom',
+][number]
 
-export type AnchorPlacement =
-	| 'left-top'
-	| 'left'
-	| 'left-bottom'
-	| 'top-left'
-	| 'top'
-	| 'top-right'
-	| 'bottom-left'
-	| 'bottom'
-	| 'bottom-right'
-	| 'right-top'
-	| 'right'
-	| 'right-bottom'
+export type AnchorPlacement = [
+	'left-top',
+	'left',
+	'left-bottom',
+	'top-left',
+	'top',
+	'top-right',
+	'bottom-left',
+	'bottom',
+	'bottom-right',
+	'right-top',
+	'right',
+	'right-bottom',
+][number]
 
 export type RenderStyleOptions = {
 	/**

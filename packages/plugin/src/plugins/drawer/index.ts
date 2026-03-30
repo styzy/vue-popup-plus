@@ -116,7 +116,7 @@ type DrawerOption<TComponent extends Component = Component> = {
 	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
 	 *   类型的函数作为参数，执行后将关闭抽屉，可传入关闭携带的负载参数，返回的
 	 *   `Promise` 对象会在抽屉关闭动画完成后 `resolve()` 。
-	 * - 仅在 `mask` 参数为 `true` 时有
+	 * - 仅在 `mask` 参数为 `true` 时有效
 	 *
 	 * - 使用示例：
 	 * ```ts
@@ -274,9 +274,9 @@ export const drawer = definePlugin({
 							size,
 							placement,
 							mask,
-							maskClose,
 							maskBlur,
 							maskTransparent,
+							maskClose,
 							zIndex,
 						}
 

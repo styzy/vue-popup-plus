@@ -1,5 +1,5 @@
 <template>
-	<div class="popup-skin" :class="`popup-skin-${skin}`">
+	<div :class="[ns.block(), ns.modifier(skin)]">
 		<slot></slot>
 	</div>
 </template>
@@ -7,11 +7,16 @@
 <script lang="ts"></script>
 
 <script setup lang="ts">
-import { provide } from 'vue'
+import { computed, provide } from 'vue'
+import { useNamespace } from '../hooks'
 import { injectSkin, type Skin } from '../skin'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+
 defineOptions({
-	name: 'PSkin',
+	name: P_INSIDE_COMPONENT_NAMES.SKIN,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.SKIN)
 
 type Props = {
 	skin: Skin
@@ -19,7 +24,8 @@ type Props = {
 
 const { skin } = defineProps<Props>()
 
-provide(injectSkin, skin)
+provide(
+	injectSkin,
+	computed(() => skin)
+)
 </script>
-
-<style lang="scss" scoped></style>

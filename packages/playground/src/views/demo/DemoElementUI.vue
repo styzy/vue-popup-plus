@@ -12,7 +12,7 @@
 	.footer
 		PButtonGroup(direction="vertical")
 			PButton(@click="handleUpdateSize" theme="success") 更新弹框尺寸
-			PButton(@click="handleClose" theme="primary" type="default") 关闭弹框 core
+			PButton(@click="handleClose" theme="primary" type="fill") 关闭弹框 core
 			PButton(@click="handleCloseDialog()" theme="primary" type="plain") 关闭弹框 dialog
 </template>
 

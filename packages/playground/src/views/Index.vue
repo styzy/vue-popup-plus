@@ -19,7 +19,7 @@ GContainer.index
 		cross-align="center"
 		direction="vertical"
 		size="large"
-		type="default")
+		type="fill")
 		PButton(@click="handleJumpCore()" theme="primary") 核心功能测试
 		PButton(@click="handleJumpDirective()" theme="primary" type="plain") 核心指令测试
 		PButton(@click="handleJumpPlugin()" theme="success") 预置插件测试

@@ -1,21 +1,26 @@
 <template lang="pug">
-.popup-layout
+div(:class="ns.block()")
 	slot(name="header")
-	.body
+	div(:class="ns.element('body')")
 		slot
 	slot(name="footer")
 </template>
 
 <script lang="ts" setup>
+import { useNamespace } from '../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+
 defineOptions({
-	name: 'PLayout',
+	name: P_INSIDE_COMPONENT_NAMES.LAYOUT,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.LAYOUT)
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../assets/styles/inject.scss' as *;
 
-.popup-layout {
+@include ns-block('layout') {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -23,7 +28,7 @@ defineOptions({
 	align-items: stretch;
 	box-sizing: border-box;
 	overflow: hidden;
-	.body {
+	@include ns-element('body') {
 		flex: 1;
 		display: flex;
 		flex-direction: column;

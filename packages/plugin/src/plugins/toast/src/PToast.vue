@@ -1,17 +1,20 @@
 <template lang="pug">
-PSkin.popup-toast(
-	:class="`is-theme-${theme}`"
+PSkin(
+	:class="[ns.block(), ns.is(`theme-${theme}`)]"
 	:skin="skin"
 	@mouseenter="handleMouseEnter"
 	@mouseleave="handleMouseLeave")
-	.background
-	.background-theme
-	.background-border
-	.wrapper
-		.icon
+	div(:class="ns.element('background')")
+	div(:class="ns.element('background-theme')")
+	div(:class="ns.element('background-border')")
+	div(:class="ns.element('wrapper')")
+		div(:class="ns.element('icon')")
 			i.iconfont-popup-plugin-preset(:class="`toast-${theme}`")
-		.content {{ content }}
-		.close-btn(@click="handleClose" v-if="showClose || !autoClose")
+		div(:class="ns.element('content')") {{ content }}
+		div(
+			:class="ns.element('close-btn')"
+			@click="handleClose"
+			v-if="showClose || !autoClose")
 			i.iconfont-popup-plugin-preset.close
 </template>
 
@@ -19,11 +22,15 @@ PSkin.popup-toast(
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 
 defineOptions({
-	name: 'PToast',
+	name: P_INSIDE_COMPONENT_NAMES.TOAST,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.TOAST)
 
 type Emits = {
 	close: []
@@ -84,30 +91,30 @@ function handleClose() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
-@mixin create-theme($theme, $color) {
-	&.is-theme-#{$theme} {
-		.background-theme {
-			background-color: $color;
-		}
-		.background-border {
-			border-color: $color;
-		}
-		.wrapper {
-			.icon,
-			.content {
-				color: $color;
-			}
-			.close-btn:hover {
-				color: $color;
-			}
+@mixin create-theme($color) {
+	@include ns-element('background-theme') {
+		background-color: $color;
+	}
+	@include ns-element('background-border') {
+		border-color: $color;
+	}
+	@include ns-element('icon') {
+		color: $color;
+	}
+	@include ns-element('content') {
+		color: $color;
+	}
+	@include ns-element('close-btn') {
+		&:hover {
+			color: $color;
 		}
 	}
 }
 
-.popup-toast {
+@include ns-block('toast') {
 	@include base-style();
 	position: relative;
 	display: flex;
@@ -115,111 +122,117 @@ function handleClose() {
 	align-items: center;
 	justify-content: center;
 	max-width: 30vw;
-	border-radius: use-var('border-radius');
-	.background,
-	.background-theme,
-	.background-border {
+	border-radius: use-radius();
+	@include ns-element('background') {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		border-radius: use-var('border-radius');
-	}
-	.background {
-		background-color: use-color('background-main');
+		border-radius: use-radius();
+		background-color: #ffffff;
 		z-index: -3;
+		@include use-dark() {
+			background-color: use-color(background);
+		}
 	}
-	.background-theme {
+	@include ns-element('background-theme') {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: use-radius();
 		opacity: 0.1;
 		z-index: -2;
 	}
-	.background-border {
+	@include ns-element('background-border') {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: use-radius();
 		border-width: 1px;
 		border-style: solid;
 		opacity: 0.3;
 		z-index: -1;
 	}
-	.wrapper {
+	@include ns-element('wrapper') {
 		flex: 1;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		gap: 11px;
+		gap: use-spacing(small);
 		padding: 0 15px;
 		box-sizing: border-box;
 		overflow: hidden;
-		.icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			min-height: 0;
-			i {
-				font-size: 16px;
-			}
-		}
-		.content {
-			@include base-scroll-bar();
-			flex: 1;
-			padding: 11px 0;
-			max-height: calc(100vh - 40px);
-			line-height: 1.6;
-			box-sizing: border-box;
-			font-size: use-font-size('text-main');
-			word-break: break-all;
-			overflow-x: hidden;
-			overflow-y: auto;
-		}
-		.close-btn {
-			@include base-transition();
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: use-color('info');
-			cursor: pointer;
-			i {
-				font-size: 10px;
-			}
+	}
+	@include ns-element('icon') {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 0;
+		i {
+			font-size: 16px;
 		}
 	}
-	& {
-		@include create-theme('primary', use-color('primary'));
-		@include create-theme('info', use-color('info'));
-		@include create-theme('success', use-color('success'));
-		@include create-theme('warning', use-color('warning'));
-		@include create-theme('danger', use-color('danger'));
+	@include ns-element('content') {
+		@include base-scroll-bar();
+		flex: 1;
+		padding: 11px 0;
+		max-height: calc(100vh - 40px);
+		line-height: 1.6;
+		box-sizing: border-box;
+		font-size: use-font-size(text);
+		word-break: break-all;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
-}
-
-@include use-skin('modern') {
-	&.popup-toast {
-		box-shadow: use-var('box-shadow');
-		.background-theme {
+	@include ns-element('close-btn') {
+		@include base-transition();
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: use-color(info);
+		cursor: pointer;
+		i {
+			font-size: 10px;
+		}
+	}
+	@include ns-is('theme-primary') {
+		@include create-theme(use-color(primary));
+	}
+	@include ns-is('theme-info') {
+		@include create-theme(use-color(info));
+	}
+	@include ns-is('theme-success') {
+		@include create-theme(use-color(success));
+	}
+	@include ns-is('theme-warning') {
+		@include create-theme(use-color(warning));
+	}
+	@include ns-is('theme-danger') {
+		@include create-theme(use-color(danger));
+	}
+	@include use-skin('modern') {
+		box-shadow: use-box-shadow();
+		@include ns-element('background-theme') {
 			display: none;
 		}
-		.background-border {
+		@include ns-element('background-border') {
 			display: none;
 		}
-		.wrapper {
-			.icon {
-				i {
-					font-size: 18px;
-				}
-			}
-			.close {
-				i {
-					font-size: 14px;
-				}
+		@include ns-element('icon') {
+			i {
+				font-size: 18px;
 			}
 		}
-	}
-}
-
-@include use-dark() {
-	.popup-toast {
-		.background {
-			background-color: #111111;
+		@include ns-element('close-btn') {
+			i {
+				font-size: 13px;
+			}
 		}
 	}
 }

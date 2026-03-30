@@ -1,0 +1,10 @@
+@use '../namespace.scss' as namespace;
+
+// 间距
+@function use-spacing($variant: null) {
+	@if $variant == null {
+		@return var(--#{namespace.$spacing});
+	} @else {
+		@return var(--#{namespace.$spacing}-#{$variant});
+	}
+}

@@ -1,24 +1,25 @@
 @use '../namespace.scss' as namespace;
 
-// 生成css字体大小变量
-@mixin css-font-size-variables($name, $size) {
-	--#{namespace.$font-size}-#{$name}: #{$size};
+@mixin css-font-size-variables($name, $font-size) {
+	--#{namespace.$font-size}-#{$name}: #{$font-size};
 }
 
-// 预置字体大小
-$preset-font-size-title-main: 20px;
-$preset-font-size-title-sub: 16px;
-$preset-font-size-text-main: 14px;
-$preset-font-size-text-sub: 13px;
-$preset-font-size-text-mini: 12px;
-
 :root {
-	@include css-font-size-variables(
-		'title-main',
-		$preset-font-size-title-main
-	);
-	@include css-font-size-variables('title-sub', $preset-font-size-title-sub);
-	@include css-font-size-variables('text-main', $preset-font-size-text-main);
-	@include css-font-size-variables('text-sub', $preset-font-size-text-sub);
-	@include css-font-size-variables('text-mini', $preset-font-size-text-mini);
+	$font-size-giant: 24px;
+	$font-size-title-large: 20px;
+	$font-size-title: 18px;
+	$font-size-title-small: 16px;
+	$font-size-text-large: 15px;
+	$font-size-text: 14px;
+	$font-size-text-small: 13px;
+	$font-size-mini: 12px;
+
+	@include css-font-size-variables('giant', $font-size-giant);
+	@include css-font-size-variables('title-large', $font-size-title-large);
+	@include css-font-size-variables('title', $font-size-title);
+	@include css-font-size-variables('title-small', $font-size-title-small);
+	@include css-font-size-variables('text-large', $font-size-text-large);
+	@include css-font-size-variables('text', $font-size-text);
+	@include css-font-size-variables('text-small', $font-size-text-small);
+	@include css-font-size-variables('mini', $font-size-mini);
 }

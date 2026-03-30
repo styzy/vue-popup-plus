@@ -1,0 +1,16 @@
+@use '../namespace.scss' as namespace;
+
+// 使用皮肤
+@mixin use-skin($skin) {
+	$parent: &;
+	@if $parent {
+		@at-root &.#{namespace.$skin}.#{namespace.$skin}--#{$skin},
+			.#{namespace.$skin}.#{namespace.$skin}--#{$skin} & {
+			@content;
+		}
+	} @else {
+		@at-root .#{namespace.$skin}.#{namespace.$skin}--#{$skin} {
+			@content;
+		}
+	}
+}

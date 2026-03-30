@@ -1,6 +1,6 @@
 import { type Skin } from '../skin'
 
-export type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+export type Theme = ['primary', 'info', 'success', 'warning', 'danger'][number]
 
 export type GlobalPluginConfig = {
 	/**
@@ -21,8 +21,6 @@ export type SharedOption = {
 	 * 弹出层 z-index 层级
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
-	 *
-	 * @since 1.6.0
 	 */
 	zIndex?: number
 }

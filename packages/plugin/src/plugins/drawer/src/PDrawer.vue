@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.popup-drawer(:class="{ 'no-header': !header }" :skin="skin")
+PSkin(:class="ns.block()" :skin="skin")
 	PLayout
 		template(#header v-if="header")
 			PHeader(
@@ -23,6 +23,8 @@ PSkin.popup-drawer(:class="{ 'no-header': !header }" :skin="skin")
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, type Component } from 'vue'
 import { type Skin } from '../../../skin'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -30,8 +32,10 @@ import PHeaderButton from '../../../components/PHeaderButton.vue'
 import PBody from '../../../components/PBody.vue'
 
 defineOptions({
-	name: 'PDialog',
+	name: P_INSIDE_COMPONENT_NAMES.DRAWER,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.DRAWER)
 
 type Emits = {
 	close: []
@@ -82,16 +86,16 @@ function handleClose() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
-.popup-drawer {
+@include ns-block('drawer') {
 	display: flex;
 	flex-direction: column;
 	justify-content: stretch;
 	align-items: stretch;
 	height: 100%;
-	box-shadow: use-var('box-shadow-large');
+	box-shadow: use-box-shadow(large);
 	overflow: hidden;
 }
 </style>

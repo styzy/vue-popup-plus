@@ -1,5 +1,5 @@
 <template lang="pug">
-.popup-button-group(:class="classObject" ref="group")
+div(:class="classObject" ref="group")
 	template(v-if="hasCutline")
 		template(:key="index" v-for="(slot, index) in slots.default?.()")
 			component(:is="slot")
@@ -8,209 +8,125 @@
 		slot
 </template>
 
-<script lang="ts">
-import { type InjectionKey } from 'vue'
-import {
-	type ButtonType,
-	type ButtonTheme,
-	type ButtonSize,
-} from './PButton.vue'
-
-type ButtonGroupInjects = {
-	groupType: InjectionKey<Ref<ButtonType>>
-	groupTheme: InjectionKey<Ref<ButtonTheme>>
-	groupSize: InjectionKey<Ref<ButtonSize>>
-}
-
-export const buttonGroupInjects: ButtonGroupInjects = {
-	groupType: Symbol('groupType'),
-	groupTheme: Symbol('groupTheme'),
-	groupSize: Symbol('groupSize'),
-}
-</script>
-
 <script lang="ts" setup>
-import { computed, provide, type Ref, type VNode } from 'vue'
+import { computed, provide, unref, type Ref, type VNode } from 'vue'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { useNamespace } from '../hooks'
+import { type PButtonProps } from './PButton'
+import {
+	buttonGroupInjects,
+	type PButtonGroupProps,
+	type PButtonGroupSlots,
+} from './PButtonGroup'
 
 defineOptions({
-	name: 'PButtonGroup',
+	name: P_INSIDE_COMPONENT_NAMES.BUTTON_GROUP,
 })
 
-type Slots = {
-	default: () => VNode[]
-}
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.BUTTON_GROUP)
 
-const slots = defineSlots<Slots>()
+const slots = defineSlots<PButtonGroupSlots>()
 
-type GroupDirection = 'horizontal' | 'vertical'
+const props = withDefaults(defineProps<PButtonGroupProps>(), {
+	tight: undefined,
+	cutline: undefined,
+	disabled: undefined,
+})
 
-type GroupAlign = 'start' | 'center' | 'end'
+const direction = computed(() => props.direction ?? 'horizontal')
+const align = computed(() => props.align ?? 'start')
+const crossAlign = computed(() => props.crossAlign ?? 'start')
+const tight = computed(() => props.tight ?? false)
+const cutline = computed(() => props.cutline ?? false)
+const theme = computed(() => props.theme ?? undefined)
+const type = computed(() => props.type ?? undefined)
+const size = computed(() => props.size ?? undefined)
+const disabled = computed(() => props.disabled ?? undefined)
 
-type Props = {
-	/**
-	 * 按钮组类型
-	 *
-	 * - 可统一设置按钮组内按钮的类型
-	 * - 优先级低于按钮的类型属性
-	 * - 默认值为 `default`
-	 */
-	type?: ButtonType
-	/**
-	 * 按钮组主题
-	 *
-	 * - 可统一设置按钮组内按钮的主题
-	 * - 优先级低于按钮的主题属性
-	 * - 默认值为 `default`
-	 */
-	theme?: ButtonTheme
-	/**
-	 * 按钮组大小
-	 *
-	 * - 可统一设置按钮组内按钮的大小
-	 * - 优先级低于按钮的大小属性
-	 * - 默认值为 `default`
-	 */
-	size?: ButtonSize
-	/**
-	 * 按钮组方向
-	 *
-	 * - 默认值为 `horizontal`
-	 */
-	direction?: GroupDirection
-	/**
-	 * 按钮组对齐方式
-	 *
-	 * - 默认值为 `start`
-	 */
-	align?: GroupAlign
-	/**
-	 * 按钮组交叉轴对齐方式
-	 *
-	 * - 默认值为 `start`
-	 */
-	crossAlign?: GroupAlign
-	/**
-	 * 是否紧凑模式
-	 *
-	 * - 默认值为 `false`
-	 */
-	tight?: boolean
-	/**
-	 * 是否显示分割线
-	 *
-	 * - 默认值为 `false`
-	 */
-	cutline?: boolean
-}
-
-const {
-	theme = 'default',
-	type = 'default',
-	size = 'default',
-	direction = 'horizontal',
-	align = 'start',
-	crossAlign = 'start',
-	tight = false,
-	cutline = false,
-} = defineProps<Props>()
+const classObject = computed(() => [
+	ns.block(),
+	ns.is(`align-${unref(align)}`),
+	ns.is(`cross-align-${unref(crossAlign)}`),
+	ns.is(`direction-${unref(direction)}`),
+	ns.is('tight', unref(tight)),
+	ns.is('has-cutline', unref(hasCutline)),
+])
 
 const hasCutline = computed(() => cutline && !tight)
-const classObject = computed(() => ({
-	[`is-align-${align}`]: true,
-	[`is-cross-align-${crossAlign}`]: true,
-	[`is-direction-${direction}`]: true,
-	'is-tight': tight,
-	'has-cutline': hasCutline.value,
-}))
 
-const groupType = computed(() => type)
-const groupTheme = computed(() => theme)
-const groupSize = computed(() => size)
-
-provide(buttonGroupInjects.groupType, groupType)
-provide(buttonGroupInjects.groupTheme, groupTheme)
-provide(buttonGroupInjects.groupSize, groupSize)
+provide(buttonGroupInjects.groupType, type)
+provide(buttonGroupInjects.groupTheme, theme)
+provide(buttonGroupInjects.groupSize, size)
+provide(buttonGroupInjects.groupDisabled, disabled)
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../assets/styles/inject.scss' as *;
 
-.popup-button-group {
+@include ns-block('button-group') {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 20px 20px;
-	&.has-cutline {
-		gap: 10px 0;
+	gap: use-spacing() use-spacing();
+	@include ns-is('has-cutline') {
+		gap: use-spacing(small) 0;
 	}
-	&.is-direction {
-		&-horizontal {
-			flex-direction: row;
-		}
-		&-vertical {
-			flex-direction: column;
-		}
-	}
-	&.is-align {
-		&-start {
-			justify-content: flex-start;
-		}
-		&-center {
-			justify-content: center;
-		}
-		&-end {
-			justify-content: flex-end;
+	@include ns-is('direction-horizontal') {
+		flex-direction: row;
+		@include ns-element('cutline') {
+			width: 20px;
+			&:after {
+				top: 15%;
+				left: 50%;
+				height: 70%;
+				width: 1px;
+			}
 		}
 	}
-	&.is-cross-align {
-		&-start {
-			align-items: flex-start;
-		}
-		&-center {
-			align-items: center;
-		}
-		&-end {
-			align-items: flex-end;
+	@include ns-is('direction-vertical') {
+		flex-direction: column;
+		@include ns-element('cutline') {
+			height: 20px;
+			&:after {
+				top: 50%;
+				left: 15%;
+				height: 1px;
+				width: 70%;
+			}
 		}
 	}
-	&.is-tight {
-		gap: 5px 10px;
-		&.has-cutline {
+	@include ns-is('align-start') {
+		justify-content: flex-start;
+	}
+	@include ns-is('align-center') {
+		justify-content: center;
+	}
+	@include ns-is('align-end') {
+		justify-content: flex-end;
+	}
+	@include ns-is('cross-align-start') {
+		align-items: flex-start;
+	}
+	@include ns-is('cross-align-center') {
+		align-items: center;
+	}
+	@include ns-is('cross-align-end') {
+		align-items: flex-end;
+	}
+	@include ns-is('tight') {
+		gap: use-spacing(small) use-spacing(small);
+		@include ns-is('has-cutline') {
 			gap: 5px 0;
 		}
 	}
-	.cutline {
+	@include ns-element('cutline') {
 		align-self: stretch;
 		position: relative;
 		&:after {
 			content: '';
 			position: absolute;
-			background-color: use-color('border');
+			background-color: use-color(border);
 			z-index: 1;
-		}
-	}
-	&.is-direction {
-		&-horizontal {
-			.cutline {
-				width: 20px;
-				&:after {
-					top: 15%;
-					left: 50%;
-					height: 70%;
-					width: 1px;
-				}
-			}
-		}
-		&-vertical {
-			.cutline {
-				height: 20px;
-				&:after {
-					top: 50%;
-					left: 15%;
-					height: 1px;
-					width: 70%;
-				}
-			}
 		}
 	}
 }

@@ -1,10 +1,10 @@
 <template lang="pug">
-.popup-media-album(:class="`is-skin-${skin}`" @dblclick="handlePureExit()")
-	.media(@wheel="handleImageMouseScale($event)")
+PSkin(:class="ns.block()" :skin="skin" @dblclick="handlePureExit()")
+	div(:class="ns.element('media')" @wheel="handleImageMouseScale($event)")
 		template(v-for="(media, mediaIndex) in mediaList")
 			template(v-if="mediaIndex === currentIndex")
 				img(
-					:class="{ 'is-draggable': !disableDrag }"
+					:class="{ [ns.is('draggable')]: !disableDrag }"
 					:key="`media-${mediaIndex}-${media.url}`"
 					:src="media.url"
 					:style="imageStyleObject"
@@ -19,42 +19,77 @@
 					disablePictureInPicture
 					disableRemotePlayback
 					v-if="getMediaType(media) === FileTypes.VIDEO")
-	.tools.top(v-if="!pureMode")
-		.info.count(v-if="!disableCounter")
-			span.number.current {{ `${currentIndex + 1} ` }}
-			span.connect /
-			span.number {{ mediaList.length }}
-		.emyty(v-else)
-		.control.name(@click="handleNameCopy()" v-if="!disableName")
-			span.name-text {{ currentMedia.name }}
-		.control.close(@click="handleClose()")
+	div(
+		:class="[ns.element('tools'), ns.elementModifier('tools', 'top')]"
+		v-if="!pureMode")
+		div(
+			:class="[ns.element('info'), ns.elementModifier('info', 'count')]"
+			v-if="!disableCounter")
+			span(:class="ns.element('info-number-current')") {{ `${currentIndex + 1} ` }}
+			span /
+			span {{ mediaList.length }}
+		div(:class="ns.element('empty')" v-else)
+		div(
+			:class="[ns.element('control'), ns.elementModifier('control', 'name')]"
+			@click="handleNameCopy()"
+			v-if="!disableName")
+			span(:class="ns.element('name-text')") {{ currentMedia.name }}
+		div(
+			:class="[ns.element('control'), ns.elementModifier('control', 'close')]"
+			@click="handleClose()")
 			i.iconfont-popup-plugin-preset.album-close
-	.tools.left(v-if="!pureMode")
-		.control.back(@click="handleBack()" v-if="backEnable")
+	div(
+		:class="[ns.element('tools'), ns.elementModifier('tools', 'left')]"
+		v-if="!pureMode")
+		div(
+			:class="[ns.element('control'), ns.elementModifier('control', 'back')]"
+			@click="handleBack()"
+			v-if="backEnable")
 			i.iconfont-popup-plugin-preset.album-prev
-	.tools.right(v-if="!pureMode")
-		.control.next(@click="handleNext()" v-if="nextEnable")
+	div(
+		:class="[ns.element('tools'), ns.elementModifier('tools', 'right')]"
+		v-if="!pureMode")
+		div(
+			:class="[ns.element('control'), ns.elementModifier('control', 'next')]"
+			@click="handleNext()"
+			v-if="nextEnable")
 			i.iconfont-popup-plugin-preset.album-next
-	.tools.bottom(v-if="!pureMode")
-		.control(@click="handlePureEnter()" v-if="!disablePure")
+	div(
+		:class="[ns.element('tools'), ns.elementModifier('tools', 'bottom')]"
+		v-if="!pureMode")
+		div(
+			:class="[ns.element('control')]"
+			@click="handlePureEnter()"
+			v-if="!disablePure")
 			i.iconfont-popup-plugin-preset.album-pure
-		.emyty(v-else)
-		.center
-			.control(
+		div(:class="ns.element('empty')" v-else)
+		div(:class="ns.element('tools-center-wrapper')")
+			div(
+				:class="[ns.element('control')]"
 				@click="handleScale(true, buttonScaleLevel)"
 				v-if="!disableScale && scaleEnable")
 				i.iconfont-popup-plugin-preset.album-enlarge
-			.control(
+			div(
+				:class="[ns.element('control')]"
 				@click="handleScale(false, buttonScaleLevel)"
 				v-if="!disableScale && scaleEnable")
 				i.iconfont-popup-plugin-preset.album-narrow
-			.control(@click="handleRotate(false)" v-if="rotateEnable")
+			div(
+				:class="[ns.element('control')]"
+				@click="handleRotate(false)"
+				v-if="rotateEnable")
 				i.iconfont-popup-plugin-preset.album-rotate-left
-			.control(@click="handleRotate(true)" v-if="rotateEnable")
+			div(
+				:class="[ns.element('control')]"
+				@click="handleRotate(true)"
+				v-if="rotateEnable")
 				i.iconfont-popup-plugin-preset.album-rotate-right
-		.control.download(@click="handleDownload()" v-if="!disableDownload")
+		div(
+			:class="[ns.element('control'), ns.elementModifier('control', 'download')]"
+			@click="handleDownload()"
+			v-if="!disableDownload")
 			i.iconfont-popup-plugin-preset.download
-		.emyty(v-else)
+		div(:class="ns.element('empty')" v-else)
 </template>
 
 <script lang="ts" setup>
@@ -69,20 +104,24 @@ import {
 } from 'vue'
 import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { download, setClipboard } from 'utils'
+import { type AlbumMediaSource } from '../index'
 import { File, type FileType } from '../../../class'
 import { type Skin } from '../../../skin'
-import { type AlbumMediaSource } from '../index'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 
 type Media = File & {
 	manualType?: 'image' | 'video'
 }
 
-const popup = usePopup()
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-
 defineOptions({
-	name: 'PAlbum',
+	name: P_INSIDE_COMPONENT_NAMES.ALBUM,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ALBUM)
+const popup = usePopup()
+
+const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	skin: Skin
@@ -326,18 +365,18 @@ function handleClose() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
 $tools-safe-padding: 40px;
 
-.popup-media-album {
+@include ns-block('album') {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	user-select: none;
 	overflow: hidden;
-	.media {
+	@include ns-element('media') {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -356,98 +395,86 @@ $tools-safe-padding: 40px;
 			}
 		}
 	}
-	.tools {
+	@include ns-element('tools') {
 		display: flex;
 		align-items: center;
 		position: absolute;
 		z-index: 2;
-		&.top {
+		@include ns-modifier('top') {
 			top: $tools-safe-padding;
 			left: $tools-safe-padding;
 			right: $tools-safe-padding;
 			flex-direction: row;
 			justify-content: space-between;
 		}
-		&.left {
+		@include ns-modifier('left') {
 			top: $tools-safe-padding + 40px;
 			left: $tools-safe-padding;
 			bottom: $tools-safe-padding + 40px;
 			flex-direction: column;
 			justify-content: center;
 		}
-		&.right {
+		@include ns-modifier('right') {
 			top: $tools-safe-padding + 40px;
 			right: $tools-safe-padding;
 			bottom: $tools-safe-padding + 40px;
 			flex-direction: column;
 			justify-content: center;
 		}
-		&.bottom {
+		@include ns-modifier('bottom') {
 			bottom: $tools-safe-padding;
 			left: $tools-safe-padding;
 			right: $tools-safe-padding;
 			flex-direction: row;
 			justify-content: space-between;
 		}
-		.center {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 20px;
+	}
+	@include ns-element('tools-center-wrapper') {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+	}
+	@include ns-element('control') {
+		@include base-transition();
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: use-radius();
+		box-sizing: content-box;
+		color: #ffffff;
+		background-color: rgba(0, 0, 0, 0.2);
+		font-size: use-font-size(text);
+		cursor: pointer;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.7);
 		}
-		.info,
-		.control {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 40px;
-			height: 40px;
-			border-radius: use-var('border-radius');
-			box-sizing: content-box;
-			color: #ffffff;
-			background-color: rgba(0, 0, 0, 0.2);
-			font-size: use-font-size('text-main');
+		i {
+			font-size: 24px;
 		}
-		.control {
-			@include base-transition();
-			cursor: pointer;
+		@include use-dark() {
+			background-color: rgba(255, 255, 255, 0.2);
 			&:hover {
-				color: use-color('primary');
-				background-color: rgba(0, 0, 0, 0.3);
-			}
-			i {
-				font-size: 24px;
+				color: use-color(primary);
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 		}
-		.empty {
-			width: 40px;
-			height: 40px;
+		@include ns-element('name-text') {
+			@include base-ellipsis();
+			width: 100%;
 		}
-		.count {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 10px;
-			padding: 0 use-var('spacing');
-			.current {
-				font-weight: 700;
-			}
-		}
-		.name {
+
+		@include ns-modifier('name') {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			width: auto;
 			max-width: 50%;
-			padding: 0 use-var('spacing');
-
-			.name-text {
-				@include base-ellipsis();
-				width: 100%;
-			}
+			padding: 0 use-spacing();
 		}
-		.back,
-		.next {
+		@include ns-modifier('back') {
 			width: 60px;
 			height: 100px;
 			transform: translateY(-50%);
@@ -455,14 +482,57 @@ $tools-safe-padding: 40px;
 				font-size: 40px;
 			}
 		}
-		.download {
-			justify-self: flex-end;
-		}
-		.close {
-			&:hover {
-				color: use-color('danger');
+		@include ns-modifier('next') {
+			width: 60px;
+			height: 100px;
+			transform: translateY(-50%);
+			i {
+				font-size: 40px;
 			}
 		}
+		@include ns-modifier('download') {
+			justify-self: flex-end;
+		}
+		@include ns-modifier('close') {
+			&:hover {
+				background-color: use-color(danger);
+			}
+			@include use-dark() {
+				&:hover {
+					color: #ffffff;
+					background-color: use-color(danger);
+				}
+			}
+		}
+	}
+	@include ns-element('info') {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: use-radius();
+		box-sizing: content-box;
+		color: #ffffff;
+		background-color: rgba(0, 0, 0, 0.2);
+		font-size: use-font-size(text);
+		@include ns-modifier('count') {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 0 use-spacing();
+		}
+		@include use-dark() {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+	}
+	@include ns-element('info-number-current') {
+		font-weight: 700;
+	}
+	@include ns-element('empty') {
+		width: 40px;
+		height: 40px;
 	}
 }
 </style>

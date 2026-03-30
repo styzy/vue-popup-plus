@@ -1,22 +1,20 @@
 @use './color.scss' as *;
 @use './font-size.scss' as *;
-@use './common.scss' as *;
+@use './spacing.scss' as *;
 
 // 基础样式
 @mixin base-style() {
-	color: use-color('text-main');
-	font-size: use-font-size('text-main');
+	color: use-color(text);
+	font-size: use-font-size(text);
 }
 
 // 基础容器
 @mixin base-container($type: margin) {
-	$size: use-var('spacing');
-
 	@if $type == padding {
 		box-sizing: border-box;
-		padding: $size;
+		padding: use-spacing();
 	} @else {
-		margin: $size;
+		margin: use-spacing();
 	}
 }
 

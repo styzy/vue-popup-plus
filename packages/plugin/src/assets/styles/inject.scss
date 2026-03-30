@@ -1,5 +1,9 @@
-@forward './inject/common.scss';
-@forward './inject/color.scss';
-@forward './inject/font-size.scss';
-@forward './inject/mixin.scss';
-@forward './inject/skin.scss';
+@forward './injects/bem.scss';
+@forward './injects/box-shadow.scss';
+@forward './injects/color.scss';
+@forward './injects/common.scss';
+@forward './injects/font-size.scss';
+@forward './injects/radius.scss';
+@forward './injects/spacing.scss';
+@forward './injects/skin.scss';
+@forward './injects/theme.scss';

@@ -1,11 +1,13 @@
 <template lang="pug">
-.popup-header(
-	:class="{ 'is-draggable': draggable }"
+div(
+	:class="[ns.block(), { [ns.is('draggable')]: draggable }]"
 	@mousedown="handleDragStart($event)")
-	.icon(:class="`is-theme-${iconTheme}`" v-if="hasIcon")
+	div(
+		:class="[ns.element('icon'), ns.is(`theme-${iconTheme}`)]"
+		v-if="hasIcon")
 		i.iconfont-popup-plugin-preset(:class="iconClass")
-	.title {{ title }}
-	.btn-ctn
+	div(:class="ns.element('title')") {{ title }}
+	div(:class="ns.element('btn-ctn')")
 		slot(name="buttons")
 		PHeaderButton(
 			@click="handleClose()"
@@ -22,7 +24,9 @@ import {
 	usePopupInstanceId,
 	type IController,
 } from 'vue-popup-plus'
+import { useNamespace } from '../hooks'
 import { type Theme } from '../typings'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import PHeaderButton from './PHeaderButton.vue'
 
 let popup: IController | undefined
@@ -31,8 +35,10 @@ const instanceId = usePopupInstanceId()!
 const viewComputedStyle = usePopupComputedStyle()!
 
 defineOptions({
-	name: 'PHeader',
+	name: P_INSIDE_COMPONENT_NAMES.HEADER,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.HEADER)
 
 type Emits = {
 	close: []
@@ -113,35 +119,32 @@ function handleOffsetChange() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../assets/styles/inject.scss' as *;
 
-.popup-header {
-	.icon {
-		&.is-theme-primary {
-			color: use-color('primary');
-		}
-		&.is-theme-info {
-			color: use-color('info');
-		}
-		&.is-theme-success {
-			color: use-color('success');
-		}
-		&.is-theme-warning {
-			color: use-color('warning');
-		}
-		&.is-theme-danger {
-			color: use-color('danger');
-		}
-	}
-	&.is-draggable {
+@include ns-block('header') {
+	@include ns-is('draggable') {
 		cursor: move;
 		user-select: none;
 	}
-}
-
-@include use-skin('classic') {
-	.popup-header {
+	@include ns-element('icon') {
+		@include ns-is('theme-primary') {
+			color: use-color(primary);
+		}
+		@include ns-is('theme-info') {
+			color: use-color(info);
+		}
+		@include ns-is('theme-success') {
+			color: use-color(success);
+		}
+		@include ns-is('theme-warning') {
+			color: use-color(warning);
+		}
+		@include ns-is('theme-danger') {
+			color: use-color(danger);
+		}
+	}
+	@include use-skin('classic') {
 		@include base-style();
 
 		display: flex;
@@ -151,9 +154,10 @@ function handleOffsetChange() {
 		gap: 15px;
 		padding-left: 20px;
 		height: 40px;
-		border-bottom: 1px solid use-color('border');
-		background-color: use-color('background-sub');
-		.icon {
+		border-bottom: 1px solid use-color(border);
+		background-color: use-color(background);
+
+		@include ns-element('icon') {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -161,23 +165,23 @@ function handleOffsetChange() {
 				font-size: 20px;
 			}
 		}
-		.title {
+		@include ns-element('title') {
 			@include base-ellipsis();
 
 			flex: 1;
-			font-size: use-font-size('title-sub');
+			font-size: use-font-size(title, small);
 		}
-		.btn-ctn {
+		@include ns-element('btn-ctn') {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
 		}
+		@include use-dark() {
+			background-color: use-color(background);
+		}
 	}
-}
-
-@include use-skin('modern') {
-	.popup-header {
+	@include use-skin('modern') {
 		@include base-style();
 
 		display: flex;
@@ -185,27 +189,30 @@ function handleOffsetChange() {
 		justify-content: space-between;
 		align-items: center;
 		padding: 20px;
-		background-color: use-color('background-main');
-		.icon {
+		background-color: #ffffff;
+		@include ns-element('icon') {
 			width: 40px;
 			height: 24px;
 			i {
 				font-size: 24px;
 			}
 		}
-		.title {
+		@include ns-element('title') {
 			@include base-ellipsis();
 
 			flex: 1;
-			font-size: use-font-size('title-sub');
+			font-size: use-font-size(title, small);
 			font-weight: 600;
 		}
-		.btn-ctn {
+		@include ns-element('btn-ctn') {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
 			gap: 5px;
+		}
+		@include use-dark() {
+			background-color: use-color(background);
 		}
 	}
 }

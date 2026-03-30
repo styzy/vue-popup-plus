@@ -1,0 +1,10 @@
+@use '../namespace.scss' as namespace;
+
+// 圆角
+@function use-radius($variant: null) {
+	@if $variant == null {
+		@return var(--#{namespace.$radius});
+	} @else {
+		@return var(--#{namespace.$radius}-#{$variant});
+	}
+}

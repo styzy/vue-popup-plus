@@ -1,19 +1,25 @@
 <template lang="pug">
-.popup-loading(
-	:class="[`is-skin-${skin}`, { 'has-mask': mask && !maskTransparent }]")
-	.wrapper(@click="handleCloseOnDebugMode()")
+PSkin(:class="classObject" :skin="skin")
+	div(:class="ns.element('wrapper')" @click="handleCloseOnDebugMode()")
 		PLoadingIcon(:size="iconSize" :theme)
-		.title(v-if="title") {{ title }}
+		div(:class="ns.element('title')" v-if="title") {{ title }}
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import PSkin from '../../../components/PSkin.vue'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 
 defineOptions({
-	name: 'PLoading',
+	name: P_INSIDE_COMPONENT_NAMES.LOADING,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.LOADING)
+
 type Emits = {
 	close: []
 }
@@ -33,6 +39,11 @@ type Props = {
 const { theme, title, iconSize, mask, maskTransparent, debugMode } =
 	defineProps<Props>()
 
+const classObject = computed(() => [
+	ns.block(),
+	ns.is('has-mask', mask && !maskTransparent),
+])
+
 function handleCloseOnDebugMode() {
 	if (debugMode) {
 		emit('close')
@@ -40,54 +51,45 @@ function handleCloseOnDebugMode() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
-.popup-loading {
+@include ns-block('loading') {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: use-var('spacing');
-	.wrapper {
+	gap: use-spacing();
+	@include ns-element('wrapper') {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: use-var('spacing');
-		padding: use-var('spacing');
+		gap: use-spacing();
+		padding: use-spacing();
 		max-width: v-bind('`${iconSize * 4}px`');
 		min-width: 120px;
 		min-height: 120px;
-		border-radius: use-var('border-radius-large');
-		box-shadow: use-var('box-shadow-large');
+		border-radius: use-radius(large);
+		box-shadow: use-box-shadow(large);
 		box-sizing: border-box;
-		.title {
-			font-size: use-font-size('title-sub');
-			color: #ffffff;
-		}
 	}
-	&.has-mask {
-		.wrapper {
+	@include ns-element('title') {
+		font-size: use-font-size(title, small);
+		color: #ffffff;
+	}
+	@include ns-is('has-mask') {
+		@include ns-element('wrapper') {
 			background-color: rgba(0, 0, 0, 0.75);
-		}
-	}
-	&:not(.has-mask) {
-		.wrapper {
-			background-color: rgba(0, 0, 0, 0.8);
-		}
-	}
-}
-
-@include use-dark() {
-	.popup-loading {
-		&.has-mask {
-			.wrapper {
+			@include use-dark() {
 				background-color: rgba(40, 40, 40, 0.85);
 			}
 		}
-		&:not(.has-mask) {
-			.wrapper {
+	}
+	@include ns-not('has-mask') {
+		@include ns-element('wrapper') {
+			background-color: rgba(0, 0, 0, 0.8);
+			@include use-dark() {
 				background-color: rgba(40, 40, 40, 0.9);
 			}
 		}

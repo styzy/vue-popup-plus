@@ -1,0 +1,32 @@
+@use '../namespace.scss' as namespace;
+@use '../inject.scss' as *;
+
+:root {
+	$radius-large: 10px;
+	$radius: 5px;
+	$radius-small: 3px;
+
+	--#{namespace.$radius}-large: #{$radius-large};
+	--#{namespace.$radius}: #{$radius};
+	--#{namespace.$radius}-small: #{$radius-small};
+}
+
+@include use-skin('modern') {
+	$radius-large: 10px;
+	$radius: 5px;
+	$radius-small: 3px;
+
+	--#{namespace.$radius}-large: #{$radius-large};
+	--#{namespace.$radius}: #{$radius};
+	--#{namespace.$radius}-small: #{$radius-small};
+}
+
+@include use-skin('classic') {
+	$radius-large: 6px;
+	$radius: 4px;
+	$radius-small: 2px;
+
+	--#{namespace.$radius}-large: #{$radius-large};
+	--#{namespace.$radius}: #{$radius};
+	--#{namespace.$radius}-small: #{$radius-small};
+}

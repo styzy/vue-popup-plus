@@ -8,7 +8,7 @@
 	.footer
 		input(placeholder="请输入返回值" type="text" v-model="result")
 		PButtonGroup(direction="vertical")
-			PButton(@click="handleCloseDrawer()" theme="primary" type="plain") 关闭抽屉 Drawer
+			PButton(@click="handleClose()" theme="primary" type="plain") 关闭抽屉 Drawer
 </template>
 
 <script lang="ts" setup>
@@ -45,7 +45,7 @@ watch(result, (newValue) => {
 	emit('inputChange', newValue)
 })
 
-function handleCloseDrawer() {
+function handleClose() {
 	popup.drawerClose(result.value)
 }
 </script>

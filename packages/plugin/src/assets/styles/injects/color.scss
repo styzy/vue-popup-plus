@@ -1,0 +1,12 @@
+@use '../namespace.scss' as namespace;
+
+// 颜色
+@function use-color($color: text, $variant: null, $level: null) {
+	@if $level != null {
+		@return var(--#{namespace.$color}-#{$color}-#{$variant}-#{$level});
+	} @else if $variant != null {
+		@return var(--#{namespace.$color}-#{$color}-#{$variant});
+	} @else {
+		@return var(--#{namespace.$color}-#{$color});
+	}
+}

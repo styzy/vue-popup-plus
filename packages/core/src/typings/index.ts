@@ -1,5 +1,7 @@
 import type { ComputedRef } from 'vue'
 
+export type AnchorElement = HTMLElement | null
+
 export type ComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度

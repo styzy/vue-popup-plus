@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin.popup-alert(:skin="skin")
+PSkin(:class="ns.block()" :skin="skin")
 	PLayout
 		template(#header)
 			PHeader(
@@ -8,8 +8,8 @@ PSkin.popup-alert(:skin="skin")
 				:title="title"
 				@close="handleConfirm()"
 				iconClass="alert")
-		PBody(fitIcon)
-			.content {{ content }}
+		PBody(:fitIcon="skin === 'modern'")
+			div(:class="ns.element('content')") {{ content }}
 		template(#footer)
 			PFooter
 				PButtonGroup(align="end")
@@ -18,6 +18,8 @@ PSkin.popup-alert(:skin="skin")
 
 <script lang="ts" setup>
 import { type Skin } from '../../../skin'
+import { useNamespace } from '../../../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -27,8 +29,10 @@ import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
 defineOptions({
-	name: 'PAlert',
+	name: P_INSIDE_COMPONENT_NAMES.ALERT,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ALERT)
 
 type Emits = {
 	close: []
@@ -53,18 +57,18 @@ function handleConfirm() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../../../assets/styles/inject.scss' as *;
 
-.popup-alert {
+@include ns-block('alert') {
 	@include base-style();
 	max-width: 80vw;
 	max-height: 80vh;
 	width: 400px;
-	box-shadow: use-var('box-shadow-large');
-	border-radius: use-var('border-radius-large');
+	box-shadow: use-box-shadow(large);
+	border-radius: use-radius(large);
 	overflow: hidden;
-	.content {
+	@include ns-element('content') {
 		word-break: break-all;
 		line-height: 24px;
 	}
