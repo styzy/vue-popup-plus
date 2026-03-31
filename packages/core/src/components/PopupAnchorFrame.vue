@@ -4,15 +4,26 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import {
+	inject,
+	nextTick,
+	onBeforeUnmount,
+	onMounted,
+	ref,
+	shallowRef,
+	watch,
+} from 'vue'
 import { POPUP_COMPONENT_INJECTS, usePopup } from '../'
 import { type AnchorPlacement, type RenderConfigOptions } from '../controller'
+import { type ComputedStyle } from '../typings'
 
 defineOptions({
 	name: 'PopupAnchorFrame',
 })
 
+const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const viewComputedStyleRef = shallowRef<ComputedStyle | null>(null)
 
 type Props = {
 	anchor: Required<RenderConfigOptions>['anchor']
@@ -28,10 +39,12 @@ const styleObject = ref(createStyle())
 const resizeObserver = shallowRef<ResizeObserver>()
 const scrollTargets = shallowRef<Array<Element | Window>>([])
 
-onMounted(() => {
+onMounted(async () => {
 	bindResizeObserver()
 	bindWindowResizeObserver()
 	bindScrollObservers()
+	await nextTick()
+	bindComputedStyleWatcher()
 })
 
 onBeforeUnmount(() => {
@@ -60,6 +73,15 @@ function bindWindowResizeObserver() {
 
 function unbindWindowResizeObserver() {
 	window.removeEventListener('resize', updateStyle)
+}
+
+function bindComputedStyleWatcher() {
+	const computedStyle = popup.getComputedStyle(instanceId)
+	viewComputedStyleRef.value = computedStyle
+	if (!computedStyle) return
+	watch(() => computedStyle.value.width, updateStyle)
+	watch(() => computedStyle.value.height, updateStyle)
+	updateStyle()
 }
 
 function bindScrollObservers() {
@@ -111,46 +133,65 @@ function createStyle() {
 		zIndex,
 	}
 
-	if (anchorElement) {
-		const viewportWidth = document.documentElement.clientWidth
-		const viewportHeight = document.documentElement.clientHeight
-		const scrollX = window.scrollX
-		const scrollY = window.scrollY
-		const { top, right, bottom, left, width, height } =
-			anchorElement.getBoundingClientRect()
-		if (
-			anchorPlacement.startsWith('left') ||
-			anchorPlacement.startsWith('right')
-		) {
-			if (anchorPlacement.startsWith('left')) {
-				style.right = `${Math.ceil(viewportWidth - scrollX - left)}px`
-			} else {
-				style.left = `${Math.ceil(scrollX + right)}px`
-			}
+	if (!anchorElement) return style
+	const viewportWidth = document.documentElement.clientWidth
+	const viewportHeight = document.documentElement.clientHeight
+	const scrollX = window.scrollX
+	const scrollY = window.scrollY
+	const { top, right, bottom, left, width, height } =
+		anchorElement.getBoundingClientRect()
+	const popupWidth = viewComputedStyleRef.value?.value.width ?? 0
+	const popupHeight = viewComputedStyleRef.value?.value.height ?? 0
+	const primaryIsHorizontal =
+		anchorPlacement.startsWith('top') ||
+		anchorPlacement.startsWith('bottom')
+	const secondaryLeft = anchorPlacement.includes('left')
+	const secondaryRight = anchorPlacement.includes('right')
+	const secondaryTop = anchorPlacement.includes('top')
+	const secondaryBottom = anchorPlacement.includes('bottom')
+	const clampX = (x: number) =>
+		Math.max(scrollX, Math.min(x, scrollX + viewportWidth - popupWidth))
+	const clampY = (y: number) =>
+		Math.max(scrollY, Math.min(y, scrollY + viewportHeight - popupHeight))
 
-			if (anchorPlacement.includes('top')) {
-				style.top = `${Math.ceil(scrollY + top)}px`
-			} else if (anchorPlacement.includes('bottom')) {
-				style.bottom = `${Math.ceil(viewportHeight - scrollY - bottom)}px`
-			} else {
-				style.top = `${Math.ceil(scrollY + top + height / 2)}px`
-				style.transform = 'translateY(-50%)'
-			}
+	if (
+		anchorPlacement.startsWith('left') ||
+		anchorPlacement.startsWith('right')
+	) {
+		if (anchorPlacement.startsWith('left')) {
+			style.right = `${Math.ceil(viewportWidth - scrollX - left)}px`
 		} else {
-			if (anchorPlacement.startsWith('top')) {
-				style.bottom = `${Math.ceil(viewportHeight - scrollY - top)}px`
-			} else {
-				style.top = `${Math.ceil(scrollY + bottom)}px`
-			}
+			style.left = `${Math.ceil(scrollX + right)}px`
+		}
 
-			if (anchorPlacement.includes('left')) {
-				style.left = `${Math.ceil(scrollX + left)}px`
-			} else if (anchorPlacement.includes('right')) {
-				style.right = `${Math.ceil(viewportWidth - scrollX - right)}px`
-			} else {
-				style.left = `${Math.ceil(scrollX + left + width / 2)}px`
-				style.transform = 'translateX(-50%)'
-			}
+		if (secondaryTop) {
+			style.top = `${Math.ceil(scrollY + top)}px`
+		} else if (secondaryBottom) {
+			style.bottom = `${Math.ceil(viewportHeight - scrollY - bottom)}px`
+		} else {
+			const y =
+				popupHeight > 0
+					? scrollY + top + height / 2 - popupHeight / 2
+					: scrollY + top + height / 2
+			style.top = `${Math.round(clampY(y))}px`
+		}
+	} else {
+		if (anchorPlacement.startsWith('top')) {
+			style.bottom = `${Math.ceil(viewportHeight - scrollY - top)}px`
+		} else {
+			style.top = `${Math.ceil(scrollY + bottom)}px`
+		}
+
+		if (secondaryLeft) {
+			style.left = `${Math.ceil(scrollX + left)}px`
+		} else if (secondaryRight) {
+			style.right = `${Math.ceil(viewportWidth - scrollX - right)}px`
+		} else {
+			const x =
+				popupWidth > 0
+					? scrollX + left + width / 2 - popupWidth / 2
+					: scrollX + left + width / 2
+			style.left = `${Math.round(clampX(x))}px`
 		}
 	}
 

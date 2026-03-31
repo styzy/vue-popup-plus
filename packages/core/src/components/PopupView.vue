@@ -116,6 +116,7 @@ provide(POPUP_COMPONENT_INJECTS.COMPUTED_STYLE, viewComputedStyle)
 store.computedStyle = viewComputedStyle
 
 onMounted(() => {
+	syncViewSize()
 	window.setTimeout(syncViewSize, store.animationDuration.value)
 })
 
