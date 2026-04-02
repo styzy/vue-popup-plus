@@ -130,6 +130,113 @@ function destroy() {
 	popup.destroy(instanceId)
 }
 
+function parsePlacement(placement: AnchorPlacement) {
+	const parts = placement.split('-') as [string, string?]
+	const direction = (parts[0] || 'bottom') as
+		| 'top'
+		| 'bottom'
+		| 'left'
+		| 'right'
+	const align = ((parts[1] as 'start' | 'end') || 'center') as
+		| 'start'
+		| 'end'
+		| 'center'
+	return { direction, align }
+}
+
+function computeSpaces(
+	rect: Pick<DOMRect, 'top' | 'right' | 'bottom' | 'left'>,
+	viewportWidth: number,
+	viewportHeight: number
+) {
+	return {
+		above: rect.top,
+		below: viewportHeight - rect.bottom,
+		left: rect.left,
+		right: viewportWidth - rect.right,
+	}
+}
+
+function flipDirectionIfNeeded(
+	direction: 'top' | 'bottom' | 'left' | 'right',
+	spaces: { above: number; below: number; left: number; right: number },
+	popupSize: { width: number; height: number }
+) {
+	if (direction === 'top' && popupSize.height > spaces.above) {
+		return spaces.below >= spaces.above ? 'bottom' : 'top'
+	}
+	if (direction === 'bottom' && popupSize.height > spaces.below) {
+		return spaces.above >= spaces.below ? 'top' : 'bottom'
+	}
+	if (direction === 'left' && popupSize.width > spaces.left) {
+		return spaces.right >= spaces.left ? 'right' : 'left'
+	}
+	if (direction === 'right' && popupSize.width > spaces.right) {
+		return spaces.left >= spaces.right ? 'left' : 'right'
+	}
+	return direction
+}
+
+function computeBasePosition(
+	direction: 'top' | 'bottom' | 'left' | 'right',
+	align: 'start' | 'end' | 'center',
+	rect: Pick<
+		DOMRect,
+		'top' | 'right' | 'bottom' | 'left' | 'width' | 'height'
+	>,
+	popupSize: { width: number; height: number },
+	scroll: { x: number; y: number }
+) {
+	let left = scroll.x
+	let top = scroll.y
+	if (direction === 'top') {
+		top = Math.round(scroll.y + rect.top - popupSize.height)
+		if (align === 'start') {
+			left = Math.round(scroll.x + rect.left)
+		} else if (align === 'end') {
+			left = Math.round(scroll.x + rect.right - popupSize.width)
+		} else {
+			left = Math.round(
+				scroll.x + rect.left + rect.width / 2 - popupSize.width / 2
+			)
+		}
+	} else if (direction === 'bottom') {
+		top = Math.round(scroll.y + rect.bottom)
+		if (align === 'start') {
+			left = Math.round(scroll.x + rect.left)
+		} else if (align === 'end') {
+			left = Math.round(scroll.x + rect.right - popupSize.width)
+		} else {
+			left = Math.round(
+				scroll.x + rect.left + rect.width / 2 - popupSize.width / 2
+			)
+		}
+	} else if (direction === 'left') {
+		left = Math.round(scroll.x + rect.left - popupSize.width)
+		if (align === 'start') {
+			top = Math.round(scroll.y + rect.top)
+		} else if (align === 'end') {
+			top = Math.round(scroll.y + rect.bottom - popupSize.height)
+		} else {
+			top = Math.round(
+				scroll.y + rect.top + rect.height / 2 - popupSize.height / 2
+			)
+		}
+	} else {
+		left = Math.round(scroll.x + rect.right)
+		if (align === 'start') {
+			top = Math.round(scroll.y + rect.top)
+		} else if (align === 'end') {
+			top = Math.round(scroll.y + rect.bottom - popupSize.height)
+		} else {
+			top = Math.round(
+				scroll.y + rect.top + rect.height / 2 - popupSize.height / 2
+			)
+		}
+	}
+	return { left, top }
+}
+
 function createStyle() {
 	const style: Record<string, string | number> = {
 		zIndex,
@@ -151,87 +258,26 @@ function createStyle() {
 	const clampY = (y: number) =>
 		Math.max(scrollY, Math.min(y, scrollY + viewportHeight - popupHeight))
 
-	let direction = anchorPlacement.split('-')[0] as
-		| 'top'
-		| 'bottom'
-		| 'left'
-		| 'right'
-
-	const align =
-		anchorPlacement.split('-')[1] ||
-		('center' as 'start' | 'end' | 'center')
-
-	const spaceAbove = top
-	const spaceBelow = viewportHeight - bottom
-	const spaceLeft = left
-	const spaceRight = viewportWidth - right
-
-	if (direction === 'top' && popupHeight > spaceAbove) {
-		direction = spaceBelow >= spaceAbove ? 'bottom' : 'top'
-	} else if (direction === 'bottom' && popupHeight > spaceBelow) {
-		direction = spaceAbove >= spaceBelow ? 'top' : 'bottom'
-	} else if (direction === 'left' && popupWidth > spaceLeft) {
-		direction = spaceRight >= spaceLeft ? 'right' : 'left'
-	} else if (direction === 'right' && popupWidth > spaceRight) {
-		direction = spaceLeft >= spaceRight ? 'left' : 'right'
-	}
-
-	// compute base coordinates
-	let leftBase = scrollX
-	let topBase = scrollY
-
-	if (direction === 'top') {
-		topBase = Math.round(scrollY + top - popupHeight)
-		// cross-axis horizontal
-		if (align === 'start') {
-			leftBase = Math.round(scrollX + left)
-		} else if (align === 'end') {
-			leftBase = Math.round(scrollX + right - popupWidth)
-		} else {
-			leftBase = Math.round(scrollX + left + width / 2 - popupWidth / 2)
-		}
-		// shift on cross-axis to keep fully visible
-		leftBase = clampX(leftBase)
-		// if still overflows vertically (both sides insufficient), clamp
-		topBase = clampY(topBase)
-	} else if (direction === 'bottom') {
-		topBase = Math.round(scrollY + bottom)
-		if (align === 'start') {
-			leftBase = Math.round(scrollX + left)
-		} else if (align === 'end') {
-			leftBase = Math.round(scrollX + right - popupWidth)
-		} else {
-			leftBase = Math.round(scrollX + left + width / 2 - popupWidth / 2)
-		}
-		leftBase = clampX(leftBase)
-		topBase = clampY(topBase)
-	} else if (direction === 'left') {
-		leftBase = Math.round(scrollX + left - popupWidth)
-		if (align === 'start') {
-			topBase = Math.round(scrollY + top)
-		} else if (align === 'end') {
-			topBase = Math.round(scrollY + bottom - popupHeight)
-		} else {
-			topBase = Math.round(scrollY + top + height / 2 - popupHeight / 2)
-		}
-		topBase = clampY(topBase)
-		leftBase = clampX(leftBase)
-	} else {
-		leftBase = Math.round(scrollX + right)
-		if (align === 'start') {
-			topBase = Math.round(scrollY + top)
-		} else if (align === 'end') {
-			topBase = Math.round(scrollY + bottom - popupHeight)
-		} else {
-			topBase = Math.round(scrollY + top + height / 2 - popupHeight / 2)
-		}
-		topBase = clampY(topBase)
-		leftBase = clampX(leftBase)
-	}
-
-	style.left = `${leftBase}px`
-	style.top = `${topBase}px`
-
+	const { direction: preferredDirection, align } =
+		parsePlacement(anchorPlacement)
+	const spaces = computeSpaces(
+		{ top, right, bottom, left },
+		viewportWidth,
+		viewportHeight
+	)
+	const finalDirection = flipDirectionIfNeeded(preferredDirection, spaces, {
+		width: popupWidth,
+		height: popupHeight,
+	})
+	const position = computeBasePosition(
+		finalDirection,
+		align as 'start' | 'end' | 'center',
+		{ top, right, bottom, left, width, height },
+		{ width: popupWidth, height: popupHeight },
+		{ x: scrollX, y: scrollY }
+	)
+	style.left = `${clampX(position.left)}px`
+	style.top = `${clampY(position.top)}px`
 	return style
 }
 </script>
