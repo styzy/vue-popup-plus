@@ -11,6 +11,7 @@ export {
 	type MaskDestroyHandler,
 	type Placement,
 	type AnchorPlacement,
+	type AnchorAdjust,
 	type PopupCustomProperties,
 	type RenderOption,
 	type UpdateOption,

@@ -151,50 +151,41 @@ function createStyle() {
 	const clampY = (y: number) =>
 		Math.max(scrollY, Math.min(y, scrollY + viewportHeight - popupHeight))
 
-	// derive primary and secondary
-	let primary: 'top' | 'bottom' | 'left' | 'right'
-	if (anchorPlacement.startsWith('top')) primary = 'top'
-	else if (anchorPlacement.startsWith('bottom')) primary = 'bottom'
-	else if (anchorPlacement.startsWith('left')) primary = 'left'
-	else primary = 'right'
+	let direction = anchorPlacement.split('-')[0] as
+		| 'top'
+		| 'bottom'
+		| 'left'
+		| 'right'
 
-	let secondary: 'left' | 'right' | 'top' | 'bottom' | 'center' = 'center'
-	if (primary === 'top' || primary === 'bottom') {
-		if (/-left$/.test(anchorPlacement)) secondary = 'left'
-		else if (/-right$/.test(anchorPlacement)) secondary = 'right'
-		else secondary = 'center'
-	} else {
-		if (/-top$/.test(anchorPlacement)) secondary = 'top'
-		else if (/-bottom$/.test(anchorPlacement)) secondary = 'bottom'
-		else secondary = 'center'
-	}
+	const align =
+		anchorPlacement.split('-')[1] ||
+		('center' as 'start' | 'end' | 'center')
 
-	// flip when space is insufficient on primary axis
 	const spaceAbove = top
 	const spaceBelow = viewportHeight - bottom
 	const spaceLeft = left
 	const spaceRight = viewportWidth - right
 
-	if (primary === 'top' && popupHeight > spaceAbove) {
-		primary = spaceBelow >= spaceAbove ? 'bottom' : 'top'
-	} else if (primary === 'bottom' && popupHeight > spaceBelow) {
-		primary = spaceAbove >= spaceBelow ? 'top' : 'bottom'
-	} else if (primary === 'left' && popupWidth > spaceLeft) {
-		primary = spaceRight >= spaceLeft ? 'right' : 'left'
-	} else if (primary === 'right' && popupWidth > spaceRight) {
-		primary = spaceLeft >= spaceRight ? 'left' : 'right'
+	if (direction === 'top' && popupHeight > spaceAbove) {
+		direction = spaceBelow >= spaceAbove ? 'bottom' : 'top'
+	} else if (direction === 'bottom' && popupHeight > spaceBelow) {
+		direction = spaceAbove >= spaceBelow ? 'top' : 'bottom'
+	} else if (direction === 'left' && popupWidth > spaceLeft) {
+		direction = spaceRight >= spaceLeft ? 'right' : 'left'
+	} else if (direction === 'right' && popupWidth > spaceRight) {
+		direction = spaceLeft >= spaceRight ? 'left' : 'right'
 	}
 
 	// compute base coordinates
 	let leftBase = scrollX
 	let topBase = scrollY
 
-	if (primary === 'top') {
+	if (direction === 'top') {
 		topBase = Math.round(scrollY + top - popupHeight)
 		// cross-axis horizontal
-		if (secondary === 'left') {
+		if (align === 'start') {
 			leftBase = Math.round(scrollX + left)
-		} else if (secondary === 'right') {
+		} else if (align === 'end') {
 			leftBase = Math.round(scrollX + right - popupWidth)
 		} else {
 			leftBase = Math.round(scrollX + left + width / 2 - popupWidth / 2)
@@ -203,22 +194,22 @@ function createStyle() {
 		leftBase = clampX(leftBase)
 		// if still overflows vertically (both sides insufficient), clamp
 		topBase = clampY(topBase)
-	} else if (primary === 'bottom') {
+	} else if (direction === 'bottom') {
 		topBase = Math.round(scrollY + bottom)
-		if (secondary === 'left') {
+		if (align === 'start') {
 			leftBase = Math.round(scrollX + left)
-		} else if (secondary === 'right') {
+		} else if (align === 'end') {
 			leftBase = Math.round(scrollX + right - popupWidth)
 		} else {
 			leftBase = Math.round(scrollX + left + width / 2 - popupWidth / 2)
 		}
 		leftBase = clampX(leftBase)
 		topBase = clampY(topBase)
-	} else if (primary === 'left') {
+	} else if (direction === 'left') {
 		leftBase = Math.round(scrollX + left - popupWidth)
-		if (secondary === 'top') {
+		if (align === 'start') {
 			topBase = Math.round(scrollY + top)
-		} else if (secondary === 'bottom') {
+		} else if (align === 'end') {
 			topBase = Math.round(scrollY + bottom - popupHeight)
 		} else {
 			topBase = Math.round(scrollY + top + height / 2 - popupHeight / 2)
@@ -226,11 +217,10 @@ function createStyle() {
 		topBase = clampY(topBase)
 		leftBase = clampX(leftBase)
 	} else {
-		// primary === 'right'
 		leftBase = Math.round(scrollX + right)
-		if (secondary === 'top') {
+		if (align === 'start') {
 			topBase = Math.round(scrollY + top)
-		} else if (secondary === 'bottom') {
+		} else if (align === 'end') {
 			topBase = Math.round(scrollY + bottom - popupHeight)
 		} else {
 			topBase = Math.round(scrollY + top + height / 2 - popupHeight / 2)

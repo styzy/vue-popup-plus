@@ -228,6 +228,8 @@ export type AnchorPlacement = [
 	'right-end',
 ][number]
 
+export type AnchorAdjust = ['auto', 'flip', 'shift', 'none'][number]
+
 export type RenderStyleOptions = {
 	/**
 	 * 弹出层宽度
@@ -323,16 +325,27 @@ export type RenderStyleOptions = {
 	 */
 	placement?: Placement
 	/**
-	 * 弹出层锚点对齐方式
+	 * 锚点弹出层位置与对齐方式
 	 *
 	 * - 指定弹出层渲染对于锚点的对齐方式
 	 * - 仅在 `anchor` 参数指定锚点元素时有效
 	 * - 默认为 `'top'` ，即顶部居中对齐
-	 * - 更多对齐方式请查看 {@link AnchorAlign}
+	 * - 支持锚点元素的 `top`、`bottom`、`left`、`right` 4 个方向
+	 * - 每个方向默认居中对齐，同时支持 `start`、`end` 对齐方式
+	 * - 更多对齐方式请查看 {@link AnchorPlacement}
 	 *
 	 * @since 1.7.0
 	 */
 	anchorPlacement?: AnchorPlacement
+	/**
+	 * 锚点弹出层调整方式
+	 *
+	 * - 默认为 `'auto'` ，即自动调整
+	 * - 更多调整方式请查看 {@link AnchorAdjust}
+	 *
+	 * @since 1.7.0
+	 */
+	anchorAdjust?: AnchorAdjust
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -427,6 +440,7 @@ const defaultOptions: Required<
 	minHeight: 'auto',
 	placement: 'center',
 	anchorPlacement: 'top',
+	anchorAdjust: 'auto',
 	viewTranslateX: 0,
 	viewTranslateY: 0,
 	viewTranslateOverflow: false,
