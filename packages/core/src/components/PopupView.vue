@@ -18,6 +18,9 @@ import {
 	onUpdated,
 	provide,
 	onUnmounted,
+	shallowRef,
+	useTemplateRef,
+	onBeforeUnmount,
 } from 'vue'
 import {
 	POPUP_COMPONENT_INJECTS,
@@ -28,14 +31,18 @@ defineOptions({
 	name: 'PopupView',
 })
 
+const popupViewRef = useTemplateRef('popupViewRef')
+
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
 
 const store = instance.store
 
-const popupViewRef = ref<HTMLDivElement>()
 const viewWidth = ref(0)
 const viewHeight = ref(0)
+const resizeObserver = shallowRef<ResizeObserver>()
+
+const hasAnchor = computed(() => !!store.anchor)
 
 // 处理组件，如果是函数（懒加载），则使用defineAsyncComponent包装
 const resolvedComponent = computed(() => {
@@ -118,10 +125,21 @@ store.computedStyle = viewComputedStyle
 onMounted(() => {
 	syncViewSize()
 	window.setTimeout(syncViewSize, store.animationDuration.value)
+	if (hasAnchor) {
+		resizeObserver.value = new ResizeObserver(syncViewSize)
+		resizeObserver.value.observe(popupViewRef.value!)
+	}
 })
 
 onUpdated(() => {
 	syncViewSize()
+})
+
+onBeforeUnmount(() => {
+	if (resizeObserver.value) {
+		resizeObserver.value.unobserve(popupViewRef.value!)
+		resizeObserver.value.disconnect()
+	}
 })
 
 onUnmounted(() => {
