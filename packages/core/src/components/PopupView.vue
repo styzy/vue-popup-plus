@@ -1,5 +1,5 @@
 <template lang="pug">
-.popup-view(:style="styleObject" ref="popupViewRef")
+div(:class="ns.block()" :style="styleObject" ref="popupViewRef")
 	component(
 		:is="resolvedComponent"
 		:key="`${instanceId.name}-component`"
@@ -22,19 +22,22 @@ import {
 	useTemplateRef,
 	onBeforeUnmount,
 } from 'vue'
+import { useNamespace } from '../hooks'
 import {
 	POPUP_COMPONENT_INJECTS,
-	POPUP_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
 
 defineOptions({
-	name: 'PopupView',
+	name: P_INSIDE_COMPONENT_NAMES.VIEW,
 })
 
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.VIEW)
 const popupViewRef = useTemplateRef('popupViewRef')
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const instance = inject(P_INSIDE_COMPONENT_INJECTS.INSTANCE)!
 
 const store = instance.store
 
@@ -160,8 +163,10 @@ function formatSize(size: string | number): string {
 }
 </script>
 
-<style lang="scss" scoped>
-.popup-view {
+<style lang="scss">
+@use '../assets/styles/inject.scss' as *;
+
+@include ns-block('view') {
 	position: relative;
 	pointer-events: none;
 	& > * {

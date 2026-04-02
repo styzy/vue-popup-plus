@@ -1,5 +1,5 @@
 <template lang="pug">
-.popup-anchor-frame(:style="styleObject")
+div(:class="ns.block()" :style="styleObject")
 	slot
 </template>
 
@@ -13,14 +13,16 @@ import {
 	shallowRef,
 	watch,
 } from 'vue'
-import { POPUP_COMPONENT_INJECTS, usePopup } from '../'
 import { type AnchorPlacement, type RenderConfigOptions } from '../controller'
+import { useNamespace, usePopup } from '../hooks'
 import { type ComputedStyle } from '../typings'
+import { P_INSIDE_COMPONENT_NAMES, POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
 defineOptions({
-	name: 'PopupAnchorFrame',
+	name: P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME,
 })
 
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME)
 const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const viewComputedStyleRef = shallowRef<ComputedStyle | null>(null)
@@ -199,11 +201,10 @@ function createStyle() {
 }
 </script>
 
-<style lang="scss" scoped>
-.popup-anchor-frame {
-	// display: flex;
-	// flex-direction: column;
+<style lang="scss">
+@use '../assets/styles/inject.scss' as *;
+
+@include ns-block('anchor-frame') {
 	position: absolute;
-	// pointer-events: none;
 }
 </style>

@@ -17,8 +17,11 @@ import {
 	type PopupPlugin,
 } from '../plugin'
 import { version, type Version } from '../version'
-import { DOCUMENT_URL, POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
-import { PopupRootComponentName } from '../components/PopupRoot.vue'
+import {
+	P_COMPONENT_NAMES,
+	P_DOCUMENT_URL,
+	P_INSIDE_COMPONENT_INJECTS,
+} from '../CONSTANTS'
 
 type Instances = Reactive<Record<InstanceId['name'], Instance>>
 
@@ -163,7 +166,7 @@ export class Core implements ICore {
 
 		app.mixin(mixins)
 
-		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
+		app.provide(P_INSIDE_COMPONENT_INJECTS.CORE, this)
 
 		Object.entries(this.#config.directives).forEach(([name, directive]) => {
 			app.directive(name, directive)
@@ -307,7 +310,7 @@ export class Core implements ICore {
 						type: 'Function',
 						value: this.registerRootComponent,
 					},
-					message: `根组件 ${PopupRootComponentName} 挂载成功`,
+					message: `根组件 ${P_COMPONENT_NAMES.ROOT} 挂载成功`,
 					group: [
 						{
 							type: LogGroupItemType.Component,
@@ -322,7 +325,7 @@ export class Core implements ICore {
 						{
 							type: LogGroupItemType.Message,
 							title: '帮助文档',
-							content: `${DOCUMENT_URL}/about/faq.html#同步应用上下文`,
+							content: `${P_DOCUMENT_URL}/about/faq.html#同步应用上下文`,
 						},
 					],
 				})
@@ -337,7 +340,7 @@ export class Core implements ICore {
 					type: 'Function',
 					value: this.registerRootComponent,
 				},
-				message: `检测到重复挂载 ${PopupRootComponentName} 根组件`,
+				message: `检测到重复挂载 ${P_COMPONENT_NAMES.ROOT} 根组件`,
 				group: [
 					{
 						type: LogGroupItemType.Component,
@@ -347,7 +350,7 @@ export class Core implements ICore {
 					{
 						type: LogGroupItemType.Message,
 						title: '修改建议',
-						content: `${PopupRootComponentName} 根组件同一时刻应当只存在一个实例，请移除多余的 ${PopupRootComponentName} 根组件`,
+						content: `${P_COMPONENT_NAMES.ROOT} 根组件同一时刻应当只存在一个实例，请移除多余的 ${P_COMPONENT_NAMES.ROOT} 根组件`,
 					},
 				],
 			})

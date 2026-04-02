@@ -6,10 +6,10 @@ body
 	background-color: var(--playground-color-background-main)
 	color: var(--playground-color-text-main)
 
-$name-space = 'vue-popup-plus-animation'
+$name-space = 'popup-animation'
 
 generateAnimation($type,$name)
-	.vue-popup-plus-animation-{$type}-{$name}
+	.popup-animation-{$type}-{$name}
 		animation-name unquote($name-space+'-'+$type+'-'+$name)
 
 

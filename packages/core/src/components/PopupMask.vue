@@ -1,5 +1,5 @@
 <template lang="pug">
-.popup-mask(
+div(
 	:class="classObject"
 	:style="{ zIndex: store.zIndex.value }"
 	@click="handleClick()")
@@ -7,25 +7,29 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { usePopup } from '../'
+import { useNamespace, usePopup } from '../hooks'
 import {
 	POPUP_COMPONENT_INJECTS,
-	POPUP_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
 
 defineOptions({
-	name: 'PopupMask',
+	name: P_INSIDE_COMPONENT_NAMES.MASK,
 })
 
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.MASK)
+
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const instance = inject(P_INSIDE_COMPONENT_INJECTS.INSTANCE)!
 
 const store = instance.store
 
-const classObject = computed(() => ({
-	'is-transparent': store.maskTransparent.value,
-	'is-blur': !store.maskTransparent.value && store.maskBlur.value,
-}))
+const classObject = computed(() => [
+	ns.block(),
+	ns.is('transparent', store.maskTransparent.value),
+	ns.is('blur', !store.maskTransparent.value && store.maskBlur.value),
+])
 
 function handleClick() {
 	if (store.maskDestroy === false) return
@@ -47,14 +51,16 @@ function handleClick() {
 }
 </script>
 
-<style lang="scss" scoped>
-.popup-mask {
+<style lang="scss">
+@use '../assets/styles/inject.scss' as *;
+
+@include ns-block('mask') {
 	position: fixed;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: var(--popup-color-mask);
+	background-color: use-color(mask);
 	&.is-transparent {
 		background-color: transparent;
 	}

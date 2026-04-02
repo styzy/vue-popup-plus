@@ -10,11 +10,12 @@ Transition(
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import type { Animation } from '../animation'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 const ANIMATION_NAMESPACE = 'popup-animation'
 
 defineOptions({
-	name: 'PopupAnimation',
+	name: P_INSIDE_COMPONENT_NAMES.ANIMATION,
 })
 
 type Props = {
@@ -42,7 +43,7 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../assets/styles/namespace.scss' as namespace;
 
 .#{namespace.$animation} {

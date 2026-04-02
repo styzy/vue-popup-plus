@@ -1,15 +1,19 @@
 <template lang="pug">
-.popup-frame(:style="styleObject")
+div(:class="ns.block()" :style="styleObject")
 	slot
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { type Placement } from '../controller'
+import { useNamespace } from '../hooks'
+import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: 'PopupFrame',
+	name: P_INSIDE_COMPONENT_NAMES.FRAME,
 })
+
+const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.FRAME)
 
 type Props = {
 	placement: Placement
@@ -33,8 +37,10 @@ const styleObject = computed(() => ({
 }))
 </script>
 
-<style lang="scss" scoped>
-.popup-frame {
+<style lang="scss">
+@use '../assets/styles/inject.scss' as *;
+
+@include ns-block('frame') {
 	display: flex;
 	flex-direction: column;
 	position: fixed;

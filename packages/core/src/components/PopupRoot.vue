@@ -6,23 +6,19 @@ PopupInstance(
 	v-for="instance in istances")
 </template>
 
-<script lang="ts">
-export const PopupRootComponentName = 'PopupRoot'
-</script>
-
 <script lang="ts" setup>
 import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
 import { Log, LogType, printLog } from '../log'
-import { POPUP_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
+import { P_COMPONENT_NAMES, P_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import PopupInstance from './PopupInstance.vue'
 
 const vm = getCurrentInstance()
 
 defineOptions({
-	name: PopupRootComponentName,
+	name: P_COMPONENT_NAMES.ROOT,
 })
 
-const core = inject(POPUP_INSIDE_COMPONENT_INJECTS.CORE, undefined)
+const core = inject(P_INSIDE_COMPONENT_INJECTS.CORE, undefined)
 
 if (!core) {
 	const log = new Log({

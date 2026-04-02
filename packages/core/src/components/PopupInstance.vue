@@ -34,7 +34,8 @@ import { provide, ref, Teleport } from 'vue'
 import { type Instance } from '../instance'
 import {
 	POPUP_COMPONENT_INJECTS,
-	POPUP_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_INJECTS,
+	P_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
 import PopupAnimation from './PopupAnimation.vue'
 import PopupFrame from './PopupFrame.vue'
@@ -43,7 +44,7 @@ import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
 
 defineOptions({
-	name: 'PopupInstance',
+	name: P_INSIDE_COMPONENT_NAMES.INSTANCE,
 })
 
 type Props = {
@@ -65,5 +66,5 @@ setTimeout(() => {
 }, 0)
 
 provide(POPUP_COMPONENT_INJECTS.INSTANCE_ID, instance.id)
-provide(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE, instance)
+provide(P_INSIDE_COMPONENT_INJECTS.INSTANCE, instance)
 </script>

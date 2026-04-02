@@ -3,15 +3,38 @@ import type { ICore } from '../core'
 import type { Instance, InstanceId } from '../instance'
 import type { ComputedStyle } from '../typings'
 
+// 组件名称
+export const P_COMPONENT_NAMES = {
+	ROOT: 'PopupRoot',
+} as const
+
+// 内部组件名称
+export const P_INSIDE_COMPONENT_NAMES = {
+	ANCHOR_FRAME: 'PopupAnchorFrame',
+	ANIMATION: 'PopupAnimation',
+	FRAME: 'PopupFrame',
+	INSTANCE: 'PopupInstance',
+	MASK: 'PopupMask',
+	VIEW: 'PopupView',
+} as const
+
+// BEM 命名规范
+export const P_BEM_CONFIG = {
+	COMMON_SPERATOR: '-',
+	ELEMENT_SPERATOR: '__',
+	MODIFY_SPERATOR: '--',
+	STATE_SPERATOR: 'is-',
+}
+
 /**
  * 命名空间
  */
-const NAME_SPACE: string = 'vue-popup-plus'
+const P_NAME_SPACE: string = 'vue-popup-plus'
 
 /**
  * 组件注入键类型
  */
-type ComponentInjectKeys = {
+type PComponentInjectKeys = {
 	/**
 	 * 当前组件所在弹出层的实例ID
 	 *
@@ -76,15 +99,15 @@ type ComponentInjectKeys = {
  *
  * - 在弹出层内部渲染的所有子代组件中，都可以通过 inject 注入弹出层所提供的相关参数
  */
-export const POPUP_COMPONENT_INJECTS: Readonly<ComponentInjectKeys> = {
-	INSTANCE_ID: Symbol(`${NAME_SPACE}-instance-id`),
-	COMPUTED_STYLE: Symbol(`${NAME_SPACE}-computed-style`),
+export const POPUP_COMPONENT_INJECTS: Readonly<PComponentInjectKeys> = {
+	INSTANCE_ID: Symbol(`${P_NAME_SPACE}-instance-id`),
+	COMPUTED_STYLE: Symbol(`${P_NAME_SPACE}-computed-style`),
 }
 
 /**
  * 内置源码组件注入键类型
  */
-type insideComponentInjectKeys = {
+type PInsideComponentInjectKeys = {
 	/**
 	 * 弹出层核心实例
 	 */
@@ -98,13 +121,13 @@ type insideComponentInjectKeys = {
 /**
  * 内置源码组件注入键
  */
-export const POPUP_INSIDE_COMPONENT_INJECTS: Readonly<insideComponentInjectKeys> =
+export const P_INSIDE_COMPONENT_INJECTS: Readonly<PInsideComponentInjectKeys> =
 	{
-		CORE: Symbol(`${NAME_SPACE}-core`),
-		INSTANCE: Symbol(`${NAME_SPACE}-instance`),
+		CORE: Symbol(`${P_NAME_SPACE}-core`),
+		INSTANCE: Symbol(`${P_NAME_SPACE}-instance`),
 	}
 
 /**
  * 文档地址
  */
-export const DOCUMENT_URL = 'http://vue-popup-plus.styzy.cn'
+export const P_DOCUMENT_URL = 'http://vue-popup-plus.styzy.cn'

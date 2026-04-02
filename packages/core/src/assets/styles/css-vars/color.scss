@@ -1,0 +1,5 @@
+@use '../namespace.scss' as namespace;
+
+:root {
+	--#{namespace.$color}-mask: rgba(0, 0, 0, 0.45);
+}
