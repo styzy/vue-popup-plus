@@ -49,18 +49,18 @@ GContainer
 		PButton(@click="handlePopupAnimationCustom()" theme="success") 自定义动画
 	GTitle(second) 锚点定位功能
 	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handlePopupAnchorLeftTop()" ref="anchorLeftTop") 左上
+		PButton(@click="handlePopupAnchorLeftStart()" ref="anchorLeftStart") 左侧起点
 		PButton(@click="handlePopupAnchorLeft()" ref="anchorLeft") 左侧
-		PButton(@click="handlePopupAnchorLeftBottom()" ref="anchorLeftBottom") 左下
-		PButton(@click="handlePopupAnchorTopLeft()" ref="anchorTopLeft") 顶部左侧
+		PButton(@click="handlePopupAnchorLeftEnd()" ref="anchorLeftEnd") 左侧终点
+		PButton(@click="handlePopupAnchorTopStart()" ref="anchorTopStart") 顶部起点
 		PButton(@click="handlePopupAnchorTop()" ref="anchorTop") 顶部
-		PButton(@click="handlePopupAnchorTopRight()" ref="anchorTopRight") 顶部右侧
-		PButton(@click="handlePopupAnchorBottomLeft()" ref="anchorBottomLeft") 底部左侧
+		PButton(@click="handlePopupAnchorTopEnd()" ref="anchorTopEnd") 顶部终点
+		PButton(@click="handlePopupAnchorBottomStart()" ref="anchorBottomStart") 底部起点
 		PButton(@click="handlePopupAnchorBottom()" ref="anchorBottom") 底部
-		PButton(@click="handlePopupAnchorBottomRight()" ref="anchorBottomRight") 底部右侧
-		PButton(@click="handlePopupAnchorRightTop()" ref="anchorRightTop") 右上
+		PButton(@click="handlePopupAnchorBottomEnd()" ref="anchorBottomEnd") 底部终点
+		PButton(@click="handlePopupAnchorRightStart()" ref="anchorRightStart") 右侧起点
 		PButton(@click="handlePopupAnchorRight()" ref="anchorRight") 右侧
-		PButton(@click="handlePopupAnchorRightBottom()" ref="anchorRightBottom") 右下
+		PButton(@click="handlePopupAnchorRightEnd()" ref="anchorRightEnd") 右侧终点
 	GTitle(second) Vue 指令
 	PButtonGroup(theme="success" tight)
 		PButton(@click="handleToDemoDirective()" size="large") 跳转到指令测试
@@ -86,18 +86,18 @@ import DemoAntd from './demo/DemoAntd.vue'
 const popup = usePopup()
 const router = useRouter()
 
-const anchorLeftTop = useTemplateRef('anchorLeftTop')
+const anchorLeftStart = useTemplateRef('anchorLeftStart')
 const anchorLeft = useTemplateRef('anchorLeft')
-const anchorLeftBottom = useTemplateRef('anchorLeftBottom')
-const anchorTopLeft = useTemplateRef('anchorTopLeft')
+const anchorLeftEnd = useTemplateRef('anchorLeftEnd')
+const anchorTopStart = useTemplateRef('anchorTopStart')
 const anchorTop = useTemplateRef('anchorTop')
-const anchorTopRight = useTemplateRef('anchorTopRight')
-const anchorBottomLeft = useTemplateRef('anchorBottomLeft')
+const anchorTopEnd = useTemplateRef('anchorTopEnd')
+const anchorBottomStart = useTemplateRef('anchorBottomStart')
 const anchorBottom = useTemplateRef('anchorBottom')
-const anchorBottomRight = useTemplateRef('anchorBottomRight')
-const anchorRightTop = useTemplateRef('anchorRightTop')
+const anchorBottomEnd = useTemplateRef('anchorBottomEnd')
+const anchorRightStart = useTemplateRef('anchorRightStart')
 const anchorRight = useTemplateRef('anchorRight')
-const anchorRightBottom = useTemplateRef('anchorRightBottom')
+const anchorRightEnd = useTemplateRef('anchorRightEnd')
 
 function handlePopup() {
 	popup.render({
@@ -395,10 +395,10 @@ function handlePopupAnimationCustom() {
 	})
 }
 
-function handlePopupAnchorLeftTop() {
+function handlePopupAnchorLeftStart() {
 	popup.render({
-		anchor: anchorLeftTop.value?.$el,
-		anchorPlacement: 'left-top',
+		anchor: anchorLeftStart.value?.$el,
+		anchorPlacement: 'left-start',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
@@ -415,20 +415,20 @@ function handlePopupAnchorLeft() {
 	})
 }
 
-function handlePopupAnchorLeftBottom() {
+function handlePopupAnchorLeftEnd() {
 	popup.render({
-		anchor: anchorLeftBottom.value?.$el,
-		anchorPlacement: 'left-bottom',
+		anchor: anchorLeftEnd.value?.$el,
+		anchorPlacement: 'left-end',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
 }
 
-function handlePopupAnchorTopLeft() {
+function handlePopupAnchorTopStart() {
 	popup.render({
-		anchor: anchorTopLeft.value?.$el,
-		anchorPlacement: 'top-left',
+		anchor: anchorTopStart.value?.$el,
+		anchorPlacement: 'top-start',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
@@ -445,20 +445,20 @@ function handlePopupAnchorTop() {
 	})
 }
 
-function handlePopupAnchorTopRight() {
+function handlePopupAnchorTopEnd() {
 	popup.render({
-		anchor: anchorTopRight.value?.$el,
-		anchorPlacement: 'top-right',
+		anchor: anchorTopEnd.value?.$el,
+		anchorPlacement: 'top-end',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
 }
 
-function handlePopupAnchorBottomLeft() {
+function handlePopupAnchorBottomStart() {
 	popup.render({
-		anchor: anchorBottomLeft.value?.$el,
-		anchorPlacement: 'bottom-left',
+		anchor: anchorBottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
@@ -475,20 +475,20 @@ function handlePopupAnchorBottom() {
 	})
 }
 
-function handlePopupAnchorBottomRight() {
+function handlePopupAnchorBottomEnd() {
 	popup.render({
-		anchor: anchorBottomRight.value?.$el,
-		anchorPlacement: 'bottom-right',
+		anchor: anchorBottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
 	})
 }
 
-function handlePopupAnchorRightTop() {
+function handlePopupAnchorRightStart() {
 	popup.render({
-		anchor: anchorRightTop.value?.$el,
-		anchorPlacement: 'right-top',
+		anchor: anchorRightStart.value?.$el,
+		anchorPlacement: 'right-start',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,
@@ -505,10 +505,10 @@ function handlePopupAnchorRight() {
 	})
 }
 
-function handlePopupAnchorRightBottom() {
+function handlePopupAnchorRightEnd() {
 	popup.render({
-		anchor: anchorRightBottom.value?.$el,
-		anchorPlacement: 'right-bottom',
+		anchor: anchorRightEnd.value?.$el,
+		anchorPlacement: 'right-end',
 		mask: false,
 		disableScroll: false,
 		component: DemoAnchor,

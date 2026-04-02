@@ -14,7 +14,7 @@ const instanceId = usePopupInstanceId()
 const demoAnchorRef = useTemplateRef('demoAnchorRef')
 
 const width = ref('auto')
-const height = ref('auto')
+const height = ref('40px')
 
 function handleClose() {
 	instanceId && popup.destroy(instanceId)

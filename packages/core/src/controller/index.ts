@@ -214,18 +214,18 @@ export type Placement = [
 ][number]
 
 export type AnchorPlacement = [
-	'left-top',
+	'left-start',
 	'left',
-	'left-bottom',
-	'top-left',
+	'left-end',
+	'top-start',
 	'top',
-	'top-right',
-	'bottom-left',
+	'top-end',
+	'bottom-start',
 	'bottom',
-	'bottom-right',
-	'right-top',
+	'bottom-end',
+	'right-start',
 	'right',
-	'right-bottom',
+	'right-end',
 ][number]
 
 export type RenderStyleOptions = {
