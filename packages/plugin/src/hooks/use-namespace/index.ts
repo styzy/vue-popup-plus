@@ -1,5 +1,5 @@
 import {
-	P_BEM,
+	P_BEM_CONFIG,
 	P_COMPONENT_NAMES,
 	P_INSIDE_COMPONENT_NAMES,
 } from '../../CONSTANTS'
@@ -91,16 +91,16 @@ export function useNamespace(componentName: ComponentName): INamespace {
 			return block
 		},
 		element(element: string): string {
-			return `${block}${P_BEM.ELEMENT_SPERATOR}${element}`
+			return `${block}${P_BEM_CONFIG.ELEMENT_SPERATOR}${element}`
 		},
 		modifier(modifier: string): string {
-			return `${block}${P_BEM.MODIFY_SPERATOR}${modifier}`
+			return `${block}${P_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
 		},
 		elementModifier(element: string, modifier: string): string {
-			return `${block}${P_BEM.ELEMENT_SPERATOR}${element}${P_BEM.MODIFY_SPERATOR}${modifier}`
+			return `${block}${P_BEM_CONFIG.ELEMENT_SPERATOR}${element}${P_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
 		},
 		is(state: string, isActive = true): string {
-			return isActive ? `${P_BEM.STATE_SPERATOR}${state}` : ''
+			return isActive ? `${P_BEM_CONFIG.STATE_SPERATOR}${state}` : ''
 		},
 	}
 }

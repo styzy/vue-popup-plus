@@ -33,7 +33,7 @@ export const P_INSIDE_COMPONENT_NAMES = {
 } as const
 
 // BEM 命名规范
-export const P_BEM = {
+export const P_BEM_CONFIG = {
 	COMMON_SPERATOR: '-',
 	ELEMENT_SPERATOR: '__',
 	MODIFY_SPERATOR: '--',
