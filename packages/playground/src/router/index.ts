@@ -13,12 +13,16 @@ const router: Router = createRouter({
 			component: () => import('@/views/Core.vue'),
 		},
 		{
-			path: '/plugin',
-			component: () => import('@/views/Plugin.vue'),
+			path: '/anchor',
+			component: () => import('@/views/Anchor.vue'),
 		},
 		{
 			path: '/directive',
 			component: () => import('@/views/Directive.vue'),
+		},
+		{
+			path: '/plugin',
+			component: () => import('@/views/Plugin.vue'),
 		},
 		{
 			path: '/button',

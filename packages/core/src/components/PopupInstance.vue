@@ -9,10 +9,10 @@ template(v-if="hackInject")
 				v-if="store.mask.value")
 				PopupMask
 			PopupAnchorFrame(
-				:adjust="store.anchorAdjust.value"
 				:anchor="store.anchor.value"
-				:clamp="store.anchorClamp.value"
+				:flip="store.anchorFlip.value"
 				:placement="store.anchorPlacement.value"
+				:shift="store.anchorShift.value"
 				:viewport="store.viewport.value"
 				:zIndex="store.zIndex.value"
 				v-if="store.anchor.value")

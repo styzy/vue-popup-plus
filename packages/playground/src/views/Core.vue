@@ -1,7 +1,7 @@
 <template lang="pug">
 GContainer
 	GTools(:component="() => import('./Core.vue')")
-	GTitle 核心功能单元测试
+	GTitle 核心 - 基础功能测试
 	GTitle(second) 基础功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopup()" type="fill") 默认
@@ -47,23 +47,6 @@ GContainer
 		PButton(@click="handlePopupAnimationDuration()") 动画持续10s
 		PButton(@click="handlePopupAnimationDurationZero()" theme="danger") 动画持续0s
 		PButton(@click="handlePopupAnimationCustom()" theme="success") 自定义动画
-	GTitle(second) 锚点定位功能
-	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handlePopupAnchorLeftStart()" ref="anchorLeftStart") 左侧起点
-		PButton(@click="handlePopupAnchorLeft()" ref="anchorLeft") 左侧
-		PButton(@click="handlePopupAnchorLeftEnd()" ref="anchorLeftEnd") 左侧终点
-		PButton(@click="handlePopupAnchorTopStart()" ref="anchorTopStart") 顶部起点
-		PButton(@click="handlePopupAnchorTop()" ref="anchorTop") 顶部
-		PButton(@click="handlePopupAnchorTopEnd()" ref="anchorTopEnd") 顶部终点
-		PButton(@click="handlePopupAnchorBottomStart()" ref="anchorBottomStart") 底部起点
-		PButton(@click="handlePopupAnchorBottom()" ref="anchorBottom") 底部
-		PButton(@click="handlePopupAnchorBottomEnd()" ref="anchorBottomEnd") 底部终点
-		PButton(@click="handlePopupAnchorRightStart()" ref="anchorRightStart") 右侧起点
-		PButton(@click="handlePopupAnchorRight()" ref="anchorRight") 右侧
-		PButton(@click="handlePopupAnchorRightEnd()" ref="anchorRightEnd") 右侧终点
-	GTitle(second) Vue 指令
-	PButtonGroup(theme="success" tight)
-		PButton(@click="handleToDemoDirective()" size="large") 跳转到指令测试
 	GTitle(second) 三方组件库适配
 	ASelect
 	ElSelect
@@ -73,31 +56,15 @@ GContainer
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, useTemplateRef } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import { POPUP_ANIMATIONS, usePopup } from 'vue-popup-plus'
-import { useRouter } from 'vue-router'
 import Demo from './demo/Demo.vue'
 import DemoFullScreen from './demo/DemoFullScreen.vue'
 import DemoOption from './demo/DemoOption.vue'
-import DemoAnchor from './demo/DemoAnchor.vue'
 import DemoElementUI from './demo/DemoElementUI.vue'
 import DemoAntd from './demo/DemoAntd.vue'
 
 const popup = usePopup()
-const router = useRouter()
-
-const anchorLeftStart = useTemplateRef('anchorLeftStart')
-const anchorLeft = useTemplateRef('anchorLeft')
-const anchorLeftEnd = useTemplateRef('anchorLeftEnd')
-const anchorTopStart = useTemplateRef('anchorTopStart')
-const anchorTop = useTemplateRef('anchorTop')
-const anchorTopEnd = useTemplateRef('anchorTopEnd')
-const anchorBottomStart = useTemplateRef('anchorBottomStart')
-const anchorBottom = useTemplateRef('anchorBottom')
-const anchorBottomEnd = useTemplateRef('anchorBottomEnd')
-const anchorRightStart = useTemplateRef('anchorRightStart')
-const anchorRight = useTemplateRef('anchorRight')
-const anchorRightEnd = useTemplateRef('anchorRightEnd')
 
 function handlePopup() {
 	popup.render({
@@ -394,130 +361,6 @@ function handlePopupAnimationCustom() {
 		viewAnimation: POPUP_ANIMATIONS.CUSTOM,
 		component: Demo,
 	})
-}
-
-function handlePopupAnchorLeftStart() {
-	popup.render({
-		anchor: anchorLeftStart.value?.$el,
-		anchorPlacement: 'left-start',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorLeft() {
-	popup.render({
-		anchor: anchorLeft.value?.$el,
-		anchorPlacement: 'left',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorLeftEnd() {
-	popup.render({
-		anchor: anchorLeftEnd.value?.$el,
-		anchorPlacement: 'left-end',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorTopStart() {
-	popup.render({
-		anchor: anchorTopStart.value?.$el,
-		anchorPlacement: 'top-start',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorTop() {
-	popup.render({
-		anchor: anchorTop.value?.$el,
-		anchorPlacement: 'top',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorTopEnd() {
-	popup.render({
-		anchor: anchorTopEnd.value?.$el,
-		anchorPlacement: 'top-end',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorBottomStart() {
-	popup.render({
-		anchor: anchorBottomStart.value?.$el,
-		anchorPlacement: 'bottom-start',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorBottom() {
-	popup.render({
-		anchor: anchorBottom.value?.$el,
-		anchorPlacement: 'bottom',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorBottomEnd() {
-	popup.render({
-		anchor: anchorBottomEnd.value?.$el,
-		anchorPlacement: 'bottom-end',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorRightStart() {
-	popup.render({
-		anchor: anchorRightStart.value?.$el,
-		anchorPlacement: 'right-start',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorRight() {
-	popup.render({
-		anchor: anchorRight.value?.$el,
-		anchorPlacement: 'right',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handlePopupAnchorRightEnd() {
-	popup.render({
-		anchor: anchorRightEnd.value?.$el,
-		anchorPlacement: 'right-end',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
-	})
-}
-
-function handleToDemoDirective() {
-	router.push('/directive')
 }
 
 function handlePopupElementUI() {

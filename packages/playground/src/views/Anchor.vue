@@ -1,0 +1,422 @@
+<template lang="pug">
+GContainer
+	GTools(:component="() => import('./Core.vue')")
+	GTitle 核心 - 锚点功能测试
+	GTitle(second) 位置
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
+		PButton(@click="handleLeft()" ref="left") 左侧
+		PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
+		PButton(@click="handleTopStart()" ref="topStart") 顶部起点
+		PButton(@click="handleTop()" ref="top") 顶部
+		PButton(@click="handleTopEnd()" ref="topEnd") 顶部终点
+		PButton(@click="handleBottomStart()" ref="bottomStart") 底部起点
+		PButton(@click="handleBottom()" ref="bottom") 底部
+		PButton(@click="handleBottomEnd()" ref="bottomEnd") 底部终点
+		PButton(@click="handleRightStart()" ref="rightStart") 右侧起点
+		PButton(@click="handleRight()" ref="right") 右侧
+		PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
+	GTitle(second) 翻转
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
+		PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
+		PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
+		PButton(@click="handleFlipTopStart()" ref="flipTopStart") 顶部起点
+		PButton(@click="handleFlipTop()" ref="flipTop") 顶部
+		PButton(@click="handleFlipTopEnd()" ref="flipTopEnd") 顶部终点
+		PButton(@click="handleFlipBottomStart()" ref="flipBottomStart") 底部起点
+		PButton(@click="handleFlipBottom()" ref="flipBottom") 底部
+		PButton(@click="handleFlipBottomEnd()" ref="flipBottomEnd") 底部终点
+		PButton(@click="handleFlipRightStart()" ref="flipRightStart") 右侧起点
+		PButton(@click="handleFlipRight()" ref="flipRight") 右侧
+		PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
+	GTitle(second) 主轴平移
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
+		PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
+		PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
+		PButton(@click="handleShiftMainTopStart()" ref="shiftMainTopStart") 顶部起点
+		PButton(@click="handleShiftMainTop()" ref="shiftMainTop") 顶部
+		PButton(@click="handleShiftMainTopEnd()" ref="shiftMainTopEnd") 顶部终点
+		PButton(@click="handleShiftMainBottomStart()" ref="shiftMainBottomStart") 底部起点
+		PButton(@click="handleShiftMainBottom()" ref="shiftMainBottom") 底部
+		PButton(@click="handleShiftMainBottomEnd()" ref="shiftMainBottomEnd") 底部终点
+		PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
+		PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
+		PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
+</template>
+
+<script setup lang="ts">
+import { useTemplateRef } from 'vue'
+import { usePopup } from 'vue-popup-plus'
+import DemoAnchor from './demo/DemoAnchor.vue'
+
+const popup = usePopup()
+
+const leftStart = useTemplateRef('leftStart')
+const left = useTemplateRef('left')
+const leftEnd = useTemplateRef('leftEnd')
+const topStart = useTemplateRef('topStart')
+const top = useTemplateRef('top')
+const topEnd = useTemplateRef('topEnd')
+const bottomStart = useTemplateRef('bottomStart')
+const bottom = useTemplateRef('bottom')
+const bottomEnd = useTemplateRef('bottomEnd')
+const rightStart = useTemplateRef('rightStart')
+const right = useTemplateRef('right')
+const rightEnd = useTemplateRef('rightEnd')
+
+const flipLeftStart = useTemplateRef('flipLeftStart')
+const flipLeft = useTemplateRef('flipLeft')
+const flipLeftEnd = useTemplateRef('flipLeftEnd')
+const flipTopStart = useTemplateRef('flipTopStart')
+const flipTop = useTemplateRef('flipTop')
+const flipTopEnd = useTemplateRef('flipTopEnd')
+const flipBottomStart = useTemplateRef('flipBottomStart')
+const flipBottom = useTemplateRef('flipBottom')
+const flipBottomEnd = useTemplateRef('flipBottomEnd')
+const flipRightStart = useTemplateRef('flipRightStart')
+const flipRight = useTemplateRef('flipRight')
+const flipRightEnd = useTemplateRef('flipRightEnd')
+
+const shiftMainLeftStart = useTemplateRef('shiftMainLeftStart')
+const shiftMainLeft = useTemplateRef('shiftMainLeft')
+const shiftMainLeftEnd = useTemplateRef('shiftMainLeftEnd')
+const shiftMainTopStart = useTemplateRef('shiftMainTopStart')
+const shiftMainTop = useTemplateRef('shiftMainTop')
+const shiftMainTopEnd = useTemplateRef('shiftMainTopEnd')
+const shiftMainBottomStart = useTemplateRef('shiftMainBottomStart')
+const shiftMainBottom = useTemplateRef('shiftMainBottom')
+const shiftMainBottomEnd = useTemplateRef('shiftMainBottomEnd')
+const shiftMainRightStart = useTemplateRef('shiftMainRightStart')
+const shiftMainRight = useTemplateRef('shiftMainRight')
+const shiftMainRightEnd = useTemplateRef('shiftMainRightEnd')
+
+const sharedOptions = {
+	component: DemoAnchor,
+	disableScroll: false,
+	mask: false,
+}
+
+function handleLeftStart() {
+	popup.render({
+		anchor: leftStart.value?.$el,
+		anchorPlacement: 'left-start',
+		...sharedOptions,
+	})
+}
+
+function handleLeft() {
+	popup.render({
+		anchor: left.value?.$el,
+		anchorPlacement: 'left',
+		mask: false,
+		disableScroll: false,
+		component: DemoAnchor,
+	})
+}
+
+function handleLeftEnd() {
+	popup.render({
+		anchor: leftEnd.value?.$el,
+		anchorPlacement: 'left-end',
+		...sharedOptions,
+	})
+}
+
+function handleTopStart() {
+	popup.render({
+		anchor: topStart.value?.$el,
+		anchorPlacement: 'top-start',
+		mask: false,
+		disableScroll: false,
+		component: DemoAnchor,
+	})
+}
+
+function handleTop() {
+	popup.render({
+		anchor: top.value?.$el,
+		anchorPlacement: 'top',
+		mask: false,
+		disableScroll: false,
+		component: DemoAnchor,
+	})
+}
+
+function handleTopEnd() {
+	popup.render({
+		anchor: topEnd.value?.$el,
+		anchorPlacement: 'top-end',
+		...sharedOptions,
+	})
+}
+
+function handleBottomStart() {
+	popup.render({
+		anchor: bottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
+		...sharedOptions,
+	})
+}
+
+function handleBottom() {
+	popup.render({
+		anchor: bottom.value?.$el,
+		anchorPlacement: 'bottom',
+		...sharedOptions,
+	})
+}
+
+function handleBottomEnd() {
+	popup.render({
+		anchor: bottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
+		...sharedOptions,
+	})
+}
+
+function handleRightStart() {
+	popup.render({
+		anchor: rightStart.value?.$el,
+		anchorPlacement: 'right-start',
+		mask: false,
+		disableScroll: false,
+		component: DemoAnchor,
+	})
+}
+
+function handleRight() {
+	popup.render({
+		anchor: right.value?.$el,
+		anchorPlacement: 'right',
+		mask: false,
+		disableScroll: false,
+		component: DemoAnchor,
+	})
+}
+
+function handleRightEnd() {
+	popup.render({
+		anchor: rightEnd.value?.$el,
+		anchorPlacement: 'right-end',
+		...sharedOptions,
+	})
+}
+
+function handleFlipLeftStart() {
+	popup.render({
+		anchor: flipLeftStart.value?.$el,
+		anchorPlacement: 'left-start',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipLeft() {
+	popup.render({
+		anchor: flipLeft.value?.$el,
+		anchorPlacement: 'left',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipLeftEnd() {
+	popup.render({
+		anchor: flipLeftEnd.value?.$el,
+		anchorPlacement: 'left-end',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipTopStart() {
+	popup.render({
+		anchor: flipTopStart.value?.$el,
+		anchorPlacement: 'top-start',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipTop() {
+	popup.render({
+		anchor: flipTop.value?.$el,
+		anchorPlacement: 'top',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipTopEnd() {
+	popup.render({
+		anchor: flipTopEnd.value?.$el,
+		anchorPlacement: 'top-end',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipBottomStart() {
+	popup.render({
+		anchor: flipBottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipBottom() {
+	popup.render({
+		anchor: flipBottom.value?.$el,
+		anchorPlacement: 'bottom',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipBottomEnd() {
+	popup.render({
+		anchor: flipBottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipRightStart() {
+	popup.render({
+		anchor: flipRightStart.value?.$el,
+		anchorPlacement: 'right-start',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipRight() {
+	popup.render({
+		anchor: flipRight.value?.$el,
+		anchorPlacement: 'right',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleFlipRightEnd() {
+	popup.render({
+		anchor: flipRightEnd.value?.$el,
+		anchorPlacement: 'right-end',
+		anchorFlip: true,
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainLeftStart() {
+	popup.render({
+		anchor: shiftMainLeftStart.value?.$el,
+		anchorPlacement: 'left-start',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainLeft() {
+	popup.render({
+		anchor: shiftMainLeft.value?.$el,
+		anchorPlacement: 'left',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainLeftEnd() {
+	popup.render({
+		anchor: shiftMainLeftEnd.value?.$el,
+		anchorPlacement: 'left-end',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainTopStart() {
+	popup.render({
+		anchor: shiftMainTopStart.value?.$el,
+		anchorPlacement: 'top-start',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainTop() {
+	popup.render({
+		anchor: shiftMainTop.value?.$el,
+		anchorPlacement: 'top',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainTopEnd() {
+	popup.render({
+		anchor: shiftMainTopEnd.value?.$el,
+		anchorPlacement: 'top-end',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainBottomStart() {
+	popup.render({
+		anchor: shiftMainBottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainBottom() {
+	popup.render({
+		anchor: shiftMainBottom.value?.$el,
+		anchorPlacement: 'bottom',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainBottomEnd() {
+	popup.render({
+		anchor: shiftMainBottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainRightStart() {
+	popup.render({
+		anchor: shiftMainRightStart.value?.$el,
+		anchorPlacement: 'right-start',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainRight() {
+	popup.render({
+		anchor: shiftMainRight.value?.$el,
+		anchorPlacement: 'right',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftMainRightEnd() {
+	popup.render({
+		anchor: shiftMainRightEnd.value?.$el,
+		anchorPlacement: 'right-end',
+		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+</script>

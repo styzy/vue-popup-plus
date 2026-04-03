@@ -14,8 +14,8 @@ import {
 	watch,
 } from 'vue'
 import {
-	type AnchorAdjust,
 	type AnchorPlacement,
+	type AnchorShift,
 	type RenderOption,
 } from '../controller'
 import { useNamespace, usePopup } from '../hooks'
@@ -34,13 +34,13 @@ const viewComputedStyleRef = shallowRef<ComputedStyle | null>(null)
 type Props = {
 	anchor: Required<RenderOption>['anchor']
 	placement: AnchorPlacement
-	adjust: AnchorAdjust
-	clamp: boolean
+	flip: boolean
+	shift: AnchorShift
 	viewport: Required<RenderOption>['viewport']
 	zIndex: number
 }
 
-const { anchor, placement, adjust, clamp, viewport, zIndex } =
+const { anchor, placement, shift, flip, viewport, zIndex } =
 	defineProps<Props>()
 
 const anchorElement =
@@ -91,8 +91,9 @@ function bindComputedStyleWatcher() {
 	if (!computedStyle) return
 	watch(() => computedStyle.value.width, updateStyle)
 	watch(() => computedStyle.value.height, updateStyle)
-	watch(() => adjust, updateStyle)
-	watch(() => clamp, updateStyle)
+	watch(() => shift, updateStyle)
+	watch(() => flip, updateStyle)
+	watch(() => viewport, updateStyle)
 	updateStyle()
 }
 
@@ -164,6 +165,52 @@ function computeSpaces(
 		below: viewportHeight - rect.bottom,
 		left: rect.left,
 		right: viewportWidth - rect.right,
+	}
+}
+
+function computeSpacesWithinBoundary(
+	rect: Pick<DOMRect, 'top' | 'right' | 'bottom' | 'left'>,
+	boundary: { left: number; top: number; right: number; bottom: number }
+) {
+	return {
+		above: rect.top - boundary.top,
+		below: boundary.bottom - rect.bottom,
+		left: rect.left - boundary.left,
+		right: boundary.right - rect.right,
+	}
+}
+
+function resolveViewportBoundary(
+	viewportParam: Required<RenderOption>['viewport'],
+	scrollX: number,
+	scrollY: number,
+	viewportWidth: number,
+	viewportHeight: number
+) {
+	let boundaryLeft = scrollX
+	let boundaryTop = scrollY
+	let boundaryRight = scrollX + viewportWidth
+	let boundaryBottom = scrollY + viewportHeight
+	let boundaryElement: HTMLElement | null = null
+	if (typeof viewportParam === 'string') {
+		boundaryElement = document.querySelector(
+			viewportParam
+		) as HTMLElement | null
+	} else if (viewportParam instanceof HTMLElement) {
+		boundaryElement = viewportParam
+	}
+	if (boundaryElement) {
+		const r = boundaryElement.getBoundingClientRect()
+		boundaryLeft = scrollX + r.left
+		boundaryTop = scrollY + r.top
+		boundaryRight = scrollX + r.right
+		boundaryBottom = scrollY + r.bottom
+	}
+	return {
+		left: boundaryLeft,
+		top: boundaryTop,
+		right: boundaryRight,
+		bottom: boundaryBottom,
 	}
 }
 
@@ -263,22 +310,28 @@ function createStyle() {
 	const popupWidth = viewComputedStyleRef.value?.value.width ?? 0
 	const popupHeight = viewComputedStyleRef.value?.value.height ?? 0
 
-	const clampXViewport = (x: number) =>
-		Math.max(scrollX, Math.min(x, scrollX + viewportWidth - popupWidth))
-	const clampYViewport = (y: number) =>
-		Math.max(scrollY, Math.min(y, scrollY + viewportHeight - popupHeight))
-
-	const { direction: preferredDirection, align } = parsePlacement(placement)
-	const spacesViewport = computeSpaces(
-		{ top, right, bottom, left },
+	const boundary = resolveViewportBoundary(
+		viewport,
+		scrollX,
+		scrollY,
 		viewportWidth,
 		viewportHeight
 	)
+	const clampXBoundary = (x: number) =>
+		Math.max(boundary.left, Math.min(x, boundary.right - popupWidth))
+	const clampYBoundary = (y: number) =>
+		Math.max(boundary.top, Math.min(y, boundary.bottom - popupHeight))
+
+	const { direction: preferredDirection, align } = parsePlacement(placement)
+	const spacesBoundary = computeSpacesWithinBoundary(
+		{ top, right, bottom, left },
+		boundary
+	)
 	let finalDirection = preferredDirection
-	if (adjust === 'flip' || adjust === 'auto') {
+	if (flip) {
 		finalDirection = flipDirectionIfNeeded(
 			preferredDirection,
-			spacesViewport,
+			spacesBoundary,
 			{
 				width: popupWidth,
 				height: popupHeight,
@@ -292,36 +345,23 @@ function createStyle() {
 		{ width: popupWidth, height: popupHeight },
 		{ x: scrollX, y: scrollY }
 	)
-	if (adjust === 'shift' || adjust === 'auto') {
-		position.left = clampXViewport(position.left)
-	}
-
-	if (clamp) {
-		let boundaryLeft = scrollX
-		let boundaryTop = scrollY
-		let boundaryRight = scrollX + viewportWidth
-		let boundaryBottom = scrollY + viewportHeight
-		let boundaryElement: HTMLElement | null = null
-		if (typeof clamp === 'string') {
-			boundaryElement = document.querySelector(
-				clamp
-			) as HTMLElement | null
-		} else if (viewport instanceof HTMLElement) {
-			boundaryElement = viewport
-		}
-		if (boundaryElement) {
-			const r = boundaryElement.getBoundingClientRect()
-			boundaryLeft = scrollX + r.left
-			boundaryTop = scrollY + r.top
-			boundaryRight = scrollX + r.right
-			boundaryBottom = scrollY + r.bottom
-		}
-		const clampXBoundary = (x: number) =>
-			Math.max(boundaryLeft, Math.min(x, boundaryRight - popupWidth))
-		const clampYBoundary = (y: number) =>
-			Math.max(boundaryTop, Math.min(y, boundaryBottom - popupHeight))
+	const directionIsVertical =
+		finalDirection === 'top' || finalDirection === 'bottom'
+	if (shift === 'both') {
 		position.left = clampXBoundary(position.left)
 		position.top = clampYBoundary(position.top)
+	} else if (shift === 'crossAxis') {
+		if (directionIsVertical) {
+			position.left = clampXBoundary(position.left)
+		} else {
+			position.top = clampYBoundary(position.top)
+		}
+	} else if (shift === 'mainAxis') {
+		if (directionIsVertical) {
+			position.top = clampYBoundary(position.top)
+		} else {
+			position.left = clampXBoundary(position.left)
+		}
 	}
 
 	style.left = `${position.left}px`

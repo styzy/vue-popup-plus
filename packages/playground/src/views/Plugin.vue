@@ -2,7 +2,7 @@
 GContainer.plugin
 	GContainer
 		GTools(:component="() => import('./Plugin.vue')")
-		GTitle 插件功能单元测试
+		GTitle 预置插件 - 基础功能测试
 		PButtonGroup(theme="primary")
 			PButton(@click="handleSkinChange()" size="large" theme="success")
 				| 切换皮肤，当前为

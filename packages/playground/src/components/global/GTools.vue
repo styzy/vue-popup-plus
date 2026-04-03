@@ -13,13 +13,13 @@
 			cross-align="center"
 			direction="vertical"
 			style="margin-bottom: 30px"
-			theme="primary"
-			type="plain")
+			theme="primary")
 			PButton(@click="handleJumpIndex()" theme="success") 首页
-			PButton(@click="handleJumpCore()") 核心功能测试
-			PButton(@click="handleJumpDirective()") 核心指令测试
-			PButton(@click="handleJumpPlugin()" theme="success") 预置插件测试
-			PButton(@click="handleJumpButton()" theme="warning") 预置插件按钮测试
+			PButton(@click="handleJumpCore()") 核心 - 基础测试
+			PButton(@click="handleJumpAnchor()") 核心 - 锚点测试
+			PButton(@click="handleJumpDirective()" theme="warning" type="plain") 核心 - 指令测试
+			PButton(@click="handleJumpPlugin()" theme="success") 预置插件 - 基础测试
+			PButton(@click="handleJumpButton()" theme="warning" type="plain") 预置插件 - 按钮测试
 	PButton(@click="isExpand = !isExpand" theme="success") {{ isExpand ? '折叠工具面板' : '工具' }}
 </template>
 
@@ -99,6 +99,10 @@ function handleJumpIndex() {
 
 function handleJumpCore() {
 	router.push('/core')
+}
+
+function handleJumpAnchor() {
+	router.push('/anchor')
 }
 
 function handleJumpDirective() {

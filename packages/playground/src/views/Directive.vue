@@ -1,7 +1,7 @@
 <template lang="pug">
 GContainer.directive
 	GTools(:component="() => import('./Directive.vue')")
-	GTitle 核心指令单元测试
+	GTitle 核心 - 指令功能测试
 	GTitle(second) 触发对象
 	PButtonGroup(theme="primary")
 		.block(v-popup="Demo") div 触发

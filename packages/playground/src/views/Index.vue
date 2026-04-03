@@ -20,10 +20,11 @@ GContainer.index
 		direction="vertical"
 		size="large"
 		type="fill")
-		PButton(@click="handleJumpCore()" theme="primary") 核心功能测试
-		PButton(@click="handleJumpDirective()" theme="primary" type="plain") 核心指令测试
-		PButton(@click="handleJumpPlugin()" theme="success") 预置插件测试
-		PButton(@click="handleJumpButton()" theme="warning") 预置插件内置按钮测试
+		PButton(@click="handleJumpCore()" theme="primary") 核心 - 基础功能测试
+		PButton(@click="handleJumpAnchor()" theme="primary") 核心 - 锚点功能测试
+		PButton(@click="handleJumpDirective()" theme="warning" type="plain") 核心 - 指令功能测试
+		PButton(@click="handleJumpPlugin()" theme="success") 预置插件 - 基础功能测试
+		PButton(@click="handleJumpButton()" theme="warning" type="plain") 预置插件 - 按钮功能测试
 </template>
 
 <script lang="ts" setup>
@@ -38,6 +39,10 @@ function handleJump(url: string, blank = false) {
 
 const handleJumpCore = () => {
 	router.push('/core')
+}
+
+const handleJumpAnchor = () => {
+	router.push('/anchor')
 }
 
 const handleJumpDirective = () => {

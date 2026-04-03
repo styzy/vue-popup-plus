@@ -6,12 +6,11 @@ import './assets/styles/main.scss'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { type ConfigOption } from './config'
 export {
-	type ExtractComponentPropTypes,
 	type IController,
 	type MaskDestroyHandler,
 	type Placement,
 	type AnchorPlacement,
-	type AnchorAdjust,
+	type AnchorShift,
 	type PopupCustomProperties,
 	type RenderOption,
 	type UpdateOption,
@@ -35,6 +34,7 @@ export {
 	type LogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
+export type { ExtractComponentPropTypes } from './typings'
 export { version, type Version } from './version'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'

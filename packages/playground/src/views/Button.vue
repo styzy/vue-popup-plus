@@ -1,7 +1,7 @@
 <template lang="pug">
 GContainer
 	GTools(:component="() => import('./Button.vue')")
-	GTitle 按钮单元测试
+	GTitle 预置插件 - 按钮功能测试
 	GTitle(second) 默认
 	PButtonGroup
 		PButton(@click="handleClick()") Button
