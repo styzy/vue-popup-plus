@@ -102,6 +102,7 @@ const anchorRightEnd = useTemplateRef('anchorRightEnd')
 function handlePopup() {
 	popup.render({
 		component: Demo,
+		// component: () => import('@/views/demo/Demo.vue'),
 	})
 }
 
@@ -202,7 +203,7 @@ function handlePopupFullScreen() {
 	popup.render({
 		width: '100%',
 		height: '100%',
-		component: () => DemoFullScreen,
+		component: DemoFullScreen,
 	})
 }
 

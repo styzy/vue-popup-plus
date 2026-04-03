@@ -37,6 +37,9 @@ export default defineComponent({
 		}
 	},
 	watch: {
+		result(newVal) {
+			this.$emit('inputChange', newVal)
+		},
 		$popupComputedStyle(newStyle) {
 			console.log('newComputedStyle: ', newStyle)
 		},

@@ -1,18 +1,21 @@
 <template lang="pug">
 template(v-if="hackInject")
-	Teleport(:to="store.appendTo")
+	Teleport(:to="store.appendTo.value")
 		.popup-instance
 			PopupAnimation(
 				:duration="store.animationDuration.value"
 				:isBeforeUnmount="store.isBeforeUnmount.value"
 				:type="store.maskAnimation.value"
-				v-if="store.mask")
+				v-if="store.mask.value")
 				PopupMask
 			PopupAnchorFrame(
-				:anchor="store.anchor"
-				:anchorPlacement="store.anchorPlacement.value"
+				:adjust="store.anchorAdjust.value"
+				:anchor="store.anchor.value"
+				:clamp="store.anchorClamp.value"
+				:placement="store.anchorPlacement.value"
+				:viewport="store.viewport.value"
 				:zIndex="store.zIndex.value"
-				v-if="store.anchor")
+				v-if="store.anchor.value")
 				PopupAnimation(
 					:duration="store.animationDuration.value"
 					:isBeforeUnmount="store.isBeforeUnmount.value"

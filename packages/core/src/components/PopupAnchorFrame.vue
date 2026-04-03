@@ -13,7 +13,11 @@ import {
 	shallowRef,
 	watch,
 } from 'vue'
-import { type AnchorPlacement, type RenderConfigOptions } from '../controller'
+import {
+	type AnchorAdjust,
+	type AnchorPlacement,
+	type RenderOption,
+} from '../controller'
 import { useNamespace, usePopup } from '../hooks'
 import { type ComputedStyle } from '../typings'
 import { P_INSIDE_COMPONENT_NAMES, POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
@@ -28,12 +32,16 @@ const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const viewComputedStyleRef = shallowRef<ComputedStyle | null>(null)
 
 type Props = {
-	anchor: Required<RenderConfigOptions>['anchor']
-	anchorPlacement: AnchorPlacement
+	anchor: Required<RenderOption>['anchor']
+	placement: AnchorPlacement
+	adjust: AnchorAdjust
+	clamp: boolean
+	viewport: Required<RenderOption>['viewport']
 	zIndex: number
 }
 
-const { anchor, anchorPlacement, zIndex } = defineProps<Props>()
+const { anchor, placement, adjust, clamp, viewport, zIndex } =
+	defineProps<Props>()
 
 const anchorElement =
 	typeof anchor === 'string' ? document.querySelector(anchor) : anchor
@@ -83,6 +91,8 @@ function bindComputedStyleWatcher() {
 	if (!computedStyle) return
 	watch(() => computedStyle.value.width, updateStyle)
 	watch(() => computedStyle.value.height, updateStyle)
+	watch(() => adjust, updateStyle)
+	watch(() => clamp, updateStyle)
 	updateStyle()
 }
 
@@ -253,22 +263,28 @@ function createStyle() {
 	const popupWidth = viewComputedStyleRef.value?.value.width ?? 0
 	const popupHeight = viewComputedStyleRef.value?.value.height ?? 0
 
-	const clampX = (x: number) =>
+	const clampXViewport = (x: number) =>
 		Math.max(scrollX, Math.min(x, scrollX + viewportWidth - popupWidth))
-	const clampY = (y: number) =>
+	const clampYViewport = (y: number) =>
 		Math.max(scrollY, Math.min(y, scrollY + viewportHeight - popupHeight))
 
-	const { direction: preferredDirection, align } =
-		parsePlacement(anchorPlacement)
-	const spaces = computeSpaces(
+	const { direction: preferredDirection, align } = parsePlacement(placement)
+	const spacesViewport = computeSpaces(
 		{ top, right, bottom, left },
 		viewportWidth,
 		viewportHeight
 	)
-	const finalDirection = flipDirectionIfNeeded(preferredDirection, spaces, {
-		width: popupWidth,
-		height: popupHeight,
-	})
+	let finalDirection = preferredDirection
+	if (adjust === 'flip' || adjust === 'auto') {
+		finalDirection = flipDirectionIfNeeded(
+			preferredDirection,
+			spacesViewport,
+			{
+				width: popupWidth,
+				height: popupHeight,
+			}
+		)
+	}
 	const position = computeBasePosition(
 		finalDirection,
 		align as 'start' | 'end' | 'center',
@@ -276,8 +292,44 @@ function createStyle() {
 		{ width: popupWidth, height: popupHeight },
 		{ x: scrollX, y: scrollY }
 	)
-	style.left = `${clampX(position.left)}px`
-	style.top = `${clampY(position.top)}px`
+	if (adjust === 'shift' || adjust === 'auto') {
+		if (finalDirection === 'top' || finalDirection === 'bottom') {
+			position.left = clampXViewport(position.left)
+		} else {
+			position.top = clampYViewport(position.top)
+		}
+	}
+
+	if (clamp) {
+		let boundaryLeft = scrollX
+		let boundaryTop = scrollY
+		let boundaryRight = scrollX + viewportWidth
+		let boundaryBottom = scrollY + viewportHeight
+		let boundaryElement: HTMLElement | null = null
+		if (typeof clamp === 'string') {
+			boundaryElement = document.querySelector(
+				clamp
+			) as HTMLElement | null
+		} else if (viewport instanceof HTMLElement) {
+			boundaryElement = viewport
+		}
+		if (boundaryElement) {
+			const r = boundaryElement.getBoundingClientRect()
+			boundaryLeft = scrollX + r.left
+			boundaryTop = scrollY + r.top
+			boundaryRight = scrollX + r.right
+			boundaryBottom = scrollY + r.bottom
+		}
+		const clampXBoundary = (x: number) =>
+			Math.max(boundaryLeft, Math.min(x, boundaryRight - popupWidth))
+		const clampYBoundary = (y: number) =>
+			Math.max(boundaryTop, Math.min(y, boundaryBottom - popupHeight))
+		position.left = clampXBoundary(position.left)
+		position.top = clampYBoundary(position.top)
+	}
+
+	style.left = `${position.left}px`
+	style.top = `${position.top}px`
 	return style
 }
 </script>

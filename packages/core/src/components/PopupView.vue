@@ -3,7 +3,7 @@ div(:class="ns.block()" :style="styleObject" ref="popupViewRef")
 	component(
 		:is="resolvedComponent"
 		:key="`${instanceId.name}-component`"
-		v-bind="store.componentProps")
+		v-bind="store.componentProps.value")
 </template>
 
 <script lang="ts" setup>

@@ -32,9 +32,9 @@ const classObject = computed(() => [
 ])
 
 function handleClick() {
-	if (store.maskDestroy === false) return
+	if (store.maskDestroy.value === false) return
 
-	if (store.maskDestroy === true) {
+	if (store.maskDestroy.value === true) {
 		// 不在 setup 根层级创建控制器，因为可以使用全局缓存的无状态控制器，从而提高性能
 		const popup = usePopup()
 
@@ -46,7 +46,7 @@ function handleClick() {
 
 			await popup.destroy(instanceId, payload)
 		}
-		store.maskDestroy(destroy)
+		store.maskDestroy.value(destroy)
 	}
 }
 </script>

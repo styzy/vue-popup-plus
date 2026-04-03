@@ -4,19 +4,17 @@ import {
 	reactive,
 	ref,
 	render,
+	shallowRef,
 	toRefs,
 	type App,
 	type ComponentInternalInstance,
+	type Ref,
 	type ToRef,
 	type VNode,
 } from 'vue'
 import { wait } from 'utils'
 import { type ICore } from '../core'
-import type {
-	RenderComponentOptions,
-	RenderConfigOptions,
-	RenderStyleOptions,
-} from '../controller'
+import type { RenderOption, UpdateOption } from '../controller'
 import type { ComputedStyle } from '../typings'
 
 import PopupInstance from '../components/PopupInstance.vue'
@@ -52,60 +50,37 @@ export interface IInstance {
 	unmount(payload?: any): Promise<void>
 }
 
-type InstanceOptions = Required<
-	Omit<
-		RenderComponentOptions & RenderConfigOptions & RenderStyleOptions,
-		'anchor'
-	>
-> &
-	Partial<Pick<RenderConfigOptions, 'anchor'>>
+type InstanceOption = Required<RenderOption>
 
-type InstanceState = {
-	isBeforeUnmount: boolean
+type InstanceInternalStore = {
+	id: InstanceId
+	parentElement: Element
+	computedStyle: ComputedStyle | null
+	isBeforeUnmount: Ref<boolean>
 }
 
-export type InstanceStore = PropertiseToRef<
-	Required<RenderStyleOptions & InstanceState>
-> &
-	Required<Omit<RenderConfigOptions, 'anchor'> & RenderComponentOptions> & {
-		id: InstanceId
-		parentElement: Element
-		computedStyle: ComputedStyle | null
-	} & Partial<Pick<RenderConfigOptions, 'anchor'>>
+export type InstanceStore = InstanceInternalStore &
+	PropertiseToRef<Required<UpdateOption>> &
+	Required<Omit<RenderOption, keyof UpdateOption>>
 
 interface ICreateStore {
-	(id: InstanceId, options: InstanceOptions): InstanceStore
+	(id: InstanceId, options: InstanceOption): InstanceStore
 }
 
 const createStore: ICreateStore = (
 	id,
-	{
-		component,
-		componentProps,
-		onMounted,
-		onUnmounted,
-		appendTo,
-		anchor,
-		mask,
-		maskDestroy,
-		disableScroll,
-		...options
-	}
+	{ component, anchor, componentProps, viewport, disableScroll, ...options }
 ) => {
 	return {
 		id,
-		parentElement: getParentElement(appendTo),
-		appendTo,
-		anchor,
-		mask,
-		maskDestroy,
-		disableScroll,
-		component,
-		componentProps,
-		onMounted,
-		onUnmounted,
-		isBeforeUnmount: ref(false),
+		parentElement: getParentElement(options.appendTo),
 		computedStyle: null,
+		isBeforeUnmount: ref(false),
+		component,
+		disableScroll,
+		componentProps: shallowRef(componentProps),
+		anchor: shallowRef(anchor),
+		viewport: shallowRef(viewport),
 		...toRefs(reactive(options)),
 	}
 }
@@ -159,7 +134,7 @@ export class Instance implements IInstance {
 	}
 	constructor(
 		core: ICore,
-		options: InstanceOptions,
+		options: InstanceOption,
 		vm?: ComponentInternalInstance
 	) {
 		this._id = new InstanceId(core.instanceSeed)
