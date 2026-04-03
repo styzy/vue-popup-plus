@@ -293,11 +293,7 @@ function createStyle() {
 		{ x: scrollX, y: scrollY }
 	)
 	if (adjust === 'shift' || adjust === 'auto') {
-		if (finalDirection === 'top' || finalDirection === 'bottom') {
-			position.left = clampXViewport(position.left)
-		} else {
-			position.top = clampYViewport(position.top)
-		}
+		position.left = clampXViewport(position.left)
 	}
 
 	if (clamp) {

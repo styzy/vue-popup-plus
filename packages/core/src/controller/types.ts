@@ -31,7 +31,7 @@ export type AnchorPlacement = [
 	'right-end',
 ][number]
 
-export type AnchorAdjust = ['auto', 'flip', 'shift', 'none'][number]
+export type AnchorShift = ['both', 'mainAxis', 'crossAxis', 'none'][number]
 
 export type MaskDestroyHandler = (
 	close: (payload?: any) => Promise<void>
@@ -52,31 +52,15 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 */
 	anchor?: HTMLElement | string | null
 	/**
-	 * 锚点弹出层调整方式
+	 * 锚点弹出层是否在视窗空间不足时进行翻转
 	 *
-	 * - 当视窗空间不足时，根据调整方式进行调整，
+	 * - 当视窗空间不足时，自动进行翻转以保持弹出层在视窗范围内，
 	 *   并在视窗空间满足渲染时恢复到原始定义的位置
-	 * - 默认为 `'auto'`，即自动调整
-	 *
-	 * - 可选值包括：
-	 *   - `auto` ：自动使用 **翻转** 和 **平移** 方式，调整弹出层位置
-	 *   - `flip` ：当空间不足时，自动 **翻转** 弹出层
-	 *   - `shift` ：当空间不足时，自动 **平移** 弹出层
-	 *   - `none` ：不调整弹出层位置
+	 * - 默认为 `false`，即不进行翻转
 	 *
 	 * @since 1.7.0
 	 */
-	anchorAdjust?: AnchorAdjust
-	/**
-	 * 锚点弹出层是否被锁定在视窗范围内
-	 *
-	 * - 默认为 `false`
-	 * - 当为 `true` 时，弹出层将被锁定在视窗范围内
-	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 *
-	 * @since 1.7.0
-	 */
-	anchorClamp?: boolean
+	anchorFlip?: boolean
 	/**
 	 * 锚点弹出层位置与对齐方式
 	 *
@@ -101,6 +85,23 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 * @since 1.7.0
 	 */
 	anchorPlacement?: AnchorPlacement
+	/**
+	 * 锚点弹出层是否在视窗空间不足时进行平移
+	 *
+	 * - 当视窗空间不足时，自动进行平移以保持弹出层在视窗范围内，
+	 *   并在视窗空间满足渲染时恢复到原始定义的位置
+	 * - 默认为 `'none'`，即不进行平移
+	 *
+	 * - 可选值包括：
+	 *   - `both` ：在主轴和侧轴上都进行平移，相当于完全
+	 *     不会超出视窗范围
+	 *   - `mainAxis` ：在主轴上进行平移
+	 *   - `crossAxis` ：在侧轴上进行平移
+	 *   - `none` ：不进行平移
+	 *
+	 * @since 1.7.0
+	 */
+	anchorShift?: AnchorShift
 	/**
 	 * 弹出层动画时长
 	 *
