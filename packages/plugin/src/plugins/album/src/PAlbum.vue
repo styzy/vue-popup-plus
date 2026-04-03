@@ -109,6 +109,7 @@ import { File, type FileType } from '../../../class'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
 import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import PSkin from '../../../components/PSkin.vue'
 
 type Media = File & {
 	manualType?: 'image' | 'video'
