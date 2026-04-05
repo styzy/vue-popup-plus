@@ -243,35 +243,25 @@ function handleClick(event: PointerEvent) {
 	cursor: pointer;
 	@include ns-is('size-small') {
 		gap: 5px;
-		padding: 0 10px;
+		padding: 5px 10px;
 		height: 24px;
-		line-height: 24px;
 		font-size: use-font-size(text, small);
 	}
 	@include ns-is('size-default') {
 		gap: 10px;
-		padding: 0 15px;
+		padding: 8px 15px;
 		height: 32px;
-		line-height: 32px;
 		font-size: use-font-size(text);
 	}
 	@include ns-is('size-large') {
 		gap: 15px;
-		padding: 0 20px;
+		padding: 12px 20px;
 		height: 40px;
-		line-height: 40px;
 		font-size: use-font-size(title);
 	}
 	@include ns-is('type-link') {
-		@include ns-is('size-small') {
-			padding: 5px 0;
-		}
-		@include ns-is('size-medium') {
-			padding: 8px 0;
-		}
-		@include ns-is('size-large') {
-			padding: 12px 0;
-		}
+		padding: 0;
+		height: auto;
 	}
 	@include ns-is('disabled') {
 		opacity: 0.6;
