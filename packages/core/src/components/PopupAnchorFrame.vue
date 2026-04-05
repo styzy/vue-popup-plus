@@ -155,19 +155,6 @@ function parsePlacement(placement: AnchorPlacement) {
 	return { direction, align }
 }
 
-function computeSpaces(
-	rect: Pick<DOMRect, 'top' | 'right' | 'bottom' | 'left'>,
-	viewportWidth: number,
-	viewportHeight: number
-) {
-	return {
-		above: rect.top,
-		below: viewportHeight - rect.bottom,
-		left: rect.left,
-		right: viewportWidth - rect.right,
-	}
-}
-
 function computeSpacesWithinBoundary(
 	rect: Pick<DOMRect, 'top' | 'right' | 'bottom' | 'left'>,
 	boundary: { left: number; top: number; right: number; bottom: number }
@@ -201,10 +188,19 @@ function resolveViewportBoundary(
 	}
 	if (boundaryElement) {
 		const r = boundaryElement.getBoundingClientRect()
-		boundaryLeft = scrollX + r.left
-		boundaryTop = scrollY + r.top
-		boundaryRight = scrollX + r.right
-		boundaryBottom = scrollY + r.bottom
+		const cs = getComputedStyle(boundaryElement)
+		const borderLeft = parseFloat(cs.borderLeftWidth || '0')
+		const borderTop = parseFloat(cs.borderTopWidth || '0')
+		const paddingLeft = parseFloat(cs.paddingLeft || '0')
+		const paddingTop = parseFloat(cs.paddingTop || '0')
+		const contentLeft = scrollX + r.left + borderLeft + paddingLeft
+		const contentTop = scrollY + r.top + borderTop + paddingTop
+		const contentRight = contentLeft + boundaryElement.clientWidth
+		const contentBottom = contentTop + boundaryElement.clientHeight
+		boundaryLeft = contentLeft
+		boundaryTop = contentTop
+		boundaryRight = contentRight
+		boundaryBottom = contentBottom
 	}
 	return {
 		left: boundaryLeft,
@@ -219,6 +215,16 @@ function oppositeDirection(direction: 'top' | 'bottom' | 'left' | 'right') {
 	if (direction === 'bottom') return 'top'
 	if (direction === 'left') return 'right'
 	return 'left'
+}
+
+function spaceForDirection(
+	direction: 'top' | 'bottom' | 'left' | 'right',
+	spaces: { above: number; below: number; left: number; right: number }
+) {
+	if (direction === 'top') return spaces.above
+	if (direction === 'bottom') return spaces.below
+	if (direction === 'left') return spaces.left
+	return spaces.right
 }
 
 function applyShiftPosition(
@@ -255,41 +261,26 @@ function computeMainAxisOverflow(
 	popupSize: { width: number; height: number },
 	boundary: { left: number; top: number; right: number; bottom: number }
 ) {
+	// 归一化到 boundary 坐标系，避免绝对坐标基准偏差导致的误判
+	const normLeft = position.left - boundary.left
+	const normTop = position.top - boundary.top
+	const boundWidth = boundary.right - boundary.left
+	const boundHeight = boundary.bottom - boundary.top
 	if (direction === 'top' || direction === 'bottom') {
-		const overflowTop = Math.max(0, boundary.top - position.top)
+		const overflowTop = Math.max(0, -normTop)
 		const overflowBottom = Math.max(
 			0,
-			position.top + popupSize.height - boundary.bottom
+			normTop + popupSize.height - boundHeight
 		)
 		return overflowTop + overflowBottom
 	} else {
-		const overflowLeft = Math.max(0, boundary.left - position.left)
+		const overflowLeft = Math.max(0, -normLeft)
 		const overflowRight = Math.max(
 			0,
-			position.left + popupSize.width - boundary.right
+			normLeft + popupSize.width - boundWidth
 		)
 		return overflowLeft + overflowRight
 	}
-}
-
-function flipDirectionIfNeeded(
-	direction: 'top' | 'bottom' | 'left' | 'right',
-	spaces: { above: number; below: number; left: number; right: number },
-	popupSize: { width: number; height: number }
-) {
-	if (direction === 'top' && popupSize.height > spaces.above) {
-		return spaces.below >= spaces.above ? 'bottom' : 'top'
-	}
-	if (direction === 'bottom' && popupSize.height > spaces.below) {
-		return spaces.above >= spaces.below ? 'top' : 'bottom'
-	}
-	if (direction === 'left' && popupSize.width > spaces.left) {
-		return spaces.right >= spaces.left ? 'right' : 'left'
-	}
-	if (direction === 'right' && popupSize.width > spaces.right) {
-		return spaces.left >= spaces.right ? 'left' : 'right'
-	}
-	return direction
 }
 
 function computeBasePosition(
@@ -383,53 +374,73 @@ function createStyle() {
 	const { direction: preferredDirection, align } = parsePlacement(placement)
 	let finalDirection = preferredDirection
 	if (flip) {
-		const basePreferred = computeBasePosition(
-			preferredDirection,
-			align as 'start' | 'end' | 'center',
-			{ top, right, bottom, left, width, height },
-			{ width: popupWidth, height: popupHeight },
-			{ x: scrollX, y: scrollY }
-		)
-		const shiftedPreferred = applyShiftPosition(
-			preferredDirection,
-			shift,
-			basePreferred,
-			clampXBoundary,
-			clampYBoundary
-		)
-		const overflowPreferred = computeMainAxisOverflow(
-			preferredDirection,
-			shiftedPreferred,
-			{ width: popupWidth, height: popupHeight },
-			boundary
-		)
+		const rectPage = {
+			top: scrollY + top,
+			right: scrollX + right,
+			bottom: scrollY + bottom,
+			left: scrollX + left,
+		}
+		const spacesBoundary = computeSpacesWithinBoundary(rectPage, boundary)
 		const flipped = oppositeDirection(preferredDirection)
-		const baseFlipped = computeBasePosition(
-			flipped,
-			align as 'start' | 'end' | 'center',
-			{ top, right, bottom, left, width, height },
-			{ width: popupWidth, height: popupHeight },
-			{ x: scrollX, y: scrollY }
+		const axisSize =
+			preferredDirection === 'top' || preferredDirection === 'bottom'
+				? popupHeight
+				: popupWidth
+		const spacePreferred = spaceForDirection(
+			preferredDirection,
+			spacesBoundary
 		)
-		const shiftedFlipped = applyShiftPosition(
-			flipped,
-			shift,
-			baseFlipped,
-			clampXBoundary,
-			clampYBoundary
-		)
-		const overflowFlipped = computeMainAxisOverflow(
-			flipped,
-			shiftedFlipped,
-			{ width: popupWidth, height: popupHeight },
-			boundary
-		)
-		const FLIP_THRESHOLD = 8
-		if (
-			overflowPreferred > FLIP_THRESHOLD &&
-			overflowFlipped < overflowPreferred
-		) {
+		const earlyFlip = axisSize > spacePreferred
+		if (earlyFlip) {
 			finalDirection = flipped
+		} else {
+			const basePreferred = computeBasePosition(
+				preferredDirection,
+				align as 'start' | 'end' | 'center',
+				{ top, right, bottom, left, width, height },
+				{ width: popupWidth, height: popupHeight },
+				{ x: scrollX, y: scrollY }
+			)
+			const shiftedPreferred = applyShiftPosition(
+				preferredDirection,
+				shift,
+				basePreferred,
+				clampXBoundary,
+				clampYBoundary
+			)
+			const overflowPreferred = computeMainAxisOverflow(
+				preferredDirection,
+				shiftedPreferred,
+				{ width: popupWidth, height: popupHeight },
+				boundary
+			)
+			const baseFlipped = computeBasePosition(
+				flipped,
+				align as 'start' | 'end' | 'center',
+				{ top, right, bottom, left, width, height },
+				{ width: popupWidth, height: popupHeight },
+				{ x: scrollX, y: scrollY }
+			)
+			const shiftedFlipped = applyShiftPosition(
+				flipped,
+				shift,
+				baseFlipped,
+				clampXBoundary,
+				clampYBoundary
+			)
+			const overflowFlipped = computeMainAxisOverflow(
+				flipped,
+				shiftedFlipped,
+				{ width: popupWidth, height: popupHeight },
+				boundary
+			)
+			const FLIP_THRESHOLD = 8
+			if (
+				overflowPreferred > FLIP_THRESHOLD &&
+				overflowFlipped < overflowPreferred
+			) {
+				finalDirection = flipped
+			}
 		}
 	}
 	const position = computeBasePosition(

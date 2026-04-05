@@ -2,70 +2,88 @@
 GContainer
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 锚点功能测试
-	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
-		PButton(@click="handleLeft()" ref="left") 左侧
-		PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
-		PButton(@click="handleTopStart()" ref="topStart") 顶部起点
-		PButton(@click="handleTop()" ref="top") 顶部
-		PButton(@click="handleTopEnd()" ref="topEnd") 顶部终点
-		PButton(@click="handleBottomStart()" ref="bottomStart") 底部起点
-		PButton(@click="handleBottom()" ref="bottom") 底部
-		PButton(@click="handleBottomEnd()" ref="bottomEnd") 底部终点
-		PButton(@click="handleRightStart()" ref="rightStart") 右侧起点
-		PButton(@click="handleRight()" ref="right") 右侧
-		PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
-	GTitle(second) 翻转
-	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
-		PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
-		PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
-		PButton(@click="handleFlipTopStart()" ref="flipTopStart") 顶部起点
-		PButton(@click="handleFlipTop()" ref="flipTop") 顶部
-		PButton(@click="handleFlipTopEnd()" ref="flipTopEnd") 顶部终点
-		PButton(@click="handleFlipBottomStart()" ref="flipBottomStart") 底部起点
-		PButton(@click="handleFlipBottom()" ref="flipBottom") 底部
-		PButton(@click="handleFlipBottomEnd()" ref="flipBottomEnd") 底部终点
-		PButton(@click="handleFlipRightStart()" ref="flipRightStart") 右侧起点
-		PButton(@click="handleFlipRight()" ref="flipRight") 右侧
-		PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
-	GTitle(second) 主轴平移
-	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
-		PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
-		PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
-		PButton(@click="handleShiftMainTopStart()" ref="shiftMainTopStart") 顶部起点
-		PButton(@click="handleShiftMainTop()" ref="shiftMainTop") 顶部
-		PButton(@click="handleShiftMainTopEnd()" ref="shiftMainTopEnd") 顶部终点
-		PButton(@click="handleShiftMainBottomStart()" ref="shiftMainBottomStart") 底部起点
-		PButton(@click="handleShiftMainBottom()" ref="shiftMainBottom") 底部
-		PButton(@click="handleShiftMainBottomEnd()" ref="shiftMainBottomEnd") 底部终点
-		PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
-		PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
-		PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
-	GTitle(second) 交叉轴平移
-	PButtonGroup(theme="primary" tight type="plain")
-		PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
-		PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
-		PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
-		PButton(@click="handleShiftCrossTopStart()" ref="shiftCrossTopStart") 顶部起点
-		PButton(@click="handleShiftCrossTop()" ref="shiftCrossTop") 顶部
-		PButton(@click="handleShiftCrossTopEnd()" ref="shiftCrossTopEnd") 顶部终点
-		PButton(@click="handleShiftCrossBottomStart()" ref="shiftCrossBottomStart") 底部起点
-		PButton(@click="handleShiftCrossBottom()" ref="shiftCrossBottom") 底部
-		PButton(@click="handleShiftCrossBottomEnd()" ref="shiftCrossBottomEnd") 底部终点
-		PButton(@click="handleShiftCrossRightStart()" ref="shiftCrossRightStart") 右侧起点
-		PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
-		PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
+	.viewport(ref="viewportRef")
+		.viewport-wrapper
+			GTitle(second) 位置
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
+				PButton(@click="handleLeft()" ref="left") 左侧
+				PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
+				PButton(@click="handleTopStart()" ref="topStart") 顶部起点
+				PButton(@click="handleTop()" ref="top") 顶部
+				PButton(@click="handleTopEnd()" ref="topEnd") 顶部终点
+				PButton(@click="handleBottomStart()" ref="bottomStart") 底部起点
+				PButton(@click="handleBottom()" ref="bottom") 底部
+				PButton(@click="handleBottomEnd()" ref="bottomEnd") 底部终点
+				PButton(@click="handleRightStart()" ref="rightStart") 右侧起点
+				PButton(@click="handleRight()" ref="right") 右侧
+				PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
+			GTitle(second) 翻转
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
+				PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
+				PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
+				PButton(@click="handleFlipTopStart()" ref="flipTopStart") 顶部起点
+				PButton(@click="handleFlipTop()" ref="flipTop") 顶部
+				PButton(@click="handleFlipTopEnd()" ref="flipTopEnd") 顶部终点
+				PButton(@click="handleFlipBottomStart()" ref="flipBottomStart") 底部起点
+				PButton(@click="handleFlipBottom()" ref="flipBottom") 底部
+				PButton(@click="handleFlipBottomEnd()" ref="flipBottomEnd") 底部终点
+				PButton(@click="handleFlipRightStart()" ref="flipRightStart") 右侧起点
+				PButton(@click="handleFlipRight()" ref="flipRight") 右侧
+				PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
+			GTitle(second) 主轴平移
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
+				PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
+				PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
+				PButton(@click="handleShiftMainTopStart()" ref="shiftMainTopStart") 顶部起点
+				PButton(@click="handleShiftMainTop()" ref="shiftMainTop") 顶部
+				PButton(@click="handleShiftMainTopEnd()" ref="shiftMainTopEnd") 顶部终点
+				PButton(@click="handleShiftMainBottomStart()" ref="shiftMainBottomStart") 底部起点
+				PButton(@click="handleShiftMainBottom()" ref="shiftMainBottom") 底部
+				PButton(@click="handleShiftMainBottomEnd()" ref="shiftMainBottomEnd") 底部终点
+				PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
+				PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
+				PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
+			GTitle(second) 交叉轴平移
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
+				PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
+				PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
+				PButton(@click="handleShiftCrossTopStart()" ref="shiftCrossTopStart") 顶部起点
+				PButton(@click="handleShiftCrossTop()" ref="shiftCrossTop") 顶部
+				PButton(@click="handleShiftCrossTopEnd()" ref="shiftCrossTopEnd") 顶部终点
+				PButton(@click="handleShiftCrossBottomStart()" ref="shiftCrossBottomStart") 底部起点
+				PButton(@click="handleShiftCrossBottom()" ref="shiftCrossBottom") 底部
+				PButton(@click="handleShiftCrossBottomEnd()" ref="shiftCrossBottomEnd") 底部终点
+				PButton(@click="handleShiftCrossRightStart()" ref="shiftCrossRightStart") 右侧起点
+				PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
+				PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
+			GTitle(second) 主轴交叉轴都平移
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handleShiftBothLeftStart()" ref="shiftBothLeftStart") 左侧起点
+				PButton(@click="handleShiftBothLeft()" ref="shiftBothLeft") 左侧
+				PButton(@click="handleShiftBothLeftEnd()" ref="shiftBothLeftEnd") 左侧终点
+				PButton(@click="handleShiftBothTopStart()" ref="shiftBothTopStart") 顶部起点
+				PButton(@click="handleShiftBothTop()" ref="shiftBothTop") 顶部
+				PButton(@click="handleShiftBothTopEnd()" ref="shiftBothTopEnd") 顶部终点
+				PButton(@click="handleShiftBothBottomStart()" ref="shiftBothBottomStart") 底部起点
+				PButton(@click="handleShiftBothBottom()" ref="shiftBothBottom") 底部
+				PButton(@click="handleShiftBothBottomEnd()" ref="shiftBothBottomEnd") 底部终点
+				PButton(@click="handleShiftBothRightStart()" ref="shiftBothRightStart") 右侧起点
+				PButton(@click="handleShiftBothRight()" ref="shiftBothRight") 右侧
+				PButton(@click="handleShiftBothRightEnd()" ref="shiftBothRightEnd") 右侧终点
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
-import { usePopup } from 'vue-popup-plus'
+import { onMounted, useTemplateRef } from 'vue'
+import { usePopup, type RenderOption } from 'vue-popup-plus'
 import DemoAnchor from './demo/DemoAnchor.vue'
 
 const popup = usePopup()
+
+const viewportRef = useTemplateRef('viewportRef')
 
 const leftStart = useTemplateRef('leftStart')
 const left = useTemplateRef('left')
@@ -119,11 +137,28 @@ const shiftCrossRightStart = useTemplateRef('shiftCrossRightStart')
 const shiftCrossRight = useTemplateRef('shiftCrossRight')
 const shiftCrossRightEnd = useTemplateRef('shiftCrossRightEnd')
 
-const sharedOptions = {
+const shiftBothLeftStart = useTemplateRef('shiftBothLeftStart')
+const shiftBothLeft = useTemplateRef('shiftBothLeft')
+const shiftBothLeftEnd = useTemplateRef('shiftBothLeftEnd')
+const shiftBothTopStart = useTemplateRef('shiftBothTopStart')
+const shiftBothTop = useTemplateRef('shiftBothTop')
+const shiftBothTopEnd = useTemplateRef('shiftBothTopEnd')
+const shiftBothBottomStart = useTemplateRef('shiftBothBottomStart')
+const shiftBothBottom = useTemplateRef('shiftBothBottom')
+const shiftBothBottomEnd = useTemplateRef('shiftBothBottomEnd')
+const shiftBothRightStart = useTemplateRef('shiftBothRightStart')
+const shiftBothRight = useTemplateRef('shiftBothRight')
+const shiftBothRightEnd = useTemplateRef('shiftBothRightEnd')
+
+const sharedOptions: RenderOption = {
 	component: DemoAnchor,
 	disableScroll: false,
 	mask: false,
 }
+
+onMounted(() => {
+	sharedOptions.viewport = viewportRef.value
+})
 
 function handleLeftStart() {
 	popup.render({
@@ -554,4 +589,127 @@ function handleShiftCrossRightEnd() {
 		...sharedOptions,
 	})
 }
+
+function handleShiftBothLeftStart() {
+	popup.render({
+		anchor: shiftBothLeftStart.value?.$el,
+		anchorPlacement: 'left-start',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothLeft() {
+	popup.render({
+		anchor: shiftBothLeft.value?.$el,
+		anchorPlacement: 'left',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothLeftEnd() {
+	popup.render({
+		anchor: shiftBothLeftEnd.value?.$el,
+		anchorPlacement: 'left-end',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothTopStart() {
+	popup.render({
+		anchor: shiftBothTopStart.value?.$el,
+		anchorPlacement: 'top-start',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothTop() {
+	popup.render({
+		anchor: shiftBothTop.value?.$el,
+		anchorPlacement: 'top',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothTopEnd() {
+	popup.render({
+		anchor: shiftBothTopEnd.value?.$el,
+		anchorPlacement: 'top-end',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothBottomStart() {
+	popup.render({
+		anchor: shiftBothBottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothBottom() {
+	popup.render({
+		anchor: shiftBothBottom.value?.$el,
+		anchorPlacement: 'bottom',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothBottomEnd() {
+	popup.render({
+		anchor: shiftBothBottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothRightStart() {
+	popup.render({
+		anchor: shiftBothRightStart.value?.$el,
+		anchorPlacement: 'right-start',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothRight() {
+	popup.render({
+		anchor: shiftBothRight.value?.$el,
+		anchorPlacement: 'right',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
+
+function handleShiftBothRightEnd() {
+	popup.render({
+		anchor: shiftBothRightEnd.value?.$el,
+		anchorPlacement: 'right-end',
+		anchorShift: 'both',
+		...sharedOptions,
+	})
+}
 </script>
+
+<style lang="scss" scoped>
+.viewport {
+	width: 50vw;
+	height: 50vh;
+	margin: 0 auto;
+	overflow: auto;
+	.viewport-wrapper {
+		width: 100vw;
+		height: 100vh;
+		padding: 500px;
+		background: #f0f0f0;
+	}
+}
+</style>

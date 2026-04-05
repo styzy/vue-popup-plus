@@ -32,7 +32,7 @@ function handleResize() {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	padding: 5px 10px;
+	// padding: 5px 10px;
 	width: v-bind(width);
 	height: v-bind(height);
 	background-color: var(--popup-color-danger);
