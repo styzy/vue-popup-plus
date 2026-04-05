@@ -44,6 +44,20 @@ GContainer
 		PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
 		PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
 		PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
+	GTitle(second) 交叉轴平移
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
+		PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
+		PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
+		PButton(@click="handleShiftCrossTopStart()" ref="shiftCrossTopStart") 顶部起点
+		PButton(@click="handleShiftCrossTop()" ref="shiftCrossTop") 顶部
+		PButton(@click="handleShiftCrossTopEnd()" ref="shiftCrossTopEnd") 顶部终点
+		PButton(@click="handleShiftCrossBottomStart()" ref="shiftCrossBottomStart") 底部起点
+		PButton(@click="handleShiftCrossBottom()" ref="shiftCrossBottom") 底部
+		PButton(@click="handleShiftCrossBottomEnd()" ref="shiftCrossBottomEnd") 底部终点
+		PButton(@click="handleShiftCrossRightStart()" ref="shiftCrossRightStart") 右侧起点
+		PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
+		PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
 </template>
 
 <script setup lang="ts">
@@ -91,6 +105,19 @@ const shiftMainBottomEnd = useTemplateRef('shiftMainBottomEnd')
 const shiftMainRightStart = useTemplateRef('shiftMainRightStart')
 const shiftMainRight = useTemplateRef('shiftMainRight')
 const shiftMainRightEnd = useTemplateRef('shiftMainRightEnd')
+
+const shiftCrossLeftStart = useTemplateRef('shiftCrossLeftStart')
+const shiftCrossLeft = useTemplateRef('shiftCrossLeft')
+const shiftCrossLeftEnd = useTemplateRef('shiftCrossLeftEnd')
+const shiftCrossTopStart = useTemplateRef('shiftCrossTopStart')
+const shiftCrossTop = useTemplateRef('shiftCrossTop')
+const shiftCrossTopEnd = useTemplateRef('shiftCrossTopEnd')
+const shiftCrossBottomStart = useTemplateRef('shiftCrossBottomStart')
+const shiftCrossBottom = useTemplateRef('shiftCrossBottom')
+const shiftCrossBottomEnd = useTemplateRef('shiftCrossBottomEnd')
+const shiftCrossRightStart = useTemplateRef('shiftCrossRightStart')
+const shiftCrossRight = useTemplateRef('shiftCrossRight')
+const shiftCrossRightEnd = useTemplateRef('shiftCrossRightEnd')
 
 const sharedOptions = {
 	component: DemoAnchor,
@@ -416,6 +443,114 @@ function handleShiftMainRightEnd() {
 		anchor: shiftMainRightEnd.value?.$el,
 		anchorPlacement: 'right-end',
 		anchorShift: 'mainAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossLeftStart() {
+	popup.render({
+		anchor: shiftCrossLeftStart.value?.$el,
+		anchorPlacement: 'left-start',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossLeft() {
+	popup.render({
+		anchor: shiftCrossLeft.value?.$el,
+		anchorPlacement: 'left',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossLeftEnd() {
+	popup.render({
+		anchor: shiftCrossLeftEnd.value?.$el,
+		anchorPlacement: 'left-end',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossTopStart() {
+	popup.render({
+		anchor: shiftCrossTopStart.value?.$el,
+		anchorPlacement: 'top-start',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossTop() {
+	popup.render({
+		anchor: shiftCrossTop.value?.$el,
+		anchorPlacement: 'top',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossTopEnd() {
+	popup.render({
+		anchor: shiftCrossTopEnd.value?.$el,
+		anchorPlacement: 'top-end',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossBottomStart() {
+	popup.render({
+		anchor: shiftCrossBottomStart.value?.$el,
+		anchorPlacement: 'bottom-start',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossBottom() {
+	popup.render({
+		anchor: shiftCrossBottom.value?.$el,
+		anchorPlacement: 'bottom',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossBottomEnd() {
+	popup.render({
+		anchor: shiftCrossBottomEnd.value?.$el,
+		anchorPlacement: 'bottom-end',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossRightStart() {
+	popup.render({
+		anchor: shiftCrossRightStart.value?.$el,
+		anchorPlacement: 'right-start',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossRight() {
+	popup.render({
+		anchor: shiftCrossRight.value?.$el,
+		anchorPlacement: 'right',
+		anchorShift: 'crossAxis',
+		...sharedOptions,
+	})
+}
+
+function handleShiftCrossRightEnd() {
+	popup.render({
+		anchor: shiftCrossRightEnd.value?.$el,
+		anchorPlacement: 'right-end',
+		anchorShift: 'crossAxis',
 		...sharedOptions,
 	})
 }
