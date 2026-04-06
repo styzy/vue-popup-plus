@@ -12,6 +12,7 @@ export * from './types'
 const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 	anchor: null,
 	anchorFlip: false,
+	anchorFlipAdvance: 0,
 	anchorShift: 'none',
 	anchorPlacement: 'top',
 	animationDuration: 100,

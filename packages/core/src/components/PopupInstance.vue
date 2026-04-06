@@ -11,6 +11,7 @@ template(v-if="hackInject")
 			PopupAnchorFrame(
 				:anchor="store.anchor.value"
 				:flip="store.anchorFlip.value"
+				:flipAdvance="store.anchorFlipAdvance.value"
 				:placement="store.anchorPlacement.value"
 				:shift="store.anchorShift.value"
 				:viewport="store.viewport.value"

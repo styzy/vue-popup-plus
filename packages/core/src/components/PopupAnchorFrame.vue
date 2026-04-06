@@ -35,12 +35,13 @@ type Props = {
 	anchor: Required<RenderOption>['anchor']
 	placement: AnchorPlacement
 	flip: boolean
+	flipAdvance: number
 	shift: AnchorShift
 	viewport: Required<RenderOption>['viewport']
 	zIndex: number
 }
 
-const { anchor, placement, shift, flip, viewport, zIndex } =
+const { anchor, placement, shift, flip, flipAdvance, viewport, zIndex } =
 	defineProps<Props>()
 
 const anchorElement =
