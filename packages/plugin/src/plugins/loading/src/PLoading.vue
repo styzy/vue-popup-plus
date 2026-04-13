@@ -82,7 +82,7 @@ function handleCloseOnDebugMode() {
 		@include ns-element('wrapper') {
 			background-color: rgba(0, 0, 0, 0.75);
 			@include use-dark() {
-				background-color: rgba(40, 40, 40, 0.85);
+				background-color: rgba(31, 31, 31, 0.85);
 			}
 		}
 	}
@@ -90,7 +90,7 @@ function handleCloseOnDebugMode() {
 		@include ns-element('wrapper') {
 			background-color: rgba(0, 0, 0, 0.8);
 			@include use-dark() {
-				background-color: rgba(40, 40, 40, 0.9);
+				background-color: rgba(31, 31, 31, 0.9);
 			}
 		}
 	}

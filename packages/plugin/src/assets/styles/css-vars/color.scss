@@ -59,7 +59,7 @@
 
 	$dark-color-text: #dfdfd6;
 	$dark-color-border: #383838;
-	$dark-color-background: #222222;
+	$dark-color-background: #1f1f1f;
 
 	@include css-color-variables('text', $color-text);
 	@include css-color-variables('border', $color-border);

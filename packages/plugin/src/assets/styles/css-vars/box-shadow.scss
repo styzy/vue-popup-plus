@@ -19,8 +19,8 @@
 		0 6px 16px 0 rgba(0, 0, 0, 0.1),
 		0 3px 6px -4px rgba(0, 0, 0, 0.1),
 		0 9px 28px 8px rgba(0, 0, 0, 0.1);
-	$box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.1);
-	$box-shadow-small: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+	$box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	$box-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 
 	--#{namespace.$box-shadow}-large: #{$box-shadow-large};
 	--#{namespace.$box-shadow}: #{$box-shadow};
@@ -28,9 +28,9 @@
 }
 
 @include use-skin('classic') {
-	$box-shadow-large: 0 0 12px 3px rgba(0, 0, 0, 0.15);
-	$box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.1);
-	$box-shadow-small: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+	$box-shadow-large: 0 0 10px 0px rgba(0, 0, 0, 0.3);
+	$box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	$box-shadow-small: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 
 	--#{namespace.$box-shadow}-large: #{$box-shadow-large};
 	--#{namespace.$box-shadow}: #{$box-shadow};
