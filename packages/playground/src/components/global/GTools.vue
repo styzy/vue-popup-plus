@@ -128,7 +128,7 @@ function handleJumpButton() {
 	align-items: center;
 	padding: 0 10px 10px;
 	background-color: var(--playground-color-background-sub);
-	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 	z-index: 100;
 	&.is-collapse {

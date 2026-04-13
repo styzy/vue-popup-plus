@@ -154,6 +154,7 @@ const sharedOptions: RenderOption = {
 	component: DemoAnchor,
 	disableScroll: false,
 	mask: false,
+	anchorFlipAdvance: 10,
 }
 
 onMounted(() => {

@@ -391,7 +391,8 @@ function createStyle() {
 			preferredDirection,
 			spacesBoundary
 		)
-		const earlyFlip = axisSize > spacePreferred
+		const advance = Math.max(0, flipAdvance || 0)
+		const earlyFlip = axisSize + advance > spacePreferred
 		if (earlyFlip) {
 			finalDirection = flipped
 		} else {

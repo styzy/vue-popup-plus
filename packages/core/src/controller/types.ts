@@ -67,6 +67,7 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 * - 锚点弹出层计算是否需要进行翻转时的提前偏移量，主要用于
 	 *   防止出现达到临界值时的闪烁现象
 	 * - 默认为 `0` ，即不提前偏移，与原始定义位置一致
+	 * - 仅在 `anchorFlip` 参数为 `true` 时有效
 	 *
 	 * @since 1.7.0
 	 */
