@@ -418,7 +418,6 @@ function createStyle() {
 			preferredDirection,
 			spacesBoundary
 		)
-		const spaceFlipped = spaceForDirection(flipped, spacesBoundary)
 		const advance = Math.max(0, flipAdvance || 0)
 		const isOnPreferredSide =
 			!lastDirection.value || lastDirection.value === preferredDirection
@@ -496,7 +495,6 @@ function createStyle() {
 					? Math.max(flipSourceSize.height, popupHeight)
 					: popupHeight
 
-			const FLIP_THRESHOLD = 8
 			const HYSTERESIS_MIN = 10
 			const HYSTERESIS_MAX = 40
 			const hysteresisBase = flipAdvance || 0
@@ -511,13 +509,8 @@ function createStyle() {
 					: preferredWidth
 			const canFitPreferredBack = axisSizeBack + advance <= spacePreferred
 			const marginPreferred = spacePreferred - (axisSizeBack + advance)
-			const marginFlipped = spaceFlipped - (axisSize + advance)
 
-			if (
-				canFitPreferredBack &&
-				marginPreferred - marginFlipped > hysteresis &&
-				Math.abs(marginPreferred) > FLIP_THRESHOLD
-			) {
+			if (canFitPreferredBack && marginPreferred > hysteresis) {
 				finalDirection = preferredDirection
 			}
 		}
