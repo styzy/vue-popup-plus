@@ -48,12 +48,10 @@ const { anchor, placement, shift, flip, flipAdvance, viewport, zIndex } =
 
 const anchorElement =
 	typeof anchor === 'string' ? document.querySelector(anchor) : anchor
-const styleObject = ref(createStyle())
 const resizeObserver = shallowRef<ResizeObserver>()
 const scrollTargets = shallowRef<Array<Element | Window>>([])
-
 const lastDirection = ref<'top' | 'bottom' | 'left' | 'right' | null>(null)
-
+const styleObject = ref(createStyle())
 let flipSourceSize: {
 	direction: 'top' | 'bottom' | 'left' | 'right'
 	width: number
@@ -548,9 +546,15 @@ function createStyle() {
 				Math.max(HYSTERESIS_MIN, hysteresisBase + 10)
 			)
 
+			const axisSizeBack =
+				preferredDirection === 'top' || preferredDirection === 'bottom'
+					? preferredHeight
+					: preferredWidth
+
 			if (
 				overflowFlippedCurrent > FLIP_THRESHOLD &&
-				overflowPreferredBack + hysteresis < overflowFlippedCurrent
+				overflowPreferredBack + hysteresis < overflowFlippedCurrent &&
+				axisSizeBack + advance <= spacePreferred
 			) {
 				finalDirection = preferredDirection
 			}
