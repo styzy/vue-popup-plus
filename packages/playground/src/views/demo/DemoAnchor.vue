@@ -1,7 +1,8 @@
 <template lang="pug">
-.demo-anchor(@click="handleClose()" ref="demoAnchorRef")
+.demo-anchor(ref="demoAnchorRef")
 	.title
-		span(@click.stop="handleResize()") 调整大小
+		PButton(@click="handleResize()" theme="success") 调整大小
+		PButton(@click="handleClose()" theme="warning") 关闭
 	.content 这是一段很长的文本，这是一段很长的文本，这是一段很长的文本。
 </template>
 
@@ -32,7 +33,7 @@ function handleResize() {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	// padding: 5px 10px;
+	padding: 20px;
 	width: v-bind(width);
 	height: v-bind(height);
 	background-color: var(--popup-color-danger);
@@ -40,6 +41,7 @@ function handleResize() {
 	cursor: pointer;
 	.title {
 		display: flex;
+		justify-content: space-between;
 		gap: 5px;
 		span {
 			font-size: 14px;

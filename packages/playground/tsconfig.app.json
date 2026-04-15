@@ -10,6 +10,7 @@
 			"vue-popup-plus": ["../core/src"],
 			"vue-popup-plus-plugin-preset": ["../plugin/src"]
 		},
+		"types": ["element-plus/global"],
 		"isolatedModules": true,
 		"strict": true
 	},

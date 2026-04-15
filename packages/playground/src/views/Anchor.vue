@@ -1,83 +1,92 @@
 <template lang="pug">
-GContainer
+GContainer.anchor
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 锚点功能测试
-	.viewport(ref="viewportRef")
-		.viewport-wrapper
-			GTitle(second) 位置
-			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
-				PButton(@click="handleLeft()" ref="left") 左侧
-				PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
-				PButton(@click="handleTopStart()" ref="topStart") 顶部起点
-				PButton(@click="handleTop()" ref="top") 顶部
-				PButton(@click="handleTopEnd()" ref="topEnd") 顶部终点
-				PButton(@click="handleBottomStart()" ref="bottomStart") 底部起点
-				PButton(@click="handleBottom()" ref="bottom") 底部
-				PButton(@click="handleBottomEnd()" ref="bottomEnd") 底部终点
-				PButton(@click="handleRightStart()" ref="rightStart") 右侧起点
-				PButton(@click="handleRight()" ref="right") 右侧
-				PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
-			GTitle(second) 翻转
-			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
-				PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
-				PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
-				PButton(@click="handleFlipTopStart()" ref="flipTopStart") 顶部起点
-				PButton(@click="handleFlipTop()" ref="flipTop") 顶部
-				PButton(@click="handleFlipTopEnd()" ref="flipTopEnd") 顶部终点
-				PButton(@click="handleFlipBottomStart()" ref="flipBottomStart") 底部起点
-				PButton(@click="handleFlipBottom()" ref="flipBottom") 底部
-				PButton(@click="handleFlipBottomEnd()" ref="flipBottomEnd") 底部终点
-				PButton(@click="handleFlipRightStart()" ref="flipRightStart") 右侧起点
-				PButton(@click="handleFlipRight()" ref="flipRight") 右侧
-				PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
-			GTitle(second) 主轴平移
-			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
-				PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
-				PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
-				PButton(@click="handleShiftMainTopStart()" ref="shiftMainTopStart") 顶部起点
-				PButton(@click="handleShiftMainTop()" ref="shiftMainTop") 顶部
-				PButton(@click="handleShiftMainTopEnd()" ref="shiftMainTopEnd") 顶部终点
-				PButton(@click="handleShiftMainBottomStart()" ref="shiftMainBottomStart") 底部起点
-				PButton(@click="handleShiftMainBottom()" ref="shiftMainBottom") 底部
-				PButton(@click="handleShiftMainBottomEnd()" ref="shiftMainBottomEnd") 底部终点
-				PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
-				PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
-				PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
-			GTitle(second) 交叉轴平移
-			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
-				PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
-				PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
-				PButton(@click="handleShiftCrossTopStart()" ref="shiftCrossTopStart") 顶部起点
-				PButton(@click="handleShiftCrossTop()" ref="shiftCrossTop") 顶部
-				PButton(@click="handleShiftCrossTopEnd()" ref="shiftCrossTopEnd") 顶部终点
-				PButton(@click="handleShiftCrossBottomStart()" ref="shiftCrossBottomStart") 底部起点
-				PButton(@click="handleShiftCrossBottom()" ref="shiftCrossBottom") 底部
-				PButton(@click="handleShiftCrossBottomEnd()" ref="shiftCrossBottomEnd") 底部终点
-				PButton(@click="handleShiftCrossRightStart()" ref="shiftCrossRightStart") 右侧起点
-				PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
-				PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
-			GTitle(second) 主轴交叉轴都平移
-			PButtonGroup(theme="primary" tight type="plain")
-				PButton(@click="handleShiftBothLeftStart()" ref="shiftBothLeftStart") 左侧起点
-				PButton(@click="handleShiftBothLeft()" ref="shiftBothLeft") 左侧
-				PButton(@click="handleShiftBothLeftEnd()" ref="shiftBothLeftEnd") 左侧终点
-				PButton(@click="handleShiftBothTopStart()" ref="shiftBothTopStart") 顶部起点
-				PButton(@click="handleShiftBothTop()" ref="shiftBothTop") 顶部
-				PButton(@click="handleShiftBothTopEnd()" ref="shiftBothTopEnd") 顶部终点
-				PButton(@click="handleShiftBothBottomStart()" ref="shiftBothBottomStart") 底部起点
-				PButton(@click="handleShiftBothBottom()" ref="shiftBothBottom") 底部
-				PButton(@click="handleShiftBothBottomEnd()" ref="shiftBothBottomEnd") 底部终点
-				PButton(@click="handleShiftBothRightStart()" ref="shiftBothRightStart") 右侧起点
-				PButton(@click="handleShiftBothRight()" ref="shiftBothRight") 右侧
-				PButton(@click="handleShiftBothRightEnd()" ref="shiftBothRightEnd") 右侧终点
+	ElFormItem(label="viewport")
+		ElSwitch(
+			active-text="viewportRef"
+			inactive-text="window"
+			v-model="useViewport")
+	.viewport
+		GTitle.viewport-title(second) viewportRef
+		.viewport-wrapper(ref="viewportRef")
+			.viewport-content
+				GTitle(second) 位置
+				PButtonGroup(theme="primary" tight type="plain")
+					PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
+					PButton(@click="handleLeft()" ref="left") 左侧
+					PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
+					PButton(@click="handleTopStart()" ref="topStart") 顶部起点
+					PButton(@click="handleTop()" ref="top") 顶部
+					PButton(@click="handleTopEnd()" ref="topEnd") 顶部终点
+					PButton(@click="handleBottomStart()" ref="bottomStart") 底部起点
+					PButton(@click="handleBottom()" ref="bottom") 底部
+					PButton(@click="handleBottomEnd()" ref="bottomEnd") 底部终点
+					PButton(@click="handleRightStart()" ref="rightStart") 右侧起点
+					PButton(@click="handleRight()" ref="right") 右侧
+					PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
+				GTitle(second) 翻转
+				PButtonGroup(theme="primary" tight type="plain")
+					PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
+					PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
+					PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
+					PButton(@click="handleFlipTopStart()" ref="flipTopStart") 顶部起点
+					PButton(@click="handleFlipTop()" ref="flipTop") 顶部
+					PButton(@click="handleFlipTopEnd()" ref="flipTopEnd") 顶部终点
+					PButton(@click="handleFlipBottomStart()" ref="flipBottomStart") 底部起点
+					PButton(@click="handleFlipBottom()" ref="flipBottom") 底部
+					PButton(@click="handleFlipBottomEnd()" ref="flipBottomEnd") 底部终点
+					PButton(@click="handleFlipRightStart()" ref="flipRightStart") 右侧起点
+					PButton(@click="handleFlipRight()" ref="flipRight") 右侧
+					PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
+				GTitle(second) 主轴平移
+				PButtonGroup(theme="primary" tight type="plain")
+					PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
+					PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
+					PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
+					PButton(@click="handleShiftMainTopStart()" ref="shiftMainTopStart") 顶部起点
+					PButton(@click="handleShiftMainTop()" ref="shiftMainTop") 顶部
+					PButton(@click="handleShiftMainTopEnd()" ref="shiftMainTopEnd") 顶部终点
+					PButton(@click="handleShiftMainBottomStart()" ref="shiftMainBottomStart") 底部起点
+					PButton(@click="handleShiftMainBottom()" ref="shiftMainBottom") 底部
+					PButton(@click="handleShiftMainBottomEnd()" ref="shiftMainBottomEnd") 底部终点
+					PButton(@click="handleShiftMainRightStart()" ref="shiftMainRightStart") 右侧起点
+					PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
+					PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
+				GTitle(second) 交叉轴平移
+				PButtonGroup(theme="primary" tight type="plain")
+					PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
+					PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
+					PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
+					PButton(@click="handleShiftCrossTopStart()" ref="shiftCrossTopStart") 顶部起点
+					PButton(@click="handleShiftCrossTop()" ref="shiftCrossTop") 顶部
+					PButton(@click="handleShiftCrossTopEnd()" ref="shiftCrossTopEnd") 顶部终点
+					PButton(
+						@click="handleShiftCrossBottomStart()"
+						ref="shiftCrossBottomStart") 底部起点
+					PButton(@click="handleShiftCrossBottom()" ref="shiftCrossBottom") 底部
+					PButton(@click="handleShiftCrossBottomEnd()" ref="shiftCrossBottomEnd") 底部终点
+					PButton(@click="handleShiftCrossRightStart()" ref="shiftCrossRightStart") 右侧起点
+					PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
+					PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
+				GTitle(second) 主轴交叉轴都平移
+				PButtonGroup(theme="primary" tight type="plain")
+					PButton(@click="handleShiftBothLeftStart()" ref="shiftBothLeftStart") 左侧起点
+					PButton(@click="handleShiftBothLeft()" ref="shiftBothLeft") 左侧
+					PButton(@click="handleShiftBothLeftEnd()" ref="shiftBothLeftEnd") 左侧终点
+					PButton(@click="handleShiftBothTopStart()" ref="shiftBothTopStart") 顶部起点
+					PButton(@click="handleShiftBothTop()" ref="shiftBothTop") 顶部
+					PButton(@click="handleShiftBothTopEnd()" ref="shiftBothTopEnd") 顶部终点
+					PButton(@click="handleShiftBothBottomStart()" ref="shiftBothBottomStart") 底部起点
+					PButton(@click="handleShiftBothBottom()" ref="shiftBothBottom") 底部
+					PButton(@click="handleShiftBothBottomEnd()" ref="shiftBothBottomEnd") 底部终点
+					PButton(@click="handleShiftBothRightStart()" ref="shiftBothRightStart") 右侧起点
+					PButton(@click="handleShiftBothRight()" ref="shiftBothRight") 右侧
+					PButton(@click="handleShiftBothRightEnd()" ref="shiftBothRightEnd") 右侧终点
 </template>
 
 <script setup lang="ts">
-import { onMounted, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { usePopup, type RenderOption } from 'vue-popup-plus'
 import DemoAnchor from './demo/DemoAnchor.vue'
 
@@ -150,22 +159,20 @@ const shiftBothRightStart = useTemplateRef('shiftBothRightStart')
 const shiftBothRight = useTemplateRef('shiftBothRight')
 const shiftBothRightEnd = useTemplateRef('shiftBothRightEnd')
 
-const sharedOptions: RenderOption = {
+const useViewport = ref(true)
+const sharedOptions = computed<RenderOption>(() => ({
 	component: DemoAnchor,
+	viewport: useViewport.value ? viewportRef.value : undefined,
 	disableScroll: false,
 	mask: false,
 	anchorFlipAdvance: 10,
-}
-
-onMounted(() => {
-	sharedOptions.viewport = viewportRef.value
-})
+}))
 
 function handleLeftStart() {
 	popup.render({
 		anchor: leftStart.value?.$el,
 		anchorPlacement: 'left-start',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -183,7 +190,7 @@ function handleLeftEnd() {
 	popup.render({
 		anchor: leftEnd.value?.$el,
 		anchorPlacement: 'left-end',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -211,7 +218,7 @@ function handleTopEnd() {
 	popup.render({
 		anchor: topEnd.value?.$el,
 		anchorPlacement: 'top-end',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -219,7 +226,7 @@ function handleBottomStart() {
 	popup.render({
 		anchor: bottomStart.value?.$el,
 		anchorPlacement: 'bottom-start',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -227,7 +234,7 @@ function handleBottom() {
 	popup.render({
 		anchor: bottom.value?.$el,
 		anchorPlacement: 'bottom',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -235,7 +242,7 @@ function handleBottomEnd() {
 	popup.render({
 		anchor: bottomEnd.value?.$el,
 		anchorPlacement: 'bottom-end',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -263,7 +270,7 @@ function handleRightEnd() {
 	popup.render({
 		anchor: rightEnd.value?.$el,
 		anchorPlacement: 'right-end',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -272,7 +279,7 @@ function handleFlipLeftStart() {
 		anchor: flipLeftStart.value?.$el,
 		anchorPlacement: 'left-start',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -281,7 +288,7 @@ function handleFlipLeft() {
 		anchor: flipLeft.value?.$el,
 		anchorPlacement: 'left',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -290,7 +297,7 @@ function handleFlipLeftEnd() {
 		anchor: flipLeftEnd.value?.$el,
 		anchorPlacement: 'left-end',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -299,7 +306,7 @@ function handleFlipTopStart() {
 		anchor: flipTopStart.value?.$el,
 		anchorPlacement: 'top-start',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -308,7 +315,7 @@ function handleFlipTop() {
 		anchor: flipTop.value?.$el,
 		anchorPlacement: 'top',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -317,7 +324,7 @@ function handleFlipTopEnd() {
 		anchor: flipTopEnd.value?.$el,
 		anchorPlacement: 'top-end',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -326,7 +333,7 @@ function handleFlipBottomStart() {
 		anchor: flipBottomStart.value?.$el,
 		anchorPlacement: 'bottom-start',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -335,7 +342,7 @@ function handleFlipBottom() {
 		anchor: flipBottom.value?.$el,
 		anchorPlacement: 'bottom',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -344,7 +351,7 @@ function handleFlipBottomEnd() {
 		anchor: flipBottomEnd.value?.$el,
 		anchorPlacement: 'bottom-end',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -353,7 +360,7 @@ function handleFlipRightStart() {
 		anchor: flipRightStart.value?.$el,
 		anchorPlacement: 'right-start',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -362,7 +369,7 @@ function handleFlipRight() {
 		anchor: flipRight.value?.$el,
 		anchorPlacement: 'right',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -371,7 +378,7 @@ function handleFlipRightEnd() {
 		anchor: flipRightEnd.value?.$el,
 		anchorPlacement: 'right-end',
 		anchorFlip: true,
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -380,7 +387,7 @@ function handleShiftMainLeftStart() {
 		anchor: shiftMainLeftStart.value?.$el,
 		anchorPlacement: 'left-start',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -389,7 +396,7 @@ function handleShiftMainLeft() {
 		anchor: shiftMainLeft.value?.$el,
 		anchorPlacement: 'left',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -398,7 +405,7 @@ function handleShiftMainLeftEnd() {
 		anchor: shiftMainLeftEnd.value?.$el,
 		anchorPlacement: 'left-end',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -407,7 +414,7 @@ function handleShiftMainTopStart() {
 		anchor: shiftMainTopStart.value?.$el,
 		anchorPlacement: 'top-start',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -416,7 +423,7 @@ function handleShiftMainTop() {
 		anchor: shiftMainTop.value?.$el,
 		anchorPlacement: 'top',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -425,7 +432,7 @@ function handleShiftMainTopEnd() {
 		anchor: shiftMainTopEnd.value?.$el,
 		anchorPlacement: 'top-end',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -434,7 +441,7 @@ function handleShiftMainBottomStart() {
 		anchor: shiftMainBottomStart.value?.$el,
 		anchorPlacement: 'bottom-start',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -443,7 +450,7 @@ function handleShiftMainBottom() {
 		anchor: shiftMainBottom.value?.$el,
 		anchorPlacement: 'bottom',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -452,7 +459,7 @@ function handleShiftMainBottomEnd() {
 		anchor: shiftMainBottomEnd.value?.$el,
 		anchorPlacement: 'bottom-end',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -461,7 +468,7 @@ function handleShiftMainRightStart() {
 		anchor: shiftMainRightStart.value?.$el,
 		anchorPlacement: 'right-start',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -470,7 +477,7 @@ function handleShiftMainRight() {
 		anchor: shiftMainRight.value?.$el,
 		anchorPlacement: 'right',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -479,7 +486,7 @@ function handleShiftMainRightEnd() {
 		anchor: shiftMainRightEnd.value?.$el,
 		anchorPlacement: 'right-end',
 		anchorShift: 'mainAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -488,7 +495,7 @@ function handleShiftCrossLeftStart() {
 		anchor: shiftCrossLeftStart.value?.$el,
 		anchorPlacement: 'left-start',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -497,7 +504,7 @@ function handleShiftCrossLeft() {
 		anchor: shiftCrossLeft.value?.$el,
 		anchorPlacement: 'left',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -506,7 +513,7 @@ function handleShiftCrossLeftEnd() {
 		anchor: shiftCrossLeftEnd.value?.$el,
 		anchorPlacement: 'left-end',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -515,7 +522,7 @@ function handleShiftCrossTopStart() {
 		anchor: shiftCrossTopStart.value?.$el,
 		anchorPlacement: 'top-start',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -524,7 +531,7 @@ function handleShiftCrossTop() {
 		anchor: shiftCrossTop.value?.$el,
 		anchorPlacement: 'top',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -533,7 +540,7 @@ function handleShiftCrossTopEnd() {
 		anchor: shiftCrossTopEnd.value?.$el,
 		anchorPlacement: 'top-end',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -542,7 +549,7 @@ function handleShiftCrossBottomStart() {
 		anchor: shiftCrossBottomStart.value?.$el,
 		anchorPlacement: 'bottom-start',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -551,7 +558,7 @@ function handleShiftCrossBottom() {
 		anchor: shiftCrossBottom.value?.$el,
 		anchorPlacement: 'bottom',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -560,7 +567,7 @@ function handleShiftCrossBottomEnd() {
 		anchor: shiftCrossBottomEnd.value?.$el,
 		anchorPlacement: 'bottom-end',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -569,7 +576,7 @@ function handleShiftCrossRightStart() {
 		anchor: shiftCrossRightStart.value?.$el,
 		anchorPlacement: 'right-start',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -578,7 +585,7 @@ function handleShiftCrossRight() {
 		anchor: shiftCrossRight.value?.$el,
 		anchorPlacement: 'right',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -587,7 +594,7 @@ function handleShiftCrossRightEnd() {
 		anchor: shiftCrossRightEnd.value?.$el,
 		anchorPlacement: 'right-end',
 		anchorShift: 'crossAxis',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -596,7 +603,7 @@ function handleShiftBothLeftStart() {
 		anchor: shiftBothLeftStart.value?.$el,
 		anchorPlacement: 'left-start',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -605,7 +612,7 @@ function handleShiftBothLeft() {
 		anchor: shiftBothLeft.value?.$el,
 		anchorPlacement: 'left',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -614,7 +621,7 @@ function handleShiftBothLeftEnd() {
 		anchor: shiftBothLeftEnd.value?.$el,
 		anchorPlacement: 'left-end',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -623,7 +630,7 @@ function handleShiftBothTopStart() {
 		anchor: shiftBothTopStart.value?.$el,
 		anchorPlacement: 'top-start',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -632,7 +639,7 @@ function handleShiftBothTop() {
 		anchor: shiftBothTop.value?.$el,
 		anchorPlacement: 'top',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -641,7 +648,7 @@ function handleShiftBothTopEnd() {
 		anchor: shiftBothTopEnd.value?.$el,
 		anchorPlacement: 'top-end',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -650,7 +657,7 @@ function handleShiftBothBottomStart() {
 		anchor: shiftBothBottomStart.value?.$el,
 		anchorPlacement: 'bottom-start',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -659,7 +666,7 @@ function handleShiftBothBottom() {
 		anchor: shiftBothBottom.value?.$el,
 		anchorPlacement: 'bottom',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -668,7 +675,7 @@ function handleShiftBothBottomEnd() {
 		anchor: shiftBothBottomEnd.value?.$el,
 		anchorPlacement: 'bottom-end',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -677,7 +684,7 @@ function handleShiftBothRightStart() {
 		anchor: shiftBothRightStart.value?.$el,
 		anchorPlacement: 'right-start',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -686,7 +693,7 @@ function handleShiftBothRight() {
 		anchor: shiftBothRight.value?.$el,
 		anchorPlacement: 'right',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 
@@ -695,22 +702,39 @@ function handleShiftBothRightEnd() {
 		anchor: shiftBothRightEnd.value?.$el,
 		anchorPlacement: 'right-end',
 		anchorShift: 'both',
-		...sharedOptions,
+		...sharedOptions.value,
 	})
 }
 </script>
 
 <style lang="scss" scoped>
-.viewport {
-	width: 50vw;
-	height: 50vh;
-	margin: 0 auto;
-	overflow: auto;
-	.viewport-wrapper {
-		width: 100vw;
-		height: 100vh;
-		padding: 500px;
+.anchor {
+	height: 100vh;
+	.viewport {
+		position: relative;
+		width: 50vw;
+		height: 70vh;
+		margin: auto auto 10vh;
+		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 		background: #f0f0f0;
+		overflow: hidden;
+		.viewport-title {
+			position: absolute;
+			left: 0;
+			top: 0;
+			padding: 10px;
+			z-index: 1;
+		}
+		.viewport-wrapper {
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+		}
+		.viewport-content {
+			width: 100vw;
+			height: 100vh;
+			padding: 800px;
+		}
 	}
 }
 </style>

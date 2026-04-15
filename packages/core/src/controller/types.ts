@@ -37,94 +37,8 @@ export type MaskDestroyHandler = (
 	close: (payload?: any) => Promise<void>
 ) => void
 
-export type RenderOption<TComponent extends Component = Component> = {
-	/**
-	 * 弹出层位置的锚点元素
-	 *
-	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
-	 * - 传入字符串时，会根据字符串选择器查询元素
-	 * - 可配合 `anchorPlacement` 参数指定弹出层的位置与对齐方式
-	 * - 可配合 `anchorAdjust` 参数指定弹出层的相对视窗的调整方式
-	 * - 可配合 `anchorClamp` 参数开启弹出层的视窗锁定
-	 * - 可配合 `anchorViewport` 参数指定弹出层的视窗元素
-	 *
-	 * @since 1.7.0
-	 */
-	anchor?: HTMLElement | string | null
-	/**
-	 * 锚点弹出层是否在视窗空间不足时进行翻转
-	 *
-	 * - 当视窗空间不足时，自动进行翻转以保持弹出层在视窗范围内，
-	 *   并在视窗空间满足渲染时恢复到原始定义的位置
-	 * - 默认为 `false`，即不进行翻转
-	 *
-	 * @since 1.7.0
-	 */
-	anchorFlip?: boolean
-	/**
-	 * 锚点弹出层翻转时的偏移量
-	 *
-	 * - 锚点弹出层计算是否需要进行翻转时的提前偏移量，主要用于
-	 *   防止出现达到临界值时的闪烁现象
-	 * - 默认为 `0` ，即不提前偏移，与原始定义位置一致
-	 * - 仅在 `anchorFlip` 参数为 `true` 时有效
-	 *
-	 * @since 1.7.0
-	 */
-	anchorFlipAdvance?: number
-	/**
-	 * 锚点弹出层位置与对齐方式
-	 *
-	 * - 指定弹出层渲染对于锚点的对齐方式
-	 * - 默认为 `'top'` ，即顶部居中对齐
-	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 *
-	 * - 可选值包括：
-	 *   - `left-start` ：左侧，顶部对齐
-	 *   - `left` ：左侧，居中对齐
-	 *   - `left-end` ：左侧，底部对齐
-	 *   - `top-start` ：顶部，左侧对齐
-	 *   - `top` ：顶部，居中对齐
-	 *   - `top-end` ：顶部，右侧对齐
-	 *   - `bottom-start` ：底部，左侧对齐
-	 *   - `bottom` ：底部，居中对齐
-	 *   - `bottom-end` ：底部，右侧对齐
-	 *   - `right-start` ：右侧，顶部对齐
-	 *   - `right` ：右侧，居中对齐
-	 *   - `right-end` ：右侧，底部对齐
-	 *
-	 * @since 1.7.0
-	 */
-	anchorPlacement?: AnchorPlacement
-	/**
-	 * 锚点弹出层是否在视窗空间不足时进行平移
-	 *
-	 * - 当视窗空间不足时，自动进行平移以保持弹出层在视窗范围内，
-	 *   并在视窗空间满足渲染时恢复到原始定义的位置
-	 * - 默认为 `'none'`，即不进行平移
-	 *
-	 * - 可选值包括：
-	 *   - `both` ：在主轴和侧轴上都进行平移，相当于完全
-	 *     不会超出视窗范围
-	 *   - `mainAxis` ：在主轴上进行平移
-	 *   - `crossAxis` ：在侧轴上进行平移
-	 *   - `none` ：不进行平移
-	 *
-	 * @since 1.7.0
-	 */
-	anchorShift?: AnchorShift
-	/**
-	 * 弹出层动画时长
-	 *
-	 * - 默认为 `100` ，单位为 毫秒
-	 */
-	animationDuration?: number
-	/**
-	 * 弹出层挂载的父元素
-	 *
-	 * - 不指定时，默认挂载到 body 元素下
-	 */
-	appendTo?: Element | string
+// 渲染组件选项
+type RenderComponentOption<TComponent extends Component> = {
 	/**
 	 * 弹出层渲染的视图组件
 	 *
@@ -157,127 +71,6 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 */
 	componentProps?: ExtractComponentPropTypes<TComponent>
 	/**
-	 * 弹出层渲染期间是否禁用窗口滚动
-	 *
-	 * - 默认值为 `true`
-	 */
-	disableScroll?: boolean
-	/**
-	 * 弹出层高度
-	 *
-	 * - 默认值为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * height: 300
-	 * height: '300px'
-	 * height: '50%'
-	 * height: 'inherit'
-	 */
-	height?: string | number
-	/**
-	 * 弹出层是否显示遮罩层
-	 *
-	 * - 默认值为 `true`
-	 */
-	mask?: boolean
-	/**
-	 * 弹出层遮罩动画类型
-	 *
-	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
-	 * - 更多动画类型请查看 {@link IAnimations}
-	 */
-	maskAnimation?: Animation
-	/**
-	 * 弹出层遮罩是否启用高斯模糊
-	 *
-	 * - 默认为 `false`
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.3.0
-	 */
-	maskBlur?: boolean
-	/**
-	 * 点击遮罩层是否销毁弹出层
-	 *
-	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
-	 * - 传入 `true` ，点击遮罩层将销毁弹出层
-	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
-	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
-	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.6.0
-	 */
-	maskDestroy?: boolean | MaskDestroyHandler
-	/**
-	 * 弹出层遮罩是否启用透明效果
-	 *
-	 * - 默认为 `false`
-	 * - 优先级高于 `maskBlur`
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.6.0
-	 */
-	maskTransparent?: boolean
-	/**
-	 * 弹出层最大高度
-	 *
-	 * - 默认值为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * maxHeight: 300
-	 * maxHeight: '300px'
-	 * maxHeight: '50%'
-	 * maxHeight: 'inherit'
-	 */
-	maxHeight?: string | number
-	/**
-	 * 弹出层最大宽度
-	 *
-	 * - 默认为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * maxWidth: 300
-	 * maxWidth: '300px'
-	 * maxWidth: '50%'
-	 * maxWidth: 'inherit'
-	 */
-	maxWidth?: string | number
-	/**
-	 * 弹出层最小高度
-	 *
-	 * - 默认值为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * minHeight: 300
-	 * minHeight: '300px'
-	 * minHeight: '50%'
-	 * minHeight: 'inherit'
-	 */
-	minHeight?: string | number
-	/**
-	 * 弹出层最小宽度
-	 *
-	 * - 默认值为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * minWidth: 300
-	 * minWidth: '300px'
-	 * minWidth: '50%'
-	 * minWidth: 'inherit'
-	 */
-	minWidth?: string | number
-	/**
 	 * 弹出层渲染之后的回调
 	 */
 	onMounted?: () => void
@@ -287,6 +80,10 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 * - 触发时会将 popup.destroy() 方法的负载参数 payload 作为参数传入
 	 */
 	onUnmounted?: (payload?: any) => void
+}
+
+// 渲染配置选项
+type RenderConfigOption = {
 	/**
 	 * 弹出层位置
 	 *
@@ -308,6 +105,24 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 */
 	placement?: Placement
 	/**
+	 * 弹出层挂载的父元素
+	 *
+	 * - 不指定时，默认挂载到 body 元素下
+	 */
+	appendTo?: Element | string
+	/**
+	 * 弹出层渲染期间是否禁用窗口滚动
+	 *
+	 * - 默认值为 `true`
+	 */
+	disableScroll?: boolean
+	/**
+	 * 弹出层动画时长
+	 *
+	 * - 默认为 `100` ，单位为 毫秒
+	 */
+	animationDuration?: number
+	/**
 	 * 弹出层视窗区域
 	 *
 	 * - 如果不指定，将使用浏览器窗口作为视窗区域
@@ -317,6 +132,104 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 * @since 1.7.0
 	 */
 	viewport?: HTMLElement | string | null
+	/**
+	 * 弹出层 zIndex
+	 *
+	 * - 若不设置，则使用全局递增的 zIndex 值
+	 */
+	zIndex?: number
+}
+
+// 渲染样式选项
+type RenderStyleOption = {
+	/**
+	 * 弹出层宽度
+	 *
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * width: 300
+	 * width: '300px'
+	 * width: '50%'
+	 * width: 'inherit'
+	 */
+	width?: string | number
+	/**
+	 * 弹出层最小宽度
+	 *
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * minWidth: 300
+	 * minWidth: '300px'
+	 * minWidth: '50%'
+	 * minWidth: 'inherit'
+	 */
+	minWidth?: string | number
+	/**
+	 * 弹出层最大宽度
+	 *
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * maxWidth: 300
+	 * maxWidth: '300px'
+	 * maxWidth: '50%'
+	 * maxWidth: 'inherit'
+	 */
+	maxWidth?: string | number
+	/**
+	 * 弹出层高度
+	 *
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * height: 300
+	 * height: '300px'
+	 * height: '50%'
+	 * height: 'inherit'
+	 */
+	height?: string | number
+	/**
+	 * 弹出层最小高度
+	 *
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * minHeight: 300
+	 * minHeight: '300px'
+	 * minHeight: '50%'
+	 * minHeight: 'inherit'
+	 */
+	minHeight?: string | number
+	/**
+	 * 弹出层最大高度
+	 *
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * maxHeight: 300
+	 * maxHeight: '300px'
+	 * maxHeight: '50%'
+	 * maxHeight: 'inherit'
+	 */
+	maxHeight?: string | number
+}
+
+// 渲染视图选项
+type RenderViewOption = {
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -346,27 +259,143 @@ export type RenderOption<TComponent extends Component = Component> = {
 	 * - 默认为 false
 	 */
 	viewTranslateOverflow?: boolean
-	/**
-	 * 弹出层宽度
-	 *
-	 * - 默认为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * width: 300
-	 * width: '300px'
-	 * width: '50%'
-	 * width: 'inherit'
-	 */
-	width?: string | number
-	/**
-	 * 弹出层 zIndex
-	 *
-	 * - 若不设置，则使用全局递增的 zIndex 值
-	 */
-	zIndex?: number
 }
+
+// 渲染遮罩选项
+type RenderMaskOption = {
+	/**
+	 * 弹出层是否显示遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
+	/**
+	 * 弹出层遮罩动画类型
+	 *
+	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
+	 * - 更多动画类型请查看 {@link IAnimations}
+	 */
+	maskAnimation?: Animation
+	/**
+	 * 弹出层遮罩是否启用透明效果
+	 *
+	 * - 默认为 `false`
+	 * - 优先级高于 `maskBlur`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
+	 * 弹出层遮罩是否启用高斯模糊
+	 *
+	 * - 默认为 `false`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.3.0
+	 */
+	maskBlur?: boolean
+	/**
+	 * 点击遮罩层是否销毁弹出层
+	 *
+	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
+	 * - 传入 `true` ，点击遮罩层将销毁弹出层
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
+	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskDestroy?: boolean | MaskDestroyHandler
+}
+
+// 渲染锚点选项
+type RenderAnchorOption = {
+	/**
+	 * 弹出层位置的锚点元素
+	 *
+	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 * - 可配合 `anchorPlacement` 参数指定弹出层的位置与对齐方式
+	 * - 可配合 `anchorAdjust` 参数指定弹出层的相对视窗的调整方式
+	 * - 可配合 `anchorClamp` 参数开启弹出层的视窗锁定
+	 * - 可配合 `anchorViewport` 参数指定弹出层的视窗元素
+	 *
+	 * @since 1.7.0
+	 */
+	anchor?: HTMLElement | string | null
+	/**
+	 * 锚点弹出层位置与对齐方式
+	 *
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 默认为 `'top'` ，即顶部居中对齐
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 *
+	 * - 可选值包括：
+	 *   - `left-start` ：左侧，顶部对齐
+	 *   - `left` ：左侧，居中对齐
+	 *   - `left-end` ：左侧，底部对齐
+	 *   - `top-start` ：顶部，左侧对齐
+	 *   - `top` ：顶部，居中对齐
+	 *   - `top-end` ：顶部，右侧对齐
+	 *   - `bottom-start` ：底部，左侧对齐
+	 *   - `bottom` ：底部，居中对齐
+	 *   - `bottom-end` ：底部，右侧对齐
+	 *   - `right-start` ：右侧，顶部对齐
+	 *   - `right` ：右侧，居中对齐
+	 *   - `right-end` ：右侧，底部对齐
+	 *
+	 * @since 1.7.0
+	 */
+	anchorPlacement?: AnchorPlacement
+	/**
+	 * 锚点弹出层是否在视窗空间不足时进行翻转
+	 *
+	 * - 当视窗空间不足时，自动进行翻转以保持弹出层在视窗范围内，
+	 *   并在视窗空间满足渲染时恢复到原始定义的位置
+	 * - 默认为 `false`，即不进行翻转
+	 *
+	 * @since 1.7.0
+	 */
+	anchorFlip?: boolean
+	/**
+	 * 锚点弹出层翻转时的偏移量
+	 *
+	 * - 锚点弹出层计算是否需要进行翻转时的提前偏移量，主要用于
+	 *   防止出现达到临界值时的闪烁现象
+	 * - 默认为 `0` ，即不提前偏移，与原始定义位置一致
+	 * - 仅在 `anchorFlip` 参数为 `true` 时有效
+	 *
+	 * @since 1.7.0
+	 */
+	anchorFlipAdvance?: number
+	/**
+	 * 锚点弹出层是否在视窗空间不足时进行平移
+	 *
+	 * - 当视窗空间不足时，自动进行平移以保持弹出层在视窗范围内，
+	 *   并在视窗空间满足渲染时恢复到原始定义的位置
+	 * - 默认为 `'none'`，即不进行平移
+	 *
+	 * - 可选值包括：
+	 *   - `both` ：在主轴和侧轴上都进行平移，相当于完全
+	 *     不会超出视窗范围
+	 *   - `mainAxis` ：在主轴上进行平移
+	 *   - `crossAxis` ：在侧轴上进行平移
+	 *   - `none` ：不进行平移
+	 *
+	 * @since 1.7.0
+	 */
+	anchorShift?: AnchorShift
+}
+
+export type RenderOption<TComponent extends Component = Component> =
+	RenderComponentOption<TComponent> &
+		RenderConfigOption &
+		RenderStyleOption &
+		RenderViewOption &
+		RenderMaskOption &
+		RenderAnchorOption
 
 export type UpdateOption = Omit<RenderOption, 'component' | 'disableScroll'>
 
