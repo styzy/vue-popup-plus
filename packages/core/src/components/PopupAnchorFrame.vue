@@ -418,6 +418,7 @@ function createStyle() {
 			preferredDirection,
 			spacesBoundary
 		)
+		const spaceFlipped = spaceForDirection(flipped, spacesBoundary)
 		const advance = Math.max(0, flipAdvance || 0)
 		const isOnPreferredSide =
 			!lastDirection.value || lastDirection.value === preferredDirection
@@ -495,48 +496,6 @@ function createStyle() {
 					? Math.max(flipSourceSize.height, popupHeight)
 					: popupHeight
 
-			const basePreferredBack = computeBasePosition(
-				preferredDirection,
-				align as 'start' | 'end' | 'center',
-				{ top, right, bottom, left, width, height },
-				{ width: preferredWidth, height: preferredHeight },
-				{ x: scrollX, y: scrollY }
-			)
-			const shiftedPreferredBack = applyShiftPosition(
-				preferredDirection,
-				shift,
-				basePreferredBack,
-				clampXBoundary,
-				clampYBoundary
-			)
-			const overflowPreferredBack = computeMainAxisOverflow(
-				preferredDirection,
-				shiftedPreferredBack,
-				{ width: preferredWidth, height: preferredHeight },
-				boundary
-			)
-
-			const baseFlippedCurrent = computeBasePosition(
-				flipped,
-				align as 'start' | 'end' | 'center',
-				{ top, right, bottom, left, width, height },
-				popupSize,
-				{ x: scrollX, y: scrollY }
-			)
-			const shiftedFlippedCurrent = applyShiftPosition(
-				flipped,
-				shift,
-				baseFlippedCurrent,
-				clampXBoundary,
-				clampYBoundary
-			)
-			const overflowFlippedCurrent = computeMainAxisOverflow(
-				flipped,
-				shiftedFlippedCurrent,
-				popupSize,
-				boundary
-			)
-
 			const FLIP_THRESHOLD = 8
 			const HYSTERESIS_MIN = 10
 			const HYSTERESIS_MAX = 40
@@ -550,11 +509,14 @@ function createStyle() {
 				preferredDirection === 'top' || preferredDirection === 'bottom'
 					? preferredHeight
 					: preferredWidth
+			const canFitPreferredBack = axisSizeBack + advance <= spacePreferred
+			const marginPreferred = spacePreferred - (axisSizeBack + advance)
+			const marginFlipped = spaceFlipped - (axisSize + advance)
 
 			if (
-				overflowFlippedCurrent > FLIP_THRESHOLD &&
-				overflowPreferredBack + hysteresis < overflowFlippedCurrent &&
-				axisSizeBack + advance <= spacePreferred
+				canFitPreferredBack &&
+				marginPreferred - marginFlipped > hysteresis &&
+				Math.abs(marginPreferred) > FLIP_THRESHOLD
 			) {
 				finalDirection = preferredDirection
 			}
