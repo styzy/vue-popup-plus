@@ -5,10 +5,12 @@ div(:class="ns.block()" :style="styleObject")
 
 <script lang="ts" setup>
 import {
+	computed,
 	inject,
 	nextTick,
 	onBeforeUnmount,
 	onMounted,
+	provide,
 	ref,
 	shallowRef,
 	watch,
@@ -49,6 +51,23 @@ const anchorElement =
 const styleObject = ref(createStyle())
 const resizeObserver = shallowRef<ResizeObserver>()
 const scrollTargets = shallowRef<Array<Element | Window>>([])
+
+const lastDirection = ref<'top' | 'bottom' | 'left' | 'right' | null>(null)
+
+let flipSourceSize: {
+	direction: 'top' | 'bottom' | 'left' | 'right'
+	width: number
+	height: number
+} | null = null
+
+const actualAnchorPlacement = computed<AnchorPlacement>(() => {
+	const { direction: preferredDirection, align } = parsePlacement(placement)
+	const direction = lastDirection.value || preferredDirection
+	if (align === 'center') {
+		return direction as AnchorPlacement
+	}
+	return `${direction}-${align}` as AnchorPlacement
+})
 
 onMounted(async () => {
 	bindResizeObserver()
@@ -97,6 +116,15 @@ function bindComputedStyleWatcher() {
 	watch(() => viewport, updateStyle)
 	updateStyle()
 }
+
+watch(
+	() => placement,
+	() => {
+		lastDirection.value = null
+		flipSourceSize = null
+		updateStyle()
+	}
+)
 
 function bindScrollObservers() {
 	const targets: Array<Element | Window> = []
@@ -375,6 +403,7 @@ function createStyle() {
 	const { direction: preferredDirection, align } = parsePlacement(placement)
 	let finalDirection = preferredDirection
 	if (flip) {
+		const popupSize = { width: popupWidth, height: popupHeight }
 		const rectPage = {
 			top: scrollY + top,
 			right: scrollX + right,
@@ -392,56 +421,138 @@ function createStyle() {
 			spacesBoundary
 		)
 		const advance = Math.max(0, flipAdvance || 0)
-		const earlyFlip = axisSize + advance > spacePreferred
-		if (earlyFlip) {
-			finalDirection = flipped
-		} else {
-			const basePreferred = computeBasePosition(
-				preferredDirection,
-				align as 'start' | 'end' | 'center',
-				{ top, right, bottom, left, width, height },
-				{ width: popupWidth, height: popupHeight },
-				{ x: scrollX, y: scrollY }
-			)
-			const shiftedPreferred = applyShiftPosition(
-				preferredDirection,
-				shift,
-				basePreferred,
-				clampXBoundary,
-				clampYBoundary
-			)
-			const overflowPreferred = computeMainAxisOverflow(
-				preferredDirection,
-				shiftedPreferred,
-				{ width: popupWidth, height: popupHeight },
-				boundary
-			)
-			const baseFlipped = computeBasePosition(
-				flipped,
-				align as 'start' | 'end' | 'center',
-				{ top, right, bottom, left, width, height },
-				{ width: popupWidth, height: popupHeight },
-				{ x: scrollX, y: scrollY }
-			)
-			const shiftedFlipped = applyShiftPosition(
-				flipped,
-				shift,
-				baseFlipped,
-				clampXBoundary,
-				clampYBoundary
-			)
-			const overflowFlipped = computeMainAxisOverflow(
-				flipped,
-				shiftedFlipped,
-				{ width: popupWidth, height: popupHeight },
-				boundary
-			)
-			const FLIP_THRESHOLD = 8
-			if (
-				overflowPreferred > FLIP_THRESHOLD &&
-				overflowFlipped < overflowPreferred
-			) {
+		const isOnPreferredSide =
+			!lastDirection.value || lastDirection.value === preferredDirection
+
+		if (isOnPreferredSide) {
+			const earlyFlip = axisSize + advance > spacePreferred
+			if (earlyFlip) {
 				finalDirection = flipped
+			} else {
+				const basePreferred = computeBasePosition(
+					preferredDirection,
+					align as 'start' | 'end' | 'center',
+					{ top, right, bottom, left, width, height },
+					popupSize,
+					{ x: scrollX, y: scrollY }
+				)
+				const shiftedPreferred = applyShiftPosition(
+					preferredDirection,
+					shift,
+					basePreferred,
+					clampXBoundary,
+					clampYBoundary
+				)
+				const overflowPreferred = computeMainAxisOverflow(
+					preferredDirection,
+					shiftedPreferred,
+					popupSize,
+					boundary
+				)
+				const baseFlipped = computeBasePosition(
+					flipped,
+					align as 'start' | 'end' | 'center',
+					{ top, right, bottom, left, width, height },
+					popupSize,
+					{ x: scrollX, y: scrollY }
+				)
+				const shiftedFlipped = applyShiftPosition(
+					flipped,
+					shift,
+					baseFlipped,
+					clampXBoundary,
+					clampYBoundary
+				)
+				const overflowFlipped = computeMainAxisOverflow(
+					flipped,
+					shiftedFlipped,
+					popupSize,
+					boundary
+				)
+				const FLIP_THRESHOLD = 8
+				if (
+					overflowPreferred > FLIP_THRESHOLD &&
+					overflowFlipped < overflowPreferred
+				) {
+					finalDirection = flipped
+				}
+			}
+			if (finalDirection === flipped) {
+				flipSourceSize = {
+					direction: preferredDirection,
+					width: popupWidth,
+					height: popupHeight,
+				}
+			}
+		} else {
+			finalDirection = flipped
+			const preferredWidth =
+				flipSourceSize &&
+				flipSourceSize.direction === preferredDirection
+					? Math.max(flipSourceSize.width, popupWidth)
+					: popupWidth
+			const preferredHeight =
+				flipSourceSize &&
+				flipSourceSize.direction === preferredDirection
+					? Math.max(flipSourceSize.height, popupHeight)
+					: popupHeight
+
+			const basePreferredBack = computeBasePosition(
+				preferredDirection,
+				align as 'start' | 'end' | 'center',
+				{ top, right, bottom, left, width, height },
+				{ width: preferredWidth, height: preferredHeight },
+				{ x: scrollX, y: scrollY }
+			)
+			const shiftedPreferredBack = applyShiftPosition(
+				preferredDirection,
+				shift,
+				basePreferredBack,
+				clampXBoundary,
+				clampYBoundary
+			)
+			const overflowPreferredBack = computeMainAxisOverflow(
+				preferredDirection,
+				shiftedPreferredBack,
+				{ width: preferredWidth, height: preferredHeight },
+				boundary
+			)
+
+			const baseFlippedCurrent = computeBasePosition(
+				flipped,
+				align as 'start' | 'end' | 'center',
+				{ top, right, bottom, left, width, height },
+				popupSize,
+				{ x: scrollX, y: scrollY }
+			)
+			const shiftedFlippedCurrent = applyShiftPosition(
+				flipped,
+				shift,
+				baseFlippedCurrent,
+				clampXBoundary,
+				clampYBoundary
+			)
+			const overflowFlippedCurrent = computeMainAxisOverflow(
+				flipped,
+				shiftedFlippedCurrent,
+				popupSize,
+				boundary
+			)
+
+			const FLIP_THRESHOLD = 8
+			const HYSTERESIS_MIN = 10
+			const HYSTERESIS_MAX = 40
+			const hysteresisBase = flipAdvance || 0
+			const hysteresis = Math.min(
+				HYSTERESIS_MAX,
+				Math.max(HYSTERESIS_MIN, hysteresisBase + 10)
+			)
+
+			if (
+				overflowFlippedCurrent > FLIP_THRESHOLD &&
+				overflowPreferredBack + hysteresis < overflowFlippedCurrent
+			) {
+				finalDirection = preferredDirection
 			}
 		}
 	}
@@ -471,10 +582,14 @@ function createStyle() {
 		}
 	}
 
+	lastDirection.value = finalDirection
+
 	style.left = `${position.left}px`
 	style.top = `${position.top}px`
 	return style
 }
+
+provide(POPUP_COMPONENT_INJECTS.ACTUAL_ANCHOR_PLACEMENT, actualAnchorPlacement)
 </script>
 
 <style lang="scss">

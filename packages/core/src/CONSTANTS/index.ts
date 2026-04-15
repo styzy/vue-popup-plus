@@ -1,4 +1,5 @@
-import type { InjectionKey } from 'vue'
+import type { ComputedRef, InjectionKey } from 'vue'
+import type { AnchorPlacement } from '../controller'
 import type { ICore } from '../core'
 import type { Instance, InstanceId } from '../instance'
 import type { ComputedStyle } from '../typings'
@@ -92,6 +93,30 @@ type PComponentInjectKeys = {
 	 * ```
 	 */
 	COMPUTED_STYLE: InjectionKey<ComputedStyle>
+	/**
+	 * 锚点弹出层实际位置
+	 *
+	 * - 可在弹出层内部组件内获取锚点弹出层的实际位置
+	 * - 使用示例：
+	 *
+	 * ```ts
+	 * // 弹出层渲染的所有子代组件中
+	 * import { inject } from 'vue'
+	 * import {
+	 * 	usePopup,
+	 * 	POPUP_COMPONENT_INJECTS,
+	 * } from 'vue-popup-plus'
+	 *
+	 * // 获取弹出层控制器
+	 * const popup = usePopup()
+	 *
+	 * // 获取当前组件所在弹出层的实际位置
+	 * const actualAnchorPlacement = inject(
+	 * 	POPUP_COMPONENT_INJECTS.ACTUAL_ANCHOR_PLACEMENT
+	 * )
+	 * ```
+	 */
+	ACTUAL_ANCHOR_PLACEMENT: InjectionKey<ComputedRef<AnchorPlacement>>
 }
 
 /**
@@ -102,6 +127,7 @@ type PComponentInjectKeys = {
 export const POPUP_COMPONENT_INJECTS: Readonly<PComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${P_NAME_SPACE}-instance-id`),
 	COMPUTED_STYLE: Symbol(`${P_NAME_SPACE}-computed-style`),
+	ACTUAL_ANCHOR_PLACEMENT: Symbol(`${P_NAME_SPACE}-actual-anchor-placement`),
 }
 
 /**
