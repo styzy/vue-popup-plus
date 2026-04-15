@@ -46,11 +46,15 @@ outline: 2
 
 ### 预置插件
 
+#### `plugin`
+
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" /> 新增 `Bubble 气泡` 插件。
+
 #### `component`
 
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupAnchor` 组件。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件。
 
 ## v1.6.1
 
@@ -71,6 +75,8 @@ outline: 2
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" finish /> 移除 `maskClickClose` 参数，可使用功能更强大的 `maskDestroy` 参数代替。
 
 ### 预置插件
+
+#### `plugin`
 
 - <DVersionTodo version="1.6.0" level="high" author="HL" finish /> 新增 `Drawer 抽屉` 插件。
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" finish /> 新增 `createPresetPlugin()` 方法，用于创建预置插件。
