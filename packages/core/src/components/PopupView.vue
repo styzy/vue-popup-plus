@@ -34,7 +34,7 @@ defineOptions({
 })
 
 const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.VIEW)
-const popupViewRef = useTemplateRef('popupViewRef')
+const popupViewRef = useTemplateRef<HTMLDivElement>('popupViewRef')
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const instance = inject(P_INSIDE_COMPONENT_INJECTS.INSTANCE)!
