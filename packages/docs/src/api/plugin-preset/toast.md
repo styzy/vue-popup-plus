@@ -42,7 +42,7 @@ type ToastOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -75,7 +75,7 @@ type ToastOption = {
 type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
 // 位置
-type Placement =
+type PopupPlacement =
 	| 'left-top'
 	| 'left'
 	| 'left-bottom'
@@ -143,7 +143,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -215,7 +215,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -287,7 +287,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -359,7 +359,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -431,7 +431,7 @@ type ToastOptionWithoutTheme = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *

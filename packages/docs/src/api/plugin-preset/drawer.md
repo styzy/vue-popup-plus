@@ -87,7 +87,7 @@ type DrawerOption = {
 	 *
 	 * - 默认值为 `right`
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示抽屉遮罩层
 	 *
@@ -120,7 +120,7 @@ type DrawerOption = {
 	 *   `Promise` 对象会在抽屉关闭动画完成后 `resolve()` 。
 	 * - 仅在 `mask` 参数为 `true` 时有效
 	 */
-	maskClose?: boolean | MaskDestroyHandler
+	maskClose?: boolean | PopupMaskDestroyHandler
 	/**
 	 * 弹出层 z-index 层级
 	 *
@@ -130,7 +130,7 @@ type DrawerOption = {
 }
 
 // 抽屉位置
-type Placement = 'top' | 'right' | 'bottom' | 'left'
+type PopupPlacement = 'top' | 'right' | 'bottom' | 'left'
 ```
 
 ### 详细信息

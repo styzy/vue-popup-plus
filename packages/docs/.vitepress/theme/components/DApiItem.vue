@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { type Version } from 'vue-popup-plus'
+import { type PopupVersion } from 'vue-popup-plus'
 
 defineOptions({
 	name: 'DApiItem',
@@ -18,8 +18,8 @@ defineOptions({
 type Props = {
 	link: string
 	text?: string
-	support?: Version
-	deprecated?: Version
+	support?: PopupVersion
+	deprecated?: PopupVersion
 	showVersion?: boolean
 }
 

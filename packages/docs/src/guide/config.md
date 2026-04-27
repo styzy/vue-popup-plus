@@ -71,9 +71,9 @@ export default {
 
 ```ts [main.ts]
 declare module 'vue' {
-	import { type IController } from 'vue-popup-plus'
+	import { type PopupController } from 'vue-popup-plus'
 	interface ComponentCustomProperties {
-		$customPopup: IController
+		$customPopup: PopupController
 	}
 }
 ```
@@ -102,13 +102,13 @@ const PopupPlus = createPopupPlus({
 但过于详尽的日志有时候会对开发者造成干扰，如果只希望打印一些较为关键的日志操作，例如只打印警告和错误日志，你可以通过 `logFilter` 配置项来过滤日志信息。
 
 ```ts [main.ts]
-import { createPopupPlus, LogType } from 'vue-popup-plus'
+import { createPopupPlus, PopupLogType } from 'vue-popup-plus'
 
 const PopupPlus = createPopupPlus({
 	// 自定义日志过滤器
 	logFilter: (log) => {
 		// 只有警告和错误日志才会 return true ，表示允许打印
-		return [LogType.warning, LogType.error].includes(log.type)
+		return [PopupLogType.warning, PopupLogType.error].includes(log.type)
 	},
 })
 ```

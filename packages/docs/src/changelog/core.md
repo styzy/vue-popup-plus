@@ -88,9 +88,9 @@ outline: 2
 - 调试模式自动开启详细日志输出，方便开发者调试。
 - `use()` 插件注册函数开启风险校验，针对未定义作者 `author` 参数的插件将会在调试模式下打印警告日志，提示开发者注意插件风险。
 - `use()` 插件注册函数开启对核心版本的校验，针对校验失败的插件将会在调试模式下打印错误日志，并且阻止该插件的注册。
-- 新增导出 `Log` 、 `LogType` 、 `printLog` 等工具 API ，用于插件开发者提供插件日志输出。
-- 新增导出 `LogGroupItemType` 、 `LogGroupItem` 等工具类型，用于插件开发者提供插件日志分组输出。
-- 新增导出 `Version` 类型，用于插件开发者使用该类型进行版本适配和维护。
+- 新增导出 `PopupLog` 、 `PopupLogType` 、 `printLog` 等工具 API ，用于插件开发者提供插件日志输出。
+- 新增导出 `PopupLogGroupItemType` 、 `LogGroupItem` 等工具类型，用于插件开发者提供插件日志分组输出。
+- 新增导出 `PopupVersion` 类型，用于插件开发者使用该类型进行版本适配和维护。
 - 新增导出 TypeScript 工具类型 `ExtractComponentPropTypes<T>`，用于从组件类型中提取属性类型。
 
 ### 优化

@@ -85,14 +85,14 @@ const POPUP_COMPONENT_INJECTS: {
 	 *
 	 * - 可用于销毁当前弹出层
 	 */
-	readonly INSTANCE_ID: InjectionKey<InstanceId>
+	readonly INSTANCE_ID: InjectionKey<PopupInstanceId>
 	/**
 	 * 弹出层视图样式
 	 *
 	 * - 可在弹出层内部组件内获取弹出层根级视图组件的样式
 	 * - 所有的样式具有响应性。
 	 */
-	readonly COMPUTED_STYLE: InjectionKey<ComputedStyle>
+	readonly COMPUTED_STYLE: InjectionKey<PopupViewComputedStyle>
 }
 ```
 

@@ -12,7 +12,7 @@ outline: 2
 ### 类型
 
 ```ts
-function usePopup(): IController
+function usePopup(): PopupController
 ```
 
 ### 详细信息
@@ -70,13 +70,13 @@ router.beforeEach((to, from, next) => {
 ### 类型
 
 ```ts
-function render(options: RenderOption): InstanceId
+function render(options: PopupRenderOption): PopupInstanceId
 ```
 
 ### 参数类型
 
 ```ts
-type RenderOption<TComponent extends Component = Component> =
+type PopupRenderOption<TComponent extends Component = Component> =
 	RenderComponentOptions<TComponent> &
 		RenderConfigOptions &
 		RenderStyleOptions
@@ -111,7 +111,7 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	onUnmounted?: (payload?: any) => void
 }
 
-type MaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
+type PopupMaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
 
 export type RenderConfigOptions = {
 	/**
@@ -149,7 +149,7 @@ export type RenderConfigOptions = {
 	 *
 	 * @since 1.6.0
 	 */
-	maskDestroy?: boolean | MaskDestroyHandler
+	maskDestroy?: boolean | PopupMaskDestroyHandler
 	/**
 	 * @deprecated 1.6.0
 	 * 请使用 {@link maskDestroy} 作为代替
@@ -257,11 +257,11 @@ type RenderStyleOptions = {
 	 * 弹出层位置
 	 *
 	 * - 默认为 `'center'` ，即居中显示
-	 * - 更多位置请查看 {@link Placement}
+	 * - 更多位置请查看 {@link PopupPlacement}
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 弹出层锚点对齐方式
 	 *
@@ -272,7 +272,7 @@ type RenderStyleOptions = {
 	 *
 	 * @since 1.7.0
 	 */
-	anchorPlacement?: AnchorPlacement
+	anchorPlacement?: PopupAnchorPlacement
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -343,7 +343,7 @@ type RenderStyleOptions = {
 }
 
 // 弹出层位置
-type Placement =
+type PopupPlacement =
 	| 'left-top'
 	| 'left'
 	| 'left-bottom'
@@ -388,13 +388,13 @@ popup.render({
 ### 类型
 
 ```ts
-function update(instanceId: InstanceId, options: UpdateOption): void
+function update(instanceId: PopupInstanceId, options: PopupUpdateOption): void
 ```
 
 ### 参数类型
 
 ```ts
-type UpdateOption = {
+type PopupUpdateOption = {
 	/**
 	 * 弹出层宽度
 	 *
@@ -444,7 +444,7 @@ type UpdateOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 弹出层锚点对齐方式
 	 *
@@ -455,7 +455,7 @@ type UpdateOption = {
 	 *
 	 * @since 1.7.0
 	 */
-	anchorPlacement?: AnchorPlacement
+	anchorPlacement?: PopupAnchorPlacement
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -538,7 +538,7 @@ popup.update(instanceId, {
 ### 类型
 
 ```ts
-function destroy(instanceId: InstanceId, payload?: any): void
+function destroy(instanceId: PopupInstanceId, payload?: any): void
 ```
 
 ### 详细信息
@@ -574,9 +574,11 @@ popup.destroy(instanceId, 'This is a custom payload')
 ### 类型
 
 ```ts
-function getComputedStyle(instanceId: InstanceId): ComputedStyle | null
+function getComputedStyle(
+	instanceId: PopupInstanceId
+): PopupViewComputedStyle | null
 
-type ComputedStyle = ComputedRef<{
+type PopupViewComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度
 	 */

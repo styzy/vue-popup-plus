@@ -10,13 +10,13 @@ export type Package = 'core' | 'plugin'
 </script>
 
 <script lang="ts" setup>
-import { type Version } from 'vue-popup-plus'
+import { type PopupVersion } from 'vue-popup-plus'
 import { useRouter } from 'vitepress'
 
 const router = useRouter()
 
 type Props = {
-	version: Version
+	version: PopupVersion
 	package?: Package
 	plus?: boolean
 }

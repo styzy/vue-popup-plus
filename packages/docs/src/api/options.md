@@ -12,7 +12,7 @@ outline: 2
 ### 类型
 
 ```ts
-const $popup: IController
+const $popup: PopupController
 ```
 
 ### 详细信息
@@ -47,7 +47,7 @@ export default defineComponent({
 ### 类型
 
 ```ts
-const $popupInstanceId: InstanceId | undefined
+const $popupInstanceId: PopupInstanceId | undefined
 ```
 
 ### 详细信息
@@ -80,7 +80,7 @@ export default defineComponent({
 ### 类型
 
 ```ts
-const $popupComputedStyle: ComputedStyle | undefined
+const $popupComputedStyle: PopupViewComputedStyle | undefined
 ```
 
 ### 详细信息

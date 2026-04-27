@@ -102,7 +102,7 @@ type DialogOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否可拖拽
 	 *
@@ -151,7 +151,7 @@ type DialogOption = {
 	 *
 	 * @since 1.6.0
 	 */
-	maskClose?: boolean | MaskDestroyHandler
+	maskClose?: boolean | PopupMaskDestroyHandler
 	/**
 	 * @deprecated 1.6.0
 	 * 请使用 {@link maskClose} 作为代替
@@ -172,7 +172,7 @@ type DialogOption = {
 }
 
 // 对话框位置
-type Placement =
+type PopupPlacement =
 	| 'left-top'
 	| 'left'
 	| 'left-bottom'

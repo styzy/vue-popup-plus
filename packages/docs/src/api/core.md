@@ -14,13 +14,13 @@ outline: 2
 ### 类型
 
 ```ts
-function createPopupPlus(options?: ConfigOption): PupupPlus
+function createPopupPlus(options?: PopupConfigOption): PupupPlus
 ```
 
 ### 参数类型
 
 ```ts
-type ConfigOption = {
+type PopupConfigOption = {
 	/**
 	 * 弹出层 zIndex 基础值
 	 *
@@ -54,7 +54,7 @@ type ConfigOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	logHandler?: ILogHandler
+	logHandler?: PopupLogHandler
 	/**
 	 * 日志过滤器
 	 *
@@ -159,7 +159,7 @@ type CreateOptions = {
 	 *
 	 * @since 1.5.0
 	 */
-	logHandler?: ILogHandler
+	logHandler?: PopupLogHandler
 	/**
 	 * 开启调试模式
 	 *
@@ -246,9 +246,9 @@ PopupPlus.use(plugin)
 ### 类型
 
 ```ts
-const version: Version
+const version: PopupVersion
 
-type Version = `${number}.${number}.${number}`
+type PopupVersion = `${number}.${number}.${number}`
 ```
 
 ### 详细信息

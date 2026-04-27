@@ -4,7 +4,7 @@ Badge.in-todo(:text="badgeText" :type="badgeType")
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { type Version } from 'vue-popup-plus'
+import { type PopupVersion } from 'vue-popup-plus'
 
 defineOptions({
 	name: 'DVersionTodo',
@@ -13,7 +13,7 @@ defineOptions({
 type Level = 'high' | 'medium' | 'low'
 
 type Props = {
-	version: Version
+	version: PopupVersion
 	level?: Level
 	author?: string
 	finish?: boolean

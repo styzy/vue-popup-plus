@@ -5,11 +5,11 @@
 当一个弹出层已经渲染，如果需要修改其初始的渲染选项，可以通过调用 `update()` 方法更新，例如一个已经设置了 `width` 和 `height` 选项的弹出层，我们可以通过调用 `update()` 方法更新其宽度和高度：
 
 ```ts
-import { usePopup, type InstanceId } from 'vue-popup-plus'
+import { usePopup, type PopupInstanceId } from 'vue-popup-plus'
 
 const popup = usePopup()
 
-let instanceId: InstanceId | null = null
+let instanceId: PopupInstanceId | null = null
 
 function handlePopup() {
 	// 渲染并获取实例 id

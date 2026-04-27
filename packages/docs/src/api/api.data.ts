@@ -151,7 +151,7 @@ const api: ApiModule = {
 					support: '1.5.0',
 				},
 				{
-					text: 'Log',
+					text: 'PopupLog',
 					link: '/api/log#log',
 					support: '1.5.0',
 				},

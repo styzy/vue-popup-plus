@@ -14,7 +14,7 @@ outline: 2
 ### 类型
 
 ```ts
-function usePopupInstanceId(): InstanceId | undefined
+function usePopupInstanceId(): PopupInstanceId | undefined
 ```
 
 ### 详细信息
@@ -49,9 +49,9 @@ function handleClose() {
 ### 类型
 
 ```ts
-function usePopupComputedStyle(): ComputedStyle | undefined
+function usePopupComputedStyle(): PopupViewComputedStyle | undefined
 
-type ComputedStyle = ComputedRef<{
+type PopupViewComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度
 	 */

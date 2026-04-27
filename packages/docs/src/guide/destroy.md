@@ -7,11 +7,11 @@
 ::: code-group
 
 ```ts [组合式 API ~vscode-icons:file-type-vue~]
-import { usePopup, type InstanceId } from 'vue-popup-plus'
+import { usePopup, type PopupInstanceId } from 'vue-popup-plus'
 
 const popup = usePopup()
 
-let instanceId: InstanceId | null = null
+let instanceId: PopupInstanceId | null = null
 
 function handlePopup() {
 	instanceId = popup.render({
@@ -29,12 +29,12 @@ function handlePopupDestroy() {
 ```
 
 ```ts [选项式 API ~vscode-icons:file-type-vue~]
-import { type InstanceId } from 'vue-popup-plus'
+import { type PopupInstanceId } from 'vue-popup-plus'
 
 export default {
 	data () {
 		return {
-			instanceId: null as InstanceId | null,
+			instanceId: null as PopupInstanceId | null,
 		}
 	},
 	methods: {

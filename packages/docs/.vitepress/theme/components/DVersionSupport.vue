@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts" setup>
-import { type Version } from 'vue-popup-plus'
+import { type PopupVersion } from 'vue-popup-plus'
 import { type Package } from './DVersion.vue'
 
 type Props = {
-	version: Version
+	version: PopupVersion
 	package?: Package
 	deprecated?: boolean
 }

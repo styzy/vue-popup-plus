@@ -14,8 +14,8 @@
 type Api = {
 	text: string
 	link: string
-	support?: Version
-	deprecated?: Version
+	support?: PopupVersion
+	deprecated?: PopupVersion
 	showVersion?: boolean
 	items?: never
 }
@@ -30,7 +30,7 @@ export type ApiModule = {
 </script>
 
 <script lang="ts" setup>
-import { type Version } from 'vue-popup-plus'
+import { type PopupVersion } from 'vue-popup-plus'
 import { type Filter } from './DApiFilter.vue'
 import DApiGroup from './DApiGroup.vue'
 import DApiItem from './DApiItem.vue'

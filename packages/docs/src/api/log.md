@@ -18,12 +18,12 @@ outline: 2
 ### 类型
 
 ```ts
-function printLog(log: ILog): void
+function printLog(log: PopupLog): void
 ```
 
 ### 参数类型
 
-具体可以参考 [核心 API - 日志工具 Log](/api/log#log)。
+具体可以参考 [核心 API - 日志工具 PopupLog](/api/log#log)。
 
 ### 详细信息
 
@@ -32,10 +32,10 @@ function printLog(log: ILog): void
 ### 示例
 
 ```ts
-import { printLog, Log } from 'vue-popup-plus'
+import { printLog, PopupLog } from 'vue-popup-plus'
 
 // 创建日志实例
-const log = new Log({
+const log = new PopupLog({
 	message: 'hello world',
 })
 
@@ -43,7 +43,7 @@ const log = new Log({
 printLog(log)
 ```
 
-## Log <Badge text="1.5.0+" />
+## PopupLog <Badge text="1.5.0+" />
 
 > <DVersionSupport version="1.5.0" />
 
@@ -52,15 +52,15 @@ printLog(log)
 ### 类型
 
 ```ts
-class Log implements ILog {
-	constructor(options: LogOption)
+class PopupLog implements IPopupLog {
+	constructor(options: PopupLogOption)
 }
 ```
 
 ### 接口类型
 
 ```ts
-interface ILog {
+interface IPopupLog {
 	/**
 	 * 命名空间
 	 */
@@ -68,7 +68,7 @@ interface ILog {
 	/**
 	 * 类型
 	 */
-	type: LogType
+	type: PopupLogType
 	/**
 	 * 调用者
 	 */
@@ -80,7 +80,7 @@ interface ILog {
 	/**
 	 * 日志组
 	 */
-	group: LogGroup
+	group: PopupLogGroup
 	/**
 	 * 是否有调用者
 	 */
@@ -91,7 +91,7 @@ interface ILog {
 	readonly hasGroup: boolean
 }
 
-const LogType = {
+const PopupLogType = {
 	/**
 	 * 成功
 	 */
@@ -114,7 +114,7 @@ const LogType = {
 	Component: 'component',
 } as const
 
-type LogType = (typeof LogType)[keyof typeof LogType]
+type PopupLogType = (typeof PopupLogType)[keyof typeof PopupLogType]
 
 type LogCallerRecord = {
 	/**
@@ -138,7 +138,7 @@ type LogCaller = string | LogCallerRecord
 /**
  * 日志组元素类型
  */
-const LogGroupItemType = {
+const PopupLogGroupItemType = {
 	/**
 	 * 消息类型
 	 */
@@ -157,13 +157,14 @@ const LogGroupItemType = {
 	Component: 'component',
 } as const
 
-type LogGroupItemType = (typeof LogGroupItemType)[keyof typeof LogGroupItemType]
+type PopupLogGroupItemType =
+	(typeof PopupLogGroupItemType)[keyof typeof PopupLogGroupItemType]
 
 type LogGroupMessage = {
 	/**
 	 * 消息类型
 	 */
-	type: typeof LogGroupItemType.Message
+	type: typeof PopupLogGroupItemType.Message
 	/**
 	 * 消息标题
 	 */
@@ -178,7 +179,7 @@ type LogGroupInfo = {
 	/**
 	 * 信息类型
 	 */
-	type: typeof LogGroupItemType.Info
+	type: typeof PopupLogGroupItemType.Info
 	/**
 	 * 信息标题
 	 */
@@ -197,7 +198,7 @@ type LogGroupData = {
 	/**
 	 * 数据类型
 	 */
-	type: typeof LogGroupItemType.Data
+	type: typeof PopupLogGroupItemType.Data
 	/**
 	 * 数据标题
 	 */
@@ -226,7 +227,7 @@ type LogGroupComponent = {
 	/**
 	 * 组件类型
 	 */
-	type: typeof LogGroupItemType.Component
+	type: typeof PopupLogGroupItemType.Component
 	/**
 	 * 组件标题
 	 */
@@ -243,17 +244,17 @@ type LogGroupItem =
 	| LogGroupData
 	| LogGroupComponent
 
-type LogGroup = Array<LogGroupItem>
+type PopupLogGroup = Array<LogGroupItem>
 ```
 
 ### 参数类型
 
 ```ts
-type LogOption = {
+type PopupLogOption = {
 	/**
 	 * 日志类型
 	 */
-	type?: LogType
+	type?: PopupLogType
 	/**
 	 * 日志调用者
 	 */
@@ -267,57 +268,62 @@ type LogOption = {
 	 *
 	 * - 用于在日志消息中展示多个数据项
 	 */
-	group?: LogGroup
+	group?: PopupLogGroup
 }
 ```
 
 ### 详细信息
 
-通过 `Log` 类可以创建满足大部分场景的日志信息，插件开发者可以指定日志的类型、调用者、消息和具体的数据项。
+通过 `PopupLog` 类可以创建满足大部分场景的日志信息，插件开发者可以指定日志的类型、调用者、消息和具体的数据项。
 
 ### 示例
 
 这里以 `PopupPlus.use()` 函数安装插件成功时的日志信息为例（不包括具体实现，仅展示日志实例的创建过程）：
 
 ```ts
-import { printLog, Log, LogType, LogGroupItemType } from 'vue-popup-plus'
+import {
+	printLog,
+	PopupLog,
+	PopupLogType,
+	PopupLogGroupItemType,
+} from 'vue-popup-plus'
 import { plugin } from 'vue-popup-plus-plugin-preset'
 
 // 创建成功日志实例
-const log = new Log({
-	type: LogType.Success,
+const log = new PopupLog({
+	type: PopupLogType.Success,
 	caller: 'core.use()',
 	group: [
 		{
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: '插件名称',
 			content: plugin.name,
 		},
 		{
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: '插件作者',
 			content: plugin.author ?? '未知（可能存在安全风险）',
 		},
 		{
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: '插件要求最低核心版本',
 			content: plugin.requiredCoreVersion?.min ?? '-',
 			important: true,
 		},
 		{
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: '插件要求最高核心版本',
 			content: plugin.requiredCoreVersion?.max ?? '-',
 			important: true,
 		},
 		{
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: `插件版本校验`,
 			content: `通过`,
 			important: true,
 		},
 		{
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '插件注册选项',
 			dataName: 'options',
 			dataValue: options,

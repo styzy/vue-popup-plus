@@ -44,7 +44,7 @@ type MessageOption = {
 	 * - 默认值为 `top`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -74,7 +74,7 @@ type MessageOption = {
 type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
 // 位置
-type Placement =
+type PopupPlacement =
 	| 'left-top'
 	| 'left'
 	| 'left-bottom'
@@ -139,7 +139,7 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值为 `center`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -207,7 +207,7 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值为 `center`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -275,7 +275,7 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值为 `center`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -343,7 +343,7 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值为 `center`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -411,7 +411,7 @@ type MessageOptionWithoutTheme = {
 	 * - 默认值为 `center`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *

@@ -50,11 +50,11 @@ type PluginOption = {
 		/**
 		 * 插件所适配的最低核心版本
 		 */
-		min?: Version
+		min?: PopupVersion
 		/**
 		 * 插件所适配的最高核心版本
 		 */
-		max?: Version
+		max?: PopupVersion
 	}
 	/**
 	 * 插件安装函数
@@ -104,7 +104,7 @@ interface IConfig {
 	/**
 	 * 日志器
 	 */
-	logHandler: ILogHandler
+	logHandler: PopupLogHandler
 	/**
 	 * 日志过滤器
 	 */
