@@ -1,4 +1,4 @@
-import { type ILog } from '../log'
+import { type PopupLog } from '../log'
 
 type ErrorOption =
 	| {
@@ -6,17 +6,17 @@ type ErrorOption =
 			caller: string
 			message: string
 	  }
-	| ILog
+	| PopupLog
 
 export class PopupError extends Error {
 	/**
 	 * 弹出层错误类
 	 *
-	 * - 建议从 {@link ILog} 日志实例创建错误
+	 * - 建议从 {@link PopupLog} 日志实例创建错误
 	 * @param {ErrorOption} options 错误参数
 	 * @example
-	 * new PopupError(new Log({
-	 * 	type: LogType.Error,
+	 * new PopupError(new PopupLog({
+	 * 	type: PopupLogType.Error,
 	 * 	caller: 'controller.render()',
 	 * 	message: '弹出层渲染失败',
 	 * }))

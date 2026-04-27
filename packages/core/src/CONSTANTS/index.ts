@@ -1,8 +1,8 @@
 import type { ComputedRef, InjectionKey } from 'vue'
-import type { AnchorPlacement } from '../controller'
-import type { ICore } from '../core'
-import type { Instance, InstanceId } from '../instance'
-import type { ComputedStyle } from '../typings'
+import type { PopupAnchorPlacement } from '../controller'
+import type { PopupCore } from '../core'
+import type { Instance, PopupInstanceId } from '../instance'
+import type { PopupViewComputedStyle } from '../typings'
 
 // 组件名称
 export const P_COMPONENT_NAMES = {
@@ -36,7 +36,7 @@ const P_NAME_SPACE: string = 'vue-popup-plus'
 /**
  * 组件注入键类型
  */
-type PComponentInjectKeys = {
+type PopupComponentInjectKeys = {
 	/**
 	 * 当前组件所在弹出层的实例ID
 	 *
@@ -63,7 +63,7 @@ type PComponentInjectKeys = {
 	 * popup.destroy(instanceId)
 	 * ```
 	 */
-	INSTANCE_ID: InjectionKey<InstanceId>
+	INSTANCE_ID: InjectionKey<PopupInstanceId>
 	/**
 	 * 弹出层视图样式
 	 *
@@ -93,7 +93,7 @@ type PComponentInjectKeys = {
 	 * )
 	 * ```
 	 */
-	COMPUTED_STYLE: InjectionKey<ComputedStyle>
+	COMPUTED_STYLE: InjectionKey<PopupViewComputedStyle>
 	/**
 	 * 锚点弹出层实际位置
 	 *
@@ -117,7 +117,7 @@ type PComponentInjectKeys = {
 	 * )
 	 * ```
 	 */
-	ACTUAL_ANCHOR_PLACEMENT: InjectionKey<ComputedRef<AnchorPlacement>>
+	ACTUAL_ANCHOR_PLACEMENT: InjectionKey<ComputedRef<PopupAnchorPlacement>>
 }
 
 /**
@@ -125,7 +125,7 @@ type PComponentInjectKeys = {
  *
  * - 在弹出层内部渲染的所有子代组件中，都可以通过 inject 注入弹出层所提供的相关参数
  */
-export const POPUP_COMPONENT_INJECTS: Readonly<PComponentInjectKeys> = {
+export const POPUP_COMPONENT_INJECTS: Readonly<PopupComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${P_NAME_SPACE}-instance-id`),
 	COMPUTED_STYLE: Symbol(`${P_NAME_SPACE}-computed-style`),
 	ACTUAL_ANCHOR_PLACEMENT: Symbol(`${P_NAME_SPACE}-actual-anchor-placement`),
@@ -134,11 +134,11 @@ export const POPUP_COMPONENT_INJECTS: Readonly<PComponentInjectKeys> = {
 /**
  * 内置源码组件注入键类型
  */
-type PInsideComponentInjectKeys = {
+type PopupInsideComponentInjectKeys = {
 	/**
 	 * 弹出层核心实例
 	 */
-	CORE: InjectionKey<ICore>
+	CORE: InjectionKey<PopupCore>
 	/**
 	 * 弹出层实例
 	 */
@@ -148,7 +148,7 @@ type PInsideComponentInjectKeys = {
 /**
  * 内置源码组件注入键
  */
-export const P_INSIDE_COMPONENT_INJECTS: Readonly<PInsideComponentInjectKeys> =
+export const P_INSIDE_COMPONENT_INJECTS: Readonly<PopupInsideComponentInjectKeys> =
 	{
 		CORE: Symbol(`${P_NAME_SPACE}-core`),
 		INSTANCE: Symbol(`${P_NAME_SPACE}-instance`),

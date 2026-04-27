@@ -1,5 +1,5 @@
 import { version as _version } from '../../package.json'
 
-export type Version = `${number}.${number}.${number}`
+export type PopupVersion = `${number}.${number}.${number}`
 
-export const version = _version as Version
+export const version = _version as PopupVersion

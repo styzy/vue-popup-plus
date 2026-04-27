@@ -45,7 +45,7 @@ export type ExtractComponentPropTypes<
 	keyof (VNodeProps & AllowedComponentProps)
 >
 
-export type ComputedStyle = ComputedRef<{
+export type PopupViewComputedStyle = ComputedRef<{
 	/**
 	 * 弹出层的宽度
 	 */

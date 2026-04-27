@@ -16,12 +16,12 @@ import {
 	watch,
 } from 'vue'
 import {
-	type AnchorPlacement,
-	type AnchorShift,
-	type RenderOption,
+	type PopupAnchorPlacement,
+	type PopupAnchorShift,
+	type PopupRenderOption,
 } from '../controller'
 import { useNamespace, usePopup } from '../hooks'
-import { type ComputedStyle } from '../typings'
+import { type PopupViewComputedStyle } from '../typings'
 import { P_INSIDE_COMPONENT_NAMES, POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
 defineOptions({
@@ -31,15 +31,15 @@ defineOptions({
 const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME)
 const popup = usePopup()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const viewComputedStyleRef = shallowRef<ComputedStyle | null>(null)
+const viewComputedStyleRef = shallowRef<PopupViewComputedStyle | null>(null)
 
 type Props = {
-	anchor: Required<RenderOption>['anchor']
-	placement: AnchorPlacement
+	anchor: Required<PopupRenderOption>['anchor']
+	placement: PopupAnchorPlacement
 	flip: boolean
 	flipAdvance: number
-	shift: AnchorShift
-	viewport: Required<RenderOption>['viewport']
+	shift: PopupAnchorShift
+	viewport: Required<PopupRenderOption>['viewport']
 	zIndex: number
 }
 
@@ -58,13 +58,13 @@ let flipSourceSize: {
 	height: number
 } | null = null
 
-const actualAnchorPlacement = computed<AnchorPlacement>(() => {
+const actualAnchorPlacement = computed<PopupAnchorPlacement>(() => {
 	const { direction: preferredDirection, align } = parsePlacement(placement)
 	const direction = lastDirection.value || preferredDirection
 	if (align === 'center') {
-		return direction as AnchorPlacement
+		return direction as PopupAnchorPlacement
 	}
-	return `${direction}-${align}` as AnchorPlacement
+	return `${direction}-${align}` as PopupAnchorPlacement
 })
 
 onMounted(async () => {
@@ -168,7 +168,7 @@ function destroy() {
 	popup.destroy(instanceId)
 }
 
-function parsePlacement(placement: AnchorPlacement) {
+function parsePlacement(placement: PopupAnchorPlacement) {
 	const parts = placement.split('-') as [string, string?]
 	const direction = (parts[0] || 'bottom') as
 		| 'top'
@@ -195,7 +195,7 @@ function computeSpacesWithinBoundary(
 }
 
 function resolveViewportBoundary(
-	viewportParam: Required<RenderOption>['viewport'],
+	viewportParam: Required<PopupRenderOption>['viewport'],
 	scrollX: number,
 	scrollY: number,
 	viewportWidth: number,
@@ -256,7 +256,7 @@ function spaceForDirection(
 
 function applyShiftPosition(
 	direction: 'top' | 'bottom' | 'left' | 'right',
-	shift: AnchorShift,
+	shift: PopupAnchorShift,
 	position: { left: number; top: number },
 	clampX: (x: number) => number,
 	clampY: (y: number) => number

@@ -1,15 +1,21 @@
 import { unref, type ComponentInternalInstance } from 'vue'
 import { POPUP_ANIMATIONS } from '../animation'
-import { type ICore } from '../core'
+import { type PopupCore } from '../core'
 import { PopupError } from '../error'
-import { Instance, InstanceRenderType, type InstanceId } from '../instance'
-import { printLog, Log, LogType, LogGroupItemType } from '../log'
+import { Instance, InstanceRenderType, type PopupInstanceId } from '../instance'
+import { printLog, PopupLog, PopupLogType, PopupLogGroupItemType } from '../log'
 import { version } from '../version'
-import type { IController, RenderOption, UpdateOption } from './types'
+import type {
+	PopupController,
+	PopupRenderOption,
+	PopupUpdateOption,
+} from './types'
 
 export * from './types'
 
-const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
+const defaultOptions: Required<
+	Omit<PopupRenderOption, 'zIndex' | 'component'>
+> = {
 	anchor: null,
 	anchorFlip: false,
 	anchorFlipAdvance: 0,
@@ -41,14 +47,14 @@ const defaultOptions: Required<Omit<RenderOption, 'zIndex' | 'component'>> = {
 }
 
 export function createController(
-	core: ICore,
+	core: PopupCore,
 	vm: ComponentInternalInstance | null,
-	log: Log = new Log({
-		type: LogType.Success,
+	log: PopupLog = new PopupLog({
+		type: PopupLogType.Success,
 		caller: '未知',
 	})
-): IController {
-	let controller: IController
+): PopupController {
+	let controller: PopupController
 
 	// 当不使用根组件并且提供组件实例时，使用有状态控制器
 	const useStatefulController = !core.isRootComponentRegistered && vm
@@ -59,18 +65,18 @@ export function createController(
 		if (core.statefulControllers.has(vm)) {
 			controller = core.statefulControllers.get(vm)!
 
-			log.type = LogType.Info
+			log.type = PopupLogType.Info
 			log.message = `从缓存中获取有状态控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`
 			log.group.push({
-				type: LogGroupItemType.Component,
+				type: PopupLogGroupItemType.Component,
 				title: '调用组件',
 				instance: vm,
 			})
 			log.group.push({
-				type: LogGroupItemType.Data,
+				type: PopupLogGroupItemType.Data,
 				title: '控制器',
 				dataName: controller.id,
-				dataType: 'IController',
+				dataType: 'PopupController',
 				dataValue: controller,
 			})
 		} else {
@@ -79,15 +85,15 @@ export function createController(
 
 			log.message = `创建有状态控制器 ${controller.id} 成功，包含 ${componentName} 组件上下文`
 			log.group.push({
-				type: LogGroupItemType.Component,
+				type: PopupLogGroupItemType.Component,
 				title: '调用组件',
 				instance: vm,
 			})
 			log.group.push({
-				type: LogGroupItemType.Data,
+				type: PopupLogGroupItemType.Data,
 				title: '控制器',
 				dataName: controller.id,
-				dataType: 'IController',
+				dataType: 'PopupController',
 				dataValue: controller,
 			})
 		}
@@ -95,13 +101,13 @@ export function createController(
 		if (core.statelessController) {
 			controller = core.statelessController
 
-			log.type = LogType.Info
+			log.type = PopupLogType.Info
 			log.message = `从缓存中获取无状态控制器 ${controller.id} 成功`
 			log.group.push({
-				type: LogGroupItemType.Data,
+				type: PopupLogGroupItemType.Data,
 				title: '控制器',
 				dataName: controller.id,
-				dataType: 'IController',
+				dataType: 'PopupController',
 				dataValue: controller,
 			})
 		} else {
@@ -109,10 +115,10 @@ export function createController(
 
 			log.message = `创建无状态控制器 ${controller.id} 成功，存入缓存`
 			log.group.push({
-				type: LogGroupItemType.Data,
+				type: PopupLogGroupItemType.Data,
 				title: '控制器',
 				dataName: controller.id,
-				dataType: 'IController',
+				dataType: 'PopupController',
 				dataValue: controller,
 			})
 		}
@@ -121,10 +127,10 @@ export function createController(
 	return controller
 }
 
-export class Controller implements IController {
+export class Controller implements PopupController {
 	#id: string
 	#vm?: ComponentInternalInstance
-	#core: ICore
+	#core: PopupCore
 	get id() {
 		return this.#id
 	}
@@ -134,14 +140,14 @@ export class Controller implements IController {
 	get version() {
 		return version
 	}
-	constructor(core: ICore, vm?: ComponentInternalInstance) {
+	constructor(core: PopupCore, vm?: ComponentInternalInstance) {
 		this.#id = `popup-controller-${core.controllerSeed}`
 		this.#core = core
 		this.#vm = vm
 	}
-	render({ zIndex, ...options }: RenderOption) {
-		const log = new Log({
-			type: LogType.Info,
+	render({ zIndex, ...options }: PopupRenderOption) {
+		const log = new PopupLog({
+			type: PopupLogType.Info,
 			caller: {
 				name: 'popup.render()',
 				type: 'Function',
@@ -149,29 +155,29 @@ export class Controller implements IController {
 			},
 			group: [
 				{
-					type: LogGroupItemType.Component,
+					type: PopupLogGroupItemType.Component,
 					title: '调用组件',
 					instance: this.#vm,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '控制器',
 					dataName: this.#id,
 					dataValue: this,
-					dataType: 'IController',
+					dataType: 'PopupController',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: `渲染参数`,
 					dataName: `options`,
-					dataType: 'RenderOption',
+					dataType: 'PopupRenderOption',
 					dataValue: arguments[0],
 				},
 			],
 		})
 
 		if (!this.isInstalled) {
-			log.type = LogType.Error
+			log.type = PopupLogType.Error
 			log.message = `渲染弹出层失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
@@ -195,14 +201,14 @@ export class Controller implements IController {
 
 		log.message = `渲染弹出层 ${instance.id.name} 成功`
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: `渲染合并参数`,
 			dataName: `mergedOptions`,
 			dataValue: mergedOptions,
-			dataType: 'RenderOption',
+			dataType: 'PopupRenderOption',
 		})
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '渲染方式',
 			dataName: instance.renderType,
 			dataType: `'${InstanceRenderType.APP}' | '${InstanceRenderType.VNODE}' | '${InstanceRenderType.ROOT_COMPONENT}'`,
@@ -210,7 +216,7 @@ export class Controller implements IController {
 			important: true,
 		})
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: `弹出层实例`,
 			dataName: instance.id.name,
 			dataValue: instance,
@@ -223,9 +229,9 @@ export class Controller implements IController {
 
 		return instance.id
 	}
-	getComputedStyle(instanceId: InstanceId) {
-		const log = new Log({
-			type: LogType.Info,
+	getComputedStyle(instanceId: PopupInstanceId) {
+		const log = new PopupLog({
+			type: PopupLogType.Info,
 			caller: {
 				name: 'popup.getComputedStyle()',
 				type: 'Function',
@@ -233,29 +239,29 @@ export class Controller implements IController {
 			},
 			group: [
 				{
-					type: LogGroupItemType.Component,
+					type: PopupLogGroupItemType.Component,
 					title: '调用组件',
 					instance: this.#vm,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '控制器',
 					dataName: this.#id,
 					dataValue: this,
-					dataType: 'IController',
+					dataType: 'PopupController',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '目标实例ID',
 					dataName: instanceId.name,
 					dataValue: instanceId,
-					dataType: 'InstanceId',
+					dataType: 'PopupInstanceId',
 				},
 			],
 		})
 
 		if (!this.isInstalled) {
-			log.type = LogType.Error
+			log.type = PopupLogType.Error
 			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
@@ -264,7 +270,7 @@ export class Controller implements IController {
 		const instance = this.#core.getInstance(instanceId)
 
 		if (!instance) {
-			log.type = LogType.Warning
+			log.type = PopupLogType.Warning
 			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，弹出层不存在`
 			printLog(log)
 			return null
@@ -273,7 +279,7 @@ export class Controller implements IController {
 		const computedStyle = instance.store.computedStyle
 
 		if (!computedStyle) {
-			log.type = LogType.Warning
+			log.type = PopupLogType.Warning
 			log.message = `获取弹出层 ${instanceId.name} 计算样式失败，弹出层未挂载`
 			printLog(log)
 			return null
@@ -281,25 +287,25 @@ export class Controller implements IController {
 
 		log.message = `获取弹出层 ${instanceId.name} 计算样式成功`
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '弹出层实例',
 			dataName: instanceId.name,
 			dataType: 'Instance',
 			dataValue: instance,
 		})
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '弹出层计算样式',
 			dataName: 'computedStyle',
-			dataType: 'ComputedStyle',
+			dataType: 'PopupViewComputedStyle',
 			dataValue: computedStyle,
 		})
 
 		return computedStyle
 	}
-	update(instanceId: InstanceId, options: UpdateOption) {
-		const log = new Log({
-			type: LogType.Info,
+	update(instanceId: PopupInstanceId, options: PopupUpdateOption) {
+		const log = new PopupLog({
+			type: PopupLogType.Info,
 			caller: {
 				name: 'popup.update()',
 				type: 'Function',
@@ -307,37 +313,37 @@ export class Controller implements IController {
 			},
 			group: [
 				{
-					type: LogGroupItemType.Component,
+					type: PopupLogGroupItemType.Component,
 					title: '调用组件',
 					instance: this.#vm,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '控制器',
 					dataName: this.#id,
 					dataValue: this,
-					dataType: 'IController',
+					dataType: 'PopupController',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '更新实例ID',
 					dataName: instanceId.name,
 					dataValue: instanceId,
-					dataType: 'InstanceId',
+					dataType: 'PopupInstanceId',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '更新参数',
 					dataName: `options`,
 					dataValue: options,
-					dataType: 'UpdateOption',
+					dataType: 'PopupUpdateOption',
 					important: true,
 				},
 			],
 		})
 
 		if (!this.isInstalled) {
-			log.type = LogType.Error
+			log.type = PopupLogType.Error
 			log.message = `更新弹出层 ${instanceId.name} 失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
@@ -346,14 +352,14 @@ export class Controller implements IController {
 		const instance = this.#core.getInstance(instanceId)
 
 		if (!instance) {
-			log.type = LogType.Warning
+			log.type = PopupLogType.Warning
 			log.message = `更新弹出层 ${instanceId.name} 失败，弹出层不存在`
 			printLog(log)
 			return
 		}
 
 		for (const _key in options) {
-			const key = _key as keyof UpdateOption
+			const key = _key as keyof PopupUpdateOption
 			const value =
 				options[key] === undefined
 					? instance.store[key].value
@@ -363,7 +369,7 @@ export class Controller implements IController {
 
 		log.message = `更新弹出层 ${instance.id.name} 成功`
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '弹出层实例',
 			dataName: instanceId.name,
 			dataType: 'Instance',
@@ -372,9 +378,9 @@ export class Controller implements IController {
 
 		printLog(log)
 	}
-	async destroy(instanceId: InstanceId, payload?: any) {
-		const log = new Log({
-			type: LogType.Info,
+	async destroy(instanceId: PopupInstanceId, payload?: any) {
+		const log = new PopupLog({
+			type: PopupLogType.Info,
 			caller: {
 				name: 'popup.destroy()',
 				type: 'Function',
@@ -382,26 +388,26 @@ export class Controller implements IController {
 			},
 			group: [
 				{
-					type: LogGroupItemType.Component,
+					type: PopupLogGroupItemType.Component,
 					title: '调用组件',
 					instance: this.#vm,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '控制器',
 					dataName: this.#id,
 					dataValue: this,
-					dataType: 'IController',
+					dataType: 'PopupController',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '销毁实例ID',
 					dataName: instanceId.name,
 					dataValue: instanceId,
-					dataType: 'InstanceId',
+					dataType: 'PopupInstanceId',
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '销毁携带参数',
 					dataName: `payload`,
 					dataValue: payload,
@@ -411,7 +417,7 @@ export class Controller implements IController {
 		})
 
 		if (!this.isInstalled) {
-			log.type = LogType.Error
+			log.type = PopupLogType.Error
 			log.message = `销毁弹出层 ${instanceId.name} 失败，请先调用 app.use() 注册插件`
 			printLog(log)
 			throw new PopupError(log)
@@ -420,7 +426,7 @@ export class Controller implements IController {
 		const instance = this.#core.getInstance(instanceId)
 
 		if (!instance) {
-			log.type = LogType.Warning
+			log.type = PopupLogType.Warning
 			log.message = `销毁弹出层 ${instanceId.name} 失败，弹出层不存在`
 			printLog(log)
 			return
@@ -430,7 +436,7 @@ export class Controller implements IController {
 
 		log.message = `销毁弹出层 ${instance.id.name} 成功`
 		log.group.push({
-			type: LogGroupItemType.Data,
+			type: PopupLogGroupItemType.Data,
 			title: '弹出层实例',
 			dataName: instanceId.name,
 			dataValue: instance,

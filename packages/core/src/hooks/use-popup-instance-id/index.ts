@@ -1,5 +1,10 @@
 import { getCurrentInstance, hasInjectionContext, inject } from 'vue'
-import { printLog, Log, LogType, LogGroupItemType } from '../../log'
+import {
+	printLog,
+	PopupLog,
+	PopupLogType,
+	PopupLogGroupItemType,
+} from '../../log'
 import { POPUP_COMPONENT_INJECTS } from '../../CONSTANTS'
 
 /**
@@ -13,8 +18,8 @@ import { POPUP_COMPONENT_INJECTS } from '../../CONSTANTS'
 export function usePopupInstanceId() {
 	if (!hasInjectionContext()) {
 		printLog(
-			new Log({
-				type: LogType.Error,
+			new PopupLog({
+				type: PopupLogType.Error,
 				caller: {
 					name: 'usePopupInstanceId()',
 					type: 'Function',
@@ -32,8 +37,8 @@ export function usePopupInstanceId() {
 
 	if (instanceId) {
 		printLog(
-			new Log({
-				type: LogType.Info,
+			new PopupLog({
+				type: PopupLogType.Info,
 				caller: {
 					name: 'usePopupInstanceId()',
 					type: 'Function',
@@ -42,14 +47,14 @@ export function usePopupInstanceId() {
 				message: `获取弹出层实例ID ${instanceId.name} 成功，${componentName} 组件`,
 				group: [
 					{
-						type: LogGroupItemType.Component,
+						type: PopupLogGroupItemType.Component,
 						title: '调用组件',
 						instance: vm,
 					},
 					{
-						type: LogGroupItemType.Data,
+						type: PopupLogGroupItemType.Data,
 						title: '弹出层实例ID',
-						dataType: 'InstanceId',
+						dataType: 'PopupInstanceId',
 						dataName: instanceId.name,
 						dataValue: instanceId,
 					},
@@ -58,8 +63,8 @@ export function usePopupInstanceId() {
 		)
 	} else {
 		printLog(
-			new Log({
-				type: LogType.Warning,
+			new PopupLog({
+				type: PopupLogType.Warning,
 				caller: {
 					name: 'usePopupInstanceId()',
 					type: 'Function',
@@ -68,7 +73,7 @@ export function usePopupInstanceId() {
 				message: `获取弹出层实例ID失败，${componentName} 组件不在弹出层内`,
 				group: [
 					{
-						type: LogGroupItemType.Component,
+						type: PopupLogGroupItemType.Component,
 						title: '调用组件',
 						instance: vm,
 					},

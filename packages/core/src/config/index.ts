@@ -1,6 +1,6 @@
 import type { Directive } from 'vue'
 import { directives } from '../directive'
-import { defaultPrintLog, type ILogHandler, type LogFilter } from '../log'
+import { defaultPrintLog, type PopupLogHandler, type LogFilter } from '../log'
 
 type ZIndexGetter = () => number
 
@@ -27,7 +27,7 @@ export interface IConfig {
 	/**
 	 * 日志器
 	 */
-	logHandler: ILogHandler
+	logHandler: PopupLogHandler
 	/**
 	 * 日志过滤器
 	 */
@@ -42,7 +42,7 @@ export interface IConfig {
 	directives: typeof directives
 }
 
-export type ConfigOption = {
+export type PopupConfigOption = {
 	/**
 	 * 弹出层 zIndex 基础值
 	 *
@@ -88,9 +88,9 @@ export type ConfigOption = {
 	 * ```ts
 	 * // 扩展自定义属性名类型
 	 * declare module 'vue' {
-	 *  import { type IController } from 'vue-popup-plus'
+	 *  import { type PopupController } from 'vue-popup-plus'
 	 * 	interface ComponentCustomProperties {
-	 * 		$customPopup: IController
+	 * 		$customPopup: PopupController
 	 * 	}
 	 * }
 	 * ```
@@ -105,7 +105,7 @@ export type ConfigOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	logHandler?: ILogHandler
+	logHandler?: PopupLogHandler
 	/**
 	 * 日志过滤器
 	 *
@@ -130,7 +130,7 @@ export class Config implements IConfig {
 	zIndex: number | ZIndexGetter
 	autoDisableScroll: boolean
 	prototypeName: string
-	logHandler: ILogHandler
+	logHandler: PopupLogHandler
 	logFilter?: LogFilter
 	debugMode: boolean
 	directives = directives
@@ -142,7 +142,7 @@ export class Config implements IConfig {
 		logHandler = defaultPrintLog,
 		logFilter,
 		debugMode = false,
-	}: ConfigOption = {}) {
+	}: PopupConfigOption = {}) {
 		this.zIndex = zIndex
 		this.autoDisableScroll = autoDisableScroll
 		this.prototypeName = prototypeName

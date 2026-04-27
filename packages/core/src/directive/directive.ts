@@ -7,12 +7,12 @@ import {
 } from 'vue'
 import {
 	createController,
-	type IController,
-	type RenderOption,
+	type PopupController,
+	type PopupRenderOption,
 } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
-import { defaultPrintLog, Log, LogType } from '../log'
+import { defaultPrintLog, PopupLog, PopupLogType } from '../log'
 
 type PopupDirectiveTrigger = 'click' | 'hover' | 'contextmenu'
 type PopupDirectiveTriggerModifiers = 'stop' | 'prevent'
@@ -63,7 +63,7 @@ export type PopupDirective<
 	TModifiers
 >
 
-type PopupDirectiveHookControllerGetter = (log?: Log) => IController
+type PopupDirectiveHookControllerGetter = (log?: PopupLog) => PopupController
 
 type PopupDirectiveHook<
 	TDirective extends PopupDirective,
@@ -106,7 +106,7 @@ type PopupDirectiveEventHandlersStore = Map<
 	}>
 >
 
-export interface ICreatePopupDirective {
+export interface PopupDirectiveCreator {
 	<TDirective extends PopupDirective>(
 		renderHook: PopupDirectiveHook<TDirective>
 	): TDirective
@@ -153,7 +153,7 @@ export interface ICreatePopupDirective {
  * @param {PopupDirectiveHook<TDirective>}render - 渲染弹出层的钩子函数
  * @returns - 弹出层指令
  */
-export const createPopupDirective: ICreatePopupDirective = <
+export const createPopupDirective: PopupDirectiveCreator = <
 	TDirective extends PopupDirective,
 >(
 	render: PopupDirectiveHook<TDirective>
@@ -254,7 +254,7 @@ function createEventHandler(context: PopupDirectiveHookContext) {
 			binding: context.binding,
 			vNode: context.vNode,
 			prevVNode: context.prevVNode as null,
-			getController: (log?: Log) => getController(context, log),
+			getController: (log?: PopupLog) => getController(context, log),
 		})
 
 		if (context.binding.modifiers.prevent) {
@@ -268,15 +268,15 @@ function createEventHandler(context: PopupDirectiveHookContext) {
 
 function getController(
 	context: PopupDirectiveHookContext,
-	log: Log = new Log({
-		type: LogType.Success,
+	log: PopupLog = new PopupLog({
+		type: PopupLogType.Success,
 		caller: '未知指令',
 	})
 ) {
 	const core = getCore()
 
 	if (!core) {
-		log.type = LogType.Error
+		log.type = PopupLogType.Error
 		log.message = `调用 ${log.caller} 指令前请先调用 createPopupPlus() 创建弹出层插件实例`
 
 		defaultPrintLog(log)

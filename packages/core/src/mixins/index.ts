@@ -1,9 +1,9 @@
 import { type ComponentInternalInstance, type ComponentOptions } from 'vue'
-import { createController, type IController } from '../controller'
-import { type ICore } from '../core'
-import { type InstanceId } from '../instance'
-import { Log, LogType, LogGroupItemType, printLog } from '../log'
-import { type ComputedStyle } from '../typings'
+import { createController, type PopupController } from '../controller'
+import { type PopupCore } from '../core'
+import { type PopupInstanceId } from '../instance'
+import { PopupLog, PopupLogType, PopupLogGroupItemType, printLog } from '../log'
+import { type PopupViewComputedStyle } from '../typings'
 import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
 declare module 'vue' {
@@ -13,23 +13,23 @@ declare module 'vue' {
 		 *
 		 * - 该控制器包含当前组件的上下文
 		 */
-		$popup: IController
+		$popup: PopupController
 		/**
 		 * 当前组件所在弹出层的实例 ID
 		 *
 		 * - 如果当前组件不在弹出层内，则返回 `undefined`
 		 */
-		$popupInstanceId: InstanceId | undefined
+		$popupInstanceId: PopupInstanceId | undefined
 		/**
 		 * 当前组件所在弹出层的视图计算样式
 		 *
 		 * - 如果当前组件不在弹出层内，则返回 `undefined`
 		 */
-		$popupComputedStyle: ComputedStyle | undefined
+		$popupComputedStyle: PopupViewComputedStyle | undefined
 	}
 }
 
-export function createMixins(core: ICore): ComponentOptions {
+export function createMixins(core: PopupCore): ComponentOptions {
 	return {
 		inject: {
 			$popupInstanceId: {
@@ -48,8 +48,8 @@ export function createMixins(core: ICore): ComponentOptions {
 				enumerable: true,
 				configurable: false,
 				get() {
-					const log = new Log({
-						type: LogType.Success,
+					const log = new PopupLog({
+						type: PopupLogType.Success,
 						caller: {
 							name: `this.${core.config.prototypeName}`,
 							type: 'Component',
@@ -61,8 +61,8 @@ export function createMixins(core: ICore): ComponentOptions {
 				},
 				set() {
 					printLog(
-						new Log({
-							type: LogType.Warning,
+						new PopupLog({
+							type: PopupLogType.Warning,
 							caller: {
 								name: `this.${core.config.prototypeName}`,
 								type: 'Component',
@@ -71,7 +71,7 @@ export function createMixins(core: ICore): ComponentOptions {
 							message: `${core.config.prototypeName} 是只读属性，无法赋值`,
 							group: [
 								{
-									type: LogGroupItemType.Component,
+									type: PopupLogGroupItemType.Component,
 									title: '调用组件',
 									instance: vm,
 								},

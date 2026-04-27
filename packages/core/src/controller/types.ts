@@ -1,10 +1,13 @@
 import type { Component } from 'vue'
 import type { Animation, IAnimations } from '../animation'
-import type { InstanceId } from '../instance'
-import type { ComputedStyle, ExtractComponentPropTypes } from '../typings'
-import type { Version } from '../version'
+import type { PopupInstanceId } from '../instance'
+import type {
+	PopupViewComputedStyle,
+	ExtractComponentPropTypes,
+} from '../typings'
+import type { PopupVersion } from '../version'
 
-export type Placement = [
+export type PopupPlacement = [
 	'left-top',
 	'left',
 	'left-bottom',
@@ -16,7 +19,7 @@ export type Placement = [
 	'right-bottom',
 ][number]
 
-export type AnchorPlacement = [
+export type PopupAnchorPlacement = [
 	'left-start',
 	'left',
 	'left-end',
@@ -31,9 +34,9 @@ export type AnchorPlacement = [
 	'right-end',
 ][number]
 
-export type AnchorShift = ['both', 'mainAxis', 'crossAxis', 'none'][number]
+export type PopupAnchorShift = ['both', 'mainAxis', 'crossAxis', 'none'][number]
 
-export type MaskDestroyHandler = (
+export type PopupMaskDestroyHandler = (
 	close: (payload?: any) => Promise<void>
 ) => void
 
@@ -103,7 +106,7 @@ type RenderConfigOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 弹出层挂载的父元素
 	 *
@@ -307,7 +310,7 @@ type RenderMaskOption = {
 	 *
 	 * @since 1.6.0
 	 */
-	maskDestroy?: boolean | MaskDestroyHandler
+	maskDestroy?: boolean | PopupMaskDestroyHandler
 }
 
 // 渲染锚点选项
@@ -348,7 +351,7 @@ type RenderAnchorOption = {
 	 *
 	 * @since 1.7.0
 	 */
-	anchorPlacement?: AnchorPlacement
+	anchorPlacement?: PopupAnchorPlacement
 	/**
 	 * 锚点弹出层是否在视窗空间不足时进行翻转
 	 *
@@ -386,10 +389,10 @@ type RenderAnchorOption = {
 	 *
 	 * @since 1.7.0
 	 */
-	anchorShift?: AnchorShift
+	anchorShift?: PopupAnchorShift
 }
 
-export type RenderOption<TComponent extends Component = Component> =
+export type PopupRenderOption<TComponent extends Component = Component> =
 	RenderComponentOption<TComponent> &
 		RenderConfigOption &
 		RenderStyleOption &
@@ -397,11 +400,14 @@ export type RenderOption<TComponent extends Component = Component> =
 		RenderMaskOption &
 		RenderAnchorOption
 
-export type UpdateOption = Omit<RenderOption, 'component' | 'disableScroll'>
+export type PopupUpdateOption = Omit<
+	PopupRenderOption,
+	'component' | 'disableScroll'
+>
 
 export interface PopupCustomProperties {}
 
-export interface IController extends PopupCustomProperties {
+export interface PopupController extends PopupCustomProperties {
 	/**
 	 * 弹出层控制器实例 id
 	 */
@@ -413,17 +419,17 @@ export interface IController extends PopupCustomProperties {
 	/**
 	 * 版本号
 	 */
-	readonly version: Version
+	readonly version: PopupVersion
 	/**
 	 * 渲染弹出层
 	 *
 	 * - 渲染参数 `component`
-	 *   是唯一的必填项，其他渲染参数具体请参考{@link RenderOption}
+	 *   是唯一的必填项，其他渲染参数具体请参考{@link PopupRenderOption}
 	 * - 返回值是弹出层的实例 id ，用于调用 destroy() 方法销毁弹出层
 	 */
 	render<TComponent extends Component = Component>(
-		options: RenderOption<TComponent>
-	): InstanceId
+		options: PopupRenderOption<TComponent>
+	): PopupInstanceId
 	/**
 	 * 获取弹出层视图的计算样式
 	 *
@@ -431,15 +437,15 @@ export interface IController extends PopupCustomProperties {
 	 * - 返回的计算样式是具有响应性的只读对象
 	 * - 如果弹出层视图组件未渲染，则返回 undefined
 	 */
-	getComputedStyle(instanceId: InstanceId): ComputedStyle | null
+	getComputedStyle(instanceId: PopupInstanceId): PopupViewComputedStyle | null
 	/**
 	 * 更新弹出层
 	 *
 	 * - 主要用于更新弹出层的渲染参数
 	 * - 第一个参数需要传入需要更新的弹出层的实例 id
-	 * - 第二个参数需要传入更新的参数，仅支持部分渲染参数，具体请参考{@link UpdateOption}
+	 * - 第二个参数需要传入更新的参数，仅支持部分渲染参数，具体请参考{@link PopupUpdateOption}
 	 */
-	update(instanceId: InstanceId, options: UpdateOption): void
+	update(instanceId: PopupInstanceId, options: PopupUpdateOption): void
 	/**
 	 * 销毁弹出层
 	 *
@@ -448,5 +454,5 @@ export interface IController extends PopupCustomProperties {
 	 * - 该函数返回一个 Promise 对象，用于等待弹出层销毁动画完成
 	 * - 如果弹出层不存在，会在调试模式下打印警告日志
 	 */
-	destroy(instanceId: InstanceId, payload?: any): Promise<void>
+	destroy(instanceId: PopupInstanceId, payload?: any): Promise<void>
 }

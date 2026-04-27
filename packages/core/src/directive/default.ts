@@ -1,8 +1,10 @@
-import { Log, LogType } from '../log'
-import { type RenderOption } from '../controller'
+import { PopupLog, PopupLogType } from '../log'
+import { type PopupRenderOption } from '../controller'
 import { createPopupDirective, type PopupDirective } from './directive'
 
-type DefaultDirective = PopupDirective<RenderOption | RenderOption['component']>
+type DefaultDirective = PopupDirective<
+	PopupRenderOption | PopupRenderOption['component']
+>
 
 declare module 'vue' {
 	export interface GlobalDirectives {
@@ -10,7 +12,7 @@ declare module 'vue' {
 		 * 快速渲染弹出层指令
 		 *
 		 * - 传入弹出层的渲染组件或渲染选项可快速渲染弹出层，
-		 *   渲染选项具体参考 {@link RenderOption}
+		 *   渲染选项具体参考 {@link PopupRenderOption}
 		 * - 默认触发方式为 `click` ，即点击元素触发渲染弹出层
 		 * - 可通过 Modifier 修饰符来指定触发方式，可选值为
 		 *   `click` | `hover` | `contextmenu`
@@ -42,8 +44,8 @@ declare module 'vue' {
 
 export const defaultDirective = createPopupDirective<DefaultDirective>(
 	({ binding, getController }) => {
-		const log = new Log({
-			type: LogType.Success,
+		const log = new PopupLog({
+			type: PopupLogType.Success,
 			caller: {
 				name: 'v-popup',
 				type: 'Directive',
@@ -51,13 +53,13 @@ export const defaultDirective = createPopupDirective<DefaultDirective>(
 			},
 		})
 
-		let renderOption: RenderOption = binding.value as RenderOption
+		let renderOption: PopupRenderOption = binding.value as PopupRenderOption
 
-		if ((binding.value as RenderOption).component) {
-			renderOption = binding.value as RenderOption
+		if ((binding.value as PopupRenderOption).component) {
+			renderOption = binding.value as PopupRenderOption
 		} else {
 			renderOption = {
-				component: binding.value as RenderOption['component'],
+				component: binding.value as PopupRenderOption['component'],
 			}
 		}
 

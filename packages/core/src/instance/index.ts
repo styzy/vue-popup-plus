@@ -13,9 +13,9 @@ import {
 	type VNode,
 } from 'vue'
 import { wait } from 'utils'
-import { type ICore } from '../core'
-import type { RenderOption, UpdateOption } from '../controller'
-import type { ComputedStyle } from '../typings'
+import { type PopupCore } from '../core'
+import type { PopupRenderOption, PopupUpdateOption } from '../controller'
+import type { PopupViewComputedStyle } from '../typings'
 
 import PopupInstance from '../components/PopupInstance.vue'
 
@@ -27,9 +27,9 @@ type PropertiseToRef<T extends Record<string, any>> = {
 }
 
 /**
- * 实例 id 接口
+ * 实例 id
  */
-interface _IInstanceId {
+export interface PopupInstanceId {
 	/**
 	 * 生成该实例 id 的种子
 	 *
@@ -42,32 +42,32 @@ interface _IInstanceId {
 	readonly name: string
 }
 
-export interface IInstance {
-	readonly id: InstanceId
+export interface PopupInstance {
+	readonly id: PopupInstanceId
 	readonly renderType: InstanceRenderType
 	readonly store: InstanceStore
-	mount(): InstanceId
+	mount(): PopupInstanceId
 	unmount(payload?: any): Promise<void>
 }
 
-type InstanceOption = Required<RenderOption>
+type InstanceOption = Required<PopupRenderOption>
 
 type InstanceInternalStore = {
-	id: InstanceId
+	id: PopupInstanceId
 	parentElement: Element
-	computedStyle: ComputedStyle | null
+	computedStyle: PopupViewComputedStyle | null
 	isBeforeUnmount: Ref<boolean>
 }
 
 export type InstanceStore = InstanceInternalStore &
-	PropertiseToRef<Required<UpdateOption>> &
-	Required<Omit<RenderOption, keyof UpdateOption>>
+	PropertiseToRef<Required<PopupUpdateOption>> &
+	Required<Omit<PopupRenderOption, keyof PopupUpdateOption>>
 
-interface ICreateStore {
-	(id: InstanceId, options: InstanceOption): InstanceStore
+interface InstanceStoreCreator {
+	(id: PopupInstanceId, options: InstanceOption): InstanceStore
 }
 
-const createStore: ICreateStore = (
+const createStore: InstanceStoreCreator = (
 	id,
 	{ component, anchor, componentProps, viewport, disableScroll, ...options }
 ) => {
@@ -92,7 +92,7 @@ function getParentElement(appendTo: Element | string) {
 	return appendTo
 }
 
-export class InstanceId implements _IInstanceId {
+class InstanceId implements PopupInstanceId {
 	#seed: number
 	get seed() {
 		return this.#seed
@@ -111,9 +111,9 @@ export const enum InstanceRenderType {
 	VNODE = 'VNode',
 }
 
-export class Instance implements IInstance {
-	#core: ICore
-	private _id: InstanceId
+export class Instance implements PopupInstance {
+	#core: PopupCore
+	private _id: PopupInstanceId
 	private _store: InstanceStore
 	#vm?: ComponentInternalInstance
 	#app?: App
@@ -133,7 +133,7 @@ export class Instance implements IInstance {
 		return this._store
 	}
 	constructor(
-		core: ICore,
+		core: PopupCore,
 		options: InstanceOption,
 		vm?: ComponentInternalInstance
 	) {
@@ -142,7 +142,7 @@ export class Instance implements IInstance {
 		this.#vm = vm
 		this._store = createStore(this._id, options)
 	}
-	mount(): InstanceId {
+	mount(): PopupInstanceId {
 		switch (this.renderType) {
 			case InstanceRenderType.ROOT_COMPONENT:
 				this.#mountByRootComponent()

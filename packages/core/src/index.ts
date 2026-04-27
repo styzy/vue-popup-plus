@@ -1,10 +1,10 @@
-import { createCore, type ICore } from './core'
-import { type ConfigOption } from './config'
-import { Log, LogGroupItemType, LogType, printLog } from './log'
+import { createCore, type PopupCore } from './core'
+import { type PopupConfigOption } from './config'
+import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from './log'
 import './assets/styles/main.scss'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export { type ConfigOption } from './config'
+export { type PopupConfigOption } from './config'
 export {
 	PopupAnchorTrigger,
 	type PopupAnchorTriggerEmits,
@@ -12,36 +12,35 @@ export {
 	type PopupAnchorTriggerSlots,
 } from './components'
 export {
-	type IController,
-	type MaskDestroyHandler,
-	type Placement,
-	type AnchorPlacement,
-	type AnchorShift,
+	type PopupController,
+	type PopupMaskDestroyHandler,
+	type PopupPlacement,
+	type PopupAnchorPlacement,
+	type PopupAnchorShift,
 	type PopupCustomProperties,
-	type RenderOption,
-	type UpdateOption,
+	type PopupRenderOption,
+	type PopupUpdateOption,
 } from './controller'
-export { type ICore } from './core'
+export { type PopupCore } from './core'
 export {
 	createPopupDirective,
 	type PopupDirective,
-	type ICreatePopupDirective,
+	type PopupDirectiveCreator,
 } from './directive'
 export { usePopup, usePopupInstanceId, usePopupComputedStyle } from './hooks'
-export { type InstanceId } from './instance'
+export { type PopupInstanceId } from './instance'
 export {
 	printLog,
-	Log,
-	LogType,
-	LogGroupItemType,
-	type ILog,
-	type ILogHandler,
-	type LogOption,
-	type LogGroup,
+	PopupLog,
+	PopupLogType,
+	PopupLogGroupItemType,
+	type PopupLogHandler,
+	type PopupLogOption,
+	type PopupLogGroup,
 } from './log'
 export { definePlugin, type PopupPlugin } from './plugin'
 export type { ExtractComponentPropTypes } from './typings'
-export { version, type Version } from './version'
+export { version, type PopupVersion } from './version'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
 export { default as PopupRoot } from './components/PopupRoot.vue'
 
@@ -50,7 +49,7 @@ export { default as PopupRoot } from './components/PopupRoot.vue'
  *
  * - 通过 Vue 的 app.use() 函数安装插件
  *
- * @param options 插件配置，具体请参考 {@link ConfigOption}
+ * @param options 插件配置，具体请参考 {@link PopupConfigOption}
  * @returns 弹出层插件
  *
  * @example
@@ -64,12 +63,12 @@ export { default as PopupRoot } from './components/PopupRoot.vue'
  * app.use(PopupPlus)
  * ```
  */
-export function createPopupPlus(options?: ConfigOption): ICore {
+export function createPopupPlus(options?: PopupConfigOption): PopupCore {
 	const core = createCore(options)
 
 	printLog(
-		new Log({
-			type: LogType.Success,
+		new PopupLog({
+			type: PopupLogType.Success,
 			caller: {
 				name: 'createPopupPlus()',
 				type: 'Function',
@@ -78,24 +77,24 @@ export function createPopupPlus(options?: ConfigOption): ICore {
 			message: `创建弹出层核心 ${core.id} 成功`,
 			group: [
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '核心',
 					dataName: core.id,
-					dataType: 'ICore',
+					dataType: 'PopupCore',
 					dataValue: core,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '调用参数',
 					dataName: 'options',
-					dataType: 'ConfigOption',
+					dataType: 'PopupConfigOption',
 					dataValue: options,
 				},
 				{
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: '合并参数',
 					dataName: 'mergedOptions',
-					dataType: 'ConfigOption',
+					dataType: 'PopupConfigOption',
 					dataValue: core.config,
 				},
 			],

@@ -18,7 +18,7 @@ import {
 	type PopupAnchorTriggerSlots,
 } from './types'
 import { usePopup } from '../../..//hooks'
-import type { InstanceId } from '../../../instance'
+import { type PopupInstanceId } from '../../../instance'
 import { P_COMPONENT_NAMES } from '../../../CONSTANTS'
 
 defineOptions({
@@ -47,7 +47,7 @@ const isRendered = ref(false)
 const currentTrigger = ref<PopupAnchorTrigger>()
 const renderDelayTimer = ref<number>()
 const destroyDelayTimer = ref<number>()
-const popupInstanceId = ref<InstanceId | null>(null)
+const popupInstanceId = ref<PopupInstanceId | null>(null)
 
 onMounted(() => {
 	getAnchorElement()

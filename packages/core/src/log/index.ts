@@ -6,7 +6,7 @@ import type { ComponentInternalInstance } from 'vue'
 /**
  * 日志类型
  */
-export const LogType = {
+export const PopupLogType = {
 	/**
 	 * 成功
 	 */
@@ -29,7 +29,7 @@ export const LogType = {
 	Component: 'component',
 } as const
 
-export type LogType = (typeof LogType)[keyof typeof LogType]
+export type PopupLogType = (typeof PopupLogType)[keyof typeof PopupLogType]
 
 export type LogCallerRecord = {
 	/**
@@ -53,7 +53,7 @@ export type LogCaller = string | LogCallerRecord
 /**
  * 日志组元素类型
  */
-export const LogGroupItemType = {
+export const PopupLogGroupItemType = {
 	/**
 	 * 消息类型
 	 */
@@ -72,14 +72,14 @@ export const LogGroupItemType = {
 	Component: 'component',
 } as const
 
-export type LogGroupItemType =
-	(typeof LogGroupItemType)[keyof typeof LogGroupItemType]
+export type PopupLogGroupItemType =
+	(typeof PopupLogGroupItemType)[keyof typeof PopupLogGroupItemType]
 
 type LogGroupMessage = {
 	/**
 	 * 消息类型
 	 */
-	type: typeof LogGroupItemType.Message
+	type: typeof PopupLogGroupItemType.Message
 	/**
 	 * 消息标题
 	 */
@@ -94,7 +94,7 @@ type LogGroupInfo = {
 	/**
 	 * 信息类型
 	 */
-	type: typeof LogGroupItemType.Info
+	type: typeof PopupLogGroupItemType.Info
 	/**
 	 * 信息标题
 	 */
@@ -113,7 +113,7 @@ type LogGroupData = {
 	/**
 	 * 数据类型
 	 */
-	type: typeof LogGroupItemType.Data
+	type: typeof PopupLogGroupItemType.Data
 	/**
 	 * 数据标题
 	 */
@@ -142,7 +142,7 @@ type LogGroupComponent = {
 	/**
 	 * 组件类型
 	 */
-	type: typeof LogGroupItemType.Component
+	type: typeof PopupLogGroupItemType.Component
 	/**
 	 * 组件标题
 	 */
@@ -159,13 +159,13 @@ type LogGroupItem =
 	| LogGroupData
 	| LogGroupComponent
 
-export type LogGroup = Array<LogGroupItem>
+export type PopupLogGroup = Array<LogGroupItem>
 
-export type LogOption = {
+export type PopupLogOption = {
 	/**
 	 * 日志类型
 	 */
-	type?: LogType
+	type?: PopupLogType
 	/**
 	 * 日志调用者
 	 */
@@ -179,10 +179,10 @@ export type LogOption = {
 	 *
 	 * - 用于在日志消息中展示多个数据项
 	 */
-	group?: LogGroup
+	group?: PopupLogGroup
 }
 
-export interface ILog {
+interface IPopupLog {
 	/**
 	 * 命名空间
 	 */
@@ -190,7 +190,7 @@ export interface ILog {
 	/**
 	 * 类型
 	 */
-	type: LogType
+	type: PopupLogType
 	/**
 	 * 调用者
 	 */
@@ -202,7 +202,7 @@ export interface ILog {
 	/**
 	 * 日志组
 	 */
-	group: LogGroup
+	group: PopupLogGroup
 	/**
 	 * 是否有调用者
 	 */
@@ -213,12 +213,12 @@ export interface ILog {
 	readonly hasGroup: boolean
 }
 
-export class Log implements ILog {
+export class PopupLog implements IPopupLog {
 	namespace = 'VuePopupPlus'
-	type: LogType
+	type: PopupLogType
 	caller: LogCaller
 	message: string
-	group: LogGroup
+	group: PopupLogGroup
 	get hasCaller() {
 		return !!this.caller
 	}
@@ -235,11 +235,11 @@ export class Log implements ILog {
 	 * @returns 日志实例
 	 */
 	constructor({
-		type = LogType.Info,
+		type = PopupLogType.Info,
 		caller = '',
 		message = '',
 		group = [],
-	}: LogOption = {}) {
+	}: PopupLogOption = {}) {
 		this.type = type
 		this.caller = caller
 		this.message = message
@@ -247,16 +247,16 @@ export class Log implements ILog {
 	}
 }
 
-export interface ILogHandler {
+export interface PopupLogHandler {
 	/**
 	 * 日志处理函数
 	 *
 	 * @param log 日志实例
 	 */
-	(log: ILog): any
+	(log: PopupLog): any
 }
 
-export type LogFilter = (log: ILog) => boolean
+export type LogFilter = (log: PopupLog) => boolean
 
 /**
  * 打印日志
@@ -265,7 +265,7 @@ export type LogFilter = (log: ILog) => boolean
  * @param log 日志实例
  * @returns
  */
-export const printLog: ILogHandler = (log) => {
+export const printLog = ((log) => {
 	const core = getCore()
 
 	if (!core?.config.debugMode) return
@@ -273,7 +273,7 @@ export const printLog: ILogHandler = (log) => {
 	if (core?.config.logFilter?.(log) === false) return
 
 	core.config.logHandler(log)
-}
+}) satisfies PopupLogHandler
 
 const PRINTER_TEXT = {
 	CORE_VERSION_KEY: '核心版本',
@@ -310,7 +310,7 @@ function isSimpleType(data: any) {
  *
  * @param log 日志实例
  */
-export const defaultPrintLog: ILogHandler = (log) => {
+export const defaultPrintLog: PopupLogHandler = (log) => {
 	const messageWithPrefixPrinter = createPrinter(
 		console.log,
 		{
@@ -429,12 +429,12 @@ export const defaultPrintLog: ILogHandler = (log) => {
 	const groupComponentStartPrinter = createPrinter(
 		console.groupCollapsed,
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.Title,
 			customStyle: 'margin-left: 0px;',
 		},
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.DataImportant,
 		}
 	)
@@ -442,11 +442,11 @@ export const defaultPrintLog: ILogHandler = (log) => {
 	const groupComponentMessagePrinter = createPrinter(
 		console.log,
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.Title,
 		},
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.MessageImportant,
 		}
 	)
@@ -454,11 +454,11 @@ export const defaultPrintLog: ILogHandler = (log) => {
 	const groupComponentDataPrinter = createPrinter(
 		console.log,
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.Title,
 		},
 		{
-			theme: LogType.Component,
+			theme: PopupLogType.Component,
 			style: PrinterStyle.Data,
 		}
 	)
@@ -486,14 +486,14 @@ export const defaultPrintLog: ILogHandler = (log) => {
 		if (log.hasCaller) {
 			if (typeof log.caller === 'string') {
 				group.unshift({
-					type: LogGroupItemType.Info,
+					type: PopupLogGroupItemType.Info,
 					title: PRINTER_TEXT.CALLER_KEY,
 					content: log.caller,
 					important: true,
 				})
 			} else {
 				group.unshift({
-					type: LogGroupItemType.Data,
+					type: PopupLogGroupItemType.Data,
 					title: PRINTER_TEXT.CALLER_KEY,
 					dataName: log.caller.name,
 					dataType: log.caller.type,
@@ -504,14 +504,14 @@ export const defaultPrintLog: ILogHandler = (log) => {
 		}
 
 		group.unshift({
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: PRINTER_TEXT.CORE_VERSION_KEY,
 			content: version,
 			important: true,
 		})
 
 		group.forEach((item) => {
-			if (item.type === LogGroupItemType.Message) {
+			if (item.type === PopupLogGroupItemType.Message) {
 				if (item.title) {
 					groupMessageWithTitlePrinter(
 						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
@@ -520,7 +520,7 @@ export const defaultPrintLog: ILogHandler = (log) => {
 				} else {
 					groupMessagePrinter(item.content)
 				}
-			} else if (item.type === LogGroupItemType.Info) {
+			} else if (item.type === PopupLogGroupItemType.Info) {
 				if (item.important) {
 					groupInfoImportantPrinter(
 						`${item.title}${PRINTER_TEXT.KEY_VALUE_CONNECTOR}`,
@@ -532,7 +532,7 @@ export const defaultPrintLog: ILogHandler = (log) => {
 						item.content
 					)
 				}
-			} else if (item.type === LogGroupItemType.Data) {
+			} else if (item.type === PopupLogGroupItemType.Data) {
 				const isSimple = isSimpleType(item.dataValue)
 
 				if (item.important) {
@@ -584,7 +584,7 @@ export const defaultPrintLog: ILogHandler = (log) => {
 					plainDataPrinter(item.dataValue)
 				}
 				console.groupEnd()
-			} else if (item.type === LogGroupItemType.Component) {
+			} else if (item.type === PopupLogGroupItemType.Component) {
 				if (item.instance) {
 					const name =
 						item.instance.type?.name ||
@@ -637,11 +637,11 @@ function formatData(value: any) {
 }
 
 const COLOR_TYPE_MAP = {
-	[LogType.Success]: '#4caf50',
-	[LogType.Info]: '#3499fe',
-	[LogType.Warning]: '#e6a23c',
-	[LogType.Error]: '#f56c6c',
-	[LogType.Component]: '#42b883',
+	[PopupLogType.Success]: '#4caf50',
+	[PopupLogType.Info]: '#3499fe',
+	[PopupLogType.Warning]: '#e6a23c',
+	[PopupLogType.Error]: '#f56c6c',
+	[PopupLogType.Component]: '#42b883',
 }
 
 const enum PrinterStyle {
@@ -656,7 +656,7 @@ const enum PrinterStyle {
 }
 
 type PrinterOption = {
-	theme: LogType
+	theme: PopupLogType
 	style: PrinterStyle
 	customStyle?: string
 }

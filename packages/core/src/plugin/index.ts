@@ -1,12 +1,12 @@
 import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '../animation'
 import { type IConfig } from '../config'
-import { Controller, type IController } from '../controller'
+import { Controller, type PopupController } from '../controller'
 import { PopupError } from '../error'
-import { Log, printLog } from '../log'
-import { type Version } from '../version'
+import { PopupLog, printLog } from '../log'
+import { type PopupVersion } from '../version'
 
 type ControllerPrototypeFunctionValue = (
-	this: IController,
+	this: PopupController,
 	...args: any[]
 ) => any
 
@@ -116,7 +116,7 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 	 * - 不设置该校验函数将会导致在插件注册时
 	 * 通过日志输出一个警告，用以提示插件使用者相关风险
 	 */
-	// coreVersionValidator?: (coreVersion: Version) => boolean
+	// coreVersionValidator?: (coreVersion: PopupVersion) => boolean
 	/**
 	 * 插件核心版本要求
 	 *
@@ -129,11 +129,11 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 		/**
 		 * 插件所适配的最低核心版本
 		 */
-		min?: Version
+		min?: PopupVersion
 		/**
 		 * 插件所适配的最高核心版本
 		 */
-		max?: Version
+		max?: PopupVersion
 	}
 	/**
 	 * 插件安装函数
@@ -148,7 +148,7 @@ export type PopupPlugin<TOption extends PluginOption = never> = {
 export type ExtractPluginOption<TPlugin extends PopupPlugin> =
 	TPlugin extends PopupPlugin<infer TOption> ? TOption : never
 
-export interface IDefinePlugin {
+export interface PopupPluginCreator {
 	/**
 	 * 定义插件
 	 *
@@ -203,7 +203,7 @@ export interface IDefinePlugin {
 	): PopupPlugin<TOption>
 }
 
-export const definePlugin: IDefinePlugin = (options) => options
+export const definePlugin = ((options) => options) satisfies PopupPluginCreator
 
 interface IWrapConfigWithPlugin {
 	(config: IConfig): IPluginWrappedConfig
@@ -213,7 +213,7 @@ export const wrapConfigWithPlugin: IWrapConfigWithPlugin = (config) => {
 	return new Proxy<IConfig>(config, {
 		set(target, property: keyof IConfig, value) {
 			if (['customAnimations', 'customProperties'].includes(property)) {
-				const log = new Log({
+				const log = new PopupLog({
 					caller: 'definePlugin()',
 					message: `${property} 是只读属性，不能被覆盖`,
 				})
@@ -243,7 +243,7 @@ function createCustomPropertiseProxy() {
 		{
 			set: (target, property: string, value) => {
 				if (property in Controller.prototype) {
-					const log = new Log({
+					const log = new PopupLog({
 						caller: 'definePlugin()',
 						message: `定义控制器扩展属性 ${property} 时失败，${property} 属性已存在，不能被覆盖`,
 					})
@@ -269,7 +269,7 @@ function createCustomAnimationsProxy() {
 		{
 			set: (target, property: string, value) => {
 				if (property in POPUP_ANIMATIONS) {
-					const log = new Log({
+					const log = new PopupLog({
 						caller: 'definePlugin()',
 						message: `定义插件扩展动画类型 ${property} 时失败，${property} 是只读属性，不能被覆盖`,
 					})

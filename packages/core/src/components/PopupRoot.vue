@@ -8,7 +8,7 @@ PopupInstance(
 
 <script lang="ts" setup>
 import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
-import { Log, LogType, printLog } from '../log'
+import { PopupLog, PopupLogType, printLog } from '../log'
 import { P_COMPONENT_NAMES, P_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
 import PopupInstance from './PopupInstance.vue'
 
@@ -21,13 +21,13 @@ defineOptions({
 const core = inject(P_INSIDE_COMPONENT_INJECTS.CORE, undefined)
 
 if (!core) {
-	const log = new Log({
-		type: LogType.Error,
+	const log = new PopupLog({
+		type: PopupLogType.Error,
 		message:
 			'根组件初始化失败，请先调用 createPopupPlus() 方法创建弹出层插件实例',
 		group: [
 			{
-				type: LogType.Component,
+				type: PopupLogType.Component,
 				title: '调用组件',
 				instance: vm,
 			},
