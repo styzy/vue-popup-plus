@@ -11,6 +11,7 @@ export const P_COMPONENT_NAMES = {
 export const P_INSIDE_COMPONENT_NAMES = {
 	ALBUM: 'PopupAlbum',
 	ALERT: 'PopupAlert',
+	ANCHOR_TRIGGER: 'PopupAnchorTrigger',
 	ARROW_CONTAINER: 'PopupArrowContainer',
 	BODY: 'PopupBody',
 	BUTTON: 'PopupButton',
