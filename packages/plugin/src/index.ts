@@ -1,7 +1,7 @@
 import {
 	definePlugin,
-	LogGroupItemType,
-	LogType,
+	PopupLogGroupItemType,
+	PopupLogType,
 	printLog,
 } from 'vue-popup-plus'
 import { PluginLog } from './log'
@@ -128,7 +128,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 
 			printLog(
 				new PluginLog({
-					type: LogType.Success,
+					type: PopupLogType.Success,
 					caller: {
 						name: 'createPlugin()',
 						type: 'Function',
@@ -137,7 +137,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 					message: '创建预置插件 plugin-preset 成功',
 					group: [
 						{
-							type: LogGroupItemType.Info,
+							type: PopupLogGroupItemType.Info,
 							title: '皮肤',
 							content:
 								skin === 'modern'
@@ -145,7 +145,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 									: 'classic 经典',
 						},
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '配置',
 							dataName: 'config',
 							dataType: 'PresetPluginConfig',

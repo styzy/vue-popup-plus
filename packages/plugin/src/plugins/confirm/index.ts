@@ -1,15 +1,15 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type IController,
+	type PopupController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type { GlobalPluginConfig } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Confirm'
 }
 
@@ -77,7 +77,7 @@ export interface IConfirm {
 	 * ```
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ConfirmOption
 	): Promise<boolean>
@@ -143,8 +143,8 @@ export const confirm = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.confirm()',
 									type: 'Function',
@@ -153,28 +153,28 @@ export const confirm = definePlugin({
 								message: `打开确认框成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataName: 'content',
 										dataValue: content,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[1],
 										dataType: 'ConfirmOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -186,8 +186,8 @@ export const confirm = definePlugin({
 					},
 					onUnmounted: (isConfirm: boolean) => {
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.destroy()',
 									type: 'Function',
@@ -196,21 +196,21 @@ export const confirm = definePlugin({
 								message: `关闭确认框成功，确认结果: ${isConfirm}`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataName: 'content',
 										dataValue: content,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '确认结果',
 										dataName: 'isConfirm',
 										dataValue: isConfirm,

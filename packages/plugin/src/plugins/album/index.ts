@@ -1,9 +1,9 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type IController,
+	type PopupController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -13,7 +13,7 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Album'
 }
 
@@ -126,7 +126,7 @@ export interface IAlbum {
 	 * })
 	 * ```
 	 */
-	(this: IController, options: AlbumOption): Promise<void>
+	(this: PopupController, options: AlbumOption): Promise<void>
 }
 
 type AlbumDefaultOption = Omit<
@@ -202,8 +202,8 @@ export const album = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.album()',
 									type: 'Function',
@@ -212,21 +212,21 @@ export const album = definePlugin({
 								message: `打开媒体相册成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[0],
 										dataType: 'AlbumOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -238,17 +238,17 @@ export const album = definePlugin({
 					},
 					onUnmounted: () => {
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: 'popup.destroy()',
 								message: `关闭媒体相册成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 								],
 							})

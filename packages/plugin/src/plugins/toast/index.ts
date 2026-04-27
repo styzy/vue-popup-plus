@@ -1,11 +1,11 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
 	POPUP_ANIMATIONS,
-	type Placement,
-	type IController,
+	type PopupController,
+	type PopupPlacement,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import {
@@ -16,7 +16,7 @@ import {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Toast'
 }
 
@@ -41,7 +41,7 @@ type ToastOption = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -83,7 +83,11 @@ export interface IToast {
 	 * // 只有提示消失后，才会继续执行后续代码
 	 * ```
 	 */
-	(this: IController, content: string, options?: ToastOption): Promise<void>
+	(
+		this: PopupController,
+		content: string,
+		options?: ToastOption
+	): Promise<void>
 }
 
 export interface IToastPrimary {
@@ -91,7 +95,7 @@ export interface IToastPrimary {
 	 * 显示主要轻量提示
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ToastOptionWithoutTheme
 	): Promise<void>
@@ -102,7 +106,7 @@ export interface IToastSuccess {
 	 * 显示成功轻量提示
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ToastOptionWithoutTheme
 	): Promise<void>
@@ -113,7 +117,7 @@ export interface IToastInfo {
 	 * 显示信息轻量提示
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ToastOptionWithoutTheme
 	): Promise<void>
@@ -124,7 +128,7 @@ export interface IToastWarning {
 	 * 显示警告轻量提示
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ToastOptionWithoutTheme
 	): Promise<void>
@@ -135,7 +139,7 @@ export interface IToastDanger {
 	 * 显示错误轻量提示
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: ToastOptionWithoutTheme
 	): Promise<void>
@@ -201,8 +205,8 @@ export const toast = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.toast()',
 									type: 'Function',
@@ -211,27 +215,27 @@ export const toast = definePlugin({
 								message: `打开轻量提示成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataValue: content,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[1],
 										dataType: 'ToastOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -243,8 +247,8 @@ export const toast = definePlugin({
 					},
 					onUnmounted: () => {
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.destroy()',
 									type: 'Function',
@@ -253,14 +257,14 @@ export const toast = definePlugin({
 								message: `关闭轻量提示成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataValue: content,
 										dataType: 'string',

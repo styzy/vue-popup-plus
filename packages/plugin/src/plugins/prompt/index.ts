@@ -1,9 +1,9 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type IController,
+	type PopupController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -13,7 +13,7 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Prompt'
 }
 
@@ -115,7 +115,7 @@ export interface IPrompt {
 	 * ```
 	 */
 	(
-		this: IController,
+		this: PopupController,
 		message: string | boolean,
 		options?: PromptOption
 	): Promise<string | undefined>
@@ -196,8 +196,8 @@ export const prompt = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.prompt()',
 									type: 'Function',
@@ -206,27 +206,27 @@ export const prompt = definePlugin({
 								message: `打开提示输入框成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '提示文本',
 										dataValue: message,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[1],
 										dataType: 'ConfirmOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -238,8 +238,8 @@ export const prompt = definePlugin({
 					},
 					onUnmounted: (inputValue?: string) => {
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.destroy()',
 									type: 'Function',
@@ -248,21 +248,21 @@ export const prompt = definePlugin({
 								message: `关闭提示输入框成功，输入值为：${inputValue}`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '提示文本',
 										dataName: 'content',
 										dataValue: message,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '输入文本值',
 										dataValue: inputValue,
 										dataType: 'string',

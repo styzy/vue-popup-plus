@@ -1,13 +1,13 @@
 import { type Component } from 'vue'
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type AnchorPlacement,
-	type IController,
-	type InstanceId,
-	type MaskDestroyHandler,
+	type PopupAnchorPlacement,
+	type PopupController,
+	type PopupInstanceId,
+	type PopupMaskDestroyHandler,
 	type ExtractComponentPropTypes,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
@@ -18,7 +18,7 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Alert'
 }
 
@@ -89,7 +89,7 @@ type BubbleOption<TComponent extends Component = Component> = {
 	 *
 	 * - 默认值：`top`
 	 */
-	placement?: AnchorPlacement
+	placement?: PopupAnchorPlacement
 	/**
 	 * 是否显示箭头
 	 *
@@ -146,7 +146,7 @@ type BubbleOption<TComponent extends Component = Component> = {
 	 * })
 	 * ```
 	 */
-	maskClose?: boolean | MaskDestroyHandler
+	maskClose?: boolean | PopupMaskDestroyHandler
 } & SharedOption
 
 export interface IBubble {
@@ -172,7 +172,7 @@ export interface IBubble {
 	 * ```
 	 */
 	<TComponent extends Component = Component>(
-		this: IController,
+		this: PopupController,
 		options: BubbleOption<TComponent>
 	): Promise<void>
 }
@@ -186,7 +186,7 @@ export interface IBubbleClose {
 	 * - 可传递任意类型的参数，该参数将会被传递给打开气泡时的 Promise resolve 函数
 	 * @param payload 关闭时传递的参数
 	 */
-	<T extends any = any>(this: IController, payload?: T): Promise<void>
+	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
 }
 
 type BubbleDefaultOption = Omit<
@@ -217,7 +217,7 @@ export const bubble = definePlugin({
 	) => {
 		const recordList: Array<{
 			id: string
-			instanceId: InstanceId
+			instanceId: PopupInstanceId
 			resolve: (payload?: any) => void
 		}> = []
 
@@ -292,8 +292,8 @@ export const bubble = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.bubble()',
 									type: 'function',
@@ -302,27 +302,27 @@ export const bubble = definePlugin({
 								message: `打开气泡 ${id} 成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Info,
+										type: PopupLogGroupItemType.Info,
 										title: '气泡ID',
 										content: id,
 										important: true,
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[0],
 										dataType: 'BubbleOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -361,8 +361,8 @@ export const bubble = definePlugin({
 
 			if (!instanceId) {
 				printLog(
-					new Log({
-						type: LogType.Warning,
+					new PopupLog({
+						type: PopupLogType.Warning,
 						caller: {
 							name: 'popup.bubbleClose()',
 							type: 'function',
@@ -371,14 +371,14 @@ export const bubble = definePlugin({
 						message: `关闭气泡失败，当前没有正在显示的气泡`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '携带参数',
 								dataName: 'payload',
 								dataValue: payload,
@@ -393,8 +393,8 @@ export const bubble = definePlugin({
 			await this.destroy(instanceId, payload)
 
 			printLog(
-				new Log({
-					type: LogType.Info,
+				new PopupLog({
+					type: PopupLogType.Info,
 					caller: {
 						name: 'popup.dialogClose()',
 						type: 'function',
@@ -403,20 +403,20 @@ export const bubble = definePlugin({
 					message: `关闭气泡 ${id} 成功`,
 					group: [
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '控制器',
 							dataName: this.id,
 							dataValue: this,
-							dataType: 'IController',
+							dataType: 'PopupController',
 						},
 						{
-							type: LogGroupItemType.Info,
+							type: PopupLogGroupItemType.Info,
 							title: '对话框ID',
 							content: id!,
 							important: true,
 						},
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '携带参数',
 							dataName: 'payload',
 							dataValue: payload,

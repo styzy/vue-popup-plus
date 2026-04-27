@@ -1,11 +1,11 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type IController,
-	type InstanceId,
-	type Placement,
+	type PopupController,
+	type PopupInstanceId,
+	type PopupPlacement,
 	POPUP_ANIMATIONS,
 } from 'vue-popup-plus'
 import { reactive, type Reactive } from 'vue'
@@ -19,7 +19,7 @@ import {
 import type { Skin } from '../../skin'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Message'
 }
 
@@ -43,7 +43,7 @@ type MessageOption = {
 	 * - 默认值为 `top`
 	 *
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示关闭按钮
 	 *
@@ -65,12 +65,16 @@ type MessageOption = {
 type MessageOptionWithoutTheme = Omit<MessageOption, 'theme'>
 
 export interface IMessage {
-	(this: IController, content: string, options?: MessageOption): Promise<void>
+	(
+		this: PopupController,
+		content: string,
+		options?: MessageOption
+	): Promise<void>
 }
 
 export interface IMessagePrimary {
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: MessageOptionWithoutTheme
 	): Promise<void>
@@ -78,7 +82,7 @@ export interface IMessagePrimary {
 
 export interface IMessageSuccess {
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: MessageOptionWithoutTheme
 	): Promise<void>
@@ -86,7 +90,7 @@ export interface IMessageSuccess {
 
 export interface IMessageInfo {
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: MessageOptionWithoutTheme
 	): Promise<void>
@@ -94,7 +98,7 @@ export interface IMessageInfo {
 
 export interface IMessageWarning {
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: MessageOptionWithoutTheme
 	): Promise<void>
@@ -102,7 +106,7 @@ export interface IMessageWarning {
 
 export interface IMessageDanger {
 	(
-		this: IController,
+		this: PopupController,
 		content: string,
 		options?: MessageOptionWithoutTheme
 	): Promise<void>
@@ -125,19 +129,19 @@ export type MessageRecord = {
 }
 
 export type MessageGroup = {
-	placement: Placement
+	placement: PopupPlacement
 	messages: Reactive<MessageRecord[]>
-	instanceId?: InstanceId
+	instanceId?: PopupInstanceId
 }
 
-const groupMap = new Map<Placement, MessageGroup>()
+const groupMap = new Map<PopupPlacement, MessageGroup>()
 
 let seed = 1
 const createId = () => `message-${seed++}`
 
 function getOrCreateGroup(
-	controller: IController,
-	placement: Placement,
+	controller: PopupController,
+	placement: PopupPlacement,
 	skin: Skin,
 	zIndex?: number
 ): MessageGroup {
@@ -173,8 +177,8 @@ function getOrCreateGroup(
 }
 
 function removeMessage(
-	controller: IController,
-	placement: Placement,
+	controller: PopupController,
+	placement: PopupPlacement,
 	id: string
 ) {
 	const group = groupMap.get(placement)
@@ -195,8 +199,8 @@ function removeMessage(
 		const [item] = group.messages.splice(index, 1)
 
 		printLog(
-			new Log({
-				type: LogType.Info,
+			new PopupLog({
+				type: PopupLogType.Info,
 				caller: {
 					name: 'popup.message()',
 					type: 'Function',
@@ -205,20 +209,20 @@ function removeMessage(
 				message: `关闭消息成功`,
 				group: [
 					{
-						type: LogGroupItemType.Data,
+						type: PopupLogGroupItemType.Data,
 						title: '控制器',
 						dataName: controller.id,
 						dataValue: controller,
-						dataType: 'IController',
+						dataType: 'PopupController',
 					},
 					{
-						type: LogGroupItemType.Data,
+						type: PopupLogGroupItemType.Data,
 						title: '内容文本',
 						dataValue: content,
 						dataType: 'string',
 					},
 					{
-						type: LogGroupItemType.Data,
+						type: PopupLogGroupItemType.Data,
 						title: '渲染参数',
 						dataName: 'options',
 						dataValue: messageValue,
@@ -281,8 +285,8 @@ export const message = definePlugin({
 				}
 
 				printLog(
-					new Log({
-						type: LogType.Info,
+					new PopupLog({
+						type: PopupLogType.Info,
 						caller: {
 							name: 'popup.message()',
 							type: 'Function',
@@ -291,27 +295,27 @@ export const message = definePlugin({
 						message: `打开消息成功`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '内容文本',
 								dataValue: content,
 								dataType: 'string',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '调用参数',
 								dataName: 'options',
 								dataValue: arguments[1],
 								dataType: 'MessageOption',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '合并参数',
 								dataName: 'mergedOptions',
 								dataValue: mergedOptions,

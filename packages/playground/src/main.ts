@@ -3,7 +3,7 @@ import {
 	createPopupPlus,
 	definePlugin,
 	version as coreVersion,
-	LogType,
+	PopupLogType,
 } from 'vue-popup-plus'
 import { createPresetPlugin, type Skin } from 'vue-popup-plus-plugin-preset'
 import router from './router'
@@ -30,7 +30,7 @@ const PopupPlus = createPopupPlus({
 	// prototypeName: '$customPopup',
 	// autoDisableScroll: false,
 	debugMode: true,
-	// logFilter: (log) => log.type === LogType.Success,
+	// logFilter: (log) => log.type === PopupLogType.Success,
 })
 
 const skin = (localStorage.getItem('skin') || 'modern') as Skin

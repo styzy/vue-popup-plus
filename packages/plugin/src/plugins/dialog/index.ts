@@ -1,14 +1,14 @@
 import { type Component } from 'vue'
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
 	type ExtractComponentPropTypes,
-	type IController,
-	type InstanceId,
-	type MaskDestroyHandler,
-	type Placement,
+	type PopupController,
+	type PopupInstanceId,
+	type PopupMaskDestroyHandler,
+	type PopupPlacement,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -18,7 +18,7 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Dialog'
 }
 
@@ -102,7 +102,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	 *
 	 * @since 1.5.0
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否可拖拽
 	 *
@@ -168,7 +168,7 @@ type DialogOption<TComponent extends Component = Component> = {
 	 *
 	 * @since 1.6.0
 	 */
-	maskClose?: boolean | MaskDestroyHandler
+	maskClose?: boolean | PopupMaskDestroyHandler
 } & SharedOption
 
 export interface IDialog {
@@ -182,7 +182,7 @@ export interface IDialog {
 	 * - 对话框关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是否有返回参数
 	 */
 	<T extends any = any, TComponent extends Component = Component>(
-		this: IController,
+		this: PopupController,
 		options: DialogOption<TComponent>
 	): Promise<T | void>
 }
@@ -196,7 +196,7 @@ export interface IDialogClose {
 	 * - 可传递任意类型的参数，该参数将会被传递给打开对话框时的 Promise resolve 函数
 	 * @param payload 关闭时传递的参数
 	 */
-	<T extends any = any>(this: IController, payload?: T): Promise<void>
+	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
 }
 
 type DialogDefaultOption = Omit<
@@ -227,7 +227,7 @@ export const dialog = definePlugin({
 	) => {
 		const recordList: Array<{
 			id: string
-			instanceId: InstanceId
+			instanceId: PopupInstanceId
 			resolve: (payload?: any) => void
 		}> = []
 
@@ -309,8 +309,8 @@ export const dialog = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.dialog()',
 									type: 'function',
@@ -319,27 +319,27 @@ export const dialog = definePlugin({
 								message: `打开对话框 ${id} 成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Info,
+										type: PopupLogGroupItemType.Info,
 										title: '对话框ID',
 										content: id,
 										important: true,
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[0],
 										dataType: 'DialogOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -378,8 +378,8 @@ export const dialog = definePlugin({
 
 			if (!instanceId) {
 				printLog(
-					new Log({
-						type: LogType.Warning,
+					new PopupLog({
+						type: PopupLogType.Warning,
 						caller: {
 							name: 'popup.dialogClose()',
 							type: 'function',
@@ -388,14 +388,14 @@ export const dialog = definePlugin({
 						message: `关闭对话框失败，当前没有正在显示的对话框`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '携带参数',
 								dataName: 'payload',
 								dataValue: payload,
@@ -410,8 +410,8 @@ export const dialog = definePlugin({
 			await this.destroy(instanceId, payload)
 
 			printLog(
-				new Log({
-					type: LogType.Info,
+				new PopupLog({
+					type: PopupLogType.Info,
 					caller: {
 						name: 'popup.dialogClose()',
 						type: 'function',
@@ -420,20 +420,20 @@ export const dialog = definePlugin({
 					message: `关闭对话框 ${id} 成功`,
 					group: [
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '控制器',
 							dataName: this.id,
 							dataValue: this,
-							dataType: 'IController',
+							dataType: 'PopupController',
 						},
 						{
-							type: LogGroupItemType.Info,
+							type: PopupLogGroupItemType.Info,
 							title: '对话框ID',
 							content: id!,
 							important: true,
 						},
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '携带参数',
 							dataName: 'payload',
 							dataValue: payload,

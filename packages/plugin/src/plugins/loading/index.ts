@@ -1,10 +1,10 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type InstanceId,
-	type IController,
+	type PopupInstanceId,
+	type PopupController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Loading'
 }
 
@@ -94,7 +94,7 @@ export interface ILoading {
 	 * await popup.loadingClose()
 	 * ```
 	 */
-	(this: IController, option?: LoadingOption): void
+	(this: PopupController, option?: LoadingOption): void
 }
 
 export interface ILoadingClose {
@@ -111,7 +111,7 @@ export interface ILoadingClose {
 	 * await popup.loadingClose()
 	 * ```
 	 */
-	(this: IController): Promise<void>
+	(this: PopupController): Promise<void>
 }
 
 type LoadingDefaultOption = LoadingOption
@@ -139,7 +139,7 @@ export const loading = definePlugin({
 	) => {
 		const record: {
 			id?: string
-			instanceId?: InstanceId
+			instanceId?: PopupInstanceId
 		} = {}
 
 		const loading: ILoading = function ({
@@ -154,8 +154,8 @@ export const loading = definePlugin({
 		} = {}) {
 			if (record.id) {
 				printLog(
-					new Log({
-						type: LogType.Warning,
+					new PopupLog({
+						type: PopupLogType.Warning,
 						caller: {
 							name: 'popup.loading()',
 							type: 'Function',
@@ -164,14 +164,14 @@ export const loading = definePlugin({
 						message: `即将自动关闭加载遮罩 ${record.id} ，因为有新的加载遮罩打开`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 							{
-								type: LogGroupItemType.Info,
+								type: PopupLogGroupItemType.Info,
 								title: '待关闭加载遮罩ID',
 								content: record.id,
 								important: true,
@@ -218,8 +218,8 @@ export const loading = definePlugin({
 					}
 
 					printLog(
-						new Log({
-							type: LogType.Info,
+						new PopupLog({
+							type: PopupLogType.Info,
 							caller: {
 								name: 'popup.loading()',
 								type: 'Function',
@@ -228,27 +228,27 @@ export const loading = definePlugin({
 							message: `显示加载遮罩 ${id} 成功`,
 							group: [
 								{
-									type: LogGroupItemType.Data,
+									type: PopupLogGroupItemType.Data,
 									title: '控制器',
 									dataName: this.id,
 									dataValue: this,
-									dataType: 'IController',
+									dataType: 'PopupController',
 								},
 								{
-									type: LogGroupItemType.Info,
+									type: PopupLogGroupItemType.Info,
 									title: '加载遮罩ID',
 									content: id,
 									important: true,
 								},
 								{
-									type: LogGroupItemType.Data,
+									type: PopupLogGroupItemType.Data,
 									title: '调用参数',
 									dataName: 'options',
 									dataValue: arguments[0],
 									dataType: 'LoadingOption',
 								},
 								{
-									type: LogGroupItemType.Data,
+									type: PopupLogGroupItemType.Data,
 									title: '合并参数',
 									dataName: 'mergedOptions',
 									dataValue: mergedOptions,
@@ -264,8 +264,8 @@ export const loading = definePlugin({
 		const loadingClose: ILoadingClose = async function () {
 			if (!record.id) {
 				printLog(
-					new Log({
-						type: LogType.Warning,
+					new PopupLog({
+						type: PopupLogType.Warning,
 						caller: {
 							name: 'popup.loadingClose()',
 							type: 'Function',
@@ -274,11 +274,11 @@ export const loading = definePlugin({
 						message: `关闭加载遮罩失败，当前不存在加载遮罩`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 						],
 					})
@@ -294,8 +294,8 @@ export const loading = definePlugin({
 
 			await this.destroy(instanceId)
 
-			const log = new Log({
-				type: LogType.Info,
+			const log = new PopupLog({
+				type: PopupLogType.Info,
 				caller: {
 					name: 'popup.loadingClose()',
 					type: 'Function',
@@ -304,14 +304,14 @@ export const loading = definePlugin({
 				message: `关闭加载遮罩 ${id} 成功`,
 				group: [
 					{
-						type: LogGroupItemType.Data,
+						type: PopupLogGroupItemType.Data,
 						title: '控制器',
 						dataName: this.id,
 						dataValue: this,
-						dataType: 'IController',
+						dataType: 'PopupController',
 					},
 					{
-						type: LogGroupItemType.Info,
+						type: PopupLogGroupItemType.Info,
 						title: '加载遮罩ID',
 						content: id,
 						important: true,

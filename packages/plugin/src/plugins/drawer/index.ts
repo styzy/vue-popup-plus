@@ -1,14 +1,14 @@
 import { type Component } from 'vue'
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
 	POPUP_ANIMATIONS,
-	type InstanceId,
+	type PopupInstanceId,
 	type ExtractComponentPropTypes,
-	type IController,
-	type MaskDestroyHandler,
+	type PopupController,
+	type PopupMaskDestroyHandler,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -18,11 +18,11 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Drawer'
 }
 
-type Placement = 'top' | 'right' | 'bottom' | 'left'
+type PopupPlacement = 'top' | 'right' | 'bottom' | 'left'
 
 // 抽屉的配置（插件使用者传入的参数类型）
 type DrawerOption<TComponent extends Component = Component> = {
@@ -87,7 +87,7 @@ type DrawerOption<TComponent extends Component = Component> = {
 	 *
 	 * - 默认值为 `right`
 	 */
-	placement?: Placement
+	placement?: PopupPlacement
 	/**
 	 * 是否显示抽屉遮罩层
 	 *
@@ -135,7 +135,7 @@ type DrawerOption<TComponent extends Component = Component> = {
 	 * })
 	 * ```
 	 */
-	maskClose?: boolean | MaskDestroyHandler
+	maskClose?: boolean | PopupMaskDestroyHandler
 } & SharedOption
 
 // popup.drawer()这个方法的类型
@@ -150,7 +150,7 @@ export interface IDrawer {
 	 * - 抽屉关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是	否有返回参数
 	 */
 	<T extends any = any, TComponent extends Component = Component>(
-		this: IController,
+		this: PopupController,
 		options: DrawerOption<TComponent>
 	): Promise<T | void>
 }
@@ -164,7 +164,7 @@ export interface IDrawerClose {
 	 * - 可传递任意类型的参数，该参数将会被传递给打开抽屉时的 Promise resolve 函数
 	 * @param payload 关闭时传递的参数
 	 */
-	<T extends any = any>(this: IController, payload?: T): Promise<void>
+	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
 }
 
 // 给全局安装插件定义类型
@@ -197,7 +197,7 @@ export const drawer = definePlugin({
 	) => {
 		const recordList: Array<{
 			id: string
-			instanceId: InstanceId
+			instanceId: PopupInstanceId
 			resolve: (payload?: any) => void
 		}> = []
 
@@ -281,8 +281,8 @@ export const drawer = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.drawer()',
 									type: 'function',
@@ -291,27 +291,27 @@ export const drawer = definePlugin({
 								message: `打开抽屉 ${id} 成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Info,
+										type: PopupLogGroupItemType.Info,
 										title: '抽屉ID',
 										content: id,
 										important: true,
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[0],
 										dataType: 'DrawerOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -350,8 +350,8 @@ export const drawer = definePlugin({
 
 			if (!instanceId) {
 				printLog(
-					new Log({
-						type: LogType.Warning,
+					new PopupLog({
+						type: PopupLogType.Warning,
 						caller: {
 							name: 'popup.drawerClose()',
 							type: 'function',
@@ -360,14 +360,14 @@ export const drawer = definePlugin({
 						message: `关闭抽屉失败，当前没有正在显示的抽屉`,
 						group: [
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '控制器',
 								dataName: this.id,
 								dataValue: this,
-								dataType: 'IController',
+								dataType: 'PopupController',
 							},
 							{
-								type: LogGroupItemType.Data,
+								type: PopupLogGroupItemType.Data,
 								title: '携带参数',
 								dataName: 'payload',
 								dataValue: payload,
@@ -382,8 +382,8 @@ export const drawer = definePlugin({
 			await this.destroy(instanceId, payload)
 
 			printLog(
-				new Log({
-					type: LogType.Info,
+				new PopupLog({
+					type: PopupLogType.Info,
 					caller: {
 						name: 'popup.drawerClose()',
 						type: 'function',
@@ -392,20 +392,20 @@ export const drawer = definePlugin({
 					message: `关闭抽屉 ${id} 成功`,
 					group: [
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '控制器',
 							dataName: this.id,
 							dataValue: this,
-							dataType: 'IController',
+							dataType: 'PopupController',
 						},
 						{
-							type: LogGroupItemType.Info,
+							type: PopupLogGroupItemType.Info,
 							title: '抽屉ID',
 							content: id!,
 							important: true,
 						},
 						{
-							type: LogGroupItemType.Data,
+							type: PopupLogGroupItemType.Data,
 							title: '携带参数',
 							dataName: 'payload',
 							dataValue: payload,
@@ -418,7 +418,7 @@ export const drawer = definePlugin({
 			resolve!(payload)
 		}
 
-		function getAnimation(placement: Placement) {
+		function getAnimation(placement: PopupPlacement) {
 			switch (placement) {
 				case 'top':
 					return POPUP_ANIMATIONS.FLY_TOP

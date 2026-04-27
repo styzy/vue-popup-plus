@@ -1,11 +1,15 @@
-import { Log, LogGroupItemType, type LogOption } from 'vue-popup-plus'
+import {
+	PopupLog,
+	PopupLogGroupItemType,
+	type PopupLogOption,
+} from 'vue-popup-plus'
 import { version } from '../version'
 
-export class PluginLog extends Log {
+export class PluginLog extends PopupLog {
 	namespace = 'VuePopupPlusPluginPreset'
-	constructor({ group = [], ...options }: LogOption) {
+	constructor({ group = [], ...options }: PopupLogOption) {
 		group.unshift({
-			type: LogGroupItemType.Info,
+			type: PopupLogGroupItemType.Info,
 			title: '预置插件版本号',
 			content: version,
 			important: true,

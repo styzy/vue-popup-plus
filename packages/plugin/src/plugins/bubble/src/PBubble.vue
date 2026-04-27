@@ -10,7 +10,7 @@ PSkin(:class="[ns.block()]" :skin="skin")
 
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, type Component } from 'vue'
-import type { AnchorPlacement } from 'vue-popup-plus'
+import type { PopupAnchorPlacement } from 'vue-popup-plus'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
 import { P_COMPONENT_NAMES } from '../../../CONSTANTS'
@@ -31,7 +31,7 @@ type Props = {
 	id: string
 	customComponent: Component
 	customComponentProps: Record<string, any>
-	placement: AnchorPlacement
+	placement: PopupAnchorPlacement
 	arrow: boolean
 	debugMode: boolean
 }

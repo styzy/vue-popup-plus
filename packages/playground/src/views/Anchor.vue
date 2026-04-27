@@ -87,7 +87,7 @@ GContainer.anchor
 
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
-import { usePopup, type RenderOption } from 'vue-popup-plus'
+import { usePopup, type PopupRenderOption } from 'vue-popup-plus'
 import DemoAnchor from './demo/DemoAnchor.vue'
 
 const popup = usePopup()
@@ -160,7 +160,7 @@ const shiftBothRight = useTemplateRef('shiftBothRight')
 const shiftBothRightEnd = useTemplateRef('shiftBothRightEnd')
 
 const useViewport = ref(true)
-const sharedOptions = computed<RenderOption>(() => ({
+const sharedOptions = computed<PopupRenderOption>(() => ({
 	component: DemoAnchor,
 	viewport: useViewport.value ? viewportRef.value : undefined,
 	disableScroll: false,

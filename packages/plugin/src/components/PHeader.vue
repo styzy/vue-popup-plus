@@ -22,14 +22,14 @@ import {
 	usePopup,
 	usePopupComputedStyle,
 	usePopupInstanceId,
-	type IController,
+	type PopupController,
 } from 'vue-popup-plus'
 import { useNamespace } from '../hooks'
 import { type Theme } from '../typings'
 import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import PHeaderButton from './PHeaderButton.vue'
 
-let popup: IController | undefined
+let popup: PopupController | undefined
 
 const instanceId = usePopupInstanceId()!
 const viewComputedStyle = usePopupComputedStyle()!

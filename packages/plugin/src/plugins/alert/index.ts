@@ -1,9 +1,9 @@
 import {
 	definePlugin,
-	LogType,
-	LogGroupItemType,
+	PopupLogType,
+	PopupLogGroupItemType,
 	printLog,
-	type IController,
+	type PopupController,
 } from 'vue-popup-plus'
 import { PluginLog } from '../../log'
 import type {
@@ -13,7 +13,7 @@ import type {
 } from '../../typings'
 import { requiredCoreVersion } from '../../version'
 
-class Log extends PluginLog {
+class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Alert'
 }
 
@@ -74,7 +74,11 @@ export interface IAlert {
 	 * // 只有用户点击了确认按钮，才会继续执行后续代码
 	 * ```
 	 */
-	(this: IController, content: string, options?: AlertOption): Promise<void>
+	(
+		this: PopupController,
+		content: string,
+		options?: AlertOption
+	): Promise<void>
 }
 
 type AlertDefaultOption = Omit<AlertOption, 'zIndex'>
@@ -137,8 +141,8 @@ export const alert = definePlugin({
 						}
 
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.alert()',
 									type: 'Function',
@@ -147,27 +151,27 @@ export const alert = definePlugin({
 								message: `打开提示框成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataValue: content,
 										dataType: 'string',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '调用参数',
 										dataName: 'options',
 										dataValue: arguments[1],
 										dataType: 'AlertOption',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '合并参数',
 										dataName: 'mergedOptions',
 										dataValue: mergedOptions,
@@ -179,8 +183,8 @@ export const alert = definePlugin({
 					},
 					onUnmounted: () => {
 						printLog(
-							new Log({
-								type: LogType.Info,
+							new PopupLog({
+								type: PopupLogType.Info,
 								caller: {
 									name: 'popup.destroy()',
 									type: 'Function',
@@ -189,14 +193,14 @@ export const alert = definePlugin({
 								message: `关闭提示框成功`,
 								group: [
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '控制器',
 										dataName: this.id,
 										dataValue: this,
-										dataType: 'IController',
+										dataType: 'PopupController',
 									},
 									{
-										type: LogGroupItemType.Data,
+										type: PopupLogGroupItemType.Data,
 										title: '内容文本',
 										dataValue: content,
 										dataType: 'string',
