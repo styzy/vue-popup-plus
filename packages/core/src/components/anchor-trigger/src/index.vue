@@ -7,6 +7,7 @@ import {
 	computed,
 	getCurrentInstance,
 	onBeforeMount,
+	onBeforeUnmount,
 	onMounted,
 	ref,
 } from 'vue'
@@ -47,7 +48,7 @@ const isRendered = ref(false)
 const currentTrigger = ref<PopupAnchorTrigger>()
 const renderDelayTimer = ref<number>()
 const destroyDelayTimer = ref<number>()
-const popupInstanceId = ref<PopupInstanceId | null>(null)
+let popupInstanceId: PopupInstanceId | null = null
 
 onMounted(() => {
 	getAnchorElement()
@@ -147,6 +148,8 @@ function handleAnchorElementClick() {
 function handleWindowClick(event: MouseEvent) {
 	if (!viewElement.value) return
 
+	if (viewElement.value === event.target) return
+
 	if (isParentNode(viewElement.value, event.target as HTMLElement)) return
 
 	handleDelayDestroy(() => {
@@ -155,22 +158,42 @@ function handleWindowClick(event: MouseEvent) {
 }
 
 function handleAnchorElementMouseEnter() {
-	handleDelayRender(() => {
-		currentTrigger.value = 'hover'
-		anchorElement.value?.addEventListener(
-			'mouseleave',
-			handleAnchorElementMouseLeave
+	handleDelayRender(
+		() => {
+			currentTrigger.value = 'hover'
+			anchorElement.value?.addEventListener(
+				'mouseleave',
+				handleMouseLeave
+			)
+		},
+		() => {
+			viewElement.value?.addEventListener(
+				'mouseenter',
+				handleViewElementMouseEnter
+			)
+			viewElement.value?.addEventListener('mouseleave', handleMouseLeave)
+		}
+	)
+}
+
+function handleMouseLeave() {
+	handleDelayDestroy(() => {
+		anchorElement.value?.removeEventListener('mouseleave', handleMouseLeave)
+		viewElement.value?.removeEventListener(
+			'mouseenter',
+			handleViewElementMouseEnter
 		)
+		viewElement.value?.removeEventListener('mouseleave', handleMouseLeave)
 	})
 }
 
-function handleAnchorElementMouseLeave() {
-	handleDelayDestroy(() => {
-		anchorElement.value?.removeEventListener(
-			'mouseleave',
-			handleAnchorElementMouseLeave
-		)
-	})
+function handleViewElementMouseEnter() {
+	if (isRendered.value) {
+		if (destroyDelayTimer.value) {
+			window.clearTimeout(destroyDelayTimer.value)
+			destroyDelayTimer.value = undefined
+		}
+	}
 }
 
 function handleAnchorElementFocus() {
@@ -197,21 +220,23 @@ function handleAnchorElementContextMenu(event: MouseEvent) {
 	event.preventDefault()
 }
 
-function handleDelayRender(callback?: () => void) {
+function handleDelayRender(beforeMount?: () => void, mounted?: () => void) {
 	if (isRendered.value) {
 		if (destroyDelayTimer.value) {
 			window.clearTimeout(destroyDelayTimer.value)
 			destroyDelayTimer.value = undefined
 		}
 	} else {
-		if (!renderDelayTimer.value) {
-			renderDelayTimer.value = window.setTimeout(() => {
-				isRendered.value = true
-				emit('render')
-				handlePopupRender()
-				callback?.()
-			}, renderDelay)
+		if (renderDelayTimer.value) {
+			window.clearTimeout(renderDelayTimer.value)
+			renderDelayTimer.value = undefined
 		}
+		renderDelayTimer.value = window.setTimeout(async () => {
+			emit('render')
+			beforeMount?.()
+			renderPopup(mounted)
+			renderDelayTimer.value = undefined
+		}, renderDelay)
 	}
 }
 
@@ -222,29 +247,71 @@ function handleDelayDestroy(callback?: () => void) {
 			renderDelayTimer.value = undefined
 		}
 	} else {
-		if (!destroyDelayTimer.value) {
-			destroyDelayTimer.value = window.setTimeout(() => {
-				isRendered.value = false
-				emit('destroy')
-				handlePopupDestroy()
-				callback?.()
-			}, destroyDelay)
+		if (destroyDelayTimer.value) {
+			window.clearTimeout(destroyDelayTimer.value)
+			destroyDelayTimer.value = undefined
 		}
+		destroyDelayTimer.value = window.setTimeout(() => {
+			destroyPopup()
+			callback?.()
+		}, destroyDelay)
 	}
 }
 
-function handleSlotDestroy() {
-	isRendered.value = false
-	emit('destroy')
-	handlePopupDestroy()
+function renderPopup(callback?: () => void) {
+	if (popupInstanceId) {
+		destroyPopup()
+	}
 
+	popupInstanceId = popup.render({
+		anchor: anchorElement.value,
+
+		component: {
+			setup() {
+				function getRootElement() {
+					return getFirstElement(getCurrentInstance()?.proxy?.$el)
+				}
+
+				onMounted(() => {
+					viewElement.value = getRootElement()
+					callback?.()
+				})
+
+				onBeforeUnmount(() => {
+					viewElement.value = undefined
+				})
+
+				return () => {
+					return slots.default({
+						destroy: destroyPopup,
+					})
+				}
+			},
+		},
+		mask: false,
+		onMounted() {
+			isRendered.value = true
+		},
+		onUnmounted() {
+			handlePopupDestroy()
+		},
+	})
+}
+
+function destroyPopup() {
+	popupInstanceId && popup.destroy(popupInstanceId)
+}
+
+function handlePopupDestroy() {
 	if (currentTrigger.value === 'click') {
 		window.removeEventListener('click', handleWindowClick)
 	} else if (currentTrigger.value === 'hover') {
-		anchorElement.value?.removeEventListener(
-			'mouseleave',
-			handleAnchorElementMouseLeave
+		anchorElement.value?.removeEventListener('mouseleave', handleMouseLeave)
+		viewElement.value?.removeEventListener(
+			'mouseenter',
+			handleViewElementMouseEnter
 		)
+		viewElement.value?.removeEventListener('mouseleave', handleMouseLeave)
 	} else if (currentTrigger.value === 'focus') {
 		anchorElement.value?.removeEventListener(
 			'blur',
@@ -253,26 +320,9 @@ function handleSlotDestroy() {
 	} else if (currentTrigger.value === 'contextmenu') {
 		window.removeEventListener('click', handleWindowClick)
 	}
-}
 
-function handlePopupRender() {
-	popupInstanceId.value = popup.render({
-		anchor: anchorElement.value,
-
-		component: {
-			setup() {
-				return () =>
-					slots.default({
-						destroy: () => {
-							popupInstanceId.value &&
-								popup.destroy(popupInstanceId.value)
-						},
-					})
-			},
-		},
-		mask: false,
-		onUnmounted() {},
-	})
+	popupInstanceId = null
+	isRendered.value = false
+	emit('destroy')
 }
-function handlePopupDestroy() {}
 </script>
