@@ -6,6 +6,12 @@ import './assets/styles/main.scss'
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { type ConfigOption } from './config'
 export {
+	PopupAnchorTrigger,
+	type PopupAnchorTriggerEmits,
+	type PopupAnchorTriggerProps,
+	type PopupAnchorTriggerSlots,
+} from './components'
+export {
 	type IController,
 	type MaskDestroyHandler,
 	type Placement,

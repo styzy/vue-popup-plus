@@ -7,6 +7,7 @@ import type { ComputedStyle } from '../typings'
 // 组件名称
 export const P_COMPONENT_NAMES = {
 	ROOT: 'PopupRoot',
+	ANCHOR_TRIGGER: 'PopupAnchorTrigger',
 } as const
 
 // 内部组件名称

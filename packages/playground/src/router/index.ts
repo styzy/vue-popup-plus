@@ -17,6 +17,10 @@ const router: Router = createRouter({
 			component: () => import('@/views/Anchor.vue'),
 		},
 		{
+			path: '/anchor-trigger',
+			component: () => import('@/views/AnchorTrigger.vue'),
+		},
+		{
 			path: '/directive',
 			component: () => import('@/views/Directive.vue'),
 		},

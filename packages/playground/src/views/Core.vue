@@ -5,17 +5,21 @@ GContainer
 	GTitle(second) 基础功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopup()" type="fill") 默认
-		PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
-		PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
-		PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果
-		PButton(@click="handlePopupWithMaskDestroy()") 启用遮罩层点击销毁
-		PButton(@click="handlePopupWithMaskDestroyHandler()") 遮罩层点击销毁处理器
+		PButton(@click="handlePopupWithImportComponent()") 异步组件(导入)
+		PButton(@click="handlePopupWithDefineAsyncComponent()") 异步组件(定义)
 	GTitle(second) 组件功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupWithProps()") 传入参数
 		PButton(@click="handlePopupWithPayload()") 携带销毁参数
 		PButton(@click="handleOptionPopupWithProps()") 传入参数(选项式)
 		PButton(@click="handleOptionPopupWithPayload()") 携带销毁参数(选项式)
+	GTitle(second) 遮罩功能
+	PButtonGroup(theme="primary" tight type="plain")
+		PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
+		PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
+		PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果
+		PButton(@click="handlePopupWithMaskDestroy()") 启用遮罩层点击销毁
+		PButton(@click="handlePopupWithMaskDestroyHandler()") 遮罩层点击销毁处理器
 	GTitle(second) 样式功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupFullScreen()") 全屏
@@ -56,7 +60,7 @@ GContainer
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, h, ref } from 'vue'
 import { POPUP_ANIMATIONS, usePopup } from 'vue-popup-plus'
 import Demo from './demo/Demo.vue'
 import DemoFullScreen from './demo/DemoFullScreen.vue'
@@ -69,15 +73,33 @@ const popup = usePopup()
 function handlePopup() {
 	popup.render({
 		component: Demo,
-		// component: () => import('@/views/demo/Demo.vue'),
+		componentProps: {
+			test: undefined,
+		},
+	})
+}
+
+function handlePopupWithImportComponent() {
+	popup.render({
+		component: () => import('@/views/demo/Demo.vue'),
+		componentProps: {
+			test: undefined,
+		},
+	})
+}
+
+function handlePopupWithDefineAsyncComponent() {
+	popup.render({
+		component: defineAsyncComponent(() => import('@/views/demo/Demo.vue')),
+		componentProps: {
+			test: undefined,
+		},
 	})
 }
 
 function handlePopupWithProps() {
 	popup.render({
-		// component: Demo,
 		component: defineAsyncComponent(() => import('@/views/demo/Demo.vue')),
-		// component: () => import('@/views/demo/Demo.vue'),
 		componentProps: {
 			test: 'test',
 			onInputChange(value) {

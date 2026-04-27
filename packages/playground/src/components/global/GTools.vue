@@ -17,6 +17,7 @@
 			PButton(@click="handleJumpIndex()" theme="success") 首页
 			PButton(@click="handleJumpCore()") 核心 - 基础测试
 			PButton(@click="handleJumpAnchor()") 核心 - 锚点测试
+			PButton(@click="handleJumpAnchorTrigger()") 核心 - 锚点触发器测试
 			PButton(@click="handleJumpDirective()" theme="warning" type="plain") 核心 - 指令测试
 			PButton(@click="handleJumpPlugin()" theme="success") 预置插件 - 基础测试
 			PButton(@click="handleJumpButton()" theme="warning" type="plain") 预置插件 - 按钮测试
@@ -103,6 +104,10 @@ function handleJumpCore() {
 
 function handleJumpAnchor() {
 	router.push('/anchor')
+}
+
+function handleJumpAnchorTrigger() {
+	router.push('/anchor-trigger')
 }
 
 function handleJumpDirective() {
