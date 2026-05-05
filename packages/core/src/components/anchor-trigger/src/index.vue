@@ -1,12 +1,11 @@
 <template>
-	<slot name="anchor"></slot>
+	<slot name="default"></slot>
 </template>
 
 <script setup lang="ts">
 import {
 	computed,
 	getCurrentInstance,
-	onBeforeMount,
 	onBeforeUnmount,
 	onMounted,
 	ref,
@@ -30,6 +29,11 @@ const popup = usePopup()
 
 const {
 	trigger = 'hover',
+	placement = 'top',
+	flip = false,
+	flipAdvance = 0,
+	shift = 'none',
+	viewport = null,
 	renderDelay = 0,
 	destroyDelay = 200,
 } = defineProps<PopupAnchorTriggerProps>()
@@ -55,7 +59,7 @@ onMounted(() => {
 	addAnchorElementListeners()
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
 	removeAnchorElementListeners()
 })
 
@@ -264,8 +268,6 @@ function renderPopup(callback?: () => void) {
 	}
 
 	popupInstanceId = popup.render({
-		anchor: anchorElement.value,
-
 		component: {
 			setup() {
 				function getRootElement() {
@@ -282,13 +284,20 @@ function renderPopup(callback?: () => void) {
 				})
 
 				return () => {
-					return slots.default({
+					return slots.popup({
 						destroy: destroyPopup,
 					})
 				}
 			},
 		},
+		anchor: anchorElement.value,
+		anchorPlacement: placement,
+		anchorFlip: flip,
+		anchorFlipAdvance: flipAdvance,
+		anchorShift: shift,
+		viewport,
 		mask: false,
+		disableScroll: false,
 		onMounted() {
 			isRendered.value = true
 		},
