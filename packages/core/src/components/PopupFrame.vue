@@ -38,10 +38,11 @@ watch(
 		viewportElement.value = getViewportElement(viewport)
 		unbindResizeObserver()
 		unbindScrollObservers()
+		unbindWindowResizeObserver()
 		if (viewportElement.value) {
 			bindResizeObserver()
 			bindScrollObservers()
-			window.addEventListener('resize', updateStyle)
+			bindWindowResizeObserver()
 		}
 		updateStyle()
 	}
@@ -98,6 +99,14 @@ function unbindScrollObservers() {
 		element.removeEventListener('scroll', updateStyle)
 	)
 	scrollTargets.value = []
+}
+
+function bindWindowResizeObserver() {
+	window.addEventListener('resize', updateStyle)
+}
+
+function unbindWindowResizeObserver() {
+	window.removeEventListener('resize', updateStyle)
 }
 
 function createStyle() {
