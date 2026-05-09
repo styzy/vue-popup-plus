@@ -283,6 +283,7 @@ export const dialog = definePlugin({
 					maskBlur,
 					maskTransparent,
 					maskDestroy: maskClose,
+					disableScroll: true,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<DialogOption> = {

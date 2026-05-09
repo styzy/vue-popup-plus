@@ -128,6 +128,7 @@ export const alert = definePlugin({
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
+					disableScroll: true,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<AlertOption> = {

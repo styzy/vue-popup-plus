@@ -131,6 +131,7 @@ export const confirm = definePlugin({
 					},
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
+					disableScroll: true,
 					onMounted: () => {
 						const mergedOptions: Required<ConfirmOption> = {
 							title,

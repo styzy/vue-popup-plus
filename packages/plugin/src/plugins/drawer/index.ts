@@ -260,6 +260,7 @@ export const drawer = definePlugin({
 					maskDestroy: maskClose,
 					maskBlur,
 					maskTransparent,
+					disableScroll: true,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<DrawerOption> = {

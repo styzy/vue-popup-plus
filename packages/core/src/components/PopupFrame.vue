@@ -53,7 +53,7 @@ onMounted(() => {
 		bindScrollObservers()
 		window.addEventListener('resize', updateStyle)
 	}
-	updateStyle()
+	createStyle()
 })
 
 onBeforeUnmount(() => {

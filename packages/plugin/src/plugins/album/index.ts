@@ -184,6 +184,7 @@ export const album = definePlugin({
 					width: '100%',
 					height: '100%',
 					maskBlur,
+					disableScroll: true,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<AlbumOption> = {
