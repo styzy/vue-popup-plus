@@ -13,6 +13,10 @@ const router: Router = createRouter({
 			component: () => import('@/views/Core.vue'),
 		},
 		{
+			path: '/viewport',
+			component: () => import('@/views/Viewport.vue'),
+		},
+		{
 			path: '/anchor',
 			component: () => import('@/views/Anchor.vue'),
 		},

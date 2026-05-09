@@ -21,8 +21,9 @@ GContainer.index
 		size="large"
 		type="fill")
 		PButton(@click="handleJumpCore()" theme="primary") 核心 - 基础功能测试
-		PButton(@click="handleJumpAnchor()" theme="primary") 核心 - 锚点功能测试
-		PButton(@click="handleJumpAnchorTrigger()" theme="primary") 核心 - 锚点触发器测试
+		PButton(@click="handleJumpViewport()" theme="primary" type="plain") 核心 - 视区功能测试
+		PButton(@click="handleJumpAnchor()" theme="primary" type="plain") 核心 - 锚点功能测试
+		PButton(@click="handleJumpAnchorTrigger()" theme="primary" type="plain") 核心 - 锚点触发器测试
 		PButton(@click="handleJumpDirective()" theme="warning" type="plain") 核心 - 指令功能测试
 		PButton(@click="handleJumpPlugin()" theme="success") 预置插件 - 基础功能测试
 		PButton(@click="handleJumpButton()" theme="warning" type="plain") 预置插件 - 按钮功能测试
@@ -40,6 +41,10 @@ function handleJump(url: string, blank = false) {
 
 const handleJumpCore = () => {
 	router.push('/core')
+}
+
+const handleJumpViewport = () => {
+	router.push('/viewport')
 }
 
 const handleJumpAnchor = () => {

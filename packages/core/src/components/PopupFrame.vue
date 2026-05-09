@@ -5,7 +5,7 @@ div(:class="ns.block()" :style="styleObject")
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { type PopupPlacement } from '../controller'
+import { type PopupPlacement, type PopupRenderOption } from '../controller'
 import { useNamespace } from '../hooks'
 import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
@@ -17,10 +17,11 @@ const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.FRAME)
 
 type Props = {
 	placement: PopupPlacement
+	viewport: Required<PopupRenderOption>['viewport']
 	zIndex: number
 }
 
-const { placement, zIndex } = defineProps<Props>()
+const { placement, viewport, zIndex } = defineProps<Props>()
 
 const styleObject = computed(() => ({
 	alignItems: placement.includes('left')

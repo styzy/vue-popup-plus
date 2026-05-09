@@ -24,6 +24,7 @@ template(v-if="hackInject")
 					PopupView
 			PopupFrame(
 				:placement="store.placement.value"
+				:viewport="store.viewport.value"
 				:zIndex="store.zIndex.value"
 				v-else)
 				PopupAnimation(
