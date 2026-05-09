@@ -6,13 +6,13 @@ div(:class="classObject" @click.stop="handleClick()")
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useNamespace } from '../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.HEADER_BUTTON,
+	name: POPUP_INSIDE_COMPONENT_NAMES.HEADER_BUTTON,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.HEADER_BUTTON)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.HEADER_BUTTON)
 
 type ButtonTheme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 

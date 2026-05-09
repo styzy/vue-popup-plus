@@ -26,7 +26,7 @@ import {
 } from 'vue-popup-plus'
 import { useNamespace } from '../hooks'
 import { type Theme } from '../typings'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import PHeaderButton from './PHeaderButton.vue'
 
 let popup: PopupController | undefined
@@ -35,10 +35,10 @@ const instanceId = usePopupInstanceId()!
 const viewComputedStyle = usePopupComputedStyle()!
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.HEADER,
+	name: POPUP_INSIDE_COMPONENT_NAMES.HEADER,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.HEADER)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.HEADER)
 
 type Emits = {
 	close: []

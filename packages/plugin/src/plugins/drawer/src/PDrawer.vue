@@ -24,7 +24,7 @@ PSkin(:class="ns.block()" :skin="skin")
 import { computed, defineAsyncComponent, ref, type Component } from 'vue'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -32,10 +32,10 @@ import PHeaderButton from '../../../components/PHeaderButton.vue'
 import PBody from '../../../components/PBody.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.DRAWER,
+	name: POPUP_INSIDE_COMPONENT_NAMES.DRAWER,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.DRAWER)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.DRAWER)
 
 type Emits = {
 	close: []

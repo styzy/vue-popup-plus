@@ -10,13 +10,13 @@
 import { computed, provide } from 'vue'
 import { useNamespace } from '../hooks'
 import { injectSkin, type Skin } from '../skin'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.SKIN,
+	name: POPUP_INSIDE_COMPONENT_NAMES.SKIN,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.SKIN)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.SKIN)
 
 type Props = {
 	skin: Skin

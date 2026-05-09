@@ -23,14 +23,14 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.MESSAGE,
+	name: POPUP_INSIDE_COMPONENT_NAMES.MESSAGE,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.MESSAGE)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.MESSAGE)
 
 type Emits = {
 	close: []

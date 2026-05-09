@@ -34,7 +34,7 @@ import { computed, ref } from 'vue'
 import { type PromptType } from '../index'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -44,10 +44,10 @@ import PButtonGroup from '../../../components/PButtonGroup.vue'
 import PButton from '../../../components/PButton.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.PROMPT,
+	name: POPUP_INSIDE_COMPONENT_NAMES.PROMPT,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.PROMPT)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.PROMPT)
 
 type Emits = {
 	close: [inputValue?: string]

@@ -2,13 +2,13 @@ import { type InjectionKey } from 'vue'
 import { zhCN, type PLocale } from '../locales'
 
 // 组件名称
-export const P_COMPONENT_NAMES = {
+export const POPUP_COMPONENT_NAMES = {
 	BUBBLE: 'PopupBubble',
 	TOOLTIP: 'PopupTooltip',
 } as const
 
 // 内部组件名称
-export const P_INSIDE_COMPONENT_NAMES = {
+export const POPUP_INSIDE_COMPONENT_NAMES = {
 	ALBUM: 'PopupAlbum',
 	ALERT: 'PopupAlert',
 	ANCHOR_TRIGGER: 'PopupAnchorTrigger',
@@ -34,7 +34,7 @@ export const P_INSIDE_COMPONENT_NAMES = {
 } as const
 
 // BEM 命名规范
-export const P_BEM_CONFIG = {
+export const POPUP_BEM_CONFIG = {
 	COMMON_SPERATOR: '-',
 	ELEMENT_SPERATOR: '__',
 	MODIFY_SPERATOR: '--',

@@ -10,15 +10,15 @@ import { computed } from 'vue'
 import { type Skin } from '../../../skin'
 import { type Theme } from '../../../typings'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLoadingIcon from '../../../components/PLoadingIcon.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.LOADING,
+	name: POPUP_INSIDE_COMPONENT_NAMES.LOADING,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.LOADING)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.LOADING)
 
 type Emits = {
 	close: []

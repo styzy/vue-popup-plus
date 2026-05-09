@@ -10,7 +10,7 @@ div(:class="classObject" ref="group")
 
 <script lang="ts" setup>
 import { computed, provide, unref, type Ref, type VNode } from 'vue'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import { useNamespace } from '../hooks'
 import { type PButtonProps } from './PButton'
 import {
@@ -20,10 +20,10 @@ import {
 } from './PButtonGroup'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.BUTTON_GROUP,
+	name: POPUP_INSIDE_COMPONENT_NAMES.BUTTON_GROUP,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.BUTTON_GROUP)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.BUTTON_GROUP)
 
 const slots = defineSlots<PButtonGroupSlots>()
 

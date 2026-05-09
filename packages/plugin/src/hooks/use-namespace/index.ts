@@ -1,7 +1,7 @@
 import {
-	P_BEM_CONFIG,
-	P_COMPONENT_NAMES,
-	P_INSIDE_COMPONENT_NAMES,
+	POPUP_BEM_CONFIG,
+	POPUP_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_NAMES,
 } from '../../CONSTANTS'
 
 export interface INamespace {
@@ -12,7 +12,7 @@ export interface INamespace {
 	 * ```ts
 	 * import { useNamespace } from '@hooks'
 	 *
-	 * const ns = useNamespace(P_COMPONENT_NAMES.HEADER)
+	 * const ns = useNamespace(POPUP_COMPONENT_NAMES.HEADER)
 	 *
 	 * ns.block() // 'popup-header'
 	 * ```
@@ -25,7 +25,7 @@ export interface INamespace {
 	 * ```ts
 	 * import { useNamespace } from '@hooks'
 	 *
-	 * const ns = useNamespace(P_COMPONENT_NAMES.HEADER)
+	 * const ns = useNamespace(POPUP_COMPONENT_NAMES.HEADER)
 	 *
 	 * ns.element('background') // 'popup-header__background'
 	 * ```
@@ -38,7 +38,7 @@ export interface INamespace {
 	 * ```ts
 	 * import { useNamespace } from '@hooks'
 	 *
-	 * const ns = useNamespace(P_COMPONENT_NAMES.HEADER)
+	 * const ns = useNamespace(POPUP_COMPONENT_NAMES.HEADER)
 	 *
 	 * ns.modifier('primary') // 'popup-header--primary'
 	 * ```
@@ -51,7 +51,7 @@ export interface INamespace {
 	 * ```ts
 	 * import { useNamespace } from '@hooks'
 	 *
-	 * const ns = useNamespace(P_COMPONENT_NAMES.HEADER)
+	 * const ns = useNamespace(POPUP_COMPONENT_NAMES.HEADER)
 	 *
 	 * ns.elementModifier('icon', 'primary') // 'popup-header__icon--primary'
 	 * ```
@@ -66,7 +66,7 @@ export interface INamespace {
 	 * ```ts
 	 * import { useNamespace } from '@hooks'
 	 *
-	 * const ns = useNamespace(P_COMPONENT_NAMES.HEADER)
+	 * const ns = useNamespace(POPUP_COMPONENT_NAMES.HEADER)
 	 *
 	 * ns.is('disabled') // 'is-disabled'
 	 * ns.is('disabled', true) // 'is-disabled'
@@ -77,8 +77,8 @@ export interface INamespace {
 }
 
 type ComponentName =
-	| (typeof P_COMPONENT_NAMES)[keyof typeof P_COMPONENT_NAMES]
-	| (typeof P_INSIDE_COMPONENT_NAMES)[keyof typeof P_INSIDE_COMPONENT_NAMES]
+	| (typeof POPUP_COMPONENT_NAMES)[keyof typeof POPUP_COMPONENT_NAMES]
+	| (typeof POPUP_INSIDE_COMPONENT_NAMES)[keyof typeof POPUP_INSIDE_COMPONENT_NAMES]
 
 export function useNamespace(componentName: ComponentName): INamespace {
 	const block = componentName
@@ -91,16 +91,16 @@ export function useNamespace(componentName: ComponentName): INamespace {
 			return block
 		},
 		element(element: string): string {
-			return `${block}${P_BEM_CONFIG.ELEMENT_SPERATOR}${element}`
+			return `${block}${POPUP_BEM_CONFIG.ELEMENT_SPERATOR}${element}`
 		},
 		modifier(modifier: string): string {
-			return `${block}${P_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
+			return `${block}${POPUP_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
 		},
 		elementModifier(element: string, modifier: string): string {
-			return `${block}${P_BEM_CONFIG.ELEMENT_SPERATOR}${element}${P_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
+			return `${block}${POPUP_BEM_CONFIG.ELEMENT_SPERATOR}${element}${POPUP_BEM_CONFIG.MODIFY_SPERATOR}${modifier}`
 		},
 		is(state: string, isActive = true): string {
-			return isActive ? `${P_BEM_CONFIG.STATE_SPERATOR}${state}` : ''
+			return isActive ? `${POPUP_BEM_CONFIG.STATE_SPERATOR}${state}` : ''
 		},
 	}
 }

@@ -6,14 +6,14 @@ div(:class="[ns.block(), ns.is(`theme-${theme}`)]")
 
 <script lang="ts" setup>
 import { useNamespace } from '../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import type { Theme } from '../typings'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.LOADING_ICON,
+	name: POPUP_INSIDE_COMPONENT_NAMES.LOADING_ICON,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.LOADING_ICON)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.LOADING_ICON)
 
 type Props = {
 	/**

@@ -13,7 +13,7 @@ import { computed, defineAsyncComponent, ref, type Component } from 'vue'
 import type { PopupAnchorPlacement } from 'vue-popup-plus'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
-import { P_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 import PLayout from '../../../components/PLayout.vue'
 import PHeader from '../../../components/PHeader.vue'
@@ -21,10 +21,10 @@ import PHeaderButton from '../../../components/PHeaderButton.vue'
 import PBody from '../../../components/PBody.vue'
 
 defineOptions({
-	name: P_COMPONENT_NAMES.BUBBLE,
+	name: POPUP_COMPONENT_NAMES.BUBBLE,
 })
 
-const ns = useNamespace(P_COMPONENT_NAMES.BUBBLE)
+const ns = useNamespace(POPUP_COMPONENT_NAMES.BUBBLE)
 
 type Props = {
 	skin: Skin

@@ -5,13 +5,13 @@ div(:class="ns.block()")
 
 <script lang="ts" setup>
 import { useNamespace } from '../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.FOOTER,
+	name: POPUP_INSIDE_COMPONENT_NAMES.FOOTER,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.FOOTER)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.FOOTER)
 </script>
 
 <style lang="scss">

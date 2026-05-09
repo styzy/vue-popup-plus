@@ -12,16 +12,16 @@ button(
 
 <script lang="ts" setup>
 import { computed, inject, unref, useTemplateRef } from 'vue'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 import { useNamespace } from '../hooks'
 import { type PButtonProps } from './PButton'
 import { buttonGroupInjects } from './PButtonGroup'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.BUTTON,
+	name: POPUP_INSIDE_COMPONENT_NAMES.BUTTON,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.BUTTON)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.BUTTON)
 
 const groupType = inject(buttonGroupInjects.groupType, undefined)
 const groupTheme = inject(buttonGroupInjects.groupTheme, undefined)

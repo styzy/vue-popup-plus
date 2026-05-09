@@ -108,7 +108,7 @@ import { type AlbumMediaSource } from '../index'
 import { File, type FileType } from '../../../class'
 import { type Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PSkin from '../../../components/PSkin.vue'
 
 type Media = File & {
@@ -116,10 +116,10 @@ type Media = File & {
 }
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.ALBUM,
+	name: POPUP_INSIDE_COMPONENT_NAMES.ALBUM,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ALBUM)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.ALBUM)
 const popup = usePopup()
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!

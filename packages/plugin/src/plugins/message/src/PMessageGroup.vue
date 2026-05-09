@@ -23,14 +23,14 @@
 import type { MessageRecord } from '../index'
 import type { Skin } from '../../../skin'
 import { useNamespace } from '../../../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../../../CONSTANTS'
 import PMessage from './PMessage.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP,
+	name: POPUP_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.MESSAGE_GROUP)
 
 type Props = {
 	skin: Skin

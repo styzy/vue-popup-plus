@@ -2,10 +2,10 @@
 
 <script lang="ts" setup>
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.WINDOW_RESIZE,
+	name: POPUP_INSIDE_COMPONENT_NAMES.WINDOW_RESIZE,
 })
 
 type Props = {

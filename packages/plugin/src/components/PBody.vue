@@ -6,13 +6,13 @@ div(:class="classObject")
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useNamespace } from '../hooks'
-import { P_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.BODY,
+	name: POPUP_INSIDE_COMPONENT_NAMES.BODY,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.BODY)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.BODY)
 
 type Props = {
 	withPadding?: boolean
