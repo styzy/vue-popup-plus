@@ -22,22 +22,25 @@ import {
 	useTemplateRef,
 	onBeforeUnmount,
 } from 'vue'
-import { useNamespace } from '../hooks'
 import {
 	POPUP_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
+import { useNamespace } from '../hooks'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.VIEW,
+	name: POPUP_INSIDE_COMPONENT_NAMES.VIEW,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.VIEW)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.VIEW)
 const popupViewRef = useTemplateRef<HTMLDivElement>('popupViewRef')
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const instance = inject(P_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const viewportBoundary = inject(
+	POPUP_INSIDE_COMPONENT_INJECTS.VIEWPORT_BOUNDARY
+)!
 
 const store = instance.store
 
@@ -56,7 +59,7 @@ const resolvedComponent = computed(() => {
 })
 
 const translateXRange = computed(() => {
-	const offset = Math.max(0, window.innerWidth - viewWidth.value)
+	const offset = Math.max(0, viewportBoundary.value.width - viewWidth.value)
 
 	if (store.placement.value.includes('left')) {
 		return [0, offset]
@@ -70,7 +73,7 @@ const translateXRange = computed(() => {
 })
 
 const translateYRange = computed(() => {
-	const offset = Math.max(0, window.innerHeight - viewHeight.value)
+	const offset = Math.max(0, viewportBoundary.value.height - viewHeight.value)
 
 	if (store.placement.value.includes('top')) {
 		return [0, offset]

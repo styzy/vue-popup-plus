@@ -9,16 +9,19 @@ PopupInstance(
 <script lang="ts" setup>
 import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
 import { PopupLog, PopupLogType, printLog } from '../log'
-import { P_COMPONENT_NAMES, P_INSIDE_COMPONENT_INJECTS } from '../CONSTANTS'
+import {
+	POPUP_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_INJECTS,
+} from '../CONSTANTS'
 import PopupInstance from './PopupInstance.vue'
 
 const vm = getCurrentInstance()
 
 defineOptions({
-	name: P_COMPONENT_NAMES.ROOT,
+	name: POPUP_COMPONENT_NAMES.ROOT,
 })
 
-const core = inject(P_INSIDE_COMPONENT_INJECTS.CORE, undefined)
+const core = inject(POPUP_INSIDE_COMPONENT_INJECTS.CORE, undefined)
 
 if (!core) {
 	const log = new PopupLog({

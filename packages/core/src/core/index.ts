@@ -18,9 +18,9 @@ import {
 } from '../plugin'
 import { version, type PopupVersion } from '../version'
 import {
-	P_COMPONENT_NAMES,
-	P_DOCUMENT_URL,
-	P_INSIDE_COMPONENT_INJECTS,
+	POPUP_COMPONENT_NAMES,
+	POPUP_DOCUMENT_URL,
+	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
 
 type Instances = Reactive<Record<PopupInstanceId['name'], Instance>>
@@ -166,7 +166,7 @@ export class Core implements PopupCore {
 
 		app.mixin(mixins)
 
-		app.provide(P_INSIDE_COMPONENT_INJECTS.CORE, this)
+		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
 
 		Object.entries(this.#config.directives).forEach(([name, directive]) => {
 			app.directive(name, directive)
@@ -310,7 +310,7 @@ export class Core implements PopupCore {
 						type: 'Function',
 						value: this.registerRootComponent,
 					},
-					message: `根组件 ${P_COMPONENT_NAMES.ROOT} 挂载成功`,
+					message: `根组件 ${POPUP_COMPONENT_NAMES.ROOT} 挂载成功`,
 					group: [
 						{
 							type: PopupLogGroupItemType.Component,
@@ -325,7 +325,7 @@ export class Core implements PopupCore {
 						{
 							type: PopupLogGroupItemType.Message,
 							title: '帮助文档',
-							content: `${P_DOCUMENT_URL}/about/faq.html#同步应用上下文`,
+							content: `${POPUP_DOCUMENT_URL}/about/faq.html#同步应用上下文`,
 						},
 					],
 				})
@@ -340,7 +340,7 @@ export class Core implements PopupCore {
 					type: 'Function',
 					value: this.registerRootComponent,
 				},
-				message: `检测到重复挂载 ${P_COMPONENT_NAMES.ROOT} 根组件`,
+				message: `检测到重复挂载 ${POPUP_COMPONENT_NAMES.ROOT} 根组件`,
 				group: [
 					{
 						type: PopupLogGroupItemType.Component,
@@ -350,7 +350,7 @@ export class Core implements PopupCore {
 					{
 						type: PopupLogGroupItemType.Message,
 						title: '修改建议',
-						content: `${P_COMPONENT_NAMES.ROOT} 根组件同一时刻应当只存在一个实例，请移除多余的 ${P_COMPONENT_NAMES.ROOT} 根组件`,
+						content: `${POPUP_COMPONENT_NAMES.ROOT} 根组件同一时刻应当只存在一个实例，请移除多余的 ${POPUP_COMPONENT_NAMES.ROOT} 根组件`,
 					},
 				],
 			})

@@ -19,10 +19,10 @@ import {
 } from './types'
 import { usePopup } from '../../..//hooks'
 import { type PopupInstanceId } from '../../../instance'
-import { P_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { POPUP_COMPONENT_NAMES } from '../../../CONSTANTS'
 
 defineOptions({
-	name: P_COMPONENT_NAMES.ANCHOR_TRIGGER,
+	name: POPUP_COMPONENT_NAMES.ANCHOR_TRIGGER,
 })
 
 const popup = usePopup()

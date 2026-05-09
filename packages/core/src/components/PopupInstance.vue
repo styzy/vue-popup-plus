@@ -2,54 +2,55 @@
 template(v-if="hackInject")
 	Teleport(:to="store.appendTo.value")
 		.popup-instance
-			PopupAnimation(
-				:duration="store.animationDuration.value"
-				:isBeforeUnmount="store.isBeforeUnmount.value"
-				:type="store.maskAnimation.value"
-				v-if="store.mask.value")
-				PopupMask
-			PopupAnchorFrame(
-				:anchor="store.anchor.value"
-				:flip="store.anchorFlip.value"
-				:flipAdvance="store.anchorFlipAdvance.value"
-				:placement="store.anchorPlacement.value"
-				:shift="store.anchorShift.value"
-				:viewport="store.viewport.value"
-				:zIndex="store.zIndex.value"
-				v-if="store.anchor.value")
+			PopupViewport(:viewport="store.viewport.value")
 				PopupAnimation(
 					:duration="store.animationDuration.value"
 					:isBeforeUnmount="store.isBeforeUnmount.value"
-					:type="store.viewAnimation.value")
-					PopupView
-			PopupFrame(
-				:placement="store.placement.value"
-				:viewport="store.viewport.value"
-				:zIndex="store.zIndex.value"
-				v-else)
-				PopupAnimation(
-					:duration="store.animationDuration.value"
-					:isBeforeUnmount="store.isBeforeUnmount.value"
-					:type="store.viewAnimation.value")
-					PopupView
+					:type="store.maskAnimation.value"
+					v-if="store.mask.value")
+					PopupMask
+				PopupAnchorFrame(
+					:anchor="store.anchor.value"
+					:flip="store.anchorFlip.value"
+					:flipAdvance="store.anchorFlipAdvance.value"
+					:placement="store.anchorPlacement.value"
+					:shift="store.anchorShift.value"
+					:zIndex="store.zIndex.value"
+					v-if="store.anchor.value")
+					PopupAnimation(
+						:duration="store.animationDuration.value"
+						:isBeforeUnmount="store.isBeforeUnmount.value"
+						:type="store.viewAnimation.value")
+						PopupView
+				PopupFrame(
+					:placement="store.placement.value"
+					:zIndex="store.zIndex.value"
+					v-else)
+					PopupAnimation(
+						:duration="store.animationDuration.value"
+						:isBeforeUnmount="store.isBeforeUnmount.value"
+						:type="store.viewAnimation.value")
+						PopupView
 </template>
 
 <script lang="ts" setup>
 import { provide, ref, Teleport } from 'vue'
-import { type Instance } from '../instance'
 import {
 	POPUP_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
+import { type Instance } from '../instance'
+
+import PopupAnchorFrame from './PopupAnchorFrame.vue'
 import PopupAnimation from './PopupAnimation.vue'
 import PopupFrame from './PopupFrame.vue'
-import PopupAnchorFrame from './PopupAnchorFrame.vue'
 import PopupMask from './PopupMask.vue'
 import PopupView from './PopupView.vue'
+import PopupViewport from './PopupViewport.vue'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.INSTANCE,
+	name: POPUP_INSIDE_COMPONENT_NAMES.INSTANCE,
 })
 
 type Props = {
@@ -71,5 +72,5 @@ setTimeout(() => {
 }, 0)
 
 provide(POPUP_COMPONENT_INJECTS.INSTANCE_ID, instance.id)
-provide(P_INSIDE_COMPONENT_INJECTS.INSTANCE, instance)
+provide(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE, instance)
 </script>

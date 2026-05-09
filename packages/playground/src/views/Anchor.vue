@@ -6,7 +6,7 @@ GContainer.anchor
 		ElSwitch(
 			active-text="viewportRef"
 			inactive-text="window"
-			v-model="useViewport")
+			v-model="viewportEnabled")
 	GViewport(ref="viewportRef")
 		GTitle(second) 位置
 		PButtonGroup(theme="primary" tight type="plain")
@@ -83,6 +83,7 @@ GContainer.anchor
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 import { usePopup, type PopupRenderOption } from 'vue-popup-plus'
+
 import DemoAnchor from './demo/DemoAnchor.vue'
 
 const popup = usePopup()
@@ -154,10 +155,10 @@ const shiftBothRightStart = useTemplateRef('shiftBothRightStart')
 const shiftBothRight = useTemplateRef('shiftBothRight')
 const shiftBothRightEnd = useTemplateRef('shiftBothRightEnd')
 
-const useViewport = ref(true)
+const viewportEnabled = ref(true)
 const sharedOptions = computed<PopupRenderOption>(() => ({
 	component: DemoAnchor,
-	viewport: useViewport.value ? viewportRef.value?.$el : undefined,
+	viewport: viewportEnabled.value ? viewportRef.value?.$el : undefined,
 	disableScroll: false,
 	mask: false,
 	// anchorFlipAdvance: 10,
@@ -175,9 +176,7 @@ function handleLeft() {
 	popup.render({
 		anchor: left.value?.$el,
 		anchorPlacement: 'left',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
+		...sharedOptions.value,
 	})
 }
 
@@ -193,18 +192,14 @@ function handleTopStart() {
 	popup.render({
 		anchor: topStart.value?.$el,
 		anchorPlacement: 'top-start',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
+		...sharedOptions.value,
 	})
 }
 
 function handleTop() {
 	popup.render({
 		anchor: top.value?.$el,
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
+		...sharedOptions.value,
 	})
 }
 
@@ -254,9 +249,7 @@ function handleRight() {
 	popup.render({
 		anchor: right.value?.$el,
 		anchorPlacement: 'right',
-		mask: false,
-		disableScroll: false,
-		component: DemoAnchor,
+		...sharedOptions.value,
 	})
 }
 

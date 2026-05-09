@@ -27,7 +27,7 @@ GContainer
 		PButton(@click="handlePopupMinSize()") 最小尺寸
 		PButton(@click="handlePopupOffset()") 位移
 		PButton(@click="handlePopupOffsetLarge()") 大位移(默认安全)
-		PButton(@click="handlePopupOffsetLargeOverflow()") 大位移(超出屏幕)
+		PButton(@click="handlePopupOffsetLargeOverflow()") 大位移(超出视区)
 	GTitle(second) 定位功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupLeftTop()") 左上
@@ -40,9 +40,9 @@ GContainer
 		PButton(@click="handlePopupRight()") 右侧
 		PButton(@click="handlePopupRightBottom()") 右下
 		PButton(@click="handlePopupLeftTopWithOffset()") 左上+位移(默认安全)
-		PButton(@click="handlePopupLeftTopWithOffsetOverflow()") 左上+位移(超出屏幕)
+		PButton(@click="handlePopupLeftTopWithOffsetOverflow()") 左上+位移(超出视区)
 		PButton(@click="handlePopupRightBottomWithOffset()") 右下+位移(默认安全)
-		PButton(@click="handlePopupRightBottomWithOffsetOverflow()") 右下+位移(超出屏幕)
+		PButton(@click="handlePopupRightBottomWithOffsetOverflow()") 右下+位移(超出视区)
 	GTitle(second) 动画功能
 	PButtonGroup(theme="primary" tight type="plain")
 		PButton(@click="handlePopupAnimationScale()") 缩放
@@ -62,11 +62,12 @@ GContainer
 <script setup lang="ts">
 import { defineAsyncComponent, h, ref } from 'vue'
 import { POPUP_ANIMATIONS, usePopup } from 'vue-popup-plus'
+
 import Demo from './demo/Demo.vue'
+import DemoAntd from './demo/DemoAntd.vue'
+import DemoElementUI from './demo/DemoElementUI.vue'
 import DemoFullScreen from './demo/DemoFullScreen.vue'
 import DemoOption from './demo/DemoOption.vue'
-import DemoElementUI from './demo/DemoElementUI.vue'
-import DemoAntd from './demo/DemoAntd.vue'
 
 const popup = usePopup()
 

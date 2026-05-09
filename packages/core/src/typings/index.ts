@@ -67,3 +67,13 @@ export type PopupViewComputedStyle = ComputedRef<{
 	 */
 	translateY: number
 }>
+
+export type PopupViewportBoundary = {
+	fixed: boolean
+	top: number
+	left: number
+	right: number
+	bottom: number
+	width: number
+	height: number
+}

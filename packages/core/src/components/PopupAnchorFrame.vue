@@ -16,22 +16,31 @@ import {
 	watch,
 } from 'vue'
 import {
+	POPUP_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_INJECTS,
+} from '../CONSTANTS'
+import {
 	type PopupAnchorPlacement,
 	type PopupAnchorShift,
 	type PopupRenderOption,
 } from '../controller'
-import { useNamespace, usePopup, useViewport } from '../hooks'
-import { type PopupViewComputedStyle } from '../typings'
-import { P_INSIDE_COMPONENT_NAMES, POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
+import { useNamespace, usePopup } from '../hooks'
+import {
+	type PopupViewComputedStyle,
+	type PopupViewportBoundary,
+} from '../typings'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME,
+	name: POPUP_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME)
 const popup = usePopup()
-const { resolveViewportBoundary } = useViewport()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
+const viewportBoundary = inject(
+	POPUP_INSIDE_COMPONENT_INJECTS.VIEWPORT_BOUNDARY
+)!
 const viewComputedStyleRef = shallowRef<PopupViewComputedStyle | null>(null)
 
 type Props = {
@@ -40,11 +49,10 @@ type Props = {
 	flip: boolean
 	flipAdvance: number
 	shift: PopupAnchorShift
-	viewport: Required<PopupRenderOption>['viewport']
 	zIndex: number
 }
 
-const { anchor, placement, shift, flip, flipAdvance, viewport, zIndex } =
+const { anchor, placement, shift, flip, flipAdvance, zIndex } =
 	defineProps<Props>()
 
 const anchorElement =
@@ -112,7 +120,6 @@ function bindComputedStyleWatcher() {
 	watch(() => computedStyle.value.height, updateStyle)
 	watch(() => shift, updateStyle)
 	watch(() => flip, updateStyle)
-	watch(() => viewport, updateStyle)
 	updateStyle()
 }
 
@@ -168,7 +175,7 @@ function parsePlacement(placement: PopupAnchorPlacement) {
 
 function computeSpacesWithinBoundary(
 	rect: Pick<DOMRect, 'top' | 'right' | 'bottom' | 'left'>,
-	boundary: { left: number; top: number; right: number; bottom: number }
+	boundary: PopupViewportBoundary
 ) {
 	return {
 		above: rect.top - boundary.top,
@@ -227,7 +234,7 @@ function computeMainAxisOverflow(
 	direction: 'top' | 'bottom' | 'left' | 'right',
 	position: { left: number; top: number },
 	popupSize: { width: number; height: number },
-	boundary: { left: number; top: number; right: number; bottom: number }
+	boundary: PopupViewportBoundary
 ) {
 	// 归一化到 boundary 坐标系，避免绝对坐标基准偏差导致的误判
 	const normLeft = position.left - boundary.left
@@ -325,7 +332,8 @@ function createStyle() {
 	const popupWidth = viewComputedStyleRef.value?.value.width ?? 0
 	const popupHeight = viewComputedStyleRef.value?.value.height ?? 0
 
-	const boundary = resolveViewportBoundary(viewport)
+	const boundary = viewportBoundary.value
+
 	const clampXBoundary = (x: number) =>
 		Math.max(boundary.left, Math.min(x, boundary.right - popupWidth))
 	const clampYBoundary = (y: number) =>
@@ -482,6 +490,7 @@ function createStyle() {
 }
 
 function updateStyle() {
+	console.log('updateStyle: ')
 	if (checkAnchorConnected()) {
 		styleObject.value = createStyle()
 	} else {

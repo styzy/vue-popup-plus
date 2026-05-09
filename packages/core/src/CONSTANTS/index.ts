@@ -2,26 +2,27 @@ import type { ComputedRef, InjectionKey } from 'vue'
 import type { PopupAnchorPlacement } from '../controller'
 import type { PopupCore } from '../core'
 import type { Instance, PopupInstanceId } from '../instance'
-import type { PopupViewComputedStyle } from '../typings'
+import type { PopupViewComputedStyle, PopupViewportBoundary } from '../typings'
 
 // 组件名称
-export const P_COMPONENT_NAMES = {
+export const POPUP_COMPONENT_NAMES = {
 	ROOT: 'PopupRoot',
 	ANCHOR_TRIGGER: 'PopupAnchorTrigger',
 } as const
 
 // 内部组件名称
-export const P_INSIDE_COMPONENT_NAMES = {
+export const POPUP_INSIDE_COMPONENT_NAMES = {
 	ANCHOR_FRAME: 'PopupAnchorFrame',
 	ANIMATION: 'PopupAnimation',
 	FRAME: 'PopupFrame',
 	INSTANCE: 'PopupInstance',
 	MASK: 'PopupMask',
 	VIEW: 'PopupView',
+	VIEWPORT: 'PopupViewport',
 } as const
 
 // BEM 命名规范
-export const P_BEM_CONFIG = {
+export const POPUP_BEM_CONFIG = {
 	COMMON_SPERATOR: '-',
 	ELEMENT_SPERATOR: '__',
 	MODIFY_SPERATOR: '--',
@@ -143,18 +144,20 @@ type PopupInsideComponentInjectKeys = {
 	 * 弹出层实例
 	 */
 	INSTANCE: InjectionKey<Instance>
+	VIEWPORT_BOUNDARY: InjectionKey<ComputedRef<PopupViewportBoundary>>
 }
 
 /**
  * 内置源码组件注入键
  */
-export const P_INSIDE_COMPONENT_INJECTS: Readonly<PopupInsideComponentInjectKeys> =
+export const POPUP_INSIDE_COMPONENT_INJECTS: Readonly<PopupInsideComponentInjectKeys> =
 	{
 		CORE: Symbol(`${P_NAME_SPACE}-core`),
 		INSTANCE: Symbol(`${P_NAME_SPACE}-instance`),
+		VIEWPORT_BOUNDARY: Symbol(`${P_NAME_SPACE}-viewport-boundary`),
 	}
 
 /**
  * 文档地址
  */
-export const P_DOCUMENT_URL = 'http://vue-popup-plus.styzy.cn'
+export const POPUP_DOCUMENT_URL = 'http://vue-popup-plus.styzy.cn'

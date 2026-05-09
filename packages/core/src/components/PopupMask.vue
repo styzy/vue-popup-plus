@@ -1,27 +1,27 @@
 <template lang="pug">
-div(
-	:class="classObject"
-	:style="{ zIndex: store.zIndex.value }"
-	@click="handleClick()")
+div(:class="classObject" :style="styleObject" @click="handleClick()")
 </template>
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
-import { useNamespace, usePopup } from '../hooks'
 import {
 	POPUP_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_INJECTS,
-	P_INSIDE_COMPONENT_NAMES,
+	POPUP_INSIDE_COMPONENT_INJECTS,
+	POPUP_INSIDE_COMPONENT_NAMES,
 } from '../CONSTANTS'
+import { useNamespace, usePopup } from '../hooks'
 
 defineOptions({
-	name: P_INSIDE_COMPONENT_NAMES.MASK,
+	name: POPUP_INSIDE_COMPONENT_NAMES.MASK,
 })
 
-const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.MASK)
+const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.MASK)
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
-const instance = inject(P_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const instance = inject(POPUP_INSIDE_COMPONENT_INJECTS.INSTANCE)!
+const viewportBoundary = inject(
+	POPUP_INSIDE_COMPONENT_INJECTS.VIEWPORT_BOUNDARY
+)!
 
 const store = instance.store
 
@@ -30,6 +30,28 @@ const classObject = computed(() => [
 	ns.is('transparent', store.maskTransparent.value),
 	ns.is('blur', !store.maskTransparent.value && store.maskBlur.value),
 ])
+
+const styleObject = computed(() => {
+	const style: Record<string, string | number> = {
+		zIndex: store.zIndex.value,
+	}
+
+	if (viewportBoundary.value.fixed) {
+		style.position = 'fixed'
+		style.top = 0
+		style.left = 0
+		style.right = 0
+		style.bottom = 0
+	} else {
+		style.position = 'absolute'
+		style.top = `${viewportBoundary.value.top}px`
+		style.left = `${viewportBoundary.value.left}px`
+		style.width = `${viewportBoundary.value.width}px`
+		style.height = `${viewportBoundary.value.height}px`
+	}
+
+	return style
+})
 
 function handleClick() {
 	if (store.maskDestroy.value === false) return
