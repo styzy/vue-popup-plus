@@ -20,7 +20,7 @@ import {
 	type PopupAnchorShift,
 	type PopupRenderOption,
 } from '../controller'
-import { useNamespace, usePopup } from '../hooks'
+import { useNamespace, usePopup, useViewport } from '../hooks'
 import { type PopupViewComputedStyle } from '../typings'
 import { P_INSIDE_COMPONENT_NAMES, POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
 
@@ -30,6 +30,7 @@ defineOptions({
 
 const ns = useNamespace(P_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME)
 const popup = usePopup()
+const { resolveViewportBoundary } = useViewport()
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 const viewComputedStyleRef = shallowRef<PopupViewComputedStyle | null>(null)
 
@@ -58,7 +59,7 @@ let flipSourceSize: {
 	height: number
 } | null = null
 
-const actualAnchorPlacement = computed<PopupAnchorPlacement>(() => {
+const actualPlacement = computed<PopupAnchorPlacement>(() => {
 	const { direction: preferredDirection, align } = parsePlacement(placement)
 	const direction = lastDirection.value || preferredDirection
 	if (align === 'center') {
@@ -151,23 +152,6 @@ function unbindScrollObservers() {
 	scrollTargets.value = []
 }
 
-function checkAnchorConnected() {
-	return !!anchorElement?.isConnected
-}
-
-function updateStyle() {
-	if (checkAnchorConnected()) {
-		styleObject.value = createStyle()
-	} else {
-		destroy()
-	}
-}
-
-function destroy() {
-	const popup = usePopup()
-	popup.destroy(instanceId)
-}
-
 function parsePlacement(placement: PopupAnchorPlacement) {
 	const parts = placement.split('-') as [string, string?]
 	const direction = (parts[0] || 'bottom') as
@@ -191,49 +175,6 @@ function computeSpacesWithinBoundary(
 		below: boundary.bottom - rect.bottom,
 		left: rect.left - boundary.left,
 		right: boundary.right - rect.right,
-	}
-}
-
-function resolveViewportBoundary(
-	viewportParam: Required<PopupRenderOption>['viewport'],
-	scrollX: number,
-	scrollY: number,
-	viewportWidth: number,
-	viewportHeight: number
-) {
-	let boundaryLeft = scrollX
-	let boundaryTop = scrollY
-	let boundaryRight = scrollX + viewportWidth
-	let boundaryBottom = scrollY + viewportHeight
-	let boundaryElement: HTMLElement | null = null
-	if (typeof viewportParam === 'string') {
-		boundaryElement = document.querySelector(
-			viewportParam
-		) as HTMLElement | null
-	} else if (viewportParam instanceof HTMLElement) {
-		boundaryElement = viewportParam
-	}
-	if (boundaryElement) {
-		const r = boundaryElement.getBoundingClientRect()
-		const cs = getComputedStyle(boundaryElement)
-		const borderLeft = parseFloat(cs.borderLeftWidth || '0')
-		const borderTop = parseFloat(cs.borderTopWidth || '0')
-		const paddingLeft = parseFloat(cs.paddingLeft || '0')
-		const paddingTop = parseFloat(cs.paddingTop || '0')
-		const contentLeft = scrollX + r.left + borderLeft + paddingLeft
-		const contentTop = scrollY + r.top + borderTop + paddingTop
-		const contentRight = contentLeft + boundaryElement.clientWidth
-		const contentBottom = contentTop + boundaryElement.clientHeight
-		boundaryLeft = contentLeft
-		boundaryTop = contentTop
-		boundaryRight = contentRight
-		boundaryBottom = contentBottom
-	}
-	return {
-		left: boundaryLeft,
-		top: boundaryTop,
-		right: boundaryRight,
-		bottom: boundaryBottom,
 	}
 }
 
@@ -377,8 +318,6 @@ function createStyle() {
 
 	if (!anchorElement) return style
 
-	const viewportWidth = document.documentElement.clientWidth
-	const viewportHeight = document.documentElement.clientHeight
 	const scrollX = window.scrollX
 	const scrollY = window.scrollY
 	const { top, right, bottom, left, width, height } =
@@ -386,13 +325,7 @@ function createStyle() {
 	const popupWidth = viewComputedStyleRef.value?.value.width ?? 0
 	const popupHeight = viewComputedStyleRef.value?.value.height ?? 0
 
-	const boundary = resolveViewportBoundary(
-		viewport,
-		scrollX,
-		scrollY,
-		viewportWidth,
-		viewportHeight
-	)
+	const boundary = resolveViewportBoundary(viewport)
 	const clampXBoundary = (x: number) =>
 		Math.max(boundary.left, Math.min(x, boundary.right - popupWidth))
 	const clampYBoundary = (y: number) =>
@@ -548,7 +481,24 @@ function createStyle() {
 	return style
 }
 
-provide(POPUP_COMPONENT_INJECTS.ACTUAL_ANCHOR_PLACEMENT, actualAnchorPlacement)
+function updateStyle() {
+	if (checkAnchorConnected()) {
+		styleObject.value = createStyle()
+	} else {
+		destroy()
+	}
+}
+
+function checkAnchorConnected() {
+	return !!anchorElement?.isConnected
+}
+
+function destroy() {
+	const popup = usePopup()
+	popup.destroy(instanceId)
+}
+
+provide(POPUP_COMPONENT_INJECTS.ANCHOR_ACTUAL_PLACEMENT, actualPlacement)
 </script>
 
 <style lang="scss">

@@ -112,12 +112,12 @@ type PopupComponentInjectKeys = {
 	 * const popup = usePopup()
 	 *
 	 * // 获取当前组件所在弹出层的实际位置
-	 * const actualAnchorPlacement = inject(
-	 * 	POPUP_COMPONENT_INJECTS.ACTUAL_ANCHOR_PLACEMENT
+	 * const anchorActualPlacement = inject(
+	 * 	POPUP_COMPONENT_INJECTS.ANCHOR_ACTUAL_PLACEMENT
 	 * )
 	 * ```
 	 */
-	ACTUAL_ANCHOR_PLACEMENT: InjectionKey<ComputedRef<PopupAnchorPlacement>>
+	ANCHOR_ACTUAL_PLACEMENT: InjectionKey<ComputedRef<PopupAnchorPlacement>>
 }
 
 /**
@@ -128,7 +128,7 @@ type PopupComponentInjectKeys = {
 export const POPUP_COMPONENT_INJECTS: Readonly<PopupComponentInjectKeys> = {
 	INSTANCE_ID: Symbol(`${P_NAME_SPACE}-instance-id`),
 	COMPUTED_STYLE: Symbol(`${P_NAME_SPACE}-computed-style`),
-	ACTUAL_ANCHOR_PLACEMENT: Symbol(`${P_NAME_SPACE}-actual-anchor-placement`),
+	ANCHOR_ACTUAL_PLACEMENT: Symbol(`${P_NAME_SPACE}-anchor-actural-placement`),
 }
 
 /**

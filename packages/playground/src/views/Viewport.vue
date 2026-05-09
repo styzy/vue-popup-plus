@@ -4,6 +4,9 @@
 		GContainer
 			GTools(:component="() => import('./Viewport.vue')")
 			GTitle 核心 - 视区功能测试
+			GTitle(second) 基础功能
+			PButtonGroup(theme="primary" tight type="plain")
+				PButton(@click="handlePopup()" type="fill") 默认
 			GTitle(second) 遮罩功能
 			PButtonGroup(theme="primary" tight type="plain")
 				PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
@@ -65,6 +68,12 @@ const shareOptions = computed<PopupRenderOption>(() => ({
 	component: Demo,
 	viewport: viewportRef.value,
 }))
+
+function handlePopup() {
+	popup.render({
+		...shareOptions.value,
+	})
+}
 
 function handlePopupWithoutMask() {
 	popup.render({
@@ -326,6 +335,7 @@ function handlePopupAnimationCustom() {
 		justify-content: center;
 		align-items: stretch;
 		padding-right: 240px;
+		height: 200vh;
 		.viewport-wrapper {
 			height: 80vh;
 			background-color: rgba(28, 112, 209, 0.25);
