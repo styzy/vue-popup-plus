@@ -146,8 +146,8 @@ function createStyle() {
 
 	style.top = `${boundary.top}px`
 	style.left = `${boundary.left}px`
-	style.right = `${Math.max(0, documentWidth - boundary.right)}px`
-	style.bottom = `${Math.max(0, documentHeight - boundary.bottom)}px`
+	style.width = `${boundary.right - boundary.left}px`
+	style.height = `${boundary.bottom - boundary.top}px`
 
 	return style
 }
