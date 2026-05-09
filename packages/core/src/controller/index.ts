@@ -24,7 +24,7 @@ const defaultOptions: Required<
 	animationDuration: 100,
 	appendTo: 'body',
 	componentProps: {},
-	disableScroll: true,
+	disableScroll: false,
 	height: 'auto',
 	mask: true,
 	maskAnimation: POPUP_ANIMATIONS.FADE,

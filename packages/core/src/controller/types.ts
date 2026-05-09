@@ -116,7 +116,9 @@ type RenderConfigOption = {
 	/**
 	 * 弹出层渲染期间是否禁用窗口滚动
 	 *
-	 * - 默认值为 `true`
+	 * - 默认值为 `false`
+	 *
+	 * - 1.7.0 之前，该选项默认值为 `true` ，
 	 */
 	disableScroll?: boolean
 	/**
