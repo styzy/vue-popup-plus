@@ -56,7 +56,7 @@ onMounted(() => {
 		bindScrollObservers()
 		window.addEventListener('resize', updateBoundary)
 	}
-	createBoundary()
+	updateBoundary()
 })
 
 onBeforeUnmount(() => {
@@ -112,10 +112,6 @@ function unbindWindowResizeObserver() {
 	window.removeEventListener('resize', updateBoundary)
 }
 
-function createBoundary() {
-	return createViewportBoundary()
-}
-
 function updateBoundary() {
 	boundary.value = createBoundary()
 }
@@ -130,7 +126,7 @@ function getViewportElement(viewport: Required<PopupRenderOption>['viewport']) {
 	return null
 }
 
-function createViewportBoundary(): PopupViewportBoundary {
+function createBoundary(): PopupViewportBoundary {
 	const scrollX = window.scrollX
 	const scrollY = window.scrollY
 
@@ -138,11 +134,6 @@ function createViewportBoundary(): PopupViewportBoundary {
 		return createFixedBoundary()
 
 	const rect = element.value.getBoundingClientRect()
-	const computedStyle = getComputedStyle(element.value)
-	const borderLeft = parseFloat(computedStyle.borderLeftWidth || '0')
-	const borderTop = parseFloat(computedStyle.borderTopWidth || '0')
-	const paddingLeft = parseFloat(computedStyle.paddingLeft || '0')
-	const paddingTop = parseFloat(computedStyle.paddingTop || '0')
 	const top = scrollY + rect.top
 	const left = scrollX + rect.left
 	const right = left + element.value.clientWidth
