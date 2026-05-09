@@ -5,6 +5,12 @@ outline: 2
 
 # 核心 更新日志
 
+## 1.7.0 <Badge text="2026-02-27" />
+
+### 优化
+
+- 优化 `popup.render()` 函数的 `disableScroll` 选项，其默认值现在为 `false` ，在此之前为 `true`。
+
 ## 1.6.3 <Badge text="2026-02-27" />
 
 ### 优化
