@@ -1,6 +1,7 @@
-import { createCore, type PopupCore } from './core'
 import { type PopupConfigOption } from './config'
+import { createCore, type PopupCore } from './core'
 import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from './log'
+
 import './assets/styles/main.scss'
 
 export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'

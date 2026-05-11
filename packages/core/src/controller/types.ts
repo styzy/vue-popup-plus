@@ -41,7 +41,7 @@ export type PopupMaskDestroyHandler = (
 ) => void
 
 // 渲染组件选项
-type RenderComponentOption<TComponent extends Component> = {
+export type PopupRenderComponentOption<TComponent extends Component> = {
 	/**
 	 * 弹出层渲染的视图组件
 	 *
@@ -86,7 +86,7 @@ type RenderComponentOption<TComponent extends Component> = {
 }
 
 // 渲染配置选项
-type RenderConfigOption = {
+export type PopupRenderConfigOption = {
 	/**
 	 * 弹出层位置
 	 *
@@ -128,11 +128,11 @@ type RenderConfigOption = {
 	 */
 	animationDuration?: number
 	/**
-	 * 弹出层视窗区域
+	 * 弹出层视区元素
 	 *
-	 * - 视窗区域将作为触发自动翻转和平移的参考区域
-	 * - 如果不指定，将使用浏览器窗口作为视窗区域
-	 * - 当指定某个元素时，弹出层将以该元素为视窗区域
+	 * - 视区将作为触发自动翻转和平移的参考区域
+	 * - 如果不指定，将使用浏览器窗口作为视区
+	 * - 当指定某个元素时，弹出层将以该元素为视区
 	 * - 传入字符串时，会根据字符串选择器查询元素
 	 *
 	 * @since 1.7.0
@@ -147,7 +147,7 @@ type RenderConfigOption = {
 }
 
 // 渲染样式选项
-type RenderStyleOption = {
+export type PopupRenderStyleOption = {
 	/**
 	 * 弹出层宽度
 	 *
@@ -235,7 +235,7 @@ type RenderStyleOption = {
 }
 
 // 渲染视图选项
-type RenderViewOption = {
+export type PopupRenderViewOption = {
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -260,7 +260,7 @@ type RenderViewOption = {
 	 */
 	viewTranslateY?: number
 	/**
-	 * 弹出层视图是否允许超出窗口边界
+	 * 弹出层视图是否允许超出视区边界
 	 *
 	 * - 默认为 false
 	 */
@@ -268,7 +268,7 @@ type RenderViewOption = {
 }
 
 // 渲染遮罩选项
-type RenderMaskOption = {
+export type PopupRenderMaskOption = {
 	/**
 	 * 弹出层是否显示遮罩层
 	 *
@@ -317,10 +317,11 @@ type RenderMaskOption = {
 }
 
 // 渲染锚点选项
-type RenderAnchorOption = {
+export type PopupRenderAnchorOption = {
 	/**
 	 * 弹出层位置的锚点元素
 	 *
+	 * - 默认值为 `null` ，即不使用锚点元素
 	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
 	 * - 传入字符串时，会根据字符串选择器查询元素
 	 * - 可配合 `anchorPlacement` 参数指定弹出层的位置与对齐方式
@@ -396,12 +397,12 @@ type RenderAnchorOption = {
 }
 
 export type PopupRenderOption<TComponent extends Component = Component> =
-	RenderComponentOption<TComponent> &
-		RenderConfigOption &
-		RenderStyleOption &
-		RenderViewOption &
-		RenderMaskOption &
-		RenderAnchorOption
+	PopupRenderComponentOption<TComponent> &
+		PopupRenderConfigOption &
+		PopupRenderStyleOption &
+		PopupRenderViewOption &
+		PopupRenderMaskOption &
+		PopupRenderAnchorOption
 
 export type PopupUpdateOption = Omit<
 	PopupRenderOption,

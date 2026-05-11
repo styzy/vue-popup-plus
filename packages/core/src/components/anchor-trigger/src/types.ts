@@ -2,6 +2,10 @@ import type { VNodeChild } from 'vue'
 import type {
 	PopupAnchorPlacement,
 	PopupAnchorShift,
+	PopupRenderConfigOption,
+	PopupRenderMaskOption,
+	PopupRenderStyleOption,
+	PopupRenderViewOption,
 } from '../../../controller'
 
 export type PopupAnchorTrigger = [
@@ -11,7 +15,7 @@ export type PopupAnchorTrigger = [
 	'contextmenu',
 ][number]
 
-export type PopupAnchorTriggerProps = {
+type TriggerProps = {
 	/**
 	 * 触发方式
 	 *
@@ -26,10 +30,28 @@ export type PopupAnchorTriggerProps = {
 	 */
 	trigger?: PopupAnchorTrigger | PopupAnchorTrigger[]
 	/**
-	 * 弹出层位置
+	 * 渲染延迟时间
+	 *
+	 * - 默认值为 0 ，单位为毫秒
+	 * - 用于设置渲染弹出层的延迟时间
+	 */
+	renderDelay?: number
+	/**
+	 * 销毁延迟时间
+	 *
+	 * - 默认值为 200 ，单位为毫秒
+	 * - 用于设置销毁弹出层的延迟时间
+	 */
+	destroyDelay?: number
+}
+
+type ConfigProps = Omit<PopupRenderConfigOption, 'placement'> & {
+	/**
+	 * 锚点弹出层位置与对齐方式
 	 *
 	 * - 默认为 `'top'` ，即顶部居中对齐
 	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
 	 *
 	 * - 可选值包括：
 	 *   - `left-start` ：左侧，顶部对齐
@@ -46,6 +68,9 @@ export type PopupAnchorTriggerProps = {
 	 *   - `right-end` ：右侧，底部对齐
 	 */
 	placement?: PopupAnchorPlacement
+}
+
+type AnchorProps = {
 	/**
 	 * 是否在视窗空间不足时进行翻转
 	 *
@@ -78,30 +103,14 @@ export type PopupAnchorTriggerProps = {
 	 *   - `none` ：不进行平移
 	 */
 	shift?: PopupAnchorShift
-	/**
-	 * 视窗元素
-	 *
-	 * - 视窗区域将作为触发自动翻转和平移的参考区域
-	 * - 如果不指定，将使用浏览器窗口作为视窗区域
-	 * - 当指定某个元素时，弹出层将以该元素为视窗区域
-	 * - 传入字符串时，会根据字符串选择器查询元素
-	 */
-	viewport?: HTMLElement | string | null
-	/**
-	 * 渲染延迟时间
-	 *
-	 * - 默认值为 0 ，单位为毫秒
-	 * - 用于设置渲染弹出层的延迟时间
-	 */
-	renderDelay?: number
-	/**
-	 * 销毁延迟时间
-	 *
-	 * - 默认值为 200 ，单位为毫秒
-	 * - 用于设置销毁弹出层的延迟时间
-	 */
-	destroyDelay?: number
 }
+
+export type PopupAnchorTriggerProps = TriggerProps &
+	ConfigProps &
+	AnchorProps &
+	PopupRenderStyleOption &
+	PopupRenderViewOption &
+	PopupRenderMaskOption
 
 export type PopupAnchorTriggerEmits = {
 	/**

@@ -5,11 +5,7 @@ import {
 	type ObjectDirective,
 	type VNode,
 } from 'vue'
-import {
-	createController,
-	type PopupController,
-	type PopupRenderOption,
-} from '../controller'
+import { createController, type PopupController } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
 import { defaultPrintLog, PopupLog, PopupLogType } from '../log'
