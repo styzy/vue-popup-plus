@@ -36,7 +36,6 @@
 		"vue-popup-plus": "workspace:~"
 	},
 	"devDependencies": {
-		"@prettier/plugin-pug": "catalog:",
 		"@tsconfig/node22": "catalog:",
 		"@types/jsdom": "catalog:",
 		"@types/node": "catalog:",

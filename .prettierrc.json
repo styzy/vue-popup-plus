@@ -12,7 +12,10 @@
 	"tabWidth": 4,
 	"useTabs": true,
 	"vueIndentScriptAndStyle": false,
-	"plugins": ["@prettier/plugin-pug","@trivago/prettier-plugin-sort-imports"],
+	"plugins": [
+		"@prettier/plugin-pug",
+		"@trivago/prettier-plugin-sort-imports"
+	],
 	"pugAttributeSeparator": "none",
 	"pugCommentPreserveSpaces": "trim-all",
 	"pugSingleQuote": false,
@@ -30,10 +33,13 @@
 		"^vue(.*)$",
 		"<THIRD_PARTY_MODULES>",
 		"^@(?!/)(.*)$",
-		"^(?!.*\\.vue$)^@/(.*)$",
-		"^(?!.*\\.vue$)^[./]",
+		"^(?!.*\\.(vue|css|scss|sass|less|styl)$)^@/(.*)$",
+		"^(?!.*\\.(vue|css|scss|sass|less|styl)$)^[./]",
 		"<SEPARATOR>",
 		"^@/(.*)\\.vue$",
-		"^[./].*\\.vue$"
+		"^[./].*\\.vue$",
+		"<SEPARATOR>",
+		"^@/(.*)\\.(css|scss|sass|less|styl)$",
+		"^[./].*\\.(css|scss|sass|less|styl)$"
 	]
 }

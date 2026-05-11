@@ -22,7 +22,6 @@
 		"vue-router": "catalog:"
 	},
 	"devDependencies": {
-		"@prettier/plugin-pug": "catalog:",
 		"@tsconfig/node22": "catalog:",
 		"@types/jsdom": "catalog:",
 		"@types/node": "catalog:",

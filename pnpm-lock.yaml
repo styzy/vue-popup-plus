@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     '@prettier/plugin-pug':
-      specifier: ^3.4.2
+      specifier: 3.4.2
       version: 3.4.2
     '@tsconfig/node22':
       specifier: ^22.0.2
@@ -119,6 +119,9 @@ importers:
 
   .:
     devDependencies:
+      '@prettier/plugin-pug':
+        specifier: 'catalog:'
+        version: 3.4.2(prettier@3.6.2)
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^6.0.2
         version: 6.0.2(@vue/compiler-sfc@3.5.24)(prettier@3.6.2)
@@ -129,9 +132,6 @@ importers:
         specifier: 'catalog:'
         version: 3.5.24(typescript@5.8.3)
     devDependencies:
-      '@prettier/plugin-pug':
-        specifier: 'catalog:'
-        version: 3.4.2(prettier@3.6.2)
       '@tsconfig/node22':
         specifier: 'catalog:'
         version: 22.0.2
@@ -223,9 +223,6 @@ importers:
         specifier: workspace:*
         version: link:../plugin
     devDependencies:
-      '@prettier/plugin-pug':
-        specifier: 'catalog:'
-        version: 3.4.2(prettier@3.6.2)
       '@tsconfig/node22':
         specifier: 'catalog:'
         version: 22.0.2
@@ -317,9 +314,6 @@ importers:
         specifier: 'catalog:'
         version: 3.5.24(typescript@5.8.3)
     devDependencies:
-      '@prettier/plugin-pug':
-        specifier: 'catalog:'
-        version: 3.4.2(prettier@3.6.2)
       '@tsconfig/node22':
         specifier: 'catalog:'
         version: 22.0.2
@@ -420,9 +414,6 @@ importers:
         specifier: 'catalog:'
         version: 4.6.3(vue@3.5.24(typescript@5.8.3))
     devDependencies:
-      '@prettier/plugin-pug':
-        specifier: 'catalog:'
-        version: 3.4.2(prettier@3.6.2)
       '@tsconfig/node22':
         specifier: 'catalog:'
         version: 22.0.2
@@ -502,9 +493,6 @@ importers:
         specifier: workspace:~
         version: link:../core
     devDependencies:
-      '@prettier/plugin-pug':
-        specifier: 'catalog:'
-        version: 3.4.2(prettier@3.6.2)
       '@tsconfig/node22':
         specifier: 'catalog:'
         version: 22.0.2

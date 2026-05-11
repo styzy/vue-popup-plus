@@ -27,11 +27,10 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"vue": "catalog:",
-		"markdown-it-container": "catalog:"
+		"markdown-it-container": "catalog:",
+		"vue": "catalog:"
 	},
 	"devDependencies": {
-		"@prettier/plugin-pug": "catalog:",
 		"@tsconfig/node22": "catalog:",
 		"@types/jsdom": "catalog:",
 		"@types/markdown-it": "catalog:",

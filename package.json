@@ -19,6 +19,7 @@
 		"login": "npm login --registry=https://registry.npmjs.org"
 	},
 	"devDependencies": {
+		"@prettier/plugin-pug": "catalog:",
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2"
 	}
 }

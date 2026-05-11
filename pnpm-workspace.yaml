@@ -3,7 +3,7 @@ packages:
   - '!**/test/**'
 
 catalog:
-  '@prettier/plugin-pug': ^3.4.2
+  '@prettier/plugin-pug': 3.4.2
   '@tsconfig/node22': ^22.0.2
   '@types/jsdom': ^21.1.7
   '@types/markdown-it': ^14.1.2
