@@ -45,31 +45,6 @@ type TriggerProps = {
 	destroyDelay?: number
 }
 
-type ConfigProps = Omit<PopupRenderConfigOption, 'placement'> & {
-	/**
-	 * 锚点弹出层位置与对齐方式
-	 *
-	 * - 默认为 `'top'` ，即顶部居中对齐
-	 * - 指定弹出层渲染对于锚点的对齐方式
-	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 *
-	 * - 可选值包括：
-	 *   - `left-start` ：左侧，顶部对齐
-	 *   - `left` ：左侧，居中对齐
-	 *   - `left-end` ：左侧，底部对齐
-	 *   - `top-start` ：顶部，左侧对齐
-	 *   - `top` ：顶部，居中对齐
-	 *   - `top-end` ：顶部，右侧对齐
-	 *   - `bottom-start` ：底部，左侧对齐
-	 *   - `bottom` ：底部，居中对齐
-	 *   - `bottom-end` ：底部，右侧对齐
-	 *   - `right-start` ：右侧，顶部对齐
-	 *   - `right` ：右侧，居中对齐
-	 *   - `right-end` ：右侧，底部对齐
-	 */
-	placement?: PopupAnchorPlacement
-}
-
 type AnchorProps = {
 	/**
 	 * 是否在视窗空间不足时进行翻转
@@ -103,6 +78,31 @@ type AnchorProps = {
 	 *   - `none` ：不进行平移
 	 */
 	shift?: PopupAnchorShift
+}
+
+type ConfigProps = Omit<PopupRenderConfigOption, 'placement'> & {
+	/**
+	 * 锚点弹出层位置与对齐方式
+	 *
+	 * - 默认为 `'top'` ，即顶部居中对齐
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 *
+	 * - 可选值包括：
+	 *   - `left-start` ：左侧，顶部对齐
+	 *   - `left` ：左侧，居中对齐
+	 *   - `left-end` ：左侧，底部对齐
+	 *   - `top-start` ：顶部，左侧对齐
+	 *   - `top` ：顶部，居中对齐
+	 *   - `top-end` ：顶部，右侧对齐
+	 *   - `bottom-start` ：底部，左侧对齐
+	 *   - `bottom` ：底部，居中对齐
+	 *   - `bottom-end` ：底部，右侧对齐
+	 *   - `right-start` ：右侧，顶部对齐
+	 *   - `right` ：右侧，居中对齐
+	 *   - `right-end` ：右侧，底部对齐
+	 */
+	placement?: PopupAnchorPlacement
 }
 
 export type PopupAnchorTriggerProps = TriggerProps &

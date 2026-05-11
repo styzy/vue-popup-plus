@@ -11,15 +11,15 @@ import {
 	ref,
 } from 'vue'
 import { isParentNode } from 'utils'
+import { usePopup } from '../../..//hooks'
+import { POPUP_COMPONENT_NAMES } from '../../../CONSTANTS'
+import { type PopupInstanceId } from '../../../instance'
 import {
 	type PopupAnchorTrigger,
 	type PopupAnchorTriggerEmits,
 	type PopupAnchorTriggerProps,
 	type PopupAnchorTriggerSlots,
 } from './types'
-import { usePopup } from '../../..//hooks'
-import { type PopupInstanceId } from '../../../instance'
-import { POPUP_COMPONENT_NAMES } from '../../../CONSTANTS'
 
 defineOptions({
 	name: POPUP_COMPONENT_NAMES.ANCHOR_TRIGGER,
@@ -29,13 +29,13 @@ const popup = usePopup()
 
 const {
 	trigger = 'hover',
-	placement = 'top',
-	flip = false,
-	flipAdvance = 0,
-	shift = 'none',
-	viewport = null,
 	renderDelay = 0,
 	destroyDelay = 200,
+	flip: anchorFlip,
+	flipAdvance: anchorFlipAdvance,
+	shift: anchorShift,
+	placement: anchorPlacement,
+	...otherProps
 } = defineProps<PopupAnchorTriggerProps>()
 
 const triggers = computed(() =>
@@ -291,13 +291,11 @@ function renderPopup(callback?: () => void) {
 			},
 		},
 		anchor: anchorElement.value,
-		anchorPlacement: placement,
-		anchorFlip: flip,
-		anchorFlipAdvance: flipAdvance,
-		anchorShift: shift,
-		viewport,
-		mask: false,
-		disableScroll: false,
+		anchorPlacement,
+		anchorFlip,
+		anchorFlipAdvance,
+		anchorShift,
+		...otherProps,
 		onMounted() {
 			isRendered.value = true
 		},

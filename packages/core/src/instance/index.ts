@@ -13,8 +13,8 @@ import {
 	type VNode,
 } from 'vue'
 import { wait } from 'utils'
-import { type PopupCore } from '../core'
 import type { PopupRenderOption, PopupUpdateOption } from '../controller'
+import { type PopupCore } from '../core'
 import type { PopupViewComputedStyle } from '../typings'
 
 import PopupInstance from '../components/PopupInstance.vue'
@@ -85,9 +85,13 @@ const createStore: InstanceStoreCreator = (
 	}
 }
 
-function getParentElement(appendTo: Element | string) {
+function getParentElement(appendTo: HTMLElement | string | null) {
+	if (appendTo === null) {
+		return document.body
+	}
 	if (typeof appendTo === 'string') {
-		appendTo = document.querySelector(appendTo) || document.body
+		appendTo =
+			document.querySelector<HTMLElement>(appendTo) || document.body
 	}
 	return appendTo
 }

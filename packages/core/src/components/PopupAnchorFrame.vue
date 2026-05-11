@@ -490,7 +490,6 @@ function createStyle() {
 }
 
 function updateStyle() {
-	console.log('updateStyle: ')
 	if (checkAnchorConnected()) {
 		styleObject.value = createStyle()
 	} else {

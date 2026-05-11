@@ -184,6 +184,13 @@ export class Controller implements PopupController {
 		}
 
 		zIndex = zIndex ?? this.#core.config.nextZIndex()
+		;(
+			Object.keys(options) as (keyof Omit<PopupRenderOption, 'zIndex'>)[]
+		).forEach((key: keyof Omit<PopupRenderOption, 'zIndex'>) => {
+			if (options[key] === undefined) {
+				delete options[key]
+			}
+		})
 
 		const mergedOptions = {
 			...defaultOptions,

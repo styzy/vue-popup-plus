@@ -110,9 +110,9 @@ export type PopupRenderConfigOption = {
 	/**
 	 * 弹出层挂载的父元素
 	 *
-	 * - 不指定时，默认挂载到 body 元素下
+	 * - 默认值为 `'body'` ，即挂载到 body 元素下
 	 */
-	appendTo?: Element | string
+	appendTo?: HTMLElement | string
 	/**
 	 * 弹出层渲染期间是否禁用窗口滚动
 	 *
