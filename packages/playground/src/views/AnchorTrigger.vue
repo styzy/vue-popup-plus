@@ -4,7 +4,7 @@ GContainer.anchor-trigger
 	GTitle 核心 - 锚点触发器测试
 	GTitle(second) 基础
 	PButtonGroup(theme="primary" tight type="plain")
-		PopupAnchorTrigger
+		PopupAnchorTrigger(disable-scroll)
 			PButton(type="fill") 默认
 			template(#popup)
 				DemoAnchor
@@ -124,9 +124,10 @@ GContainer.anchor-trigger
 </template>
 
 <script lang="ts" setup>
-import { PopupAnchorTrigger } from 'vue-popup-plus'
-import DemoAnchor from './demo/DemoAnchor.vue'
 import { useTemplateRef } from 'vue'
+import { PopupAnchorTrigger } from 'vue-popup-plus'
+
+import DemoAnchor from './demo/DemoAnchor.vue'
 
 const positionViewportRef = useTemplateRef('positionViewportRef')
 </script>

@@ -16,20 +16,20 @@ type Props = {
 	version: PopupVersion
 	level?: Level
 	author?: string
-	finish?: boolean
+	done?: boolean
 }
 const {
 	version,
 	level = 'medium',
 	author = 'unassigned',
-	finish = false,
+	done = false,
 } = defineProps<Props>()
 
 const badgeText = computed(
-	() => `${version} - ${finish ? 'finish' : level} - ${author}`
+	() => `${version} - ${done ? 'finish' : level} - ${author}`
 )
 const badgeType = computed(() =>
-	finish
+	done
 		? 'success'
 		: {
 				high: 'danger',
@@ -42,7 +42,7 @@ const badgeType = computed(() =>
 <style lang="scss" scoped>
 .in-todo {
 	&.success {
-		background-color: var(--popup-plugin-preset-color-success);
+		background-color: var(--docs-color-success);
 		color: #ffffff;
 		opacity: 0.8;
 		&:hover {

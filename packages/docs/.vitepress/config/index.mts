@@ -74,12 +74,23 @@ export default defineConfig({
 			port: 9528,
 		},
 		resolve: {
-			alias: {
-				// 'vitepress-plugin-markdown-container-demo': fileURLToPath(
-				// 	new URL('../../../md-demo/src/index', import.meta.url)
-				// ),
-				'@theme': fileURLToPath(new URL('../theme', import.meta.url)),
-			},
+			alias: [
+				{
+					find: '@theme',
+					replacement: fileURLToPath(
+						new URL('../theme', import.meta.url)
+					),
+				},
+				{
+					find: /^.*\/VPSidebarItem\.vue$/,
+					replacement: fileURLToPath(
+						new URL(
+							'../theme/components/DSidebarItem.vue',
+							import.meta.url
+						)
+					),
+				},
+			],
 		},
 		plugins: [groupIconVitePlugin()],
 		css: {

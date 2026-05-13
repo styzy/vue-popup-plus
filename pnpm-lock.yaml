@@ -115,6 +115,11 @@ catalogs:
       specifier: ^3.0.4
       version: 3.1.2
 
+patchedDependencies:
+  vitepress:
+    hash: a84714c0b6e7c68e8da4a096cc8c09d102a7a92eee6df99a6a6445b80a7629dc
+    path: patches/vitepress.patch
+
 importers:
 
   .:
@@ -291,7 +296,7 @@ importers:
         version: 8.0.3(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1))(vue@3.5.24(typescript@5.8.3))
       vitepress:
         specifier: 'catalog:'
-        version: 2.0.0-alpha.12(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(sass@1.97.0)(stylus@0.64.0)(typescript@5.8.3)(yaml@2.8.1)
+        version: 2.0.0-alpha.12(patch_hash=a84714c0b6e7c68e8da4a096cc8c09d102a7a92eee6df99a6a6445b80a7629dc)(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(sass@1.97.0)(stylus@0.64.0)(typescript@5.8.3)(yaml@2.8.1)
       vitepress-plugin-group-icons:
         specifier: 'catalog:'
         version: 1.6.5(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1))
@@ -6579,7 +6584,7 @@ snapshots:
     optionalDependencies:
       vite: 7.1.12(@types/node@22.18.12)(jiti@2.6.1)(sass@1.97.0)(stylus@0.64.0)(yaml@2.8.1)
 
-  vitepress@2.0.0-alpha.12(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(sass@1.97.0)(stylus@0.64.0)(typescript@5.8.3)(yaml@2.8.1):
+  vitepress@2.0.0-alpha.12(patch_hash=a84714c0b6e7c68e8da4a096cc8c09d102a7a92eee6df99a6a6445b80a7629dc)(@types/node@22.18.12)(async-validator@4.2.5)(jiti@2.6.1)(postcss@8.5.6)(sass@1.97.0)(stylus@0.64.0)(typescript@5.8.3)(yaml@2.8.1):
     dependencies:
       '@docsearch/css': 4.3.2
       '@docsearch/js': 4.3.2

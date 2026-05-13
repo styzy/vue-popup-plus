@@ -156,6 +156,7 @@ export const themeConfig = defineConfig({
 						{
 							text: '视图位置偏移',
 							link: '/guide/translation',
+							since: '1.1.0+',
 						},
 						{
 							text: '遮罩层样式',
@@ -183,6 +184,11 @@ export const themeConfig = defineConfig({
 					text: '进阶',
 					items: [
 						{
+							text: '自定义视区',
+							link: '/guide/viewport',
+							since: '1.7.0+',
+						},
+						{
 							text: '获取弹出层实例ID',
 							link: '/guide/get-instance-id',
 						},
@@ -193,6 +199,7 @@ export const themeConfig = defineConfig({
 						{
 							text: '获取视图计算样式',
 							link: '/guide/get-computed-style',
+							since: '1.6.0+',
 						},
 					],
 				},
@@ -233,6 +240,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Message 消息',
 							link: '/guide-plugin-preset/message',
+							since: '1.7.0+',
 						},
 						{
 							text: 'Alert 提示',
@@ -253,6 +261,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Drawer 抽屉',
 							link: '/guide-plugin-preset/drawer',
+							since: '1.6.0+',
 						},
 						{
 							text: 'Loading 加载遮罩',
@@ -285,6 +294,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Message 消息',
 							link: '/demo/plugin-preset/message',
+							since: '1.7.0+',
 						},
 						{
 							text: 'Alert 提示',
@@ -305,6 +315,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Drawer 抽屉',
 							link: '/demo/plugin-preset/drawer',
+							since: '1.6.0+',
 						},
 						{
 							text: 'Loading 加载遮罩',

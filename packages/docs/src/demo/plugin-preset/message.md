@@ -1,4 +1,6 @@
-# Message 消息 DEMO
+# Message 消息 DEMO <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
 
 ::: tip
 以下 DEMO 由 预置插件 `vue-popup-plus-plugin-preset` 提供。

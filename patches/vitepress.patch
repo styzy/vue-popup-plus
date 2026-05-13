@@ -1,0 +1,48 @@
+diff --git a/dist/client/theme-default/without-fonts.js b/dist/client/theme-default/without-fonts.js
+index ec536c6da9847cb57b5eee93207cceb2e326c614..8287908d1556dbf6ee546806ae5b55b4dd36d405 100644
+--- a/dist/client/theme-default/without-fonts.js
++++ b/dist/client/theme-default/without-fonts.js
+@@ -28,6 +28,7 @@ export { default as VPTeamPage } from './components/VPTeamPage.vue';
+ export { default as VPTeamPageSection } from './components/VPTeamPageSection.vue';
+ export { default as VPTeamPageTitle } from './components/VPTeamPageTitle.vue';
+ export { useLayout } from './composables/layout';
++export { useSidebarItemControl } from './composables/sidebar';
+ const theme = {
+     Layout,
+     enhanceApp: ({ app }) => {
+diff --git a/theme.d.ts b/theme.d.ts
+index 9d6664003a52e463deccb86b70525de44a4e432c..fab3193dca4517b78095c82e47bc2e7e84e52c24 100644
+--- a/theme.d.ts
++++ b/theme.d.ts
+@@ -36,6 +36,16 @@ export declare const useLayout: () => {
+   hasLocalNav: ComputedRef<boolean>
+ }
+ 
++export declare const useSidebarItemControl: (item: ComputedRef<DefaultTheme.SidebarItem>) => {
++    collapsed: Ref<boolean>,
++    collapsible: ComputedRef<boolean>,
++    isLink: ComputedRef<boolean>,
++    isActiveLink: Ref<boolean>,
++    hasActiveLink: ComputedRef<boolean>,
++    hasChildren: ComputedRef<boolean>,
++    toggle: () => void,
++}
++
+ // TODO: add props for these
+ export declare const VPBadge: DefineComponent
+ export declare const VPButton: DefineComponent
+diff --git a/types/default-theme.d.ts b/types/default-theme.d.ts
+index 338c9432c7c7d9ca0eb43bc003a6bbe0fc308dca..88b1dd13a73af8350070e948c0ebc233f5436453 100644
+--- a/types/default-theme.d.ts
++++ b/types/default-theme.d.ts
+@@ -270,6 +270,10 @@ export namespace DefaultTheme {
+ 
+     rel?: string
+     target?: string
++	/**
++	 * Since version
++	 */
++	since?: string
+   }
+ 
+   // edit link -----------------------------------------------------------------
