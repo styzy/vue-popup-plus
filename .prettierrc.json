@@ -30,16 +30,21 @@
 	"pugExplicitDiv": false,
 	"importOrderSeparation": true,
 	"importOrder": [
-		"^vue(.*)$",
+		"^vue(.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"<THIRD_PARTY_MODULES>",
-		"^@(?!/)(.*)$",
-		"^(?!.*\\.(vue|css|scss|sass|less|styl)$)^@/(.*)$",
-		"^(?!.*\\.(vue|css|scss|sass|less|styl)$)^[./]",
+		"^@(?!/)(.*)(?<!\\.(vue|css|scss|less|styl))$",
+		"^@/(.*)(?<!\\.(vue|css|scss|less|styl))$",
+		"^[./](.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"<SEPARATOR>",
+		"^vue(.*)\\.vue$",
+		".*\\.vue$",
+		"^@(?!/)(.*)\\.vue$",
 		"^@/(.*)\\.vue$",
 		"^[./].*\\.vue$",
 		"<SEPARATOR>",
-		"^@/(.*)\\.(css|scss|sass|less|styl)$",
-		"^[./].*\\.(css|scss|sass|less|styl)$"
+		".*\\.(css|scss|less|styl)$",
+		"^@(?!/)(.*)\\.(css|scss|less|styl)$",
+		"^@/(.*)\\.(css|scss|less|styl)$",
+		"^[./].*\\.(css|scss|less|styl)$"
 	]
 }
