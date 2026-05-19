@@ -32,19 +32,23 @@
 	"importOrder": [
 		"^vue(.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"<THIRD_PARTY_MODULES>",
+		"^(?!@|\\.|/).*(?<!\\.(vue|css|scss|less|styl))$",
 		"^@(?!/)(.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"^@/(.*)(?<!\\.(vue|css|scss|less|styl))$",
+		"^/(.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"^[./](.*)(?<!\\.(vue|css|scss|less|styl))$",
 		"<SEPARATOR>",
 		"^vue(.*)\\.vue$",
-		".*\\.vue$",
+		"^(?!@|\\.|/).*\\.vue$",
 		"^@(?!/)(.*)\\.vue$",
 		"^@/(.*)\\.vue$",
+		"^/.*\\.vue$",
 		"^[./].*\\.vue$",
 		"<SEPARATOR>",
-		".*\\.(css|scss|less|styl)$",
+		"^(?!@|\\.|/).*\\.(css|scss|less|styl)$",
 		"^@(?!/)(.*)\\.(css|scss|less|styl)$",
 		"^@/(.*)\\.(css|scss|less|styl)$",
+		"^/.*\\.(css|scss|less|styl)$",
 		"^[./].*\\.(css|scss|less|styl)$"
 	]
 }
