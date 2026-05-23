@@ -7,6 +7,10 @@
 		"container",
 		"demo"
 	],
+	"license": "MIT",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org"
+	},
 	"type": "module",
 	"files": [
 		"dist"
@@ -59,6 +63,5 @@
 		"vite-plugin-vue-devtools": "catalog:",
 		"vitest": "catalog:",
 		"vue-tsc": "catalog:"
-	},
-	"license": "MIT"
+	}
 }
