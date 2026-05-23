@@ -37,32 +37,28 @@ const scrollTargets = shallowRef<Array<Element | Window>>([])
 watch(
 	() => viewport,
 	() => {
-		element.value = getViewportElement(viewport)
 		unbindResizeObserver()
 		unbindScrollObservers()
 		unbindWindowResizeObserver()
-		if (element.value) {
-			bindResizeObserver()
-			bindScrollObservers()
-			bindWindowResizeObserver()
-		}
+		element.value = getViewportElement(viewport)
+		bindResizeObserver()
+		bindScrollObservers()
+		bindWindowResizeObserver()
 		updateBoundary()
+	},
+	{
+		immediate: true,
 	}
 )
 
 onMounted(() => {
-	if (element.value) {
-		bindResizeObserver()
-		bindScrollObservers()
-		window.addEventListener('resize', updateBoundary)
-	}
 	updateBoundary()
 })
 
 onBeforeUnmount(() => {
 	unbindResizeObserver()
 	unbindScrollObservers()
-	window.removeEventListener('resize', updateBoundary)
+	unbindWindowResizeObserver()
 })
 
 function bindResizeObserver() {
