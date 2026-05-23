@@ -146,8 +146,9 @@ export const themeConfig = defineConfig({
 							link: '/guide/render',
 						},
 						{
-							text: '视图尺寸',
-							link: '/guide/size',
+							text: '视区',
+							link: '/guide/viewport',
+							since: '1.7.0',
 						},
 						{
 							text: '视图位置',
@@ -156,7 +157,11 @@ export const themeConfig = defineConfig({
 						{
 							text: '视图位置偏移',
 							link: '/guide/translation',
-							since: '1.1.0+',
+							since: '1.1.0',
+						},
+						{
+							text: '视图尺寸',
+							link: '/guide/size',
 						},
 						{
 							text: '遮罩层样式',
@@ -175,19 +180,49 @@ export const themeConfig = defineConfig({
 							link: '/guide/behavior',
 						},
 						{
+							text: '渲染指令',
+							link: '/guide/directive',
+							since: '1.7.0',
+						},
+						{
 							text: '销毁弹出层',
 							link: '/guide/destroy',
 						},
 					],
 				},
 				{
-					text: '进阶',
+					text: '锚点视图',
 					items: [
 						{
-							text: '自定义视区',
-							link: '/guide/viewport',
-							since: '1.7.0+',
+							text: '锚点',
+							link: '/guide/anchor',
+							since: '1.7.0',
 						},
+						{
+							text: '锚点视图位置',
+							link: '/guide/anchor-placement',
+							since: '1.7.0',
+						},
+						{
+							text: '自动翻转',
+							link: '/guide/anchor-flip',
+							since: '1.7.0',
+						},
+						{
+							text: '自动平移',
+							link: '/guide/anchor-shift',
+							since: '1.7.0',
+						},
+						{
+							text: '锚点触发器',
+							link: '/guide/anchor-trigger',
+							since: '1.7.0',
+						},
+					],
+				},
+				{
+					text: '进阶',
+					items: [
 						{
 							text: '获取弹出层实例ID',
 							link: '/guide/get-instance-id',
@@ -199,7 +234,7 @@ export const themeConfig = defineConfig({
 						{
 							text: '获取视图计算样式',
 							link: '/guide/get-computed-style',
-							since: '1.6.0+',
+							since: '1.6.0',
 						},
 					],
 				},
@@ -240,7 +275,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Message 消息',
 							link: '/guide-plugin-preset/message',
-							since: '1.7.0+',
+							since: '1.7.0',
 						},
 						{
 							text: 'Alert 提示',
@@ -261,7 +296,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Drawer 抽屉',
 							link: '/guide-plugin-preset/drawer',
-							since: '1.6.0+',
+							since: '1.6.0',
 						},
 						{
 							text: 'Loading 加载遮罩',
@@ -294,7 +329,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Message 消息',
 							link: '/demo/plugin-preset/message',
-							since: '1.7.0+',
+							since: '1.7.0',
 						},
 						{
 							text: 'Alert 提示',
@@ -315,7 +350,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Drawer 抽屉',
 							link: '/demo/plugin-preset/drawer',
-							since: '1.6.0+',
+							since: '1.6.0',
 						},
 						{
 							text: 'Loading 加载遮罩',
@@ -360,6 +395,7 @@ export const themeConfig = defineConfig({
 						{
 							text: '自定义指令扩展',
 							link: '/plugin/directive-extend',
+							since: '1.7.0',
 						},
 						{
 							text: '辅助功能',
@@ -367,23 +403,26 @@ export const themeConfig = defineConfig({
 						},
 					],
 				},
-				{
-					text: '历史',
-					items: [
-						{
-							text: '定义插件 1.5.x',
-							link: '/plugin/define-1.5.x',
-						},
-						{
-							text: '功能扩展 1.5.x',
-							link: '/plugin/function-extend-1.5.x',
-						},
-						{
-							text: '动画扩展 1.5.x',
-							link: '/plugin/animation-extend-1.5.x',
-						},
-					],
-				},
+				// {
+				// 	text: '历史',
+				// 	items: [
+				// 		{
+				// 			text: '定义插件',
+				// 			link: '/plugin/define-1.5.x',
+				// 			deprecated: '1.6.0',
+				// 		},
+				// 		{
+				// 			text: '功能扩展',
+				// 			link: '/plugin/function-extend-1.5.x',
+				// 			deprecated: '1.6.0',
+				// 		},
+				// 		{
+				// 			text: '动画扩展',
+				// 			link: '/plugin/animation-extend-1.5.x',
+				// 			deprecated: '1.6.0',
+				// 		},
+				// 	],
+				// },
 			],
 			'/api/': [
 				{

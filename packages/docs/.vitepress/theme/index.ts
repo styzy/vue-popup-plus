@@ -1,15 +1,15 @@
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
-import { components } from './components'
 import { createPopupPlus } from 'vue-popup-plus'
 import { createPresetPlugin } from 'vue-popup-plus-plugin-preset'
+import type { Theme } from 'vitepress'
+import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
+import DefaultTheme from 'vitepress/theme'
+import { components } from './components'
 
 import 'virtual:group-icons.css'
-import './style.css'
 import '@theme/styles/main.scss'
+import './style.css'
 
 export default {
 	extends: DefaultTheme,
@@ -23,7 +23,7 @@ export default {
 	async enhanceApp({ app, router, siteData }) {
 		if (!import.meta.env.SSR) {
 			const PopupPlus = createPopupPlus({
-				// debugMode: true,
+				debugMode: import.meta.env.DEV,
 			})
 
 			const presetPlugin = createPresetPlugin()

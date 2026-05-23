@@ -123,13 +123,17 @@
 
 :root {
 	--vp-badge-info-border: var(--vp-c-default-1);
-	--vp-badge-info-bg: var(--vp-c-default-soft);
+	/* --vp-badge-info-bg: var(--vp-c-default-soft); */
+	--vp-badge-info-bg: transparent;
 	--vp-badge-tip-border: var(--color-primary);
-	--vp-badge-tip-bg: var(--color-primary-soft);
+	/* --vp-badge-tip-bg: var(--color-primary-soft); */
+	--vp-badge-tip-bg: transparent;
 	--vp-badge-warning-border: var(--vp-c-warning-1);
-	--vp-badge-warning-bg: var(--vp-c-warning-soft);
+	/* --vp-badge-warning-bg: var(--vp-c-warning-soft); */
+	--vp-badge-warning-bg: transparent;
 	--vp-badge-danger-border: var(--vp-c-danger-1);
-	--vp-badge-danger-bg: var(--vp-c-danger-soft);
+	/* --vp-badge-danger-bg: var(--vp-c-danger-soft); */
+	--vp-badge-danger-bg: transparent;
 }
 
 /**
@@ -155,12 +159,12 @@
 		var(--color-primary) 100%
 	);
 
-	--vp-home-hero-image-background-image: linear-gradient(
+	/* --vp-home-hero-image-background-image: linear-gradient(
 		-90deg,
 		rgba(40, 143, 246, 0.7) 50%,
 		rgba(40, 143, 246, 0.7) 50%
 	);
-	--vp-home-hero-image-filter: blur(44px);
+	--vp-home-hero-image-filter: blur(44px); */
 }
 
 @media (min-width: 640px) {

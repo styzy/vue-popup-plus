@@ -1,4 +1,6 @@
-# 定义插件 <Badge text="1.5.x" />
+# 定义插件 <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport deprecated version="1.6.0" />
 
 这篇文档将介绍如何定义插件以及插件的相关配置参数。
 

@@ -175,6 +175,11 @@ const api: ApiModule = {
 					link: '/api/types#popup-directive',
 					support: '1.7.0',
 				},
+				{
+					text: 'PopupDirectiveHook<T>',
+					link: '/api/types#popup-directive-hook',
+					support: '1.7.0',
+				},
 			],
 		},
 	],

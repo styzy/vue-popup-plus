@@ -75,13 +75,9 @@ function render(options: PopupRenderOption): PopupInstanceId
 
 ### 参数类型
 
-```ts
-type PopupRenderOption<TComponent extends Component = Component> =
-	RenderComponentOptions<TComponent> &
-		RenderConfigOptions &
-		RenderStyleOptions
-
-type RenderComponentOptions<TComponent extends Component = Component> = {
+````ts
+// 渲染组件选项
+export type PopupRenderComponentOption<TComponent extends Component> = {
 	/**
 	 * 弹出层渲染的视图组件
 	 *
@@ -89,6 +85,20 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	 * - 支持同步组件和异步组件，为了提高加载速度，优化构建体积，建议使用异步组件。
 	 * - 对于异步组件，无需使用 `defineAsyncComponent` 方法定义组件，直接传入
 	 *   ()=>import() 函数即可。
+	 *
+	 * - 使用示例：
+	 * ```ts
+	 * // 异步组件
+	 * popup.render({
+	 * 	component: () => import('path/Demo.vue'),
+	 * })
+	 *
+	 * // 同步组件
+	 * import Demo from 'path/Demo.vue'
+	 * popup.render({
+	 * 	component: Demo,
+	 * })
+	 * ```
 	 */
 	component: TComponent
 	/**
@@ -111,64 +121,69 @@ type RenderComponentOptions<TComponent extends Component = Component> = {
 	onUnmounted?: (payload?: any) => void
 }
 
-type PopupMaskDestroyHandler = (close: (payload?: any) => Promise<void>) => void
-
-export type RenderConfigOptions = {
+// 渲染配置选项
+export type PopupRenderConfigOption = {
+	/**
+	 * 弹出层位置
+	 *
+	 * - 默认为 `'center'` ，即居中显示
+	 * - 在使用 `anchor` 参数指定锚点元素时无效
+	 *
+	 * - 可选值包括：
+	 *   - `left-top` ：左侧顶部
+	 *   - `left` ：左侧居中
+	 *   - `left-bottom` ：左侧底部
+	 *   - `top` ：顶部居中
+	 *   - `center` ：居中
+	 *   - `bottom` ：底部居中
+	 *   - `right-top` ：右侧顶部
+	 *   - `right` ：右侧居中
+	 *   - `right-bottom` ：右侧底部
+	 *
+	 * @since 1.5.0
+	 */
+	placement?: PopupPlacement
 	/**
 	 * 弹出层挂载的父元素
 	 *
-	 * - 不指定时，默认挂载到 body 元素下
+	 * - 默认值为 `'body'` ，即挂载到 body 元素下
 	 */
-	appendTo?: Element | string
+	appendTo?: HTMLElement | string
 	/**
-	 * 弹出层位置的锚点元素
+	 * 弹出层渲染期间是否禁用窗口滚动
 	 *
-	 * - 不指定时，弹出层以整个窗口为锚点
-	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
-	 * - 可配合 `anchorPlacement` 参数指定弹出层相对于锚点的对齐方式
+	 * - 默认值为 `false`
+	 *
+	 * - 1.7.0 之前，该选项默认值为 `true` ，
+	 */
+	disableScroll?: boolean
+	/**
+	 * 弹出层动画时长
+	 *
+	 * - 默认为 `100` ，单位为 毫秒
+	 */
+	animationDuration?: number
+	/**
+	 * 弹出层视区元素
+	 *
+	 * - 视区将作为触发自动翻转和平移的参考区域
+	 * - 如果不指定，将使用浏览器窗口作为视区
+	 * - 当指定某个元素时，弹出层将以该元素为视区
 	 * - 传入字符串时，会根据字符串选择器查询元素
 	 *
 	 * @since 1.7.0
 	 */
-	anchor?: Element | string
+	viewport?: HTMLElement | string | null
 	/**
-	 * 弹出层是否显示遮罩层
+	 * 弹出层 zIndex
 	 *
-	 * - 默认值为 `true`
+	 * - 若不设置，则使用全局递增的 zIndex 值
 	 */
-	mask?: boolean
-	/**
-	 * 点击遮罩层是否销毁弹出层
-	 *
-	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
-	 * - 传入 `true` ，点击遮罩层会销毁弹出层
-	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
-	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
-	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.6.0
-	 */
-	maskDestroy?: boolean | PopupMaskDestroyHandler
-	/**
-	 * @deprecated 1.6.0
-	 * 请使用 {@link maskDestroy} 作为代替
-	 *
-	 * 点击遮罩层是否关闭弹出层
-	 *
-	 * - 默认值为 false
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 */
-	maskClickClose?: boolean
-	/**
-	 * 弹出层是否禁用窗口滚动
-	 *
-	 * - 默认值为 `true`
-	 */
-	disableScroll?: boolean
+	zIndex?: number
 }
 
-type RenderStyleOptions = {
+// 渲染样式选项
+export type PopupRenderStyleOption = {
 	/**
 	 * 弹出层宽度
 	 *
@@ -184,20 +199,6 @@ type RenderStyleOptions = {
 	 */
 	width?: string | number
 	/**
-	 * 弹出层最大宽度
-	 *
-	 * - 默认为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * maxWidth: 300
-	 * maxWidth: '300px'
-	 * maxWidth: '50%'
-	 * maxWidth: 'inherit'
-	 */
-	maxWidth?: string | number
-	/**
 	 * 弹出层最小宽度
 	 *
 	 * - 默认值为 `'auto'` ，即自适应
@@ -211,6 +212,20 @@ type RenderStyleOptions = {
 	 * minWidth: 'inherit'
 	 */
 	minWidth?: string | number
+	/**
+	 * 弹出层最大宽度
+	 *
+	 * - 默认为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
+	 *
+	 * @example
+	 * maxWidth: 300
+	 * maxWidth: '300px'
+	 * maxWidth: '50%'
+	 * maxWidth: 'inherit'
+	 */
+	maxWidth?: string | number
 	/**
 	 * 弹出层高度
 	 *
@@ -226,20 +241,6 @@ type RenderStyleOptions = {
 	 */
 	height?: string | number
 	/**
-	 * 弹出层最大高度
-	 *
-	 * - 默认值为 `'auto'` ，即自适应
-	 * - 使用 number 类型时，单位为 px
-	 * - 使用 string 类型时，支持一切 css 合法值
-	 *
-	 * @example
-	 * maxHeight: 300
-	 * maxHeight: '300px'
-	 * maxHeight: '50%'
-	 * maxHeight: 'inherit'
-	 */
-	maxHeight?: string | number
-	/**
 	 * 弹出层最小高度
 	 *
 	 * - 默认值为 `'auto'` ，即自适应
@@ -254,25 +255,23 @@ type RenderStyleOptions = {
 	 */
 	minHeight?: string | number
 	/**
-	 * 弹出层位置
+	 * 弹出层最大高度
 	 *
-	 * - 默认为 `'center'` ，即居中显示
-	 * - 更多位置请查看 {@link PopupPlacement}
+	 * - 默认值为 `'auto'` ，即自适应
+	 * - 使用 number 类型时，单位为 px
+	 * - 使用 string 类型时，支持一切 css 合法值
 	 *
-	 * @since 1.5.0
+	 * @example
+	 * maxHeight: 300
+	 * maxHeight: '300px'
+	 * maxHeight: '50%'
+	 * maxHeight: 'inherit'
 	 */
-	placement?: PopupPlacement
-	/**
-	 * 弹出层锚点对齐方式
-	 *
-	 * - 指定弹出层渲染对于锚点的对齐方式
-	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 * - 默认为 `'top'` ，即顶部居中对齐
-	 * - 更多对齐方式请查看 {@link AnchorAlign}
-	 *
-	 * @since 1.7.0
-	 */
-	anchorPlacement?: PopupAnchorPlacement
+	maxHeight?: string | number
+}
+
+// 渲染视图选项
+export type PopupRenderViewOption = {
 	/**
 	 * 弹出层视图动画类型
 	 *
@@ -297,11 +296,21 @@ type RenderStyleOptions = {
 	 */
 	viewTranslateY?: number
 	/**
-	 * 弹出层视图是否允许超出窗口边界
+	 * 弹出层视图是否允许超出视区边界
 	 *
 	 * - 默认为 false
 	 */
 	viewTranslateOverflow?: boolean
+}
+
+// 渲染遮罩选项
+export type PopupRenderMaskOption = {
+	/**
+	 * 弹出层是否显示遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
 	/**
 	 * 弹出层遮罩动画类型
 	 *
@@ -309,15 +318,6 @@ type RenderStyleOptions = {
 	 * - 更多动画类型请查看 {@link IAnimations}
 	 */
 	maskAnimation?: Animation
-	/**
-	 * 弹出层遮罩是否启用模糊效果
-	 *
-	 * - 默认为 `false`
-	 * - 仅在 `mask` 参数为 `true` 时有效
-	 *
-	 * @since 1.3.0
-	 */
-	maskBlur?: boolean
 	/**
 	 * 弹出层遮罩是否启用透明效果
 	 *
@@ -329,31 +329,117 @@ type RenderStyleOptions = {
 	 */
 	maskTransparent?: boolean
 	/**
-	 * 弹出层动画时长
+	 * 弹出层遮罩是否启用高斯模糊
 	 *
-	 * - 默认为 `100` ，单位为 毫秒
+	 * - 默认为 `false`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.3.0
 	 */
-	animationDuration?: number
+	maskBlur?: boolean
 	/**
-	 * 弹出层 zIndex
+	 * 点击遮罩层是否销毁弹出层
 	 *
-	 * - 若不设置，则使用全局递增的 zIndex 值
+	 * - 默认值为 `false` ，点击遮罩层不会销毁弹出层
+	 * - 传入 `true` ，点击遮罩层将销毁弹出层
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将销毁弹出层，可传入销毁携带的负载参数，返回的
+	 *   `Promise` 对象会在弹出层销毁动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
 	 */
-	zIndex?: number
+	maskDestroy?: boolean | PopupMaskDestroyHandler
 }
 
-// 弹出层位置
-type PopupPlacement =
-	| 'left-top'
-	| 'left'
-	| 'left-bottom'
-	| 'top'
-	| 'center'
-	| 'bottom'
-	| 'right-top'
-	| 'right'
-	| 'right-bottom'
-```
+// 渲染锚点选项
+export type PopupRenderAnchorOption = {
+	/**
+	 * 弹出层位置的锚点元素
+	 *
+	 * - 默认值为 `null` ，即不使用锚点元素
+	 * - 当指定某个元素时，弹出层将以该元素为锚点进行渲染
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 * - 可配合 `anchorPlacement` 参数指定弹出层的位置与对齐方式
+	 * - 可配合 `anchorAdjust` 参数指定弹出层的相对视窗的调整方式
+	 * - 可配合 `anchorClamp` 参数开启弹出层的视窗锁定
+	 * - 可配合 `anchorViewport` 参数指定弹出层的视窗元素
+	 *
+	 * @since 1.7.0
+	 */
+	anchor?: HTMLElement | string | null
+	/**
+	 * 锚点弹出层位置与对齐方式
+	 *
+	 * - 默认为 `'top'` ，即顶部居中对齐
+	 * - 指定弹出层渲染对于锚点的对齐方式
+	 * - 仅在 `anchor` 参数指定锚点元素时有效
+	 *
+	 * - 可选值包括：
+	 *   - `left-start` ：左侧，顶部对齐
+	 *   - `left` ：左侧，居中对齐
+	 *   - `left-end` ：左侧，底部对齐
+	 *   - `top-start` ：顶部，左侧对齐
+	 *   - `top` ：顶部，居中对齐
+	 *   - `top-end` ：顶部，右侧对齐
+	 *   - `bottom-start` ：底部，左侧对齐
+	 *   - `bottom` ：底部，居中对齐
+	 *   - `bottom-end` ：底部，右侧对齐
+	 *   - `right-start` ：右侧，顶部对齐
+	 *   - `right` ：右侧，居中对齐
+	 *   - `right-end` ：右侧，底部对齐
+	 *
+	 * @since 1.7.0
+	 */
+	anchorPlacement?: PopupAnchorPlacement
+	/**
+	 * 锚点弹出层是否在视窗空间不足时进行翻转
+	 *
+	 * - 默认为 `false`，即不进行翻转
+	 * - 当视窗空间不足时，自动进行翻转以保持弹出层在视窗范围内，
+	 *   并在视窗空间满足渲染时恢复到原始定义的位置
+	 *
+	 * @since 1.7.0
+	 */
+	anchorFlip?: boolean
+	/**
+	 * 锚点弹出层自动翻转时的提前偏移量
+	 *
+	 * - 默认为 `0` ，即不提前偏移，与原始定义位置一致
+	 * - 锚点弹出层计算是否需要进行翻转时的提前偏移量，主要用于
+	 *   防止出现达到临界值时的闪烁现象
+	 * - 仅在 `anchorFlip` 参数为 `true` 时有效
+	 *
+	 * @since 1.7.0
+	 */
+	anchorFlipAdvance?: number
+	/**
+	 * 锚点弹出层是否在视窗空间不足时进行平移
+	 *
+	 * - 默认为 `'none'`，即不进行平移
+	 * - 当视窗空间不足时，自动进行平移以保持弹出层在视窗范围内，
+	 *   并在视窗空间满足渲染时恢复到原始定义的位置
+	 *
+	 * - 可选值包括：
+	 *   - `both` ：在主轴和侧轴上都进行平移，相当于完全
+	 *     不会超出视窗范围
+	 *   - `mainAxis` ：在主轴上进行平移
+	 *   - `crossAxis` ：在侧轴上进行平移
+	 *   - `none` ：不进行平移
+	 *
+	 * @since 1.7.0
+	 */
+	anchorShift?: PopupAnchorShift
+}
+
+export type PopupRenderOption<TComponent extends Component = Component> =
+	PopupRenderComponentOption<TComponent> &
+		PopupRenderConfigOption &
+		PopupRenderStyleOption &
+		PopupRenderViewOption &
+		PopupRenderMaskOption &
+		PopupRenderAnchorOption
+````
 
 ### 详细信息
 
@@ -394,130 +480,17 @@ function update(instanceId: PopupInstanceId, options: PopupUpdateOption): void
 ### 参数类型
 
 ```ts
-type PopupUpdateOption = {
-	/**
-	 * 弹出层宽度
-	 *
-	 * - 默认为 auto，即自适应，支持 string 和 number 类型，string
-	 *   类型更为灵活，number 类型方便计算
-	 */
-	width?: string | number
-	/**
-	 * 弹出层最大宽度
-	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
-	 */
-	maxWidth?: string | number
-	/**
-	 * 弹出层最小宽度
-	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
-	 */
-	minWidth?: string | number
-	/**
-	 * 弹出层高度
-	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
-	 */
-	height?: string | number
-	/**
-	 * 弹出层最大高度
-	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
-	 */
-	maxHeight?: string | number
-	/**
-	 * 弹出层最小高度
-	 *
-	 * - 默认为 auto，支持 string 和 number 类型，string 类型更为灵活，number
-	 *   类型方便计算
-	 */
-	minHeight?: string | number
-	/**
-	 * 弹出层位置
-	 *
-	 * - 默认为 center ，即居中
-	 *
-	 * @since 1.5.0
-	 */
-	placement?: PopupPlacement
-	/**
-	 * 弹出层锚点对齐方式
-	 *
-	 * - 指定弹出层渲染对于锚点的对齐方式
-	 * - 仅在 `anchor` 参数指定锚点元素时有效
-	 * - 默认为 `'top'` ，即顶部居中对齐
-	 * - 更多对齐方式请查看 {@link AnchorAlign}
-	 *
-	 * @since 1.7.0
-	 */
-	anchorPlacement?: PopupAnchorPlacement
-	/**
-	 * 弹出层视图动画类型
-	 *
-	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
-	 */
-	viewAnimation?: Animation
-	/**
-	 * 弹出层视图水平偏移量
-	 *
-	 * - 默认为 0 ，单位为 px
-	 *
-	 * @since 1.1.0
-	 */
-	viewTranslateX?: number
-	/**
-	 * 弹出层视图垂直偏移量
-	 *
-	 * - 默认为 0 ，单位为 px
-	 *
-	 * @since 1.1.0
-	 */
-	viewTranslateY?: number
-	/**
-	 * 弹出层视图是否允许超出窗口边界
-	 *
-	 * - 默认为 false
-	 */
-	viewTranslateOverflow?: boolean
-	/**
-	 * 弹出层遮罩动画类型
-	 *
-	 * - 默认为 POPUP_ANIMATIONS.FADE ，即淡入淡出
-	 */
-	maskAnimation?: Animation
-	/**
-	 * 弹出层遮罩是否启用模糊效果
-	 *
-	 * - 默认为 true
-	 *
-	 * @since 1.3.0
-	 */
-	maskBlur?: boolean
-	/**
-	 * 弹出层动画时长
-	 *
-	 * - 默认为 100 ，单位为 毫秒
-	 */
-	animationDuration?: number
-	/**
-	 * 弹出层 zIndex
-	 *
-	 * - 若不设置，则使用全局递增的 zIndex 值
-	 */
-	zIndex?: number
-}
+export type PopupUpdateOption = Omit<
+	PopupRenderOption,
+	'component' | 'disableScroll'
+>
 ```
 
 ### 详细信息
 
 第一个参数是弹出层实例 ID，第二个参数是更新选项。
 
-只允许更新和样式有关的渲染选项，因为其他选项会在弹出层渲染时确定，无法动态更新。
+`component` 和 `disableScroll` 不能更新，因为这些选项在弹出层渲染时确定，无法动态更新。
 
 ### 示例
 

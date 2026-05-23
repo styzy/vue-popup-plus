@@ -82,6 +82,7 @@ type HelloPopupProps = ExtractComponentPropTypes<typeof asyncComponent>
 
 ```ts
 import { type ExtractComponentAllPropTypes } from 'vue-popup-plus'
+
 import HelloPopup from './demo/HelloPopup.vue'
 
 type HelloPopupAllProps = ExtractComponentAllPropTypes<typeof HelloPopup>
@@ -97,6 +98,30 @@ type HelloPopupAllProps = ExtractComponentAllPropTypes<typeof HelloPopup>
 
 > <DVersionSupport version="1.7.0" />
 
-用于创建弹出层指令的类型。
+用于创建弹出层指令的类型，一般搭配 [createPopupDirective()](/api/plugin#create-popup-directive) 函数使用。
 
 第一个泛型参数 `T` 用于指定弹出层指令的 `value` 值类型，第二个泛型参数 `K` 用于指定弹出层指令的 `Modifier` 修饰符类型。
+
+### 示例
+
+```ts
+import { type PopupDirective } from 'vue-popup-plus'
+
+type TooltipDirective = PopupDirective<string, 'click' | 'hover'>
+```
+
+## PopupDirectiveHook\<T extends [PopupDirective](#popup-directive)\> <Badge text="1.7.0+" /> {#popup-directive-hook}
+
+> <DVersionSupport version="1.7.0" />
+
+用于创建弹出层指令的钩子函数类型，一般搭配 [createPopupDirective()](/api/plugin#create-popup-directive) 函数使用。
+
+### 示例
+
+```ts
+import { type PopupDirective, type PopupDirectiveHook } from 'vue-popup-plus'
+
+type TooltipDirective = PopupDirective<string, 'click' | 'hover'>
+
+type TooltipDirectiveHook = PopupDirectiveHook<TooltipDirective>
+```

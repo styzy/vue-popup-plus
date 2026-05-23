@@ -45,15 +45,12 @@
 // 彩虹文本
 @mixin base-text-rainbow($speed: 1) {
 	background-image: linear-gradient(
-		45deg,
-		#ff0000,
-		#ff8600,
-		#fffd00,
-		#13a200,
-		#00dbd0,
-		#002bb7,
-		#b200aa,
-		#ff0077
+		60deg,
+		rgb(245, 82, 32) 0%,
+		rgb(243, 239, 31) 25%,
+		rgb(35, 199, 244) 50%,
+		rgb(114, 31, 239) 75%,
+		rgb(245, 82, 32) 100%
 	);
 	background-clip: text;
 	color: transparent;

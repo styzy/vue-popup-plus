@@ -1,4 +1,6 @@
-# 动画扩展 <Badge text="1.5.x" />
+# 动画扩展 <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport deprecated version="1.6.0" />
 
 ## 介绍
 
@@ -59,8 +61,11 @@ Vue Popup Plus 内置了基础动画类型，通过 `POPUP_ANIMATIONS` 常量的
 
 ```ts [animation_plugin.ts]
 import { definePlugin } from 'vue-popup-plus'
+
 // 引入自定义动画样式文件
-import './custom_animation.css' // [!code highlight]
+import './custom_animation.css'
+
+// [!code highlight]
 
 const animationPlugin = definePlugin({
 	name: 'animation-plugin',
@@ -116,6 +121,7 @@ export default {
 
 ```ts [animation_plugin.ts]
 import { definePlugin } from 'vue-popup-plus'
+
 import './custom_animation.css'
 
 const animationPlugin = definePlugin({

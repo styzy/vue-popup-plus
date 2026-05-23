@@ -32,10 +32,10 @@ index 9d6664003a52e463deccb86b70525de44a4e432c..fab3193dca4517b78095c82e47bc2e7e
  export declare const VPBadge: DefineComponent
  export declare const VPButton: DefineComponent
 diff --git a/types/default-theme.d.ts b/types/default-theme.d.ts
-index 338c9432c7c7d9ca0eb43bc003a6bbe0fc308dca..88b1dd13a73af8350070e948c0ebc233f5436453 100644
+index 338c9432c7c7d9ca0eb43bc003a6bbe0fc308dca..ecae87e00b94d34d05a2f76ecf555bd121eb665e 100644
 --- a/types/default-theme.d.ts
 +++ b/types/default-theme.d.ts
-@@ -270,6 +270,10 @@ export namespace DefaultTheme {
+@@ -270,6 +270,14 @@ export namespace DefaultTheme {
  
      rel?: string
      target?: string
@@ -43,6 +43,10 @@ index 338c9432c7c7d9ca0eb43bc003a6bbe0fc308dca..88b1dd13a73af8350070e948c0ebc233
 +	 * Since version
 +	 */
 +	since?: string
++	/**
++	 * Deprecated version
++	 */
++	deprecated?: string
    }
  
    // edit link -----------------------------------------------------------------

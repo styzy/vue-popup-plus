@@ -186,3 +186,4 @@ declare module 'vue' {
 
 - [插件 - 自定义指令扩展](/plugin/directive-extend)
 - [核心 API - TypeScript 工具类型 PopupDirective<T, K>](/api/types#popup-directive)
+- [核心 API - TypeScript 工具类型 PopupDirectiveHook\<T>](/api/types#popup-directive-hook)

@@ -1,4 +1,6 @@
-# 功能扩展 <Badge text="1.5.x" />
+# 功能扩展 <Badge type="danger" text="1.6.0-" />
+
+> <DVersionSupport deprecated version="1.6.0" />
 
 ## 介绍
 

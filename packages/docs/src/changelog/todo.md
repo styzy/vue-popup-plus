@@ -50,10 +50,6 @@ outline: 2
 
 ### 预置插件
 
-#### `plugin`
-
-- <DVersionTodo version="1.6.0" level="high" author="STYZY" /> 新增 `Bubble 气泡` 插件。
-
 #### `component`
 
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupAnchor` 组件。

@@ -5,6 +5,7 @@ aside: false
 outline: false
 prev: false
 next: false
+lastUpdated: false
 ---
 
 <script lang="ts" setup>

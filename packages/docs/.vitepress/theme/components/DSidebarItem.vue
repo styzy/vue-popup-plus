@@ -24,7 +24,12 @@
 					class="badge"
 					v-if="item.since"
 					type="tip"
-					:text="item.since" />
+					:text="`${item.since}+`" />
+				<VPBadge
+					class="badge"
+					v-if="item.deprecated"
+					type="danger"
+					:text="`${item.deprecated}-`" />
 			</VPLink>
 			<template v-else>
 				<component :is="textTag" class="text" v-html="item.text" />

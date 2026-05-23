@@ -40,8 +40,8 @@ function handleJump() {
 		align-items: center;
 		justify-content: flex-start;
 		gap: 5px;
-		padding: 0px 6px;
-		border-radius: 4px;
+		padding: 0px 10px;
+		border-radius: 400px;
 		background-color: var(--docs-color-primary);
 		color: #ffffff;
 		font-size: var(--docs-font-size-text-sub);
