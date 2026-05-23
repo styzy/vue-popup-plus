@@ -25,6 +25,7 @@ GContainer.directive
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { usePopup } from 'vue-popup-plus'
+
 import Demo from './demo/Demo.vue'
 
 const test = ref('123')
