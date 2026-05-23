@@ -33,7 +33,7 @@ export const plugin = (
 				.match(new RegExp(`^${spoiler}(?:\\s+(.*))?$`))
 
 			if (tokens[idx].nesting === 1) {
-				const description = params?.[1] || ''
+				const paramsStr = params?.[1] || ''
 
 				let contentStr = ''
 
@@ -54,7 +54,16 @@ export const plugin = (
 					contentStr += content
 				}
 
-				return `<${resolveTag} description="${description}"><template #demo>${contentStr}</template><template #code>`
+				const paramsList = paramsStr ? paramsStr.split(' ') : []
+				const paramsWrappedList = paramsList.map(
+					(item) => `'` + item + `'`
+				)
+
+				const formatParams = paramsWrappedList.length
+					? '[' + paramsWrappedList.join(',') + ']'
+					: '[]'
+
+				return `<${resolveTag} :params="${formatParams}"><template #demo>${contentStr}</template><template #code>`
 			} else {
 				return `</template></${resolveTag}>\n`
 			}
