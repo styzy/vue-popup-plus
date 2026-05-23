@@ -10,7 +10,7 @@
 .g-viewport {
 	position: relative;
 	width: 50vw;
-	height: 70vh;
+	height: 100vh;
 	padding: 40px;
 	margin: auto auto 10vh;
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
@@ -29,8 +29,8 @@
 		overflow: auto;
 	}
 	.viewport-content {
-		width: 100vw;
-		height: 100vh;
+		width: 200%;
+		height: 200%;
 		padding: 800px;
 	}
 }

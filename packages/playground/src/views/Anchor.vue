@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer.anchor
+GContainer
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 锚点功能测试
 	ElFormItem(label="viewport")
@@ -300,7 +300,6 @@ function handleFlipTopStart() {
 function handleFlipTop() {
 	popup.render({
 		anchor: flipTop.value?.$el,
-		anchorPlacement: 'top',
 		anchorFlip: true,
 		...sharedOptions.value,
 	})
@@ -690,9 +689,3 @@ function handleShiftBothRightEnd() {
 	})
 }
 </script>
-
-<style lang="scss" scoped>
-.anchor {
-	height: 100vh;
-}
-</style>

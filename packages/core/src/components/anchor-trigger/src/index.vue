@@ -27,19 +27,21 @@ defineOptions({
 
 const popup = usePopup()
 
-const {
-	trigger = 'hover',
-	renderDelay = 0,
-	destroyDelay = 200,
-	flip: anchorFlip,
-	flipAdvance: anchorFlipAdvance,
-	shift: anchorShift,
-	placement: anchorPlacement,
-	...otherProps
-} = defineProps<PopupAnchorTriggerProps>()
+const props = withDefaults(defineProps<PopupAnchorTriggerProps>(), {
+	trigger: 'hover',
+	renderDelay: 0,
+	destroyDelay: 200,
+	anchorFlip: undefined,
+	disableScroll: undefined,
+	mask: false,
+	maskBlur: undefined,
+	maskDestroy: undefined,
+	maskTransparent: undefined,
+	viewTranslateOverflow: undefined,
+})
 
 const triggers = computed(() =>
-	typeof trigger === 'string' ? [trigger] : trigger
+	typeof props.trigger === 'string' ? [props.trigger] : props.trigger
 )
 
 const emit = defineEmits<PopupAnchorTriggerEmits>()
@@ -240,7 +242,7 @@ function handleDelayRender(beforeMount?: () => void, mounted?: () => void) {
 			beforeMount?.()
 			renderPopup(mounted)
 			renderDelayTimer.value = undefined
-		}, renderDelay)
+		}, props.renderDelay)
 	}
 }
 
@@ -258,7 +260,7 @@ function handleDelayDestroy(callback?: () => void) {
 		destroyDelayTimer.value = window.setTimeout(() => {
 			destroyPopup()
 			callback?.()
-		}, destroyDelay)
+		}, props.destroyDelay)
 	}
 }
 
@@ -291,11 +293,7 @@ function renderPopup(callback?: () => void) {
 			},
 		},
 		anchor: anchorElement.value,
-		anchorPlacement,
-		anchorFlip,
-		anchorFlipAdvance,
-		anchorShift,
-		...otherProps,
+		...props,
 		onMounted() {
 			isRendered.value = true
 		},
