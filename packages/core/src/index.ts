@@ -8,9 +8,12 @@ export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
 export { type PopupConfigOption } from './config'
 export {
 	PopupAnchorTrigger,
+	PopupRoot,
 	type PopupAnchorTriggerEmits,
 	type PopupAnchorTriggerProps,
 	type PopupAnchorTriggerSlots,
+	type PopupRootProps,
+	type PopupRootSlots,
 } from './components'
 export {
 	type PopupController,
@@ -43,7 +46,6 @@ export { definePlugin, type PopupPlugin } from './plugin'
 export type { ExtractComponentPropTypes } from './typings'
 export { version, type PopupVersion } from './version'
 export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
-export { default as PopupRoot } from './components/PopupRoot.vue'
 
 /**
  * 创建弹出层插件
