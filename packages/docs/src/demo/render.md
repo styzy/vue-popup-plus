@@ -1,4 +1,4 @@
-# Core 核心 DEMO
+# Render 渲染 DEMO
 
 ## 渲染
 
@@ -236,7 +236,7 @@ function handlePopupWithPlacementRightBottom() {
 
 :::
 
-## 位置偏移
+## 位置偏移 <Badge text="1.1.0+" />
 
 ::: demo
 
@@ -288,6 +288,131 @@ function handlePopupWithTranslateXYOverflow() {
 
 :::
 
+## 视区 <Badge text="1.7.0+" />
+
+::: demo
+
+```html
+<div
+	id="viewport"
+	style="height: 600px; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: var(--docs-color-background-sub);">
+	<div
+		style="display: flex; flex-direction: row; justify-content: center; gap: 20px">
+		<DButtonGroup theme="primary" type="plain" direction="vertical">
+			<DButton @click="handlePopupWithViewportAndPlacementLeftTop"
+				>左上</DButton
+			>
+			<DButton @click="handlePopupWithViewportAndPlacementLeft"
+				>左侧</DButton
+			>
+			<DButton @click="handlePopupWithViewportAndPlacementLeftBottom"
+				>左下</DButton
+			>
+		</DButtonGroup>
+		<DButtonGroup theme="primary" type="plain" direction="vertical">
+			<DButton @click="handlePopupWithViewportAndPlacementTop"
+				>顶部</DButton
+			>
+			<DButton
+				@click="handlePopupWithViewportAndPlacementCenter"
+				type="default"
+				>居中</DButton
+			>
+			<DButton @click="handlePopupWithViewportAndPlacementBottom"
+				>底部</DButton
+			></DButtonGroup
+		>
+		<DButtonGroup theme="primary" type="plain" direction="vertical">
+			<DButton @click="handlePopupWithViewportAndPlacementRightTop"
+				>右上</DButton
+			>
+			<DButton @click="handlePopupWithViewportAndPlacementRight"
+				>右侧</DButton
+			>
+			<DButton @click="handlePopupWithViewportAndPlacementRightBottom"
+				>右下</DButton
+			></DButtonGroup
+		>
+	</div>
+</div>
+```
+
+```ts
+function handlePopupWithViewportAndPlacementLeftTop() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'left-top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementLeft() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'left',
+	})
+}
+
+function handlePopupWithViewportAndPlacementLeftBottom() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupWithViewportAndPlacementTop() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementCenter() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'center',
+	})
+}
+
+function handlePopupWithViewportAndPlacementBottom() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'bottom',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRightTop() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'right-top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRight() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'right',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRightBottom() {
+	popup.render({
+		component: () => import('./HelloPopup.vue'),
+		viewport: '#viewport',
+		placement: 'right-bottom',
+	})
+}
+```
+
+:::
+
 ## 动画
 
 ::: demo
@@ -309,6 +434,7 @@ function handlePopupWithTranslateXYOverflow() {
 
 ```ts
 import { POPUP_ANIMATIONS } from 'vue-popup-plus'
+
 function handlePopup() {
 	popup.render({
 		component: () => import('./HelloPopup.vue'),
@@ -617,6 +743,78 @@ function handlePopupWithTranslateXYOverflow() {
 		viewTranslateX: (window.innerWidth - 300) / 2 + 100,
 		viewTranslateY: (window.innerHeight - 300) / 2 + 100,
 		viewTranslateOverflow: true,
+	})
+}
+
+function handlePopupWithViewportAndPlacementLeftTop() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'left-top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementLeft() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'left',
+	})
+}
+
+function handlePopupWithViewportAndPlacementLeftBottom() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'left-bottom',
+	})
+}
+
+function handlePopupWithViewportAndPlacementTop() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementCenter() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'center',
+	})
+}
+
+function handlePopupWithViewportAndPlacementBottom() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'bottom',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRightTop() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'right-top',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRight() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'right',
+	})
+}
+
+function handlePopupWithViewportAndPlacementRightBottom() {
+	popup.render({
+		component: HelloPopup,
+		viewport: '#viewport',
+		placement: 'right-bottom',
 	})
 }
 

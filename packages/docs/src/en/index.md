@@ -15,7 +15,7 @@ hero:
           link: /guide/introduction
         - theme: alt
           text: View demos ✨
-          link: /demo/core
+          link: /demo/render
 
 features:
     - title: 🚀 Function-based rendering

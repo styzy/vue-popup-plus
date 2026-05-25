@@ -71,7 +71,7 @@ export const themeConfig = defineConfig({
 			// },
 			{
 				text: 'DEMO',
-				// link: '/demo/core',
+				// link: '/demo/render',
 				activeMatch: '/demo/',
 				component: 'DNavDemo',
 			},
@@ -314,8 +314,13 @@ export const themeConfig = defineConfig({
 					text: '核心 DEMO',
 					items: [
 						{
-							text: 'Core 核心',
-							link: '/demo/core',
+							text: 'Render 渲染',
+							link: '/demo/render',
+						},
+						{
+							text: 'Anchor 锚点视图',
+							link: '/demo/anchor',
+							since: '1.7.0',
 						},
 					],
 				},

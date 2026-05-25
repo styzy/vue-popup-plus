@@ -43,7 +43,7 @@ const log = new PopupLog({
 printLog(log)
 ```
 
-## PopupLog <Badge text="1.5.0+" />
+## PopupLog <Badge text="1.5.0+" /> {#popup-log}
 
 > <DVersionSupport version="1.5.0" />
 

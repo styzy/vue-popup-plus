@@ -15,7 +15,7 @@ hero:
           link: /guide/introduction
         - theme: demo
           text: DEMO ✨
-          link: /demo/core
+          link: /demo/render
 
 features:
     - title: 🚀 函数式渲染
