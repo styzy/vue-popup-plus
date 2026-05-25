@@ -104,6 +104,11 @@ const api: ApiModule = {
 					link: '/api/components#popup-root',
 					support: '1.5.0',
 				},
+				{
+					text: '<PopupAnchorTrigger>',
+					link: '/api/components#popup-anchor-trigger',
+					support: '1.7.0',
+				},
 			],
 		},
 		{

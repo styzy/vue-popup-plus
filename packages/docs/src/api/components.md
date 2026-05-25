@@ -14,14 +14,14 @@ outline: 2
 ### Props
 
 ```ts
-type PopupRootProps = {}
+export type PopupRootProps = {}
 ```
 
 ### Slots
 
 ```ts
-type PopupRootSlots = {
-	default: () => VNode[]
+export type PopupRootSlots = {
+	default: () => VNodeChild
 }
 ```
 
@@ -55,3 +55,68 @@ import { PopupRoot } from 'vue-popup-plus'
 ### 相关参考
 
 - [关于 - 常见问题 同步应用上下文](/about/faq#同步应用上下文)
+
+## {{ '<PopupAnchorTrigger>' }} <Badge text="1.7.0+" /> {#popup-anchor-trigger}
+
+> <DVersionSupport  version="1.7.0" />
+
+`<PopupAnchorTrigger>` 作为锚点弹出层的触发器组件，可以快速触发锚点弹出层的显示与隐藏。
+
+### Props
+
+```ts
+export type PopupAnchorTrigger = [
+	'click',
+	'hover',
+	'focus',
+	'contextmenu',
+][number]
+
+type PopupAnchorTriggerProps = Omit<
+	PopupRenderOption,
+	'anchor' | 'placement'
+> & {
+	/**
+	 * 触发方式
+	 *
+	 * - 默认值为 `'hover'` ，即鼠标悬停触发
+	 * - 可以使用数组指定多个触发方式
+	 *
+	 * - 可选值包括：
+	 *   - `click` ：点击触发
+	 *   - `hover` ：鼠标悬停触发
+	 *   - `focus` ：焦点触发
+	 *   - `contextmenu` ：右键菜单触发
+	 */
+	trigger?: PopupAnchorTrigger | PopupAnchorTrigger[]
+	/**
+	 * 渲染延迟时间
+	 *
+	 * - 默认值为 0 ，单位为毫秒
+	 * - 用于设置渲染弹出层的延迟时间
+	 */
+	renderDelay?: number
+	/**
+	 * 销毁延迟时间
+	 *
+	 * - 默认值为 200 ，单位为毫秒
+	 * - 用于设置销毁弹出层的延迟时间
+	 */
+	destroyDelay?: number
+}
+```
+
+### Slots
+
+```ts
+export type PopupAnchorTriggerSlots = {
+	/**
+	 * 锚点元素
+	 */
+	default: () => VNodeChild
+	/**
+	 * 锚点弹出层视图
+	 */
+	popup: (props: { destroy: () => void }) => VNodeChild
+}
+```

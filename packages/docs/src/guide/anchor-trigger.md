@@ -265,7 +265,7 @@ import { PopupAnchorTrigger } from 'vue-popup-plus'
 
 ## 其他属性
 
-上面仅展示了与锚点弹出层相关的功能，实际上 `<PopupAnchorTrigger>` 组件还支持 `popup.render()` 函数所有选项，具体可以查看 [核心 API - 控制器实例 popup.render()](/api/controller#popup-render)。
+上面仅展示了与锚点弹出层相关的功能，实际上 `<PopupAnchorTrigger>` 组件还支持 `popup.render()` 函数所有选项，具体可以参考 [核心 API - 控制器实例 popup.render()](/api/controller#popup-render)。
 
 <script setup lang="ts">
 import { PopupAnchorTrigger } from 'vue-popup-plus'

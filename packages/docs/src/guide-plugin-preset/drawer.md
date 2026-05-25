@@ -5,7 +5,7 @@
 一般用于半屏展示 `详细信息` ，例如数据详情，提交表单等。
 
 ::: tip
-该弹出层支持 `Promise 风格` 调用，具体可以查看 [携带参数关闭抽屉](/guide-plugin-preset/drawer#携带参数关闭抽屉)。
+该弹出层支持 `Promise 风格` 调用，具体可以参考 [携带参数关闭抽屉](/guide-plugin-preset/drawer#携带参数关闭抽屉)。
 :::
 
 ## 基础使用
