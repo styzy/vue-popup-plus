@@ -130,10 +130,19 @@ function createBoundary(): PopupViewportBoundary {
 		return createFixedBoundary()
 
 	const rect = element.value.getBoundingClientRect()
+	const computedStyle = getComputedStyle(element.value)
+	const borderWidth = {
+		left: parseFloat(computedStyle.borderLeftWidth),
+		right: parseFloat(computedStyle.borderRightWidth),
+		top: parseFloat(computedStyle.borderTopWidth),
+		bottom: parseFloat(computedStyle.borderBottomWidth),
+	}
 	const top = scrollY + rect.top
 	const left = scrollX + rect.left
-	const right = left + element.value.clientWidth
-	const bottom = top + element.value.clientHeight
+	const right =
+		left + element.value.clientWidth + borderWidth.left + borderWidth.right
+	const bottom =
+		top + element.value.clientHeight + borderWidth.top + borderWidth.bottom
 
 	return {
 		fixed: false,
