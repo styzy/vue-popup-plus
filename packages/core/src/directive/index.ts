@@ -1,7 +1,8 @@
 import { defaultDirective } from './default'
 
-export * from './directive'
+export * from './create'
+export * from './types'
 
-export const directives = {
+export const internalDirectives = {
 	popup: defaultDirective,
 }

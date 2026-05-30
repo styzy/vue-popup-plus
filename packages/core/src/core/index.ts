@@ -3,107 +3,27 @@ import {
 	reactive,
 	type App,
 	type ComponentInternalInstance,
-	type Reactive,
 } from 'vue'
-import { Config, type PopupConfigOption, type IConfig } from '../config'
-import { type PopupController } from '../controller'
-import { Instance, type PopupInstanceId } from '../instance'
-import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from '../log'
-import { createMixins } from '../mixins'
-import {
-	wrapConfigWithPlugin,
-	type ExtractPluginOption,
-	type PluginOption,
-	type PopupPlugin,
-} from '../plugin'
-import { version, type PopupVersion } from '../version'
 import {
 	POPUP_COMPONENT_NAMES,
 	POPUP_DOCUMENT_URL,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 } from '../CONSTANTS'
+import { Config, type PopupConfigOption, type IConfig } from '../config'
+import { type PopupController } from '../controller'
+import { internalDirectives } from '../directive'
+import { Instance, type PopupInstanceId } from '../instance'
+import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from '../log'
+import { createMixins } from '../mixins'
+import {
+	wrapConfigWithPlugin,
+	type PluginOption,
+	type PopupPlugin,
+} from '../plugin'
+import { version } from '../version'
+import type { Instances, PopupCore } from './types'
 
-type Instances = Reactive<Record<PopupInstanceId['name'], Instance>>
-
-export interface PopupCore {
-	readonly id: string
-	/**
-	 * 插件所挂载的 Vue 应用实例
-	 */
-	readonly app?: Readonly<App>
-	/**
-	 * 控制器实例种子，用于生成控制器实例id，自动递增
-	 */
-	readonly controllerSeed: number
-	/**
-	 * 弹出层实例种子，用于生成弹出层实例id，自动递增
-	 */
-	readonly instanceSeed: number
-	/**
-	 * 弹出层配置项
-	 */
-	readonly config: IConfig
-	/**
-	 * 弹出层实例存储
-	 */
-	readonly instances: Instances
-	/**
-	 * 无状态控制器实例
-	 */
-	statelessController?: PopupController
-	/**
-	 * 有状态控制器实例集合
-	 */
-	statefulControllers: Map<ComponentInternalInstance, PopupController>
-	/**
-	 * 是否已注册根组件
-	 */
-	readonly isRootComponentRegistered: boolean
-	/**
-	 * 版本号
-	 */
-	readonly version: PopupVersion
-	/**
-	 * Vue 插件安装函数
-	 */
-	install(app: App): any
-	/**
-	 * 注册插件
-	 *
-	 * - 可注册使用 `definePlugin()` 方法定义的插件
-	 * - 重复注册相同的插件，会被忽略
-	 */
-	use<TOption extends PluginOption, TPlugin extends PopupPlugin<TOption>>(
-		plugin: TPlugin,
-		options?: ExtractPluginOption<TPlugin>
-	): void
-	/**
-	 * 注册根组件
-	 */
-	registerRootComponent(vm: ComponentInternalInstance): boolean
-	/**
-	 * 注销根组件
-	 */
-	unregisterRootComponent(vm: ComponentInternalInstance): void
-	/**
-	 * 添加弹出层实例
-	 *
-	 * @param instance - 弹出层实例 @
-	 */
-	addInstance(instance: Instance): void
-	/**
-	 * 获取弹出层实例
-	 *
-	 * @param instanceId - 弹出层实例id
-	 */
-	getInstance(instanceId: PopupInstanceId): Instance | void
-	/**
-	 * 移除弹出层实例
-	 *
-	 * @param instance - 弹出层实例
-	 */
-	removeInstance(instance: Instance): void
-}
+export * from './types'
 
 let core: PopupCore | null = null
 
@@ -168,6 +88,12 @@ export class Core implements PopupCore {
 
 		app.provide(POPUP_INSIDE_COMPONENT_INJECTS.CORE, this)
 
+		// 注册内置指令
+		Object.entries(internalDirectives).forEach(([name, directive]) => {
+			app.directive(name, directive)
+		})
+
+		// 注册自定义指令
 		Object.entries(this.#config.directives).forEach(([name, directive]) => {
 			app.directive(name, directive)
 		})

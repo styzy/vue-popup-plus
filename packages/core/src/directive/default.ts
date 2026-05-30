@@ -1,6 +1,7 @@
-import { PopupLog, PopupLogType } from '../log'
 import { type PopupRenderOption } from '../controller'
-import { createPopupDirective, type PopupDirective } from './directive'
+import { PopupLog, PopupLogType } from '../log'
+import { createPopupDirective } from './create'
+import type { PopupDirective } from './types'
 
 type DefaultDirective = PopupDirective<
 	PopupRenderOption | PopupRenderOption['component']

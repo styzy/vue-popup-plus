@@ -1,23 +1,27 @@
-import {
-	type ComponentInternalInstance,
-	type DirectiveBinding,
-	type DirectiveHook,
-	type ObjectDirective,
-	type VNode,
-} from 'vue'
-import { createController, type PopupController } from '../controller'
+import type { ComponentInternalInstance } from 'vue'
+import { createController } from '../controller'
 import { getCore } from '../core'
 import { PopupError } from '../error'
 import { defaultPrintLog, PopupLog, PopupLogType } from '../log'
-
-type PopupDirectiveTrigger = 'click' | 'hover' | 'contextmenu'
-type PopupDirectiveTriggerModifiers = 'stop' | 'prevent'
+import type {
+	PopupDirective,
+	PopupDirectiveCreator,
+	PopupDirectiveEventHandlersStore,
+	PopupDirectiveHook,
+	PopupDirectiveHookContext,
+	PopupDirectiveTrigger,
+} from './types'
 
 /**
- * 弹出层指令工具类型
+ * 创建弹出层指令
  *
- * - 使用该类型可以快速为弹出层指令创建指令类型
- * - 一般搭配 `createPopupDirective()` 函数使用
+ * - 通过传入一个渲染弹出层的钩子函数，创建一个弹出层指令。
+ * - 内置了弹出层触发的方式以及事件的绑定与解绑。
+ * - 传入的钩子函数会在用户指定的时机被执行，因此只需要在
+ *   钩子函数中处理弹出层的渲染逻辑即可。
+ * - 需要传入泛型参数 `TDirective`，用于指定弹出层指令的类型，
+ *   该类型可通过 `PopupDirective` 工具类型创建。
+ * - 创建的指令需要在创建插件实例是进行注册。
  *
  * - 示例：
  * ```ts
@@ -34,103 +38,11 @@ type PopupDirectiveTriggerModifiers = 'stop' | 'prevent'
  * 	controller.render(binding.value)
  * })
  *
- * declare module 'vue' {
- * 	export interface GlobalDirectives {
- * 		vPopupTest: PopupTestDirective
- * 	}
- * }
- *
- * // 使用方式
- * v-popup-test="123"
- * // 自定义修饰符
- * v-popup-test.custom1="123"
- * v-popup-test.custom2="123"
- * ```
- */
-export type PopupDirective<
-	TValue = any,
-	TModifiers extends string = '',
-> = ObjectDirective<
-	HTMLElement,
-	TValue,
-	TModifiers extends ''
-		? PopupDirectiveTrigger | PopupDirectiveTriggerModifiers
-		: PopupDirectiveTrigger | PopupDirectiveTriggerModifiers | TModifiers,
-	TModifiers
->
-
-type PopupDirectiveHookControllerGetter = (log?: PopupLog) => PopupController
-
-type PopupDirectiveHook<
-	TDirective extends PopupDirective,
-	TValue = TDirective extends PopupDirective<infer Value, any>
-		? Value
-		: never,
-	TModifiers extends string = TDirective extends PopupDirective<
-		any,
-		infer Modifiers
-	>
-		? Modifiers
-		: never,
-	TParams = Parameters<DirectiveHook<HTMLElement, null, TValue, TModifiers>>,
-	TEl = TParams extends [infer El, ...any[]] ? El : never,
-	TBind = TParams extends [any, infer Bind, ...any[]] ? Bind : never,
-	TVNode = TParams extends [any, any, infer VNode, ...any[]] ? VNode : never,
-	TPrevVNode = TParams extends [any, any, any, infer Prev] ? Prev : never,
-> = (args: {
-	el: TEl
-	binding: TBind
-	vNode: TVNode
-	prevVNode: TPrevVNode
-	getController: PopupDirectiveHookControllerGetter
-}) => void
-
-type PopupDirectiveHookContext = {
-	eventStore: PopupDirectiveEventHandlersStore
-	renderHook: PopupDirectiveHook<PopupDirective>
-	el: HTMLElement
-	binding: DirectiveBinding<any, string, any>
-	vNode: VNode<any, HTMLElement>
-	prevVNode: VNode<any, HTMLElement> | null
-}
-
-type PopupDirectiveEventHandlersStore = Map<
-	HTMLElement,
-	Array<{
-		event: PopupDirectiveTrigger
-		handler: (e: Event) => void
-	}>
->
-
-export interface PopupDirectiveCreator {
-	<TDirective extends PopupDirective>(
-		renderHook: PopupDirectiveHook<TDirective>
-	): TDirective
-}
-
-/**
- * 创建弹出层指令
- *
- * - 通过传入一个渲染弹出层的钩子函数，创建一个弹出层指令
- * - 内置了弹出层触发的方式以及事件的绑定与解绑
- * - 传入的钩子函数会在用户指定的时机被执行，因此只需要在
- *   钩子函数中处理弹出层的渲染逻辑即可
- * - 需要传入泛型参数 `TDirective`，用于指定弹出层指令的类型，
- *   该类型可通过 `PopupDirective` 工具类型创建
- *
- * - 示例：
- * ```ts
- * type PopupTestDirective = PopupDirective<'number', 'custom1' | 'custom2'>
- *
- * const testDirective = createPopupDirective<PopupTestDirective>(({
- * 	el,
- * 	binding,
- * 	vNode,
- * 	prevVNode,
- * 	getController,
- * })=>{
- * 	const controller = getController()
- * 	controller.render(binding.value)
+ * // 注册指令
+ * const PopupPlus = createPopupPlus({
+ * 	directives: {
+ * 		test: testDirective,
+ * 	},
  * })
  *
  * declare module 'vue' {
