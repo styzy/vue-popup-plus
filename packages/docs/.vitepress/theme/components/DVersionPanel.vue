@@ -1,16 +1,21 @@
 <template lang="pug">
 .d-version-panel(:class="{ 'is-home': mode === 'home' }")
-	.item
+	.item(@click="handleNavigate('/changelog/core')")
 		.label 核心版本
 		.version {{ version }}
-	.item
+		.link 查看 核心 更新日志
+	.item(@click="handleNavigate('/changelog/plugin-preset')")
 		.label 预置插件版本
 		.version {{ presetPluginVersion }}
+		.link 查看 预置插件 更新日志
 </template>
 
 <script lang="ts" setup>
 import { version } from 'vue-popup-plus'
 import { version as presetPluginVersion } from 'vue-popup-plus-plugin-preset'
+import { useRoute, useRouter } from 'vitepress'
+
+const router = useRouter()
 
 defineOptions({
 	name: 'DVersionPanel',
@@ -21,6 +26,10 @@ type Props = {
 }
 
 const { mode = 'sidebar' } = defineProps<Props>()
+
+function handleNavigate(path: string) {
+	router.go(path)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,6 +54,7 @@ const { mode = 'sidebar' } = defineProps<Props>()
 		z-index: 100;
 	}
 	.item {
+		position: relative;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -54,15 +64,41 @@ const { mode = 'sidebar' } = defineProps<Props>()
 		height: 40px;
 		background-color: var(--vp-code-bg);
 		border-radius: 5px;
+		overflow: hidden;
+		cursor: pointer;
 		.label {
 			color: var(--vp-c-text-1);
-			font-size: var(--docs-font-size-text-sub);
+			font-size: var(--docs-font-size-text-main);
 			font-weight: 700;
+			opacity: 1;
 		}
 		.version {
 			color: var(--vp-c-brand-1);
 			font-size: var(--docs-font-size-text-main);
 			font-weight: 700;
+			opacity: 1;
+		}
+		.link {
+			@include base-transition;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #ffffff;
+			background-color: var(--vp-c-brand-1);
+			font-size: var(--docs-font-size-text-main);
+			// font-weight: 700;
+			opacity: 0;
+			z-index: 1;
+		}
+		&:hover {
+			.link {
+				opacity: 1;
+			}
 		}
 	}
 }

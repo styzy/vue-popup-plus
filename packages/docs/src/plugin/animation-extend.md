@@ -2,7 +2,7 @@
 
 ## 介绍
 
-Vue Popup Plus 内置了基础动画类型，通过 `POPUP_ANIMATIONS` 常量的形式提供给开发者使用，因为是常量，所以插件开发者不应该直接修改它的值，而应该通过扩展动画插件的形式来添加新的动画类型。
+**Vue Popup Plus** 内置了基础动画类型，通过 `POPUP_ANIMATIONS` 常量的形式提供给开发者使用，因为是常量，所以插件开发者不应该直接修改它的值，而应该通过扩展动画插件的形式来添加新的动画类型。
 
 下面将演示如何添加一个自定义动画类型 `CUSTOM`。
 
@@ -59,8 +59,11 @@ Vue Popup Plus 内置了基础动画类型，通过 `POPUP_ANIMATIONS` 常量的
 
 ```ts [animation_plugin.ts]
 import { definePlugin } from 'vue-popup-plus'
+
 // 引入自定义动画样式文件
-import './custom_animation.css' // [!code highlight]
+import './custom_animation.css'
+
+// [!code highlight]
 
 const animationPlugin = definePlugin({
 	name: 'animation-plugin',
@@ -116,6 +119,7 @@ export default {
 
 ```ts [animation_plugin.ts]
 import { definePlugin } from 'vue-popup-plus'
+
 import './custom_animation.css'
 
 const animationPlugin = definePlugin({

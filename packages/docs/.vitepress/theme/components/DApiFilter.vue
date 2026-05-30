@@ -3,7 +3,7 @@
 	.filter
 		label(for="keyword") 过滤
 		input#keyword(
-			placeholder="请输入过滤关键字"
+			placeholder="请输入过滤关键字或版本号"
 			type="text"
 			v-model.trim="filter.keyword")
 	.filter
@@ -19,8 +19,9 @@ export type Filter = {
 </script>
 
 <script lang="ts" setup>
-import { type ApiModule } from './DApi.vue'
 import { onMounted, ref, watch } from 'vue'
+
+import { type ApiModule } from './DApi.vue'
 
 type Apis = Record<string, ApiModule>
 

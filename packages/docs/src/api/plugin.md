@@ -129,7 +129,7 @@ interface IConfig {
 
 > <DVersionSupport version="1.7.0" />
 
-快速创建一个弹出层的 Vue 指令，用于在元素上绑定弹出层。
+创建一个渲染弹出层的 Vue 指令，用于在元素上快速渲染弹出层。
 
 ### 类型
 

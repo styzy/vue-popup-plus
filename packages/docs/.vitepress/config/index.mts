@@ -39,7 +39,7 @@ export default defineConfig({
 		},
 		footer: {
 			message: 'Released under the MIT License.',
-			copyright: `Copyright © ${new Date().getFullYear()} Vue Popup Plus`,
+			copyright: `Copyright © ${new Date().getFullYear()} <span style="font-weight: 700;">Vue Popup Plus</span>`,
 		},
 		externalLinkIcon: true,
 	},

@@ -100,4 +100,4 @@ popup.use(myPlugin, {
 
 ## 相关参考
 
-具体可以参考 [插件开发 API - 定义插件 definePlugin()](/api/plugin#define-plugin)。
+具体可以参考 [核心 API - 插件开发 definePlugin()](/api/plugin#define-plugin)。
