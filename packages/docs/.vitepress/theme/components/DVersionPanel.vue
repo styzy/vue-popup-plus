@@ -3,11 +3,17 @@
 	.item(@click="handleNavigate('/changelog/core')")
 		.label 核心版本
 		.version {{ version }}
-		.link 查看 核心 更新日志
+		.link
+			span 查看
+			span.module 核心
+			span 更新日志
 	.item(@click="handleNavigate('/changelog/plugin-preset')")
 		.label 预置插件版本
 		.version {{ presetPluginVersion }}
-		.link 查看 预置插件 更新日志
+		.link
+			span 查看
+			span.module 预置插件
+			span 更新日志
 </template>
 
 <script lang="ts" setup>
@@ -90,14 +96,31 @@ function handleNavigate(path: string) {
 			justify-content: center;
 			color: #ffffff;
 			background-color: var(--vp-c-brand-1);
-			font-size: var(--docs-font-size-text-main);
+			font-size: var(--docs-font-size-text-sub);
 			// font-weight: 700;
 			opacity: 0;
 			z-index: 1;
+			.module {
+				margin: 0 5px;
+				font-size: var(--docs-font-size-text-main);
+				font-weight: 700;
+			}
 		}
 		&:hover {
 			.link {
 				opacity: 1;
+			}
+		}
+	}
+}
+
+.dark {
+	.d-version-panel {
+		.item {
+			border: 1px solid #000;
+			.link {
+				background-color: var(--vp-c-bg);
+				color: var(--vp-c-brand-1);
 			}
 		}
 	}
