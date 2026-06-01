@@ -67,7 +67,7 @@ export interface PopupConfirm {
 	(
 		this: PopupController,
 		content: string,
-		options?: ConfirmOption
+		options?: PopupConfirmOption
 	): Promise<boolean>
 }
 
