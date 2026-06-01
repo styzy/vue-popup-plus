@@ -1,10 +1,15 @@
 import { type ComponentInternalInstance, type ComponentOptions } from 'vue'
-import { createController, type PopupController } from '../controller'
-import { type PopupCore } from '../core'
-import { type PopupInstanceId } from '../instance'
-import { PopupLog, PopupLogType, PopupLogGroupItemType, printLog } from '../log'
-import { type PopupViewComputedStyle } from '../typings'
-import { POPUP_COMPONENT_INJECTS } from '../CONSTANTS'
+import { POPUP_COMPONENT_INJECTS } from '@core/CONSTANTS'
+import { createController, type PopupController } from '@core/controller'
+import { type PopupCore } from '@core/core'
+import { type PopupInstanceId } from '@core/instance'
+import {
+	PopupLog,
+	PopupLogType,
+	PopupLogGroupItemType,
+	printLog,
+} from '@core/log'
+import { type PopupViewComputedStyle } from '@core/typings'
 
 declare module 'vue' {
 	interface ComponentCustomProperties {

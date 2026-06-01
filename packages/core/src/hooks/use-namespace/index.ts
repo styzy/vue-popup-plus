@@ -2,7 +2,7 @@ import {
 	POPUP_BEM_CONFIG,
 	POPUP_COMPONENT_NAMES,
 	POPUP_INSIDE_COMPONENT_NAMES,
-} from '../../CONSTANTS'
+} from '@core/CONSTANTS'
 
 export interface INamespace {
 	/**

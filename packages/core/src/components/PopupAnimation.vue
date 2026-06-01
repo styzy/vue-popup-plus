@@ -9,8 +9,8 @@ Transition(
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import type { Animation } from '../animation'
-import { POPUP_INSIDE_COMPONENT_NAMES } from '../CONSTANTS'
+import { POPUP_INSIDE_COMPONENT_NAMES } from '@core/CONSTANTS'
+import type { Animation } from '@core/animation'
 
 const ANIMATION_NAMESPACE = 'popup-animation'
 

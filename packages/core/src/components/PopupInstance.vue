@@ -39,15 +39,15 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_NAMES,
-} from '../CONSTANTS'
-import { type Instance } from '../instance'
+} from '@core/CONSTANTS'
+import { type Instance } from '@core/instance'
 
-import PopupAnchorFrame from './PopupAnchorFrame.vue'
-import PopupAnimation from './PopupAnimation.vue'
-import PopupFrame from './PopupFrame.vue'
-import PopupMask from './PopupMask.vue'
-import PopupView from './PopupView.vue'
-import PopupViewport from './PopupViewport.vue'
+import PopupAnchorFrame from '@core/components/PopupAnchorFrame.vue'
+import PopupAnimation from '@core/components/PopupAnimation.vue'
+import PopupFrame from '@core/components/PopupFrame.vue'
+import PopupMask from '@core/components/PopupMask.vue'
+import PopupView from '@core/components/PopupView.vue'
+import PopupViewport from '@core/components/PopupViewport.vue'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.INSTANCE,

@@ -8,9 +8,9 @@ import { computed, inject } from 'vue'
 import {
 	POPUP_INSIDE_COMPONENT_NAMES,
 	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../CONSTANTS'
-import { type PopupPlacement } from '../controller'
-import { useNamespace } from '../hooks'
+} from '@core/CONSTANTS'
+import { type PopupPlacement } from '@core/controller'
+import { useNamespace } from '@core/hooks'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.FRAME,

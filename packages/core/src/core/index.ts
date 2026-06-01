@@ -8,19 +8,24 @@ import {
 	POPUP_COMPONENT_NAMES,
 	POPUP_DOCUMENT_URL,
 	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../CONSTANTS'
-import { Config, type PopupConfigOption, type IConfig } from '../config'
-import { type PopupController } from '../controller'
-import { internalDirectives } from '../directive'
-import { Instance, type PopupInstanceId } from '../instance'
-import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from '../log'
-import { createMixins } from '../mixins'
+} from '@core/CONSTANTS'
+import { Config, type PopupConfigOption, type IConfig } from '@core/config'
+import { type PopupController } from '@core/controller'
+import { internalDirectives } from '@core/directive'
+import { Instance, type PopupInstanceId } from '@core/instance'
+import {
+	PopupLog,
+	PopupLogGroupItemType,
+	PopupLogType,
+	printLog,
+} from '@core/log'
+import { createMixins } from '@core/mixins'
 import {
 	wrapConfigWithPlugin,
 	type PluginOption,
 	type PopupPlugin,
-} from '../plugin'
-import { version } from '../version'
+} from '@core/plugin'
+import { version } from '@core/version'
 import type { Instances, PopupCore } from './types'
 
 export * from './types'

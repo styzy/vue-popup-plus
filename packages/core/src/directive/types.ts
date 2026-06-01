@@ -4,8 +4,8 @@ import {
 	type ObjectDirective,
 	type VNode,
 } from 'vue'
-import type { PopupController } from '../controller'
-import type { PopupLog } from '../log'
+import type { PopupController } from '@core/controller'
+import type { PopupLog } from '@core/log'
 
 export type PopupDirectiveTrigger = 'click' | 'hover' | 'contextmenu'
 type PopupDirectiveTriggerModifiers = 'stop' | 'prevent'

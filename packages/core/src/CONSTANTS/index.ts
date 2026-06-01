@@ -1,8 +1,11 @@
 import type { ComputedRef, InjectionKey } from 'vue'
-import type { PopupAnchorPlacement } from '../controller'
-import type { PopupCore } from '../core'
-import type { Instance, PopupInstanceId } from '../instance'
-import type { PopupViewComputedStyle, PopupViewportBoundary } from '../typings'
+import type { PopupAnchorPlacement } from '@core/controller'
+import type { PopupCore } from '@core/core'
+import type { Instance, PopupInstanceId } from '@core/instance'
+import type {
+	PopupViewComputedStyle,
+	PopupViewportBoundary,
+} from '@core/typings'
 
 // 组件名称
 export const POPUP_COMPONENT_NAMES = {

@@ -13,11 +13,11 @@ import {
 	type VNode,
 } from 'vue'
 import { wait } from 'utils'
-import type { PopupRenderOption, PopupUpdateOption } from '../controller'
-import { type PopupCore } from '../core'
-import type { PopupViewComputedStyle } from '../typings'
+import type { PopupRenderOption, PopupUpdateOption } from '@core/controller'
+import { type PopupCore } from '@core/core'
+import type { PopupViewComputedStyle } from '@core/typings'
 
-import PopupInstance from '../components/PopupInstance.vue'
+import PopupInstance from '@core/components/PopupInstance.vue'
 
 /**
  * 将对象的属性转换为 ref 类型

@@ -11,9 +11,9 @@ import {
 	ref,
 } from 'vue'
 import { isParentNode } from 'utils'
-import { usePopup } from '../../..//hooks'
-import { POPUP_COMPONENT_NAMES } from '../../../CONSTANTS'
-import { type PopupInstanceId } from '../../../instance'
+import { POPUP_COMPONENT_NAMES } from '@core/CONSTANTS'
+import { usePopup } from '@core/hooks'
+import { type PopupInstanceId } from '@core/instance'
 import {
 	type PopupAnchorTrigger,
 	type PopupAnchorTriggerEmits,

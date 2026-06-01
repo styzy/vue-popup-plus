@@ -26,8 +26,8 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_NAMES,
-} from '../CONSTANTS'
-import { useNamespace } from '../hooks'
+} from '@core/CONSTANTS'
+import { useNamespace } from '@core/hooks'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.VIEW,

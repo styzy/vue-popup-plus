@@ -1,11 +1,11 @@
 import { getCurrentInstance, hasInjectionContext, inject } from 'vue'
+import { POPUP_COMPONENT_INJECTS } from '@core/CONSTANTS'
 import {
 	printLog,
 	PopupLog,
 	PopupLogType,
 	PopupLogGroupItemType,
-} from '../../log'
-import { POPUP_COMPONENT_INJECTS } from '../../CONSTANTS'
+} from '@core/log'
 
 /**
  * 获取弹出层视图计算样式

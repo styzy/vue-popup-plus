@@ -19,17 +19,17 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_NAMES,
 	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../CONSTANTS'
+} from '@core/CONSTANTS'
 import {
 	type PopupAnchorPlacement,
 	type PopupAnchorShift,
 	type PopupRenderOption,
-} from '../controller'
-import { useNamespace, usePopup } from '../hooks'
+} from '@core/controller'
+import { useNamespace, usePopup } from '@core/hooks'
 import {
 	type PopupViewComputedStyle,
 	type PopupViewportBoundary,
-} from '../typings'
+} from '@core/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.ANCHOR_FRAME,

@@ -1,8 +1,8 @@
 import type { ComponentInternalInstance } from 'vue'
-import { createController } from '../controller'
-import { getCore } from '../core'
-import { PopupError } from '../error'
-import { defaultPrintLog, PopupLog, PopupLogType } from '../log'
+import { createController } from '@core/controller'
+import { getCore } from '@core/core'
+import { PopupError } from '@core/error'
+import { defaultPrintLog, PopupLog, PopupLogType } from '@core/log'
 import type {
 	PopupDirective,
 	PopupDirectiveCreator,

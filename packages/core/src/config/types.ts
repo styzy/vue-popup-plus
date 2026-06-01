@@ -1,5 +1,5 @@
-import type { PopupDirective } from '../directive'
-import type { PopupLogHandler, LogFilter } from '../log'
+import type { PopupDirective } from '@core/directive'
+import type { PopupLogHandler, LogFilter } from '@core/log'
 
 export type PopupZIndexGetter = () => number
 

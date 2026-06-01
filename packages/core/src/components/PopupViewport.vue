@@ -15,9 +15,9 @@ import {
 import {
 	POPUP_INSIDE_COMPONENT_NAMES,
 	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../CONSTANTS'
-import { type PopupRenderOption } from '../controller'
-import type { PopupViewportBoundary } from '../typings'
+} from '@core/CONSTANTS'
+import { type PopupRenderOption } from '@core/controller'
+import type { PopupViewportBoundary } from '@core/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.VIEWPORT,

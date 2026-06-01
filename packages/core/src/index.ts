@@ -1,11 +1,16 @@
-import { type PopupConfigOption } from './config'
-import { createCore, type PopupCore } from './core'
-import { PopupLog, PopupLogGroupItemType, PopupLogType, printLog } from './log'
+import { type PopupConfigOption } from '@core/config'
+import { createCore, type PopupCore } from '@core/core'
+import {
+	PopupLog,
+	PopupLogGroupItemType,
+	PopupLogType,
+	printLog,
+} from '@core/log'
 
-import './assets/styles/main.scss'
+import '@core/assets/styles/main.scss'
 
-export { POPUP_ANIMATIONS, type PopupCustomAnimations } from './animation'
-export { type PopupConfigOption } from './config'
+export { POPUP_ANIMATIONS, type PopupCustomAnimations } from '@core/animation'
+export { type PopupConfigOption } from '@core/config'
 export {
 	PopupAnchorTrigger,
 	PopupRoot,
@@ -14,7 +19,7 @@ export {
 	type PopupAnchorTriggerSlots,
 	type PopupRootProps,
 	type PopupRootSlots,
-} from './components'
+} from '@core/components'
 export {
 	type PopupController,
 	type PopupMaskDestroyHandler,
@@ -24,15 +29,19 @@ export {
 	type PopupCustomProperties,
 	type PopupRenderOption,
 	type PopupUpdateOption,
-} from './controller'
-export { type PopupCore } from './core'
+} from '@core/controller'
+export { createCore, type PopupCore } from '@core/core'
 export {
 	createPopupDirective,
 	type PopupDirective,
 	type PopupDirectiveCreator,
-} from './directive'
-export { usePopup, usePopupInstanceId, usePopupComputedStyle } from './hooks'
-export { type PopupInstanceId } from './instance'
+} from '@core/directive'
+export {
+	usePopup,
+	usePopupInstanceId,
+	usePopupComputedStyle,
+} from '@core/hooks'
+export { type PopupInstanceId } from '@core/instance'
 export {
 	printLog,
 	PopupLog,
@@ -41,11 +50,11 @@ export {
 	type PopupLogHandler,
 	type PopupLogOption,
 	type PopupLogGroup,
-} from './log'
-export { definePlugin, type PopupPlugin } from './plugin'
-export type { ExtractComponentPropTypes } from './typings'
-export { version, type PopupVersion } from './version'
-export { POPUP_COMPONENT_INJECTS } from './CONSTANTS'
+} from '@core/log'
+export { definePlugin, type PopupPlugin } from '@core/plugin'
+export type { ExtractComponentPropTypes } from '@core/typings'
+export { version, type PopupVersion } from '@core/version'
+export { POPUP_COMPONENT_INJECTS } from '@core/CONSTANTS'
 
 /**
  * 创建弹出层插件

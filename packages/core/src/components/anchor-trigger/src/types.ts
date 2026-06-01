@@ -1,13 +1,11 @@
 import type { VNodeChild } from 'vue'
 import type {
-	PopupAnchorPlacement,
-	PopupAnchorShift,
 	PopupRenderAnchorOption,
 	PopupRenderConfigOption,
 	PopupRenderMaskOption,
 	PopupRenderStyleOption,
 	PopupRenderViewOption,
-} from '../../../controller'
+} from '@core/controller'
 
 export type PopupAnchorTrigger = [
 	'click',

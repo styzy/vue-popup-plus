@@ -1,4 +1,4 @@
-import { type PopupLog } from '../log'
+import { type PopupLog } from '@core/log'
 
 type ErrorOption =
 	| {

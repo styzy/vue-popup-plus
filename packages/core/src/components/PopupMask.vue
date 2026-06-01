@@ -8,8 +8,8 @@ import {
 	POPUP_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_INJECTS,
 	POPUP_INSIDE_COMPONENT_NAMES,
-} from '../CONSTANTS'
-import { useNamespace, usePopup } from '../hooks'
+} from '@core/CONSTANTS'
+import { useNamespace, usePopup } from '@core/hooks'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.MASK,

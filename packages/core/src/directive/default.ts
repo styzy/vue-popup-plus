@@ -1,5 +1,5 @@
-import { type PopupRenderOption } from '../controller'
-import { PopupLog, PopupLogType } from '../log'
+import { type PopupRenderOption } from '@core/controller'
+import { PopupLog, PopupLogType } from '@core/log'
 import { createPopupDirective } from './create'
 import type { PopupDirective } from './types'
 

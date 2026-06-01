@@ -1,11 +1,11 @@
 import type { Component } from 'vue'
-import type { Animation, IAnimations } from '../animation'
-import type { PopupInstanceId } from '../instance'
+import type { Animation, IAnimations } from '@core/animation'
+import type { PopupInstanceId } from '@core/instance'
 import type {
 	PopupViewComputedStyle,
 	ExtractComponentPropTypes,
-} from '../typings'
-import type { PopupVersion } from '../version'
+} from '@core/typings'
+import type { PopupVersion } from '@core/version'
 
 export type PopupPlacement = [
 	'left-top',

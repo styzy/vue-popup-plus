@@ -1,10 +1,19 @@
 import { unref, type ComponentInternalInstance } from 'vue'
-import { POPUP_ANIMATIONS } from '../animation'
-import { type PopupCore } from '../core'
-import { PopupError } from '../error'
-import { Instance, InstanceRenderType, type PopupInstanceId } from '../instance'
-import { printLog, PopupLog, PopupLogType, PopupLogGroupItemType } from '../log'
-import { version } from '../version'
+import { POPUP_ANIMATIONS } from '@core/animation'
+import { type PopupCore } from '@core/core'
+import { PopupError } from '@core/error'
+import {
+	Instance,
+	InstanceRenderType,
+	type PopupInstanceId,
+} from '@core/instance'
+import {
+	printLog,
+	PopupLog,
+	PopupLogType,
+	PopupLogGroupItemType,
+} from '@core/log'
+import { version } from '@core/version'
 import type {
 	PopupController,
 	PopupRenderOption,

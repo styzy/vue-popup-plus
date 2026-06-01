@@ -1,4 +1,8 @@
-import { defaultPrintLog, type PopupLogHandler, type LogFilter } from '../log'
+import {
+	defaultPrintLog,
+	type PopupLogHandler,
+	type LogFilter,
+} from '@core/log'
 import type { IConfig, PopupConfigOption, PopupZIndexGetter } from './types'
 
 export * from './types'

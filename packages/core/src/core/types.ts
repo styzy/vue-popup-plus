@@ -1,9 +1,13 @@
 import type { App, ComponentInternalInstance, Reactive } from 'vue'
-import type { IConfig } from '../config'
-import type { PopupController } from '../controller'
-import type { Instance, PopupInstanceId } from '../instance'
-import type { ExtractPluginOption, PluginOption, PopupPlugin } from '../plugin'
-import type { PopupVersion } from '../version'
+import type { IConfig } from '@core/config'
+import type { PopupController } from '@core/controller'
+import type { Instance, PopupInstanceId } from '@core/instance'
+import type {
+	ExtractPluginOption,
+	PluginOption,
+	PopupPlugin,
+} from '@core/plugin'
+import type { PopupVersion } from '@core/version'
 
 export type Instances = Reactive<Record<PopupInstanceId['name'], Instance>>
 

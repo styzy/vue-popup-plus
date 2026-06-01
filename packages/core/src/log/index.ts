@@ -1,7 +1,7 @@
-import { typeOf, TypeEnum } from 'utils'
-import { getCore } from '../core'
-import { version } from '../version'
 import type { ComponentInternalInstance } from 'vue'
+import { typeOf, TypeEnum } from 'utils'
+import { getCore } from '@core/core'
+import { version } from '@core/version'
 
 /**
  * 日志类型

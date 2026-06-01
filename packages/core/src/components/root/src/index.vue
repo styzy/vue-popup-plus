@@ -11,11 +11,11 @@ import { getCurrentInstance, inject, onBeforeMount, onBeforeUnmount } from 'vue'
 import {
 	POPUP_COMPONENT_NAMES,
 	POPUP_INSIDE_COMPONENT_INJECTS,
-} from '../../../CONSTANTS'
-import { PopupLog, PopupLogType, printLog } from '../../../log'
+} from '@core/CONSTANTS'
+import { PopupLog, PopupLogType, printLog } from '@core/log'
 import type { PopupRootProps, PopupRootSlots } from './types'
 
-import PopupInstance from '../../PopupInstance.vue'
+import PopupInstance from '@core/components/PopupInstance.vue'
 
 const vm = getCurrentInstance()
 

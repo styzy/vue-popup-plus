@@ -1,9 +1,9 @@
-import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '../animation'
-import { type IConfig } from '../config'
-import { Controller, type PopupController } from '../controller'
-import { PopupError } from '../error'
-import { PopupLog, printLog } from '../log'
-import { type PopupVersion } from '../version'
+import { POPUP_ANIMATIONS, type PopupCustomAnimations } from '@core/animation'
+import { type IConfig } from '@core/config'
+import { Controller, type PopupController } from '@core/controller'
+import { PopupError } from '@core/error'
+import { PopupLog, printLog } from '@core/log'
+import { type PopupVersion } from '@core/version'
 
 type ControllerPrototypeFunctionValue = (
 	this: PopupController,
