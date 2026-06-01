@@ -9,9 +9,9 @@ outline: 2
 
 ### 预置插件
 
-#### `plugin`
+<!-- #### `plugin`
 
-- <DVersionTodo version="1.8.0" level="high" author="STYZY" /> 新增 `ContextMenu 右键菜单` 插件。
+- <DVersionTodo version="1.8.0" level="high" author="STYZY" /> 新增 `ContextMenu 右键菜单` 插件。 -->
 
 #### `component`
 
@@ -52,9 +52,9 @@ outline: 2
 
 #### `component`
 
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupAnchor` 组件。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件用于渲染气泡组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件用于渲染提示组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupDropdown` 组件用于渲染下拉组件。
 
 ## v1.6.1
 
