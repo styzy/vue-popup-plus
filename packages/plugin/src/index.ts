@@ -7,7 +7,6 @@ import {
 import { PluginLog } from './log'
 import { album, type AlbumConfig, type IAlbum } from './plugins/album'
 import { alert, type AlertConfig, type IAlert } from './plugins/alert'
-import { bubble, type BubbleConfig, type IBubble } from './plugins/bubble'
 import { confirm, type ConfirmConfig, type IConfirm } from './plugins/confirm'
 import { dialog, type DialogConfig, type IDialog } from './plugins/dialog'
 import { drawer, type DrawerConfig, type IDrawer } from './plugins/drawer'
@@ -25,7 +24,6 @@ export { version } from './version'
 export type {
 	IAlbum,
 	IAlert,
-	IBubble,
 	IConfirm,
 	IDialog,
 	IDrawer,
@@ -44,10 +42,6 @@ export type PresetPluginConfig = GlobalPluginConfig & {
 	 * 提示 插件配置
 	 */
 	alert?: AlertConfig
-	/**
-	 * 气泡 插件配置
-	 */
-	bubble?: BubbleConfig
 	/**
 	 * 确认 插件配置
 	 */
@@ -89,7 +83,6 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 		skin = 'modern',
 		album: albumConfig = {},
 		alert: alertConfig = {},
-		bubble: bubbleConfig = {},
 		confirm: confirmConfig = {},
 		dialog: dialogConfig = {},
 		drawer: drawerConfig = {},
@@ -101,7 +94,6 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 
 	albumConfig.skin = albumConfig.skin || skin
 	alertConfig.skin = alertConfig.skin || skin
-	bubbleConfig.skin = bubbleConfig.skin || skin
 	confirmConfig.skin = confirmConfig.skin || skin
 	dialogConfig.skin = dialogConfig.skin || skin
 	drawerConfig.skin = drawerConfig.skin || skin
@@ -117,7 +109,6 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 		install(_) {
 			album.install(_, albumConfig)
 			alert.install(_, alertConfig)
-			bubble.install(_, bubbleConfig)
 			confirm.install(_, confirmConfig)
 			dialog.install(_, dialogConfig)
 			drawer.install(_, drawerConfig)
