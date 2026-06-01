@@ -1,10 +1,13 @@
+import {
+	PButton,
+	PButtonGroup,
+} from '../../../../plugin/src/components/internal'
+
 import GComponent from './GComponent.vue'
 import GContainer from './GContainer.vue'
 import GTitle from './GTitle.vue'
 import GTools from './GTools.vue'
 import GViewport from './GViewport.vue'
-import PButtonGroup from '../../../../plugin/src/components/PButtonGroup.vue'
-import PButton from '../../../../plugin/src/components/PButton.vue'
 
 export const components = {
 	GComponent,

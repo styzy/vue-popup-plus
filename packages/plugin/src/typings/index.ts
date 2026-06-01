@@ -1,4 +1,4 @@
-import { type Skin } from '../skin'
+import { type PopupSkin } from '@plugin/skin'
 
 export type Theme = ['primary', 'info', 'success', 'warning', 'danger'][number]
 
@@ -10,7 +10,7 @@ export type GlobalPluginConfig = {
 	 *   - `modern` 现代皮肤
 	 *   - `classic` 经典皮肤
 	 */
-	skin?: Skin
+	skin?: PopupSkin
 }
 
 /**

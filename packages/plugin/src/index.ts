@@ -4,72 +4,108 @@ import {
 	PopupLogType,
 	printLog,
 } from 'vue-popup-plus'
-import { PluginLog } from './log'
-import { album, type AlbumConfig, type IAlbum } from './plugins/album'
-import { alert, type AlertConfig, type IAlert } from './plugins/alert'
-import { confirm, type ConfirmConfig, type IConfirm } from './plugins/confirm'
-import { dialog, type DialogConfig, type IDialog } from './plugins/dialog'
-import { drawer, type DrawerConfig, type IDrawer } from './plugins/drawer'
-import { loading, type ILoading, type LoadingConfig } from './plugins/loading'
-import { message, type IMessage, type MessageConfig } from './plugins/message'
-import { prompt, type IPrompt, type PromptConfig } from './plugins/prompt'
-import { toast, type IToast, type ToastConfig } from './plugins/toast'
-import { type GlobalPluginConfig } from './typings'
-import { requiredCoreVersion } from './version'
+import { PluginLog } from '@plugin/log'
+import {
+	album,
+	type PopupAlbumConfig,
+	type PopupAlbum,
+} from '@plugin/plugins/album'
+import {
+	alert,
+	type PopupAlertConfig,
+	type PopupAlert,
+} from '@plugin/plugins/alert'
+import {
+	confirm,
+	type PopupConfirmConfig,
+	type PopupConfirm,
+} from '@plugin/plugins/confirm'
+import {
+	dialog,
+	type PopupDialogConfig,
+	type PopupDialog,
+} from '@plugin/plugins/dialog'
+import {
+	drawer,
+	type PopupDrawerConfig,
+	type PopupDrawer,
+} from '@plugin/plugins/drawer'
+import {
+	loading,
+	type PopupLoading,
+	type PopupLoadingConfig,
+} from '@plugin/plugins/loading'
+import {
+	message,
+	type PopupMessage,
+	type PopupMessageConfig,
+} from '@plugin/plugins/message'
+import {
+	prompt,
+	type PopupPrompt,
+	type PopupPromptConfig,
+} from '@plugin/plugins/prompt'
+import {
+	toast,
+	type PopupToast,
+	type PopupToastConfig,
+} from '@plugin/plugins/toast'
+import { type GlobalPluginConfig } from '@plugin/typings'
+import { requiredCoreVersion } from '@plugin/version'
 
-import './assets/styles/main.scss'
+import '@plugin/assets/styles/main.scss'
 
-export { type Skin } from './skin'
-export { version } from './version'
+export { type PopupSkin } from '@plugin/skin'
+export { version } from '@plugin/version'
 export type {
-	IAlbum,
-	IAlert,
-	IConfirm,
-	IDialog,
-	IDrawer,
-	ILoading,
-	IMessage,
-	IPrompt,
-	IToast,
+	PopupAlbum,
+	PopupAlert,
+	PopupConfirm,
+	PopupDialog,
+	PopupDrawer,
+	PopupLoading,
+	PopupMessage,
+	PopupPrompt,
+	PopupToast,
 }
 
 export type PresetPluginConfig = GlobalPluginConfig & {
 	/**
 	 * 媒体相册 插件配置
 	 */
-	album?: AlbumConfig
+	album?: PopupAlbumConfig
 	/**
 	 * 提示 插件配置
 	 */
-	alert?: AlertConfig
+	alert?: PopupAlertConfig
 	/**
 	 * 确认 插件配置
 	 */
-	confirm?: ConfirmConfig
+	confirm?: PopupConfirmConfig
 	/**
 	 * 对话 插件配置
 	 */
-	dialog?: DialogConfig
+	dialog?: PopupDialogConfig
 	/**
 	 * 抽屉 插件配置
 	 */
-	drawer?: DrawerConfig
+	drawer?: PopupDrawerConfig
 	/**
 	 * 加载遮罩 插件配置
 	 */
-	loading?: LoadingConfig
+	loading?: PopupLoadingConfig
 	/**
 	 * 消息提示 插件配置
 	 */
-	message?: MessageConfig
+	message?: PopupMessageConfig
 	/**
 	 * 提示输入 插件配置
 	 */
-	prompt?: PromptConfig
+	prompt?: PopupPromptConfig
 	/**
 	 * 轻量提示 插件配置
 	 */
-	toast?: ToastConfig
+	toast?: PopupToastConfig
 }
 
 /**

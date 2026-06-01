@@ -1,0 +1,12 @@
+export { default as PArrowContainer } from './PArrowContainer.vue'
+export { default as PBody } from './PBody.vue'
+export { default as PFooter } from './PFooter.vue'
+export { default as PHeader } from './PHeader.vue'
+export { default as PHeaderButton } from './PHeaderButton.vue'
+export { default as PLayout } from './PLayout.vue'
+export { default as PLoadingIcon } from './PLoadingIcon.vue'
+export { default as PSkin } from './PSkin.vue'
+export { default as PWindowResize } from './PWindowResize.vue'
+
+export * from './button'
+export * from './button-group'

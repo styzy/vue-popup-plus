@@ -1,0 +1,206 @@
+import type { Component } from 'vue'
+import type {
+	ExtractComponentPropTypes,
+	PopupController,
+	PopupMaskDestroyHandler,
+	PopupPlacement,
+} from 'vue-popup-plus'
+import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+
+export type PopupDialogOption<TComponent extends Component = Component> = {
+	/**
+	 * 对话框标题
+	 *
+	 * - 默认值为 `对话`
+	 */
+	title?: string
+	/**
+	 * 对话框内容组件
+	 */
+	component: TComponent
+	/**
+	 * 对话框内容组件props
+	 */
+	componentProps?: ExtractComponentPropTypes<TComponent>
+	/**
+	 * 对话框渲染完成时调用的回调函数
+	 */
+	onMounted?: () => void
+	/**
+	 * 是否显示对话框标题栏
+	 *
+	 * - 默认值为 `true`
+	 */
+	header?: boolean
+	/**
+	 * 标题栏是否显示关闭按钮
+	 *
+	 * - 默认值：`true`
+	 */
+	headerClose?: boolean
+	/**
+	 * 对话框宽度
+	 *
+	 * - 默认值为 `auto`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	width?: string | number
+	/**
+	 * 对话框最大宽度
+	 *
+	 * - 默认值为 `100%`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	maxWidth?: string | number
+	/**
+	 * 对话框最小宽度
+	 *
+	 * - 默认值为 `auto`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	minWidth?: string | number
+	/**
+	 * 对话框高度
+	 *
+	 * - 默认值为 `auto`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	height?: string | number
+	/**
+	 * 对话框最大高度
+	 *
+	 * - 默认值为 `100%`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	maxHeight?: string | number
+	/**
+	 * 对话框最小高度
+	 *
+	 * - 默认值为 `auto`
+	 * - 支持 `string` 或 `number` 类型
+	 */
+	minHeight?: string | number
+	/**
+	 * 对话框位置
+	 *
+	 * - 默认值为 `center`
+	 *
+	 * @since 1.5.0
+	 */
+	placement?: PopupPlacement
+	/**
+	 * 是否可拖拽
+	 *
+	 * - 默认值为 `false`
+	 */
+	draggable?: boolean
+	/**
+	 * 是否可拖拽溢出屏幕
+	 *
+	 * - 默认值为 `false`
+	 */
+	dragOverflow?: boolean
+	/**
+	 * 是否显示对话框遮罩层
+	 *
+	 * - 默认值为 `true`
+	 */
+	mask?: boolean
+	/**
+	 * 遮罩层是否模糊
+	 *
+	 * - 默认值：`false`
+	 *
+	 * @since 1.3.0
+	 */
+	maskBlur?: boolean
+	/**
+	 * 遮罩层是否透明
+	 *
+	 * - 默认为 `false`
+	 * - 优先级高于 `maskBlur`
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * @since 1.6.0
+	 */
+	maskTransparent?: boolean
+	/**
+	 * 点击遮罩层是否关闭对话框
+	 *
+	 * - 默认值为 `false` ，点击遮罩层不会关闭对话框
+	 * - 传入 `true` ，点击遮罩层将关闭对话框
+	 * - 可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>`
+	 *   类型的函数作为参数，执行后将关闭对话框，可传入关闭携带的负载参数，返回的
+	 *   `Promise` 对象会在对话框关闭动画完成后 `resolve()` 。
+	 * - 仅在 `mask` 参数为 `true` 时有效
+	 *
+	 * - 使用示例：
+	 * ```ts
+	 * popup.dialog({
+	 *     component: () => import('./HelloWorld.vue'),
+	 *     maskClose: async (close)=>{
+	 *         if(...自定义拦截条件) return
+	 *
+	 *         // 直接关闭
+	 *         close('携带的关闭参数')
+	 *
+	 *         // 异步等待关闭动画结束
+	 *         await close('携带的关闭参数')
+	 *         // 关闭后执行其他操作
+	 *     },
+	 * })
+	 * ```
+	 *
+	 * @since 1.6.0
+	 */
+	maskClose?: boolean | PopupMaskDestroyHandler
+} & SharedOption
+
+export interface PopupDialog {
+	/**
+	 * 显示对话框
+	 *
+	 * - 对话框内部组件可通过调用 `dialogClose(payload)`
+	 *   关闭对话框，payload 为关闭时传递的参数
+	 * - 如需获取对话框关闭时传递的参数，可在调用 `dialog` 方法时使用 `await` 关键字等待
+	 *   Promise resolve 后获取
+	 * - 对话框关闭时，无论是否传递了参数，Promise 都将 resolve，因此需要在调用时判断是否有返回参数
+	 */
+	<T extends any = any, TComponent extends Component = Component>(
+		this: PopupController,
+		options: PopupDialogOption<TComponent>
+	): Promise<T | void>
+}
+
+export interface PopupDialogClose {
+	/**
+	 * 关闭对话框
+	 *
+	 * - 将会关闭最后一个创建的对话框
+	 * - 如果当前没有对话框正在显示，则不会有任何效果，调试模式下会抛出警告
+	 * - 可传递任意类型的参数，该参数将会被传递给打开对话框时的 Promise resolve 函数
+	 * @param payload 关闭时传递的参数
+	 */
+	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
+}
+
+export type PopupDialogDefaultOption = Omit<
+	PopupDialogOption,
+	'component' | 'componentProps' | 'onMounted' | 'zIndex'
+>
+
+export type PopupDialogConfig = GlobalPluginConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.dialog()` 方法的默认选项
+	 */
+	defaultOptions?: PopupDialogDefaultOption
+}
+
+declare module 'vue-popup-plus' {
+	interface PopupCustomProperties {
+		dialog: PopupDialog
+		dialogClose: PopupDialogClose
+	}
+}

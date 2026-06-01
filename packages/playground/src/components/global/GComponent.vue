@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
-import PButton from '../../../../plugin/src/components/PButton.vue'
 
 const popup = usePopup()
 
