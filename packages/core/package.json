@@ -9,21 +9,22 @@
 	],
 	"license": "MIT",
 	"publishConfig": {
-		"registry": "https://registry.npmjs.org"
+		"registry": "https://registry.npmjs.org",
+		"main": "dist/vue-popup-plus.umd.js",
+		"module": "dist/vue-popup-plus.js",
+		"types": "dist/vue-popup-plus.d.ts",
+		"exports": {
+			".": {
+				"import": "./dist/vue-popup-plus.js",
+				"require": "./dist/vue-popup-plus.umd.js"
+			}
+		}
 	},
 	"type": "module",
+	"main": "src/index.ts",
 	"files": [
 		"dist"
 	],
-	"main": "./dist/vue-popup-plus.umd.js",
-	"module": "./dist/vue-popup-plus.js",
-	"exports": {
-		".": {
-			"import": "./dist/vue-popup-plus.js",
-			"require": "./dist/vue-popup-plus.umd.js"
-		}
-	},
-	"types": "./dist/vue-popup-plus.d.ts",
 	"engines": {
 		"node": "^20.19.0 || >=22.12.0"
 	},

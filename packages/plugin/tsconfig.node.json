@@ -6,7 +6,8 @@
 		"cypress.config.*",
 		"nightwatch.conf.*",
 		"playwright.config.*",
-		"eslint.config.*"
+		"eslint.config.*",
+		"vite.locales.config.ts"
 	],
 	"compilerOptions": {
 		"noEmit": true,
