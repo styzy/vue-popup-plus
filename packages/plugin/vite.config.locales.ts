@@ -1,17 +1,28 @@
+import { readdirSync } from 'node:fs'
+import { extname, basename } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import vue from '@vitejs/plugin-vue'
 
-const localeEntries = {
-	'zh-CN': fileURLToPath(
-		new URL('./src/locale/langs/zh-CN', import.meta.url)
-	),
-	'en-US': fileURLToPath(
-		new URL('./src/locale/langs/en-US', import.meta.url)
-	),
-}
+const langsDirectory = fileURLToPath(
+	new URL('./src/locale/langs', import.meta.url)
+)
+
+const localeEntries = Object.fromEntries(
+	readdirSync(langsDirectory)
+		.filter((file) => extname(file) === '.ts')
+		.map((file) => [
+			basename(file, '.ts'),
+			fileURLToPath(
+				new URL(
+					`./src/locale/langs/${basename(file, '.ts')}`,
+					import.meta.url
+				)
+			),
+		])
+)
 
 export default defineConfig({
 	build: {
