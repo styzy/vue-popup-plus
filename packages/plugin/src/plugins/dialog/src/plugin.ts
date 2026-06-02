@@ -5,6 +5,7 @@ import {
 	printLog,
 	type PopupInstanceId,
 } from 'vue-popup-plus'
+import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
@@ -18,6 +19,8 @@ import type {
 class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Dialog'
 }
+
+const { t } = useLocale()
 
 let seed = 1
 
@@ -38,7 +41,7 @@ export const dialog = definePlugin({
 		}> = []
 
 		const dialog: PopupDialog = function ({
-			title = defaultOptions.title ?? '对话',
+			title = defaultOptions.title ?? t('dialog.title'),
 			component,
 			componentProps = {},
 			onMounted = () => {},

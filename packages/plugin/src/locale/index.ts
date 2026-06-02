@@ -13,9 +13,12 @@ export function setLocale(messages: PLocaleMessages) {
 export function useLocale(): PLocale {
 	return {
 		t(key) {
-			return key
-				.split('.')
-				.reduce((acc, cur) => acc[cur], _messages.value as any)
+			const keys = key.split('.')
+			return keys.reduce(
+				(item, _key, index) =>
+					item[_key] ?? (index === keys.length - 1 ? key : {}),
+				_messages.value as any
+			)
 		},
 	}
 }

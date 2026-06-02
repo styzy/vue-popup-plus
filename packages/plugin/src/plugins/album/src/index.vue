@@ -108,6 +108,7 @@ import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { File, type FileType } from '@plugin/class'
 import { PSkin } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
+import { useLocale } from '@plugin/locale'
 import { type PopupSkin } from '@plugin/skin'
 import { type PopupAlbumSource } from './types'
 
@@ -121,6 +122,7 @@ defineOptions({
 
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.ALBUM)
 const popup = usePopup()
+const { t } = useLocale()
 
 const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
@@ -338,19 +340,19 @@ function handleImageDragEnd() {
 
 function handleNameCopy() {
 	setClipboard(currentMedia.value.name)
-	popup.toast('复制成功')
+	popup.toast(t('album.copySuccess'))
 }
 
 function handlePureEnter() {
 	pureMode.value = true
-	popup.toast('开启纯净模式，双击即可退出')
+	popup.toast(t('album.pureModeEnter'))
 }
 
 function handlePureExit() {
 	if (!pureMode.value) return
 
 	pureMode.value = false
-	popup.toast('退出纯净模式')
+	popup.toast(t('album.pureModeExit'))
 }
 
 function handleDownload() {

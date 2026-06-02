@@ -32,13 +32,13 @@ GContainer
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
+
 import Demo from '../demo/Demo.vue'
 
 const popup = usePopup()
 
 async function handlePopupDialog() {
 	const result: string | void = await popup.dialog({
-		title: '对话框标题',
 		component: Demo,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)

@@ -6,6 +6,7 @@ import {
 	POPUP_ANIMATIONS,
 	type PopupInstanceId,
 } from 'vue-popup-plus'
+import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
@@ -20,6 +21,8 @@ import type {
 class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Drawer'
 }
+
+const { t } = useLocale()
 
 let seed = 1
 
@@ -41,7 +44,7 @@ export const drawer = definePlugin({
 		}> = []
 
 		const drawer: PopupDrawer = function ({
-			title = defaultOptions.title ?? '抽屉',
+			title = defaultOptions.title ?? t('drawer.title'),
 			component,
 			componentProps = {},
 			onMounted = () => {},

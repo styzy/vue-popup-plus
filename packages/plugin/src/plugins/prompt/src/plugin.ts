@@ -4,6 +4,7 @@ import {
 	PopupLogGroupItemType,
 	printLog,
 } from 'vue-popup-plus'
+import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
@@ -12,6 +13,8 @@ import type { PopupPrompt, PopupPromptConfig, PopupPromptOption } from './types'
 class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Prompt'
 }
+
+const { t } = useLocale()
 
 export const prompt = definePlugin({
 	name: 'plugin-preset-prompt',
@@ -26,12 +29,15 @@ export const prompt = definePlugin({
 			{
 				defaultValue = '',
 				type = defaultOptions.type ?? 'input',
-				title = defaultOptions.title ?? '提示输入',
+				title = defaultOptions.title ?? t('prompt.title'),
 				headerClose = defaultOptions.headerClose ?? true,
 				maxLength = defaultOptions.maxLength ?? null,
-				placeholder = defaultOptions.placeholder ?? '请输入',
-				confirmText = defaultOptions.confirmText ?? '确定',
-				cancelText = defaultOptions.cancelText ?? '取消',
+				placeholder = defaultOptions.placeholder ??
+					t('prompt.placeholder'),
+				confirmText = defaultOptions.confirmText ??
+					t('prompt.confirmText'),
+				cancelText = defaultOptions.cancelText ??
+					t('prompt.cancelText'),
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,

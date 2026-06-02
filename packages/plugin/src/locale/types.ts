@@ -13,7 +13,30 @@ export interface PLocale {
 }
 
 export interface PLocaleMessages {
-	input: {
+	album: {
+		copySuccess: string
+		pureModeEnter: string
+		pureModeExit: string
+	}
+	alert: {
+		title: string
+		confirmText: string
+	}
+	confirm: {
+		title: string
+		confirmText: string
+		cancelText: string
+	}
+	dialog: {
+		title: string
+	}
+	drawer: {
+		title: string
+	}
+	prompt: {
+		title: string
 		placeholder: string
+		confirmText: string
+		cancelText: string
 	}
 }

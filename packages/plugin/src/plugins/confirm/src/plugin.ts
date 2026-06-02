@@ -4,6 +4,7 @@ import {
 	PopupLogGroupItemType,
 	printLog,
 } from 'vue-popup-plus'
+import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import { requiredCoreVersion } from '@plugin/version'
 import type {
@@ -16,6 +17,8 @@ class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Confirm'
 }
 
+const { t } = useLocale()
+
 export const confirm = definePlugin({
 	name: 'plugin-preset-confirm',
 	author: 'STYZY',
@@ -25,12 +28,14 @@ export const confirm = definePlugin({
 		{ skin = 'modern', defaultOptions = {} }: PopupConfirmConfig = {}
 	) => {
 		const confirm: PopupConfirm = function (
-			content = '是否确认？',
+			content,
 			{
-				title = defaultOptions.title ?? '确认',
+				title = defaultOptions.title ?? t('confirm.title'),
 				headerClose = defaultOptions.headerClose ?? false,
-				confirmText = defaultOptions.confirmText ?? '确定',
-				cancelText = defaultOptions.cancelText ?? '取消',
+				confirmText = defaultOptions.confirmText ??
+					t('confirm.confirmText'),
+				cancelText = defaultOptions.cancelText ??
+					t('confirm.cancelText'),
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,

@@ -4,14 +4,17 @@ import {
 	PopupLogGroupItemType,
 	printLog,
 } from 'vue-popup-plus'
+import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
-import type { PopupAlertConfig, PopupAlertOption, PopupAlert } from './types.ts'
+import type { PopupAlertConfig, PopupAlertOption, PopupAlert } from './types'
 
 class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Alert'
 }
+
+const { t } = useLocale()
 
 export const alert = definePlugin({
 	name: 'plugin-preset-alert',
@@ -24,9 +27,10 @@ export const alert = definePlugin({
 		const alert: PopupAlert = function (
 			content = '',
 			{
-				title = defaultOptions.title ?? '提示',
+				title = defaultOptions.title ?? t('alert.title'),
 				headerClose = defaultOptions.headerClose ?? true,
-				confirmText = defaultOptions.confirmText ?? '确定',
+				confirmText = defaultOptions.confirmText ??
+					t('alert.confirmText'),
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
