@@ -8,11 +8,11 @@ type DeepDotKey<T, Pre extends string = ''> =
 			}[keyof T & string]
 		: never
 
-export interface PLocale {
-	t(key: DeepDotKey<PLocaleMessages>): string
+export interface PopupLocale {
+	t(key: DeepDotKey<PopupLocaleMessages>): string
 }
 
-export interface PLocaleMessages {
+export interface PopupLocaleMessages {
 	album: {
 		copySuccess: string
 		pureModeEnter: string

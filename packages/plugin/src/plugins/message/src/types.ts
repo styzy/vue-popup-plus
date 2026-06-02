@@ -4,7 +4,7 @@ import type {
 	PopupInstanceId,
 	PopupPlacement,
 } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption, Theme } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
 
 export type PopupMessageOption = {
 	/**
@@ -97,7 +97,7 @@ export interface PopupMessageDanger {
 
 export type PopupMessageDefaultOption = Omit<PopupMessageOption, 'zIndex'>
 
-export type PopupMessageConfig = GlobalPluginConfig & {
+export type PopupMessageConfig = PluginSharedConfig & {
 	defaultOptions?: PopupMessageDefaultOption
 }
 

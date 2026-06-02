@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { GlobalPluginConfig } from '@plugin/typings'
+import type { PluginSharedConfig } from '@plugin/typings'
 
 export type PopupConfirmOption = {
 	/**
@@ -73,7 +73,7 @@ export interface PopupConfirm {
 
 type PopupConfirmDefaultOption = Omit<PopupConfirmOption, 'zIndex'>
 
-export type PopupConfirmConfig = GlobalPluginConfig & {
+export type PopupConfirmConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

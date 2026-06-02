@@ -1,4 +1,4 @@
-import type { PLocaleMessages } from '../types'
+import type { PopupLocaleMessages } from '../types'
 
 export default {
 	album: {
@@ -27,4 +27,4 @@ export default {
 		confirmText: '确定',
 		cancelText: '取消',
 	},
-} satisfies PLocaleMessages
+} satisfies PopupLocaleMessages

@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupAlbumSource = {
 	url: string
@@ -118,7 +118,7 @@ type PopupAlbumDefaultOption = Omit<
 	'sources' | 'defaultIndex' | 'zIndex'
 >
 
-export type PopupAlbumConfig = GlobalPluginConfig & {
+export type PopupAlbumConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

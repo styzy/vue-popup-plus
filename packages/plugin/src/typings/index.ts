@@ -2,7 +2,7 @@ import { type PopupSkin } from '@plugin/skin'
 
 export type Theme = ['primary', 'info', 'success', 'warning', 'danger'][number]
 
-export type GlobalPluginConfig = {
+export type PluginSharedConfig = {
 	/**
 	 * 插件弹出层皮肤
 	 * - 默认为 `modern` 现代皮肤

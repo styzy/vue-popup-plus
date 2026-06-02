@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupAlertOption = {
 	/**
@@ -67,7 +67,7 @@ export interface PopupAlert {
 
 type PopupAlertDefaultOption = Omit<PopupAlertOption, 'zIndex'>
 
-export type PopupAlertConfig = GlobalPluginConfig & {
+export type PopupAlertConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

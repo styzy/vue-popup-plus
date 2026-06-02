@@ -5,7 +5,7 @@ import type {
 	PopupMaskDestroyHandler,
 	PopupPlacement,
 } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupDialogOption<TComponent extends Component = Component> = {
 	/**
@@ -189,7 +189,7 @@ export type PopupDialogDefaultOption = Omit<
 	'component' | 'componentProps' | 'onMounted' | 'zIndex'
 >
 
-export type PopupDialogConfig = GlobalPluginConfig & {
+export type PopupDialogConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

@@ -1,18 +1,19 @@
 import { shallowRef } from 'vue'
-import enUs from './langs/en-US'
-import type { PLocale, PLocaleMessages } from './types'
+import type { PopupLocale, PopupLocaleMessages } from './types'
 
 export * from './types'
 
-const _messages = shallowRef<PLocaleMessages>(enUs)
+const _messages = shallowRef<PopupLocaleMessages>()
 
-export function setLocale(messages: PLocaleMessages) {
+export function setLocale(messages: PopupLocaleMessages) {
 	_messages.value = messages
 }
 
-export function useLocale(): PLocale {
+export function useLocale(): PopupLocale {
 	return {
 		t(key) {
+			if (!_messages.value) return key
+
 			const keys = key.split('.')
 			return keys.reduce(
 				(item, _key, index) =>

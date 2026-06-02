@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption, Theme } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
 
 export type PopupLoadingOption = {
 	/**
@@ -98,7 +98,7 @@ export interface PopupLoadingClose {
 
 type PopupLoadingDefaultOption = PopupLoadingOption
 
-export type PopupLoadingConfig = GlobalPluginConfig & {
+export type PopupLoadingConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

@@ -4,7 +4,7 @@ import type {
 	PopupController,
 	PopupMaskDestroyHandler,
 } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupDrawerPlacement = ['top', 'right', 'bottom', 'left'][number]
 
@@ -157,7 +157,7 @@ type PopupDrawerDefaultOption = Omit<
 	'component' | 'componentProps' | 'onMounted' | 'zIndex'
 >
 
-export type PopupDrawerConfig = GlobalPluginConfig & {
+export type PopupDrawerConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

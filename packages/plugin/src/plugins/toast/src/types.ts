@@ -1,5 +1,5 @@
 import type { PopupController, PopupPlacement } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption, Theme } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
 
 export type PopupToastOption = {
 	/**
@@ -128,7 +128,7 @@ export interface PopupToastDanger {
 
 type PopupToastDefaultOption = Omit<PopupToastOption, 'zIndex'>
 
-export type PopupToastConfig = GlobalPluginConfig & {
+export type PopupToastConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

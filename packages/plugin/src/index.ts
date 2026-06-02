@@ -4,6 +4,8 @@ import {
 	PopupLogType,
 	printLog,
 } from 'vue-popup-plus'
+import { setLocale, type PopupLocaleMessages } from '@plugin/locale'
+import enUS from '@plugin/locale/langs/en-US'
 import { PluginLog } from '@plugin/log'
 import {
 	album,
@@ -50,7 +52,7 @@ import {
 	type PopupToast,
 	type PopupToastConfig,
 } from '@plugin/plugins/toast'
-import { type GlobalPluginConfig } from '@plugin/typings'
+import { type PluginSharedConfig } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
 
 import '@plugin/assets/styles/main.scss'
@@ -70,7 +72,54 @@ export type {
 	PopupToast,
 }
 
-export type PresetPluginConfig = GlobalPluginConfig & {
+export type PresetPluginConfig = PluginSharedConfig & {
+	/**
+	 * 国际化语言包
+	 *
+	 * - 默认使用 `en-US` 英文语言包
+	 * - 可选值包括：
+	 *   - `ar-SA` 阿拉伯语
+	 *   - `bg-BG` 保加利亚语
+	 *   - `cs-CZ` 捷克语
+	 *   - `da-DK` 丹麦语
+	 *   - `de-DE` 德语
+	 *   - `el-GR` 希腊语
+	 *   - `en-GB` 英语（英国）
+	 *   - `en-US` 英语（美国）
+	 *   - `es-ES` 西班牙语
+	 *   - `et-EE` 爱沙尼亚语
+	 *   - `fi-FI` 芬兰语
+	 *   - `fr-FR` 法语
+	 *   - `ga-IE` 爱尔兰语
+	 *   - `hi-IN` 印地语
+	 *   - `hr-HR` 克罗地亚语
+	 *   - `hu-HU` 匈牙利语
+	 *   - `id-ID` 印尼语
+	 *   - `it-IT` 意大利语
+	 *   - `ja-JP` 日语
+	 *   - `ko-KR` 韩语
+	 *   - `lt-LT` 立陶宛语
+	 *   - `lv-LV` 拉脱维亚语
+	 *   - `ms-MY` 马来语
+	 *   - `mt-MT` 马耳他语
+	 *   - `nl-NL` 荷兰语
+	 *   - `pl-PL` 波兰语
+	 *   - `pt-BR` 葡萄牙语（巴西）
+	 *   - `pt-PT` 葡萄牙语（葡萄牙）
+	 *   - `ro-RO` 罗马尼亚语
+	 *   - `ru-RU` 俄语
+	 *   - `sk-SK` 斯洛伐克语
+	 *   - `sl-SI` 斯洛文尼亚语
+	 *   - `sv-SE` 瑞典语
+	 *   - `th-TH` 泰语
+	 *   - `tr-TR` 土耳其语
+	 *   - `vi-VN` 越南语
+	 *   - `zh-CN` 简体中文
+	 *   - `zh-TW` 繁体中文
+	 *
+	 * @since 1.7.0
+	 */
+	locale?: PopupLocaleMessages
 	/**
 	 * 媒体相册 插件配置
 	 */
@@ -118,6 +167,7 @@ export type PresetPluginConfig = GlobalPluginConfig & {
 export function createPresetPlugin(config?: PresetPluginConfig) {
 	const {
 		skin = 'modern',
+		locale = enUS,
 		album: albumConfig = {},
 		alert: alertConfig = {},
 		confirm: confirmConfig = {},
@@ -128,6 +178,8 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 		prompt: promptConfig = {},
 		toast: toastConfig = {},
 	} = config || {}
+
+	setLocale(locale)
 
 	albumConfig.skin = albumConfig.skin || skin
 	alertConfig.skin = alertConfig.skin || skin

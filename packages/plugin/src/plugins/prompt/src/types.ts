@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { GlobalPluginConfig, SharedOption } from '@plugin/typings'
+import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupPromptType = 'input' | 'textarea'
 
@@ -107,7 +107,7 @@ export interface PopupPrompt {
 
 type PromptDefaultOption = Omit<PopupPromptOption, 'defaultValue' | 'zIndex'>
 
-export type PopupPromptConfig = GlobalPluginConfig & {
+export type PopupPromptConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
