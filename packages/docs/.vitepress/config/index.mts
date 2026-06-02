@@ -82,6 +82,18 @@ export default defineConfig({
 					),
 				},
 				{
+					find: '@core',
+					replacement: fileURLToPath(
+						new URL('../../../core/src', import.meta.url)
+					),
+				},
+				{
+					find: '@plugin',
+					replacement: fileURLToPath(
+						new URL('../../../plugin/src', import.meta.url)
+					),
+				},
+				{
 					find: /^.*\/VPSidebarItem\.vue$/,
 					replacement: fileURLToPath(
 						new URL(

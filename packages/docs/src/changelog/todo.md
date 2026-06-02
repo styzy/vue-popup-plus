@@ -50,6 +50,11 @@ outline: 2
 
 ### 预置插件
 
+#### `i18n`
+
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 新增 `setLocale()` 函数，用于设置弹出层的国际化语言包。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 新增独立构建的多国语言包，支持按需引入。
+
 #### `component`
 
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件用于渲染气泡组件。
