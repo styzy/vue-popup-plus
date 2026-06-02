@@ -36,7 +36,7 @@
 		"lint": "eslint . --fix",
 		"format": "prettier --write src/"
 	},
-	"dependencies": {
+	"peerDependencies": {
 		"vue": "catalog:"
 	},
 	"devDependencies": {
