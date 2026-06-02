@@ -24,7 +24,54 @@ function createPresetPlugin(config?: PresetPluginConfig): PopupPlugin
 ### 参数类型
 
 ```ts
-export type PresetPluginConfig = GlobalPluginConfig & {
+export type PresetPluginConfig = PluginSharedConfig & {
+	/**
+	 * 国际化语言包
+	 *
+	 * - 默认使用 `en-US` 英文语言包
+	 * - 可选值包括：
+	 *   - `ar-SA` 阿拉伯语
+	 *   - `bg-BG` 保加利亚语
+	 *   - `cs-CZ` 捷克语
+	 *   - `da-DK` 丹麦语
+	 *   - `de-DE` 德语
+	 *   - `el-GR` 希腊语
+	 *   - `en-GB` 英语（英国）
+	 *   - `en-US` 英语（美国）
+	 *   - `es-ES` 西班牙语
+	 *   - `et-EE` 爱沙尼亚语
+	 *   - `fi-FI` 芬兰语
+	 *   - `fr-FR` 法语
+	 *   - `ga-IE` 爱尔兰语
+	 *   - `hi-IN` 印地语
+	 *   - `hr-HR` 克罗地亚语
+	 *   - `hu-HU` 匈牙利语
+	 *   - `id-ID` 印尼语
+	 *   - `it-IT` 意大利语
+	 *   - `ja-JP` 日语
+	 *   - `ko-KR` 韩语
+	 *   - `lt-LT` 立陶宛语
+	 *   - `lv-LV` 拉脱维亚语
+	 *   - `ms-MY` 马来语
+	 *   - `mt-MT` 马耳他语
+	 *   - `nl-NL` 荷兰语
+	 *   - `pl-PL` 波兰语
+	 *   - `pt-BR` 葡萄牙语（巴西）
+	 *   - `pt-PT` 葡萄牙语（葡萄牙）
+	 *   - `ro-RO` 罗马尼亚语
+	 *   - `ru-RU` 俄语
+	 *   - `sk-SK` 斯洛伐克语
+	 *   - `sl-SI` 斯洛文尼亚语
+	 *   - `sv-SE` 瑞典语
+	 *   - `th-TH` 泰语
+	 *   - `tr-TR` 土耳其语
+	 *   - `vi-VN` 越南语
+	 *   - `zh-CN` 简体中文
+	 *   - `zh-TW` 繁体中文
+	 *
+	 * @since 1.7.0
+	 */
+	locale?: PopupLocaleMessages
 	/**
 	 * 媒体相册 插件配置
 	 */
@@ -55,7 +102,7 @@ export type PresetPluginConfig = GlobalPluginConfig & {
 	toast?: ToastConfig
 }
 
-type GlobalPluginConfig = {
+type PluginSharedConfig = {
 	/**
 	 * 插件弹出层皮肤
 	 * - 默认为 `modern` 现代皮肤
@@ -66,7 +113,7 @@ type GlobalPluginConfig = {
 	skin?: Skin
 }
 
-type AlbumConfig = GlobalPluginConfig & {
+type AlbumConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -80,7 +127,7 @@ type AlbumDefaultOption = Omit<
 	'sources' | 'defaultIndex' | 'zIndex'
 >
 
-type AlertConfig = GlobalPluginConfig & {
+type AlertConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -91,7 +138,7 @@ type AlertConfig = GlobalPluginConfig & {
 
 type AlertDefaultOption = Omit<AlertOption, 'zIndex'>
 
-type ConfirmConfig = GlobalPluginConfig & {
+type ConfirmConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -102,7 +149,7 @@ type ConfirmConfig = GlobalPluginConfig & {
 
 type ConfirmDefaultOption = Omit<ConfirmOption, 'zIndex'>
 
-type DialogConfig = GlobalPluginConfig & {
+type DialogConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -116,7 +163,7 @@ type DialogDefaultOption = Omit<
 	'component' | 'componentProps' | 'onMounted' | 'zIndex'
 >
 
-type LoadingConfig = GlobalPluginConfig & {
+type LoadingConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -127,7 +174,7 @@ type LoadingConfig = GlobalPluginConfig & {
 
 type LoadingDefaultOption = LoadingOption
 
-export type PromptConfig = GlobalPluginConfig & {
+export type PromptConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
@@ -138,7 +185,7 @@ export type PromptConfig = GlobalPluginConfig & {
 
 type PromptDefaultOption = Omit<PromptOption, 'defaultValue' | 'zIndex'>
 
-export type ToastConfig = GlobalPluginConfig & {
+export type ToastConfig = PluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *

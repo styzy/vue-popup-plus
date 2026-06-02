@@ -259,6 +259,11 @@ export const themeConfig = defineConfig({
 							text: '初始化配置',
 							link: '/guide-plugin-preset/config',
 						},
+						{
+							text: '国际化',
+							link: '/guide-plugin-preset/locales',
+							since: '1.7.0',
+						},
 					],
 				},
 				{
@@ -483,6 +488,10 @@ export const themeConfig = defineConfig({
 				{
 					text: '预置插件 API',
 					items: [
+						{
+							text: '插件实例',
+							link: '/api/plugin-preset/plugin',
+						},
 						{
 							text: 'Toast 轻量提示',
 							link: '/api/plugin-preset/toast',
