@@ -8,6 +8,7 @@
 		"preinstall": "npx only-allow pnpm",
 		"dev": "pnpm -F playground dev",
 		"dev:docs": "pnpm -F docs dev",
+		"build": "pnpm -F vue-popup-plus build && pnpm -F vue-popup-plus-plugin-preset build",
 		"build:core": "pnpm -F vue-popup-plus build",
 		"build:plugin": "pnpm -F vue-popup-plus-plugin-preset build",
 		"build:docs": "pnpm -F docs build",

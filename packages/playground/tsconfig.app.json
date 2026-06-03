@@ -7,8 +7,11 @@
 		"baseUrl": "./",
 		"paths": {
 			"@/*": ["src/*"],
-			"@core/*": ["../core/src/*"],
-			"@plugin/*": ["../plugin/src/*"]
+			"vue-popup-plus": ["../core/src"],
+			"vue-popup-plus-plugin-preset": ["../plugin/src"],
+			"vue-popup-plus-plugin-preset/locales/*": [
+				"../plugin/src/locale/langs/*"
+			]
 		},
 		"types": ["element-plus/global"],
 		"isolatedModules": true,
