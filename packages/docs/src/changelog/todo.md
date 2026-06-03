@@ -5,6 +5,20 @@ outline: 2
 
 # 版本规划
 
+<div v-if="!isShow">
+
+::: tip
+版本规划仅对团队内部成员展示，外部用户无法查看。
+
+团队内部成员，请点击下方按钮进行开发者授权。授权通过后即可查看版本规划。
+:::
+
+<DButton type="plain" theme="primary" @click="handleValidate" >开发者授权</DButton>
+
+</div>
+
+<div v-if="isShow">
+
 ## v1.8.0
 
 ### 预置插件
@@ -15,6 +29,9 @@ outline: 2
 
 #### `component`
 
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件用于渲染气泡组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件用于渲染提示组件。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupDropdown` 组件用于渲染下拉组件。
 - <DVersionTodo version="1.8.0" level="high" author="STYZY" /> 新增 `PopupContextMenu` 组件。
 
 <!-- - <DVersionTodo version="1.8.0" level="low" author="STYZY" /> 公开组件 `PopupScaffold`
@@ -50,16 +67,16 @@ outline: 2
 
 ### 预置插件
 
-#### `i18n`
+#### `plugin`
+
+- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> 新增 `Message 消息` 插件。
+- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
+- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> `Prompt 提示输入` 新增 `validateType` 参数，用于设置校验触发时机。
+
+#### `国际化`
 
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 新增 `setLocale()` 函数，用于设置弹出层的国际化语言包。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 新增独立构建的多国语言包，支持按需引入。
-
-#### `component`
-
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupBubble` 组件用于渲染气泡组件。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupTooltip` 组件用于渲染提示组件。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY" /> 新增 `PopupDropdown` 组件用于渲染下拉组件。
 
 ## v1.6.1
 
@@ -91,3 +108,28 @@ outline: 2
 - <DVersionTodo version="1.6.0" level="high" author="STYZY" done /> `Dialog 对话` 新增 `maskTransparent` 参数，用于设置是否启用透明遮罩层，默认值为 `false` 。
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" done /> `Dialog 对话` 新增 `maskClose` 参数，用于设置遮罩层点击是否可以关闭对话框，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将关闭对话框，可传入关闭携带的负载参数，返回的 `Promise` 对象会在对话框关闭动画完成后 `resolve()` 。
 - <DVersionTodo version="1.6.0" level="medium" author="STYZY" done /> `Dialog 对话` 移除 `maskClickClose` 参数，可使用功能更强大的 `maskClose` 参数代替。
+
+</div>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { usePopup } from 'vue-popup-plus'
+
+let popup
+
+if (!import.meta.env.SSR) {
+	popup = usePopup()
+}
+
+const isShow = ref(false)
+
+async function handleValidate() {
+	const result = await popup.prompt('请输入授权码',{
+		placeholder: '请输入授权码',
+	})
+}
+
+function handleShow() {
+	isShow.value = true
+}
+</script>

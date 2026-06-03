@@ -5,6 +5,22 @@ outline: 2
 
 # 预置插件 更新日志
 
+## 1.7.0 <Badge text="2026-06-03" />
+
+### 重大特性
+
+::: tip Locales - 国际化
+该版本中，我们提供了对 **主流国家际语言** 和 **欧盟国家官方语言** 共 `38` 种语言的支持。
+
+默认语言为 **英文（en-US）** ，同时支持按需引入其他语言包，通过 `setLocale()` 方法切换语言。
+:::
+
+### 特性
+
+- 新增 `setLocale()` 方法，用于切换语言包。
+- `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
+- `Prompt 提示输入` 新增 `validateType` 参数，用于设置校验触发时机。默认值为 `blur` ，失去焦点时校验。
+
 ## 1.6.3 <Badge text="2026-01-19" />
 
 ### 修复
@@ -29,7 +45,7 @@ outline: 2
 
 - 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - 新增 `Drawer 抽屉` 插件。
-      <!-- - 新增 `Message 消息` 插件。 -->
+  <!-- - 新增 `Message 消息` 插件。 -->
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
 - `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
