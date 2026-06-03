@@ -30,7 +30,7 @@ export {
 	type PopupRenderOption,
 	type PopupUpdateOption,
 } from '@core/controller'
-export { createCore, type PopupCore } from '@core/core'
+export { type PopupCore } from '@core/core'
 export {
 	createPopupDirective,
 	type PopupDirective,
