@@ -1,54 +1,58 @@
 name: Check Build on PR to Dev
 
 on:
-  pull_request:
-    # 仅当 PR 的目标分支是 dev 时触发
-    branches: [ dev ]  
-    # 在 PR 被创建、更新或重新打开时运行
-    types: [opened, synchronize, reopened]  
+    pull_request:
+        # 仅当 PR 的目标分支是 dev 时触发
+        branches: [dev]
+        # 在 PR 被创建、更新或重新打开时运行
+        types: [opened, synchronize, reopened]
 
 jobs:
-  check-build:
-    # 使用最新 Ubuntu 运行器
-    runs-on: ubuntu-latest  
+    check-build:
+        # 使用最新 Ubuntu 运行器
+        runs-on: ubuntu-latest
 
-    steps:
-      # 1. 检出代码
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # 获取完整历史，有助于某些工具分析
+        steps:
+            # 1. 检出代码
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # 获取完整历史，有助于某些工具分析
 
-      # 2. 设置 pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
+            # 2. 设置 pnpm
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 9
 
-      # 3. 设置 Node.js 环境
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          # 启用 npm 缓存以加速后续安装
-          cache: 'pnpm'
+            # 3. 设置 Node.js 环境
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  # 启用 npm 缓存以加速后续安装
+                  cache: 'pnpm'
 
-      # 4. 安装依赖
-      - name: Install dependencies
-        run: pnpm i
+            # 4. 安装依赖
+            - name: Install dependencies
+              run: pnpm i
 
-      # 5. 执行构建核心
-      - name: Build core
-        run: pnpm run build:core
-        
-      # 6. 执行构建预置插件
-      - name: Build plugin
-        run: pnpm run build:plugin
+            # 5. 执行构建
+            - name: Build all
+              run: pnpm run build
 
-      # 7. 执行构建文档 Markdown Demo 插件
-      - name: Build md-demo
-        run: pnpm run build:md-demo
-        
-      # 8. 执行构建文档
-      - name: Build docs
-        run: pnpm run build:docs
+            # 5. 执行构建核心
+            # - name: Build core
+            #   run: pnpm run build:core
+
+            # 6. 执行构建预置插件
+            # - name: Build plugin
+            #   run: pnpm run build:plugin
+
+            # 7. 执行构建文档 Markdown Demo 插件
+            # - name: Build md-demo
+            #   run: pnpm run build:md-demo
+
+            # 8. 执行构建文档
+            # - name: Build docs
+            #   run: pnpm run build:docs
