@@ -63,11 +63,14 @@ export type PopupPromptOption = {
 	 * 	}
 	 * }
 	 * ```
+	 *
+	 * @since 1.7.0
 	 */
 	validator?: PopupPromptValidator
 	/**
 	 * 提示输入框验证类型
 	 *
+	 * - 默认值：`blur`
 	 * - 指定触发校验的时机，仅在设置 `validator` 时生效
 	 * - 支持的类型包括：
 	 *
@@ -75,7 +78,7 @@ export type PopupPromptOption = {
 	 *   - `change`：输入框内容改变时验证
 	 *   - `blur`：输入框失去焦点时验证
 	 *
-	 * - 默认值：`blur`
+	 * @since 1.7.0
 	 */
 	validateType?: PopupPromptValidateType
 	/**
