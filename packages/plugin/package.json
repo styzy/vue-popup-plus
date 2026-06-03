@@ -9,47 +9,37 @@
 	],
 	"license": "MIT",
 	"publishConfig": {
-		"registry": "https://registry.npmjs.org",
-		"main": "dist/vue-popup-plus-plugin-preset.umd.js",
-		"module": "dist/vue-popup-plus-plugin-preset.js",
-		"types": "dist/vue-popup-plus-plugin-preset.d.ts",
-		"exports": {
-			".": {
-				"import": "./dist/vue-popup-plus-plugin-preset.js",
-				"require": "./dist/vue-popup-plus-plugin-preset.umd.js",
-				"types": "./dist/vue-popup-plus-plugin-preset.d.ts"
-			},
-			"./locales/*": {
-				"import": "./dist/locales/*.js",
-				"require": "./dist/locales/*.js",
-				"types": "./dist/locales/*.d.ts"
-			}
-		}
+		"registry": "https://registry.npmjs.org"
 	},
-	"type": "module",
-	"files": [
-		"dist"
-	],
-	"main": "src/index.ts",
-	"module": "src/index.ts",
+	"main": "dist/index.umd.js",
+	"module": "es/index.mjs",
+	"types": "es/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./src/index.ts",
-			"require": "./src/index.ts"
+			"types": "./es/index.d.ts",
+			"import": "./es/index.mjs",
+			"require": "./dist/index.umd.js"
 		},
 		"./locales/*": {
-			"import": "./src/locale/langs/*.ts",
-			"require": "./src/locale/langs/*.ts"
+			"types": "./es/locales/*.d.ts",
+			"import": "./es/locales/*.mjs",
+			"require": "./dist/locales/*.js"
 		}
 	},
+	"files": [
+		"dist",
+		"es"
+	],
 	"engines": {
 		"node": "^20.19.0 || >=22.12.0"
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "pnpm build:plugin && pnpm build:locales",
-		"build:plugin": "vite build",
-		"build:locales": "vite build --config vite.config.locales.ts",
+		"build": "concurrently -n ES,UMD -c green,blue \"pnpm build:es\" \"pnpm build:umd\"",
+		"build:es": "pnpm build:es:plugin && pnpm build:es:locales",
+		"build:es:plugin": "vite build",
+		"build:es:locales": "vite build --config vite.config.locales.ts",
+		"build:umd": "vite build --config vite.config.umd.ts",
 		"test:unit": "vitest",
 		"build-only": "vite build",
 		"lint": "eslint . --fix",

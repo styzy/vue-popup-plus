@@ -6,7 +6,7 @@
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 		"baseUrl": "./",
 		"paths": {
-			"@core/*": ["../core/src/*"],
+			"vue-popup-plus": ["workspace:vue-popup-plus"],
 			"@plugin/*": ["src/*"]
 		},
 		"isolatedModules": true,

@@ -30,10 +30,9 @@ export default defineConfig({
 			entry: {
 				...localeEntries,
 			},
-			name: 'VuePopupPlusPluginPreset',
 			formats: ['es'],
 		},
-		outDir: fileURLToPath(new URL('./dist/locales', import.meta.url)),
+		outDir: fileURLToPath(new URL('./es/locales', import.meta.url)),
 		rollupOptions: {
 			// 确保外部化处理那些你不想打包进库的依赖
 			external: ['vue', 'vue-popup-plus'],
@@ -52,7 +51,7 @@ export default defineConfig({
 				new URL('./tsconfig.types.json', import.meta.url)
 			),
 			rollupTypes: true,
-			outDir: fileURLToPath(new URL('./dist/locales', import.meta.url)),
+			outDir: fileURLToPath(new URL('./es/locales', import.meta.url)),
 			pathsToAliases: true,
 			insertTypesEntry: true,
 			include: ['./src/locale/**/*'],

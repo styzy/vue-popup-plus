@@ -9,7 +9,6 @@ export default defineConfig({
 	build: {
 		lib: {
 			entry: fileURLToPath(new URL('./src/index', import.meta.url)),
-			name: 'VuePopupPlusPluginPreset',
 			formats: ['es'],
 		},
 		outDir: fileURLToPath(new URL('./es', import.meta.url)),
@@ -45,8 +44,8 @@ export default defineConfig({
 			),
 			rollupTypes: false,
 			outDir: fileURLToPath(new URL('./es', import.meta.url)),
+			entryRoot: fileURLToPath(new URL('./src', import.meta.url)),
 			pathsToAliases: true,
-			// insertTypesEntry: true,
 		}),
 	],
 })
