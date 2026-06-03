@@ -9,19 +9,18 @@
 	],
 	"license": "MIT",
 	"publishConfig": {
-		"registry": "https://registry.npmjs.org",
-		"main": "dist/vue-popup-plus.umd.js",
-		"module": "dist/vue-popup-plus.js",
-		"types": "dist/vue-popup-plus.d.ts",
-		"exports": {
-			".": {
-				"import": "./dist/vue-popup-plus.js",
-				"require": "./dist/vue-popup-plus.umd.js"
-			}
+		"registry": "https://registry.npmjs.org"
+	},
+	"types": "es/index.d.ts",
+	"module": "es/index.mjs",
+	"main": "dist/index.umd.js",
+	"exports": {
+		".": {
+			"types": "./es/index.d.ts",
+			"import": "./es/index.mjs",
+			"require": "./dist/index.umd.js"
 		}
 	},
-	"type": "module",
-	"main": "src/index.ts",
 	"files": [
 		"dist"
 	],
@@ -30,7 +29,9 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "concurrently -n ES,UMD -c green,blue \"pnpm build:es\" \"pnpm build:umd\"",
+		"build:es": "vite build",
+		"build:umd": "vite build --config vite.config.umd.ts",
 		"test:unit": "vitest",
 		"build-only": "vite build",
 		"lint": "eslint . --fix",
