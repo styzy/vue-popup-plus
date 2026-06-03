@@ -8,7 +8,12 @@ import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
 import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
-import type { PopupPrompt, PopupPromptConfig, PopupPromptOption } from './types'
+import type {
+	PopupPrompt,
+	PopupPromptConfig,
+	PopupPromptOption,
+	PopupPromptValidator,
+} from './types'
 
 class PopupLog extends PluginLog {
 	namespace = 'VuePopupPlusPluginPreset Prompt'
@@ -34,6 +39,8 @@ export const prompt = definePlugin({
 				maxLength = defaultOptions.maxLength ?? null,
 				placeholder = defaultOptions.placeholder ??
 					t('prompt.placeholder'),
+				validator = defaultOptions.validator,
+				validateType = defaultOptions.validateType ?? 'blur',
 				confirmText = defaultOptions.confirmText ??
 					t('prompt.confirmText'),
 				cancelText = defaultOptions.cancelText ??
@@ -56,6 +63,8 @@ export const prompt = definePlugin({
 						defaultValue,
 						maxLength,
 						placeholder,
+						validator,
+						validateType,
 						confirmText,
 						cancelText,
 						draggable,
@@ -68,13 +77,17 @@ export const prompt = definePlugin({
 					disableScroll: true,
 					zIndex,
 					onMounted: () => {
-						const mergedOptions: MergedOption<PopupPromptOption> = {
+						const mergedOptions: MergedOption<
+							Omit<PopupPromptOption, 'validator'>
+						> & { validator?: PopupPromptValidator } = {
 							defaultValue,
 							type,
 							title,
 							headerClose,
 							maxLength,
 							placeholder,
+							validator,
+							validateType,
 							confirmText,
 							cancelText,
 							draggable,

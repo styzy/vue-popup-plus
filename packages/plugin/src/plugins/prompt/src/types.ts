@@ -3,6 +3,10 @@ import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
 
 export type PopupPromptType = 'input' | 'textarea'
 
+export type PopupPromptValidator = (value: string) => void
+
+export type PopupPromptValidateType = ['input', 'change', 'blur'][number]
+
 export type PopupPromptOption = {
 	/**
 	 * 提示输入框默认值
@@ -43,6 +47,37 @@ export type PopupPromptOption = {
 	 * - 默认值：`请输入`
 	 */
 	placeholder?: string
+	/**
+	 * 提示输入框验证器
+	 *
+	 * - 验证器函数，参数为用户输入的内容
+	 * - 如果验证失败，直接抛出异常即可，异常信息为验证失败的提示信息
+	 *
+	 * ```ts
+	 * function validateName(value: string) {
+	 * 	if (!value) {
+	 * 		throw new Error('请输入姓名')
+	 * 	}
+	 * 	if (value.length < 2) {
+	 * 		throw new Error('姓名长度不能小于2个字符')
+	 * 	}
+	 * }
+	 * ```
+	 */
+	validator?: PopupPromptValidator
+	/**
+	 * 提示输入框验证类型
+	 *
+	 * - 指定触发校验的时机，仅在设置 `validator` 时生效
+	 * - 支持的类型包括：
+	 *
+	 *   - `input`：输入框内容改变时验证
+	 *   - `change`：输入框内容改变时验证
+	 *   - `blur`：输入框失去焦点时验证
+	 *
+	 * - 默认值：`blur`
+	 */
+	validateType?: PopupPromptValidateType
 	/**
 	 * 确认按钮文本
 	 *

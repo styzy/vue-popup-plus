@@ -10,18 +10,25 @@ PSkin(:class="ns.block()" :skin="skin")
 				iconClass="prompt")
 		PBody(:fitIcon="skin === 'modern'")
 			div(:class="ns.element('message')" v-if="isRenderMessage") {{ message }}
-			div(:class="ns.element('input')")
+			div(:class="[ns.element('input'), ns.is('error', !isValid)]")
 				template(v-if="type === 'input'")
 					input(
 						:maxLength="maxLength"
 						:placeholder="placeholder"
+						@blur="handleBlur"
+						@change="handleChange"
+						@input="handleInput"
 						type="text"
 						v-model="inputValue")
 				template(v-if="type === 'textarea'")
 					textarea(
 						:maxLength="maxLength"
 						:placeholder="placeholder"
+						@blur="handleBlur"
+						@change="handleChange"
+						@input="handleInput"
 						v-model="inputValue")
+			div(:class="ns.element('error-message')" v-if="!isValid") {{ validErrorMessage }}
 		template(#footer)
 			PFooter
 				PButtonGroup(align="end")
@@ -43,7 +50,11 @@ import {
 } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
-import { type PopupPromptType } from './types'
+import {
+	type PopupPromptType,
+	type PopupPromptValidateType,
+	type PopupPromptValidator,
+} from './types'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.PROMPT,
@@ -64,8 +75,10 @@ type Props = {
 	message: string | boolean
 	type: PopupPromptType
 	defaultValue: string
-	placeholder: string
 	maxLength: number | null
+	placeholder: string
+	validator?: PopupPromptValidator
+	validateType: PopupPromptValidateType
 	confirmText: string
 	cancelText: string
 	draggable: boolean
@@ -78,22 +91,65 @@ const {
 	message,
 	type,
 	defaultValue,
-	placeholder,
 	maxLength,
+	placeholder,
+	validator,
+	validateType,
 	confirmText,
 	cancelText,
 } = defineProps<Props>()
 
 const inputValue = ref(defaultValue)
+const isValid = ref(true)
+const isValidPending = ref(false)
+const validErrorMessage = ref('')
 
 const isRenderMessage = computed(() => message !== false)
 
-function handleConfirm() {
+function handleInput() {
+	if (validateType !== 'input') return
+
+	handleValidate()
+}
+
+function handleChange() {
+	if (validateType !== 'change') return
+
+	handleValidate()
+}
+
+function handleBlur() {
+	if (validateType !== 'blur') return
+
+	handleValidate()
+}
+
+async function handleConfirm() {
+	if (isValidPending.value) return
+
+	await handleValidate()
+
+	if (!isValid.value) return
+
 	emit('close', inputValue.value)
 }
 
 function handleCancel() {
 	emit('close')
+}
+
+async function handleValidate() {
+	if (!validator) return
+
+	isValidPending.value = true
+	try {
+		await validator(inputValue.value)
+		isValid.value = true
+	} catch (error: any) {
+		isValid.value = false
+		validErrorMessage.value = error.message
+	}
+	isValidPending.value = false
 }
 </script>
 
@@ -139,6 +195,16 @@ function handleCancel() {
 			height: 100px;
 			resize: none;
 		}
+		@include ns-is('error') {
+			input,
+			textarea {
+				border-color: use-color(danger);
+			}
+		}
+	}
+	@include ns-element('error-message') {
+		color: use-color(danger);
+		font-size: use-font-size(mini);
 	}
 }
 </style>

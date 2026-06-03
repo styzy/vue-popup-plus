@@ -3,9 +3,11 @@ import {
 	createPopupPlus,
 	definePlugin,
 	version as coreVersion,
-	PopupLogType,
 } from 'vue-popup-plus'
-import { createPresetPlugin, type Skin } from 'vue-popup-plus-plugin-preset'
+import {
+	createPresetPlugin,
+	type PopupSkin,
+} from 'vue-popup-plus-plugin-preset'
 import Antd from 'ant-design-vue'
 import ElementPlus, { useZIndex } from 'element-plus'
 import { components } from './components/global'
@@ -35,7 +37,7 @@ const PopupPlus = createPopupPlus({
 	// logFilter: (log) => log.type === PopupLogType.Success,
 })
 
-const skin = (localStorage.getItem('skin') || 'modern') as Skin
+const skin = (localStorage.getItem('skin') || 'modern') as PopupSkin
 
 const presetPlugin = createPresetPlugin({
 	skin,
