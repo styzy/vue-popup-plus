@@ -1,5 +1,6 @@
 @forward './color.scss';
 @forward './font-size.scss';
+@forward './inject.scss';
 
 :root:not(.dark) {
 	.vp-doc div[class*='language-'] {
@@ -145,6 +146,33 @@
 		&:hover {
 			span {
 				@include base-text-rainbow();
+			}
+		}
+	}
+}
+
+@include use-mobile() {
+	.VPContent {
+		&.is-home {
+			.actions {
+				gap: 5px;
+				.action {
+					flex: 1;
+					display: flex;
+					justify-content: flex-end;
+					& + .action {
+						justify-content: flex-start;
+					}
+				}
+			}
+		}
+	}
+
+	.VPButton {
+		border: none !important;
+		&.demo {
+			&:after {
+				background-color: transparent;
 			}
 		}
 	}

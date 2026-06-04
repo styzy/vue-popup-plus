@@ -1,14 +1,14 @@
 <template lang="pug">
 .d-version-panel(:class="{ 'is-home': mode === 'home' }")
 	.item(@click="handleNavigate('/changelog/core')")
-		.label 核心版本
+		.label 核心
 		.version {{ version }}
 		.link
 			span 查看
 			span.module 核心
 			span 更新日志
 	.item(@click="handleNavigate('/changelog/plugin-preset')")
-		.label 预置插件版本
+		.label 预置插件
 		.version {{ presetPluginVersion }}
 		.link
 			span 查看
@@ -124,16 +124,20 @@ function handleNavigate(path: string) {
 	}
 }
 
-@media (max-width: 768px) {
+@include use-mobile() {
 	.d-version-panel {
 		&.is-home {
 			border-bottom: none;
 			flex-direction: row;
 			justify-content: center;
 			gap: 20px;
-		}
-		.item {
-			gap: 10px;
+			.item {
+				flex: 1;
+				flex-direction: column;
+				height: auto;
+				gap: 0;
+				padding: 5px 0;
+			}
 		}
 	}
 }

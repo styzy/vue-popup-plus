@@ -31,6 +31,7 @@ export type ApiModule = {
 
 <script lang="ts" setup>
 import { type PopupVersion } from 'vue-popup-plus'
+
 import { type Filter } from './DApiFilter.vue'
 import DApiGroup from './DApiGroup.vue'
 import DApiItem from './DApiItem.vue'
@@ -57,7 +58,7 @@ function hasFilteredApiGroup(): boolean {
 	flex-direction: column;
 	gap: 20px;
 	.grid {
-		columns: 2;
+		columns: 3;
 		gap: 20px;
 		&:empty {
 			columns: unset;
@@ -71,10 +72,19 @@ function hasFilteredApiGroup(): boolean {
 		}
 	}
 }
-@media screen and (min-width: 1440px) {
+
+@media screen and (max-width: 1440px) {
 	.d-api {
 		.grid {
-			columns: 3;
+			columns: 2;
+		}
+	}
+}
+
+@include use-mobile() {
+	.d-api {
+		.grid {
+			columns: 1;
 		}
 	}
 }

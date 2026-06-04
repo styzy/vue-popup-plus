@@ -75,3 +75,11 @@
 		rgb(35, 31, 239) 100%
 	);
 }
+
+@mixin use-mobile() {
+	@at-root {
+		@media screen and (max-width: 768px) {
+			@content;
+		}
+	}
+}

@@ -117,4 +117,12 @@ watch(
 		}
 	}
 }
+
+@include use-mobile() {
+	.d-api-filter {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+	}
+}
 </style>
