@@ -5,17 +5,23 @@ export type PopupPromptType = 'input' | 'textarea'
 
 export type PopupPromptValidator = (value: string) => void
 
-export type PopupPromptValidateType = ['input', 'change', 'blur'][number]
+export type PopupPromptValidateTrigger = ['input', 'change', 'blur'][number]
 
 export type PopupPromptOption = {
 	/**
-	 * 提示输入框默认值
+	 * 标题
+	 *
+	 * - 默认值：`提示输入`
+	 */
+	title?: string
+	/**
+	 * 输入框默认值
 	 *
 	 * - 默认值：`''`
 	 */
 	defaultValue?: string
 	/**
-	 * 提示输入框类型
+	 * 输入框类型
 	 *
 	 * - 支持的类型包括：
 	 *
@@ -24,34 +30,28 @@ export type PopupPromptOption = {
 	 */
 	type?: PopupPromptType
 	/**
-	 * 提示输入框标题
-	 *
-	 * - 默认值：`提示输入`
-	 */
-	title?: string
-	/**
 	 * 标题栏是否显示关闭按钮
 	 *
 	 * - 默认值：`true`
 	 */
 	headerClose?: boolean
 	/**
-	 * 提示输入框最大长度
+	 * 输入框最大长度
 	 *
 	 * - 默认值：`null`
 	 */
 	maxLength?: number | null
 	/**
-	 * 提示输入框占位符
+	 * 输入框占位符
 	 *
 	 * - 默认值：`请输入`
 	 */
 	placeholder?: string
 	/**
-	 * 提示输入框验证器
+	 * 输入框校验函数
 	 *
-	 * - 验证器函数，参数为用户输入的内容
-	 * - 如果验证失败，直接抛出异常即可，异常信息为验证失败的提示信息
+	 * - 校验函数，参数为用户输入的内容
+	 * - 如果校验失败，直接抛出异常即可，异常信息为校验失败的提示信息
 	 *
 	 * ```ts
 	 * function validateName(value: string) {
@@ -68,7 +68,7 @@ export type PopupPromptOption = {
 	 */
 	validator?: PopupPromptValidator
 	/**
-	 * 提示输入框验证类型
+	 * 校验触发方式
 	 *
 	 * - 默认值：`blur`
 	 * - 指定触发校验的时机，仅在设置 `validator` 时生效
@@ -80,7 +80,7 @@ export type PopupPromptOption = {
 	 *
 	 * @since 1.7.0
 	 */
-	validateType?: PopupPromptValidateType
+	validateTrigger?: PopupPromptValidateTrigger
 	/**
 	 * 确认按钮文本
 	 *
@@ -94,13 +94,13 @@ export type PopupPromptOption = {
 	 */
 	cancelText?: string
 	/**
-	 * 提示输入框是否可拖拽
+	 * 是否可拖拽
 	 *
 	 * - 默认值：`false`
 	 */
 	draggable?: boolean
 	/**
-	 * 提示输入框是否可拖拽溢出屏幕
+	 * 是否可拖拽溢出屏幕
 	 *
 	 * - 默认值：`false`
 	 */

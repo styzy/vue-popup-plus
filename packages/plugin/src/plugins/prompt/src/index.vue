@@ -52,7 +52,7 @@ import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import {
 	type PopupPromptType,
-	type PopupPromptValidateType,
+	type PopupPromptValidateTrigger,
 	type PopupPromptValidator,
 } from './types'
 
@@ -78,7 +78,7 @@ type Props = {
 	maxLength: number | null
 	placeholder: string
 	validator?: PopupPromptValidator
-	validateType: PopupPromptValidateType
+	validateTrigger: PopupPromptValidateTrigger
 	confirmText: string
 	cancelText: string
 	draggable: boolean
@@ -94,7 +94,7 @@ const {
 	maxLength,
 	placeholder,
 	validator,
-	validateType,
+	validateTrigger,
 	confirmText,
 	cancelText,
 } = defineProps<Props>()
@@ -107,19 +107,19 @@ const validErrorMessage = ref('')
 const isRenderMessage = computed(() => message !== false)
 
 function handleInput() {
-	if (validateType !== 'input') return
+	if (validateTrigger !== 'input') return
 
 	handleValidate()
 }
 
 function handleChange() {
-	if (validateType !== 'change') return
+	if (validateTrigger !== 'change') return
 
 	handleValidate()
 }
 
 function handleBlur() {
-	if (validateType !== 'blur') return
+	if (validateTrigger !== 'blur') return
 
 	handleValidate()
 }

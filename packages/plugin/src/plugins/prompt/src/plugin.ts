@@ -40,7 +40,7 @@ export const prompt = definePlugin({
 				placeholder = defaultOptions.placeholder ??
 					t('prompt.placeholder'),
 				validator = defaultOptions.validator,
-				validateType = defaultOptions.validateType ?? 'blur',
+				validateTrigger = defaultOptions.validateTrigger ?? 'blur',
 				confirmText = defaultOptions.confirmText ??
 					t('prompt.confirmText'),
 				cancelText = defaultOptions.cancelText ??
@@ -64,7 +64,7 @@ export const prompt = definePlugin({
 						maxLength,
 						placeholder,
 						validator,
-						validateType,
+						validateTrigger,
 						confirmText,
 						cancelText,
 						draggable,
@@ -87,7 +87,7 @@ export const prompt = definePlugin({
 							maxLength,
 							placeholder,
 							validator,
-							validateType,
+							validateTrigger,
 							confirmText,
 							cancelText,
 							draggable,
