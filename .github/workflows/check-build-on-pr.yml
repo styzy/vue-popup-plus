@@ -37,22 +37,18 @@ jobs:
             - name: Install dependencies
               run: pnpm i
 
-            # 5. 执行构建
-            - name: Build all
-              run: pnpm run build
-
             # 5. 执行构建核心
-            # - name: Build core
-            #   run: pnpm run build:core
+            - name: Build core
+              run: pnpm run build:core
 
             # 6. 执行构建预置插件
-            # - name: Build plugin
-            #   run: pnpm run build:plugin
+            - name: Build plugin
+              run: pnpm run build:plugin
 
             # 7. 执行构建文档 Markdown Demo 插件
-            # - name: Build md-demo
-            #   run: pnpm run build:md-demo
+            - name: Build md-demo
+              run: pnpm run build:md-demo
 
             # 8. 执行构建文档
-            # - name: Build docs
-            #   run: pnpm run build:docs
+            - name: Build docs
+              run: pnpm run build:docs
