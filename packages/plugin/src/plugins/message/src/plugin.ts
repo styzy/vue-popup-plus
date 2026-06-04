@@ -8,6 +8,7 @@ import {
 	type PopupPlacement,
 	POPUP_ANIMATIONS,
 } from 'vue-popup-plus'
+import { wait } from 'utils'
 import { PluginLog } from '@plugin/log'
 import type { PopupSkin } from '@plugin/skin'
 import type { MergedOption } from '@plugin/typings'
@@ -29,6 +30,7 @@ const groupMap = new Map<PopupPlacement, PopupMessageGroup>()
 
 let seed = 1
 const createId = () => `message-${seed++}`
+const animationDuration = 200
 
 function getOrCreateGroup(
 	controller: PopupController,
@@ -49,12 +51,16 @@ function getOrCreateGroup(
 			componentProps: {
 				messages: group.messages,
 				skin,
+				placement,
+				animationDuration,
 				onMessageClose: (id: string) => {
 					removeMessage(controller, placement, id)
 				},
 			},
+			width: '100%',
 			placement,
-			viewAnimation: POPUP_ANIMATIONS.FADE,
+			viewAnimation: POPUP_ANIMATIONS.NONE,
+			animationDuration: 0,
 			mask: false,
 			disableScroll: false,
 			zIndex,
@@ -67,7 +73,7 @@ function getOrCreateGroup(
 	return group
 }
 
-function removeMessage(
+async function removeMessage(
 	controller: PopupController,
 	placement: PopupPlacement,
 	id: string
@@ -127,8 +133,9 @@ function removeMessage(
 	}
 
 	if (group.messages.length === 0 && group.instanceId) {
-		controller.destroy(group.instanceId)
 		groupMap.delete(placement)
+		await wait(animationDuration)
+		controller.destroy(group.instanceId)
 	}
 }
 
