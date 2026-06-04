@@ -53,19 +53,19 @@ export type PopupAlbumOption = {
 	 */
 	disableScale?: boolean
 	/**
+	 * 禁用旋转
+	 *
+	 * - 默认值：`false`
+	 * - 注意：旋转功能仅对图片启用
+	 * @since 1.7.0
+	 */
+	disableRotate?: boolean
+	/**
 	 * 是否禁用拖动功能
 	 *
 	 * - 默认值为 `false`
 	 */
 	disableDrag?: boolean
-	/**
-	 * 遮罩层是否模糊
-	 *
-	 * - 默认值：`false`
-	 *
-	 * @since 1.3.0
-	 */
-	maskBlur?: boolean
 	/**
 	 * 禁用循环
 	 *
@@ -75,13 +75,13 @@ export type PopupAlbumOption = {
 	 */
 	disableLoop?: boolean
 	/**
-	 * 禁用旋转
+	 * 遮罩层是否模糊
 	 *
 	 * - 默认值：`false`
-	 * - 注意：旋转功能仅对图片启用
-	 * @since 1.7.0
+	 *
+	 * @since 1.3.0
 	 */
-	disableRotate?: boolean
+	maskBlur?: boolean
 } & SharedOption
 
 export interface PopupAlbum {

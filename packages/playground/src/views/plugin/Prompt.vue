@@ -187,7 +187,7 @@ async function handlePopupPromptInputValidateInput() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（输入时校验）',
 		{
-			validateType: 'input',
+			validateTrigger: 'input',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')
@@ -207,7 +207,7 @@ async function handlePopupPromptInputValidateChange() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（改变时校验）',
 		{
-			validateType: 'change',
+			validateTrigger: 'change',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')
@@ -227,7 +227,7 @@ async function handlePopupPromptInputValidateBlur() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（失去焦点时校验）',
 		{
-			validateType: 'blur',
+			validateTrigger: 'blur',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')
@@ -265,7 +265,7 @@ async function handlePopupPromptTextareaValidateInput() {
 		'校验规则：长度不能小于3个字符（输入时校验）',
 		{
 			type: 'textarea',
-			validateType: 'input',
+			validateTrigger: 'input',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')
@@ -286,7 +286,7 @@ async function handlePopupPromptTextareaValidateChange() {
 		'校验规则：长度不能小于3个字符（改变时校验）',
 		{
 			type: 'textarea',
-			validateType: 'change',
+			validateTrigger: 'change',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')
@@ -307,7 +307,7 @@ async function handlePopupPromptTextareaValidateBlur() {
 		'校验规则：长度不能小于3个字符（失去焦点时校验）',
 		{
 			type: 'textarea',
-			validateType: 'blur',
+			validateTrigger: 'blur',
 			validator(value) {
 				if (value.length < 3) {
 					throw new Error('长度不能小于3个字符')

@@ -26,7 +26,7 @@ const sources = [
 	'https://images.yansikeji.cn/20220804013034736_WeChat_20220804105915.mp4',
 	{
 		url: 'https://minio.carzplt.com:8085/acip-dev/20260112/5b6fd0b420954c83990aea3fe3719f26.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=MkWhlye9R97QR5OY1yQw%2F20260319%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260319T062616Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=03898e0254f39c2c0fb1077a5096621c3cf7af13133961d9353c1a9b905345ac',
-		type: 'image',
+		type: 'video',
 	} as const,
 ]
 
