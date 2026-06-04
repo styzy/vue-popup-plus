@@ -34,6 +34,48 @@ function handleAlbum() {
 
 :::
 
+## 手动指定媒体类型 <Badge text="1.7.0" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+默认情况下，通过媒体资源地址的文件名后缀可以自动推断媒体类型，但例如对象存储等第三方服务提供的资源地址，可能不包含文件后缀，因此需要手动指定媒体类型。
+
+从 <DVersion package="plugin" version="1.7.0" /> 开始，`sources` 选项对于无法自动推断媒体类型的资源，支持以对象的形式在传入地址的同时，手动指定媒体类型。
+
+::: tip
+`sources` 选项的类型为 `Array<string | PopupAlbumSource>` ，因此你可以混合使用字符串和对象的形式传入媒体资源。
+:::
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumSourcesManual"
+	>手动指定媒体类型</DButton
+>
+```
+
+```ts
+const sources = [
+	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
+	{
+		url: 'http://static.styzy.cn/stranger/articleImage/14/15160252620376011',
+		type: 'image', // [!code highlight]
+	},
+	{
+		url: 'https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4',
+		type: 'video', // [!code highlight]
+	},
+]
+
+function handleAlbumSourcesManual() {
+	popup.album({
+		sources,
+	})
+}
+```
+
+:::
+
 ## 设置默认索引
 
 可以通过 `defaultIndex` 选项来设置默认选中的索引。
@@ -48,6 +90,31 @@ function handleAlbum() {
 function handleAlbumDefaultIndex(){
 		sources,
 		defaultIndex: 1, // [!code highlight]
+}
+```
+
+:::
+
+## 禁用循环切换 <Badge text="1.7.0" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+从 <DVersion package="plugin" version="1.7.0" /> 开始，新增循环切换功能，默认开启。
+
+通过 `disableLoop` 选项可以禁用循环切换。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumDisableLoop">禁用循环切换</DButton>
+```
+
+```ts
+function handleAlbumDisableLoop() {
+	popup.album({
+		sources,
+		disableLoop: true, // [!code highlight]
+	})
 }
 ```
 
@@ -162,9 +229,34 @@ function handleAlbumDisableScale() {
 
 :::
 
+## 禁用旋转 <Badge text="1.7.0" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+从 <DVersion package="plugin" version="1.7.0" /> 开始，新增旋转功能，默认开启。
+
+通过 `disableRotate` 选项可以禁用旋转。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumDisableRotate">禁用旋转</DButton>
+```
+
+```ts
+function handleAlbumDisableRotate() {
+	popup.album({
+		sources,
+		disableRotate: true, // [!code highlight]
+	})
+}
+```
+
+:::
+
 ## 禁用拖拽
 
-可以通过 `disableDrag` 选项来禁用拖拽。
+可以通过 `disableDrag` 选项来禁用拖动。
 
 ::: demo
 
@@ -258,10 +350,33 @@ function handleAlbum() {
 	})
 }
 
+function handleAlbumSourcesManual() {
+	popup.album({
+		sources:[
+			sources[0],
+			{
+				url: sources[1],
+				type: 'image',
+			},
+			{
+				url: sources[2],
+				type: 'video',
+			},
+		],
+	})
+}
+
 function handleAlbumDefaultIndex(){
 	popup.album({
 		sources,
 		defaultIndex: 1,
+	})
+}
+
+function handleAlbumDisableLoop() {
+	popup.album({
+		sources,
+		disableLoop: true,
 	})
 }
 
@@ -297,6 +412,13 @@ function handleAlbumDisableScale() {
 	popup.album({
 		sources,
 		disableScale: true,
+	})
+}
+
+function handleAlbumDisableRotate() {
+	popup.album({
+		sources,
+		disableRotate: true,
 	})
 }
 

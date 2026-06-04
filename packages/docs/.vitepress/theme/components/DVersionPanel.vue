@@ -101,9 +101,7 @@ function handleNavigate(path: string) {
 			opacity: 0;
 			z-index: 1;
 			.module {
-				margin: 0 5px;
-				font-size: var(--docs-font-size-text-main);
-				font-weight: 700;
+				margin-left: 5px;
 			}
 		}
 		&:hover {

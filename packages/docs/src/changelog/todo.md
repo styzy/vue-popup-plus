@@ -5,7 +5,7 @@ outline: 2
 
 # 版本规划
 
-<div v-if="!isShow">
+<div v-if="!isAuthorized">
 
 ::: tip
 版本规划仅对团队内部成员展示，外部用户无法查看。
@@ -17,7 +17,11 @@ outline: 2
 
 </div>
 
-<div v-if="isShow">
+<div v-if="isAuthorized">
+
+::: tip
+版本规划已授权。
+:::
 
 ## v1.8.0
 
@@ -70,8 +74,11 @@ outline: 2
 #### `plugin`
 
 - <DVersionTodo version="1.6.0" level="high" author="WJ" done /> 新增 `Message 消息` 插件。
-- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
-- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> `Prompt 提示输入` 新增 `validateType` 参数，用于设置校验触发时机。
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `validateTrigger` 参数，用于设置校验触发时机。
+- <DVersionTodo version="1.6.0" level="high" author="WJ" done /> `Album 媒体相册` 优化 `sources` 参数，支持手动设置媒体资源的类型。
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" done /> `Album 媒体相册` 新增 `disableLoop` 参数，用于禁用循环切换。
+- <DVersionTodo version="1.6.0" level="high" author="STYZY" done /> `Album 媒体相册` 新增 `disableRotate` 参数，用于禁用旋转。
 
 #### `国际化`
 
@@ -112,8 +119,10 @@ outline: 2
 </div>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { usePopup } from 'vue-popup-plus'
+
+const TODO_AUTHORIZED_KEY = 'todoAuthorized'
 
 let popup
 
@@ -121,15 +130,33 @@ if (!import.meta.env.SSR) {
 	popup = usePopup()
 }
 
-const isShow = ref(false)
+const isAuthorized = ref(false)
+
+onBeforeMount(() => {
+	isAuthorized.value = window.localStorage.getItem(TODO_AUTHORIZED_KEY) === '1'
+})
 
 async function handleValidate() {
-	const result = await popup.prompt('请输入授权码',{
+	const code = await popup.prompt('请输入授权码',{
 		placeholder: '请输入授权码',
+		maxLength: 16,
+		validateTrigger: 'input',
+		validator (value){
+			if(!value.length) throw new Error('授权码不能为空')
+			if(value.length < 6) throw new Error('授权码长度必须至少为 6 位')
+		},
 	})
+
+	if(code === 'vue-popup-plus'){
+		popup.toastSuccess('授权成功')
+		handleAuthorize()
+	} else {
+		popup.toastDanger('授权失败')
+	}
 }
 
-function handleShow() {
-	isShow.value = true
+function handleAuthorize() {
+	isAuthorized.value = true
+	window.localStorage.setItem(TODO_AUTHORIZED_KEY, '1')
 }
 </script>

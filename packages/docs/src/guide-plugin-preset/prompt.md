@@ -87,26 +87,6 @@ function handlePromptTextarea() {
 
 :::
 
-## 最大输入长度
-
-可以通过 `maxLength` 选项来设置输入框的最大输入长度，默认不限制输入长度。
-
-::: demo
-
-```html
-<DButton theme="primary" @click="handlePromptMaxLength">最大输入长度10</DButton>
-```
-
-```ts
-function handlePromptMaxLength() {
-	popup.prompt('请输入您的姓名', {
-		maxLength: 10, // [!code highlight]
-	})
-}
-```
-
-:::
-
 ## 设置输入框占位符
 
 可以通过 `placeholder` 选项来设置输入框的占位符。
@@ -127,6 +107,99 @@ function handlePromptPlaceholder() {
 
 :::
 
+## 最大输入长度
+
+可以通过 `maxLength` 选项来设置输入框的最大输入长度，默认不限制输入长度。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handlePromptMaxLength">最大输入长度10</DButton>
+```
+
+```ts
+function handlePromptMaxLength() {
+	popup.prompt('请输入您的姓名', {
+		maxLength: 10, // [!code highlight]
+	})
+}
+```
+
+:::
+
+## 输入值校验 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过 `validator` 选项来设置输入值的校验规则，该选项接收一个校验函数，参数为用户输入的文本，校验不通过直接在函数内抛出异常即可，否则视为校验通过。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handlePromptValidator">校验输入长度</DButton>
+```
+
+```ts {3}
+function handlePromptValidator() {
+	popup.prompt('请输入您的姓名', {
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
+	})
+}
+```
+
+:::
+
+## 校验触发方式 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过 `validateTrigger` 选项来设置校验触发方式，默认值为 `blur`，即在失去焦点时触发校验，可选值包括：
+
+- `input`：在输入内容时触发校验
+- `change`：在输入的内容改变时触发校验
+- `blur`：在失去焦点时触发校验
+
+::: tip
+触发方式对应的是输入框的原生事件，因此需要区分 `input` 和 `change` 两个事件。
+:::
+
+::: demo
+
+```html
+<DButtonGroup>
+	<DButton theme="primary" @click="handlePromptValidateTriggerInput"
+		>input 方式触发校验</DButton
+	>
+	<DButton theme="primary" @click="handlePromptValidateTriggerChange"
+		>change 方式触发校验</DButton
+	>
+</DButtonGroup>
+```
+
+```ts
+function handlePromptValidateTriggerInput() {
+	popup.prompt('请输入您的姓名', {
+		validateTrigger: 'input', // [!code highlight]
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
+	})
+}
+
+function handlePromptValidateTriggerChange() {
+	popup.prompt('请输入您的姓名', {
+		validateTrigger: 'change', // [!code highlight]
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
+	})
+}
+```
+
+:::
+
 ## 自定义标题文本
 
 可以通过 `title` 选项来自定义提示输入框的标题文本。
@@ -134,7 +207,9 @@ function handlePromptPlaceholder() {
 ::: demo
 
 ```html
-<DButton theme="primary" @click="handlePromptCustomTitle">提示输入</DButton>
+<DButton theme="primary" @click="handlePromptCustomTitle"
+	>自定义标题文本</DButton
+>
 ```
 
 ```ts
@@ -318,6 +393,32 @@ function handlePromptTextarea() {
 function handlePromptMaxLength() {
 	popup.prompt('请输入您的姓名', {
 		maxLength: 10,
+	})
+}
+
+function handlePromptValidator() {
+	popup.prompt('请输入您的姓名', {
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
+	})
+}
+
+function handlePromptValidateTriggerInput() {
+	popup.prompt('请输入您的姓名', {
+		validateTrigger: 'input',
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
+	})
+}
+
+function handlePromptValidateTriggerChange() {
+	popup.prompt('请输入您的姓名', {
+		validateTrigger: 'change',
+		validator: (value) => {
+			if (value.length < 3) throw new Error('姓名长度不能小于3个字符')
+		},
 	})
 }
 
