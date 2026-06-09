@@ -18,7 +18,7 @@ export default defineConfig({
 			output: {
 				// 每个源文件单独输出、不合并chunk
 				preserveModules: true,
-				// 剔除dist/es下多余src目录
+				// 剔除es下多余src目录
 				preserveModulesRoot: 'src',
 				entryFileNames: '[name].mjs',
 				// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
