@@ -75,7 +75,6 @@
 		"vite-plugin-dts": "catalog:",
 		"vite-plugin-vue-devtools": "catalog:",
 		"vitest": "catalog:",
-		"vue-i18n": "^11.4.4",
 		"vue-tsc": "catalog:"
 	}
 }
