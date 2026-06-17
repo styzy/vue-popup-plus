@@ -5,7 +5,7 @@ outline: 2
 
 # 核心 更新日志
 
-## 1.7.0 <Badge text="2026-06-04" />
+## 1.7.0-beta.1 <Badge text="2026-06-04" />
 
 ### 重大特性
 
@@ -41,7 +41,7 @@ outline: 2
 - 新增 `v-popup` 指令，用于在模板中快速创建弹出层。
 - 新增 `createPopupDirective()` 工具函数，用于创建自定义弹出层指令。
 - 新增 `PopupDirective<T, K>` 工具类型，用于创建自定义弹出层指令的类型。
-- 新增 `PopupDirectiveHook<T>` 工具类型，用于创建自定义弹出层指令的渲染狗子函数类型。
+- 新增 `PopupDirectiveHook<T>` 工具类型，用于创建自定义弹出层指令的渲染钩子函数类型。
 
 ### 改动
 
