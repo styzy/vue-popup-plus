@@ -10,6 +10,7 @@ export default defineConfig({
 		lib: {
 			entry: fileURLToPath(new URL('./src/index', import.meta.url)),
 			formats: ['es'],
+			fileName: 'index',
 		},
 		outDir: fileURLToPath(new URL('./es', import.meta.url)),
 		rollupOptions: {
@@ -21,11 +22,6 @@ export default defineConfig({
 				// 剔除dist/es下多余src目录
 				preserveModulesRoot: 'src',
 				entryFileNames: '[name].mjs',
-				// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-				globals: {
-					vue: 'Vue',
-					'vue-popup-plus': 'VuePopupPlus',
-				},
 			},
 		},
 	},
