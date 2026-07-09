@@ -1,0 +1,24 @@
+{
+	"include": ["env.d.ts", "./src/**/*", "./src/**/*.vue"],
+	"exclude": ["./src/**/__tests__/*"],
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"noEmit": true,
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"allowImportingTsExtensions": true,
+		"moduleDetection": "force",
+		"noImplicitThis": true,
+		"verbatimModuleSyntax": true,
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": "./",
+		"paths": {},
+		"isolatedModules": true,
+		"strict": true
+	}
+}
