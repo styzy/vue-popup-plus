@@ -1,5 +1,6 @@
 {
 	"name": "vue-popup-plus-root",
+	"packageManager": "pnpm@10.19.0",
 	"private": true,
 	"engines": {
 		"node": "^20.19.0 || >=22.12.0"
