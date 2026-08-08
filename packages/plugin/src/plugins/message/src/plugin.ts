@@ -58,7 +58,7 @@ function getOrCreateGroup(
 				},
 			},
 			width: '100%',
-			placement,
+			height: '100%',
 			viewAnimation: POPUP_ANIMATIONS.NONE,
 			animationDuration: 0,
 			mask: false,

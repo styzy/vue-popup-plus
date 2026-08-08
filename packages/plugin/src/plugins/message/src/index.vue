@@ -74,9 +74,12 @@ const emitClose = (id: string) => emit('messageClose', id)
 	height: 100%;
 
 	@include ns-element('inner') {
+		width: 100%;
+		height: 100%;
 		padding: 20px;
 		display: flex;
 		gap: use-spacing(small);
+		box-sizing: border-box;
 		.popup-message-group-enter-active,
 		.popup-message-group-leave-active {
 			transition: v-bind('`all ${animationDuration}ms ease`');
@@ -105,6 +108,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 		@include ns-modifier('left') {
 			align-items: flex-start;
 			flex-direction: column;
+			justify-content: center;
 			.popup-message-group-enter-from {
 				transform: translateX(-20px);
 			}
@@ -116,6 +120,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 		@include ns-modifier('left-bottom') {
 			align-items: flex-start;
 			flex-direction: column-reverse;
+			justify-content: flex-start;
 			.popup-message-group-enter-from {
 				transform: translateX(-20px);
 			}
@@ -138,6 +143,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 		@include ns-modifier('center') {
 			align-items: center;
 			flex-direction: column;
+			justify-content: center;
 		}
 		@include ns-modifier('bottom') {
 			align-items: center;
@@ -164,6 +170,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 		@include ns-modifier('right') {
 			align-items: flex-end;
 			flex-direction: column;
+			justify-content: center;
 			.popup-message-group-enter-from {
 				transform: translateX(20px);
 			}
@@ -174,6 +181,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 		}
 		@include ns-modifier('right-bottom') {
 			align-items: flex-end;
+			justify-content: flex-start;
 			flex-direction: column-reverse;
 			.popup-message-group-enter-from {
 				transform: translateX(20px);
