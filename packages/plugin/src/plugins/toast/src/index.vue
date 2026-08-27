@@ -121,7 +121,8 @@ function handleClose() {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	max-width: 30vw;
+	margin: use-spacing();
+	max-width: 500px;
 	border-radius: use-radius();
 	@include ns-element('background') {
 		position: absolute;

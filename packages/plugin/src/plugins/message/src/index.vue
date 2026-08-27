@@ -74,7 +74,7 @@ const emitClose = (id: string) => emit('messageClose', id)
 	height: 100%;
 
 	@include ns-element('inner') {
-		padding: 20px;
+		padding: use-spacing();
 		display: flex;
 		gap: use-spacing(small);
 		.popup-message-group-enter-active,
