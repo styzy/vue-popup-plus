@@ -58,7 +58,7 @@ function createVersionMeta(version: PopupVersion): VersionMeta {
 		tagNumber,
 		toString() {
 			if (this.tag && this.tagNumber) {
-				return `${this.primary}.${this.minor}.${this.patch}-${this.tag}.${this.tagNumber}`
+				return `${this.primary}.${this.minor}.${this.patch}-${this.tag}.${this.tagNumber}` as PopupVersion
 			}
 			return `${this.primary}.${this.minor}.${this.patch}`
 		},
