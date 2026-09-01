@@ -5,6 +5,13 @@ outline: 2
 
 # 预置插件 更新日志
 
+## 1.7.0-beta.2 <Badge text="2026-08-27" />
+
+### 优化
+
+- `Toast 轻量提示` 优化 **移动端** 展示效果。
+- `Message 消息` 优化 **移动端** 展示效果。
+
 ## 1.7.0-beta.1 <Badge text="2026-06-04" />
 
 ### 重大特性
@@ -55,7 +62,7 @@ outline: 2
 
 - 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - 新增 `Drawer 抽屉` 插件。
-    <!-- - 新增 `Message 消息` 插件。 -->
+  <!-- - 新增 `Message 消息` 插件。 -->
 - 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
 - `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
