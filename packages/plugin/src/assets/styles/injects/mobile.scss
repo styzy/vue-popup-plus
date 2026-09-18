@@ -1,0 +1,18 @@
+@use '../namespace.scss' as namespace;
+
+// 使用移动端样式
+@mixin use-mobile() {
+	$parent: &;
+	@media screen and (max-width: 768px) {
+		@if $parent {
+			@at-root .#{namespace.$container}.#{namespace.$mobile}#{&},
+				.#{namespace.$container}.#{namespace.$mobile} #{&} {
+				@content;
+			}
+		} @else {
+			@at-root {
+				@content;
+			}
+		}
+	}
+}

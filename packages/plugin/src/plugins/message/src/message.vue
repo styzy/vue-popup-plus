@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin(
+PContainer(
 	:class="[ns.block(), ns.is(`theme-${theme}`)]"
 	:skin="skin"
 	@mouseenter="handleMouseEnter"
@@ -21,7 +21,7 @@ PSkin(
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
-import { PSkin } from '@plugin/components/internal'
+import { PContainer } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import { type Theme } from '@plugin/typings'

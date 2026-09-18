@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin(:class="classObject" :skin="skin")
+PContainer(:class="classObject" :skin="skin")
 	div(:class="ns.element('wrapper')" @click="handleCloseOnDebugMode()")
 		PLoadingIcon(:size="iconSize" :theme)
 		div(:class="ns.element('title')" v-if="title") {{ title }}
@@ -8,7 +8,7 @@ PSkin(:class="classObject" :skin="skin")
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
-import { PLoadingIcon, PSkin } from '@plugin/components/internal'
+import { PLoadingIcon, PContainer } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import { type Theme } from '@plugin/typings'

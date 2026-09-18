@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin(:class="ns.block()" :skin="skin" @dblclick="handlePureExit()")
+PContainer(:class="ns.block()" :skin="skin" @dblclick="handlePureExit()")
 	div(:class="ns.element('media')" @wheel="handleImageMouseScale($event)")
 		template(v-for="(media, mediaIndex) in mediaList")
 			template(v-if="mediaIndex === currentIndex")
@@ -106,7 +106,7 @@ import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
 import { download, setClipboard } from 'utils'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { File, type FileType } from '@plugin/class'
-import { PSkin } from '@plugin/components/internal'
+import { PContainer } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { useLocale } from '@plugin/locale'
 import { type PopupSkin } from '@plugin/skin'
@@ -156,7 +156,7 @@ const {
 
 const currentIndex = ref(defaultIndex)
 const defaultScale = ref(1)
-const maxScale = ref(30)
+const maxScale = ref(100)
 const minScale = ref(0.01)
 const buttonScaleLevel = ref(3)
 const mouseScaleLevel = ref(1.5)
@@ -372,6 +372,7 @@ function handleClose() {
 @use '@plugin/assets/styles/inject.scss' as *;
 
 $tools-safe-padding: 40px;
+$tools-size: 40px;
 
 @include ns-block('album') {
 	position: relative;
@@ -409,20 +410,38 @@ $tools-safe-padding: 40px;
 			right: $tools-safe-padding;
 			flex-direction: row;
 			justify-content: space-between;
+
+			@include use-mobile() {
+				top: $tools-safe-padding * 0.5;
+				left: $tools-safe-padding * 0.5;
+				right: $tools-safe-padding * 0.5;
+			}
 		}
 		@include ns-modifier('left') {
-			top: $tools-safe-padding + 40px;
+			top: $tools-safe-padding + $tools-size;
 			left: $tools-safe-padding;
-			bottom: $tools-safe-padding + 40px;
+			bottom: $tools-safe-padding + $tools-size;
 			flex-direction: column;
 			justify-content: center;
+
+			@include use-mobile() {
+				top: $tools-safe-padding * 0.5 + $tools-size;
+				left: $tools-safe-padding * 0.5;
+				bottom: $tools-safe-padding * 0.5 + $tools-size;
+			}
 		}
 		@include ns-modifier('right') {
-			top: $tools-safe-padding + 40px;
+			top: $tools-safe-padding + $tools-size;
 			right: $tools-safe-padding;
-			bottom: $tools-safe-padding + 40px;
+			bottom: $tools-safe-padding + $tools-size;
 			flex-direction: column;
 			justify-content: center;
+
+			@include use-mobile() {
+				top: $tools-safe-padding * 0.5 + $tools-size;
+				right: $tools-safe-padding * 0.5;
+				bottom: $tools-safe-padding * 0.5 + $tools-size;
+			}
 		}
 		@include ns-modifier('bottom') {
 			bottom: $tools-safe-padding;
@@ -430,21 +449,31 @@ $tools-safe-padding: 40px;
 			right: $tools-safe-padding;
 			flex-direction: row;
 			justify-content: space-between;
+
+			@include use-mobile() {
+				bottom: $tools-safe-padding * 0.5;
+				left: $tools-safe-padding * 0.5;
+				right: $tools-safe-padding * 0.5;
+			}
 		}
 	}
 	@include ns-element('tools-center-wrapper') {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 20px;
+		gap: use-spacing();
+
+		@include use-mobile() {
+			gap: calc(use-spacing() / 2);
+		}
 	}
 	@include ns-element('control') {
 		@include base-transition();
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 40px;
-		height: 40px;
+		width: $tools-size;
+		height: $tools-size;
 		border-radius: use-radius();
 		box-sizing: content-box;
 		color: #ffffff;
@@ -455,7 +484,7 @@ $tools-safe-padding: 40px;
 			background-color: rgba(0, 0, 0, 0.7);
 		}
 		i {
-			font-size: 24px;
+			font-size: $tools-size * 0.6;
 		}
 		@include use-dark() {
 			background-color: rgba(255, 255, 255, 0.2);
@@ -478,19 +507,17 @@ $tools-safe-padding: 40px;
 			padding: 0 use-spacing();
 		}
 		@include ns-modifier('back') {
-			width: 60px;
-			height: 100px;
-			transform: translateY(-50%);
+			width: $tools-size * 1.5;
+			height: $tools-size * 2.5;
 			i {
-				font-size: 40px;
+				font-size: $tools-size;
 			}
 		}
 		@include ns-modifier('next') {
-			width: 60px;
-			height: 100px;
-			transform: translateY(-50%);
+			width: $tools-size * 1.5;
+			height: $tools-size * 2.5;
 			i {
-				font-size: 40px;
+				font-size: $tools-size;
 			}
 		}
 		@include ns-modifier('download') {
@@ -512,8 +539,8 @@ $tools-safe-padding: 40px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 40px;
-		height: 40px;
+		width: $tools-size;
+		height: $tools-size;
 		border-radius: use-radius();
 		box-sizing: content-box;
 		color: #ffffff;
@@ -523,8 +550,10 @@ $tools-safe-padding: 40px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			gap: 10px;
-			padding: 0 use-spacing();
+
+			@include use-mobile() {
+				gap: 0px;
+			}
 		}
 		@include use-dark() {
 			background-color: rgba(255, 255, 255, 0.2);
@@ -534,8 +563,8 @@ $tools-safe-padding: 40px;
 		font-weight: 700;
 	}
 	@include ns-element('empty') {
-		width: 40px;
-		height: 40px;
+		width: $tools-size;
+		height: $tools-size;
 	}
 }
 </style>

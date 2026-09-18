@@ -1,5 +1,5 @@
 <template lang="pug">
-PSkin(:class="ns.block()" :skin="skin")
+PContainer(:class="ns.block()" :skin="skin")
 	PLayout
 		template(#header)
 			PHeader(
@@ -25,7 +25,7 @@ import {
 	PFooter,
 	PHeader,
 	PLayout,
-	PSkin,
+	PContainer,
 } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'

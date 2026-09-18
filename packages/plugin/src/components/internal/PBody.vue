@@ -6,12 +6,13 @@ div(:class="classObject")
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
-import { useNamespace } from '@plugin/hooks'
+import { useDevice, useNamespace } from '@plugin/hooks'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.BODY,
 })
 
+const { isMobile } = useDevice()
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.BODY)
 
 type Props = {
@@ -23,7 +24,7 @@ const { withPadding = true, fitIcon = false } = defineProps<Props>()
 
 const classObject = computed(() => [
 	ns.block(),
-	ns.is('fit-icon', fitIcon),
+	ns.is('fit-icon', fitIcon && !isMobile.value),
 	ns.is('has-padding', withPadding),
 ])
 </script>
@@ -37,6 +38,9 @@ const classObject = computed(() => [
 	overflow: auto;
 	@include ns-is('has-padding') {
 		@include base-container(padding);
+	}
+	@include use-mobile() {
+		text-align: center;
 	}
 	@include use-dark() {
 		background-color: use-color(background);

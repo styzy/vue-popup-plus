@@ -6,6 +6,9 @@ div(
 		:class="[ns.element('icon'), ns.is(`theme-${iconTheme}`)]"
 		v-if="hasIcon")
 		i.iconfont-popup-plugin-preset(:class="iconClass")
+	div(
+		:class="ns.element('icon-placeholder')"
+		v-else-if="hasMobileIconPlaceholder")
 	div(:class="ns.element('title')") {{ title }}
 	div(:class="ns.element('btn-ctn')")
 		slot(name="buttons")
@@ -26,11 +29,12 @@ import {
 } from 'vue-popup-plus'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { PHeaderButton } from '@plugin/components/internal'
-import { useNamespace } from '@plugin/hooks'
+import { useDevice, useNamespace } from '@plugin/hooks'
 import { type Theme } from '@plugin/typings'
 
 let popup: PopupController | undefined
 
+const { isMobile } = useDevice()
 const instanceId = usePopupInstanceId()!
 const viewComputedStyle = usePopupComputedStyle()!
 
@@ -74,7 +78,10 @@ const dragOffsetX = ref(0)
 const dragOffsetY = ref(0)
 const isDragging = ref(false)
 
-const hasIcon = computed(() => !!iconClass)
+const hasIcon = computed(() => !!iconClass && !isMobile.value)
+const hasMobileIconPlaceholder = computed(
+	() => !hasIcon.value && isMobile.value && hasCloseButton
+)
 
 watch([dragOffsetX, dragOffsetY], handleOffsetChange)
 
@@ -144,6 +151,7 @@ function handleOffsetChange() {
 			color: use-color(danger);
 		}
 	}
+
 	@include use-skin('classic') {
 		@include base-style();
 
@@ -151,12 +159,19 @@ function handleOffsetChange() {
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		gap: 15px;
+		gap: 20px;
 		padding-left: 20px;
 		height: 40px;
 		border-bottom: 1px solid use-color(border);
 		background-color: use-color(background);
 
+		@include use-dark() {
+			background-color: use-color(background);
+		}
+		@include ns-element('icon-placeholder') {
+			width: 24px;
+			height: 24px;
+		}
 		@include ns-element('icon') {
 			display: flex;
 			justify-content: center;
@@ -165,20 +180,25 @@ function handleOffsetChange() {
 				font-size: 20px;
 			}
 		}
+		@include ns-element('icon-placeholder') {
+			width: 24px;
+			height: 24px;
+		}
 		@include ns-element('title') {
 			@include base-ellipsis();
 
 			flex: 1;
 			font-size: use-font-size(title, small);
+
+			@include use-mobile() {
+				text-align: center;
+			}
 		}
 		@include ns-element('btn-ctn') {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
-		}
-		@include use-dark() {
-			background-color: use-color(background);
 		}
 	}
 	@include use-skin('modern') {
@@ -197,12 +217,20 @@ function handleOffsetChange() {
 				font-size: 24px;
 			}
 		}
+		@include ns-element('icon-placeholder') {
+			width: 24px;
+			height: 24px;
+		}
 		@include ns-element('title') {
 			@include base-ellipsis();
 
 			flex: 1;
 			font-size: use-font-size(title, small);
 			font-weight: 600;
+
+			@include use-mobile() {
+				text-align: center;
+			}
 		}
 		@include ns-element('btn-ctn') {
 			display: flex;

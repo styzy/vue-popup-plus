@@ -10,11 +10,10 @@ export const POPUP_COMPONENT_NAMES = {
 export const POPUP_INSIDE_COMPONENT_NAMES = {
 	ALBUM: 'PopupAlbum',
 	ALERT: 'PopupAlert',
-	ANCHOR_TRIGGER: 'PopupAnchorTrigger',
-	ARROW_CONTAINER: 'PopupArrowContainer',
 	BODY: 'PopupBody',
 	BUTTON: 'PopupButton',
 	BUTTON_GROUP: 'PopupButtonGroup',
+	CONTAINER: 'PopupContainer',
 	CONFIRM: 'PopupConfirm',
 	DIALOG: 'PopupDialog',
 	DRAWER: 'PopupDrawer',
@@ -27,9 +26,7 @@ export const POPUP_INSIDE_COMPONENT_NAMES = {
 	MESSAGE: 'PopupMessage',
 	MESSAGE_GROUP: 'PopupMessageGroup',
 	PROMPT: 'PopupPrompt',
-	SKIN: 'PopupSkin',
 	TOAST: 'PopupToast',
-	WINDOW_RESIZE: 'PopupWindowResize',
 } as const
 
 // BEM 命名规范

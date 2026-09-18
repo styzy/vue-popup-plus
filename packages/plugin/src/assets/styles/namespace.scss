@@ -1,11 +1,14 @@
 // 命名空间
 $base: 'popup';
 
+// 容器命名空间
+$container: '#{$base}-container';
+
+// 移动端命名空间
+$mobile: '#{$container}--mobile';
+
 // 颜色命名空间
 $color: '#{$base}-color';
-
-// 皮肤命名空间
-$skin: '#{$base}-skin';
 
 // 字体大小命名空间
 $font-size: '#{$base}-font-size';

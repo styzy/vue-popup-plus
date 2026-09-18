@@ -4,12 +4,12 @@
 @mixin use-skin($skin) {
 	$parent: &;
 	@if $parent {
-		@at-root &.#{namespace.$skin}.#{namespace.$skin}--#{$skin},
-			.#{namespace.$skin}.#{namespace.$skin}--#{$skin} & {
+		@at-root .#{namespace.$container}.#{namespace.$container}--#{$skin}#{&},
+			.#{namespace.$container}.#{namespace.$container}--#{$skin} #{&} {
 			@content;
 		}
 	} @else {
-		@at-root .#{namespace.$skin}.#{namespace.$skin}--#{$skin} {
+		@at-root .#{namespace.$container}.#{namespace.$container}--#{$skin} {
 			@content;
 		}
 	}

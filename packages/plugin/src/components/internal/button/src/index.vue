@@ -307,6 +307,9 @@ function handleClick(event: PointerEvent) {
 			use-color(danger, light)
 		);
 	}
+	@include use-mobile() {
+		flex: 1;
+	}
 	@include ns-element('background') {
 		@include base-transition();
 		position: absolute;
