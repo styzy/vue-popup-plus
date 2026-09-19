@@ -2,20 +2,15 @@
 GContainer
 	GTitle Toast 轻量提示
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupToast()" type="fill") 默认
-		PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
-		PButton(@click="handlePopupToastThemeSuccess()" theme="success") 成功主题
-		PButton(@click="handlePopupToastThemeInfo()" theme="info") 信息主题
-		PButton(@click="handlePopupToastThemeWarning()" theme="warning") 警告主题
-		PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
-		PButton(@click="handlePopupToastLong()") 长文本轻量提示
-		PButton(@click="handlePopupToastTenSecond()" theme="warning") 10秒轻量提示
-		PButton(@click="handlePopupToastZeroSecond()" theme="success") 0秒轻量提示
+		PButton(@click="handlePopupToastLong()") 长文本
+		PButton(@click="handlePopupToastTenSecond()") 持续 10 秒
+		PButton(@click="handlePopupToastZeroSecond()") 持续 0 秒(常显)
 		PButton(@click="handlePopupToastShowClose()") 显示关闭按钮
 		PButton(@click="handlePopupToastHoverWait()") 禁用悬停等待
 	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupToastPlacementLeftTop()") 左上
 		PButton(@click="handlePopupToastPlacementLeft()") 左侧
 		PButton(@click="handlePopupToastPlacementLeftBottom()") 左下
@@ -25,8 +20,15 @@ GContainer
 		PButton(@click="handlePopupToastPlacementRightTop()") 右上
 		PButton(@click="handlePopupToastPlacementRight()") 右侧
 		PButton(@click="handlePopupToastPlacementRightBottom()") 右下
-	GTitle(second) 主题方法
+	GTitle(second) 主题
 	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupToastThemePrimary()" theme="primary") 主要主题
+		PButton(@click="handlePopupToastThemeSuccess()" theme="success") 成功主题
+		PButton(@click="handlePopupToastThemeInfo()" theme="info") 信息主题
+		PButton(@click="handlePopupToastThemeWarning()" theme="warning") 警告主题
+		PButton(@click="handlePopupToastThemeDanger()" theme="danger") 危险主题
+	GTitle(second) 主题快捷方法
+	PButtonGroup(theme="primary" tight type="fill")
 		PButton(@click="handlePopupToastPrimary()" theme="primary") 主要主题
 		PButton(@click="handlePopupToastSuccess()" theme="success") 成功主题
 		PButton(@click="handlePopupToastInfo()" theme="info") 信息主题

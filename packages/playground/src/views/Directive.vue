@@ -7,7 +7,7 @@ GContainer.directive
 		.block(v-popup="Demo") div 触发
 		PButton(v-popup="Demo") 组件触发
 	GTitle(second) 触发方式
-	PButtonGroup(theme="primary" type="plain")
+	PButtonGroup(theme="primary")
 		PButton(type="fill" v-popup.click="Demo") 点击触发
 		div(@click="handleParentClick()")
 			PButton(v-popup.click.stop="Demo") 点击触发(阻止冒泡)

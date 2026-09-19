@@ -1,7 +1,16 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig } from '@plugin/typings'
+import type { PluginSharedConfig, Theme } from '@plugin/typings'
 
 export type PopupConfirmOption = {
+	/**
+	 * 主题
+	 *
+	 * - 默认值： 'primary'
+	 * - 具体的可选主题请参考 {@link Theme}
+	 *
+	 * @since 1.7.0
+	 */
+	theme?: Theme
 	/**
 	 * 确认框标题
 	 *

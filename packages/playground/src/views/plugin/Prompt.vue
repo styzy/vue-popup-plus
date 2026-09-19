@@ -2,7 +2,7 @@
 GContainer
 	GTitle Prompt 提示输入
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupPrompt()" type="fill") 默认
 		PButton(@click="handlePopupPromptDefaultValue()") 默认值
 		PButton(@click="handlePopupPromptCustomType()") 自定义类型
@@ -16,17 +16,24 @@ GContainer
 		PButton(@click="handlePopupPromptDraggableOverflow()") 可拖拽溢出屏幕
 		PButton(@click="handlePopupPromptWithMaskBlur()") 启用遮罩模糊
 	GTitle(second) 输入框校验
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupPromptInputValidate()") 校验
 		PButton(@click="handlePopupPromptInputValidateInput()") input 触发校验
 		PButton(@click="handlePopupPromptInputValidateChange()") change 触发校验
 		PButton(@click="handlePopupPromptInputValidateBlur()") blur 触发校验
 	GTitle(second) 文本域校验
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupPromptTextareaValidate()") 校验
 		PButton(@click="handlePopupPromptTextareaValidateInput()") input 触发校验
 		PButton(@click="handlePopupPromptTextareaValidateChange()") change 触发校验
 		PButton(@click="handlePopupPromptTextareaValidateBlur()") blur 触发校验
+	GTitle(second) 主题
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupPromptThemePrimary()" theme="primary") 主要主题
+		PButton(@click="handlePopupPromptThemeSuccess()" theme="success") 成功主题
+		PButton(@click="handlePopupPromptThemeInfo()" theme="info") 信息主题
+		PButton(@click="handlePopupPromptThemeWarning()" theme="warning") 警告主题
+		PButton(@click="handlePopupPromptThemeDanger()" theme="danger") 危险主题
 </template>
 
 <script lang="ts" setup>
@@ -316,6 +323,61 @@ async function handlePopupPromptTextareaValidateBlur() {
 		}
 	)
 
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptThemePrimary() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		theme: 'primary',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptThemeSuccess() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		theme: 'success',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptThemeInfo() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		theme: 'info',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptThemeWarning() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		theme: 'warning',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptThemeDanger() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		theme: 'danger',
+	})
 	if (result === undefined) {
 		popup.toast('取消输入')
 	} else {

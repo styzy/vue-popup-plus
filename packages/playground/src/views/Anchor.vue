@@ -9,7 +9,7 @@ GContainer
 			v-model="viewportEnabled")
 	GViewport(ref="viewportRef")
 		GTitle(second) 位置
-		PButtonGroup(theme="primary" tight type="plain")
+		PButtonGroup(theme="primary" tight)
 			PButton(@click="handleLeftStart()" ref="leftStart") 左侧起点
 			PButton(@click="handleLeft()" ref="left") 左侧
 			PButton(@click="handleLeftEnd()" ref="leftEnd") 左侧终点
@@ -23,7 +23,7 @@ GContainer
 			PButton(@click="handleRight()" ref="right") 右侧
 			PButton(@click="handleRightEnd()" ref="rightEnd") 右侧终点
 		GTitle(second) 翻转
-		PButtonGroup(theme="primary" tight type="plain")
+		PButtonGroup(theme="primary" tight)
 			PButton(@click="handleFlipLeftStart()" ref="flipLeftStart") 左侧起点
 			PButton(@click="handleFlipLeft()" ref="flipLeft") 左侧
 			PButton(@click="handleFlipLeftEnd()" ref="flipLeftEnd") 左侧终点
@@ -37,7 +37,7 @@ GContainer
 			PButton(@click="handleFlipRight()" ref="flipRight") 右侧
 			PButton(@click="handleFlipRightEnd()" ref="flipRightEnd") 右侧终点
 		GTitle(second) 主轴平移
-		PButtonGroup(theme="primary" tight type="plain")
+		PButtonGroup(theme="primary" tight)
 			PButton(@click="handleShiftMainLeftStart()" ref="shiftMainLeftStart") 左侧起点
 			PButton(@click="handleShiftMainLeft()" ref="shiftMainLeft") 左侧
 			PButton(@click="handleShiftMainLeftEnd()" ref="shiftMainLeftEnd") 左侧终点
@@ -51,7 +51,7 @@ GContainer
 			PButton(@click="handleShiftMainRight()" ref="shiftMainRight") 右侧
 			PButton(@click="handleShiftMainRightEnd()" ref="shiftMainRightEnd") 右侧终点
 		GTitle(second) 交叉轴平移
-		PButtonGroup(theme="primary" tight type="plain")
+		PButtonGroup(theme="primary" tight)
 			PButton(@click="handleShiftCrossLeftStart()" ref="shiftCrossLeftStart") 左侧起点
 			PButton(@click="handleShiftCrossLeft()" ref="shiftCrossLeft") 左侧
 			PButton(@click="handleShiftCrossLeftEnd()" ref="shiftCrossLeftEnd") 左侧终点
@@ -65,7 +65,7 @@ GContainer
 			PButton(@click="handleShiftCrossRight()" ref="shiftCrossRight") 右侧
 			PButton(@click="handleShiftCrossRightEnd()" ref="shiftCrossRightEnd") 右侧终点
 		GTitle(second) 主轴交叉轴都平移
-		PButtonGroup(theme="primary" tight type="plain")
+		PButtonGroup(theme="primary" tight)
 			PButton(@click="handleShiftBothLeftStart()" ref="shiftBothLeftStart") 左侧起点
 			PButton(@click="handleShiftBothLeft()" ref="shiftBothLeft") 左侧
 			PButton(@click="handleShiftBothLeftEnd()" ref="shiftBothLeftEnd") 左侧终点

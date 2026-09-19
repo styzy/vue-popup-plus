@@ -15,7 +15,7 @@ export type PButtonGroupProps = {
 	 *
 	 * - 可统一设置按钮组内按钮的类型
 	 * - 优先级低于按钮的类型属性
-	 * - 默认值为 `fill`
+	 * - 默认值为 `default`
 	 */
 	type?: PButtonType
 	/**
@@ -23,7 +23,7 @@ export type PButtonGroupProps = {
 	 *
 	 * - 可统一设置按钮组内按钮的主题
 	 * - 优先级低于按钮的主题属性
-	 * - 默认值为 `default`
+	 * - 默认值为 `primary`
 	 */
 	theme?: PButtonTheme
 	/**

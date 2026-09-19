@@ -5,17 +5,17 @@ PContainer(:class="ns.block()" :skin="skin")
 			PHeader(
 				:draggable="draggable"
 				:hasCloseButton="headerClose"
+				:iconTheme="theme"
 				:title="title"
 				@close="handleCancel()"
-				iconClass="confirm"
-				iconTheme="warning")
+				iconClass="confirm")
 		PBody(:fitIcon="skin === 'modern'")
 			div(:class="ns.element('content')") {{ content }}
 		template(#footer)
 			PFooter
 				PButtonGroup(align="end")
-					PButton(@click="handleCancel()" type="plain") {{ cancelText }}
-					PButton(@click="handleConfirm()" theme="primary") {{ confirmText }}
+					PButton(:theme="theme" @click="handleCancel()" type="plain") {{ cancelText }}
+					PButton(:theme="theme" @click="handleConfirm()" type="fill") {{ confirmText }}
 </template>
 
 <script lang="ts" setup>
@@ -31,6 +31,7 @@ import {
 } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
+import type { Theme } from '@plugin/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.CONFIRM,
@@ -46,6 +47,7 @@ const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: PopupSkin
+	theme: Theme
 	title: string
 	headerClose: boolean
 	content: string

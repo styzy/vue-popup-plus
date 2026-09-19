@@ -2,27 +2,35 @@
 .g-tools(:class="{ 'is-collapse': !isExpand }")
 	template(v-if="isExpand")
 		GTitle(second) 快捷工具
-		PButtonGroup(cross-align="center" direction="vertical" theme="primary")
-			PButton(@click="handleDarkMode()") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
-			PButton(@click="handlePopupDestorySelf()" theme="warning" v-if="inPopup") 当前处于弹出层内，点击关闭
-			PButton(@click="handlePopupSelf()" type="plain") 用弹出层渲染当前页面
-			PButton(@click="handlePopupDialogSelf()" type="plain") 用对话渲染当前页面
-			PButton(@click="handlePopupDrawerSelf()" type="plain") 用抽屉渲染当前页面
+		PButtonGroup(cross-align="center" direction="vertical" theme="primary" tight)
+			PButton(@click="handleDarkMode()" type="fill") 切换到{{ isDarkMode ? '亮色' : '暗黑' }}模式
+			PButton(
+				@click="handlePopupDestorySelf()"
+				theme="warning"
+				type="fill"
+				v-if="inPopup") 当前处于弹出层内，点击关闭
+			PButton(@click="handlePopupSelf()") 用弹出层渲染当前页面
+			PButton(@click="handlePopupDialogSelf()") 用对话渲染当前页面
+			PButton(@click="handlePopupDrawerSelf()") 用抽屉渲染当前页面
 		GTitle(second) 快速跳转
 		PButtonGroup(
 			cross-align="center"
 			direction="vertical"
 			style="margin-bottom: 30px"
-			theme="primary")
-			PButton(@click="handleJumpIndex()" theme="success") 首页
-			PButton(@click="handleJumpCore()") 核心 - 基础测试
-			PButton(@click="handleJumpViewport()" type="plain") 核心 - 视区测试
-			PButton(@click="handleJumpAnchor()" type="plain") 核心 - 锚点测试
-			PButton(@click="handleJumpAnchorTrigger()" type="plain") 核心 - 锚点触发器测试
-			PButton(@click="handleJumpDirective()" theme="warning" type="plain") 核心 - 指令测试
-			PButton(@click="handleJumpPlugin()" theme="success") 预置插件 - 基础测试
-			PButton(@click="handleJumpButton()" theme="warning" type="plain") 预置插件 - 按钮测试
-	PButton(@click="isExpand = !isExpand" theme="success") {{ isExpand ? '折叠工具面板' : '工具' }}
+			theme="primary"
+			tight)
+			PButton(@click="handleJumpIndex()" theme="success" type="fill") 首页
+			PButton(@click="handleJumpCore()" type="fill") 核心 - 基础测试
+			PButton(@click="handleJumpViewport()") 核心 - 视区测试
+			PButton(@click="handleJumpAnchor()") 核心 - 锚点测试
+			PButton(@click="handleJumpAnchorTrigger()") 核心 - 锚点触发器测试
+			PButton(@click="handleJumpDirective()" theme="warning") 核心 - 指令测试
+			PButton(@click="handleJumpPlugin()" theme="success" type="fill") 预置插件 - 基础测试
+			PButton(@click="handleJumpButton()" theme="warning") 预置插件 - 按钮测试
+	PButton(
+		:theme="isExpand ? 'danger' : 'success'"
+		@click="isExpand = !isExpand"
+		type="fill") {{ isExpand ? '折叠工具面板' : '工具' }}
 </template>
 
 <script lang="ts" setup>

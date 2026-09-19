@@ -32,6 +32,7 @@ export const prompt = definePlugin({
 		const prompt: PopupPrompt = function (
 			message,
 			{
+				theme = defaultOptions.theme ?? 'primary',
 				defaultValue = '',
 				type = defaultOptions.type ?? 'input',
 				title = defaultOptions.title ?? t('prompt.title'),
@@ -56,6 +57,7 @@ export const prompt = definePlugin({
 					component: () => import('./index.vue'),
 					componentProps: {
 						skin,
+						theme,
 						title,
 						headerClose,
 						message,
@@ -80,6 +82,7 @@ export const prompt = definePlugin({
 						const mergedOptions: MergedOption<
 							Omit<PopupPromptOption, 'validator'>
 						> & { validator?: PopupPromptValidator } = {
+							theme,
 							defaultValue,
 							type,
 							title,

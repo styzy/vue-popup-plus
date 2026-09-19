@@ -2,20 +2,15 @@
 GContainer
 	GTitle Message 消息
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupMessage()" type="fill") 默认
-		PButton(@click="handlePopupMessageThemePrimary()" theme="primary") 主要主题
-		PButton(@click="handlePopupMessageThemeSuccess()" theme="success") 成功主题
-		PButton(@click="handlePopupMessageThemeInfo()" theme="info") 信息主题
-		PButton(@click="handlePopupMessageThemeWarning()" theme="warning") 警告主题
-		PButton(@click="handlePopupMessageThemeDanger()" theme="danger") 危险主题
 		PButton(@click="handlePopupMessageLong()") 长消息
 		PButton(@click="handlePopupMessageTenSecond()") 10秒消息
 		PButton(@click="handlePopupMessageZeroSecond()") 0秒消息
 		PButton(@click="handlePopupMessageShowClose()") 显示关闭按钮
 		PButton(@click="handlePopupMessageHoverWait()") 禁用悬停等待
 	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupMessagePlacementLeftTop()") 左上
 		PButton(@click="handlePopupMessagePlacementLeft()") 左侧
 		PButton(@click="handlePopupMessagePlacementLeftBottom()") 左下
@@ -25,8 +20,15 @@ GContainer
 		PButton(@click="handlePopupMessagePlacementRightTop()") 右上
 		PButton(@click="handlePopupMessagePlacementRight()") 右侧
 		PButton(@click="handlePopupMessagePlacementRightBottom()") 右下
-	GTitle(second) 主题方法
+	GTitle(second) 主题
 	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupMessageThemePrimary()" theme="primary") 主要主题
+		PButton(@click="handlePopupMessageThemeSuccess()" theme="success") 成功主题
+		PButton(@click="handlePopupMessageThemeInfo()" theme="info") 信息主题
+		PButton(@click="handlePopupMessageThemeWarning()" theme="warning") 警告主题
+		PButton(@click="handlePopupMessageThemeDanger()" theme="danger") 危险主题
+	GTitle(second) 主题快捷方法
+	PButtonGroup(theme="primary" tight type="fill")
 		PButton(@click="handlePopupMessagePrimary()" theme="primary") 主要主题
 		PButton(@click="handlePopupMessageSuccess()" theme="success") 成功主题
 		PButton(@click="handlePopupMessageInfo()" theme="info") 信息主题

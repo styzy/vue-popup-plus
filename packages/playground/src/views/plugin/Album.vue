@@ -1,7 +1,7 @@
 <template lang="pug">
 GContainer
 	GTitle Album 媒体相册
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupAlbum()" type="fill") 默认
 		PButton(@click="handlePopupAlbumDefaultIndex()") 默认下标
 		PButton(@click="handlePopupAlbumDisableCount()") 禁用计数器

@@ -2,7 +2,7 @@
 GContainer
 	GTitle Dialog 对话框
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupDialog()" type="fill") 默认
 		PButton(@click="handlePopupDialogCustomComponentProps()") 自定义组件参数
 		PButton(@click="handlePopupDialogCustomMaxSize()") 最大尺寸
@@ -18,7 +18,7 @@ GContainer
 		PButton(@click="handlePopupDialogWithMaskClose()") 启用遮罩层点击关闭
 		PButton(@click="handlePopupDialogWithMaskCloseHandler()") 遮罩层点击关闭处理器
 	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupDialogPlacementLeftTop()") 左上
 		PButton(@click="handlePopupDialogPlacementLeft()") 左侧
 		PButton(@click="handlePopupDialogPlacementLeftBottom()") 左下

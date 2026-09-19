@@ -3,7 +3,7 @@ GContainer.anchor-trigger
 	GTools(:component="() => import('./AnchorTrigger.vue')")
 	GTitle 核心 - 锚点触发器测试
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PopupAnchorTrigger(disable-scroll)
 			PButton(type="fill") 默认
 			template(#popup)
@@ -25,7 +25,7 @@ GContainer.anchor-trigger
 			template(#popup)
 				DemoAnchor
 	GTitle(second) 混合触发方式
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PopupAnchorTrigger(:trigger="['hover', 'click']")
 			PButton 悬浮触发 + 点击触发
 			template(#popup)
@@ -71,7 +71,7 @@ GContainer.anchor-trigger
 			template(#popup)
 				DemoAnchor
 	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PopupAnchorTrigger(placement="left-start")
 			PButton 左侧起点
 			template(#popup)

@@ -57,7 +57,7 @@ import { requiredCoreVersion } from '@plugin/version'
 
 import '@plugin/assets/styles/main.scss'
 
-export { setLocale } from '@plugin/locale'
+export { setLocale, type PopupLocaleMessages } from '@plugin/locale'
 export { type PopupSkin } from '@plugin/skin'
 export { version } from '@plugin/version'
 export type {

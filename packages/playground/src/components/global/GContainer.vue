@@ -7,7 +7,6 @@
 .g-container {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
 	gap: 20px;
 	padding: 20px;
 	box-sizing: border-box;

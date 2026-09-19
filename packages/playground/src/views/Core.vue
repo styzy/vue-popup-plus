@@ -3,25 +3,25 @@ GContainer
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 基础功能测试
 	GTitle(second) 基础功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopup()" type="fill") 默认
 		PButton(@click="handlePopupWithImportComponent()") 异步组件(导入)
 		PButton(@click="handlePopupWithDefineAsyncComponent()") 异步组件(定义)
 	GTitle(second) 组件功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupWithProps()") 传入参数
 		PButton(@click="handlePopupWithPayload()") 携带销毁参数
 		PButton(@click="handleOptionPopupWithProps()") 传入参数(选项式)
 		PButton(@click="handleOptionPopupWithPayload()") 携带销毁参数(选项式)
 	GTitle(second) 遮罩功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupWithoutMask()") 禁用遮罩层
 		PButton(@click="handlePopupWithMaskBlur()") 启用遮罩层高斯模糊
 		PButton(@click="handlePopupWithMaskTransparent()") 启用遮罩层透明效果
 		PButton(@click="handlePopupWithMaskDestroy()") 启用遮罩层点击销毁
 		PButton(@click="handlePopupWithMaskDestroyHandler()") 遮罩层点击销毁处理器
 	GTitle(second) 样式功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupFullScreen()") 全屏
 		PButton(@click="handlePopupMaxSize()") 最大尺寸
 		PButton(@click="handlePopupMinSize()") 最小尺寸
@@ -29,7 +29,7 @@ GContainer
 		PButton(@click="handlePopupOffsetLarge()") 大位移(默认安全)
 		PButton(@click="handlePopupOffsetLargeOverflow()") 大位移(超出视区)
 	GTitle(second) 定位功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupLeftTop()") 左上
 		PButton(@click="handlePopupLeft()") 左侧
 		PButton(@click="handlePopupLeftBottom()") 左下
@@ -44,7 +44,7 @@ GContainer
 		PButton(@click="handlePopupRightBottomWithOffset()") 右下+位移(默认安全)
 		PButton(@click="handlePopupRightBottomWithOffsetOverflow()") 右下+位移(超出视区)
 	GTitle(second) 动画功能
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupAnimationScale()") 缩放
 		PButton(@click="handlePopupAnimationFade()") 淡入淡出
 		PButton(@click="handlePopupAnimationFly()") 飞入

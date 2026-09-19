@@ -5,7 +5,6 @@ GContainer
 	GTitle(second) 默认
 	PButtonGroup
 		PButton(@click="handleClick()") Button
-		PButton(@click="handleClick()" theme="primary") Button
 		PButton(@click="handleClick()" theme="info") Button
 		PButton(@click="handleClick()" theme="success") Button
 		PButton(@click="handleClick()" theme="warning") Button
@@ -13,23 +12,34 @@ GContainer
 	GTitle(second) 默认 禁用
 	PButtonGroup(align="end" direction="vertical")
 		PButton(@click="handleClick()" disabled) Button
-		PButton(@click="handleClick()" disabled theme="primary") Button
 		PButton(@click="handleClick()" disabled theme="info") Button
 		PButton(@click="handleClick()" disabled theme="success") Button
 		PButton(@click="handleClick()" disabled theme="warning") Button
 		PButton(@click="handleClick()" disabled theme="danger") Button
-	GTitle(second) 镂空
+	GTitle(second) 朴素
 	PButtonGroup(type="plain")
 		PButton(@click="handleClick()") Button
-		PButton(@click="handleClick()" theme="primary") Button
 		PButton(@click="handleClick()" theme="info") Button
 		PButton(@click="handleClick()" theme="success") Button
 		PButton(@click="handleClick()" theme="warning") Button
 		PButton(@click="handleClick()" theme="danger") Button
-	GTitle(second) 镂空 禁用
+	GTitle(second) 朴素 禁用
 	PButtonGroup(direction="vertical" type="plain")
 		PButton(@click="handleClick()" disabled) Button
-		PButton(@click="handleClick()" disabled theme="primary") Button
+		PButton(@click="handleClick()" disabled theme="info") Button
+		PButton(@click="handleClick()" disabled theme="success") Button
+		PButton(@click="handleClick()" disabled theme="warning") Button
+		PButton(@click="handleClick()" disabled theme="danger") Button
+	GTitle(second) 填充
+	PButtonGroup(type="fill")
+		PButton(@click="handleClick()") Button
+		PButton(@click="handleClick()" theme="info") Button
+		PButton(@click="handleClick()" theme="success") Button
+		PButton(@click="handleClick()" theme="warning") Button
+		PButton(@click="handleClick()" theme="danger") Button
+	GTitle(second) 填充 禁用
+	PButtonGroup(align="end" direction="vertical" type="fill")
+		PButton(@click="handleClick()" disabled) Button
 		PButton(@click="handleClick()" disabled theme="info") Button
 		PButton(@click="handleClick()" disabled theme="success") Button
 		PButton(@click="handleClick()" disabled theme="warning") Button
@@ -37,7 +47,6 @@ GContainer
 	GTitle(second) 文本
 	PButtonGroup(type="text")
 		PButton(@click="handleClick()") Button
-		PButton(@click="handleClick()" theme="primary") Button
 		PButton(@click="handleClick()" theme="info") Button
 		PButton(@click="handleClick()" theme="success") Button
 		PButton(@click="handleClick()" theme="warning") Button
@@ -45,7 +54,6 @@ GContainer
 	GTitle(second) 文本 禁用
 	PButtonGroup(cutline direction="vertical" type="text")
 		PButton(@click="handleClick()" disabled) Button
-		PButton(@click="handleClick()" disabled theme="primary") Button
 		PButton(@click="handleClick()" disabled theme="info") Button
 		PButton(@click="handleClick()" disabled theme="success") Button
 		PButton(@click="handleClick()" disabled theme="warning") Button
@@ -53,7 +61,6 @@ GContainer
 	GTitle(second) 链接
 	PButtonGroup(cutline type="link")
 		PButton(@click="handleClick()") Button
-		PButton(@click="handleClick()" theme="primary") Button
 		PButton(@click="handleClick()" theme="info") Button
 		PButton(@click="handleClick()" theme="success") Button
 		PButton(@click="handleClick()" theme="warning") Button
@@ -61,7 +68,6 @@ GContainer
 	GTitle(second) 链接 禁用
 	PButtonGroup(cutline direction="vertical" type="link")
 		PButton(@click="handleClick()" disabled) Button
-		PButton(@click="handleClick()" disabled theme="primary") Button
 		PButton(@click="handleClick()" disabled theme="info") Button
 		PButton(@click="handleClick()" disabled theme="success") Button
 		PButton(@click="handleClick()" disabled theme="warning") Button

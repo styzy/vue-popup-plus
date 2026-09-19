@@ -2,7 +2,7 @@
 GContainer
 	GTitle Drawer 抽屉
 	GTitle(second) 基础
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupDrawer()" type="fill") 默认
 		PButton(@click="handlePopupDrawerCustomComponentProps()") 自定义组件参数
 		PButton(@click="handlePopupDrawerTopSizeHalf()") 顶部50%尺寸
@@ -20,7 +20,7 @@ GContainer
 		PButton(@click="handlePopupDrawerWithoutMaskClose()") 禁用遮罩层点击关闭
 		PButton(@click="handlePopupDrawerWithMaskCloseHandler()") 遮罩层点击关闭处理器
 	GTitle(second) 位置
-	PButtonGroup(theme="primary" tight type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupDrawerPlacementTop()") 顶部
 		PButton(@click="handlePopupDrawerPlacementBottom()") 底部
 		PButton(@click="handlePopupDrawerPlacementLeft()") 左侧
@@ -29,6 +29,7 @@ GContainer
 
 <script lang="ts" setup>
 import { usePopup } from 'vue-popup-plus'
+
 import DemoDrawer from '../demo/DemoDrawer.vue'
 
 const popup = usePopup()

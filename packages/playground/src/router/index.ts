@@ -31,6 +31,45 @@ const router: Router = createRouter({
 		{
 			path: '/plugin',
 			component: () => import('@/views/Plugin.vue'),
+			redirect: '/plugin/toast',
+			children: [
+				{
+					path: 'toast',
+					component: () => import('@/views/plugin/Toast.vue'),
+				},
+				{
+					path: 'message',
+					component: () => import('@/views/plugin/Message.vue'),
+				},
+				{
+					path: 'alert',
+					component: () => import('@/views/plugin/Alert.vue'),
+				},
+				{
+					path: 'confirm',
+					component: () => import('@/views/plugin/Confirm.vue'),
+				},
+				{
+					path: 'prompt',
+					component: () => import('@/views/plugin/Prompt.vue'),
+				},
+				{
+					path: 'dialog',
+					component: () => import('@/views/plugin/Dialog.vue'),
+				},
+				{
+					path: 'drawer',
+					component: () => import('@/views/plugin/Drawer.vue'),
+				},
+				{
+					path: 'loading',
+					component: () => import('@/views/plugin/Loading.vue'),
+				},
+				{
+					path: 'album',
+					component: () => import('@/views/plugin/Album.vue'),
+				},
+			],
 		},
 		{
 			path: '/button',

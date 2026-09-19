@@ -1,5 +1,4 @@
 export type PButtonTheme = [
-	'default',
 	'primary',
 	'info',
 	'success',
@@ -7,19 +6,19 @@ export type PButtonTheme = [
 	'danger',
 ][number]
 
-export type PButtonType = ['fill', 'plain', 'link', 'text'][number]
+export type PButtonType = ['default', 'fill', 'plain', 'link', 'text'][number]
 
 export type PButtonSize = ['default', 'small', 'large'][number]
 
 export type PButtonProps = {
 	/**
 	 * 按钮类型
-	 * - 默认值为 `fill`
+	 * - 默认值为 `default`
 	 */
 	type?: PButtonType
 	/**
 	 * 按钮主题
-	 * - 默认值为 `default`
+	 * - 默认值为 `primary`
 	 */
 	theme?: PButtonTheme
 	/**

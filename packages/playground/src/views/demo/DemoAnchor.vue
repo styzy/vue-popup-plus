@@ -1,8 +1,8 @@
 <template lang="pug">
 .demo-anchor(ref="demoAnchorRef")
 	.title
-		PButton(@click="handleResize()" theme="success") 调整大小
-		PButton(@click="handleClose()" theme="warning") 关闭
+		PButton(@click="handleResize()" theme="success" type="fill") 调整大小
+		PButton(@click="handleClose()" theme="warning" type="fill") 关闭
 	.content 这是一段很长的文本，这是一段很长的文本，这是一段很长的文本。
 </template>
 

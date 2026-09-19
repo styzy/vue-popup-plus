@@ -6,7 +6,7 @@ export type PopupToastOption = {
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme }
+	 * - 具体的可选主题请参考 {@link Theme}
 	 */
 	theme?: Theme
 	/**

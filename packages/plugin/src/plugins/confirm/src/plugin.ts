@@ -30,6 +30,7 @@ export const confirm = definePlugin({
 		const confirm: PopupConfirm = function (
 			content,
 			{
+				theme = defaultOptions.theme ?? 'primary',
 				title = defaultOptions.title ?? t('confirm.title'),
 				headerClose = defaultOptions.headerClose ?? false,
 				confirmText = defaultOptions.confirmText ??
@@ -46,6 +47,7 @@ export const confirm = definePlugin({
 					component: () => import('./index.vue'),
 					componentProps: {
 						skin,
+						theme,
 						title,
 						headerClose,
 						content,
@@ -61,6 +63,7 @@ export const confirm = definePlugin({
 					disableScroll: true,
 					onMounted: () => {
 						const mergedOptions: Required<PopupConfirmOption> = {
+							theme,
 							title,
 							headerClose,
 							confirmText,

@@ -40,8 +40,8 @@ const emit = defineEmits<{
 	(name: 'click', event: PointerEvent): void
 }>()
 
-const theme = computed(() => props.theme ?? unref(groupTheme) ?? 'default')
-const type = computed(() => props.type ?? unref(groupType) ?? 'fill')
+const theme = computed(() => props.theme ?? unref(groupTheme) ?? 'primary')
+const type = computed(() => props.type ?? unref(groupType) ?? 'default')
 const size = computed(() => props.size ?? unref(groupSize) ?? 'default')
 const disabled = computed(() => props.disabled ?? unref(groupDisabled) ?? false)
 const classObject = computed(() => [
@@ -63,6 +63,40 @@ function handleClick(event: PointerEvent) {
 
 // 创建主题
 @mixin create-theme($color, $color-dark, $color-light) {
+	@include ns-is('type-default') {
+		border-color: $color;
+		background-color: transparent;
+		color: $color;
+		&:not(:disabled):hover {
+			border-color: $color;
+			background-color: $color;
+			color: #ffffff;
+		}
+		&:not(:disabled):active {
+			border-color: $color-dark;
+			background-color: $color-dark;
+			color: #ffffff;
+		}
+	}
+	@include ns-is('type-plain') {
+		border-color: use-color(border);
+		background-color: transparent;
+		color: use-color(text);
+		&:not(:disabled):hover {
+			border-color: $color;
+			color: $color;
+		}
+		&:not(:disabled):active {
+			border-color: $color-dark;
+			color: $color-dark;
+			@include ns-element('background') {
+				opacity: 0.1;
+			}
+		}
+		@include ns-element('background') {
+			background-color: $color;
+		}
+	}
 	@include ns-is('type-fill') {
 		&,
 		&:disabled:hover,
@@ -74,25 +108,6 @@ function handleClick(event: PointerEvent) {
 		&:not(:disabled):hover {
 			border-color: $color-light;
 			background-color: $color-light;
-			color: #ffffff;
-		}
-		&:not(:disabled):active {
-			border-color: $color-dark !important;
-			background-color: $color-dark !important;
-			color: #ffffff;
-		}
-	}
-	@include ns-is('type-plain') {
-		&,
-		&:disabled:hover,
-		&:disabled:active {
-			border-color: $color;
-			background-color: transparent;
-			color: $color;
-		}
-		&:not(:disabled):hover {
-			border-color: $color;
-			background-color: $color;
 			color: #ffffff;
 		}
 		&:not(:disabled):active {
@@ -268,9 +283,6 @@ function handleClick(event: PointerEvent) {
 	@include ns-is('disabled') {
 		opacity: 0.6;
 		cursor: not-allowed;
-	}
-	@include ns-is('theme-default') {
-		@include create-default-theme();
 	}
 	@include ns-is('theme-primary') {
 		@include create-theme(

@@ -27,6 +27,7 @@ export const alert = definePlugin({
 		const alert: PopupAlert = function (
 			content = '',
 			{
+				theme = defaultOptions.theme ?? 'primary',
 				title = defaultOptions.title ?? t('alert.title'),
 				headerClose = defaultOptions.headerClose ?? true,
 				confirmText = defaultOptions.confirmText ??
@@ -42,6 +43,7 @@ export const alert = definePlugin({
 					component: () => import('./index.vue'),
 					componentProps: {
 						skin,
+						theme,
 						title,
 						headerClose,
 						content,
@@ -57,6 +59,7 @@ export const alert = definePlugin({
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupAlertOption> = {
+							theme,
 							title,
 							headerClose,
 							confirmText,
