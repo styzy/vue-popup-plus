@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { createPopupPlus } from 'vue-popup-plus'
 import { createPresetPlugin } from 'vue-popup-plus-plugin-preset'
 import zhCN from 'vue-popup-plus-plugin-preset/locales/zh-CN'
-import type { Theme } from 'vitepress'
+import type { PopupTheme } from 'vitepress'
 import { MarkdownDemo } from 'vitepress-plugin-markdown-container-demo'
 import DefaultTheme from 'vitepress/theme'
 import { components } from './components'
@@ -42,4 +42,4 @@ export default {
 			app.component(MarkdownDemo.name!, MarkdownDemo)
 		}
 	},
-} satisfies Theme
+} satisfies PopupTheme

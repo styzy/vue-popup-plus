@@ -21,14 +21,15 @@ export {
 	type PopupRootSlots,
 } from '@core/components'
 export {
+	type PopupAnchorShift,
+	type PopupAnchorPlacement,
 	type PopupController,
+	type PopupCustomProperties,
 	type PopupMaskDestroyHandler,
 	type PopupPlacement,
-	type PopupAnchorPlacement,
-	type PopupAnchorShift,
-	type PopupCustomProperties,
 	type PopupRenderOption,
 	type PopupUpdateOption,
+	type PopupViewport,
 } from '@core/controller'
 export { type PopupCore } from '@core/core'
 export {

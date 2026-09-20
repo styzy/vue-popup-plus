@@ -7,6 +7,8 @@ import type {
 } from '@core/typings'
 import type { PopupVersion } from '@core/version'
 
+export type PopupViewport = [HTMLElement, string, null][number]
+
 export type PopupPlacement = [
 	'left-top',
 	'left',
@@ -137,7 +139,7 @@ export type PopupRenderConfigOption = {
 	 *
 	 * @since 1.7.0
 	 */
-	viewport?: HTMLElement | string | null
+	viewport?: PopupViewport
 	/**
 	 * 弹出层 zIndex
 	 *
