@@ -24,6 +24,14 @@ function alert(message: string, options?: AlertOption): Promise<void>
 ```ts
 type AlertOption = {
 	/**
+	 * 主题
+	 *
+	 * - 默认值： 'primary'
+	 *
+	 * @since 1.7.0
+	 */
+	theme?: PopupTheme
+	/**
 	 * 提示框标题
 	 *
 	 * - 默认值：`提示`
@@ -62,6 +70,17 @@ type AlertOption = {
 	 */
 	maskBlur?: boolean
 	/**
+	 * 弹出层视区元素
+	 *
+	 * - 视区将作为触发自动翻转和平移的参考区域
+	 * - 如果不指定，将使用浏览器窗口作为视区
+	 * - 当指定某个元素时，弹出层将以该元素为视区
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 *
+	 * @since 1.7.0
+	 */
+	viewport?: PopupViewport
+	/**
 	 * 弹出层 z-index 层级
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
@@ -70,6 +89,12 @@ type AlertOption = {
 	 */
 	zIndex?: number
 }
+
+// 主题
+type PopupTheme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+
+// 视区元素
+type PopupViewport = string | HTMLElement | null
 ```
 
 ### 详细信息

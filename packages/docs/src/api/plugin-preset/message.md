@@ -29,9 +29,9 @@ type MessageOption = {
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme }
+	 * - 具体的可选主题请参考 {@link PopupTheme }
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 显示时间，单位毫秒
 	 *
@@ -62,16 +62,26 @@ type MessageOption = {
 	 */
 	hoverWait?: boolean
 	/**
+	 * 弹出层视区元素
+	 *
+	 * - 视区将作为触发自动翻转和平移的参考区域
+	 * - 如果不指定，将使用浏览器窗口作为视区
+	 * - 当指定某个元素时，弹出层将以该元素为视区
+	 * - 传入字符串时，会根据字符串选择器查询元素
+	 *
+	 * @since 1.7.0
+	 */
+	viewport?: PopupViewport
+	/**
 	 * 弹出层 z-index 层级
 	 *
 	 * - 如果不设置，则使用内部自增的 zIndex 值
-	 *
 	 */
 	zIndex?: number
 }
 
 // 主题
-type Theme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
+type PopupTheme = 'primary' | 'info' | 'success' | 'warning' | 'danger'
 
 // 位置
 type PopupPlacement =
@@ -84,6 +94,9 @@ type PopupPlacement =
 	| 'right-top'
 	| 'right'
 	| 'right-bottom'
+
+// 视区元素
+type PopupViewport = string | HTMLElement | null
 ```
 
 ### 详细信息

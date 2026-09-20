@@ -80,6 +80,6 @@ type PluginOptions = {
 	 *   - `modern` 现代皮肤
 	 *   - `classic` 经典皮肤
 	 */
-	skin?: Skin
+	skin?: PopupSkin
 }
 ```

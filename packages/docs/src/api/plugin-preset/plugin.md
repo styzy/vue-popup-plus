@@ -18,13 +18,13 @@ outline: 2
 ### 类型
 
 ```ts
-function createPresetPlugin(config?: PresetPluginConfig): PopupPlugin
+function createPresetPlugin(config?: PopupPluginConfig): PopupPlugin
 ```
 
 ### 参数类型
 
 ```ts
-export type PresetPluginConfig = PluginSharedConfig & {
+export type PopupPluginConfig = PopupPluginSharedConfig & {
 	/**
 	 * 国际化语言包
 	 *
@@ -75,34 +75,34 @@ export type PresetPluginConfig = PluginSharedConfig & {
 	/**
 	 * 媒体相册 插件配置
 	 */
-	album?: AlbumConfig
+	album?: PopupAlbumConfig
 	/**
 	 * 提示 插件配置
 	 */
-	alert?: AlertConfig
+	alert?: PopupAlertConfig
 	/**
 	 * 确认 插件配置
 	 */
-	confirm?: ConfirmConfig
+	confirm?: PopupConfirmConfig
 	/**
 	 * 对话 插件配置
 	 */
-	dialog?: DialogConfig
+	dialog?: PopupDialogConfig
 	/**
 	 * 加载遮罩 插件配置
 	 */
-	loading?: LoadingConfig
+	loading?: PopupLoadingConfig
 	/**
 	 * 提示输入 插件配置
 	 */
-	prompt?: PromptConfig
+	prompt?: PopupPromptConfig
 	/**
 	 * 轻量提示 插件配置
 	 */
-	toast?: ToastConfig
+	toast?: PopupToastConfig
 }
 
-type PluginSharedConfig = {
+type PopupPluginSharedConfig = {
 	/**
 	 * 插件弹出层皮肤
 	 * - 默认为 `modern` 现代皮肤
@@ -110,91 +110,95 @@ type PluginSharedConfig = {
 	 *   - `modern` 现代皮肤
 	 *   - `classic` 经典皮肤
 	 */
-	skin?: Skin
+	skin?: PopupSkin
 }
 
-type AlbumConfig = PluginSharedConfig & {
+type PopupAlbumConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.album()` 方法的默认选项
 	 */
-	defaultOptions?: AlbumDefaultOption
+	defaultOptions?: Omit<PopupAlbumOption, 'sources' | 'defaultIndex'>
 }
 
-type AlbumDefaultOption = Omit<
-	AlbumOption,
-	'sources' | 'defaultIndex' | 'zIndex'
->
-
-type AlertConfig = PluginSharedConfig & {
+type PopupAlertConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.alert()` 方法的默认选项
 	 */
-	defaultOptions?: AlertDefaultOption
+	defaultOptions?: PopupAlertOption
 }
 
-type AlertDefaultOption = Omit<AlertOption, 'zIndex'>
-
-type ConfirmConfig = PluginSharedConfig & {
+type PopupConfirmConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.confirm()` 方法的默认选项
 	 */
-	defaultOptions?: ConfirmDefaultOption
+	defaultOptions?: PopupConfirmOption
 }
 
-type ConfirmDefaultOption = Omit<ConfirmOption, 'zIndex'>
-
-type DialogConfig = PluginSharedConfig & {
-	/**
-	 * 默认选项
-	 *
-	 * - 统一配置 `popup.dialog()` 方法的默认选项
-	 */
-	defaultOptions?: DialogDefaultOption
-}
-
-type DialogDefaultOption = Omit<
-	DialogOption,
-	'component' | 'componentProps' | 'onMounted' | 'zIndex'
->
-
-type LoadingConfig = PluginSharedConfig & {
-	/**
-	 * 默认选项
-	 *
-	 * - 统一配置 `popup.loading()` 方法的默认选项
-	 */
-	defaultOptions?: LoadingDefaultOption
-}
-
-type LoadingDefaultOption = LoadingOption
-
-export type PromptConfig = PluginSharedConfig & {
+type PopupPromptConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.prompt()` 方法的默认选项
 	 */
-	defaultOptions?: PromptDefaultOption
+	defaultOptions?: PopupPromptOption
 }
 
-type PromptDefaultOption = Omit<PromptOption, 'defaultValue' | 'zIndex'>
+type PopupDialogConfig = PopupPluginSharedConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.dialog()` 方法的默认选项
+	 */
+	defaultOptions?: Omit<
+		PopupDialogOption,
+		'component' | 'componentProps' | 'onMounted'
+	>
+}
 
-export type ToastConfig = PluginSharedConfig & {
+type PopupDrawerConfig = PopupPluginSharedConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.drawer()` 方法的默认选项
+	 */
+	defaultOptions?: Omit<
+		PopupDrawerOption,
+		'component' | 'componentProps' | 'onMounted'
+	>
+}
+
+type PopupLoadingConfig = PopupPluginSharedConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.loading()` 方法的默认选项
+	 */
+	defaultOptions?: PopupLoadingOption
+}
+
+type PopupPromptConfig = PopupPluginSharedConfig & {
+	/**
+	 * 默认选项
+	 *
+	 * - 统一配置 `popup.prompt()` 方法的默认选项
+	 */
+	defaultOptions?: Omit<PopupPromptOption, 'defaultValue'>
+}
+
+type PopupToastConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.toast()` 方法的默认选项
 	 */
-	defaultOptions?: ToastDefaultOption
+	defaultOptions?: PopupToastOption
 }
-
-type ToastDefaultOption = Omit<ToastOption, 'zIndex'>
 ```
 
 ### 详细信息

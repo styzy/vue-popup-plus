@@ -5,6 +5,23 @@ outline: 2
 
 # 预置插件 更新日志
 
+## 1.7.0-beta.3 <Badge text="2026-09-20" />
+
+### 特性
+
+- **所有插件** 新增 `viewport` 参数，用于自定义视区。
+- `Alert 提示` 新增 `theme` 参数，用于自定义主题。
+- `Confirm 确认提示` 新增 `theme` 参数，用于自定义主题。
+- `Prompt 提示输入` 新增 `theme` 参数，用于自定义主题。
+
+### 优化
+
+- `Alert 提示` 优化 **移动端** 展示效果。
+- `Confirm 确认提示` 优化 **移动端** 展示效果。
+- `Prompt 提示输入` 优化 **移动端** 展示效果。
+- `Album 媒体相册` 优化 **移动端** 展示效果。
+- `Album 媒体相册` 优化缩放比例上限，从原来的 `30` 改为现在的 `100`。
+
 ## 1.7.0-beta.2 <Badge text="2026-08-27" />
 
 ### 优化
@@ -24,6 +41,7 @@ outline: 2
 
 ### 特性
 
+- 新增 `Message 消息` 插件。
 - 新增 `setLocale()` 方法，用于切换语言。
 - `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
 - `Prompt 提示输入` 新增 `validateTrigger` 参数，用于设置校验触发时机。
@@ -62,8 +80,7 @@ outline: 2
 
 - 新增 `createPresetPlugin()` 方法，用于创建预置插件。
 - 新增 `Drawer 抽屉` 插件。
-  <!-- - 新增 `Message 消息` 插件。 -->
-- 所有插件新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
+- **所有插件** 新增 `zIndex` 参数，用于自定义插件的 `z-index` 层级。
 - `Toast 轻量提示` 新增主题子方法 `toastPrimary()` 。
 - `Loading 加载遮罩` 新增 `maskTransparent` 参数，用于设置加载遮罩是否透明，默认值为 `false` 。
 - `Dialog 对话` 新增 `maskClose` 参数，用于设置遮罩层点击是否可以关闭对话框，可传入一个函数，该函数接收一个 `(payload?: any) => Promise<void>` 类型的函数作为参数，执行后将关闭对话框，可传入关闭携带的负载参数，返回的 `Promise` 对象会在对话框关闭动画完成后 `resolve()` 。
