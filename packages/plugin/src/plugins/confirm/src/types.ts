@@ -1,16 +1,20 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupConfirmOption = {
 	/**
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme}
+	 * - 具体的可选主题请参考 {@link PopupTheme}
 	 *
 	 * @since 1.7.0
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 确认框标题
 	 *
@@ -55,7 +59,7 @@ export type PopupConfirmOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-}
+} & PopupPluginSharedOption
 
 export interface PopupConfirm {
 	/**
@@ -80,15 +84,13 @@ export interface PopupConfirm {
 	): Promise<boolean>
 }
 
-type PopupConfirmDefaultOption = Omit<PopupConfirmOption, 'zIndex'>
-
-export type PopupConfirmConfig = PluginSharedConfig & {
+export type PopupConfirmConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.confirm()` 方法的默认选项
 	 */
-	defaultOptions?: PopupConfirmDefaultOption
+	defaultOptions?: PopupConfirmOption
 }
 
 declare module 'vue-popup-plus' {

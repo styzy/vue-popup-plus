@@ -39,7 +39,8 @@ export const toast = definePlugin({
 				duration = defaultOptions.duration ?? 2000,
 				showClose = defaultOptions.showClose ?? false,
 				hoverWait = defaultOptions.hoverWait ?? true,
-				zIndex,
+				viewport = defaultOptions.viewport ?? null,
+				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -60,6 +61,7 @@ export const toast = definePlugin({
 					viewAnimation: POPUP_ANIMATIONS.SCALE_ENLARGE,
 					mask: false,
 					disableScroll: false,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupToastOption> = {
@@ -68,6 +70,7 @@ export const toast = definePlugin({
 							duration,
 							showClose,
 							hoverWait,
+							viewport,
 							zIndex,
 						}
 

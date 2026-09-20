@@ -35,7 +35,8 @@ export const alert = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
-				zIndex,
+				viewport = defaultOptions.viewport ?? null,
+				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
 			return new Promise<void>((resolve) => {
@@ -56,6 +57,7 @@ export const alert = definePlugin({
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
 					disableScroll: true,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupAlertOption> = {
@@ -66,6 +68,7 @@ export const alert = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							viewport,
 							zIndex,
 						}
 

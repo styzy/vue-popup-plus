@@ -51,7 +51,7 @@ import {
 } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
-import type { Theme } from '@plugin/typings'
+import type { PopupTheme } from '@plugin/typings'
 import {
 	type PopupPromptType,
 	type PopupPromptValidateTrigger,
@@ -72,7 +72,7 @@ const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: PopupSkin
-	theme: Theme
+	theme: PopupTheme
 	title: string
 	headerClose: boolean
 	message: string | boolean

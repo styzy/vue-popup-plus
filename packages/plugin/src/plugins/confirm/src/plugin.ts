@@ -6,6 +6,7 @@ import {
 } from 'vue-popup-plus'
 import { useLocale } from '@plugin/locale'
 import { PluginLog } from '@plugin/log'
+import type { MergedOption } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
 import type {
 	PopupConfirm,
@@ -40,6 +41,8 @@ export const confirm = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
+				viewport = defaultOptions.viewport ?? null,
+				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
 			return new Promise((resolve) => {
@@ -61,17 +64,22 @@ export const confirm = definePlugin({
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
 					disableScroll: true,
+					viewport,
+					zIndex,
 					onMounted: () => {
-						const mergedOptions: Required<PopupConfirmOption> = {
-							theme,
-							title,
-							headerClose,
-							confirmText,
-							cancelText,
-							draggable,
-							dragOverflow,
-							maskBlur,
-						}
+						const mergedOptions: MergedOption<PopupConfirmOption> =
+							{
+								theme,
+								title,
+								headerClose,
+								confirmText,
+								cancelText,
+								draggable,
+								dragOverflow,
+								maskBlur,
+								viewport,
+								zIndex,
+							}
 
 						printLog(
 							new PopupLog({

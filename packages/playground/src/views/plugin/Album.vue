@@ -16,9 +16,16 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
+
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
 
 const sources = [
 	'http://static.styzy.cn/stranger/articleImage/17/15521393430565497.png',
@@ -32,12 +39,14 @@ const sources = [
 
 function handlePopupAlbum() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 	})
 }
 
 function handlePopupAlbumDefaultIndex() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		defaultIndex: 2,
 	})
@@ -45,6 +54,7 @@ function handlePopupAlbumDefaultIndex() {
 
 function handlePopupAlbumDisableCount() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableCounter: true,
 	})
@@ -52,6 +62,7 @@ function handlePopupAlbumDisableCount() {
 
 function handlePopupAlbumDisableName() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableName: true,
 	})
@@ -59,6 +70,7 @@ function handlePopupAlbumDisableName() {
 
 function handlePopupAlbumDisablePureMode() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disablePure: true,
 	})
@@ -66,6 +78,7 @@ function handlePopupAlbumDisablePureMode() {
 
 function handlePopupAlbumDisableDownload() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableDownload: true,
 	})
@@ -73,6 +86,7 @@ function handlePopupAlbumDisableDownload() {
 
 function handlePopupAlbumDisableScale() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableScale: true,
 	})
@@ -80,6 +94,7 @@ function handlePopupAlbumDisableScale() {
 
 function handlePopupAlbumDisableDrag() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableDrag: true,
 	})
@@ -87,6 +102,7 @@ function handlePopupAlbumDisableDrag() {
 
 function handlePopupAlbumWithMaskBlur() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		maskBlur: true,
 	})
@@ -94,6 +110,7 @@ function handlePopupAlbumWithMaskBlur() {
 
 function handlePopupAlbumDisableLoop() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableLoop: true,
 	})
@@ -101,6 +118,7 @@ function handlePopupAlbumDisableLoop() {
 
 function handlePopupAlbumDisableRotate() {
 	popup.album({
+		...sharedOptions.value,
 		sources,
 		disableRotate: true,
 	})

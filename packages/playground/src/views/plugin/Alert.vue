@@ -19,57 +19,96 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 function handlePopupAlert() {
-	popup.alert('这是一条提示消息')
+	popup.alert('这是一条提示消息', sharedOptions.value)
 }
 
 function handlePopupAlertCustomTitle() {
-	popup.alert('这是一条提示消息', { title: '自定义标题' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		title: '自定义标题',
+	})
 }
 
 function handlePopupAlertHeaderClose() {
-	popup.alert('这是一条提示消息', { headerClose: false })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		headerClose: false,
+	})
 }
 
 function handlePopupAlertCustomConfirmButtonText() {
 	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
 		confirmText: '自定义确认按钮文本',
 	})
 }
 
 function handlePopupAlertDraggable() {
-	popup.alert('这是一条提示消息', { draggable: true })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		draggable: true,
+	})
 }
 
 function handlePopupAlertDraggableOverflow() {
-	popup.alert('这是一条提示消息', { draggable: true, dragOverflow: true })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		draggable: true,
+		dragOverflow: true,
+	})
 }
 
 function handlePopupAlertWithMaskBlur() {
-	popup.alert('这是一条提示消息', { maskBlur: true })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		maskBlur: true,
+	})
 }
 
 function handlePopupAlertThemePrimary() {
-	popup.alert('这是一条提示消息', { theme: 'primary' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		theme: 'primary',
+	})
 }
 
 function handlePopupAlertThemeSuccess() {
-	popup.alert('这是一条提示消息', { theme: 'success' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		theme: 'success',
+	})
 }
 
 function handlePopupAlertThemeInfo() {
-	popup.alert('这是一条提示消息', { theme: 'info' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		theme: 'info',
+	})
 }
 
 function handlePopupAlertThemeWarning() {
-	popup.alert('这是一条提示消息', { theme: 'warning' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		theme: 'warning',
+	})
 }
 
 function handlePopupAlertThemeDanger() {
-	popup.alert('这是一条提示消息', { theme: 'danger' })
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		theme: 'danger',
+	})
 }
 </script>

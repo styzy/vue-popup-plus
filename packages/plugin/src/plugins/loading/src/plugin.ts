@@ -44,6 +44,7 @@ export const loading = definePlugin({
 			maskBlur = defaultOptions.maskBlur || false,
 			maskTransparent = defaultOptions.maskTransparent || false,
 			disableScroll = defaultOptions.disableScroll || true,
+			viewport = defaultOptions.viewport || null,
 			zIndex = defaultOptions.zIndex,
 		} = {}) {
 			if (record.id) {
@@ -98,6 +99,7 @@ export const loading = definePlugin({
 				maskBlur,
 				maskTransparent,
 				disableScroll,
+				viewport,
 				zIndex,
 				onMounted: () => {
 					const mergedOptions: MergedOption<PopupLoadingOption> = {
@@ -108,6 +110,7 @@ export const loading = definePlugin({
 						maskBlur,
 						maskTransparent,
 						disableScroll,
+						viewport,
 						zIndex,
 					}
 

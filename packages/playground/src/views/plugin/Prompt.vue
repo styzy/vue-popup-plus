@@ -37,12 +37,22 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 async function handlePopupPrompt() {
-	const result = await popup.prompt('这是一条提示输入框消息')
+	const result = await popup.prompt(
+		'这是一条提示输入框消息',
+		sharedOptions.value
+	)
 	if (result === undefined) {
 		popup.toast('取消输入')
 	} else {
@@ -52,6 +62,7 @@ async function handlePopupPrompt() {
 
 async function handlePopupPromptDefaultValue() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		defaultValue: '123',
 	})
 	if (result === undefined) {
@@ -63,6 +74,7 @@ async function handlePopupPromptDefaultValue() {
 
 async function handlePopupPromptCustomType() {
 	const result = await popup.prompt('这是一条提示输入框消息，类型为文本域', {
+		...sharedOptions.value,
 		type: 'textarea',
 	})
 	if (result === undefined) {
@@ -74,6 +86,7 @@ async function handlePopupPromptCustomType() {
 
 async function handlePopupPromptCustomTitle() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		title: '自定义标题',
 	})
 	if (result === undefined) {
@@ -85,6 +98,7 @@ async function handlePopupPromptCustomTitle() {
 
 async function handlePopupPromptHeaderClose() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		headerClose: false,
 	})
 	if (result === undefined) {
@@ -96,6 +110,7 @@ async function handlePopupPromptHeaderClose() {
 
 async function handlePopupPromptCustomPlaceholder() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		placeholder: '自定义占位符',
 	})
 	if (result === undefined) {
@@ -109,6 +124,7 @@ async function handlePopupPromptCustomMaxLength() {
 	const result = await popup.prompt(
 		'这是一条提示输入框消息，最大长度为10个字符',
 		{
+			...sharedOptions.value,
 			maxLength: 10,
 		}
 	)
@@ -121,6 +137,7 @@ async function handlePopupPromptCustomMaxLength() {
 
 async function handlePopupPromptCustomConfirmButtonText() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		confirmText: '自定义确认按钮文本',
 	})
 	if (result === undefined) {
@@ -132,6 +149,7 @@ async function handlePopupPromptCustomConfirmButtonText() {
 
 async function handlePopupPromptCustomCancelButtonText() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		cancelText: '自定义取消按钮文本',
 	})
 	if (result === undefined) {
@@ -143,6 +161,7 @@ async function handlePopupPromptCustomCancelButtonText() {
 
 async function handlePopupPromptDraggable() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		draggable: true,
 	})
 	if (result === undefined) {
@@ -154,6 +173,7 @@ async function handlePopupPromptDraggable() {
 
 async function handlePopupPromptDraggableOverflow() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		draggable: true,
 		dragOverflow: true,
 	})
@@ -166,6 +186,7 @@ async function handlePopupPromptDraggableOverflow() {
 
 async function handlePopupPromptWithMaskBlur() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		maskBlur: true,
 	})
 	if (result === undefined) {
@@ -177,6 +198,7 @@ async function handlePopupPromptWithMaskBlur() {
 
 async function handlePopupPromptInputValidate() {
 	const result = await popup.prompt('校验规则：长度不能小于3个字符', {
+		...sharedOptions.value,
 		validator(value) {
 			if (value.length < 3) {
 				throw new Error('长度不能小于3个字符')
@@ -194,6 +216,7 @@ async function handlePopupPromptInputValidateInput() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（输入时校验）',
 		{
+			...sharedOptions.value,
 			validateTrigger: 'input',
 			validator(value) {
 				if (value.length < 3) {
@@ -214,6 +237,7 @@ async function handlePopupPromptInputValidateChange() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（改变时校验）',
 		{
+			...sharedOptions.value,
 			validateTrigger: 'change',
 			validator(value) {
 				if (value.length < 3) {
@@ -234,6 +258,7 @@ async function handlePopupPromptInputValidateBlur() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（失去焦点时校验）',
 		{
+			...sharedOptions.value,
 			validateTrigger: 'blur',
 			validator(value) {
 				if (value.length < 3) {
@@ -252,6 +277,7 @@ async function handlePopupPromptInputValidateBlur() {
 
 async function handlePopupPromptTextareaValidate() {
 	const result = await popup.prompt('校验规则：长度不能小于3个字符', {
+		...sharedOptions.value,
 		type: 'textarea',
 		validator(value) {
 			if (value.length < 3) {
@@ -271,6 +297,7 @@ async function handlePopupPromptTextareaValidateInput() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（输入时校验）',
 		{
+			...sharedOptions.value,
 			type: 'textarea',
 			validateTrigger: 'input',
 			validator(value) {
@@ -292,6 +319,7 @@ async function handlePopupPromptTextareaValidateChange() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（改变时校验）',
 		{
+			...sharedOptions.value,
 			type: 'textarea',
 			validateTrigger: 'change',
 			validator(value) {
@@ -313,6 +341,7 @@ async function handlePopupPromptTextareaValidateBlur() {
 	const result = await popup.prompt(
 		'校验规则：长度不能小于3个字符（失去焦点时校验）',
 		{
+			...sharedOptions.value,
 			type: 'textarea',
 			validateTrigger: 'blur',
 			validator(value) {
@@ -332,6 +361,7 @@ async function handlePopupPromptTextareaValidateBlur() {
 
 async function handlePopupPromptThemePrimary() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		theme: 'primary',
 	})
 	if (result === undefined) {
@@ -343,6 +373,7 @@ async function handlePopupPromptThemePrimary() {
 
 async function handlePopupPromptThemeSuccess() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		theme: 'success',
 	})
 	if (result === undefined) {
@@ -354,6 +385,7 @@ async function handlePopupPromptThemeSuccess() {
 
 async function handlePopupPromptThemeInfo() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		theme: 'info',
 	})
 	if (result === undefined) {
@@ -365,6 +397,7 @@ async function handlePopupPromptThemeInfo() {
 
 async function handlePopupPromptThemeWarning() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		theme: 'warning',
 	})
 	if (result === undefined) {
@@ -376,6 +409,7 @@ async function handlePopupPromptThemeWarning() {
 
 async function handlePopupPromptThemeDanger() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
 		theme: 'danger',
 	})
 	if (result === undefined) {

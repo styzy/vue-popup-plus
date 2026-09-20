@@ -1,5 +1,9 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupPromptType = 'input' | 'textarea'
 
@@ -12,11 +16,11 @@ export type PopupPromptOption = {
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme}
+	 * - 具体的可选主题请参考 {@link PopupTheme}
 	 *
 	 * @since 1.7.0
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 标题
 	 *
@@ -122,7 +126,7 @@ export type PopupPromptOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 export interface PopupPrompt {
 	/**
@@ -152,15 +156,13 @@ export interface PopupPrompt {
 	): Promise<string | undefined>
 }
 
-type PromptDefaultOption = Omit<PopupPromptOption, 'defaultValue' | 'zIndex'>
-
-export type PopupPromptConfig = PluginSharedConfig & {
+export type PopupPromptConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.prompt()` 方法的默认选项
 	 */
-	defaultOptions?: PromptDefaultOption
+	defaultOptions?: PopupPromptOption
 }
 
 declare module 'vue-popup-plus' {

@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer.directive
+GContainer.directive(root)
 	GTools(:component="() => import('./Directive.vue')")
 	GTitle 核心 - 指令功能测试
 	GTitle(second) 触发对象
@@ -7,7 +7,7 @@ GContainer.directive
 		.block(v-popup="Demo") div 触发
 		PButton(v-popup="Demo") 组件触发
 	GTitle(second) 触发方式
-	PButtonGroup(theme="primary")
+	PButtonGroup(theme="primary" tight)
 		PButton(type="fill" v-popup.click="Demo") 点击触发
 		div(@click="handleParentClick()")
 			PButton(v-popup.click.stop="Demo") 点击触发(阻止冒泡)
@@ -16,7 +16,7 @@ GContainer.directive
 		PButton(v-popup.contextmenu.prevent="Demo") 右键触发(阻止默认事件)
 	GTitle(second) 组件参数
 	ElInput(placeholder="请输入参数" style="width: 200px" v-model="test")
-	PButtonGroup(theme="primary" type="plain")
+	PButtonGroup(theme="primary" tight)
 		PButton(
 			type="fill"
 			v-popup="{ component: () => import('./demo/Demo.vue'), componentProps: { test } }") 携带参数

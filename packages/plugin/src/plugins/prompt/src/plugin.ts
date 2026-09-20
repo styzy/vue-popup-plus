@@ -49,7 +49,8 @@ export const prompt = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
-				zIndex,
+				viewport = defaultOptions.viewport ?? null,
+				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
 			return new Promise((resolve) => {
@@ -77,6 +78,7 @@ export const prompt = definePlugin({
 					viewTranslateOverflow: dragOverflow,
 					maskBlur,
 					disableScroll: true,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<
@@ -96,6 +98,7 @@ export const prompt = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							viewport,
 							zIndex,
 						}
 

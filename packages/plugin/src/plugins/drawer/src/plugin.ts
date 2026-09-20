@@ -58,7 +58,8 @@ export const drawer = definePlugin({
 			maskClose = defaultOptions.maskClose ?? true,
 			maskBlur = defaultOptions.maskBlur ?? false,
 			maskTransparent = defaultOptions.maskTransparent ?? false,
-			zIndex,
+			viewport = defaultOptions.viewport ?? null,
+			zIndex = defaultOptions.zIndex,
 		}) {
 			return new Promise((resolve) => {
 				const id = createId()
@@ -103,6 +104,7 @@ export const drawer = definePlugin({
 					maskBlur,
 					maskTransparent,
 					disableScroll: true,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupDrawerOption> = {
@@ -120,6 +122,7 @@ export const drawer = definePlugin({
 							maskBlur,
 							maskTransparent,
 							maskClose,
+							viewport,
 							zIndex,
 						}
 

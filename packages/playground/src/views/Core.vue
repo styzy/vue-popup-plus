@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer
+GContainer(root)
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 基础功能测试
 	GTitle(second) 基础功能

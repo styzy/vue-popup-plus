@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer
+GContainer(root)
 	GTools(:component="() => import('./Core.vue')")
 	GTitle 核心 - 锚点功能测试
 	ElFormItem(label="viewport")

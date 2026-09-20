@@ -24,7 +24,7 @@ import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { PContainer } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
-import { type Theme } from '@plugin/typings'
+import { type PopupTheme } from '@plugin/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.TOAST,
@@ -41,7 +41,7 @@ const emit = defineEmits<Emits>()
 type Props = {
 	skin: PopupSkin
 	content: string
-	theme: Theme
+	theme: PopupTheme
 	duration: number
 	showClose: boolean
 	hoverWait: boolean

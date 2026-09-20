@@ -52,7 +52,7 @@ import {
 	type PopupToast,
 	type PopupToastConfig,
 } from '@plugin/plugins/toast'
-import { type PluginSharedConfig } from '@plugin/typings'
+import { type PopupPluginSharedConfig } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
 
 import '@plugin/assets/styles/main.scss'
@@ -60,19 +60,17 @@ import '@plugin/assets/styles/main.scss'
 export { setLocale, type PopupLocaleMessages } from '@plugin/locale'
 export { type PopupSkin } from '@plugin/skin'
 export { version } from '@plugin/version'
-export type {
-	PopupAlbum,
-	PopupAlert,
-	PopupConfirm,
-	PopupDialog,
-	PopupDrawer,
-	PopupLoading,
-	PopupMessage,
-	PopupPrompt,
-	PopupToast,
-}
+export * from '@plugin/plugins/album'
+export * from '@plugin/plugins/alert'
+export * from '@plugin/plugins/confirm'
+export * from '@plugin/plugins/dialog'
+export * from '@plugin/plugins/drawer'
+export * from '@plugin/plugins/loading'
+export * from '@plugin/plugins/message'
+export * from '@plugin/plugins/prompt'
+export * from '@plugin/plugins/toast'
 
-export type PresetPluginConfig = PluginSharedConfig & {
+export type PopupPluginConfig = PopupPluginSharedConfig & {
 	/**
 	 * 国际化语言包
 	 *
@@ -164,7 +162,7 @@ export type PresetPluginConfig = PluginSharedConfig & {
  * - 可全局定义默认皮肤
  * - 可全局配置所有子插件的默认参数
  */
-export function createPresetPlugin(config?: PresetPluginConfig) {
+export function createPresetPlugin(config?: PopupPluginConfig) {
 	const {
 		skin = 'modern',
 		locale = enUS,
@@ -228,7 +226,7 @@ export function createPresetPlugin(config?: PresetPluginConfig) {
 							type: PopupLogGroupItemType.Data,
 							title: '配置',
 							dataName: 'config',
-							dataType: 'PresetPluginConfig',
+							dataType: 'PopupPluginConfig',
 							dataValue: config,
 						},
 					],

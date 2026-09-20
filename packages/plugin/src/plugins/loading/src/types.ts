@@ -1,14 +1,18 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupLoadingOption = {
 	/**
 	 * 加载遮罩主题
 	 *
 	 * - 默认值：'primary'
-	 * - 具体的可选主题请参考 {@link Theme }
+	 * - 具体的可选主题请参考 {@link PopupTheme }
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 加载遮罩标题文本
 	 *
@@ -55,7 +59,7 @@ export type PopupLoadingOption = {
 	 * @since 1.6.0
 	 */
 	disableScroll?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 export interface PopupLoading {
 	/**
@@ -96,15 +100,13 @@ export interface PopupLoadingClose {
 	(this: PopupController): Promise<void>
 }
 
-type PopupLoadingDefaultOption = PopupLoadingOption
-
-export type PopupLoadingConfig = PluginSharedConfig & {
+export type PopupLoadingConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.loading()` 方法的默认选项
 	 */
-	defaultOptions?: PopupLoadingDefaultOption
+	defaultOptions?: PopupLoadingOption
 }
 
 declare module 'vue-popup-plus' {

@@ -3,17 +3,22 @@ import type {
 	PopupController,
 	PopupInstanceId,
 	PopupPlacement,
+	PopupViewport,
 } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupMessageOption = {
 	/**
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme}
+	 * - 具体的可选主题请参考 {@link PopupTheme}
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 显示时间，单位毫秒
 	 *
@@ -43,7 +48,7 @@ export type PopupMessageOption = {
 	 *
 	 */
 	hoverWait?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 type PopupMessageOptionWithoutTheme = Omit<PopupMessageOption, 'theme'>
 
@@ -95,19 +100,19 @@ export interface PopupMessageDanger {
 	): Promise<void>
 }
 
-export type PopupMessageDefaultOption = Omit<PopupMessageOption, 'zIndex'>
-
-export type PopupMessageConfig = PluginSharedConfig & {
-	defaultOptions?: PopupMessageDefaultOption
+export type PopupMessageConfig = PopupPluginSharedConfig & {
+	defaultOptions?: PopupMessageOption
 }
 
 export type PopupMessageRecord = {
 	id: string
 	content: string
-	theme: Theme
+	theme: PopupTheme
 	duration: number
 	showClose: boolean
 	hoverWait: boolean
+	viewport: PopupViewport
+	zIndex?: number
 	resolve: () => void
 }
 

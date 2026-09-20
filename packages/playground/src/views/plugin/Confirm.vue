@@ -20,12 +20,22 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 async function handlePopupConfirm() {
-	const isConfirm = await popup.confirm('这是一条确认消息')
+	const isConfirm = await popup.confirm(
+		'这是一条确认消息',
+		sharedOptions.value
+	)
 	if (isConfirm) {
 		popup.toast('选择了确认')
 	} else {
@@ -35,6 +45,7 @@ async function handlePopupConfirm() {
 
 async function handlePopupConfirmCustomTitle() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		title: '自定义标题',
 	})
 	if (isConfirm) {
@@ -46,6 +57,7 @@ async function handlePopupConfirmCustomTitle() {
 
 async function handlePopupConfirmHeaderClose() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		headerClose: true,
 	})
 	if (isConfirm) {
@@ -57,6 +69,7 @@ async function handlePopupConfirmHeaderClose() {
 
 async function handlePopupConfirmCustomConfirmButtonText() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		confirmText: '自定义确认按钮文本',
 	})
 	if (isConfirm) {
@@ -68,6 +81,7 @@ async function handlePopupConfirmCustomConfirmButtonText() {
 
 async function handlePopupConfirmCustomCancelButtonText() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		cancelText: '自定义取消按钮文本',
 	})
 	if (isConfirm) {
@@ -79,6 +93,7 @@ async function handlePopupConfirmCustomCancelButtonText() {
 
 async function handlePopupConfirmDraggable() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		draggable: true,
 	})
 	if (isConfirm) {
@@ -90,6 +105,7 @@ async function handlePopupConfirmDraggable() {
 
 async function handlePopupConfirmDraggableOverflow() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		draggable: true,
 		dragOverflow: true,
 	})
@@ -102,6 +118,7 @@ async function handlePopupConfirmDraggableOverflow() {
 
 async function handlePopupConfirmWithMaskBlur() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		maskBlur: true,
 	})
 	if (isConfirm) {
@@ -113,6 +130,7 @@ async function handlePopupConfirmWithMaskBlur() {
 
 async function handlePopupConfirmThemePrimary() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		theme: 'primary',
 	})
 	if (isConfirm) {
@@ -124,6 +142,7 @@ async function handlePopupConfirmThemePrimary() {
 
 async function handlePopupConfirmThemeSuccess() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		theme: 'success',
 	})
 	if (isConfirm) {
@@ -135,6 +154,7 @@ async function handlePopupConfirmThemeSuccess() {
 
 async function handlePopupConfirmThemeInfo() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		theme: 'info',
 	})
 	if (isConfirm) {
@@ -146,6 +166,7 @@ async function handlePopupConfirmThemeInfo() {
 
 async function handlePopupConfirmThemeWarning() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		theme: 'warning',
 	})
 	if (isConfirm) {
@@ -157,6 +178,7 @@ async function handlePopupConfirmThemeWarning() {
 
 async function handlePopupConfirmThemeDanger() {
 	const isConfirm = await popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
 		theme: 'danger',
 	})
 	if (isConfirm) {

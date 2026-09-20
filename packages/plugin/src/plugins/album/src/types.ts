@@ -1,5 +1,8 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+} from '@plugin/typings'
 
 export type PopupAlbumSource = {
 	url: string
@@ -82,7 +85,7 @@ export type PopupAlbumOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 export interface PopupAlbum {
 	/**
@@ -113,18 +116,13 @@ export interface PopupAlbum {
 	(this: PopupController, options: PopupAlbumOption): Promise<void>
 }
 
-type PopupAlbumDefaultOption = Omit<
-	PopupAlbumOption,
-	'sources' | 'defaultIndex' | 'zIndex'
->
-
-export type PopupAlbumConfig = PluginSharedConfig & {
+export type PopupAlbumConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.album()` 方法的默认选项
 	 */
-	defaultOptions?: PopupAlbumDefaultOption
+	defaultOptions?: Omit<PopupAlbumOption, 'sources' | 'defaultIndex'>
 }
 
 declare module 'vue-popup-plus' {

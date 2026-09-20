@@ -33,7 +33,8 @@ export const album = definePlugin({
 			maskBlur = defaultOptions.maskBlur ?? false,
 			disableLoop = defaultOptions.disableLoop ?? false,
 			disableRotate = defaultOptions.disableRotate ?? false,
-			zIndex,
+			viewport = defaultOptions.viewport ?? null,
+			zIndex = defaultOptions.zIndex,
 		}: PopupAlbumOption) {
 			return new Promise<void>((resolve) => {
 				this.render({
@@ -55,6 +56,7 @@ export const album = definePlugin({
 					height: '100%',
 					maskBlur,
 					disableScroll: true,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupAlbumOption> = {
@@ -69,6 +71,7 @@ export const album = definePlugin({
 							maskBlur,
 							disableLoop,
 							disableRotate,
+							viewport,
 							zIndex,
 						}
 

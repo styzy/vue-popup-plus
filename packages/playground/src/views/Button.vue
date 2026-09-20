@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer
+GContainer(root)
 	GTools(:component="() => import('./Button.vue')")
 	GTitle 预置插件 - 按钮功能测试
 	GTitle(second) 默认

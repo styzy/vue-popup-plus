@@ -31,14 +31,22 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 import Demo from '../demo/Demo.vue'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 async function handlePopupDialog() {
 	const result: string | void = await popup.dialog({
+		...sharedOptions.value,
 		component: Demo,
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
@@ -46,6 +54,7 @@ async function handlePopupDialog() {
 
 async function handlePopupDialogCustomComponentProps() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '自定义组件参数',
 		component: Demo,
 		componentProps: {
@@ -62,6 +71,7 @@ async function handlePopupDialogCustomComponentProps() {
 
 async function handlePopupDialogCustomMaxSize() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '最大尺寸为： 200 * 200',
 		component: Demo,
 		maxWidth: 200,
@@ -72,6 +82,7 @@ async function handlePopupDialogCustomMaxSize() {
 
 async function handlePopupDialogCustomMinSize() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '最小尺寸为： 800 * 800',
 		component: Demo,
 		minWidth: 800,
@@ -82,6 +93,7 @@ async function handlePopupDialogCustomMinSize() {
 
 async function handlePopupDialogCustomTitle() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '自定义标题',
 		component: Demo,
 	})
@@ -90,6 +102,7 @@ async function handlePopupDialogCustomTitle() {
 
 async function handlePopupDialogHideHeader() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '隐藏标题栏',
 		component: Demo,
 		header: false,
@@ -99,6 +112,7 @@ async function handlePopupDialogHideHeader() {
 
 async function handlePopupDialogHeaderClose() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '禁用标题栏关闭',
 		component: Demo,
 		headerClose: false,
@@ -108,6 +122,7 @@ async function handlePopupDialogHeaderClose() {
 
 async function handlePopupDialogWithoutMask() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '禁用遮罩层',
 		component: Demo,
 		mask: false,
@@ -117,6 +132,7 @@ async function handlePopupDialogWithoutMask() {
 
 async function handlePopupDialogDraggable() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '可拖拽',
 		component: Demo,
 		draggable: true,
@@ -126,6 +142,7 @@ async function handlePopupDialogDraggable() {
 
 async function handlePopupDialogDraggableOverflow() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '可拖拽溢出屏幕',
 		component: Demo,
 		draggable: true,
@@ -136,6 +153,7 @@ async function handlePopupDialogDraggableOverflow() {
 
 async function handlePopupDialogWithMaskBlur() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '启用遮罩模糊',
 		component: Demo,
 		maskBlur: true,
@@ -145,6 +163,7 @@ async function handlePopupDialogWithMaskBlur() {
 
 async function handlePopupDialogWithMaskTransparent() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '启用遮罩透明',
 		component: Demo,
 		maskTransparent: true,
@@ -154,6 +173,7 @@ async function handlePopupDialogWithMaskTransparent() {
 
 async function handlePopupDialogWithMaskClose() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '启用遮罩层点击关闭',
 		component: Demo,
 		maskClose: true,
@@ -163,6 +183,7 @@ async function handlePopupDialogWithMaskClose() {
 
 async function handlePopupDialogWithMaskCloseHandler() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '遮罩层点击关闭处理器',
 		component: Demo,
 		maskClose: async (destroy) => {
@@ -175,6 +196,7 @@ async function handlePopupDialogWithMaskCloseHandler() {
 
 async function handlePopupDialogPlacementLeftTop() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '左上',
 		component: Demo,
 		placement: 'left-top',
@@ -186,6 +208,7 @@ async function handlePopupDialogPlacementLeftTop() {
 
 async function handlePopupDialogPlacementLeft() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '左侧',
 		component: Demo,
 		placement: 'left',
@@ -197,6 +220,7 @@ async function handlePopupDialogPlacementLeft() {
 
 async function handlePopupDialogPlacementLeftBottom() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '左下',
 		component: Demo,
 		placement: 'left-bottom',
@@ -208,6 +232,7 @@ async function handlePopupDialogPlacementLeftBottom() {
 
 async function handlePopupDialogPlacementTop() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '顶部',
 		component: Demo,
 		placement: 'top',
@@ -219,6 +244,7 @@ async function handlePopupDialogPlacementTop() {
 
 async function handlePopupDialogPlacementCenter() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '居中',
 		component: Demo,
 		placement: 'center',
@@ -230,6 +256,7 @@ async function handlePopupDialogPlacementCenter() {
 
 async function handlePopupDialogPlacementBottom() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '底部',
 		component: Demo,
 		placement: 'bottom',
@@ -241,6 +268,7 @@ async function handlePopupDialogPlacementBottom() {
 
 async function handlePopupDialogPlacementRightTop() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '右上',
 		component: Demo,
 		placement: 'right-top',
@@ -252,6 +280,7 @@ async function handlePopupDialogPlacementRightTop() {
 
 async function handlePopupDialogPlacementRight() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '右侧',
 		component: Demo,
 		placement: 'right',
@@ -263,6 +292,7 @@ async function handlePopupDialogPlacementRight() {
 
 async function handlePopupDialogPlacementRightBottom() {
 	const result = await popup.dialog({
+		...sharedOptions.value,
 		title: '右下',
 		component: Demo,
 		placement: 'right-bottom',

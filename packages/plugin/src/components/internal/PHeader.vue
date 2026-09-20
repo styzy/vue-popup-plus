@@ -30,7 +30,7 @@ import {
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { PHeaderButton } from '@plugin/components/internal'
 import { useDevice, useNamespace } from '@plugin/hooks'
-import { type Theme } from '@plugin/typings'
+import { type PopupTheme } from '@plugin/typings'
 
 let popup: PopupController | undefined
 
@@ -53,7 +53,7 @@ const emit = defineEmits<Emits>()
 type Props = {
 	title?: string
 	iconClass?: string
-	iconTheme?: Theme
+	iconTheme?: PopupTheme
 	hasCloseButton?: boolean
 	draggable?: boolean
 }

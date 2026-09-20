@@ -28,14 +28,22 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 import DemoDrawer from '../demo/DemoDrawer.vue'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 async function handlePopupDrawer() {
 	const result = await popup.drawer({
+		...sharedOptions.value,
 		component: DemoDrawer,
 	})
 	popup.toast(`抽屉关闭时传递的参数是：${result}`)
@@ -43,6 +51,7 @@ async function handlePopupDrawer() {
 
 async function handlePopupDrawerCustomComponentProps() {
 	const result = await popup.drawer({
+		...sharedOptions.value,
 		title: '自定义组件参数',
 		component: DemoDrawer,
 		componentProps: {
@@ -59,6 +68,7 @@ async function handlePopupDrawerCustomComponentProps() {
 
 function handlePopupDrawerTopSizeHalf() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '顶部50%尺寸',
 		component: DemoDrawer,
 		placement: 'top',
@@ -68,6 +78,7 @@ function handlePopupDrawerTopSizeHalf() {
 
 function handlePopupDrawerTopCustomMaxSize() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '最大200',
 		component: DemoDrawer,
 		placement: 'top',
@@ -77,6 +88,7 @@ function handlePopupDrawerTopCustomMaxSize() {
 
 function handlePopupDrawerTopCustomMinSize() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '最小800',
 		component: DemoDrawer,
 		placement: 'top',
@@ -86,6 +98,7 @@ function handlePopupDrawerTopCustomMinSize() {
 
 function handlePopupDrawerLeftSizeHalf() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '左侧50%尺寸',
 		component: DemoDrawer,
 		placement: 'left',
@@ -95,6 +108,7 @@ function handlePopupDrawerLeftSizeHalf() {
 
 function handlePopupDrawerLeftCustomMaxSize() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '最大200',
 		component: DemoDrawer,
 		placement: 'left',
@@ -104,6 +118,7 @@ function handlePopupDrawerLeftCustomMaxSize() {
 
 function handlePopupDrawerLeftCustomMinSize() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '最小800',
 		component: DemoDrawer,
 		placement: 'left',
@@ -113,6 +128,7 @@ function handlePopupDrawerLeftCustomMinSize() {
 
 function handlePopupDrawerCustomTitle() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '自定义标题',
 		component: DemoDrawer,
 	})
@@ -120,6 +136,7 @@ function handlePopupDrawerCustomTitle() {
 
 function handlePopupDrawerHideHeader() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '隐藏标题',
 		component: DemoDrawer,
 		header: false,
@@ -128,6 +145,7 @@ function handlePopupDrawerHideHeader() {
 
 function handlePopupDrawerHeaderClose() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '禁用标题栏关闭',
 		component: DemoDrawer,
 		headerClose: false,
@@ -136,6 +154,7 @@ function handlePopupDrawerHeaderClose() {
 
 function handlePopupDrawerWithoutMask() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '无遮罩层',
 		component: DemoDrawer,
 		mask: false,
@@ -144,6 +163,7 @@ function handlePopupDrawerWithoutMask() {
 
 function handlePopupDrawerWithMaskBlur() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '遮罩层模糊',
 		component: DemoDrawer,
 		maskBlur: true,
@@ -152,6 +172,7 @@ function handlePopupDrawerWithMaskBlur() {
 
 function handlePopupDrawerWithMaskTransparent() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '遮罩层透明',
 		component: DemoDrawer,
 		maskTransparent: true,
@@ -160,6 +181,7 @@ function handlePopupDrawerWithMaskTransparent() {
 
 function handlePopupDrawerWithoutMaskClose() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '禁用遮罩层点击关闭',
 		component: DemoDrawer,
 		maskClose: false,
@@ -168,6 +190,7 @@ function handlePopupDrawerWithoutMaskClose() {
 
 function handlePopupDrawerWithMaskCloseHandler() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '遮罩层点击关闭处理器',
 		component: DemoDrawer,
 		maskClose: async (destroy) => {
@@ -179,6 +202,7 @@ function handlePopupDrawerWithMaskCloseHandler() {
 
 function handlePopupDrawerPlacementTop() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '顶部',
 		component: DemoDrawer,
 		placement: 'top',
@@ -187,6 +211,7 @@ function handlePopupDrawerPlacementTop() {
 
 function handlePopupDrawerPlacementBottom() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '底部',
 		component: DemoDrawer,
 		placement: 'bottom',
@@ -195,6 +220,7 @@ function handlePopupDrawerPlacementBottom() {
 
 function handlePopupDrawerPlacementLeft() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '左侧',
 		component: DemoDrawer,
 		placement: 'left',
@@ -203,6 +229,7 @@ function handlePopupDrawerPlacementLeft() {
 
 function handlePopupDrawerPlacementRight() {
 	popup.drawer({
+		...sharedOptions.value,
 		title: '右侧',
 		component: DemoDrawer,
 		placement: 'right',

@@ -11,7 +11,7 @@ import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { PLoadingIcon, PContainer } from '@plugin/components/internal'
 import { useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
-import { type Theme } from '@plugin/typings'
+import { type PopupTheme } from '@plugin/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.LOADING,
@@ -27,7 +27,7 @@ const emit = defineEmits<Emits>()
 
 type Props = {
 	skin: PopupSkin
-	theme: Theme
+	theme: PopupTheme
 	title: string
 	iconSize: number
 	mask: boolean

@@ -4,7 +4,10 @@ import type {
 	PopupController,
 	PopupMaskDestroyHandler,
 } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+} from '@plugin/typings'
 
 export type PopupDrawerPlacement = ['top', 'right', 'bottom', 'left'][number]
 
@@ -120,7 +123,7 @@ export type PopupDrawerOption<TComponent extends Component = Component> = {
 	 * ```
 	 */
 	maskClose?: boolean | PopupMaskDestroyHandler
-} & SharedOption
+} & PopupPluginSharedOption
 
 // popup.drawer()这个方法的类型
 export interface PopupDrawer {
@@ -151,19 +154,16 @@ export interface PopupDrawerClose {
 	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
 }
 
-// 给全局安装插件定义类型
-type PopupDrawerDefaultOption = Omit<
-	PopupDrawerOption,
-	'component' | 'componentProps' | 'onMounted' | 'zIndex'
->
-
-export type PopupDrawerConfig = PluginSharedConfig & {
+export type PopupDrawerConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.drawer()` 方法的默认选项
 	 */
-	defaultOptions?: PopupDrawerDefaultOption
+	defaultOptions?: Omit<
+		PopupDrawerOption,
+		'component' | 'componentProps' | 'onMounted'
+	>
 }
 
 declare module 'vue-popup-plus' {

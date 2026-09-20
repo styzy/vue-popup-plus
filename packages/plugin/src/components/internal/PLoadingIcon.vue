@@ -7,7 +7,7 @@ div(:class="[ns.block(), ns.is(`theme-${theme}`)]")
 <script lang="ts" setup>
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { useNamespace } from '@plugin/hooks'
-import type { Theme } from '@plugin/typings'
+import type { PopupTheme } from '@plugin/typings'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.LOADING_ICON,
@@ -20,7 +20,7 @@ type Props = {
 	 * 加载遮罩的主题
 	 * - 默认值为 `'primary'`
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 加载遮罩的大小
 	 * - 默认值为 `60`

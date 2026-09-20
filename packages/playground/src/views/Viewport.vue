@@ -1,5 +1,5 @@
 <template lang="pug">
-.viewport
+GContainer.viewport(root)
 	.left
 		GContainer
 			GTools(:component="() => import('./Viewport.vue')")
@@ -327,6 +327,7 @@ function handlePopupAnimationCustom() {
 	align-items: stretch;
 	gap: 20px;
 	height: 100vh;
+	padding: 0;
 	.left {
 		width: 400px;
 		min-height: 0;
@@ -339,7 +340,7 @@ function handlePopupAnimationCustom() {
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: stretch;
-		padding-right: 240px;
+		padding-right: 20px;
 		min-height: 0;
 		overflow-y: auto;
 		.viewport-wrapper {

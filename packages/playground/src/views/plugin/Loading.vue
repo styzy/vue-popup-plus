@@ -21,73 +21,81 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 function handlePopupLoading() {
-	popup.loading()
+	popup.loading(sharedOptions.value)
 	window.setTimeout(() => popup.loadingClose(), 3000)
 }
 
 function handlePopupLoadingPrimary() {
-	popup.loading({ theme: 'primary' })
+	popup.loading({ ...sharedOptions.value, theme: 'primary' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingInfo() {
-	popup.loading({ theme: 'info' })
+	popup.loading({ ...sharedOptions.value, theme: 'info' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingSuccess() {
-	popup.loading({ theme: 'success' })
+	popup.loading({ ...sharedOptions.value, theme: 'success' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWarning() {
-	popup.loading({ theme: 'warning' })
+	popup.loading({ ...sharedOptions.value, theme: 'warning' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingDanger() {
-	popup.loading({ theme: 'danger' })
+	popup.loading({ ...sharedOptions.value, theme: 'danger' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomTitle() {
-	popup.loading({ title: '自定义标题' })
+	popup.loading({ ...sharedOptions.value, title: '自定义标题' })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomTitleLong() {
 	popup.loading({
+		...sharedOptions.value,
 		title: '自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题，自定义长标题.',
 	})
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingCustomIconSize() {
-	popup.loading({ iconSize: 100 })
+	popup.loading({ ...sharedOptions.value, iconSize: 100 })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingForever() {
-	popup.loading({ title: '持续显示' })
+	popup.loading({ ...sharedOptions.value, title: '持续显示' })
 }
 
 function handlePopupLoadingWithoutMask() {
-	popup.loading({ mask: false })
+	popup.loading({ ...sharedOptions.value, mask: false })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWithMaskBlur() {
-	popup.loading({ maskBlur: true })
+	popup.loading({ ...sharedOptions.value, maskBlur: true })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 
 function handlePopupLoadingWithMaskTransparent() {
-	popup.loading({ maskTransparent: true })
+	popup.loading({ ...sharedOptions.value, maskTransparent: true })
 	window.setTimeout(() => popup.loadingClose(), 2000)
 }
 </script>

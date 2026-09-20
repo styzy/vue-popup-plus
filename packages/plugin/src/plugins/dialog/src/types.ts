@@ -5,7 +5,10 @@ import type {
 	PopupMaskDestroyHandler,
 	PopupPlacement,
 } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+} from '@plugin/typings'
 
 export type PopupDialogOption<TComponent extends Component = Component> = {
 	/**
@@ -154,7 +157,7 @@ export type PopupDialogOption<TComponent extends Component = Component> = {
 	 * @since 1.6.0
 	 */
 	maskClose?: boolean | PopupMaskDestroyHandler
-} & SharedOption
+} & PopupPluginSharedOption
 
 export interface PopupDialog {
 	/**
@@ -184,18 +187,16 @@ export interface PopupDialogClose {
 	<T extends any = any>(this: PopupController, payload?: T): Promise<void>
 }
 
-export type PopupDialogDefaultOption = Omit<
-	PopupDialogOption,
-	'component' | 'componentProps' | 'onMounted' | 'zIndex'
->
-
-export type PopupDialogConfig = PluginSharedConfig & {
+export type PopupDialogConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.dialog()` 方法的默认选项
 	 */
-	defaultOptions?: PopupDialogDefaultOption
+	defaultOptions?: Omit<
+		PopupDialogOption,
+		'component' | 'componentProps' | 'onMounted'
+	>
 }
 
 declare module 'vue-popup-plus' {

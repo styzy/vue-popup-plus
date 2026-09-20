@@ -37,10 +37,13 @@
 import { computed, onMounted, ref, type Component } from 'vue'
 import { POPUP_ANIMATIONS, usePopup, usePopupInstanceId } from 'vue-popup-plus'
 import { useRouter } from 'vue-router'
+import { useTools } from '@/composables'
 
 defineOptions({
 	name: 'GTools',
 })
+
+const { isExpand } = useTools()
 
 type Props = {
 	component: Component
@@ -52,7 +55,6 @@ const router = useRouter()
 
 const { component } = defineProps<Props>()
 
-const isExpand = ref(true)
 const isDarkMode = ref(!!localStorage.getItem('dark'))
 const inPopup = computed(() => !!popupInstanceId)
 

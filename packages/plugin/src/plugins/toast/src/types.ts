@@ -1,14 +1,18 @@
 import type { PopupController, PopupPlacement } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupToastOption = {
 	/**
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme}
+	 * - 具体的可选主题请参考 {@link PopupTheme}
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 显示时间，单位毫秒
 	 *
@@ -41,7 +45,7 @@ export type PopupToastOption = {
 	 * @since 1.5.0
 	 */
 	hoverWait?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 type PopupToastOptionWithoutTheme = Omit<PopupToastOption, 'theme'>
 
@@ -126,15 +130,13 @@ export interface PopupToastDanger {
 	): Promise<void>
 }
 
-type PopupToastDefaultOption = Omit<PopupToastOption, 'zIndex'>
-
-export type PopupToastConfig = PluginSharedConfig & {
+export type PopupToastConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.toast()` 方法的默认选项
 	 */
-	defaultOptions?: PopupToastDefaultOption
+	defaultOptions?: PopupToastOption
 }
 
 declare module 'vue-popup-plus' {

@@ -1,16 +1,20 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PluginSharedConfig, SharedOption, Theme } from '@plugin/typings'
+import type {
+	PopupPluginSharedConfig,
+	PopupPluginSharedOption,
+	PopupTheme,
+} from '@plugin/typings'
 
 export type PopupAlertOption = {
 	/**
 	 * 主题
 	 *
 	 * - 默认值： 'primary'
-	 * - 具体的可选主题请参考 {@link Theme}
+	 * - 具体的可选主题请参考 {@link PopupTheme}
 	 *
 	 * @since 1.7.0
 	 */
-	theme?: Theme
+	theme?: PopupTheme
 	/**
 	 * 提示框标题
 	 *
@@ -49,7 +53,7 @@ export type PopupAlertOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-} & SharedOption
+} & PopupPluginSharedOption
 
 export interface PopupAlert {
 	/**
@@ -74,15 +78,13 @@ export interface PopupAlert {
 	): Promise<void>
 }
 
-type PopupAlertDefaultOption = Omit<PopupAlertOption, 'zIndex'>
-
-export type PopupAlertConfig = PluginSharedConfig & {
+export type PopupAlertConfig = PopupPluginSharedConfig & {
 	/**
 	 * 默认选项
 	 *
 	 * - 统一配置 `popup.alert()` 方法的默认选项
 	 */
-	defaultOptions?: PopupAlertDefaultOption
+	defaultOptions?: PopupAlertOption
 }
 
 declare module 'vue-popup-plus' {

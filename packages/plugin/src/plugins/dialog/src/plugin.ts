@@ -60,7 +60,8 @@ export const dialog = definePlugin({
 			dragOverflow = defaultOptions.dragOverflow ?? false,
 			maskBlur = defaultOptions.maskBlur ?? false,
 			maskTransparent = defaultOptions.maskTransparent ?? false,
-			zIndex,
+			viewport = defaultOptions.viewport ?? null,
+			zIndex = defaultOptions.zIndex,
 		}) {
 			return new Promise((resolve) => {
 				const id = createId()
@@ -93,6 +94,7 @@ export const dialog = definePlugin({
 					maskTransparent,
 					maskDestroy: maskClose,
 					disableScroll: true,
+					viewport,
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupDialogOption> = {
@@ -115,6 +117,7 @@ export const dialog = definePlugin({
 							maskClose,
 							draggable,
 							dragOverflow,
+							viewport,
 							zIndex,
 						}
 

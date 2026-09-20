@@ -1,5 +1,5 @@
 <template lang="pug">
-GContainer.anchor-trigger
+GContainer.anchor-trigger(root)
 	GTools(:component="() => import('./AnchorTrigger.vue')")
 	GTitle 核心 - 锚点触发器测试
 	GTitle(second) 基础

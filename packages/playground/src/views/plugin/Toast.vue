@@ -37,109 +37,173 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 function handlePopupToast() {
-	popup.toast('这是一条toast消息')
+	popup.toast('这是一条toast消息', sharedOptions.value)
 }
 
 function handlePopupToastThemePrimary() {
-	popup.toast('这是一条主要toast消息', { theme: 'primary' })
+	popup.toast('这是一条主要toast消息', {
+		...sharedOptions.value,
+		theme: 'primary',
+	})
 }
 
 function handlePopupToastThemeInfo() {
-	popup.toast('这是一条信息toast消息', { theme: 'info' })
+	popup.toast('这是一条信息toast消息', {
+		...sharedOptions.value,
+		theme: 'info',
+	})
 }
 
 function handlePopupToastThemeSuccess() {
-	popup.toast('这是一条成功toast消息', { theme: 'success' })
+	popup.toast('这是一条成功toast消息', {
+		...sharedOptions.value,
+		theme: 'success',
+	})
 }
 
 function handlePopupToastThemeWarning() {
-	popup.toast('这是一条警告toast消息', { theme: 'warning' })
+	popup.toast('这是一条警告toast消息', {
+		...sharedOptions.value,
+		theme: 'warning',
+	})
 }
 
 function handlePopupToastThemeDanger() {
-	popup.toast('这是一条危险toast消息', { theme: 'danger' })
+	popup.toast('这是一条危险toast消息', {
+		...sharedOptions.value,
+		theme: 'danger',
+	})
 }
 
 function handlePopupToastLong() {
 	popup.toast(
-		'这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。'
+		'这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。这是一条toast消息，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果，包含了更多的内容，用于测试toast的长消息显示效果。',
+		{
+			...sharedOptions.value,
+		}
 	)
 }
 
 function handlePopupToastTenSecond() {
-	popup.toast('这是一条10秒的toast消息', { duration: 10000 })
+	popup.toast('这是一条10秒的toast消息', {
+		...sharedOptions.value,
+		duration: 10000,
+	})
 }
 
 function handlePopupToastZeroSecond() {
-	popup.toastSuccess('这是一条0秒的toast消息', { duration: 0 })
+	popup.toastSuccess('这是一条0秒的toast消息', {
+		...sharedOptions.value,
+		duration: 0,
+	})
 }
 
 function handlePopupToastShowClose() {
-	popup.toast('这是一条显示关闭按钮的toast消息', { showClose: true })
+	popup.toast('这是一条显示关闭按钮的toast消息', {
+		...sharedOptions.value,
+		showClose: true,
+	})
 }
 
 function handlePopupToastHoverWait() {
-	popup.toast('这是一条禁用悬停等待的toast消息', { hoverWait: false })
+	popup.toast('这是一条禁用悬停等待的toast消息', {
+		...sharedOptions.value,
+		hoverWait: false,
+	})
 }
 
 function handlePopupToastPlacementLeftTop() {
-	popup.toast('这是一条左上toast消息', { placement: 'left-top' })
+	popup.toast('这是一条左上toast消息', {
+		...sharedOptions.value,
+		placement: 'left-top',
+	})
 }
 
 function handlePopupToastPlacementLeft() {
-	popup.toast('这是一条左侧toast消息', { placement: 'left' })
+	popup.toast('这是一条左侧toast消息', {
+		...sharedOptions.value,
+		placement: 'left',
+	})
 }
 
 function handlePopupToastPlacementLeftBottom() {
-	popup.toast('这是一条左下toast消息', { placement: 'left-bottom' })
+	popup.toast('这是一条左下toast消息', {
+		...sharedOptions.value,
+		placement: 'left-bottom',
+	})
 }
 
 function handlePopupToastPlacementTop() {
-	popup.toast('这是一条顶部toast消息', { placement: 'top' })
+	popup.toast('这是一条顶部toast消息', {
+		...sharedOptions.value,
+		placement: 'top',
+	})
 }
 
 function handlePopupToastPlacementCenter() {
-	popup.toast('这是一条居中toast消息', { placement: 'center' })
+	popup.toast('这是一条居中toast消息', {
+		...sharedOptions.value,
+		placement: 'center',
+	})
 }
 
 function handlePopupToastPlacementBottom() {
-	popup.toast('这是一条底部toast消息', { placement: 'bottom' })
+	popup.toast('这是一条底部toast消息', {
+		...sharedOptions.value,
+		placement: 'bottom',
+	})
 }
 
 function handlePopupToastPlacementRightTop() {
-	popup.toast('这是一条右上toast消息', { placement: 'right-top' })
+	popup.toast('这是一条右上toast消息', {
+		...sharedOptions.value,
+		placement: 'right-top',
+	})
 }
 
 function handlePopupToastPlacementRight() {
-	popup.toast('这是一条右侧toast消息', { placement: 'right' })
+	popup.toast('这是一条右侧toast消息', {
+		...sharedOptions.value,
+		placement: 'right',
+	})
 }
 
 function handlePopupToastPlacementRightBottom() {
-	popup.toast('这是一条右下toast消息', { placement: 'right-bottom' })
+	popup.toast('这是一条右下toast消息', {
+		...sharedOptions.value,
+		placement: 'right-bottom',
+	})
 }
 
 function handlePopupToastPrimary() {
-	popup.toastPrimary('这是一条主要toast消息')
+	popup.toastPrimary('这是一条主要toast消息', { ...sharedOptions.value })
 }
 
 function handlePopupToastSuccess() {
-	popup.toastSuccess('这是一条成功toast消息')
+	popup.toastSuccess('这是一条成功toast消息', { ...sharedOptions.value })
 }
 
 function handlePopupToastInfo() {
-	popup.toastInfo('这是一条信息toast消息')
+	popup.toastInfo('这是一条信息toast消息', { ...sharedOptions.value })
 }
 
 function handlePopupToastWarning() {
-	popup.toastWarning('这是一条警告toast消息')
+	popup.toastWarning('这是一条警告toast消息', { ...sharedOptions.value })
 }
 
 function handlePopupToastDanger() {
-	popup.toastDanger('这是一条危险toast消息')
+	popup.toastDanger('这是一条危险toast消息', { ...sharedOptions.value })
 }
 </script>

@@ -37,109 +37,171 @@ GContainer
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, type ComputedRef } from 'vue'
 import { usePopup } from 'vue-popup-plus'
 
 const popup = usePopup()
 
+const viewport = inject<ComputedRef<HTMLDivElement | null>>('viewport')!
+
+const sharedOptions = computed(() => ({
+	viewport: viewport.value,
+}))
+
 function handlePopupMessage() {
-	popup.message('这是一条toast消息')
+	popup.message('这是一条toast消息', sharedOptions.value)
 }
 
 function handlePopupMessageThemePrimary() {
-	popup.message('这是一条主要message消息', { theme: 'primary' })
+	popup.message('这是一条主要message消息', {
+		...sharedOptions.value,
+		theme: 'primary',
+	})
 }
 
 function handlePopupMessageThemeInfo() {
-	popup.message('这是一条信息message消息', { theme: 'info' })
+	popup.message('这是一条信息message消息', {
+		...sharedOptions.value,
+		theme: 'info',
+	})
 }
 
 function handlePopupMessageThemeSuccess() {
-	popup.message('这是一条成功message消息', { theme: 'success' })
+	popup.message('这是一条成功message消息', {
+		...sharedOptions.value,
+		theme: 'success',
+	})
 }
 
 function handlePopupMessageThemeWarning() {
-	popup.message('这是一条警告message消息', { theme: 'warning' })
+	popup.message('这是一条警告message消息', {
+		...sharedOptions.value,
+		theme: 'warning',
+	})
 }
 
 function handlePopupMessageThemeDanger() {
-	popup.message('这是一条危险message消息', { theme: 'danger' })
+	popup.message('这是一条危险message消息', {
+		...sharedOptions.value,
+		theme: 'danger',
+	})
 }
 
 function handlePopupMessageLong() {
 	popup.message(
-		'这是一条message消息，包含了更多的内容，用于测试message的长消息显示效果，包含了更多的内容，用于测试message的长消息显示效果，这是一条message消息，包含了更多的内容，用于测试message的长消息显示效果，包含了更多的内容'
+		'这是一条message消息，包含了更多的内容，用于测试message的长消息显示效果，包含了更多的内容，用于测试message的长消息显示效果，这是一条message消息，包含了更多的内容，用于测试message的长消息显示效果，包含了更多的内容',
+		{ ...sharedOptions.value }
 	)
 }
 
 function handlePopupMessageTenSecond() {
-	popup.message('这是一条10秒的message消息', { duration: 10000 })
+	popup.message('这是一条10秒的message消息', {
+		...sharedOptions.value,
+		duration: 10000,
+	})
 }
 
 function handlePopupMessageZeroSecond() {
-	popup.message('这是一条0秒的message消息', { duration: 0 })
+	popup.message('这是一条0秒的message消息', {
+		...sharedOptions.value,
+		duration: 0,
+	})
 }
 
 function handlePopupMessageShowClose() {
-	popup.message('这是一条显示关闭按钮的message消息', { showClose: true })
+	popup.message('这是一条显示关闭按钮的message消息', {
+		...sharedOptions.value,
+		showClose: true,
+	})
 }
 
 function handlePopupMessageHoverWait() {
-	popup.message('这是一条禁用悬停等待的message消息', { hoverWait: false })
+	popup.message('这是一条禁用悬停等待的message消息', {
+		...sharedOptions.value,
+		hoverWait: false,
+	})
 }
 
 function handlePopupMessagePlacementLeftTop() {
-	popup.message('这是一条左上message消息', { placement: 'left-top' })
+	popup.message('这是一条左上message消息', {
+		...sharedOptions.value,
+		placement: 'left-top',
+	})
 }
 
 function handlePopupMessagePlacementLeft() {
-	popup.message('这是一条左侧message消息', { placement: 'left' })
+	popup.message('这是一条左侧message消息', {
+		...sharedOptions.value,
+		placement: 'left',
+	})
 }
 
 function handlePopupMessagePlacementLeftBottom() {
-	popup.message('这是一条左下message消息', { placement: 'left-bottom' })
+	popup.message('这是一条左下message消息', {
+		...sharedOptions.value,
+		placement: 'left-bottom',
+	})
 }
 
 function handlePopupMessagePlacementTop() {
-	popup.message('这是一条顶部message消息', { placement: 'top' })
+	popup.message('这是一条顶部message消息', {
+		...sharedOptions.value,
+		placement: 'top',
+	})
 }
 
 function handlePopupMessagePlacementCenter() {
-	popup.message('这是一条居中message消息', { placement: 'center' })
+	popup.message('这是一条居中message消息', {
+		...sharedOptions.value,
+		placement: 'center',
+	})
 }
 
 function handlePopupMessagePlacementBottom() {
-	popup.message('这是一条底部message消息', { placement: 'bottom' })
+	popup.message('这是一条底部message消息', {
+		...sharedOptions.value,
+		placement: 'bottom',
+	})
 }
 
 function handlePopupMessagePlacementRightTop() {
-	popup.message('这是一条右上message消息', { placement: 'right-top' })
+	popup.message('这是一条右上message消息', {
+		...sharedOptions.value,
+		placement: 'right-top',
+	})
 }
 
 function handlePopupMessagePlacementRight() {
-	popup.message('这是一条右侧message消息', { placement: 'right' })
+	popup.message('这是一条右侧message消息', {
+		...sharedOptions.value,
+		placement: 'right',
+	})
 }
 
 function handlePopupMessagePlacementRightBottom() {
-	popup.message('这是一条右下message消息', { placement: 'right-bottom' })
+	popup.message('这是一条右下message消息', {
+		...sharedOptions.value,
+		placement: 'right-bottom',
+	})
 }
 
 function handlePopupMessagePrimary() {
-	popup.messagePrimary('这是一条主要message消息')
+	popup.messagePrimary('这是一条主要message消息', { ...sharedOptions.value })
 }
 
 function handlePopupMessageSuccess() {
-	popup.messageSuccess('这是一条成功message消息')
+	popup.messageSuccess('这是一条成功message消息', { ...sharedOptions.value })
 }
 
 function handlePopupMessageInfo() {
-	popup.messageInfo('这是一条信息message消息')
+	popup.messageInfo('这是一条信息message消息', { ...sharedOptions.value })
 }
 
 function handlePopupMessageWarning() {
-	popup.messageWarning('这是一条警告message消息')
+	popup.messageWarning('这是一条警告message消息', { ...sharedOptions.value })
 }
 
 function handlePopupMessageDanger() {
-	popup.messageDanger('这是一条危险message消息')
+	popup.messageDanger('这是一条危险message消息', { ...sharedOptions.value })
 }
 </script>

@@ -6,6 +6,7 @@ import {
 	printLog,
 	type PopupController,
 	type PopupPlacement,
+	type PopupViewport,
 	POPUP_ANIMATIONS,
 } from 'vue-popup-plus'
 import { wait } from 'utils'
@@ -16,7 +17,6 @@ import { requiredCoreVersion } from '@plugin/version'
 import type {
 	PopupMessage,
 	PopupMessageConfig,
-	PopupMessageDefaultOption,
 	PopupMessageGroup,
 	PopupMessageOption,
 	PopupMessageRecord,
@@ -34,9 +34,17 @@ const animationDuration = 200
 
 function getOrCreateGroup(
 	controller: PopupController,
-	placement: PopupPlacement,
-	skin: PopupSkin,
-	zIndex?: number
+	{
+		placement,
+		skin,
+		viewport,
+		zIndex,
+	}: {
+		placement: PopupPlacement
+		skin: PopupSkin
+		viewport?: PopupViewport
+		zIndex?: number
+	}
 ): PopupMessageGroup {
 	let group = groupMap.get(placement)
 
@@ -63,6 +71,7 @@ function getOrCreateGroup(
 			animationDuration: 0,
 			mask: false,
 			disableScroll: false,
+			viewport,
 			zIndex,
 		})
 
@@ -83,14 +92,24 @@ async function removeMessage(
 
 	const index = group.messages.findIndex((item) => item.id === id)
 	if (index !== -1) {
-		const { content, theme, duration, showClose, hoverWait } =
-			group.messages[index]
-
-		const messageValue: PopupMessageDefaultOption = {
+		const {
+			content,
 			theme,
 			duration,
 			showClose,
 			hoverWait,
+			viewport,
+			zIndex,
+		} = group.messages[index]
+
+		const mergedOptions: MergedOption<PopupMessageOption> = {
+			theme,
+			duration,
+			showClose,
+			hoverWait,
+			placement,
+			viewport,
+			zIndex,
 		}
 
 		const [item] = group.messages.splice(index, 1)
@@ -122,7 +141,7 @@ async function removeMessage(
 						type: PopupLogGroupItemType.Data,
 						title: '渲染参数',
 						dataName: 'options',
-						dataValue: messageValue,
+						dataValue: mergedOptions,
 						dataType: 'MessageOption',
 					},
 				],
@@ -155,13 +174,19 @@ export const message = definePlugin({
 				duration = defaultOptions.duration ?? 2000,
 				showClose = defaultOptions.showClose ?? false,
 				hoverWait = defaultOptions.hoverWait ?? true,
-				zIndex,
+				viewport = defaultOptions.viewport ?? null,
+				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
 			return new Promise((resolve) => {
 				const id = createId()
 
-				const group = getOrCreateGroup(this, placement, skin, zIndex)
+				const group = getOrCreateGroup(this, {
+					placement,
+					skin,
+					viewport,
+					zIndex,
+				})
 
 				group.messages.push({
 					id,
@@ -170,6 +195,8 @@ export const message = definePlugin({
 					duration,
 					showClose,
 					hoverWait,
+					viewport,
+					zIndex,
 					resolve,
 				})
 
@@ -179,6 +206,7 @@ export const message = definePlugin({
 					duration,
 					showClose,
 					hoverWait,
+					viewport,
 					zIndex,
 				}
 
