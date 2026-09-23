@@ -1,7 +1,6 @@
 export type PopupKeyboardEvent = string
 
 export type PopupKeyboardShortcut =
-	| false
 	| string
 	| {
 			/**
@@ -35,7 +34,10 @@ export type PopupKeyboardShortcut =
 	  }
 
 export type PopupKeyboardConfig = {
-	[key: PopupKeyboardEvent]: PopupKeyboardShortcut | PopupKeyboardShortcut[]
+	[key: PopupKeyboardEvent]:
+		| false
+		| PopupKeyboardShortcut
+		| PopupKeyboardShortcut[]
 }
 
 export type PopupKeyboardHandler<T extends PopupKeyboardConfig> = {

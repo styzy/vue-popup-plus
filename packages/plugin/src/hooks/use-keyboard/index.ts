@@ -1,5 +1,11 @@
 import type { PopupInstanceId } from 'vue-popup-plus'
-import type { PopupKeyboardConfig, PopupKeyboardHandler } from './types'
+import { typeOf } from 'utils'
+import type {
+	PopupKeyboardConfig,
+	PopupKeyboardEvent,
+	PopupKeyboardHandler,
+	PopupKeyboardShortcut,
+} from './types'
 
 export * from './types'
 
@@ -45,13 +51,41 @@ export function removeKeyboardHandlers(instanceId: PopupInstanceId) {
 }
 
 function handleKeyDown(event: KeyboardEvent) {
+	if (!_.keyboardHistory.length) return
+
 	const currentKeyboard = _.keyboardHistory[_.keyboardHistory.length - 1]
+	const matchedEvents = findMatchedEvents(currentKeyboard.config, event)
+	matchedEvents.forEach((item) => {
+		currentKeyboard.handlers[item]()
+	})
 }
 
-function findMatchedEvent(
+function findMatchedEvents(
 	config: PopupKeyboardConfig,
 	keyboardEvent: KeyboardEvent
-) {
+): PopupKeyboardEvent[] {
+	const events: PopupKeyboardEvent[] = []
 	for (const event in config) {
+		const shortcut = config[event]
+		if (shortcut === false) {
+			continue
+		} else if (typeOf.isArray(shortcut)) {
+			if (
+				shortcut.some((item) => isMatchedShortcut(item, keyboardEvent))
+			) {
+				events.push(event)
+			}
+		} else {
+			if (isMatchedShortcut(shortcut, keyboardEvent)) {
+				events.push(event)
+			}
+		}
 	}
+
+	return events
 }
+
+function isMatchedShortcut(
+	shortcut: PopupKeyboardShortcut,
+	event: KeyboardEvent
+): boolean {}
