@@ -46,5 +46,7 @@ export type PopupPluginSharedOption = {
 /**
  * 用于日志打印时生成的合并后类型
  */
-export type MergedOption<T> = Required<Omit<T, 'zIndex'>> &
-	Partial<Pick<PopupPluginSharedOption, 'zIndex'>>
+export type MergedOption<
+	T extends PopupPluginSharedOption,
+	K extends keyof T = never,
+> = Required<Omit<T, 'zIndex' | K>> & Partial<Pick<T, 'zIndex' | K>>

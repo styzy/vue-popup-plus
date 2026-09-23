@@ -50,6 +50,7 @@ export const prompt = definePlugin({
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
 				viewport = defaultOptions.viewport ?? null,
+				keyboard = defaultOptions.keyboard,
 				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
@@ -71,6 +72,7 @@ export const prompt = definePlugin({
 						confirmText,
 						cancelText,
 						draggable,
+						keyboard,
 						onClose: (inputValue) => {
 							this.destroy(instanceId, inputValue)
 						},
@@ -82,8 +84,9 @@ export const prompt = definePlugin({
 					zIndex,
 					onMounted: () => {
 						const mergedOptions: MergedOption<
-							Omit<PopupPromptOption, 'validator'>
-						> & { validator?: PopupPromptValidator } = {
+							PopupPromptOption,
+							'validator' | 'keyboard'
+						> = {
 							theme,
 							defaultValue,
 							type,
@@ -99,6 +102,7 @@ export const prompt = definePlugin({
 							dragOverflow,
 							maskBlur,
 							viewport,
+							keyboard,
 							zIndex,
 						}
 

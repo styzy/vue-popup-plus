@@ -49,7 +49,7 @@ import {
 	PLayout,
 	PContainer,
 } from '@plugin/components/internal'
-import { useNamespace } from '@plugin/hooks'
+import { useNamespace, type PopupKeyboardConfig } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import type { PopupTheme } from '@plugin/typings'
 import {
@@ -85,6 +85,7 @@ type Props = {
 	confirmText: string
 	cancelText: string
 	draggable: boolean
+	keyboard?: PopupKeyboardConfig
 }
 
 const {
@@ -100,6 +101,7 @@ const {
 	validateTrigger,
 	confirmText,
 	cancelText,
+	keyboard,
 } = defineProps<Props>()
 
 const inputValue = ref(defaultValue)

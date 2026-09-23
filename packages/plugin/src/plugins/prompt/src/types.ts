@@ -1,4 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
+import type { PopupKeyboardConfig } from '@plugin/hooks'
 import type {
 	PopupPluginSharedConfig,
 	PopupPluginSharedOption,
@@ -126,6 +127,7 @@ export type PopupPromptOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	keyboard?: PopupKeyboardConfig
 } & PopupPluginSharedOption
 
 export interface PopupPrompt {
