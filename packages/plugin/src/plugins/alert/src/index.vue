@@ -7,7 +7,7 @@ PContainer(:class="ns.block()" :skin="skin")
 				:hasCloseButton="headerClose"
 				:iconTheme="theme"
 				:title="title"
-				@close="handleConfirm()"
+				@close="handleClose()"
 				iconClass="alert")
 		PBody(:fitIcon="skin === 'modern'")
 			div(:class="ns.element('content')") {{ content }}
@@ -18,6 +18,8 @@ PContainer(:class="ns.block()" :skin="skin")
 </template>
 
 <script lang="ts" setup>
+import { onBeforeUnmount, onMounted } from 'vue'
+import { usePopupInstanceId } from 'vue-popup-plus'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import {
 	PBody,
@@ -28,15 +30,18 @@ import {
 	PLayout,
 	PContainer,
 } from '@plugin/components/internal'
-import { useNamespace } from '@plugin/hooks'
+import { useKeyboard, useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import type { PopupTheme } from '@plugin/typings'
+import type { PopupAlertKeyboard } from './types'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.ALERT,
 })
 
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.ALERT)
+const instanceId = usePopupInstanceId()!
+const { addKeyboardHandlers, removeKeyboardHandlers } = useKeyboard()
 
 type Emits = {
 	close: []
@@ -52,10 +57,42 @@ type Props = {
 	content: string
 	confirmText: string
 	draggable: boolean
+	keyboard: PopupAlertKeyboard
 }
 
-const { title, headerClose, content, confirmText, draggable } =
-	defineProps<Props>()
+const {
+	skin,
+	theme,
+	title,
+	headerClose,
+	content,
+	confirmText,
+	draggable,
+	keyboard,
+} = defineProps<Props>()
+
+onMounted(() => {
+	addKeyboardHandlers(instanceId, {
+		keyboard,
+		defaultKeyboard: {
+			confirm: 'Enter',
+			close: 'Escape',
+		},
+		handlers: {
+			confirm: () => handleConfirm(),
+			close: () => handleClose(),
+		},
+	})
+})
+
+onBeforeUnmount(() => {
+	removeKeyboardHandlers(instanceId)
+})
+
+function handleClose() {
+	if (!headerClose) return
+	emit('close')
+}
 
 function handleConfirm() {
 	emit('close')

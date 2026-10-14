@@ -1,6 +1,7 @@
 <template lang="pug">
 GContainer
 	GTitle Confirm 确认
+	GTitle(second) 基础
 	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupConfirm()" type="fill") 默认
 		PButton(@click="handlePopupConfirmCustomTitle()") 自定义标题
@@ -17,6 +18,11 @@ GContainer
 		PButton(@click="handlePopupConfirmThemeInfo()" theme="info") 信息主题
 		PButton(@click="handlePopupConfirmThemeWarning()" theme="warning") 警告主题
 		PButton(@click="handlePopupConfirmThemeDanger()" theme="danger") 危险主题
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupConfirmKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupConfirmKeyboardDisableConfirm()") 禁用确认
+		PButton(@click="handlePopupConfirmKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -186,5 +192,30 @@ async function handlePopupConfirmThemeDanger() {
 	} else {
 		popup.toast('选择了取消')
 	}
+}
+
+async function handlePopupConfirmKeyboardDisableAll() {
+	popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
+		keyboard: false,
+	})
+}
+
+async function handlePopupConfirmKeyboardDisableConfirm() {
+	popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
+		keyboard: {
+			confirm: false,
+		},
+	})
+}
+
+async function handlePopupConfirmKeyboardDisableClose() {
+	popup.confirm('这是一条确认消息', {
+		...sharedOptions.value,
+		keyboard: {
+			close: false,
+		},
+	})
 }
 </script>

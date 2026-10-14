@@ -41,6 +41,7 @@ export const confirm = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
+				keyboard = defaultOptions.keyboard ?? true,
 				viewport = defaultOptions.viewport ?? null,
 				zIndex = defaultOptions.zIndex,
 			} = {}
@@ -57,6 +58,7 @@ export const confirm = definePlugin({
 						draggable,
 						confirmText,
 						cancelText,
+						keyboard,
 						onClose: (isConfirm) => {
 							this.destroy(instanceId, isConfirm)
 						},
@@ -69,6 +71,7 @@ export const confirm = definePlugin({
 					onMounted: () => {
 						const mergedOptions: MergedOption<PopupConfirmOption> =
 							{
+								keyboard,
 								theme,
 								title,
 								headerClose,

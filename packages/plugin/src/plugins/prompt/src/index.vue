@@ -38,7 +38,8 @@ PContainer(:class="ns.block()" :skin="skin")
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { usePopupInstanceId } from 'vue-popup-plus'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import {
 	PBody,
@@ -49,10 +50,11 @@ import {
 	PLayout,
 	PContainer,
 } from '@plugin/components/internal'
-import { useNamespace, type PopupKeyboardConfig } from '@plugin/hooks'
+import { useKeyboard, useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
 import type { PopupTheme } from '@plugin/typings'
 import {
+	type PopupPromptKeyboard,
 	type PopupPromptType,
 	type PopupPromptValidateTrigger,
 	type PopupPromptValidator,
@@ -63,6 +65,8 @@ defineOptions({
 })
 
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.PROMPT)
+const instanceId = usePopupInstanceId()!
+const { addKeyboardHandlers, removeKeyboardHandlers } = useKeyboard()
 
 type Emits = {
 	close: [inputValue?: string]
@@ -85,7 +89,7 @@ type Props = {
 	confirmText: string
 	cancelText: string
 	draggable: boolean
-	keyboard?: PopupKeyboardConfig
+	keyboard: PopupPromptKeyboard
 }
 
 const {
@@ -110,6 +114,24 @@ const isValidPending = ref(false)
 const validErrorMessage = ref('')
 
 const isRenderMessage = computed(() => message !== false)
+
+onMounted(() => {
+	addKeyboardHandlers(instanceId, {
+		keyboard,
+		defaultKeyboard: {
+			confirm: 'Enter',
+			close: 'Escape',
+		},
+		handlers: {
+			confirm: () => handleConfirm(),
+			close: () => handleCancel(),
+		},
+	})
+})
+
+onBeforeUnmount(() => {
+	removeKeyboardHandlers(instanceId)
+})
 
 function handleInput() {
 	if (validateTrigger !== 'input') return

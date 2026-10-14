@@ -30,17 +30,18 @@ export function useKeyboard() {
 	}
 }
 
-function addKeyboardHandlers<TSchema extends PopupKeyboardSchema>({
-	instanceId,
-	keyboard,
-	defaultKeyboard,
-	handlers,
-}: {
-	instanceId: PopupInstanceId
-	keyboard: PopupKeyboard<TSchema>
-	defaultKeyboard: Partial<TSchema>
-	handlers: PopupKeyboardHandler<TSchema>
-}) {
+function addKeyboardHandlers<TSchema extends PopupKeyboardSchema>(
+	instanceId: PopupInstanceId,
+	{
+		keyboard,
+		defaultKeyboard,
+		handlers,
+	}: {
+		keyboard: PopupKeyboard<TSchema>
+		defaultKeyboard: Partial<TSchema>
+		handlers: PopupKeyboardHandler<TSchema>
+	}
+) {
 	if (keyboard === false) return
 
 	let mergedKeyboard: Partial<TSchema>

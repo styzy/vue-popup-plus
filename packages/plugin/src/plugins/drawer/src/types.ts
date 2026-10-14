@@ -4,12 +4,22 @@ import type {
 	PopupController,
 	PopupMaskDestroyHandler,
 } from 'vue-popup-plus'
+import type { PopupKeyboard, PopupKeyboardConfig } from '@plugin/hooks'
 import type {
 	PopupPluginSharedConfig,
 	PopupPluginSharedOption,
 } from '@plugin/typings'
 
 export type PopupDrawerPlacement = ['top', 'right', 'bottom', 'left'][number]
+
+export type PopupDrawerKeyboard = PopupKeyboard<{
+	/**
+	 * 关闭
+	 *
+	 * - 默认值：`Escape`
+	 */
+	close: PopupKeyboardConfig
+}>
 
 // 抽屉的配置（插件使用者传入的参数类型）
 export type PopupDrawerOption<TComponent extends Component = Component> = {
@@ -123,6 +133,15 @@ export type PopupDrawerOption<TComponent extends Component = Component> = {
 	 * ```
 	 */
 	maskClose?: boolean | PopupMaskDestroyHandler
+	/**
+	 * 自定义键盘快捷键
+	 *
+	 * - 默认值为 `true` ，表示启用所有内置键盘快捷键
+	 * - 当设置为 `false` 时，将禁用所有键盘快捷键
+	 *
+	 * @since 1.7.0
+	 */
+	keyboard?: PopupDrawerKeyboard
 } & PopupPluginSharedOption
 
 // popup.drawer()这个方法的类型

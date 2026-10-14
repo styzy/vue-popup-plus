@@ -58,6 +58,7 @@ export const drawer = definePlugin({
 			maskClose = defaultOptions.maskClose ?? true,
 			maskBlur = defaultOptions.maskBlur ?? false,
 			maskTransparent = defaultOptions.maskTransparent ?? false,
+			keyboard = defaultOptions.keyboard ?? true,
 			viewport = defaultOptions.viewport ?? null,
 			zIndex = defaultOptions.zIndex,
 		}) {
@@ -74,6 +75,7 @@ export const drawer = definePlugin({
 						draggable: false,
 						header,
 						headerClose,
+						keyboard,
 						onClose: () => {
 							this.drawerClose()
 						},
@@ -122,6 +124,7 @@ export const drawer = definePlugin({
 							maskBlur,
 							maskTransparent,
 							maskClose,
+							keyboard,
 							viewport,
 							zIndex,
 						}

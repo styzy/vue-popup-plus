@@ -21,7 +21,15 @@ PContainer(:class="ns.block()" :skin="skin")
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, ref, type Component } from 'vue'
+import {
+	computed,
+	defineAsyncComponent,
+	onBeforeUnmount,
+	onMounted,
+	ref,
+	type Component,
+} from 'vue'
+import { usePopupInstanceId } from 'vue-popup-plus'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import {
 	PBody,
@@ -30,14 +38,17 @@ import {
 	PLayout,
 	PContainer,
 } from '@plugin/components/internal'
-import { useNamespace } from '@plugin/hooks'
+import { useKeyboard, useNamespace } from '@plugin/hooks'
 import { type PopupSkin } from '@plugin/skin'
+import type { PopupDrawerKeyboard } from './types'
 
 defineOptions({
 	name: POPUP_INSIDE_COMPONENT_NAMES.DRAWER,
 })
 
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.DRAWER)
+const instanceId = usePopupInstanceId()!
+const { addKeyboardHandlers, removeKeyboardHandlers } = useKeyboard()
 
 type Emits = {
 	close: []
@@ -54,6 +65,7 @@ type Props = {
 	header: boolean
 	headerClose: boolean
 	draggable: boolean
+	keyboard: PopupDrawerKeyboard
 	debugMode: boolean
 }
 
@@ -64,6 +76,7 @@ const {
 	customComponentProps,
 	header,
 	headerClose,
+	keyboard,
 	debugMode,
 } = defineProps<Props>()
 
@@ -77,6 +90,22 @@ const resolvedComponent = computed(() => {
 		return defineAsyncComponent(customComponent as () => Promise<Component>)
 	}
 	return customComponent
+})
+
+onMounted(() => {
+	addKeyboardHandlers(instanceId, {
+		keyboard,
+		defaultKeyboard: {
+			close: 'Escape',
+		},
+		handlers: {
+			close: () => handleClose(),
+		},
+	})
+})
+
+onBeforeUnmount(() => {
+	removeKeyboardHandlers(instanceId)
 })
 
 function handleReload() {

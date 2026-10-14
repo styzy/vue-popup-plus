@@ -5,10 +5,20 @@ import type {
 	PopupMaskDestroyHandler,
 	PopupPlacement,
 } from 'vue-popup-plus'
+import type { PopupKeyboard, PopupKeyboardConfig } from '@plugin/hooks'
 import type {
 	PopupPluginSharedConfig,
 	PopupPluginSharedOption,
 } from '@plugin/typings'
+
+export type PopupDialogKeyboard = PopupKeyboard<{
+	/**
+	 * 关闭
+	 *
+	 * - 默认值：`Escape`
+	 */
+	close: PopupKeyboardConfig
+}>
 
 export type PopupDialogOption<TComponent extends Component = Component> = {
 	/**
@@ -157,6 +167,15 @@ export type PopupDialogOption<TComponent extends Component = Component> = {
 	 * @since 1.6.0
 	 */
 	maskClose?: boolean | PopupMaskDestroyHandler
+	/**
+	 * 自定义键盘快捷键
+	 *
+	 * - 默认值为 `true` ，表示启用所有内置键盘快捷键
+	 * - 当设置为 `false` 时，将禁用所有键盘快捷键
+	 *
+	 * @since 1.7.0
+	 */
+	keyboard?: PopupDialogKeyboard
 } & PopupPluginSharedOption
 
 export interface PopupDialog {

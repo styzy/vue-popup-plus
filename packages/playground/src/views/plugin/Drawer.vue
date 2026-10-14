@@ -25,6 +25,10 @@ GContainer
 		PButton(@click="handlePopupDrawerPlacementBottom()") 底部
 		PButton(@click="handlePopupDrawerPlacementLeft()") 左侧
 		PButton(@click="handlePopupDrawerPlacementRight()") 右侧
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupDrawerKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupDrawerKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -233,6 +237,25 @@ function handlePopupDrawerPlacementRight() {
 		title: '右侧',
 		component: DemoDrawer,
 		placement: 'right',
+	})
+}
+
+function handlePopupDrawerKeyboardDisableAll() {
+	popup.drawer({
+		...sharedOptions.value,
+		title: '禁用所有键盘快捷键',
+		component: DemoDrawer,
+		keyboard: false,
+	})
+}
+function handlePopupDrawerKeyboardDisableClose() {
+	popup.drawer({
+		...sharedOptions.value,
+		title: '禁用关闭键盘快捷键',
+		component: DemoDrawer,
+		keyboard: {
+			close: false,
+		},
 	})
 }
 </script>

@@ -49,8 +49,8 @@ export const prompt = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
+				keyboard = defaultOptions.keyboard ?? true,
 				viewport = defaultOptions.viewport ?? null,
-				keyboard = defaultOptions.keyboard,
 				zIndex = defaultOptions.zIndex,
 			} = {}
 		) {
@@ -101,8 +101,8 @@ export const prompt = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
-							viewport,
 							keyboard,
+							viewport,
 							zIndex,
 						}
 

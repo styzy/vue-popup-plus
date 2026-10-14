@@ -1,5 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
-import type { PopupKeyboardConfig } from '@plugin/hooks'
+import type { PopupKeyboard, PopupKeyboardConfig } from '@plugin/hooks'
 import type {
 	PopupPluginSharedConfig,
 	PopupPluginSharedOption,
@@ -11,6 +11,21 @@ export type PopupPromptType = 'input' | 'textarea'
 export type PopupPromptValidator = (value: string) => void
 
 export type PopupPromptValidateTrigger = ['input', 'change', 'blur'][number]
+
+export type PopupPromptKeyboard = PopupKeyboard<{
+	/**
+	 * 确认
+	 *
+	 * - 默认值：`Enter`
+	 */
+	confirm: PopupKeyboardConfig
+	/**
+	 * 关闭
+	 *
+	 * - 默认值：`Escape`
+	 */
+	close: PopupKeyboardConfig
+}>
 
 export type PopupPromptOption = {
 	/**
@@ -127,7 +142,15 @@ export type PopupPromptOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
-	keyboard?: PopupKeyboardConfig
+	/**
+	 * 自定义键盘快捷键
+	 *
+	 * - 默认值为 `true` ，表示启用所有内置键盘快捷键
+	 * - 当设置为 `false` 时，将禁用所有键盘快捷键
+	 *
+	 * @since 1.7.0
+	 */
+	keyboard?: PopupPromptKeyboard
 } & PopupPluginSharedOption
 
 export interface PopupPrompt {

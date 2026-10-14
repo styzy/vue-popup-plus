@@ -1,6 +1,7 @@
 <template lang="pug">
 GContainer
 	GTitle Album 媒体相册
+	GTitle(second) 基础
 	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupAlbum()" type="fill") 默认
 		PButton(@click="handlePopupAlbumDefaultIndex()") 默认下标
@@ -13,6 +14,16 @@ GContainer
 		PButton(@click="handlePopupAlbumWithMaskBlur()") 启用遮罩模糊
 		PButton(@click="handlePopupAlbumDisableLoop()") 禁用循环
 		PButton(@click="handlePopupAlbumDisableRotate()") 禁用旋转
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupAlbumKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupAlbumKeyboardDisablePrev()") 禁用上一张
+		PButton(@click="handlePopupAlbumKeyboardDisableNext()") 禁用下一张
+		PButton(@click="handlePopupAlbumKeyboardDisableScaleUp()") 禁用缩放放大
+		PButton(@click="handlePopupAlbumKeyboardDisableScaleDown()") 禁用缩放缩小
+		PButton(@click="handlePopupAlbumKeyboardDisableRotateLeft()") 禁用逆时针旋转
+		PButton(@click="handlePopupAlbumKeyboardDisableRotateRight()") 禁用顺时针旋转
+		PButton(@click="handlePopupAlbumKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -121,6 +132,84 @@ function handlePopupAlbumDisableRotate() {
 		...sharedOptions.value,
 		sources,
 		disableRotate: true,
+	})
+}
+
+function handlePopupAlbumKeyboardDisableAll() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: false,
+	})
+}
+
+function handlePopupAlbumKeyboardDisablePrev() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			prev: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableNext() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			next: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableScaleUp() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			scaleUp: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableScaleDown() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			scaleDown: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableRotateLeft() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			rotateLeft: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableRotateRight() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			rotateRight: false,
+		},
+	})
+}
+
+function handlePopupAlbumKeyboardDisableClose() {
+	popup.album({
+		...sharedOptions.value,
+		sources,
+		keyboard: {
+			close: false,
+		},
 	})
 }
 </script>

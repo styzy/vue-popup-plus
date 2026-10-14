@@ -1,6 +1,7 @@
 <template lang="pug">
 GContainer
 	GTitle Alert 提示
+	GTitle(second) 基础
 	PButtonGroup(theme="primary" tight)
 		PButton(@click="handlePopupAlert()" type="fill") 默认
 		PButton(@click="handlePopupAlertCustomTitle()") 自定义标题
@@ -16,6 +17,11 @@ GContainer
 		PButton(@click="handlePopupAlertThemeInfo()" theme="info") 信息主题
 		PButton(@click="handlePopupAlertThemeWarning()" theme="warning") 警告主题
 		PButton(@click="handlePopupAlertThemeDanger()" theme="danger") 危险主题
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupAlertKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupAlertKeyboardDisableConfirm()") 禁用确认
+		PButton(@click="handlePopupAlertKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -109,6 +115,31 @@ function handlePopupAlertThemeDanger() {
 	popup.alert('这是一条提示消息', {
 		...sharedOptions.value,
 		theme: 'danger',
+	})
+}
+
+function handlePopupAlertKeyboardDisableAll() {
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		keyboard: false,
+	})
+}
+
+function handlePopupAlertKeyboardDisableConfirm() {
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		keyboard: {
+			confirm: false,
+		},
+	})
+}
+
+function handlePopupAlertKeyboardDisableClose() {
+	popup.alert('这是一条提示消息', {
+		...sharedOptions.value,
+		keyboard: {
+			close: false,
+		},
 	})
 }
 </script>

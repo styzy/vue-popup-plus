@@ -1,4 +1,5 @@
 import type { PopupController } from 'vue-popup-plus'
+import type { PopupKeyboard, PopupKeyboardConfig } from '@plugin/hooks'
 import type {
 	PopupPluginSharedConfig,
 	PopupPluginSharedOption,
@@ -8,6 +9,51 @@ export type PopupAlbumSource = {
 	url: string
 	type: 'image' | 'video'
 }
+
+export type PopupAlbumKeyboard = PopupKeyboard<{
+	/**
+	 * 切换到上一张
+	 *
+	 * - 默认值：`ArrowUp`
+	 */
+	prev: PopupKeyboardConfig
+	/**
+	 * 切换到下一张
+	 *
+	 * - 默认值：`ArrowDown`
+	 */
+	next: PopupKeyboardConfig
+	/**
+	 * 放大比例
+	 *
+	 * - 默认值：`=`
+	 */
+	scaleUp: PopupKeyboardConfig
+	/**
+	 * 缩小比例
+	 *
+	 * - 默认值：`-`
+	 */
+	scaleDown: PopupKeyboardConfig
+	/**
+	 * 逆时针旋转
+	 *
+	 * - 默认值：`ArrowLeft`
+	 */
+	rotateLeft: PopupKeyboardConfig
+	/**
+	 * 顺时针旋转
+	 *
+	 * - 默认值：`ArrowRight`
+	 */
+	rotateRight: PopupKeyboardConfig
+	/**
+	 * 关闭
+	 *
+	 * - 默认值：`Escape`
+	 */
+	close: PopupKeyboardConfig
+}>
 
 export type PopupAlbumOption = {
 	/**
@@ -85,6 +131,15 @@ export type PopupAlbumOption = {
 	 * @since 1.3.0
 	 */
 	maskBlur?: boolean
+	/**
+	 * 自定义键盘快捷键
+	 *
+	 * - 默认值为 `true` ，表示启用所有内置键盘快捷键
+	 * - 当设置为 `false` 时，将禁用所有键盘快捷键
+	 *
+	 * @since 1.7.0
+	 */
+	keyboard?: PopupAlbumKeyboard
 } & PopupPluginSharedOption
 
 export interface PopupAlbum {

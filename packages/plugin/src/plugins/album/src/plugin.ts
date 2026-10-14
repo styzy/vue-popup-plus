@@ -33,6 +33,7 @@ export const album = definePlugin({
 			maskBlur = defaultOptions.maskBlur ?? false,
 			disableLoop = defaultOptions.disableLoop ?? false,
 			disableRotate = defaultOptions.disableRotate ?? false,
+			keyboard = defaultOptions.keyboard ?? true,
 			viewport = defaultOptions.viewport ?? null,
 			zIndex = defaultOptions.zIndex,
 		}: PopupAlbumOption) {
@@ -51,6 +52,7 @@ export const album = definePlugin({
 						disableDrag,
 						disableLoop,
 						disableRotate,
+						keyboard,
 					},
 					width: '100%',
 					height: '100%',
@@ -71,6 +73,7 @@ export const album = definePlugin({
 							maskBlur,
 							disableLoop,
 							disableRotate,
+							keyboard,
 							viewport,
 							zIndex,
 						}

@@ -60,6 +60,7 @@ export const dialog = definePlugin({
 			dragOverflow = defaultOptions.dragOverflow ?? false,
 			maskBlur = defaultOptions.maskBlur ?? false,
 			maskTransparent = defaultOptions.maskTransparent ?? false,
+			keyboard = defaultOptions.keyboard ?? true,
 			viewport = defaultOptions.viewport ?? null,
 			zIndex = defaultOptions.zIndex,
 		}) {
@@ -76,6 +77,7 @@ export const dialog = definePlugin({
 						header,
 						headerClose,
 						draggable,
+						keyboard,
 						onClose: () => {
 							this.dialogClose()
 						},
@@ -117,6 +119,7 @@ export const dialog = definePlugin({
 							maskClose,
 							draggable,
 							dragOverflow,
+							keyboard,
 							viewport,
 							zIndex,
 						}

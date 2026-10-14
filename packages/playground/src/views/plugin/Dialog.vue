@@ -28,6 +28,10 @@ GContainer
 		PButton(@click="handlePopupDialogPlacementRightTop()") 右上
 		PButton(@click="handlePopupDialogPlacementRight()") 右侧
 		PButton(@click="handlePopupDialogPlacementRightBottom()") 右下
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupDialogKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupDialogKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -298,6 +302,28 @@ async function handlePopupDialogPlacementRightBottom() {
 		placement: 'right-bottom',
 		draggable: true,
 		dragOverflow: true,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogKeyboardDisableAll() {
+	const result = await popup.dialog({
+		...sharedOptions.value,
+		title: '禁用全部',
+		component: Demo,
+		keyboard: false,
+	})
+	popup.toast(`对话框关闭时传递的参数是：${result}`)
+}
+
+async function handlePopupDialogKeyboardDisableClose() {
+	const result = await popup.dialog({
+		...sharedOptions.value,
+		title: '禁用关闭',
+		component: Demo,
+		keyboard: {
+			close: false,
+		},
 	})
 	popup.toast(`对话框关闭时传递的参数是：${result}`)
 }

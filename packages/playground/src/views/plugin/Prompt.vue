@@ -34,6 +34,11 @@ GContainer
 		PButton(@click="handlePopupPromptThemeInfo()" theme="info") 信息主题
 		PButton(@click="handlePopupPromptThemeWarning()" theme="warning") 警告主题
 		PButton(@click="handlePopupPromptThemeDanger()" theme="danger") 危险主题
+	GTitle(second) 键盘快捷键
+	PButtonGroup(theme="primary" tight)
+		PButton(@click="handlePopupPromptKeyboardDisableAll()") 禁用全部
+		PButton(@click="handlePopupPromptKeyboardDisableConfirm()") 禁用确认
+		PButton(@click="handlePopupPromptKeyboardDisableClose()") 禁用关闭
 </template>
 
 <script lang="ts" setup>
@@ -411,6 +416,46 @@ async function handlePopupPromptThemeDanger() {
 	const result = await popup.prompt('这是一条提示输入框消息', {
 		...sharedOptions.value,
 		theme: 'danger',
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptKeyboardDisableAll() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
+		keyboard: false,
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptKeyboardDisableConfirm() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
+		keyboard: {
+			confirm: false,
+		},
+	})
+	if (result === undefined) {
+		popup.toast('取消输入')
+	} else {
+		popup.toast(`您输入的内容是：${result}`)
+	}
+}
+
+async function handlePopupPromptKeyboardDisableClose() {
+	const result = await popup.prompt('这是一条提示输入框消息', {
+		...sharedOptions.value,
+		keyboard: {
+			close: false,
+		},
 	})
 	if (result === undefined) {
 		popup.toast('取消输入')

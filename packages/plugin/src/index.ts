@@ -7,51 +7,15 @@ import {
 import { setLocale, type PopupLocaleMessages } from '@plugin/locale'
 import enUS from '@plugin/locale/langs/en-US'
 import { PluginLog } from '@plugin/log'
-import {
-	album,
-	type PopupAlbumConfig,
-	type PopupAlbum,
-} from '@plugin/plugins/album'
-import {
-	alert,
-	type PopupAlertConfig,
-	type PopupAlert,
-} from '@plugin/plugins/alert'
-import {
-	confirm,
-	type PopupConfirmConfig,
-	type PopupConfirm,
-} from '@plugin/plugins/confirm'
-import {
-	dialog,
-	type PopupDialogConfig,
-	type PopupDialog,
-} from '@plugin/plugins/dialog'
-import {
-	drawer,
-	type PopupDrawerConfig,
-	type PopupDrawer,
-} from '@plugin/plugins/drawer'
-import {
-	loading,
-	type PopupLoading,
-	type PopupLoadingConfig,
-} from '@plugin/plugins/loading'
-import {
-	message,
-	type PopupMessage,
-	type PopupMessageConfig,
-} from '@plugin/plugins/message'
-import {
-	prompt,
-	type PopupPrompt,
-	type PopupPromptConfig,
-} from '@plugin/plugins/prompt'
-import {
-	toast,
-	type PopupToast,
-	type PopupToastConfig,
-} from '@plugin/plugins/toast'
+import { album, type PopupAlbumConfig } from '@plugin/plugins/album'
+import { alert, type PopupAlertConfig } from '@plugin/plugins/alert'
+import { confirm, type PopupConfirmConfig } from '@plugin/plugins/confirm'
+import { dialog, type PopupDialogConfig } from '@plugin/plugins/dialog'
+import { drawer, type PopupDrawerConfig } from '@plugin/plugins/drawer'
+import { loading, type PopupLoadingConfig } from '@plugin/plugins/loading'
+import { message, type PopupMessageConfig } from '@plugin/plugins/message'
+import { prompt, type PopupPromptConfig } from '@plugin/plugins/prompt'
+import { toast, type PopupToastConfig } from '@plugin/plugins/toast'
 import { type PopupPluginSharedConfig } from '@plugin/typings'
 import { requiredCoreVersion } from '@plugin/version'
 

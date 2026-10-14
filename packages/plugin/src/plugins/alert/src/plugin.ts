@@ -35,6 +35,7 @@ export const alert = definePlugin({
 				draggable = defaultOptions.draggable ?? false,
 				dragOverflow = defaultOptions.dragOverflow ?? false,
 				maskBlur = defaultOptions.maskBlur ?? false,
+				keyboard = defaultOptions.keyboard ?? true,
 				viewport = defaultOptions.viewport ?? null,
 				zIndex = defaultOptions.zIndex,
 			} = {}
@@ -50,6 +51,7 @@ export const alert = definePlugin({
 						content,
 						confirmText,
 						draggable,
+						keyboard,
 						onClose: () => {
 							this.destroy(instanceId)
 						},
@@ -68,6 +70,7 @@ export const alert = definePlugin({
 							draggable,
 							dragOverflow,
 							maskBlur,
+							keyboard,
 							viewport,
 							zIndex,
 						}

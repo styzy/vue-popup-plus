@@ -95,22 +95,21 @@ PContainer(:class="ns.block()" :skin="skin" @dblclick="handlePureExit()")
 <script lang="ts" setup>
 import {
 	computed,
-	inject,
 	onBeforeMount,
 	onBeforeUnmount,
 	onMounted,
 	ref,
 	watch,
 } from 'vue'
-import { usePopup, POPUP_COMPONENT_INJECTS } from 'vue-popup-plus'
+import { usePopup, usePopupInstanceId } from 'vue-popup-plus'
 import { download, setClipboard } from 'utils'
 import { POPUP_INSIDE_COMPONENT_NAMES } from '@plugin/CONSTANTS'
 import { File, type FileType } from '@plugin/class'
 import { PContainer } from '@plugin/components/internal'
-import { useNamespace } from '@plugin/hooks'
+import { useKeyboard, useNamespace } from '@plugin/hooks'
 import { useLocale } from '@plugin/locale'
 import { type PopupSkin } from '@plugin/skin'
-import { type PopupAlbumSource } from './types'
+import { type PopupAlbumKeyboard, type PopupAlbumSource } from './types'
 
 type Media = File & {
 	manualType?: 'image' | 'video'
@@ -122,9 +121,9 @@ defineOptions({
 
 const ns = useNamespace(POPUP_INSIDE_COMPONENT_NAMES.ALBUM)
 const popup = usePopup()
+const instanceId = usePopupInstanceId()!
+const { addKeyboardHandlers, removeKeyboardHandlers } = useKeyboard()
 const { t } = useLocale()
-
-const instanceId = inject(POPUP_COMPONENT_INJECTS.INSTANCE_ID)!
 
 type Props = {
 	skin: PopupSkin
@@ -138,6 +137,7 @@ type Props = {
 	disableDrag: boolean
 	disableLoop: boolean
 	disableRotate: boolean
+	keyboard: PopupAlbumKeyboard
 }
 
 const {
@@ -152,6 +152,7 @@ const {
 	disableDrag,
 	disableLoop,
 	disableRotate,
+	keyboard,
 } = defineProps<Props>()
 
 const currentIndex = ref(defaultIndex)
@@ -234,11 +235,33 @@ onBeforeMount(() => {
 onMounted(() => {
 	window.addEventListener('mousemove', handleImageDrag)
 	window.addEventListener('mouseup', handleImageDragEnd)
+	addKeyboardHandlers(instanceId, {
+		keyboard,
+		defaultKeyboard: {
+			prev: 'ArrowUp',
+			next: 'ArrowDown',
+			scaleUp: '=',
+			scaleDown: '-',
+			rotateLeft: 'ArrowLeft',
+			rotateRight: 'ArrowRight',
+			close: 'Escape',
+		},
+		handlers: {
+			prev: () => handleBack(),
+			next: () => handleNext(),
+			scaleUp: () => handleScale(true),
+			scaleDown: () => handleScale(false),
+			rotateLeft: () => handleRotate(false),
+			rotateRight: () => handleRotate(true),
+			close: () => handleClose(),
+		},
+	})
 })
 
 onBeforeUnmount(() => {
 	window.removeEventListener('mousemove', handleImageDrag)
 	window.removeEventListener('mouseup', handleImageDragEnd)
+	removeKeyboardHandlers(instanceId)
 })
 
 function handleBack() {
