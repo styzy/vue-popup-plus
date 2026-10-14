@@ -4,7 +4,9 @@ import type {
 	PopupKeyboardConfig,
 	PopupKeyboardEvent,
 	PopupKeyboardHandler,
+	PopupKeyboardMatchedConfig,
 	PopupKeyboardShortcut,
+	PopupKeyboardShortcutObject,
 } from './types'
 
 export * from './types'
@@ -54,38 +56,70 @@ function handleKeyDown(event: KeyboardEvent) {
 	if (!_.keyboardHistory.length) return
 
 	const currentKeyboard = _.keyboardHistory[_.keyboardHistory.length - 1]
-	const matchedEvents = findMatchedEvents(currentKeyboard.config, event)
-	matchedEvents.forEach((item) => {
-		currentKeyboard.handlers[item]()
+	const matchedConfig = findMatchedConfig(currentKeyboard.config, event)
+	const matchedShortcuts = Object.values(matchedConfig).flat()
+	const preventDefault = matchedShortcuts.some((item) => item.preventDefault)
+	const stopPropagation = matchedShortcuts.some(
+		(item) => item.stopPropagation
+	)
+
+	Object.keys(matchedConfig).forEach((event) => {
+		currentKeyboard.handlers[event]()
 	})
+
+	if (preventDefault) {
+		event.preventDefault()
+	}
+	if (stopPropagation) {
+		event.stopPropagation()
+	}
 }
 
-function findMatchedEvents(
+function findMatchedConfig(
 	config: PopupKeyboardConfig,
 	keyboardEvent: KeyboardEvent
-): PopupKeyboardEvent[] {
-	const events: PopupKeyboardEvent[] = []
+): PopupKeyboardMatchedConfig {
+	const matchedConfig: PopupKeyboardMatchedConfig = {}
 	for (const event in config) {
 		const shortcut = config[event]
 		if (shortcut === false) {
 			continue
 		} else if (typeOf.isArray(shortcut)) {
-			if (
-				shortcut.some((item) => isMatchedShortcut(item, keyboardEvent))
-			) {
-				events.push(event)
+			const matchedShortcut = shortcut
+				.map(normalizeShortcut)
+				.filter((item) => isMatchedShortcut(item, keyboardEvent))
+
+			if (matchedShortcut.length) {
+				matchedConfig[event] = matchedShortcut
 			}
 		} else {
 			if (isMatchedShortcut(shortcut, keyboardEvent)) {
-				events.push(event)
+				matchedConfig[event] = [normalizeShortcut(shortcut)]
 			}
 		}
 	}
 
-	return events
+	return matchedConfig
+}
+
+function normalizeShortcut(
+	shortcut: PopupKeyboardShortcut
+): PopupKeyboardShortcutObject {
+	if (typeOf.isString(shortcut)) {
+		return {
+			key: shortcut,
+		}
+	}
+	return shortcut
 }
 
 function isMatchedShortcut(
 	shortcut: PopupKeyboardShortcut,
 	event: KeyboardEvent
-): boolean {}
+): boolean {
+	if (typeOf.isString(shortcut)) {
+		shortcut = {
+			key: shortcut,
+		}
+	}
+}
