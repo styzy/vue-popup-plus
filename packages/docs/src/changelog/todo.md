@@ -74,14 +74,20 @@ outline: 2
 #### `plugin`
 
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 所有插件进行移动端适配与优化。
-- <DVersionTodo version="1.7.0" level="high" author="STYZY"  /> 所有插件新增 `viewport` 参数，用于设置弹出层的视口元素选择器，默认值为 `undefined` 。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> 所有插件新增 `viewport` 参数，用于设置弹出层的视口元素选择器，默认值为 `undefined` 。
 - <DVersionTodo version="1.7.0" level="high" author="WJ" done /> 新增 `Message 消息` 插件。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Alert 提示` 新增 `theme` 参数，用于自定义主题。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Alert 提示` 新增 `keyboard` 参数，用于设置键盘快捷键。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Confirm 确认提示` 新增 `theme` 参数，用于自定义主题。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Confirm 确认提示` 新增 `keyboard` 参数，用于设置键盘快捷键。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `theme` 参数，用于自定义主题。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `keyboard` 参数，用于设置键盘快捷键。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `validator` 参数，用于自定义校验规则。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Prompt 提示输入` 新增 `validateTrigger` 参数，用于设置校验触发时机。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Dialog 对话` 新增 `keyboard` 参数，用于设置键盘快捷键。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Drawer 抽屉` 新增 `keyboard` 参数，用于设置键盘快捷键。
 - <DVersionTodo version="1.7.0" level="high" author="WJ" done /> `Album 媒体相册` 优化 `sources` 参数，支持手动设置媒体资源的类型。
+- <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Album 媒体相册` 新增 `keyboard` 参数，用于设置键盘快捷键。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Album 媒体相册` 新增 `disableLoop` 参数，用于禁用循环切换。
 - <DVersionTodo version="1.7.0" level="high" author="STYZY" done /> `Album 媒体相册` 新增 `disableRotate` 参数，用于禁用旋转。
 
