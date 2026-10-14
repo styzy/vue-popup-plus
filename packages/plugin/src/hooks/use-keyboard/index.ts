@@ -1,9 +1,10 @@
 import type { PopupInstanceId } from 'vue-popup-plus'
 import { typeOf } from 'utils'
 import type {
-	PopupKeyboardConfig,
+	ExtractPopupKeyboardSchema,
+	PopupKeyboard,
 	PopupKeyboardHandler,
-	PopupKeyboardMatchedConfig,
+	PopupKeyboardSchema,
 	PopupKeyboardShortcut,
 	PopupKeyboardShortcutObject,
 } from './types'
@@ -13,8 +14,8 @@ export * from './types'
 const _: {
 	keyboardHistory: Array<{
 		instanceId: PopupInstanceId
-		config: PopupKeyboardConfig
-		handlers: PopupKeyboardHandler<PopupKeyboardConfig>
+		keyboard: Partial<PopupKeyboardSchema>
+		handlers: PopupKeyboardHandler<PopupKeyboardSchema>
 	}>
 	isListening: boolean
 } = {
@@ -22,14 +23,40 @@ const _: {
 	isListening: false,
 }
 
-export function addKeyboardHandlers<T extends PopupKeyboardConfig>(
-	instanceId: PopupInstanceId,
-	config: T,
-	handlers: PopupKeyboardHandler<T>
-) {
+export function useKeyboard() {
+	return {
+		addKeyboardHandlers,
+		removeKeyboardHandlers,
+	}
+}
+
+function addKeyboardHandlers<TSchema extends PopupKeyboardSchema>({
+	instanceId,
+	keyboard,
+	defaultKeyboard,
+	handlers,
+}: {
+	instanceId: PopupInstanceId
+	keyboard: PopupKeyboard<TSchema>
+	defaultKeyboard: Partial<TSchema>
+	handlers: PopupKeyboardHandler<TSchema>
+}) {
+	if (keyboard === false) return
+
+	let mergedKeyboard: Partial<TSchema>
+
+	if (keyboard === true) {
+		mergedKeyboard = defaultKeyboard
+	} else {
+		mergedKeyboard = {
+			...defaultKeyboard,
+			...keyboard,
+		}
+	}
+
 	_.keyboardHistory.push({
 		instanceId,
-		config,
+		keyboard: mergedKeyboard,
 		handlers,
 	})
 
@@ -39,11 +66,14 @@ export function addKeyboardHandlers<T extends PopupKeyboardConfig>(
 	}
 }
 
-export function removeKeyboardHandlers(instanceId: PopupInstanceId) {
-	_.keyboardHistory.splice(
-		_.keyboardHistory.findIndex((item) => item.instanceId === instanceId),
-		1
+function removeKeyboardHandlers(instanceId: PopupInstanceId) {
+	const index = _.keyboardHistory.findIndex(
+		(item) => item.instanceId === instanceId
 	)
+
+	if (index === -1) return
+
+	_.keyboardHistory.splice(index, 1)
 
 	if (_.keyboardHistory.length === 0) {
 		document.removeEventListener('keydown', handleKeyDown)
@@ -54,16 +84,17 @@ export function removeKeyboardHandlers(instanceId: PopupInstanceId) {
 function handleKeyDown(event: KeyboardEvent) {
 	if (!_.keyboardHistory.length) return
 
-	const currentKeyboard = _.keyboardHistory[_.keyboardHistory.length - 1]
-	const matchedConfig = findMatchedConfig(currentKeyboard.config, event)
-	const matchedShortcuts = Object.values(matchedConfig).flat()
+	const { keyboard, handlers } =
+		_.keyboardHistory[_.keyboardHistory.length - 1]
+	const matchedKeyboard = findMatchedKeyboard(keyboard, event)
+	const matchedShortcuts = Object.values(matchedKeyboard).flat()
 	const preventDefault = matchedShortcuts.some((item) => item.preventDefault)
 	const stopPropagation = matchedShortcuts.some(
 		(item) => item.stopPropagation
 	)
 
-	Object.keys(matchedConfig).forEach((event) => {
-		currentKeyboard.handlers[event]()
+	Object.keys(matchedKeyboard).forEach((event) => {
+		handlers[event]()
 	})
 
 	if (preventDefault) {
@@ -74,13 +105,17 @@ function handleKeyDown(event: KeyboardEvent) {
 	}
 }
 
-function findMatchedConfig(
-	config: PopupKeyboardConfig,
+function findMatchedKeyboard(
+	keyboard: Partial<PopupKeyboardSchema>,
 	keyboardEvent: KeyboardEvent
-): PopupKeyboardMatchedConfig {
-	const matchedConfig: PopupKeyboardMatchedConfig = {}
-	for (const event in config) {
-		const shortcut = config[event]
+): {
+	[key: string]: PopupKeyboardShortcutObject[]
+} {
+	const matchedKeyboard: {
+		[key: string]: PopupKeyboardShortcutObject[]
+	} = {}
+	for (const event in keyboard) {
+		const shortcut = keyboard[event] ?? false
 		if (shortcut === false) {
 			continue
 		} else if (typeOf.isArray(shortcut)) {
@@ -89,18 +124,18 @@ function findMatchedConfig(
 				.filter((item) => isMatchedShortcut(item, keyboardEvent))
 
 			if (matchedShortcut.length) {
-				matchedConfig[event] = matchedShortcut
+				matchedKeyboard[event] = matchedShortcut
 			}
 		} else {
 			const normalizedShortcut = normalizeShortcut(shortcut)
 
 			if (isMatchedShortcut(normalizedShortcut, keyboardEvent)) {
-				matchedConfig[event] = [normalizedShortcut]
+				matchedKeyboard[event] = [normalizedShortcut]
 			}
 		}
 	}
 
-	return matchedConfig
+	return matchedKeyboard
 }
 
 function normalizeShortcut(
@@ -117,4 +152,28 @@ function normalizeShortcut(
 function isMatchedShortcut(
 	shortcut: PopupKeyboardShortcutObject,
 	event: KeyboardEvent
-): boolean {}
+): boolean {
+	const { key, ctrl, shift, alt, meta } = shortcut
+
+	if (key !== event.key) {
+		return false
+	}
+
+	if (ctrl !== undefined && ctrl !== event.ctrlKey) {
+		return false
+	}
+
+	if (shift !== undefined && shift !== event.shiftKey) {
+		return false
+	}
+
+	if (alt !== undefined && alt !== event.altKey) {
+		return false
+	}
+
+	if (meta !== undefined && meta !== event.metaKey) {
+		return false
+	}
+
+	return true
+}

@@ -38,17 +38,27 @@ export type PopupKeyboardShortcut = [
 	PopupKeyboardShortcutObject,
 ][number]
 
-export type PopupKeyboardConfig = {
-	[key: PopupKeyboardEvent]:
-		| false
-		| PopupKeyboardShortcut
-		| PopupKeyboardShortcut[]
-}
+export type PopupKeyboardConfig =
+	| false
+	| PopupKeyboardShortcut
+	| PopupKeyboardShortcut[]
 
-export type PopupKeyboardMatchedConfig = {
-	[key: string]: PopupKeyboardShortcutObject[]
-}
+export type PopupKeyboardSchema = Record<
+	PopupKeyboardEvent,
+	PopupKeyboardConfig
+>
 
-export type PopupKeyboardHandler<T extends PopupKeyboardConfig> = {
+// export type ExtractPopupKeyboardSchema<T extends PopupKeyboard> = Exclude<
+// 	T,
+// 	boolean
+// >
+
+export type ExtractPopupKeyboardSchema<T extends PopupKeyboard> =
+	T extends PopupKeyboard<infer S> ? S : never
+
+export type PopupKeyboard<T extends PopupKeyboardSchema = PopupKeyboardSchema> =
+	Partial<T> | boolean
+
+export type PopupKeyboardHandler<T extends PopupKeyboardSchema> = {
 	[key in keyof T]: () => void
 }
