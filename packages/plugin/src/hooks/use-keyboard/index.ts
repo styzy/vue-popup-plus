@@ -2,7 +2,6 @@ import type { PopupInstanceId } from 'vue-popup-plus'
 import { typeOf } from 'utils'
 import type {
 	PopupKeyboardConfig,
-	PopupKeyboardEvent,
 	PopupKeyboardHandler,
 	PopupKeyboardMatchedConfig,
 	PopupKeyboardShortcut,
@@ -93,8 +92,10 @@ function findMatchedConfig(
 				matchedConfig[event] = matchedShortcut
 			}
 		} else {
-			if (isMatchedShortcut(shortcut, keyboardEvent)) {
-				matchedConfig[event] = [normalizeShortcut(shortcut)]
+			const normalizedShortcut = normalizeShortcut(shortcut)
+
+			if (isMatchedShortcut(normalizedShortcut, keyboardEvent)) {
+				matchedConfig[event] = [normalizedShortcut]
 			}
 		}
 	}
@@ -114,12 +115,6 @@ function normalizeShortcut(
 }
 
 function isMatchedShortcut(
-	shortcut: PopupKeyboardShortcut,
+	shortcut: PopupKeyboardShortcutObject,
 	event: KeyboardEvent
-): boolean {
-	if (typeOf.isString(shortcut)) {
-		shortcut = {
-			key: shortcut,
-		}
-	}
-}
+): boolean {}
