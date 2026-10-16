@@ -38,7 +38,12 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueDevTools(),
-		cssInjectedByJsPlugin(),
+		cssInjectedByJsPlugin({
+			jsAssetsFilterFunction: (outputChunk) => {
+				// 只对index.mjs进行css注入
+				return outputChunk.fileName === 'index.mjs'
+			},
+		}),
 		dts({
 			tsconfigPath: fileURLToPath(
 				new URL('./tsconfig.types.json', import.meta.url)
