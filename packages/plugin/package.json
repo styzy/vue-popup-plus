@@ -24,6 +24,10 @@
 			"types": "./es/locales/*.d.ts",
 			"import": "./es/locales/*.mjs",
 			"require": "./dist/locales/*.js"
+		},
+		"./kit": {
+			"types": "./es/index.kit.d.ts",
+			"import": "./es/index.kit.mjs"
 		}
 	},
 	"files": [

@@ -8,7 +8,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
 	build: {
 		lib: {
-			entry: fileURLToPath(new URL('./src/index', import.meta.url)),
+			entry: {
+				index: fileURLToPath(new URL('./src/index', import.meta.url)),
+				'index.kit': fileURLToPath(
+					new URL('./src/index.kit', import.meta.url)
+				),
+			},
 			formats: ['es'],
 			fileName: 'index',
 		},
