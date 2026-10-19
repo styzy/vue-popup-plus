@@ -201,6 +201,11 @@ const api: ApiModule = {
 			text: '通用',
 			items: [
 				{
+					text: 'setLocale',
+					link: '/api/plugin-preset/common#set-locale',
+					support: '1.7.0',
+				},
+				{
 					text: 'version',
 					link: '/api/plugin-preset/common#version',
 				},
