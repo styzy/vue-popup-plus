@@ -9,26 +9,38 @@ export type PopupKeyboardShortcutObject = {
 	key: string
 	/**
 	 * 是否按住 Ctrl 键
+	 *
+	 * @default false
 	 */
 	ctrl?: boolean
 	/**
 	 * 是否按住 Shift 键
+	 *
+	 * @default false
 	 */
 	shift?: boolean
 	/**
 	 * 是否按住 Alt 键
+	 *
+	 * @default false
 	 */
 	alt?: boolean
 	/**
 	 * 是否按住 Meta 键
+	 *
+	 * @default false
 	 */
 	meta?: boolean
 	/**
 	 * 是否阻止默认事件
+	 *
+	 * @default false
 	 */
 	preventDefault?: boolean
 	/**
 	 * 是否阻止事件冒泡
+	 *
+	 * @default false
 	 */
 	stopPropagation?: boolean
 }
