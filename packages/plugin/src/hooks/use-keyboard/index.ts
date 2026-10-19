@@ -87,6 +87,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
 	const { keyboard, handlers } =
 		_.keyboardHistory[_.keyboardHistory.length - 1]
+	const enabledEvents = Object.keys(handlers)
 	const matchedKeyboard = findMatchedKeyboard(keyboard, event)
 	const matchedShortcuts = Object.values(matchedKeyboard).flat()
 	const preventDefault = matchedShortcuts.some((item) => item.preventDefault)
@@ -94,9 +95,11 @@ function handleKeyDown(event: KeyboardEvent) {
 		(item) => item.stopPropagation
 	)
 
-	Object.keys(matchedKeyboard).forEach((event) => {
-		handlers[event]()
-	})
+	Object.keys(matchedKeyboard)
+		.filter((event) => enabledEvents.includes(event))
+		.forEach((event) => {
+			handlers[event]()
+		})
 
 	if (preventDefault) {
 		event.preventDefault()
