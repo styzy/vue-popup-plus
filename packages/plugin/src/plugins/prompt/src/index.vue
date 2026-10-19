@@ -119,7 +119,10 @@ onMounted(() => {
 	addKeyboardHandlers(instanceId, {
 		keyboard,
 		defaultKeyboard: {
-			confirm: 'Enter',
+			confirm: {
+				key: 'Enter',
+				ctrl: type === 'textarea',
+			},
 			close: 'Escape',
 		},
 		handlers: {
