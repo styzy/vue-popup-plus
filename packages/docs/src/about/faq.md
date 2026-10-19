@@ -32,7 +32,23 @@ const PopupPlus = createPopupPlus({
 
 ### Ant Design Vue 适配
 
-由于 `Ant Design Vue` 组件库内部目前并没有暴露其内部维护的 `z-index` 值，因此无法直接将 `Vue Popup Plus` 的 `zIndex` 托管给 `Ant Design Vue` 组件库去统一维护，所以只能通过降低 `zIndex` 基准值来解决冲突问题。
+对于 `Ant Design Vue` 组件库，可以通过 `AConfigProvider` 组件的 `get-popup-container` 属性来传入一个返回弹出层渲染容器的工具函数，从而解决层级冲突问题。
+
+在项目的根组件 `App.vue` 中增加如下代码：
+
+```vue{2} [App.vue]
+<template>
+	<AConfigProvider :get-popup-container="getPopupContainer">
+		<RouterView />
+	</AConfigProvider>
+</template>
+
+<script lang="ts" setup>
+function getPopupContainer(triggerNode?: HTMLElement): HTMLElement {
+	return triggerNode?.closest('.popup-view') ?? document.body
+}
+</script>
+```
 
 ## 同步应用上下文 <Badge text="1.5.0+" />
 
@@ -59,8 +75,8 @@ const PopupPlus = createPopupPlus({
 
 <script lang="ts" setup>
 import { PopupRoot } from 'vue-popup-plus'
-import { ElConfigProvider } from 'element-plus'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { ElConfigProvider } from 'element-plus'
 </script>
 ```
 
