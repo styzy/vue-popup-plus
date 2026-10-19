@@ -325,6 +325,98 @@ async function handleAlbumWaitClose() {
 
 :::
 
+## 键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+该弹出层已默认开启键盘快捷键，具体包括：
+
+| 事件          | 描述         | 快捷键              |
+| ------------- | ------------ | ------------------- |
+| `prev`        | 切换到上一张 | <DKbd>↑</DKbd>      |
+| `next`        | 切换到下一张 | <DKbd>↓</DKbd>      |
+| `rotateLeft`  | 逆时针旋转   | <DKbd>←</DKbd>      |
+| `rotateRight` | 顺时针旋转   | <DKbd>→</DKbd>      |
+| `scaleUp`     | 放大比例     | <DKbd>=</DKbd>      |
+| `scaleDown`   | 缩小比例     | <DKbd>-</DKbd>      |
+| `close`       | 关闭         | <DKbd>Escape</DKbd> |
+
+## 自定义键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过 `keyboard` 选项来自定义键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumKeyboardCustom"
+	>Space 放大比例 | X 关闭</DButton
+>
+```
+
+```ts{4}
+function handleAlbumKeyboardCustom() {
+	popup.album({
+		sources,
+		keyboard: {
+			scaleUp: ' ',
+			close: 'x',
+		},
+	})
+}
+```
+
+:::
+
+## 禁用键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过将 `keyboard` 选项设置为 `false` 来禁用全部键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumKeyboardDisable"
+	>禁用键盘快捷键 全部</DButton
+>
+```
+
+```ts
+function handleAlbumKeyboardDisable() {
+	popup.album({
+		sources,
+		keyboard: false, // [!code highlight]
+	})
+}
+```
+
+:::
+
+如果需要禁用部分键盘快捷键，只需要将对应事件的快捷键设置为 `false` 即可。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleAlbumKeyboardDisableClose"
+	>禁用键盘快捷键 关闭</DButton
+>
+```
+
+```ts
+function handleAlbumKeyboardDisableClose() {
+	popup.album({
+		sources,
+		keyboard: {
+			close: false, // [!code highlight]
+		},
+	})
+}
+```
+
+:::
+
 ## 详细配置
 
 具体可以参考 [预置插件 API - Album 媒体相册](/api/plugin-preset/album)。
@@ -441,5 +533,31 @@ async function handleAlbumWaitClose() {
 		sources,
 	})
 	popup.toast('弹出层已关闭')
+}
+
+function handleAlbumKeyboardCustom() {
+	popup.album({
+		sources,
+		keyboard: {
+			scaleUp: ' ',
+			close: 'x',
+		},
+	})
+}
+
+function handleAlbumKeyboardDisable() {
+	popup.album({
+		sources,
+		keyboard: false,
+	})
+}
+
+function handleAlbumKeyboardDisableClose() {
+	popup.album({
+		sources,
+		keyboard: {
+			close: false,
+		},
+	})
 }
 </script>

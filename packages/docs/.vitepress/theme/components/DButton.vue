@@ -28,7 +28,7 @@ export type ButtonSize = 'default' | 'small' | 'large'
 import { computed, inject, ref, useTemplateRef } from 'vue'
 
 defineOptions({
-	name: 'PButton',
+	name: 'DButton',
 })
 
 const groupType = inject(buttonGroupInjects.groupType, ref('default'))

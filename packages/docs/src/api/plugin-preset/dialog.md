@@ -162,6 +162,15 @@ type DialogOption = {
 	 */
 	maskClickClose?: boolean
 	/**
+	 * 自定义键盘快捷键
+	 *
+	 * - 默认值：`true` ，表示启用所有内置键盘快捷键
+	 * - 当设置为 `false` 时，将禁用所有键盘快捷键
+	 *
+	 * @since 1.7.0
+	 */
+	keyboard?: PopupDialogKeyboard
+	/**
 	 * 弹出层视区元素
 	 *
 	 * - 视区将作为触发自动翻转和平移的参考区域
@@ -196,6 +205,70 @@ type PopupPlacement =
 
 // 视区元素
 type PopupViewport = string | HTMLElement | null
+
+// 自定义键盘快捷键
+type PopupDialogKeyboard =
+	| boolean
+	| {
+			/**
+			 * 关闭
+			 *
+			 * - 默认值：`Escape`
+			 */
+			close?: PopupKeyboardConfig
+	  }
+
+// 键盘快捷键配置
+type PopupKeyboardConfig =
+	| false
+	| PopupKeyboardShortcut
+	| PopupKeyboardShortcut[]
+
+// 键盘快捷键
+type PopupKeyboardShortcut =
+	| string
+	| {
+			/**
+			 * 键名
+			 */
+			key: string
+			/**
+			 * 是否按住 Ctrl 键
+			 *
+			 * @default false
+			 */
+			ctrl?: boolean
+			/**
+			 * 是否按住 Shift 键
+			 *
+			 * @default false
+			 */
+			shift?: boolean
+			/**
+			 * 是否按住 Alt 键
+			 *
+			 * @default false
+			 */
+			alt?: boolean
+			/**
+			 * 是否按住 Meta 键
+			 *
+			 * @default false
+			 */
+			meta?: boolean
+			/**
+			 * 是否阻止默认事件
+			 *
+			 * @default false
+			 */
+			preventDefault?: boolean
+			/**
+			 * 是否阻止事件冒泡
+			 *
+			 * @default false
+			 */
+			stopPropagation?: boolean
+	  }
 ```
 
 ### 详细信息

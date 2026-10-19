@@ -499,6 +499,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Message 消息',
 							link: '/api/plugin-preset/message',
+							since: '1.7.0',
 						},
 						{
 							text: 'Alert 提示',
@@ -519,6 +520,7 @@ export const themeConfig = defineConfig({
 						{
 							text: 'Drawer 抽屉',
 							link: '/api/plugin-preset/drawer',
+							since: '1.6.0',
 						},
 						{
 							text: 'Loading 加载遮罩',

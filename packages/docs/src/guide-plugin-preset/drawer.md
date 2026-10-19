@@ -478,6 +478,89 @@ function handleDrawerOnMounted() {
 
 :::
 
+## 键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+该弹出层已默认开启键盘快捷键，具体包括：
+
+| 事件    | 描述 | 快捷键              |
+| ------- | ---- | ------------------- |
+| `close` | 关闭 | <DKbd>Escape</DKbd> |
+
+## 自定义键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过 `keyboard` 选项来自定义键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDrawerKeyboardCustom">X 关闭</DButton>
+```
+
+```ts{4}
+function handleDrawerKeyboardCustom() {
+	popup.drawer({
+		component: () => import('./HelloDrawer.vue'),
+		keyboard: {
+			close: 'x',
+		},
+	})
+}
+```
+
+:::
+
+## 禁用键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过将 `keyboard` 选项设置为 `false` 来禁用全部键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDrawerKeyboardDisable"
+	>禁用键盘快捷键 全部</DButton
+>
+```
+
+```ts
+function handleDrawerKeyboardDisable() {
+	popup.drawer({
+		component: () => import('./HelloDrawer.vue'),
+		keyboard: false, // [!code highlight]
+	})
+}
+```
+
+:::
+
+如果需要禁用部分键盘快捷键，只需要将对应事件的快捷键设置为 `false` 即可。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handleDrawerKeyboardDisableClose"
+	>禁用键盘快捷键 关闭</DButton
+>
+```
+
+```ts
+function handleDrawerKeyboardDisableClose() {
+	popup.drawer({
+		component: () => import('./HelloDrawer.vue'),
+		keyboard: {
+			close: false, // [!code highlight]
+		},
+	})
+}
+```
+
+:::
+
 ## 详细配置
 
 具体可以参考 [预置插件 API - Drawer 抽屉](/api/plugin-preset/drawer)。
@@ -643,6 +726,30 @@ function handleDrawerOnMounted() {
 		component: HelloDrawer,
 		onMounted: () => {
 			popup.toast('抽屉渲染完成')
+		},
+	})
+}
+function handleDrawerKeyboardCustom() {
+	popup.drawer({
+		component: HelloDrawer,
+		keyboard: {
+			close: 'x',
+		},
+	})
+}
+
+function handleDrawerKeyboardDisable() {
+	popup.drawer({
+		component: HelloDrawer,
+		keyboard: false,
+	})
+}
+
+function handleDrawerKeyboardDisableClose() {
+	popup.drawer({
+		component: HelloDrawer,
+		keyboard: {
+			close: false,
 		},
 	})
 }

@@ -352,6 +352,90 @@ function handlePromptMaskBlur() {
 
 :::
 
+## 键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+该弹出层已默认开启键盘快捷键，具体包括：
+
+| 事件      | 描述 | 快捷键              |
+| --------- | ---- | ------------------- |
+| `confirm` | 确认 | <DKbd>Enter</DKbd>  |
+| `close`   | 关闭 | <DKbd>Escape</DKbd> |
+
+## 自定义键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过 `keyboard` 选项来自定义键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handlePromptKeyboardCustom"
+	>Space 确认 | X 关闭</DButton
+>
+```
+
+```ts{3}
+function handlePromptKeyboardCustom() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: {
+			confirm: ' ',
+			close: 'x',
+		},
+	})
+}
+```
+
+:::
+
+## 禁用键盘快捷键 <Badge text="1.7.0+" />
+
+> <DVersionSupport package="plugin" version="1.7.0" />
+
+可以通过将 `keyboard` 选项设置为 `false` 来禁用全部键盘快捷键。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handlePromptKeyboardDisable"
+	>禁用键盘快捷键 全部</DButton
+>
+```
+
+```ts
+function handlePromptKeyboardDisable() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: false, // [!code highlight]
+	})
+}
+```
+
+:::
+
+如果需要禁用部分键盘快捷键，只需要将对应事件的快捷键设置为 `false` 即可。
+
+::: demo
+
+```html
+<DButton theme="primary" @click="handlePromptKeyboardDisableConfirm"
+	>禁用键盘快捷键 确认</DButton
+>
+```
+
+```ts
+function handlePromptKeyboardDisableConfirm() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: {
+			confirm: false, // [!code highlight]
+		},
+	})
+}
+```
+
+:::
+
 ## 详细配置
 
 具体可以参考 [预置插件 API - Prompt 提示输入](/api/plugin-preset/prompt)。
@@ -468,6 +552,29 @@ function handlePromptDraggableOverflow() {
 function handlePromptMaskBlur() {
 	popup.prompt('请输入您的姓名', {
 		maskBlur: false,
+	})
+}
+
+function handlePromptKeyboardCustom() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: {
+			confirm: ' ',
+			close: 'x',
+		},
+	})
+}
+
+function handlePromptKeyboardDisable() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: false,
+	})
+}
+
+function handlePromptKeyboardDisableConfirm() {
+	popup.prompt('请输入您的姓名', {
+		keyboard: {
+			confirm: false,
+		},
 	})
 }
 </script>
