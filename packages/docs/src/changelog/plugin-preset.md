@@ -5,6 +5,12 @@ outline: 2
 
 # 预置插件 更新日志
 
+## 1.7.0-beta.5 <Badge text="2026-10-19" />
+
+### 优化
+
+- `Prompt 提示输入` 优化默认的键盘快捷键，**确认**事件现在会动态根据 `type` 参数自动切换快捷键。当 `type` 为 `textarea` 时为 <DKbd>Ctrl</DKbd> + <DKbd>Enter</DKbd>，否则为 <DKbd>Enter</DKbd>。
+
 ## 1.7.0-beta.4 <Badge text="2026-10-19" />
 
 ### 重大特性
