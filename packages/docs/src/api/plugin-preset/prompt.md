@@ -179,7 +179,7 @@ type PopupPromptKeyboard =
 			/**
 			 * 确认
 			 *
-			 * - 默认值：`Enter`
+			 * - 默认值：当 type 为 `input` 时为 `Enter`，当 type 为 `textarea` 时为 `Ctrl+Enter`
 			 */
 			confirm?: PopupKeyboardConfig
 			/**
