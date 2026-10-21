@@ -90,6 +90,15 @@ export default defineConfig({
 						)
 					),
 				},
+				{
+					find: /^.*\/VPDocOutlineItem\.vue$/,
+					replacement: fileURLToPath(
+						new URL(
+							'../theme/components/DOutlineItem.vue',
+							import.meta.url
+						)
+					),
+				},
 			],
 		},
 		plugins: [groupIconVitePlugin()],
